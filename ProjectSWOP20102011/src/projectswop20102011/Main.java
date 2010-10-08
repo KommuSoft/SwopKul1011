@@ -1,7 +1,7 @@
 package projectswop20102011;
 
 /**
- *
+ * PJ was here
  * @author Willem Van Onsem, Pieter-Jan Vuylsteke and Jonas Vanthornhout
  */
 public class Main {
