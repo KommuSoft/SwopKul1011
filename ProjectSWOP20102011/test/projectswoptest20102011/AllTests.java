@@ -13,6 +13,8 @@ public class AllTests {
 
 
 		suite.addTestSuite(CallerTest.class);
+                suite.addTestSuite(CallTest.class);
+                suite.addTestSuite(OperatorTest.class);
 
 		return suite;
 	}

@@ -10,25 +10,20 @@ import org.junit.Test;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class CallerTest extends TestCase{
+public class OperatorTest extends TestCase{
 
-        Caller caller;
+        Operator operator;
         String name;
-        String telephoneNumber;
 
         @Override
         @Before
         public void setUp() throws Exception {
-            name = "Elio De Wever";
-            telephoneNumber = "010/130210";
+            name = "Jan de Helper";
         }
 
         @Test
         public void testConstructor(){
-            caller = new Caller(name,telephoneNumber);
-            assertEquals(name,caller.getName());
-            assertEquals(telephoneNumber,caller.getTelephoneNumber());
-
+            operator = new Operator(name);
+            assertEquals(name,operator.getName());
         }
-
 }
