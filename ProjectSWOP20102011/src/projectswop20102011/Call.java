@@ -1,11 +1,11 @@
 package projectswop20102011;
 
-import java.util.*;
+import java.util.Date;
 /**
  * A class of calls
  * 
  * @invar Each call must have a valid timestamp
- *        |hasValidTimestamp()
+ *        | hasValidTimestamp()
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
@@ -28,6 +28,7 @@ public class Call {
 
     /**
      * Return the timestamp of this call
+     * @return The timestamp of this call.
      */
     public Date getTimestamp(){
         return timestamp;

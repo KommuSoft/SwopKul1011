@@ -14,20 +14,20 @@ public class CallerTest extends TestCase{
 
         Caller caller;
         String name;
-        String telephoneNumber;
+        String phoneNumber;
 
         @Override
         @Before
         public void setUp(){
             name = "Elio De Wever";
-            telephoneNumber = "010/130210";
+            phoneNumber = "010/130210";
         }
 
         @Test
         public void testConstructor(){
-            caller = new Caller(name,telephoneNumber);
+            caller = new Caller(name,phoneNumber);
             assertEquals(name,caller.getName());
-            assertEquals(telephoneNumber,caller.getTelephoneNumber());
+            assertEquals(phoneNumber,caller.getPhoneNumber());
 
         }
 
