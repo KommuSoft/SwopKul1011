@@ -9,6 +9,7 @@ public class MainController {
 
     private static boolean actorControllersLoaded = false;
 
+    //this class is static no instances can be constructed
     private MainController () {}
 
     /**
@@ -23,7 +24,7 @@ public class MainController {
      * add them to the list.
      * This method should be called before the ReadInput method can be called.
      */
-    public static void LoadActorControllers () {
+    public static void loadActorControllers () {
 
     }
 
@@ -32,7 +33,7 @@ public class MainController {
      * @param expression the expression that has been inserted in the user interface.
      * @pre the actor controllers must be loaded. | areActorControllersLoaded()
      */
-    public static void ReadInput (String expression) {
+    public static void readInput (String expression) {
         
     }
 
