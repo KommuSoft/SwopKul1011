@@ -20,7 +20,7 @@ public class CallerTest extends TestCase{
         @Before
         public void setUp(){
             name = "Elio De Wever";
-            phoneNumber = "010/130210";
+            phoneNumber = "010130210";
         }
 
         @Test

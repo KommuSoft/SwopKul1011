@@ -5,7 +5,7 @@ package projectswop20102011;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class InvalidPhoneNumberException extends RuntimeException{
+public class InvalidPhoneNumberException extends Exception{
     /**
      * Variable registering the serialVersionUID of this InvalidPhoneNumberException.
      */
