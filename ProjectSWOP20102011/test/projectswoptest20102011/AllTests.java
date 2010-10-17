@@ -9,13 +9,12 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 	public static Test suite() {
-        TestSuite suite = new TestSuite("Test for the package projectswoptest20102011");
+            TestSuite suite = new TestSuite("Test for the package projectswoptest20102011");
 
+            suite.addTestSuite(CallerTest.class);
+            suite.addTestSuite(CallTest.class);
+            suite.addTestSuite(OperatorTest.class);
 
-		suite.addTestSuite(CallerTest.class);
-                suite.addTestSuite(CallTest.class);
-                suite.addTestSuite(OperatorTest.class);
-
-		return suite;
+            return suite;
 	}
 }

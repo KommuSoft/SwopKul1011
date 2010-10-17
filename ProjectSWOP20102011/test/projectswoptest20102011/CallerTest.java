@@ -18,7 +18,7 @@ public class CallerTest extends TestCase{
 
         @Override
         @Before
-        public void setUp() throws Exception {
+        public void setUp(){
             name = "Elio De Wever";
             telephoneNumber = "010/130210";
         }

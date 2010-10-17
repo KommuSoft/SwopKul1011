@@ -23,7 +23,7 @@ public class Call {
      *        the timestamp of the new call
      */
     public Call(Date timestamp){
-        this.timestamp = timestamp;
+        this.timestamp = (Date) timestamp.clone();
     }
 
     /**

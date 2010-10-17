@@ -17,7 +17,7 @@ public class OperatorTest extends TestCase{
 
         @Override
         @Before
-        public void setUp() throws Exception {
+        public void setUp(){
             name = "Jan de Helper";
         }
 

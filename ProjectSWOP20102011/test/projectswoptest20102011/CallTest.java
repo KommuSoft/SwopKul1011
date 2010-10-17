@@ -16,13 +16,13 @@ public class CallTest extends TestCase{
 
         @Override
         @Before
-        public void setUp() throws Exception {
+        public void setUp(){
             timestamp = new Date();
         }
         /*
          * Ik vraag mij wel af of dit een goede test is
          * Kheb het altijd al ambetante dingen gevonden
-         *om met die date-objecten te werken
+         * om met die date-objecten te werken
          */
         @Test
         public void testConstructor(){
