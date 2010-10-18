@@ -3,19 +3,12 @@ package projectswop20102011;
 /**
  * A class that represents a caller.
  *
- * @invar Each caller must have a valid name.
- *        | hasValidName().
  * @invar Each caller must have a valid phone number.
  *        | hasValidPhoneNumber()
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class Caller {
-
-    /**
-     * Variable registering the name of this caller
-     */
-    private final String name;
+public class Caller extends Human {
 
     /**
      * Variable registering the phone number of this caller
@@ -35,25 +28,12 @@ public class Caller {
      *		If the given phone number is invalid. For the validation rules see {@link #isValidPhoneNumber(String)}.
      */
     public Caller (String name, String phoneNumber) throws InvalidNameException, InvalidPhoneNumberException{
-		if(isValidName(name)){
-			this.name = name;
-		} else {
-			throw new InvalidNameException();
-		}
-
+		super(name);
 		if(isValidPhoneNumber(phoneNumber)){
 			this.phoneNumber = phoneNumber;
 		} else {
 			throw new InvalidPhoneNumberException();
 		}
-    }
-
-    /**
-     * Return the name of this caller
-     * @return The name of this caller.
-     */
-    public String getName() {
-        return name;
     }
 
     /**
@@ -63,23 +43,6 @@ public class Caller {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
-	/**
-	 * Returns true if the given name is valid. A valid name may only contain
-	 *		letters or spaces.
-	 * @param name
-	 *		The name that must be checked.
-	 * @return
-	 *		True if the name only contains letters or spaces; false otherwise.
-	 */
-	public static boolean isValidName(String name){
-		for(int i=0; i<name.length(); ++i){
-			if(!Character.isLetter(name.charAt(i)) && name.charAt(i) != ' '){
-				return false;
-			}
-		}
-		return true;
-	}
 
 	/**
 	 * Returns true if the given phone number is valid. A valid phone number is
@@ -96,15 +59,6 @@ public class Caller {
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * Checks if the current name is a valid name. For the validation rules see {@link #isValidName(String)}.
-	 * @return
-	 *		True if the current name is a valid name; false otherwise.
-	 */
-	public boolean hasValidName(){
-		return isValidName(getName());
 	}
 
 	/**

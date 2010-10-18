@@ -11,7 +11,7 @@ import java.util.*;
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
 public class CallTest extends TestCase{
-        Call call;
+        Call call1, call2;
         Date timestamp;
 
         @Override
@@ -19,15 +19,24 @@ public class CallTest extends TestCase{
         public void setUp(){
             timestamp = new Date();
         }
-        /*
-         * Ik vraag mij wel af of dit een goede test is
-         * Kheb het altijd al ambetante dingen gevonden
-         * om met die date-objecten te werken
-         */
+		
         @Test
-        public void testConstructor(){
-            call = new Call(timestamp);
-            assertEquals(timestamp,call.getTimestamp());
+        public void testConstructor() throws InvalidTimestampException{
+            call1 = new Call(timestamp);
+            assertEquals(timestamp,call1.getTimestamp());
         }
+
+		@Test(expected=IndexOutOfBoundsException.class)
+		public void elementAt() {
+			System.out.println("Blah");
+			int[] intArray = new int[10];
+			int i = intArray[20]; // Should throw IndexOutOfBoundsException
+		}
+
+		@Test(expected = InvalidTimestampException.class)
+		public void testInvalidTimestampConstructor() throws InvalidTimestampException{
+			call2 = new Call(new Date(System.currentTimeMillis()+100000));
+		}
+
 
 }

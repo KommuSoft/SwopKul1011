@@ -22,7 +22,7 @@ public class OperatorTest extends TestCase{
         }
 
         @Test
-        public void testConstructor(){
+        public void testConstructor() throws InvalidNameException{
             operator = new Operator(name);
             assertEquals(name,operator.getName());
         }

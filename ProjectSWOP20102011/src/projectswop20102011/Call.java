@@ -24,7 +24,7 @@ public class Call {
 	 * @throws InvalidTimestampException
 	 *		If the given timestamp is an invalid timestamp. For the validation rules see {@link #isValidTimestamp(Date)}.
      */
-    public Call(Date timestamp) throws InvalidTimestampException{
+    public Call(Date timestamp) throws InvalidTimestampException {
 		if(isValidTimestamp(timestamp)){
 			this.timestamp = (Date) timestamp.clone();
 		} else {

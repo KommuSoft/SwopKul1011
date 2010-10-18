@@ -24,11 +24,10 @@ public class CallerTest extends TestCase{
         }
 
         @Test
-        public void testConstructor(){
+        public void testConstructor() throws InvalidNameException, InvalidPhoneNumberException{
             caller = new Caller(name,phoneNumber);
             assertEquals(name,caller.getName());
             assertEquals(phoneNumber,caller.getPhoneNumber());
-
         }
 
 }
