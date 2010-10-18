@@ -1,29 +1,33 @@
 package projectswoptest20102011;
 
 import projectswop20102011.*;
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 
 /**
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class OperatorTest extends TestCase{
+public class OperatorTest{
 
-        Operator operator;
-        String name;
+        Operator operator1,operator2;
+        String name1,name2;
 
-        @Override
         @Before
         public void setUp(){
-            name = "Jan de Helper";
+            name1 = "Jan de Helper";
+			name2 = "";
         }
 
         @Test
         public void testConstructor() throws InvalidNameException{
-            operator = new Operator(name);
-            assertEquals(name,operator.getName());
+            operator1 = new Operator(name1);
+            assertEquals(name1,operator1.getName());
         }
+
+		@Test(expected = InvalidNameException.class)
+		public void testInvalidNameConstructor() throws InvalidNameException, InvalidPhoneNumberException{
+			operator2 = new Operator(name2);
+		}
 }

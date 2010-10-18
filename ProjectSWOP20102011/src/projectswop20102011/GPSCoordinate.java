@@ -69,6 +69,7 @@ public class GPSCoordinate {
 	 *		True if the x coordinate is a valid x coordinate; false otherwise.
 	 */
 	public static boolean isValidXCoordinate(long x){
+		//Moet nog geimplementeerd worden
 		return false;
 	}
 
@@ -89,6 +90,7 @@ public class GPSCoordinate {
 	 *		True if the y coordinate is a valid y coordinate; false otherwise.
 	 */
 	public static boolean isValidYCoordinate(long y){
+		//Moet nog geïmplementeerd worden
 		return false;
 	}
 

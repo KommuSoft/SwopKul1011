@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package projectswop20102011;
+package projectswoptest20102011;
 
+import projectswop20102011.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

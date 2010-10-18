@@ -1,7 +1,7 @@
 package projectswoptest20102011;
 
 import projectswop20102011.*;
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.*;
@@ -10,11 +10,10 @@ import java.util.*;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class CallTest extends TestCase{
+public class CallTest{
         private Call call1, call2;
         private Date timestamp;
 
-        @Override
         @Before
         public void setUp(){
             timestamp = new Date();
