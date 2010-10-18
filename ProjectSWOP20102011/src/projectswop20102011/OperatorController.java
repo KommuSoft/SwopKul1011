@@ -4,7 +4,7 @@ package projectswop20102011;
  * A class that handles all actions from the operator user.
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-@ActorController(actorName = "Operator")
+//@ActorController(actorName = "Operator")
 public class OperatorController {
 
     //This class is static, no instances may be constructed.

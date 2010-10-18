@@ -12,9 +12,9 @@ import org.junit.Test;
  */
 public class CallerTest extends TestCase{
 
-        Caller caller;
-        String name;
-        String phoneNumber;
+        private Caller caller;
+        private String name;
+        private String phoneNumber;
 
         @Override
         @Before

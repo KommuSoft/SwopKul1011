@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package projectswop20102011;
 
 /**
+ * A class that represents an emergency.
  *
- * @author jonas
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Emergency {
 	private GPSCoordinate location;
@@ -26,21 +22,35 @@ public class Emergency {
 	}
 
 	/**
-	 * Set the location of this emergency.
+	 * Sets the location of this emergency.
 	 * @param location
+	 *		The location of this emergency.
 	 */
-	private void setLocation(GPSCoordinate location) {
-		this.location = location.clone();
+	private void setLocation(GPSCoordinate location){
+		this.location = location;
 	}
 
+	/**
+	 * Sets the severity of this emergency.
+	 * @param severity
+	 *		The severity of this emergency.
+	 */
 	private void setSeverity(Severity severity) {
 		this.severity = severity;
 	}
 
+	/**
+	 * Returns the location of this emergency.
+	 * @return The location of this emergency.
+	 */
 	public GPSCoordinate getLocation() {
 		return location;
 	}
 
+	/**
+	 * Returns the severity of this emergency.
+	 * @return The severity of this emergency.
+	 */
 	public Severity getSeverity() {
 		return severity;
 	}

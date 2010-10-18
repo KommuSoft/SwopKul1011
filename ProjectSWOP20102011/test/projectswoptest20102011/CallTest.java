@@ -11,8 +11,8 @@ import java.util.*;
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
 public class CallTest extends TestCase{
-        Call call1, call2;
-        Date timestamp;
+        private Call call1, call2;
+        private Date timestamp;
 
         @Override
         @Before
@@ -26,12 +26,6 @@ public class CallTest extends TestCase{
             assertEquals(timestamp,call1.getTimestamp());
         }
 
-		@Test(expected=IndexOutOfBoundsException.class)
-		public void elementAt() {
-			System.out.println("Blah");
-			int[] intArray = new int[10];
-			int i = intArray[20]; // Should throw IndexOutOfBoundsException
-		}
 
 		@Test(expected = InvalidTimestampException.class)
 		public void testInvalidTimestampConstructor() throws InvalidTimestampException{

@@ -50,8 +50,6 @@ public class MainControllerTest {
 		System.out.println("readInput");
 		String expression = "";
 		MainController.readInput(expression);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
 	}
 
 	/**
@@ -64,8 +62,6 @@ public class MainControllerTest {
 		String expResult = "";
 		String result = MainController.readActor(expression);
 		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
 	}
 
 }

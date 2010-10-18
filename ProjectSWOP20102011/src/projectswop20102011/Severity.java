@@ -1,17 +1,12 @@
 package projectswop20102011;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author jonas
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum Severity {
-	benign,
-	normal,
-	serious,
-	urgent
+	BENIGN,
+	NORMALS,
+	SERIOUS,
+	URGENT
 }
