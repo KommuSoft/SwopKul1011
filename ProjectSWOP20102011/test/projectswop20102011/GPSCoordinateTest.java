@@ -1,17 +1,13 @@
 package projectswop20102011;
 
-
-
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import projectswop20102011.GPSCoordinate;
+import static org.junit.Assert.*;
 
-public class GPSCoordinateTest extends TestCase{
+public class GPSCoordinateTest{
 	private GPSCoordinate g1;
 	private long x,y;
 
-	@Override
 	@Before
 	public void setUp(){
 		x = 10;

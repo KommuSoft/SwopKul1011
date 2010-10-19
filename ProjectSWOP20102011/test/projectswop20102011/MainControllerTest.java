@@ -1,4 +1,4 @@
-package projectswoptest20102011;
+package projectswop20102011;
 
 import org.junit.After;
 import org.junit.AfterClass;

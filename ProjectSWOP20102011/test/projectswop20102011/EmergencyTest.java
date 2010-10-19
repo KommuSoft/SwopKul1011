@@ -1,21 +1,15 @@
 package projectswop20102011;
 
-
-
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import projectswop20102011.Emergency;
-import projectswop20102011.GPSCoordinate;
-import projectswop20102011.Severity;
+import static org.junit.Assert.*;
 
-public class EmergencyTest extends TestCase{
+public class EmergencyTest{
 	private Emergency e1;
 	private GPSCoordinate g1;
 	private Severity s1;
 	private long x,y;
 
-	@Override
 	@Before
 	public void setUp(){
 		x = 10;
