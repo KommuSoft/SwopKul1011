@@ -1,9 +1,11 @@
 package projectswoptest20102011;
 
-import projectswop20102011.*;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import projectswop20102011.Caller;
+import projectswop20102011.InvalidNameException;
+import projectswop20102011.InvalidPhoneNumberException;
 
 
 /**

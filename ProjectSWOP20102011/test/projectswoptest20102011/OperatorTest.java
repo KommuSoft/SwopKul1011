@@ -1,6 +1,8 @@
 package projectswoptest20102011;
 
-import projectswop20102011.*;
+import projectswop20102011.InvalidPhoneNumberException;
+import projectswop20102011.InvalidNameException;
+import projectswop20102011.Operator;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -11,8 +13,8 @@ import static org.junit.Assert.*;
  */
 public class OperatorTest{
 
-        Operator operator1,operator2;
-        String name1,name2;
+        private Operator operator1,operator2;
+        private String name1,name2;
 
         @Before
         public void setUp(){

@@ -49,7 +49,7 @@ public class Call {
 	 *		True if the timestamp is before the current time; false otherwise.
 	 */
 	public static boolean isValidTimestamp(Date timestamp){
-		return timestamp.before(new Date());
+		return (timestamp.before(new Date()) || timestamp.equals(new Date()));
 	}
 
 	/**

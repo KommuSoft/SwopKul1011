@@ -1,10 +1,11 @@
 package projectswoptest20102011;
 
-import projectswop20102011.*;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.*;
+import projectswop20102011.Call;
+import projectswop20102011.InvalidTimestampException;
 
 /**
  *

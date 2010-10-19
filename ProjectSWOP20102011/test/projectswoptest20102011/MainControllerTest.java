@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package projectswoptest20102011;
+package projectswop20102011;
 
 import projectswop20102011.*;
 import org.junit.After;
