@@ -1,17 +1,19 @@
-package projectswoptest20102011;
+package projectswop20102011;
 
-import static org.junit.Assert.*;
+import java.util.Date;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import java.util.*;
-import projectswop20102011.Call;
-import projectswop20102011.InvalidTimestampException;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class CallTest{
+public class CallTest {
+    
         private Call call1, call2;
         private Date timestamp;
 
@@ -27,10 +29,10 @@ public class CallTest{
         }
 
 
-		@Test(expected = InvalidTimestampException.class)
-		public void testInvalidTimestampConstructor() throws InvalidTimestampException{
-			call2 = new Call(new Date(System.currentTimeMillis()+100000));
-		}
+        @Test(expected=InvalidTimestampException.class)
+        public void testInvalidTimestampConstructor() throws InvalidTimestampException{
+                call2 = new Call(new Date(System.currentTimeMillis()+100000));
+        }
 
 
 }
