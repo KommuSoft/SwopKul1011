@@ -22,7 +22,7 @@ public class MainController {
      * @throws InvalidExpressionFormatException If the expression has no propper format.
      * @throws InvalidActorException If the actor in the expression is unknown.
      */
-    public static void readInput(String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException {
+    public static void readInput(String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException, InvalidPhoneNumberException, InvalidTimestampException {
         String actor = readActor(expression);
         String message = readMessage(expression);
         if (actor.equals("operator")) {
