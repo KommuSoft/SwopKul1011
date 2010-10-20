@@ -17,7 +17,7 @@ public class InvalidActorException extends Exception {
 
     /**
      * Constructs an instance of <code>InvalidActorException</code> with the specified detail message.
-     * @param msg the detail message.
+     * @param message the detail message.
      */
     public InvalidActorException(String message) {
         super(message);

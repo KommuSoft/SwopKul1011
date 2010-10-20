@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  */
 public class MainController {
 
-    private final static Pattern EXPRESSION_PATTERN = Pattern.compile("^([A-Za-z]+) (.*)$");
+    private static final Pattern EXPRESSION_PATTERN = Pattern.compile("^([A-Za-z]+) (.*)$");
 
 	//this class is static no instances can be constructed
     private MainController () {}
@@ -20,13 +20,12 @@ public class MainController {
      * @param expression the expression that has been inserted in the user interface.
      * @throws InvalidExpressionFormatException If the expression has no propper format.
      * @throws InvalidActorException If the actor in the expression is unknown.
-     * @pre the actor controllers must be loaded. | areActorControllersLoaded()
      */
-    public static void readInput (String expression) throws InvalidExpressionFormatException, InvalidActorException {
+    public static void readInput (String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException {
         String actor = readActor(expression);
         String message = readMessage(expression);
         if (actor.equals("operator")) {
-            OperatorController.readInput(expression);
+            OperatorController.readInput(message);
         } else {
             throw new InvalidActorException(String.format("Actor %s doesn't exists!",actor));
         }

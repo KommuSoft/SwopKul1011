@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
