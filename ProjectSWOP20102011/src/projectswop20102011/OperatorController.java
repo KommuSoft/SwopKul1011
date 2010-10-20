@@ -21,8 +21,13 @@ public class OperatorController {
     }
 
     /**
-     * Reads input from the text based user interface.
+     * Reads input from the text based user interface that has been posted by an operator.
      * @param expression the expression that has been inserted by the operator in the user interface.
+     * @throws InvalidCommandException if a command is expressed that is unknown by the OperatorControl.
+     * @throws InvalidNameException If a name is invalid.
+     * @throws InvalidPhoneNumberException If a phoneNumber is invalid.
+     * @throws InvalidTimestampException If a timestap is invalid.
+     * @throws InvalidExpressionFormatException If the expression is wrong formatted and can't be parsed by the controller.
      */
     public static void readInput(String expression) throws InvalidCommandException, InvalidNameException, InvalidPhoneNumberException, InvalidTimestampException, InvalidExpressionFormatException {
         if (CREATE_OPERATOR_REGEX.matcher(expression).find()) {
@@ -58,8 +63,9 @@ public class OperatorController {
     }
     private static void readCreateEmergencyCommand (String expression) throws InvalidExpressionFormatException, InvalidCommandException {
         Matcher m = CREATE_EMERGENCY_REGEX.matcher(expression);
-        if(!m.find())
-            throw new InvalidExpressionFormatException(String.format("can't parse parameters from %s.",expression));
+        if(!m.find()) {
+            throw new InvalidExpressionFormatException(String.format("can't parse parameters from %s.", expression));
+        }
         long x = Long.parseLong(m.group(1));
         long y = Long.parseLong(m.group(2));
         String severity = m.group(3).toUpperCase();
