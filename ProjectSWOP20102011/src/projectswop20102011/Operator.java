@@ -5,7 +5,7 @@ package projectswop20102011;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class Operator extends Human{
+public class Operator extends Human {
 
     /**
      * Initialize a new operator with given name if the name is valid.
@@ -16,7 +16,7 @@ public class Operator extends Human{
      * @throws InvalidNameException
      *      If the given name is an invalid name. For the validation rules see {@link #isValidName(String)}.
      */
-    public Operator(String name) throws InvalidNameException{
-		super(name);
+    public Operator(String name) throws InvalidNameException {
+        super(name);
     }
 }

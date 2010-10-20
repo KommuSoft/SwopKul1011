@@ -5,8 +5,9 @@ package projectswop20102011;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class InvalidTimestampException extends Exception{
-	/**
+public class InvalidTimestampException extends Exception {
+
+    /**
      * Variable registering the serivalVersionUID of this InvalidNameException.
      */
     private static final long serialVersionUID = 1L;
@@ -14,7 +15,7 @@ public class InvalidTimestampException extends Exception{
     /**
      * Constructs an InvalidNameException with no detail message.
      */
-    public InvalidTimestampException(){
+    public InvalidTimestampException() {
         super();
     }
 
@@ -23,7 +24,7 @@ public class InvalidTimestampException extends Exception{
      * @param message
      *      The detail message.
      */
-    public InvalidTimestampException(String message){
+    public InvalidTimestampException(String message) {
         super(message);
     }
 }

@@ -5,7 +5,7 @@ package projectswop20102011;
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
 public class InvalidExpressionFormatException extends Exception {
-    
+
     private static final long serialVersionUID = 1L;
 
     /**

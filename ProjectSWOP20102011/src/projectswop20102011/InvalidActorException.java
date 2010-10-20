@@ -5,7 +5,7 @@ package projectswop20102011;
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
 public class InvalidActorException extends Exception {
-    
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -13,7 +13,6 @@ public class InvalidActorException extends Exception {
      */
     public InvalidActorException() {
     }
-
 
     /**
      * Constructs an instance of <code>InvalidActorException</code> with the specified detail message.

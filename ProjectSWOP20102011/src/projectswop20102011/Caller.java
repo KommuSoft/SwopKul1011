@@ -27,13 +27,13 @@ public class Caller extends Human {
      * @throws InvalidPhoneNumberException
      *		If the given phone number is invalid. For the validation rules see {@link #isValidPhoneNumber(String)}.
      */
-    public Caller (String name, String phoneNumber) throws InvalidNameException, InvalidPhoneNumberException{
-		super(name);
-		if(isValidPhoneNumber(phoneNumber)){
-			this.phoneNumber = phoneNumber;
-		} else {
-			throw new InvalidPhoneNumberException();
-		}
+    public Caller(String name, String phoneNumber) throws InvalidNameException, InvalidPhoneNumberException {
+        super(name);
+        if (isValidPhoneNumber(phoneNumber)) {
+            this.phoneNumber = phoneNumber;
+        } else {
+            throw new InvalidPhoneNumberException();
+        }
     }
 
     /**
@@ -44,29 +44,29 @@ public class Caller extends Human {
         return phoneNumber;
     }
 
-	/**
-	 * Returns true if the given phone number is valid. A valid phone number is
-	 *		a phone number that only contains digits.
-	 * @param phoneNumber
-	 *		The phone number that must be checked.
-	 * @return
-	 *		True if the phone number only contains digits; false otherwise.
-	 */
-	public static boolean isValidPhoneNumber(String phoneNumber){
-		for(int i=0; i<phoneNumber.length(); ++i){
-			if(!Character.isDigit(phoneNumber.charAt(i))){
-				return false;
-			}
-		}
-		return true;
-	}
+    /**
+     * Returns true if the given phone number is valid. A valid phone number is
+     *		a phone number that only contains digits.
+     * @param phoneNumber
+     *		The phone number that must be checked.
+     * @return
+     *		True if the phone number only contains digits; false otherwise.
+     */
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        for (int i = 0; i < phoneNumber.length(); ++i) {
+            if (!Character.isDigit(phoneNumber.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-	/**
-	 * Checks if the current phone number is a valid phone number. For the validation rules see {@link #isValidPhoneNumber(String)}.
-	 * @return
-	 *		True if the current phone number is a valid phone number; false otherwise.
-	 */
-	public boolean hasValidPhoneNumber(){
-		return isValidPhoneNumber(getPhoneNumber());
-	}
+    /**
+     * Checks if the current phone number is a valid phone number. For the validation rules see {@link #isValidPhoneNumber(String)}.
+     * @return
+     *		True if the current phone number is a valid phone number; false otherwise.
+     */
+    public boolean hasValidPhoneNumber() {
+        return isValidPhoneNumber(getPhoneNumber());
+    }
 }

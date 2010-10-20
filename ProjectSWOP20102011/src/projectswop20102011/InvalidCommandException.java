@@ -5,7 +5,7 @@ package projectswop20102011;
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
 public class InvalidCommandException extends Exception {
-    
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -13,7 +13,6 @@ public class InvalidCommandException extends Exception {
      */
     public InvalidCommandException() {
     }
-
 
     /**
      * Constructs an instance of <code>InvalidCommandException</code> with the specified detail message.

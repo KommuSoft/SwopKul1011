@@ -5,7 +5,8 @@ package projectswop20102011;
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class InvalidNameException extends Exception{
+public class InvalidNameException extends Exception {
+
     /**
      * Variable registering the serivalVersionUID of this InvalidNameException.
      */
@@ -14,7 +15,7 @@ public class InvalidNameException extends Exception{
     /**
      * Constructs an InvalidNameException with no detail message.
      */
-    public InvalidNameException(){
+    public InvalidNameException() {
         super();
     }
 
@@ -23,7 +24,7 @@ public class InvalidNameException extends Exception{
      * @param message
      *      The detail message.
      */
-    public InvalidNameException(String message){
+    public InvalidNameException(String message) {
         super(message);
     }
 }

@@ -18,13 +18,13 @@ public class Main {
         String curline;
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(isr);
-        while(true) {
+        while (true) {
             System.out.print("> ");
             curline = in.readLine();
-            if(curline.toLowerCase().equals("quit"))
+            if (curline.toLowerCase().equals("quit")) {
                 break;
+            }
             MainController.readInput(curline);
         }
     }
-
 }

@@ -28,8 +28,7 @@ public class OperatorController {
             String operatorName = m.group(1);
             Operator o = new Operator(operatorName);
             operators.addOperator(o);
-        }
-        else {
+        } else {
             throw new InvalidCommandException(String.format("Operator actor doesn't know a command \"%s\"", expression));
         }
     }

@@ -5,7 +5,8 @@ package projectswop20102011;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class InvalidPhoneNumberException extends Exception{
+public class InvalidPhoneNumberException extends Exception {
+
     /**
      * Variable registering the serialVersionUID of this InvalidPhoneNumberException.
      */
@@ -14,7 +15,7 @@ public class InvalidPhoneNumberException extends Exception{
     /**
      * Constructs an InvalidPhoneNumberException with no detail message.
      */
-    public InvalidPhoneNumberException(){
+    public InvalidPhoneNumberException() {
         super();
     }
 
@@ -22,7 +23,7 @@ public class InvalidPhoneNumberException extends Exception{
      * Constructs an InvalidPhoneNumbersException with the specified detail message.
      * @param message The detail message.
      */
-    public InvalidPhoneNumberException(String message){
+    public InvalidPhoneNumberException(String message) {
         super(message);
     }
 }
