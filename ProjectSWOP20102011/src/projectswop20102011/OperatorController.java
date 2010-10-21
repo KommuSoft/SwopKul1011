@@ -14,7 +14,6 @@ public class OperatorController {
     private static final Pattern CREATE_CALLER_REGEX = Pattern.compile("^create caller ([A-Za-z ]+),([0-9]+)$");
     private static final Pattern CREATE_CALL_REGEX = Pattern.compile("^create call$");
     private static final Pattern CREATE_EMERGENCY_REGEX = Pattern.compile("^create emergency \\(([0-9]+),([0-9]+)\\),([A-Za-z]+)$");
-    private static final OperatorList operators = new OperatorList();
 
     //This class is static, no instances may be constructed.
     private OperatorController() {
@@ -47,7 +46,7 @@ public class OperatorController {
         m.find();
         String operatorName = m.group(1);
         Operator o = new Operator(operatorName);
-        operators.addOperator(o);
+        OperatorList.addOperator(o);
     }
     private static void readCreateCallerCommand (String expression) throws InvalidNameException, InvalidPhoneNumberException {
         Matcher m = CREATE_CALLER_REGEX.matcher(expression);

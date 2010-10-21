@@ -43,14 +43,14 @@ public class MainControllerTest {
      * Test of readInput method, of class MainController.
      */
     @Test(expected=InvalidExpressionFormatException.class)
-    public void testReadInputUnformatted2 () throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException {
+    public void testReadInputUnformatted2 () throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException, InvalidPhoneNumberException, InvalidTimestampException {
         MainController.readInput("Operator");
     }
     /**
      * Test of readInput method, of class MainController.
      */
     @Test(expected=InvalidActorException.class)
-    public void testReadInputFormatted () throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException {
+    public void testReadInputFormatted () throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException, InvalidPhoneNumberException, InvalidTimestampException {
         MainController.readInput("InvalidActor This message has no valid actor!");
     }
 
