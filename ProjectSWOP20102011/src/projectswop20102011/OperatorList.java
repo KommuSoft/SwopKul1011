@@ -20,9 +20,23 @@ public class OperatorList {
      * @param o
      *		The new operator.
      */
-    public static void addOperator(Operator o) {
+    static void addOperator(Operator o) {
         if (!operators.contains(o)) {
             operators.add(o);
         }
     }
+    /**
+     * Checks if the OperatorList contains already an operator with a given name.
+     * @param name the name to check the existance of.
+     * @return true if OperatorList contains already an operator with that name, otherwise false.
+     */
+    public static boolean containsName (String name) {
+        for(Operator o : operators) {
+            if(o.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

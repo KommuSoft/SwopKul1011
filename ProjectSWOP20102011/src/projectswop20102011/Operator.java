@@ -18,5 +18,9 @@ public class Operator extends Human {
      */
     public Operator(String name) throws InvalidNameException {
         super(name);
+        if(OperatorList.containsName(name)) {
+            throw new InvalidNameException("Name of the operator already exists in the OperatorList.");
+        }
+        OperatorList.addOperator(this);
     }
 }
