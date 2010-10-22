@@ -13,6 +13,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InvalidExpressionFormatException, InvalidActorException, IOException, InvalidNameException, InvalidCommandException, InvalidPhoneNumberException, InvalidTimestampException {
+        World world = new World();
         //print the project header
         System.out.println("Project SWOP v. 1.618");
         String curline;
