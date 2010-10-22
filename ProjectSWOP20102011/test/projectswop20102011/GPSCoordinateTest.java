@@ -9,7 +9,7 @@ public class GPSCoordinateTest{
 	private long x,y;
 
 	@Before
-	public void setUp(){
+	public void setUp() throws InvalidCoordinateException{
 		x = 10;
 		y = 15;
 		g1 = new GPSCoordinate(x,y);

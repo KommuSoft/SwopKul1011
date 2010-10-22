@@ -10,22 +10,33 @@ public class GPSCoordinate {
     /**
      * A variable that registers the x coordinate of the GPS coordinate.
      */
-    private long x;
+    private final long x;
     /**
      * A variable that registers the y coordinate of the GPS coordinate.
      */
-    private long y;
+    private final long y;
 
     /**
      * Creates a new GPS coordinate.
      * @param x
      *		The x coordinate of this GPS coordinate.
      * @param y
-     *		The y coordinate of this GPS coordinate.
+	 *		The y coordinate of this GPS coordinate.
+	 * @throws InvalidCoordinateException
+	 *		If the given coordinates are invalid. For the validation rules see
+	 *		{@link #isValidXCoordinate(long)} and {@link #isValidYCoordinate(long)}.
      */
-    public GPSCoordinate(long x, long y) {
-        setX(x);
-        setY(y);
+    public GPSCoordinate(long x, long y) throws InvalidCoordinateException {
+        if(isValidXCoordinate(x)){
+			this.x = x;
+		} else {
+			throw new InvalidCoordinateException();
+		}
+		if(isValidYCoordinate(y)){
+			this.y = y;
+		} else {
+			throw new InvalidCoordinateException();
+		}
     }
 
     /**
@@ -37,29 +48,11 @@ public class GPSCoordinate {
     }
 
     /**
-     * Sets the x coordinate of this GPS coordinate.
-     * @param x
-     *		The x coordinate of this GPS coordinate.
-     */
-    private void setX(long x) {
-        this.x = x;
-    }
-
-    /**
      * Returns the y coordinate of this GPS coordinate.
      * @return The y coordinate of this GPS coordinate.
      */
     public long getY() {
         return y;
-    }
-
-    /**
-     * Sets the y coordinate of this GPS coordinate.
-     * @param y
-     *		The y coordinate of this GPS coordinate.
-     */
-    private void setY(long y) {
-        this.y = y;
     }
 
     /**
@@ -71,16 +64,7 @@ public class GPSCoordinate {
      */
     public static boolean isValidXCoordinate(long x) {
         //Moet nog geimplementeerd worden
-        return false;
-    }
-
-    /**
-     * Checks if the current x coordinate is a valid x coordinate. For the validation rules see {@link #isValidXCoordinate(long)}.
-     * @return
-     *		True if the current x coordinate is a valid x coordinate; false otherwise.
-     */
-    public boolean hasValidXCoordinate() {
-        return isValidXCoordinate(getX());
+        return true;
     }
 
     /**
@@ -92,15 +76,6 @@ public class GPSCoordinate {
      */
     public static boolean isValidYCoordinate(long y) {
         //Moet nog geïmplementeerd worden
-        return false;
-    }
-
-    /**
-     * Checks if the current y coordinate is a valid y coordinate. For the validation rules see {@link #isValidYCoordinate(long)}.
-     * @return
-     *		True if the current y coordinate is a valid y coordinate; false otherwise.
-     */
-    public boolean hasValidYCoordinate() {
-        return isValidYCoordinate(getY());
+        return true;
     }
 }
