@@ -8,7 +8,7 @@ package projectswop20102011;
 public class Emergency {
 
     private GPSCoordinate location;
-    private Severity severity;
+    private EmergencySeverity severity;
 
     /**
      * Make a new emergency with the given location and severity.
@@ -17,7 +17,7 @@ public class Emergency {
      * @param severity
      *		The severity of this emergency.
      */
-    public Emergency(GPSCoordinate location, Severity severity) {
+    public Emergency(GPSCoordinate location, EmergencySeverity severity) {
         setLocation(location);
         setSeverity(severity);
     }
@@ -36,7 +36,7 @@ public class Emergency {
      * @param severity
      *		The severity of this emergency.
      */
-    private void setSeverity(Severity severity) {
+    private void setSeverity(EmergencySeverity severity) {
         this.severity = severity;
     }
 
@@ -52,7 +52,7 @@ public class Emergency {
      * Returns the severity of this emergency.
      * @return The severity of this emergency.
      */
-    public Severity getSeverity() {
+    public EmergencySeverity getSeverity() {
         return severity;
     }
 }

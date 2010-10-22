@@ -1,14 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package projectswop20102011;
 
 /**
  *
- * @author willem
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum EmergencyStatus {
+
+    RECORDED_BUT_UNHANDLED,
+    RESPONSE_IN_PROGRESS,
+    FINISHED
 
 }

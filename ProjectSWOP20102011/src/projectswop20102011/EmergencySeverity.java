@@ -4,7 +4,7 @@ package projectswop20102011;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public enum Severity {
+public enum EmergencySeverity {
 
     BENIGN,
     NORMALS,

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class EmergencyTest{
 	private Emergency e1;
 	private GPSCoordinate g1;
-	private Severity s1;
+	private EmergencySeverity s1;
 	private long x,y;
 
 	@Before
