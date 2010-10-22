@@ -12,7 +12,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InvalidExpressionFormatException, InvalidActorException, IOException, InvalidNameException, InvalidCommandException, InvalidPhoneNumberException, InvalidTimestampException {
+    public static void main(String[] args) throws IOException {
         World world = new World();
         //print the project header
         System.out.println("Project SWOP v. 1.618");
@@ -25,7 +25,12 @@ public class Main {
             if (curline.toLowerCase().equals("quit")) {
                 break;
             }
-            MainController.readInput(curline);
+            try {
+                MainController.readInput(curline);
+            }
+            catch(Throwable t) {
+                System.out.println(String.format("ERROR: %s",t.getMessage()));
+            }
         }
     }
 }

@@ -23,25 +23,11 @@ public class OperatorController {
      * Reads input from the text based user interface that has been posted by an operator.
      * @param expression the expression that has been inserted by the operator in the user interface.
      * @throws InvalidCommandException if a command is expressed that is unknown by the OperatorControl.
-     * @throws InvalidNameException If a name is invalid.
-     * @throws InvalidPhoneNumberException If a phoneNumber is invalid.
-     * @throws InvalidTimestampException If a timestap is invalid.
-     * @throws InvalidExpressionFormatException If the expression is wrong formatted and can't be parsed by the controller.
      */
-    public static void readInput(String expression) throws InvalidCommandException, InvalidNameException, InvalidPhoneNumberException, InvalidTimestampException, InvalidExpressionFormatException {
-        if (CREATE_OPERATOR_REGEX.matcher(expression).find()) {
-            readCreateOperatorCommand(expression);
-        } else if(CREATE_CALLER_REGEX.matcher(expression).find()) {
-            readCreateCallerCommand(expression);
-        } else if(CREATE_CALL_REGEX.matcher(expression).find()) {
-            readCreateCallCommand(expression);
-        } else if (CREATE_EMERGENCY_REGEX.matcher(expression).find()) {
-            readCreateEmergencyCommand(expression);
-        } else {
+    public static void readInput(String expression) throws InvalidCommandException {
             throw new InvalidCommandException(String.format("Operator actor doesn't know a command \"%s\"", expression));
-        }
     }
-    private static void readCreateOperatorCommand (String expression) throws InvalidNameException {
+    /*private static void readCreateOperatorCommand (String expression) throws InvalidNameException {
         Matcher m = CREATE_OPERATOR_REGEX.matcher(expression);
         m.find();
         String operatorName = m.group(1);
@@ -77,6 +63,6 @@ public class OperatorController {
         }
         GPSCoordinate c = new GPSCoordinate(x,y);
         new Emergency(c,s);
-    }
+    }*/
 
 }
