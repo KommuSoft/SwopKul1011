@@ -12,6 +12,7 @@ public class InvalidCommandException extends Exception {
      * Creates a new instance of <code>InvalidCommandException</code> without detail message.
      */
     public InvalidCommandException() {
+		super();
     }
 
     /**

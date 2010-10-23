@@ -12,6 +12,7 @@ public class InvalidExpressionFormatException extends Exception {
      * Creates a new instance of <code>InvalidExpressionFormatException</code> without detail message.
      */
     public InvalidExpressionFormatException() {
+		super();
     }
 
     /**

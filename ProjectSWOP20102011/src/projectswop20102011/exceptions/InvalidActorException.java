@@ -12,7 +12,8 @@ public class InvalidActorException extends Exception {
      * Creates a new instance of <code>InvalidActorException</code> without detail message.
      */
     public InvalidActorException() {
-    }
+		super();
+	}
 
     /**
      * Constructs an instance of <code>InvalidActorException</code> with the specified detail message.
