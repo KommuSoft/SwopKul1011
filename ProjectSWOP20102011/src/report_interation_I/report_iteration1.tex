@@ -1,48 +1,79 @@
-\documentclass[a4paper,titlepage]{article}
+\documentclass[a4paper, titlepage,12pt]{article}
 
 \usepackage{fullpage}
+\usepackage[dutch]{babel}
+\usepackage[final]{graphicx}
+\usepackage{tikz}
 \usepackage{float}
+\usepackage{color}
+\usepackage{listings}
 \usepackage{multirow}
 
-%opening
-\title{Project Software Design:\\Report Iteration I}
+%\definecolor{darkgreen}{rgb}{0,0.4,0}
+
+\title{Software Ontwerp - Verslag Iteratie 1}
 \author{Willem Van Onsem\\Jonas Vanthornhout\\Pieter-Jan Vuylsteke}
-\date{academic year 2010-2011}
+\date{10 november 2010}
 
 \begin{document}
 \begin{titlepage}
 \maketitle
 \end{titlepage}
+
 \tableofcontents
 \newpage
-\section*{Introduction}
+\section*{Introductie}
+Het verslag is als volgt gestructureerd. In sectie \ref{overzicht} geven we een overzicht van het systeem en zijn subsystemen.
+We tonen ook hoe we de verschillende verantwoordelijkheden hebben toegewezen.
+In sectie \ref{grasp} bespreken we de invloed van GRASP principes op ons ontwerp.
+Alternatieve ontwerpen die niet gekozen werden, zullen ook vermeld worden.
+De mogelijkheden die voorzien zijn voor uitbreidingen zullen besproken worden in sectie \ref{uitbreidbaarheid}.
+Vervolgens tonen we in sectie \ref{testen} hoe we onze testen hebben aangepakt.
+In sectie \ref{projectbeheer} vermelden we hoe we de verschillende taken hebben verdeeld onder de groepsleden
+en hoeveel tijd er werd besteed aan deze taken.
+Ten slotte besluiten we in sectie \ref{besluit} door o.a. enkele problemen te schetsen die we zijn tegengekomen.
+
 \newpage
-\section{Overview}
+\section{Overzicht van het systeem}
+\label{overzicht}
 \newpage
-\section{Project Management}
+\section{Invloed van GRASP patterns}
+\label{grasp}
+\newpage
+\section{Uitbreidbaarheid}
+\label{uitbreidbaarheid}
+\newpage
+\section{Aanpak voor het testen}
+\label{testen}
+\newpage
+\section{Projectbeheer}
+\label{projectbeheer}
 \begin{table}[H]
 \centering
-\begin{tabular}{llr}
+\begin{tabular}{|llr|}
 \hline
-Name&Task type&Duration\\
+Naam&Type van taak&Duur\\
 \hline
 \hline
-\multirow{3}{*}{Willem Van Onsem}&Implementing&3h\\
-&Writing testcases&1h\\
-&Design&5h\\
+\multirow{3}{*}{Willem Van Onsem}&Implementeren&3h\\
+&Schrijven van testcases&1h\\
+&Ontwerp&5h\\
 \hline
 Jonas Vanthornhout&&\\
 \hline
 Pieter-Jan Vuylsteke&&\\
 \hline
 \end{tabular}
-\caption{Time usage of the team members}
+\caption{Tijd ge''investeerd door de teamleden}
 \label{tbl:timeUsage}
 \end{table}
 \newpage
-\section{Conclusions}
+\section{Besluit}
+\label{besluit}
 \newpage
 \nocite{*}
 \bibliographystyle{alpha}
 \bibliography{boeken}
+\end{document}
+
 \end{document}
