@@ -1,5 +1,7 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidCoordinateException;
+
 /**
  * A class that represents a GPSCoordinate.
  *

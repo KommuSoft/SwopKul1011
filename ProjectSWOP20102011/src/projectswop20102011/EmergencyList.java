@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import java.util.ArrayList;
 import java.util.Random;
 /**

@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidNameException;
 import java.util.regex.Pattern;
 
 /**

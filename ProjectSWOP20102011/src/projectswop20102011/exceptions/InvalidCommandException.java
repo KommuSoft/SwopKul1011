@@ -1,4 +1,4 @@
-package projectswop20102011;
+package projectswop20102011.exceptions;
 
 /**
  *

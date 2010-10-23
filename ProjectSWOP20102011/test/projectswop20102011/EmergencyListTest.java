@@ -1,5 +1,7 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidCoordinateException;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

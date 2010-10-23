@@ -1,4 +1,4 @@
-package projectswop20102011;
+package projectswop20102011.exceptions;
 
 /**
  * An exception class activated when invalid actors are handled (for instance the name of the actor is unknown by the system)

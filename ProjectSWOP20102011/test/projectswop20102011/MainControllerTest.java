@@ -1,5 +1,11 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidExpressionFormatException;
+import projectswop20102011.exceptions.InvalidCommandException;
+import projectswop20102011.exceptions.InvalidNameException;
+import projectswop20102011.exceptions.InvalidPhoneNumberException;
+import projectswop20102011.exceptions.InvalidActorException;
+import projectswop20102011.exceptions.InvalidTimestampException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

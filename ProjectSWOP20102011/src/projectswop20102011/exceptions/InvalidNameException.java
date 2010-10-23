@@ -1,11 +1,11 @@
-package projectswop20102011;
+package projectswop20102011.exceptions;
 
 /**
- * Thrown when an application attempts to use an invalid timestamp.
- *
+ * Thrown when an application attempts to use an invalid name.
+ * 
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class InvalidTimestampException extends Exception {
+public class InvalidNameException extends Exception {
 
     /**
      * Variable registering the serivalVersionUID of this InvalidNameException.
@@ -15,7 +15,7 @@ public class InvalidTimestampException extends Exception {
     /**
      * Constructs an InvalidNameException with no detail message.
      */
-    public InvalidTimestampException() {
+    public InvalidNameException() {
         super();
     }
 
@@ -24,7 +24,7 @@ public class InvalidTimestampException extends Exception {
      * @param message
      *      The detail message.
      */
-    public InvalidTimestampException(String message) {
+    public InvalidNameException(String message) {
         super(message);
     }
 }

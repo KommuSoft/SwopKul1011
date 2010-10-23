@@ -1,4 +1,4 @@
-package projectswop20102011;
+package projectswop20102011.exceptions;
 
 /**
  * An exception used when the expression that is being parsed isn't formatted in the propper way.

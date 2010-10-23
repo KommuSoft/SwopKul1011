@@ -1,5 +1,11 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidNameException;
+import projectswop20102011.exceptions.InvalidTimestampException;
+import projectswop20102011.exceptions.InvalidCommandException;
+import projectswop20102011.exceptions.InvalidActorException;
+import projectswop20102011.exceptions.InvalidPhoneNumberException;
+import projectswop20102011.exceptions.InvalidExpressionFormatException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

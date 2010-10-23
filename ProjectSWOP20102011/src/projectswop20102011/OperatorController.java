@@ -1,5 +1,7 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidCommandException;
+
 /**
  * A class that handles all actions from the operator user.
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke

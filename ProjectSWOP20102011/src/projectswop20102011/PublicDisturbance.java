@@ -1,5 +1,7 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidEmergencyException;
+
 /**
  * A class that represents a public disturbance.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
