@@ -13,7 +13,6 @@ public class World {
 
 	/**
 	 * Creates a new world
-	 * 
 	 */
     public World () {
         setEmergencyList(new EmergencyList());

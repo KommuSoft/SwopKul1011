@@ -8,9 +8,25 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Emergency {
+	
+	/**
+	 * A variable that registers the id of this emergency
+	 */
 	private final long id;
+
+	/**
+	 * A variable that registers the location of this emergency
+	 */
     private GPSCoordinate location;
+
+	/**
+	 * A variable that registers the severity of this emergency
+	 */
     private EmergencySeverity severity;
+
+	/**
+	 * A variable that registers the status of this emergency
+	 */
 	private EmergencyStatus status;
 
 	/**

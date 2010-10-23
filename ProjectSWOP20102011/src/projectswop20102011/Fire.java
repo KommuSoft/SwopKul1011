@@ -7,9 +7,25 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Fire extends Emergency{
+
+	/**
+	 * A variable that registers the size of this fire
+	 */
 	private FireSize size;
+
+	/**
+	 * A variable that registers whether this fire is chemical or not
+	 */
 	private boolean chemical;
+
+	/**
+	 * A variable that registers whether there are trapped people or not
+	 */
 	private boolean trappedPeople;
+
+	/**
+	 * A variable that registers the number of injured people of this fire
+	 */
 	private long numberOfInjured;
 
 	/**
