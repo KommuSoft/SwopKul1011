@@ -11,16 +11,40 @@ public class Emergency {
     private EmergencySeverity severity;
 	private EmergencyStatus status;
 
-    /**
-     * Make a new emergency with the given location and severity.
+	/**
+     * Make a new emergency with the given location and severity and put this new
+	 * emergency in the given emergencylist. A valid id is automatically assigned
+	 * to this new emergency.
 	 * @param emergencies
-	 *		The list of emergencies where this emergency must put in.
+	 *		The list of emergencies where this emergency must be put in.
 	 * @param location
      *		The location of this emergency.
      * @param severity
      *		The severity of this emergency.
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is invalid. I.e. there already exists an emergency
+	 *		with the same id.
      */
-    public Emergency(EmergencyList emergencies, GPSCoordinate location, EmergencySeverity severity, long id) {
+    public Emergency(EmergencyList emergencies, GPSCoordinate location, EmergencySeverity severity) throws InvalidEmergencyException {
+		this(emergencies, location, severity, emergencies.calculateValidId());
+    }
+
+    /**
+     * Make a new emergency with the given location, severity and id and put this
+	 * new emergency in the given emergencylist if the id is valid.
+	 * @param emergencies
+	 *		The list of emergencies where this emergency must be put in.
+	 * @param location
+     *		The location of this emergency.
+     * @param severity
+	 *		The severity of this emergency.
+	 * @param id
+	 *		The id of this emergency.
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is invalid. I.e. there already exists an emergency
+	 *		with the same id.
+     */
+    public Emergency(EmergencyList emergencies, GPSCoordinate location, EmergencySeverity severity, long id) throws InvalidEmergencyException {
 		this.id = id;
 		emergencies.addEmergency(this);
 		setLocation(location);

@@ -7,7 +7,7 @@ package projectswop20102011;
 public enum EmergencySeverity {
 
     BENIGN,
-    NORMALS,
+    NORMAL,
     SERIOUS,
     URGENT
 }
