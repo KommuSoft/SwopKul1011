@@ -10,22 +10,22 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
 public class Emergency {
 	
 	/**
-	 * A variable that registers the id of this emergency
+	 * A variable registering the id of this emergency
 	 */
 	private final long id;
 
 	/**
-	 * A variable that registers the location of this emergency
+	 * A variable registering the location of this emergency
 	 */
     private GPSCoordinate location;
 
 	/**
-	 * A variable that registers the severity of this emergency
+	 * A variable registering the severity of this emergency
 	 */
     private EmergencySeverity severity;
 
 	/**
-	 * A variable that registers the status of this emergency
+	 * A variable registering the status of this emergency
 	 */
 	private EmergencyStatus status;
 
