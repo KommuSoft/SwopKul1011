@@ -1,25 +1,26 @@
-package projectswop20102011;
+package projectswop20102011.controllers;
 
-import projectswop20102011.exceptions.InvalidNameException;
-import projectswop20102011.exceptions.InvalidTimestampException;
 import projectswop20102011.exceptions.InvalidCommandException;
 import projectswop20102011.exceptions.InvalidActorException;
-import projectswop20102011.exceptions.InvalidPhoneNumberException;
 import projectswop20102011.exceptions.InvalidExpressionFormatException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import projectswop20102011.World;
 
 /**
  * A class that handles all text based user interface. And redirects these expressions
- * to the right actor controller. Redirection is done on a reflection based way.
+ * to the right actor controller.
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class MainController {
+public class MainController implements Controller {
 
     private static final Pattern EXPRESSION_PATTERN = Pattern.compile("^([A-Za-z]+) (.*)$");
+    private final OperatorController operatorController;
+    private final DispatcherController dispatcherController;
 
-    //this class is static no instances can be constructed
-    private MainController() {
+    public MainController(World world) {
+        this.operatorController = new OperatorController(world.getEmergencyList());
+        this.dispatcherController = new DispatcherController(world.getEmergencyList());
     }
 
     /**
@@ -28,11 +29,15 @@ public class MainController {
      * @throws InvalidExpressionFormatException If the expression has no propper format.
      * @throws InvalidActorException If the actor in the expression is unknown.
      */
-    public static void readInput(String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidNameException, InvalidCommandException, InvalidPhoneNumberException, InvalidTimestampException {
+    @Override
+    public void readInput(String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidCommandException {
         String actor = readActor(expression);
         String message = readMessage(expression);
         if (actor.equals("operator")) {
-            OperatorController.readInput(message);
+            this.operatorController.readInput(message);
+        }
+        else if(actor.equals("dispatcher")) {
+            this.dispatcherController.readInput(message);
         } else {
             throw new InvalidActorException(String.format("Actor %s doesn't exists!", actor));
         }
@@ -44,7 +49,7 @@ public class MainController {
      * @return The name of the actor of the expression.
      * @throws InvalidExpressionFormatException If the expression has no propper format.
      */
-    public static String readActor(String expression) throws InvalidExpressionFormatException {
+    public String readActor(String expression) throws InvalidExpressionFormatException {
         try {
             Matcher m = EXPRESSION_PATTERN.matcher(expression);
             m.find();
@@ -60,7 +65,7 @@ public class MainController {
      * @return The message of the expression.
      * @throws InvalidExpressionFormatException If the expression has no propper format.
      */
-    public static String readMessage(String expression) throws InvalidExpressionFormatException {
+    public String readMessage(String expression) throws InvalidExpressionFormatException {
         try {
             Matcher m = EXPRESSION_PATTERN.matcher(expression);
             m.find();

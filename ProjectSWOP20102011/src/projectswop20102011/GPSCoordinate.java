@@ -80,4 +80,14 @@ public class GPSCoordinate {
         //Moet nog geïmplementeerd worden
         return true;
     }
+
+    /**
+     * Returns a textual representation of this GPSCoordinate.
+     * @return a textual representation of this GPSCoordinate.
+     */
+    @Override
+    public String toString () {
+        return String.format("(%s,%s)",this.getX(),this.getY());
+    }
+
 }
