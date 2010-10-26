@@ -24,8 +24,6 @@ public class TrafficAccident extends Emergency {
      *		The location of this traffic accident emergency.
      * @param severity
      *		The severity of this traffic accident emergency.
-     * @param id
-     *		The id of this traffic accident emergency.
      * @param numberOfCars
      *		The number of cars involved in this traffic accident.
      * @param numberOfInjured

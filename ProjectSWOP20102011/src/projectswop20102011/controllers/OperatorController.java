@@ -8,6 +8,9 @@ import projectswop20102011.EmergencySeverity;
 import projectswop20102011.Fire;
 import projectswop20102011.FireSize;
 import projectswop20102011.GPSCoordinate;
+import projectswop20102011.PublicDisturbance;
+import projectswop20102011.Robbery;
+import projectswop20102011.TrafficAccident;
 import projectswop20102011.exceptions.InvalidCommandException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidExpressionFormatException;
@@ -25,9 +28,9 @@ class OperatorController implements Controller {
     private final EmergencyList emergencyList;
     private static final Pattern CREATE_EMERGENCY_REGEX = Pattern.compile("^create emergency ([A-Za-z ]+),\\(([0-9]+),([0-9]+)\\),([A-Za-z]+)(,(.+))?$");
     private static final Pattern FIRE_EXTRA_PARAMETERS_REGEX = Pattern.compile("^([A-Za-z ]+),([A-Za-z]+),([A-Za-z]+),([0-9]+)$");
-    private static final Pattern ROBBERY_EXTRA_PARAMETERS_REGEX = Pattern.compile("^([a-z ]+),(true|false),(true|false),([0-9]+)$");
-    private static final Pattern TRAFFIC_ACCIDENT_EXTRA_PARAMETERS_REGEX = Pattern.compile("^([a-z ]+),(true|false),(true|false),([0-9]+)$");
-    private static final Pattern PUBLIC_DISTURBANCE_PARAMETERS_REGEX = Pattern.compile("^([a-z ]+),(true|false),(true|false),([0-9]+)$");
+    private static final Pattern ROBBERY_EXTRA_PARAMETERS_REGEX = Pattern.compile("^([A-Za-z]+),([A-Za-z]+)$");
+    private static final Pattern TRAFFIC_ACCIDENT_EXTRA_PARAMETERS_REGEX = Pattern.compile("^([0-9]+),([0-9]+)$");
+    private static final Pattern PUBLIC_DISTURBANCE_EXTRA_PARAMETERS_REGEX = Pattern.compile("^([0-9]+)$");
 
     /**
      * Creates a new instance of the OperatorController class.
@@ -55,9 +58,12 @@ class OperatorController implements Controller {
         Emergency createdEmergency;
         if (emergencyType.equals("fire")) {
             createdEmergency = readCreateFireCommand(gpsCoordinate, severity, extraArguments);
-            //} else if (emergencyType.equals("robbery")) {
-            //} else if (emergencyType.equals("traffic accident")) {
-            //} else if (emergencyType.equals("public disturbance")) {
+        } else if (emergencyType.equals("robbery")) {
+            createdEmergency = readCreateRobberyCommand(gpsCoordinate, severity, extraArguments);
+        } else if (emergencyType.equals("traffic accident")) {
+            createdEmergency = readCreateTrafficAccidentCommand(gpsCoordinate, severity, extraArguments);
+        } else if (emergencyType.equals("public disturbance")) {
+            createdEmergency = readCreatePublicDisturbanceCommand(gpsCoordinate, severity, extraArguments);
         } else {
             throw new InvalidEmergencyTypeException(String.format("There is no emergency type called %s.", emergencyType));
         }
@@ -70,20 +76,74 @@ class OperatorController implements Controller {
      * @param severity the severity level of the emergency.
      * @param extraArguments A string of additional arguments in the expression.
      * @return An emergency that represents the new created fire emergency.
-     * @throws InvalidExpressionFormatException When the format of the parameters is invalid.
+     * @throws InvalidExpressionFormatException When the format of the extraArguments is invalid.
      * @throws InvalidFireSizeException when there is no known fire size that is represented by it's textual argument.
      * @throws ParsingException When some arguments can not be parsed to primitive types.
      */
     private Emergency readCreateFireCommand(GPSCoordinate location, EmergencySeverity severity, String extraArguments) throws InvalidExpressionFormatException, InvalidFireSizeException, ParsingException {
         Matcher mFireParameters = FIRE_EXTRA_PARAMETERS_REGEX.matcher(extraArguments);
         if (extraArguments == null || !mFireParameters.find()) {
-            throw new InvalidExpressionFormatException("fire requires extra parameters");
+            throw new InvalidExpressionFormatException("Emergency type \"fire\" requires different parameters.");
         }
         FireSize fireSize = FireSize.parse(mFireParameters.group(1));
         boolean chemical = ControllerUtilities.parseToBoolean(mFireParameters.group(2));
         boolean trappedPeople = ControllerUtilities.parseToBoolean(mFireParameters.group(3));
         long numberOfInjured = Long.parseLong(mFireParameters.group(4));
         return new Fire(emergencyList, location, severity, fireSize, chemical, trappedPeople, numberOfInjured);
+    }
+
+    /**
+     * Executes a new "create emergency robbery" command
+     * @param location the location where the emergency happens.
+     * @param severity the severity level of the emergency.
+     * @param extraArguments A string of additional arguments in the expression.
+     * @return An emergency that represents the new created robbery emergency.
+     * @throws InvalidExpressionFormatException When the format of the extraArguments is invald.
+     * @throws ParsingException when some arguments can not be parsed in primitive types.
+     */
+    private Emergency readCreateRobberyCommand(GPSCoordinate location, EmergencySeverity severity, String extraArguments) throws InvalidExpressionFormatException, ParsingException {
+        Matcher mRobberyParameters = ROBBERY_EXTRA_PARAMETERS_REGEX.matcher(extraArguments);
+        if (extraArguments == null || !mRobberyParameters.find()) {
+            throw new InvalidExpressionFormatException("Emergency type \"robbery\" requires different parameters.");
+        }
+        boolean armed = ControllerUtilities.parseToBoolean(mRobberyParameters.group(1));
+        boolean inProgress = ControllerUtilities.parseToBoolean(mRobberyParameters.group(2));
+        return new Robbery(emergencyList, location, severity, armed, inProgress);
+    }
+
+    /**
+     * Executes a new "create emergency traffic accident" command
+     * @param location the location where the emergency happens.
+     * @param severity the severity level of the emergency.
+     * @param extraArguments A string of additional arguments in the expression.
+     * @return An emergency that represents the new created traffic accident emergency.
+     * @throws InvalidExpressionFormatException When the format of the extraArguments is invald.
+     */
+    private Emergency readCreateTrafficAccidentCommand(GPSCoordinate location, EmergencySeverity severity, String extraArguments) throws InvalidExpressionFormatException, ParsingException {
+        Matcher mTrafficAccidentParameters = TRAFFIC_ACCIDENT_EXTRA_PARAMETERS_REGEX.matcher(extraArguments);
+        if (extraArguments == null || !mTrafficAccidentParameters.find()) {
+            throw new InvalidExpressionFormatException("Emergency type \"traffic accident\" requires different parameters.");
+        }
+        long numberOfCars = Long.parseLong(mTrafficAccidentParameters.group(1));
+        long numberOfInjured = Long.parseLong(mTrafficAccidentParameters.group(2));
+        return new TrafficAccident(emergencyList, location, severity, numberOfCars, numberOfInjured);
+    }
+
+    /**
+     * Executes a new "create emergency public disturbance" command
+     * @param location the location where the emergency happens.
+     * @param severity the severity level of the emergency.
+     * @param extraArguments A string of additional arguments in the expression.
+     * @return An emergency that represents the new created public disturbance emergency.
+     * @throws InvalidExpressionFormatException When the format of the extraArguments is invald.
+     */
+    private Emergency readCreatePublicDisturbanceCommand(GPSCoordinate location, EmergencySeverity severity, String extraArguments) throws InvalidExpressionFormatException, ParsingException {
+        Matcher mPublicDisturbanceParameters = PUBLIC_DISTURBANCE_EXTRA_PARAMETERS_REGEX.matcher(extraArguments);
+        if (extraArguments == null || !mPublicDisturbanceParameters.find()) {
+            throw new InvalidExpressionFormatException("Emergency type \"public disturbance\" requires different parameters.");
+        }
+        long numberOfPeople = Long.parseLong(mPublicDisturbanceParameters.group(1));
+        return new PublicDisturbance(emergencyList, location, severity, numberOfPeople);
     }
 
     /**
