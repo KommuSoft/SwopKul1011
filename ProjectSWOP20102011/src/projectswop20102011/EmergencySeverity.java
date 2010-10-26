@@ -45,7 +45,7 @@ public enum EmergencySeverity {
      * @return True if the textual representation matches, otherwise false.
      */
     public boolean matches(String textualRepresentation) {
-        return this.getTextual().equals(textualRepresentation);
+        return this.getTextual().equals(textualRepresentation.toLowerCase());
     }
 
     /**
