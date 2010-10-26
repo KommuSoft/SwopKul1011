@@ -33,23 +33,30 @@ public class EmergencySeverityTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of matches method of class EmergencySeverity.
+     */
     @Test
     public void testMatches() {
         assertTrue(EmergencySeverity.BENIGN.matches("BENIGN"));
         assertTrue(EmergencySeverity.BENIGN.matches("BeNiGn"));
         assertTrue(EmergencySeverity.BENIGN.matches("benign"));
+        assertTrue(EmergencySeverity.BENIGN.matches(EmergencySeverity.BENIGN.getTextual()));
         assertFalse(EmergencySeverity.BENIGN.matches("Begin"));
         assertTrue(EmergencySeverity.NORMAL.matches("NORMAL"));
         assertTrue(EmergencySeverity.NORMAL.matches("NoRmAl"));
         assertTrue(EmergencySeverity.NORMAL.matches("normal"));
+        assertTrue(EmergencySeverity.NORMAL.matches(EmergencySeverity.NORMAL.getTextual()));
         assertFalse(EmergencySeverity.BENIGN.matches("normaal"));
         assertTrue(EmergencySeverity.SERIOUS.matches("SERIOUS"));
         assertTrue(EmergencySeverity.SERIOUS.matches("SeRiOuS"));
         assertTrue(EmergencySeverity.SERIOUS.matches("serious"));
+        assertTrue(EmergencySeverity.SERIOUS.matches(EmergencySeverity.SERIOUS.getTextual()));
         assertFalse(EmergencySeverity.SERIOUS.matches("serieus"));
         assertTrue(EmergencySeverity.URGENT.matches("URGENT"));
         assertTrue(EmergencySeverity.URGENT.matches("UrGeNt"));
         assertTrue(EmergencySeverity.URGENT.matches("urgent"));
+        assertTrue(EmergencySeverity.URGENT.matches(EmergencySeverity.URGENT.getTextual()));
         assertFalse(EmergencySeverity.URGENT.matches("UGent"));
     }
 
@@ -62,10 +69,10 @@ public class EmergencySeverityTest {
         assertEquals(EmergencySeverity.NORMAL, EmergencySeverity.parse(EmergencySeverity.NORMAL.getTextual()));
         assertEquals(EmergencySeverity.SERIOUS, EmergencySeverity.parse(EmergencySeverity.SERIOUS.getTextual()));
         assertEquals(EmergencySeverity.URGENT, EmergencySeverity.parse(EmergencySeverity.URGENT.getTextual()));
-        assertNotSame(EmergencySeverity.BENIGN, EmergencySeverity.parse(EmergencySeverity.NORMAL.getTextual()));
-        assertNotSame(EmergencySeverity.NORMAL, EmergencySeverity.parse(EmergencySeverity.SERIOUS.getTextual()));
-        assertNotSame(EmergencySeverity.SERIOUS, EmergencySeverity.parse(EmergencySeverity.URGENT.getTextual()));
-        assertNotSame(EmergencySeverity.URGENT, EmergencySeverity.parse(EmergencySeverity.BENIGN.getTextual()));
+        assertEquals(EmergencySeverity.BENIGN, EmergencySeverity.parse(EmergencySeverity.BENIGN.getTextual().toUpperCase()));
+        assertEquals(EmergencySeverity.NORMAL, EmergencySeverity.parse(EmergencySeverity.NORMAL.getTextual().toUpperCase()));
+        assertEquals(EmergencySeverity.SERIOUS, EmergencySeverity.parse(EmergencySeverity.SERIOUS.getTextual().toUpperCase()));
+        assertEquals(EmergencySeverity.URGENT, EmergencySeverity.parse(EmergencySeverity.URGENT.getTextual().toUpperCase()));
     }
 
     /**

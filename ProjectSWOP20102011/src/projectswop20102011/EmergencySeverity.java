@@ -12,13 +12,16 @@ public enum EmergencySeverity {
     NORMAL("normal"),
     SERIOUS("serious"),
     URGENT("urgent");
+    /**
+     * textual representation of the emergency severity.
+     */
     private final String textual;
 
     /**
      * Creates a new instance of the EmergencySeverity class with a given textual representation.
      * @param textual The textual representation of the EmergencySeverity, used for parsing and user interaction.
      */
-    EmergencySeverity(String textual) {
+    private EmergencySeverity(String textual) {
         this.textual = textual;
     }
 

@@ -17,10 +17,14 @@ public class MainController implements Controller {
     private static final Pattern EXPRESSION_PATTERN = Pattern.compile("^([A-Za-z]+) (.*)$");
     private final OperatorController operatorController;
     private final DispatcherController dispatcherController;
+    private final UnitCommanderController unitCommanderController;
+    private final DemonstratorController demonstratorController;
 
     public MainController(World world) {
-        this.operatorController = new OperatorController(this,world.getEmergencyList());
-        this.dispatcherController = new DispatcherController(this,world.getEmergencyList());
+        this.operatorController = new OperatorController(this, world.getEmergencyList());
+        this.dispatcherController = new DispatcherController(this, world.getEmergencyList());
+        this.unitCommanderController = new UnitCommanderController(this);
+        this.demonstratorController = new DemonstratorController(this);
     }
 
     /**
@@ -35,9 +39,12 @@ public class MainController implements Controller {
         String message = readMessage(expression);
         if (actor.equals("operator")) {
             this.operatorController.readInput(message);
-        }
-        else if(actor.equals("dispatcher")) {
+        } else if (actor.equals("dispatcher")) {
             this.dispatcherController.readInput(message);
+        } else if (actor.equals("unitcommander")) {
+            this.unitCommanderController.readInput(message);
+        } else if (actor.equals("demonstrator")) {
+            this.demonstratorController.readInput(message);
         } else {
             throw new InvalidActorException(String.format("Actor %s doesn't exists!", actor));
         }
@@ -48,8 +55,8 @@ public class MainController implements Controller {
      * @param message the message to write out.
      * @param toActor the actor that will be the receiver of the message.
      */
-    void writeOutput (String message, String toActor) {
-        System.out.println(String.format("\t\t< %s %s",toActor.toUpperCase(),message));
+    void writeOutput(String message, String toActor) {
+        System.out.println(String.format("\t\t< %s %s", toActor.toUpperCase(), message));
     }
 
     /**

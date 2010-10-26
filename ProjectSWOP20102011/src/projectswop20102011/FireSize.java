@@ -7,16 +7,20 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum FireSize {
-	LOCAL("local"),
-	HOUSE("house"),
-	FACILITY("facility");
-        private final String textual;
+
+    LOCAL("local"),
+    HOUSE("house"),
+    FACILITY("facility");
+    /**
+     * textual representation of the fire size.
+     */
+    private final String textual;
 
     /**
      * Creates a new instance of the FireSize class with a given textual representation.
      * @param textual The textual representation of the FireSize, used for parsing and user interaction.
      */
-    FireSize(String textual) {
+    private FireSize(String textual) {
         this.textual = textual;
     }
 
@@ -43,7 +47,7 @@ public enum FireSize {
      * @return True if the textual representation matches, otherwise false.
      */
     public boolean matches(String textualRepresentation) {
-        return this.getTextual().equals(textualRepresentation);
+        return this.getTextual().equals(textualRepresentation.toLowerCase());
     }
 
     /**
@@ -58,6 +62,6 @@ public enum FireSize {
                 return es;
             }
         }
-        throw new InvalidFireSizeException(String.format("Unknown fire size level \"%s.\"", textualRepresentation));
+        throw new InvalidFireSizeException(String.format("Unknown fire size level \"%s\".", textualRepresentation));
     }
 }
