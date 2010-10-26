@@ -31,7 +31,7 @@ public class Main {
                 mainController.readInput(curline);
             }
             catch(Throwable t) {
-                System.out.println(String.format("ERROR: %s",t.getMessage()));
+                System.out.println(String.format("ERROR: %s",t));
             }
         }
     }

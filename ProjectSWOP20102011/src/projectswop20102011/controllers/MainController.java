@@ -19,8 +19,8 @@ public class MainController implements Controller {
     private final DispatcherController dispatcherController;
 
     public MainController(World world) {
-        this.operatorController = new OperatorController(world.getEmergencyList());
-        this.dispatcherController = new DispatcherController(world.getEmergencyList());
+        this.operatorController = new OperatorController(this,world.getEmergencyList());
+        this.dispatcherController = new DispatcherController(this,world.getEmergencyList());
     }
 
     /**
@@ -30,7 +30,7 @@ public class MainController implements Controller {
      * @throws InvalidActorException If the actor in the expression is unknown.
      */
     @Override
-    public void readInput(String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidCommandException {
+    public void readInput(String expression) throws InvalidExpressionFormatException, InvalidActorException, InvalidCommandException, Exception {
         String actor = readActor(expression);
         String message = readMessage(expression);
         if (actor.equals("operator")) {
@@ -41,6 +41,15 @@ public class MainController implements Controller {
         } else {
             throw new InvalidActorException(String.format("Actor %s doesn't exists!", actor));
         }
+    }
+
+    /**
+     * Writing a specified message to the specified actor (as part of the User Interface).
+     * @param message the message to write out.
+     * @param toActor the actor that will be the receiver of the message.
+     */
+    void writeOutput (String message, String toActor) {
+        System.out.println(String.format("\t\t< %s %s",toActor.toUpperCase(),message));
     }
 
     /**

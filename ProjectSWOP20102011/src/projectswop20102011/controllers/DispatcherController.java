@@ -9,9 +9,11 @@ import projectswop20102011.exceptions.InvalidCommandException;
  */
 class DispatcherController implements Controller {
 
+    private final MainController mainController;
     private final EmergencyList emergencyList;
 
-    public DispatcherController (EmergencyList emergencyList) {
+    public DispatcherController (MainController mainController, EmergencyList emergencyList) {
+        this.mainController = mainController;
         this.emergencyList = emergencyList;
     }
 

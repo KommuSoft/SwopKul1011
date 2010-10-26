@@ -60,6 +60,6 @@ public enum EmergencySeverity {
                 return es;
             }
         }
-        throw new InvalidEmergencySeverityException(String.format("Unknown severity level %s.", textualRepresentation));
+        throw new InvalidEmergencySeverityException(String.format("Unknown severity level \"%s.\"", textualRepresentation));
     }
 }
