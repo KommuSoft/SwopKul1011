@@ -2,16 +2,24 @@ package projectswop20102011;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.reflection.ReferenceableParameterGetter;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidLocationException;
 
 /**
  * A class that represents an emergency.
- *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ * @invar The location of an emergency is always valid | hasValidLocation()
+ * @invar The severity of an emergency is always valid | hasValidSeverity()
+ * @invar The status of an emergency is always valid | hasValidEmergency()
+ * @invar Every emergency has a unique id
  */
 public class Emergency {
 
+    /**
+     * A static field that generates id's for the constructed emergencies,
+     * and ensures that every emergency has a different id.
+     */
     private static long idDispatcher = 0;
     /**
      * A variable registering the id of this emergency
@@ -31,34 +39,38 @@ public class Emergency {
     private EmergencyStatus status;
 
     /**
-     * Make a new emergency with the given location, severity and id and put this
-     * new emergency in the given emergencylist if the id is valid.
-     * @param emergencies
-     *		The list of emergencies where this emergency must be put in.
+     * Make a new emergency with the given location, severity
      * @param location
      *		The location of this emergency.
      * @param severity
      *		The severity of this emergency.
+     * @throws InvalidLocationException If the given location is an invalid location for an emergency.
+     * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
+     * @post This location is equal to the parameter location. |location.equals(this.getLocation())
+     * @post This severity is equal to the parameter severity. |severity.equals(this.severity)
      */
-    public Emergency(EmergencyList emergencies, GPSCoordinate location, EmergencySeverity severity) {
+    public Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
         this.id = idDispatcher++;
-        try {
-            emergencies.addEmergency(this);
-        } catch (InvalidEmergencyException ex) {
-            //can't be thrown: Emergency can't be a member of the a collection before it has been created.
-            Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
-        }
         setLocation(location);
         setSeverity(severity);
-        setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+        try {
+            setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+        } catch (InvalidEmergencyStatusException ex) {
+            //Can't be thrown: We ensure that the status is valid.
+            Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Sets the location of this emergency.
      * @param location
      *		The location of this emergency.
+     * @throws InvalidLocationException If the given location isn't valid for an emergency.
      */
-    private void setLocation(GPSCoordinate location) {
+    private void setLocation(GPSCoordinate location) throws InvalidLocationException {
+        if(!isValidLocation(location)) {
+            throw new InvalidLocationException(String.format("\"%s\" is an invalid location for an emergency.", location));
+        }
         this.location = location;
     }
 
@@ -66,8 +78,12 @@ public class Emergency {
      * Sets the severity of this emergency.
      * @param severity
      *		The severity of this emergency.
+     * @throws InvalidEmergencySeverityException If the given severity level is invalid for an emergency.
      */
-    private void setSeverity(EmergencySeverity severity) {
+    private void setSeverity(EmergencySeverity severity) throws InvalidEmergencySeverityException {
+        if(!isValidSeverity(severity)) {
+            throw new InvalidEmergencySeverityException(String.format("\"%s\" is an invalid location for an emergency.", severity));
+        }
         this.severity = severity;
     }
 
@@ -75,8 +91,12 @@ public class Emergency {
      * Sets the status of this emergency.
      * @param status
      *		The status of this emergency.
+     * @throws InvalidEmergencyStatusException If the given staus is invalid for an emergency.
      */
-    private void setStatus(EmergencyStatus status) {
+    private void setStatus(EmergencyStatus status) throws InvalidEmergencyStatusException {
+        if(!isValidStatus(status)) {
+            throw new InvalidEmergencyStatusException(String.format("\"%s\" is an invalid status for an emergency.", status));
+        }
         this.status = status;
     }
 
@@ -84,7 +104,6 @@ public class Emergency {
      * Returns the location of this emergency.
      * @return The location of this emergency.
      */
-    @ReferenceableParameterGetter(name="location")
     public GPSCoordinate getLocation() {
         return location;
     }
@@ -93,7 +112,6 @@ public class Emergency {
      * Returns the severity of this emergency.
      * @return The severity of this emergency.
      */
-    @ReferenceableParameterGetter(name="severity")
     public EmergencySeverity getSeverity() {
         return severity;
     }
@@ -102,7 +120,6 @@ public class Emergency {
      * Returns the status of this emergency.
      * @return The status of this emergency.
      */
-    @ReferenceableParameterGetter(name="status")
     public EmergencyStatus getStatus() {
         return status;
     }
@@ -111,8 +128,61 @@ public class Emergency {
      * Returns the id of this emergency.
      * @return The is of this emergency.
      */
-    @ReferenceableParameterGetter(name="id")
     public long getId() {
         return id;
+    }
+
+    /**
+     * Checks if the given severity is valid as severity level of an emergency.
+     * @param severity The severity level to check.
+     * @return true if the severity level is effective, otherwise false.
+     */
+    public static boolean isValidSeverity(EmergencySeverity severity) {
+        return (severity != null);
+    }
+
+    /**
+     * Checks if the current severity level is valid.
+     * @return True if the severity level is valid, otherwise false.
+     * @note This method tests an invariant and so must be always true.
+     */
+    public boolean hasValidSeverity() {
+        return isValidSeverity(this.getSeverity());
+    }
+
+    /**
+     * Cehcs if the given status is a valid status of an emergency.
+     * @param status The status to check.
+     * @return true if the status is effective, otherwise false.
+     */
+    public static boolean isValidStatus(EmergencyStatus status) {
+        return (status != null);
+    }
+
+    /**
+     * Checs if the current status is valid.
+     * @return True if the current status is valid, otherwise false.
+     * @note This method tests an invariant and so must be always true.
+     */
+    public boolean hasValidStatus() {
+        return isValidStatus(this.getStatus());
+    }
+
+    /**
+     * Checks if the given location is a valid location for an emergency.
+     * @param location The location to test.
+     * @return True if the location is effective, otherwise false.
+     */
+    public static boolean isValidLocation(GPSCoordinate location) {
+        return (location != null);
+    }
+
+    /**
+     * Checks if the current location is a valid location.
+     * @return True if this location is a valid location, otherwise false.
+     * @note This method tests an invariant and so must be always true.
+     */
+    public boolean hasValidLocation() {
+        return isValidLocation(this.getLocation());
     }
 }
