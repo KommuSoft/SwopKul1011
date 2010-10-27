@@ -1,5 +1,8 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidLocationException;
+
 /**
  * A class that represents a robbery.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
@@ -16,8 +19,7 @@ public class Robbery extends Emergency {
     private boolean inProgress;
 
     /**
-     * Makes a new robbery emergency with the given parameters and put this new
-     * robbery emergency in the given emergencylist if the given id is valid.
+     * Makes a new robbery emergency with the given parameters.
      * @param emergencies
      *		The list of emergencies where this robbery emergency must be put in.
      * @param location
@@ -28,10 +30,13 @@ public class Robbery extends Emergency {
      *		An indicator that indicates if this robbery is an armed robbery.
      * @param inProgress
      *		An indicator that indicates if this robbery is still in progress.
+     * @effect super(location,severity)
+     * @throws InvalidLocationException If the given location is an invalid location for an emergency.
+     * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
      */
-    public Robbery(EmergencyList emergencies, GPSCoordinate location, EmergencySeverity severity,
-            boolean armed, boolean inProgress) {
-        super(emergencies, location, severity);
+    public Robbery(GPSCoordinate location, EmergencySeverity severity,
+            boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
+        super(location, severity);
         setArmed(armed);
         setInProgress(inProgress);
     }

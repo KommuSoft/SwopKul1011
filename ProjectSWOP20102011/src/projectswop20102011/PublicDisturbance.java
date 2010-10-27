@@ -1,5 +1,8 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidLocationException;
+
 /**
  * A class that represents a public disturbance.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
@@ -12,20 +15,20 @@ public class PublicDisturbance extends Emergency {
     private long numberOfPeople;
 
     /**
-     * Makes a new public disturbance emergency with the given parameters and put this new
-     * public disturbance emergency in the given emergencylist if the given id is valid.
-     * @param emergencies
-     *		The list of emergencies where this public disturbance emergency must be put in.
+     * Makes a new public disturbance emergency with the given parameters.
      * @param location
      *		The location of this public disturbance emergency.
      * @param severity
      *		The severity of this public disturbance emergency.
      * @param numberOfPeople
      *		The number of people that are involved in this public disturbance.
+     * @effect super(location,severity)
+     * @throws InvalidLocationException If the given location is an invalid location for an emergency.
+     * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
      */
-    public PublicDisturbance(EmergencyList emergencies, GPSCoordinate location,
-            EmergencySeverity severity, long numberOfPeople) {
-        super(emergencies, location, severity);
+    public PublicDisturbance(GPSCoordinate location,
+            EmergencySeverity severity, long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException {
+        super(location, severity);
         setNumberOfPeople(numberOfPeople);
     }
 

@@ -9,10 +9,10 @@ import projectswop20102011.exceptions.InvalidLocationException;
 /**
  * A class that represents an emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
- * @invar The location of an emergency is always valid | hasValidLocation()
- * @invar The severity of an emergency is always valid | hasValidSeverity()
- * @invar The status of an emergency is always valid | hasValidEmergency()
- * @invar Every emergency has a unique id
+ * @invar The location of an emergency is always valid. | hasValidLocation()
+ * @invar The severity of an emergency is always valid. | hasValidSeverity()
+ * @invar The status of an emergency is always valid. | hasValidEmergency()
+ * @invar Every emergency has a unique id.
  */
 public class Emergency {
 
@@ -47,7 +47,7 @@ public class Emergency {
      * @throws InvalidLocationException If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
      * @post This location is equal to the parameter location. |location.equals(this.getLocation())
-     * @post This severity is equal to the parameter severity. |severity.equals(this.severity)
+     * @post This severity is equal to the parameter severity. |severity.equals(this.getSeverity())
      */
     public Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
         this.id = idDispatcher++;
@@ -66,6 +66,7 @@ public class Emergency {
      * @param location
      *		The location of this emergency.
      * @throws InvalidLocationException If the given location isn't valid for an emergency.
+     * @post This location is equal to the given location. | location.equals(getLocation())
      */
     private void setLocation(GPSCoordinate location) throws InvalidLocationException {
         if(!isValidLocation(location)) {
@@ -79,6 +80,7 @@ public class Emergency {
      * @param severity
      *		The severity of this emergency.
      * @throws InvalidEmergencySeverityException If the given severity level is invalid for an emergency.
+     * @post This severity level is equal to the given severity level. | severity.equals(getSeverity())
      */
     private void setSeverity(EmergencySeverity severity) throws InvalidEmergencySeverityException {
         if(!isValidSeverity(severity)) {
@@ -92,6 +94,7 @@ public class Emergency {
      * @param status
      *		The status of this emergency.
      * @throws InvalidEmergencyStatusException If the given staus is invalid for an emergency.
+     * @post This status is equal to the given status. | status.equals(getStatus())
      */
     private void setStatus(EmergencyStatus status) throws InvalidEmergencyStatusException {
         if(!isValidStatus(status)) {
