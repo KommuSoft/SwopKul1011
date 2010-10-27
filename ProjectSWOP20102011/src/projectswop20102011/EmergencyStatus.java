@@ -51,8 +51,8 @@ public enum EmergencyStatus {
      * @return An EmergencyStatus that is the equivalent of the textual representation.
      * @throws InvalidEmergencyStatusException If no EmergencyStatus matches the textual representation.
      */
-    public static FireSize parse(String textualRepresentation) throws InvalidEmergencyStatusException {
-        for (FireSize es : FireSize.values()) {
+    public static EmergencyStatus parse(String textualRepresentation) throws InvalidEmergencyStatusException {
+        for (EmergencyStatus es : EmergencyStatus.values()) {
             if (es.matches(textualRepresentation)) {
                 return es;
             }

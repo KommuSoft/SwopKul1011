@@ -6,8 +6,9 @@ package projectswop20102011.exceptions;
  */
 public class InvalidEmergencyStatusException extends Exception {
 
+    private static final long serialVersionUID = 1L;
+
     public InvalidEmergencyStatusException(String message) {
         super(message);
     }
-
 }

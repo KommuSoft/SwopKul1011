@@ -57,9 +57,9 @@ public enum FireSize {
      * @throws InvalidFireSizeException If no FireSize matches the textual representation.
      */
     public static FireSize parse(String textualRepresentation) throws InvalidFireSizeException {
-        for (FireSize es : FireSize.values()) {
-            if (es.matches(textualRepresentation)) {
-                return es;
+        for (FireSize fs : FireSize.values()) {
+            if (fs.matches(textualRepresentation)) {
+                return fs;
             }
         }
         throw new InvalidFireSizeException(String.format("Unknown fire size level \"%s\".", textualRepresentation));
