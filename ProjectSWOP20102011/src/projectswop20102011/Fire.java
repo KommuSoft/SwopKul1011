@@ -163,7 +163,8 @@ public class Fire extends Emergency {
 
     /**
      * Checks if the given number of injured people is a valid number for a fire emergency.
-     * @param numberOfInjured The number of injured people to validate.
+     * @param numberOfInjured
+	 *		The number of injured people to validate.
      * @return True if injured people is larger or equal to zero, otherwise false.
      */
     public static boolean isValidNumberOfInjured(long numberOfInjured) {

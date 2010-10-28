@@ -154,8 +154,9 @@ public abstract class Emergency {
     }
 
     /**
-     * Cehcs if the given status is a valid status of an emergency.
-     * @param status The status to check.
+     * Checks if the given status is a valid status of an emergency.
+     * @param status
+	 *		The status to check.
      * @return true if the status is effective, otherwise false.
      */
     public static boolean isValidStatus(EmergencyStatus status) {
@@ -163,7 +164,7 @@ public abstract class Emergency {
     }
 
     /**
-     * Checs if the current status is valid.
+     * Checks if the current status is valid.
      * @return True if the current status is valid, otherwise false.
      * @note This method tests an invariant and so must be always true.
      */
@@ -173,7 +174,8 @@ public abstract class Emergency {
 
     /**
      * Checks if the given location is a valid location for an emergency.
-     * @param location The location to test.
+     * @param location
+	 *		The location to test.
      * @return True if the location is effective, otherwise false.
      */
     public static boolean isValidLocation(GPSCoordinate location) {
