@@ -14,7 +14,7 @@ import projectswop20102011.exceptions.InvalidLocationException;
  * @invar The status of an emergency is always valid. | hasValidEmergency()
  * @invar Every emergency has a unique id.
  */
-public class Emergency {
+public abstract class Emergency {
 
     /**
      * A static field that generates id's for the constructed emergencies,
@@ -49,7 +49,7 @@ public class Emergency {
      * @post This location is equal to the parameter location. |location.equals(this.getLocation())
      * @post This severity is equal to the parameter severity. |severity.equals(this.getSeverity())
      */
-    public Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
+    protected Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
         this.id = idDispatcher++;
         setLocation(location);
         setSeverity(severity);

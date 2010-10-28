@@ -173,6 +173,7 @@ public class Fire extends Emergency {
     /**
      * Checks if the number of injured people is valid.
      * @return True if the number of injured people is valid, otherwise false.
+     * @note This method tests an invariant, the result must always be true.
      */
     public boolean hasValidNumberOfInjured() {
         return isValidNumberOfInjured(this.getNumberOfInjured());

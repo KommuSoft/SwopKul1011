@@ -5,16 +5,20 @@ import projectswop20102011.exceptions.InvalidCoordinateException;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidFireSizeException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class EmergencyListTest {
 
-    private EmergencyList el1;
+    private EmergencyList el1, el2;
     private Emergency e1, e2;
     private GPSCoordinate l1, l2;
     private long x1, y1, x2, y2;
 
     @Before
-    public void setUp() throws InvalidCoordinateException {
+    public void setUp() throws InvalidCoordinateException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         x1 = 12;
         y1 = 789;
         x2 = 95;
@@ -23,6 +27,9 @@ public class EmergencyListTest {
         l2 = new GPSCoordinate(x2, y2);
 
         el1 = new EmergencyList();
+        e1 = new Fire(l1, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+        el2 = new EmergencyList();
+        e2 = new PublicDisturbance(l1, EmergencySeverity.URGENT, 1302);
     }
 
     @Test
@@ -31,15 +38,19 @@ public class EmergencyListTest {
         assertEquals(0, el1.getEmergencies().size());
     }
 
-    @Test(expected = InvalidEmergencyException.class)
+    @Test
     public void testAdd() throws InvalidEmergencyException {
-        e1 = new Emergency(el1, l1, EmergencySeverity.URGENT);
         el1.addEmergency(e1);
         assertEquals(1, el1.getEmergencies().size());
         assertEquals(e1, el1.getEmergencies().get(0));
+        el1.addEmergency(e2);
+        assertEquals(2, el1.getEmergencies().size());
+        assertEquals(e2, el1.getEmergencies().get(1));
+    }
 
-        el1.addEmergency(e1);
-        assertEquals(1, el1.getEmergencies().size());
-        assertEquals(e1, el1.getEmergencies().get(0));
+    @Test(expected = InvalidEmergencyException.class)
+    public void testAddException() throws InvalidEmergencyException {
+        el2.addEmergency(e1);
+        el2.addEmergency(e1);
     }
 }

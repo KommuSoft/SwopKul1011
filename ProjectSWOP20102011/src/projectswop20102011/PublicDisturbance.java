@@ -53,7 +53,7 @@ public class PublicDisturbance extends Emergency {
      */
     private void setNumberOfPeople(long numberOfPeople) throws NumberOutOfBoundsException {
         if(!isValidNumberOfPeople(numberOfPeople)) {
-            throw new NumberOutOfBoundsException(String.format("The number of people involved in a public disturbance must be strict larger than zero and not \"%s\"."));
+            throw new NumberOutOfBoundsException(String.format("The number of people involved in a public disturbance must be strict larger than zero and not \"%s\".",numberOfPeople));
         }
         this.numberOfPeople = numberOfPeople;
     }

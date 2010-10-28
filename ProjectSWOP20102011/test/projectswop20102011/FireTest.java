@@ -1,15 +1,17 @@
 package projectswop20102011;
 
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidCoordinateException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidFireSizeException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class FireTest {
 
     private Fire f1;
-    private EmergencyList el1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
     private FireSize fs1;
@@ -24,7 +26,6 @@ public class FireTest {
         x1 = 10;
         y1 = 156;
 
-        el1 = new EmergencyList();
         gp1 = new GPSCoordinate(x1, y1);
         es1 = EmergencySeverity.NORMAL;
         fs1 = FireSize.LOCAL;
@@ -34,8 +35,8 @@ public class FireTest {
     }
 
     @Test
-    public void testShortConstructor() throws InvalidEmergencyException {
-        f1 = new Fire(el1, gp1, es1, fs1, chemical1, trappedPeople1, nmbOfInjured1);
+    public void testConstructor() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople1, nmbOfInjured1);
         assertEquals(x1, f1.getLocation().getX());
         assertEquals(y1, f1.getLocation().getY());
         assertEquals(EmergencySeverity.NORMAL, f1.getSeverity());
@@ -43,21 +44,25 @@ public class FireTest {
         assertEquals(chemical1, f1.isChemical());
         assertEquals(trappedPeople1, f1.hasTrappedPeople());
         assertEquals(nmbOfInjured1, f1.getNumberOfInjured());
-        assertEquals(1, el1.getEmergencies().size());
-        assertEquals(f1, el1.getEmergencies().get(0));
     }
 
-    @Test
-    public void testExtendedConstructor() throws InvalidEmergencyException {
-        f1 = new Fire(el1, gp1, es1, fs1, chemical1, trappedPeople1, nmbOfInjured1);
-        assertEquals(x1, f1.getLocation().getX());
-        assertEquals(y1, f1.getLocation().getY());
-        assertEquals(EmergencySeverity.NORMAL, f1.getSeverity());
-        assertEquals(FireSize.LOCAL, f1.getSize());
-        assertEquals(chemical1, f1.isChemical());
-        assertEquals(trappedPeople1, f1.hasTrappedPeople());
-        assertEquals(nmbOfInjured1, f1.getNumberOfInjured());
-        assertEquals(1, el1.getEmergencies().size());
-        assertEquals(f1, el1.getEmergencies().get(0));
+    @Test(expected = InvalidLocationException.class)
+    public void testConstructorException1() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        f1 = new Fire(null, es1, fs1, chemical1, trappedPeople1, nmbOfInjured1);
+    }
+
+    @Test(expected = InvalidEmergencySeverityException.class)
+    public void testConstructorException2() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        f1 = new Fire(gp1, null, fs1, chemical1, trappedPeople1, nmbOfInjured1);
+    }
+
+    @Test(expected = InvalidFireSizeException.class)
+    public void testConstructorException3() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        f1 = new Fire(gp1, es1, null, chemical1, trappedPeople1, nmbOfInjured1);
+    }
+
+    @Test(expected = NumberOutOfBoundsException.class)
+    public void testConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople1, -42);
     }
 }
