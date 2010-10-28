@@ -20,8 +20,6 @@ public class Robbery extends Emergency {
 
     /**
      * Makes a new robbery emergency with the given parameters.
-     * @param emergencies
-     *		The list of emergencies where this robbery emergency must be put in.
      * @param location
      *		The location of this robbery emergency.
      * @param severity
@@ -33,6 +31,7 @@ public class Robbery extends Emergency {
      * @effect super(location,severity)
      * @throws InvalidLocationException If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
+     * @post The is armed parameter of the robery is equal to the given parameter. | armed.equals(isArmed())
      */
     public Robbery(GPSCoordinate location, EmergencySeverity severity,
             boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
@@ -53,6 +52,7 @@ public class Robbery extends Emergency {
      * Sets the armed indicator to the given value.
      * @param armed
      *		The new value of the armed indicator.
+     * @post The is armed parameter of this robbery is equal to the given parameter. | armed.equals(isArmed())
      */
     private void setArmed(boolean armed) {
         this.armed = armed;
@@ -70,6 +70,7 @@ public class Robbery extends Emergency {
      * Sets the in progress indicator to the given value.
      * @param inProgress
      *		The new value of the progress indicator.
+     * @post the in progress parameter of this robbery is equal to the given parameter. | inProgress.equals(isInProgress())
      */
     private void setInProgress(boolean inProgress) {
         this.inProgress = inProgress;
