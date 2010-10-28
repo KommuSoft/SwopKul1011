@@ -32,6 +32,7 @@ public class Robbery extends Emergency {
      * @throws InvalidLocationException If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
      * @post The is armed parameter of the robery is equal to the given parameter. | armed.equals(isArmed())
+	 * @post the in progress parameter of this robbery is equal to the given parameter. | inProgress.equals(isInProgress())
      */
     public Robbery(GPSCoordinate location, EmergencySeverity severity,
             boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
