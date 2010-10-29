@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Iterator;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * A list of emergencies where every emergency is unique.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public class EmergencyList {
+public class EmergencyList implements Iterable<Emergency> {
 
     /**
      * The inner list to manage the emergencies.
@@ -36,8 +37,8 @@ public class EmergencyList {
      * @param e
      *		Emergency to be appended to this list of emergencies.
      * @throws InvalidEmergencyException
-     *		If the given emergency is invalid. I.e. there already exists an emergency
-     *		with the same id.
+     *		If the given Emergency is already in this EmergencyList.
+     * @post This EmergencyList contains the given Emergency.
      */
     void addEmergency(Emergency e) throws InvalidEmergencyException {
         for (int i = 0; i < getEmergencies().size(); ++i) {
@@ -54,6 +55,16 @@ public class EmergencyList {
      * @return a list with all the emergencies in this EmergencyList who are validated by the EmergencyCriterium.
      */
     public Emergency[] getEmergenciesByCriterium(EmergencyEvaluationCriterium criterium) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    /**
+     * Generates an iterator to iterate over the list of emergencies.
+     * @return An iterator to iterate of the list of emergencies.
+     */
+    @Override
+    public Iterator<Emergency> iterator() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 }
