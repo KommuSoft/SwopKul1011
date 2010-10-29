@@ -28,27 +28,26 @@ public class MainUserInterface extends UserInterface {
     @Override
     public void HandleUserInterface() {
         //writing project header
-        System.out.println("Project SWOP v. 1.618034\n");
-        String actor = null;
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader in = new BufferedReader(isr);
+        writeOutput("Project SWOP v. 1.618034\n");
+        String actor;
         while (true) {
-            System.out.println("Who is the actor?");
-            System.out.print("> ");
-            try {
-                actor = in.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(MainUserInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            writeOutput("Who is the actor?");
+            actor = readInput();
             if (actor.toLowerCase().equals("quit")) {
-                System.out.println("\nEnd of the demonstration of project SWOP v. 1.618034");
                 break;
             }
-            if (this.actorUserInterfaces.containsKey(actor.toLowerCase())) {
+            else if(actor.toLowerCase().equals("help")) {
+                writeOutput("You can choose one of the following actors:");
+                for(String s : this.actorUserInterfaces.keySet()) {
+                    writeOutput(String.format("\t%s",s));
+                }
+            }
+            else if(this.actorUserInterfaces.containsKey(actor.toLowerCase())) {
                 this.actorUserInterfaces.get(actor.toLowerCase()).HandleUserInterface();
             } else {
-                System.out.println(String.format("I can't find actor \"%s\", please try again.",actor));
+                writeOutput(String.format("I can't find actor \"%s\", please try again.",actor));
             }
         }
+        writeOutput("\nEnd of the demonstration of project SWOP v. 1.618034");
     }
 }
