@@ -22,7 +22,7 @@ public class PolicecarTest {
 		name = "Politiewagen";
 		assigned = false;
 		currentLocation = new GPSCoordinate(x1,y1);
-		homeLocation = new GPSCoordinate(x2,x2);
+		homeLocation = new GPSCoordinate(x2,y2);
 
 	}
 

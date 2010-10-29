@@ -61,13 +61,13 @@ public class StatusEqualityEmergencyEvaluationCriteriumTest {
     @Test
     public void testConstructor () {
         StatusEqualityEmergencyEvaluationCriterium seeec1 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RECORDED_BUT_UNHANDLED);
-        assertEquals(seeec1.getStatus(),EmergencyStatus.RECORDED_BUT_UNHANDLED);
+        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, seeec1.getStatus());
         StatusEqualityEmergencyEvaluationCriterium seeec2 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RESPONSE_IN_PROGRESS);
-        assertEquals(seeec2.getStatus(),EmergencyStatus.RESPONSE_IN_PROGRESS);
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, seeec2.getStatus());
         StatusEqualityEmergencyEvaluationCriterium seeec3 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.FINISHED);
-        assertEquals(seeec3.getStatus(),EmergencyStatus.FINISHED);
+        assertEquals(EmergencyStatus.FINISHED, seeec3.getStatus());
         StatusEqualityEmergencyEvaluationCriterium seeec4 = new StatusEqualityEmergencyEvaluationCriterium(null);
-        assertEquals(seeec4.getStatus(),null);
+        assertEquals(null, seeec4.getStatus());
     }
 
 }
