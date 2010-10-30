@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-	public abstract class UnitBuilding{
+public abstract class UnitBuilding{
 
 	/**
 	 * A variable registering the name of this unit or building.

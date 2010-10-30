@@ -9,7 +9,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-	public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
+public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
 
 	/**
 	 * A variable registering the speed of this timesensitive unit or building

@@ -12,28 +12,29 @@ public class World {
     private EmergencyList emergencyList;
 
 	/**
-     * A variable that registers the unitBuildingList of this world.
+     * A variable that registers the notTimeSensitiveUnitBuildingList of this world.
      */
-    private UnitBuildingList unitBuildingList;
+    private NotTimeSensitiveUnitBuildingList notTimeSensitiveUnitBuildingList;
 
 	/**
-     * A variable that registers the timeSensitiveList of this world.
+     * A variable that registers the timeSensitiveUnitBuildingList of this world.
      */
-    private TimeSensitiveList timeSensitiveList;
+    private TimeSensitiveUnitBuildingList timeSensitiveUnitBuildingList;
 
 	/**
 	 * Creates a new world
 	 */
     public World () {
         setEmergencyList(new EmergencyList());
-		setUnitBuildingList(new UnitBuildingList());
-		setTimeSensitiveList(new TimeSensitiveList());
+		setNotTimeSensitiveUnitBuildingList(new NotTimeSensitiveUnitBuildingList());
+		setTimeSensitiveUnitBuildingList(new TimeSensitiveUnitBuildingList());
     }
 
 	/**
      * Sets the emergencylist of this world.
      * @param emergencyList
      *		The emergencylist of this world.
+	 * @post The is emergencyList attribute of this world is equal to the given parameter.
 	 */
 	private void setEmergencyList(EmergencyList emergencyList){
 		this.emergencyList = emergencyList;
@@ -49,39 +50,42 @@ public class World {
     }
 
 	/**
-     * Sets the unitBuildingList of this world.
-     * @param unitBuildingList
-     *		The new UnitBuildingList of this world.
+     * Sets the notTimeSensitiveUnitBuildingList of this world.
+     * @param notTimeSensitiveUnitBuildingList
+     *		The new NotTimeSensitiveUnitBuildingList of this world.
+	 * @post The is notTimeSensitiveUnitBuildingLiest attribute of this world is
+	 *		equal to the given parameter.
 	 */
-	private void setUnitBuildingList(UnitBuildingList unitBuildingList){
-		this.unitBuildingList = unitBuildingList;
+	private void setNotTimeSensitiveUnitBuildingList(NotTimeSensitiveUnitBuildingList notTimeSensitiveUnitBuildingList){
+		this.notTimeSensitiveUnitBuildingList = notTimeSensitiveUnitBuildingList;
 	}
 
 	/**
-     * Returns the unitBuildingList of this world.
+     * Returns the notTimeSensitiveUnitBuildingList of this world.
 	 *
-     * @return The unitBuildingList of this world.
+     * @return The notTimeSensitiveUnitBuildingList of this world.
 	 */
-    public UnitBuildingList getUnitBuildingList () {
-        return this.unitBuildingList;
+    public NotTimeSensitiveUnitBuildingList getNotTimeSensitiveUnitBuildingList () {
+        return this.notTimeSensitiveUnitBuildingList;
     }
 
 	/**
-     * Sets the timeSensitiveList of this world.
-     * @param timeSensitiveList
-     *		The timeSensitiveList of this world.
+     * Sets the timeSensitiveUnitBuildingList of this world.
+     * @param timeSensitiveUnitBuildingList
+     *		The timeSensitiveUnitBuildingList of this world.
+	 * @post The is timeSensitiveUnitBuildingLiest attribute of this world is
+	 *		equal to the given parameter.
 	 */
-	private void setTimeSensitiveList(TimeSensitiveList timeSensitiveList){
-		this.timeSensitiveList = timeSensitiveList;
+	private void setTimeSensitiveUnitBuildingList(TimeSensitiveUnitBuildingList timeSensitiveUnitBuildingList){
+		this.timeSensitiveUnitBuildingList = timeSensitiveUnitBuildingList;
 	}
 
 	/**
-     * Returns the timeSensitiveList of this world.
-	 *
-     * @return The timeSensitiveList of this world.
+     * Returns the timeSensitiveUnitBuildingList of this world.
+     * @return The timeSensitiveUnitBuildingList of this world.
 	 */
-    public TimeSensitiveList getTimeSensitiveList () {
-        return this.timeSensitiveList;
+    public TimeSensitiveUnitBuildingList getTimeSensitiveUnitBuildingList () {
+        return this.timeSensitiveUnitBuildingList;
     }
 
 }

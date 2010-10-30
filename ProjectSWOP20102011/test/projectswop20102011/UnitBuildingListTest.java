@@ -5,18 +5,18 @@ import static org.junit.Assert.*;
 
 public class UnitBuildingListTest {
 
-    private UnitBuildingList ubl1, ubl2;
+    private NotTimeSensitiveUnitBuildingList ubl1, ubl2;
 
     @Before
     public void setUp(){
-        ubl1 = new UnitBuildingList();
-        ubl2 = new UnitBuildingList();
+        ubl1 = new NotTimeSensitiveUnitBuildingList();
+        ubl2 = new NotTimeSensitiveUnitBuildingList();
     }
 
     @Test
     public void testConstructor() {
         assertNotNull(ubl1);
-        assertEquals(0, ubl1.getUnitBuildings().size());
+        assertEquals(0, ubl1.getNotTimeSensitiveUnitBuildings().size());
     }
 
     @Test

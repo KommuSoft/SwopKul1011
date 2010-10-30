@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /**
  * A list of emergencies where every emergency is unique.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ * @invar Every Emergency in this EmergencyList is unique.
  */
 public class EmergencyList implements Iterable<Emergency> {
 
