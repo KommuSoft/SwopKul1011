@@ -43,7 +43,7 @@ public class NotTimeSensitiveUnitBuildingList implements Iterable<NotTimeSensiti
      *		If the given NotTimeSensitiveUnitBuilding is already in this NotTimeSensitiveUnitBuildingList.
      * @post This NotTimeSensitiveUnitBuildingList contains the given NotTimeSensitiveUnitBuilding.
      */
-    void addUnitBuilding(NotTimeSensitiveUnitBuilding ub) throws InvalidNotTimeSensitiveUnitBuildingException {
+    void addNotTimeSensitiveUnitBuilding(NotTimeSensitiveUnitBuilding ub) throws InvalidNotTimeSensitiveUnitBuildingException {
         for (int i = 0; i < getNotTimeSensitiveUnitBuildings().size(); ++i) {
             if (getNotTimeSensitiveUnitBuildings().get(i).getName().equals(ub.getName())) {
                 throw new InvalidNotTimeSensitiveUnitBuildingException("Invalid unit or building.");

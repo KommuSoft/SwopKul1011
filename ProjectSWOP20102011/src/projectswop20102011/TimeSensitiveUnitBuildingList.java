@@ -43,7 +43,7 @@ public class TimeSensitiveUnitBuildingList implements Iterable<TimeSensitiveUnit
      *		If the given TimeSensitiveUnitBuilding is already in this TimeSensitiveUnitBuildingList.
      * @post This TimeSensitiveUnitBuildingList contains the given TimeSensitiveUnitBuilding.
      */
-    void addUnitBuilding(TimeSensitiveUnitBuilding ub) throws InvalidTimeSensitiveUnitBuildingException {
+    void addTimeSensitiveUnitBuilding(TimeSensitiveUnitBuilding ub) throws InvalidTimeSensitiveUnitBuildingException {
         for (int i = 0; i < getTimeSensitiveUnitBuildings().size(); ++i) {
             if (getTimeSensitiveUnitBuildings().get(i).getName().equals(ub.getName())) {
                 throw new InvalidTimeSensitiveUnitBuildingException("Invalid unit or building.");
