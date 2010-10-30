@@ -6,6 +6,18 @@ package projectswop20102011.exceptions;
  */
 public class ParsingException extends Exception {
 
+	/**
+     * Variable registering the serivalVersionUID of this ParsingException.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructs an ParsingException with no detail message.
+     */
+    public ParsingException() {
+        super();
+    }
+
     /**
      * Creates a new instance of a ParsingException with a specified message.
      * @param message A message that explains why this message has been thrown.

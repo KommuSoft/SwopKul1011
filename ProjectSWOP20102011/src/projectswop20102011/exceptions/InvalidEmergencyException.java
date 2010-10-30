@@ -6,11 +6,11 @@ package projectswop20102011.exceptions;
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
 public class InvalidEmergencyException extends Exception{
+
 	/**
      * Variable registering the serivalVersionUID of this InvalidEmergencyException.
      */
     private static final long serialVersionUID = 1L;
-
 
     /**
      * Constructs an InvalidEmergencyException with no detail message.

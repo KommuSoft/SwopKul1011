@@ -1,7 +1,8 @@
 package projectswop20102011;
 
 import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidUnitNameException;
+import projectswop20102011.exceptions.InvalidSpeedException;
+import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 /**
  * A class that represents a firetruck.
@@ -15,21 +16,29 @@ public class Firetruck extends Unit{
 	 *
 	 * @param name
 	 *		The name of the new firetruck.
+	 * @param homeLocation
+	 *		The home location of the new firetruck.
+	 * @param speed
+	 *		The speed of the new firetruck.
 	 * @param assigned
 	 *		The assigned indicator of the new firetruck.
 	 * @param currentLocation
 	 *		The current location of the new firetruck.
-	 * @param homeLocation
-	 *		The home location of the new firetruck.
-	 * @effect the new firetruck is a unit with given name, assigned indicator,
-	 *			current location and home location.
-	 *         |super(name,assigned,currentLocation,homeLocation)
-	 * @throws InvalidUnitNameException
-	 *		If the given name is an invalid name for a firetruck.
+	 * @param destination
+	 *		The destination of the new firetruck.
+	 * @param assigned
+	 *		The assigned indicator of the new firetruck.
+	 * @effect The new firetruck is a firetruck with given name, home location, speed,
+	 *			current location, destination and assigned indicator.
+	 *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a firetruck.
+	 * @throws InvalidUnitBuildingNameException
+	 *		If the given name is an invalid name for a firetruck.
+	 * @throws InvalidSpeedException
+	 *		If the given speed is an invalid speed for a firetruck.
 	 */
-	public Firetruck(String name,boolean assigned,GPSCoordinate currentLocation, GPSCoordinate homeLocation) throws InvalidUnitNameException, InvalidLocationException{
-		super(name,assigned,currentLocation,homeLocation);
+	public Firetruck(String name,GPSCoordinate homeLocation, long speed, GPSCoordinate currentLocation, GPSCoordinate destination, boolean assigned) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+		super(name,homeLocation,speed,currentLocation,destination,assigned);
 	}
 }
