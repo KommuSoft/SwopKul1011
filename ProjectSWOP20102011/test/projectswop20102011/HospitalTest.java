@@ -3,8 +3,8 @@ package projectswop20102011;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.exceptions.InvalidHospitalNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 public class HospitalTest {
 
@@ -23,21 +23,21 @@ public class HospitalTest {
 	}
 
 	@Test
-    public void testValidConstructor() throws InvalidLocationException, InvalidHospitalNameException{
-		ziekenhuis1 = new Hospital(location,name1);
-		assertEquals(x,ziekenhuis1.getLocation().getX());
-		assertEquals(y,ziekenhuis1.getLocation().getY());
+    public void testValidConstructor() throws InvalidUnitBuildingNameException, InvalidLocationException{
+		ziekenhuis1 = new Hospital(name1,location);
+		assertEquals(x,ziekenhuis1.getHomeLocation().getX());
+		assertEquals(y,ziekenhuis1.getHomeLocation().getY());
 		assertEquals(name1,ziekenhuis1.getName());
 	}
 
-    @Test(expected = InvalidHospitalNameException.class)
-	public void testInvalidNameException() throws InvalidLocationException, InvalidHospitalNameException{
-		ziekenhuis2 = new Hospital(location,name2);
+    @Test(expected = InvalidUnitBuildingNameException.class)
+	public void testInvalidNameException() throws InvalidUnitBuildingNameException, InvalidLocationException{
+		ziekenhuis2 = new Hospital(name2,location);
 	}
 
 	@Test(expected = InvalidLocationException.class)
-	public void testInvalidLocationException() throws InvalidLocationException, InvalidHospitalNameException{
-		ziekenhuis2 = new Hospital(null,name1);
+	public void testInvalidLocationException() throws InvalidUnitBuildingNameException, InvalidLocationException{
+		ziekenhuis2 = new Hospital(name1,null);
 	}
 
 }

@@ -57,4 +57,28 @@ public abstract class Unit extends TimeSensitiveUnitBuilding{
 	Unit(String name, GPSCoordinate homeLocation, long speed, GPSCoordinate currentLocation, GPSCoordinate destination, boolean assigned) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
 		super(name,homeLocation,speed,currentLocation,destination,assigned);
 	}
+
+	/**
+	 * Initialize a new unit who is at the home location and isn't assigned.
+	 *
+	 * @param name
+	 *		The name of the new unit.
+	 * @param homeLocation
+	 *		The home location of the new unit.
+	 * @param speed
+	 *		The speed of the new unit.
+	 * @effect The new unit is a unit with given name, home location, speed,
+	 *         |this(name,homeLocation,speed,homeLocation,null,false);
+	 * @throws InvalidUnitBuildingNameException
+	 *		If the given name is an invalid name for a unit.
+	 * @throws InvalidLocationException
+	 *		If the given location is an invalid location for a unit.
+	 * @throws InvalidSpeedException
+	 *		If the given speed is an invalid speed for a unit.
+	 */
+	//TODO: Moet dit hier wel? want in de subklassen kun je ook this(...,... ...) gebruiken.
+	Unit(String name,GPSCoordinate homeLocation,long speed) throws InvalidUnitBuildingNameException, InvalidLocationException, InvalidSpeedException{
+		this(name,homeLocation,speed,homeLocation,null,false);
+	}
+
 }
