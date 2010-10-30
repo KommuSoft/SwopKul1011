@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 public class AmbulanceTest {
-	private long x1,x2,y1,y2,x3,y3,speed1;
+	private long x1,x2,y1,y2,x3,y3,speed1,duration;
 	private String name;
 	private boolean assigned;
 	private GPSCoordinate currentLocation,homeLocation,destination;
@@ -20,9 +20,10 @@ public class AmbulanceTest {
 		y1 = 4;
 		x2 = 19;
 		y2 = 90;
-		x3 = 13;
-		y3 = 2;
-		speed1 = 120;
+		x3 = 1302;
+		y3 = 2031;
+		speed1 = 90;
+		duration = 9;
 		name = "Ziekenwagen";
 		assigned = false;
 		currentLocation = new GPSCoordinate(x1,y1);
@@ -43,5 +44,15 @@ public class AmbulanceTest {
 		assertEquals(x3,ziekenwagen.getDestination().getX());
 		assertEquals(y3,ziekenwagen.getDestination().getY());
 		assertEquals(assigned,ziekenwagen.isAssigned());
+	}
+
+	@Test
+	public void testChangeLocation() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
+		ziekenwagen = new Ambulance(name,homeLocation,speed1,currentLocation,destination,assigned);
+		ziekenwagen.changeLocation(duration);
+		assertEquals(446,ziekenwagen.getCurrentLocation().getX());
+		assertEquals(687,ziekenwagen.getCurrentLocation().getY());
+		assertEquals(x3,ziekenwagen.getDestination().getX());
+		assertEquals(y3,ziekenwagen.getDestination().getY());
 	}
 }

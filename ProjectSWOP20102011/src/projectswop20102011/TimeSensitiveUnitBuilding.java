@@ -188,4 +188,52 @@ public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
     public static boolean isValidCurrentLocation(GPSCoordinate currentLocation) {
         return (currentLocation != null);
     }
+
+	/**
+	 *
+	 * @param duration
+	 * @throws InvalidLocationException
+	 */
+	public void changeLocation(long duration) throws InvalidLocationException{
+		if(destination==null){
+			//TODO: Zal wss wel op andere manier moeten
+			throw new NullPointerException();
+		}else{
+			long startX = getCurrentLocation().getX();
+			long startY = getCurrentLocation().getY();
+			long goalX = getDestination().getX();
+			long goalY = getDestination().getY();
+			long stopX;
+			long stopY;
+
+			double distance = calculateDistance(startX, startY,goalX,goalY);
+			double distanceX = (double)goalX-(double)startX;
+			double distanceY = (double)goalY-(double)startY;
+
+			stopX = Math.round((double)startX + (distanceX/distance)*(double)getSpeed()*(double)duration);
+			stopY = Math.round((double)startY + (distanceY/distance)*(double)getSpeed()*(double)duration);
+			GPSCoordinate stop = new GPSCoordinate(stopX,stopY);
+			setCurrentLocation(stop);
+
+			if(getCurrentLocation().getX() == getDestination().getX() &&
+					getCurrentLocation().getY() == getDestination().getY()){
+				setDestination(null);
+			}
+		}
+
+	}
+
+	/**
+	 *
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @return
+	 */
+	private double calculateDistance(long x1,long y1,long x2,long y2){
+		double distanceX = Math.pow((double)x2-(double)x1,2);
+		double distanceY = Math.pow((double)y2-(double)y1, 2);
+		return Math.sqrt(distanceX + distanceY);
+	}
 }
