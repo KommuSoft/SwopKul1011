@@ -29,7 +29,22 @@ public class ActorUserInterface extends UserInterface {
 
     @Override
     public void HandleUserInterface() {
-        
+        boolean nextRun;
+        do {
+            nextRun = false;
+            this.writeOutput("type in a command?");
+            String command = this.readInput();
+            if (command.toLowerCase().equals("help")) {
+                nextRun = true;
+                this.writeOutput("The command options are:");
+                for (String commandOption : this.commandUserInterfaces.keySet()) {
+                    this.writeOutput(String.format("\t%s", commandOption));
+                }
+            } else if (this.commandUserInterfaces.containsKey(command.toLowerCase())) {
+                UserInterface ui = this.commandUserInterfaces.get(command.toLowerCase());
+                ui.setIndentation(this.getIndentation()+1);
+                ui.HandleUserInterface();
+            }
+        } while (nextRun);
     }
-
 }

@@ -31,7 +31,7 @@ public class MainUserInterface extends UserInterface {
         writeOutput("Project SWOP v. 1.618034\n");
         String actor;
         while (true) {
-            writeOutput("Who is the actor?");
+            writeOutput("Type in the actor's name?");
             actor = readInput();
             if (actor.toLowerCase().equals("quit")) {
                 break;
@@ -43,7 +43,9 @@ public class MainUserInterface extends UserInterface {
                 }
             }
             else if(this.actorUserInterfaces.containsKey(actor.toLowerCase())) {
-                this.actorUserInterfaces.get(actor.toLowerCase()).HandleUserInterface();
+                UserInterface ui = this.actorUserInterfaces.get(actor.toLowerCase());
+                ui.setIndentation(this.getIndentation()+1);
+                ui.HandleUserInterface();
             } else {
                 writeOutput(String.format("I can't find actor \"%s\", please try again.",actor));
             }

@@ -43,7 +43,7 @@ public abstract class UserInterface {
      */
     public void setIndentation(int indentation) {
         this.indentation = indentation;
-        String indentationS = "\n";
+        String indentationS = "";
         for (int i = 0; i < indentation; i++) {
             indentationS += "\t|";
         }
@@ -63,7 +63,7 @@ public abstract class UserInterface {
 
     public void writeOutput(String message) {
         try {
-            this.getBufferedWriter().write(this.indentationString + message);
+            this.getBufferedWriter().write(this.indentationString + message + "\n");
             this.getBufferedWriter().flush();
         } catch (IOException ex) {
             Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
