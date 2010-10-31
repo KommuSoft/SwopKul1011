@@ -49,8 +49,8 @@ public class Firetruck extends Unit{
 	 *		The home location of the new firetruck.
 	 * @param speed
 	 *		The speed of the new firetruck.
-	 * @effect The new firetruck is a firetruck with given name, home location and speed,
-	 *         |this(name,homeLocation,speed,homeLocation,null,false);
+	 * @effect The new firetruck is a unit with given name, home location and speed,
+	 *         |super(name,homeLocation,speed,homeLocation,null,false);
 	 * @throws InvalidUnitBuildingNameException
 	 *		If the given name is an invalid name for a firetruck.
 	 * @throws InvalidLocationException
@@ -59,6 +59,6 @@ public class Firetruck extends Unit{
 	 *		If the given speed is an invalid speed for a firetruck.
 	 */
 	public Firetruck(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
-		this(name,homeLocation,speed,homeLocation,null,false);
+		super(name,homeLocation,speed,homeLocation,null,false);
 	}
 }

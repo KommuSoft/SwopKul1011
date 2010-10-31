@@ -27,11 +27,6 @@ public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
 	private GPSCoordinate destination;
 
 	/**
-	 * A variable registering whether this unit is assigned.
-	 */
-	private boolean assigned;
-
-	/**
 	 * Initialize a new timesensitive unit or building with given parameters
 	 * 
 	 * @param name
@@ -65,12 +60,11 @@ public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a timesensitive unit or building.
 	 */
-	 TimeSensitiveUnitBuilding(String name, GPSCoordinate homeLocation, long speed, GPSCoordinate currentLocation, GPSCoordinate destination, boolean assigned) throws InvalidUnitBuildingNameException, InvalidLocationException, InvalidSpeedException{
+	 TimeSensitiveUnitBuilding(String name, GPSCoordinate homeLocation, long speed, GPSCoordinate currentLocation, GPSCoordinate destination) throws InvalidUnitBuildingNameException, InvalidLocationException, InvalidSpeedException{
 		super(name,homeLocation);
 		setSpeed(speed);
 		setCurrentLocation(currentLocation);
 		setDestination(destination);
-		setAssigned(assigned);
 	}
 
 	/**
@@ -95,14 +89,6 @@ public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
 	 */
 	public GPSCoordinate getDestination(){
 		return destination;
-	}
-
-	/**
-	 * Returns whether this unit is assigned.
-	 * @return True if this unit is assigned; false otherwise.
-	 */
-	public boolean isAssigned(){
-		return assigned;
 	}
 	
 	/**
@@ -157,18 +143,6 @@ public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
 	}
 
 	/**
-	 * Sets the assigned indicator to the given value.
-	 *
-	 * @param assigned
-	 *		The new value of the assigned indicator.
-     * @post The assigned indicator of this timesensitive unit or building is set according to the given assigned indicator.
-	 *		|new.isAssigned() == assigned
-	 */
-	private void setAssigned(boolean assigned){
-		this.assigned = assigned;
-	}
-
-	/**
 	 * Checks if the given speed is a valid speed for a timesensitive unit or building.
 	 * @param speed
 	 *		The speed of a timesensitive unit or building to test.
@@ -213,7 +187,7 @@ public abstract class TimeSensitiveUnitBuilding extends UnitBuilding{
 			stopX = Math.round((double)startX + (distanceX/distance)*(double)getSpeed()*(double)duration);
 			stopY = Math.round((double)startY + (distanceY/distance)*(double)getSpeed()*(double)duration);
 			GPSCoordinate stop = new GPSCoordinate(stopX,stopY);
-			setCurrentLocation(stop);
+			changeCurrentLocation(stop);
 
 			if(getCurrentLocation().getX() == getDestination().getX() &&
 					getCurrentLocation().getY() == getDestination().getY()){

@@ -49,8 +49,8 @@ public class Policecar extends Unit{
 	 *		The home location of the new policecar.
 	 * @param speed
 	 *		The speed of the new policecar.
-	 * @effect The new policecar is a policecar with given name, home location and speed,
-	 *         |this(name,homeLocation,speed,homeLocation,null,false);
+	 * @effect The new policecar is a unit with given name, home location and speed,
+	 *         |super(name,homeLocation,speed,homeLocation,null,false);
 	 * @throws InvalidUnitBuildingNameException
 	 *		If the given name is an invalid name for a policecar.
 	 * @throws InvalidLocationException
@@ -59,7 +59,7 @@ public class Policecar extends Unit{
 	 *		If the given speed is an invalid speed for a policecar.
 	 */
 	public Policecar(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
-		this(name,homeLocation,speed,homeLocation,null,false);
+		super(name,homeLocation,speed,homeLocation,null,false);
 	}
 
 }

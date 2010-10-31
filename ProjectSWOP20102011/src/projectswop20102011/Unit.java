@@ -23,11 +23,6 @@ public abstract class Unit extends TimeSensitiveUnitBuilding{
 	private boolean assigned;
 
 	/**
-	 * A variable registering the current location of this unit.
-	 */
-	private GPSCoordinate currentLocation;
-
-	/**
 	 * Initialize a new unit with given parameters.
 	 *
 	 * @param name
@@ -45,8 +40,10 @@ public abstract class Unit extends TimeSensitiveUnitBuilding{
 	 * @param assigned
 	 *		The assigned indicator of the new unit.
 	 * @effect The new unit is a unit with given name, home location, speed,
-	 *			current location, destination and assigned indicator.
-	 *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
+	 *			current location, destination.
+	 *         |super(name,homeLocation,speed,currentLocation,destination);
+	 * @post The new unit has the given assigned indicator
+	 *		|new.isAssigned() == assigned
 	 * @throws InvalidUnitBuildingNameException
 	 *		If the given name is an invalid name for a unit.
 	 * @throws InvalidLocationException
@@ -55,7 +52,8 @@ public abstract class Unit extends TimeSensitiveUnitBuilding{
 	 *		If the given speed is an invalid speed for a unit.
 	 */
 	Unit(String name, GPSCoordinate homeLocation, long speed, GPSCoordinate currentLocation, GPSCoordinate destination, boolean assigned) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
-		super(name,homeLocation,speed,currentLocation,destination,assigned);
+		super(name,homeLocation,speed,currentLocation,destination);
+		setAssigned(assigned);
 	}
 
 	/**
@@ -76,9 +74,28 @@ public abstract class Unit extends TimeSensitiveUnitBuilding{
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a unit.
 	 */
-	//TODO: Moet dit hier wel? want in de subklassen kun je ook this(...,... ...) gebruiken.
 	Unit(String name,GPSCoordinate homeLocation,long speed) throws InvalidUnitBuildingNameException, InvalidLocationException, InvalidSpeedException{
 		this(name,homeLocation,speed,homeLocation,null,false);
+	}
+
+	/**
+	 * Returns whether this unit is assigned.
+	 * @return True if this unit is assigned; false otherwise.
+	 */
+	public boolean isAssigned(){
+		return assigned;
+	}
+
+	/**
+	 * Sets the assigned indicator to the given value.
+	 *
+	 * @param assigned
+	 *		The new value of the assigned indicator.
+     * @post The assigned indicator of this timesensitive unit or building is set according to the given assigned indicator.
+	 *		|new.isAssigned() == assigned
+	 */
+	private void setAssigned(boolean assigned){
+		this.assigned = assigned;
 	}
 
 }

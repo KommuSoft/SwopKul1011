@@ -26,7 +26,7 @@ public class Ambulance extends Unit{
 	 *		The destination of the new ambulance.
 	 * @param assigned
 	 *		The assigned indicator of the new ambulance.
-	 * @effect The new ambulance is an ambulance with given name, home location, speed,
+	 * @effect The new ambulance is a unit with given name, home location, speed,
 	 *			current location, destination and assigned indicator.
 	 *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
 	 * @throws InvalidLocationException
@@ -49,8 +49,8 @@ public class Ambulance extends Unit{
 	 *		The home location of the new ambulance.
 	 * @param speed
 	 *		The speed of the new ambulance.
-	 * @effect The new ambulance is an ambulance with given name, home location and speed,
-	 *         |this(name,homeLocation,speed,homeLocation,null,false);
+	 * @effect The new ambulance is a unit with given name, home location and speed,
+	 *         |super(name,homeLocation,speed,homeLocation,null,false);
 	 * @throws InvalidUnitBuildingNameException
 	 *		If the given name is an invalid name for an ambulance.
 	 * @throws InvalidLocationException
@@ -59,6 +59,6 @@ public class Ambulance extends Unit{
 	 *		If the given speed is an invalid speed for an ambulance.
 	 */
 	public Ambulance(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
-		this(name,homeLocation,speed,homeLocation,null,false);
+		super(name,homeLocation,speed,homeLocation,null,false);
 	}
 }
