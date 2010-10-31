@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -9,6 +10,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 public class NotTimeSensitiveUnitBuildingListTest{
 	private NotTimeSensitiveUnitBuildingList ntsubl1, ntsubl2;
+	private Iterator<NotTimeSensitiveUnitBuilding> it1;
 	private Hospital h1, h2;
 	private String name1, name2;
 	private GPSCoordinate homeLocation1, homeLocation2;
@@ -53,5 +55,23 @@ public class NotTimeSensitiveUnitBuildingListTest{
 		ntsubl2.addNotTimeSensitiveUnitBuilding(h1);
 		ntsubl2.addNotTimeSensitiveUnitBuilding(h1);
     }
+
+	@Test
+	public void testIterator() throws InvalidNotTimeSensitiveUnitBuildingException{
+		it1 = ntsubl1.iterator();
+		assertFalse(it1.hasNext());
+		ntsubl1.addNotTimeSensitiveUnitBuilding(h1);
+		it1 = ntsubl1.iterator();
+		assertTrue(it1.hasNext());
+		assertEquals(h1, it1.next());
+		assertFalse(it1.hasNext());
+        ntsubl1.addNotTimeSensitiveUnitBuilding(h2);
+		it1 = ntsubl1.iterator();
+		assertTrue(it1.hasNext());
+		assertEquals(h1, it1.next());
+		assertTrue(it1.hasNext());
+		assertEquals(h2, it1.next());
+		assertFalse(it1.hasNext());
+	}
 
 }

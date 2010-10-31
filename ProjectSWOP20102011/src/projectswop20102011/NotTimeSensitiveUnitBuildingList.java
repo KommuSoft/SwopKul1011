@@ -19,6 +19,7 @@ public class NotTimeSensitiveUnitBuildingList implements Iterable<NotTimeSensiti
     /**
      * Creating a new instance of an NotTimeSensitiveUnitBuildingList. At this moment this list
      * doesn't contain any object.
+	 * @effect The new NotTimeSensitiveUnitBuildingList is a list with no elements in it.
      */
     public NotTimeSensitiveUnitBuildingList() {
         this.notTimeSensitiveUnitBuildings = new ArrayList<NotTimeSensitiveUnitBuilding>();
@@ -58,6 +59,6 @@ public class NotTimeSensitiveUnitBuildingList implements Iterable<NotTimeSensiti
      */
     @Override
     public Iterator<NotTimeSensitiveUnitBuilding> iterator() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return notTimeSensitiveUnitBuildings.iterator();
     }
 }
