@@ -8,8 +8,8 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 /**
  * A class that represents a fire.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
- * @invar The fire size is always valid. | hasValidFireSize()
- * @invar The number of injured people is always valid. | hasValidNumberOfInjured()
+ * @invar The fire size is always valid. | isValidFireSize(getSize())
+ * @invar The number of injured people is always valid. | isValidNumberOfInjured(getNumberOfInjured())
  */
 public class Fire extends Emergency {
 
@@ -153,15 +153,6 @@ public class Fire extends Emergency {
     }
 
     /**
-     * Checks if the fire size of this fire emergency is valid.
-     * @return True if the fire size is valid, otherwise false.
-     * @note This method tests an invariant, the result must always be true.
-     */
-    public boolean hasValidFireSize() {
-        return isValidFireSize(this.getSize());
-    }
-
-    /**
      * Checks if the given number of injured people is a valid number for a fire emergency.
      * @param numberOfInjured
 	 *		The number of injured people to validate.
@@ -169,14 +160,5 @@ public class Fire extends Emergency {
      */
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
         return (numberOfInjured >= 0);
-    }
-
-    /**
-     * Checks if the number of injured people is valid.
-     * @return True if the number of injured people is valid, otherwise false.
-     * @note This method tests an invariant, the result must always be true.
-     */
-    public boolean hasValidNumberOfInjured() {
-        return isValidNumberOfInjured(this.getNumberOfInjured());
     }
 }

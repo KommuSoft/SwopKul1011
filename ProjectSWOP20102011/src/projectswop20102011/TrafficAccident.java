@@ -7,8 +7,8 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 /**
  * A class that represents a traffic accident.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
- * @invar the number of cars is always valid | hasValidNumberOfCars()
- * @invar the number of injured is always valid | hasValidNumberOfInjured()
+ * @invar the number of cars is always valid | isValidNumberOfCars(getNumberOfCars())
+ * @invar the number of injured is always valid | isValidNumberOfInjured(getNumberOfInjured())
  */
 public class TrafficAccident extends Emergency {
 
@@ -99,29 +99,11 @@ public class TrafficAccident extends Emergency {
     }
 
     /**
-     * Checks if the number of injured people is valid.
-     * @return True if the number of cars is valid, otherwise false.
-     * @note This method tests an invariant, the result must always be true.
-     */
-    public boolean hasValidNumberOfCars() {
-        return isValidNumberOfInjured(this.getNumberOfInjured());
-    }
-
-    /**
      * Checks if the given number of injured people is a valid number for a traffic accident.
      * @param numberOfInjured The number of injured people to validate.
      * @return True if numberOfInjured is larger or equal to zero, otherwise false.
      */
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
         return (numberOfInjured >= 0);
-    }
-
-    /**
-     * Checks if the number of injured people is valid.
-     * @return True if the number of injured people is valid, otherwise false.
-     * @note This method tests an invariant, the result must always be true.
-     */
-    public boolean hasValidNumberOfInjured() {
-        return isValidNumberOfInjured(this.getNumberOfInjured());
     }
 }

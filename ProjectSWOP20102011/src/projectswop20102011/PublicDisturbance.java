@@ -7,7 +7,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 /**
  * A class that represents a public disturbance.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
- * @invar The number of people involved must always be valid | hasValidNumberOfPeople()
+ * @invar The number of people involved must always be valid | isValidNumberOfPeople(getNumberOfPeople())
  */
 public class PublicDisturbance extends Emergency {
 
@@ -66,14 +66,4 @@ public class PublicDisturbance extends Emergency {
     public static boolean isValidNumberOfPeople (long numberOfPeople) {
         return (numberOfPeople > 0);
     }
-
-    /**
-     * Checks if the number of people of this public disturbance is valid.
-     * @return True if the number of people of this public disturbance is valid, otherwise false.
-     * @note This method checks an invariant, the result must always be true.
-     */
-    public boolean hasValidNumberOfPeople () {
-        return isValidNumberOfPeople(this.getNumberOfPeople());
-    }
-
 }

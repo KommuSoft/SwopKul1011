@@ -9,9 +9,9 @@ import projectswop20102011.exceptions.InvalidLocationException;
 /**
  * A class that represents an emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
- * @invar The location of an emergency is always valid. | hasValidLocation()
- * @invar The severity of an emergency is always valid. | hasValidSeverity()
- * @invar The status of an emergency is always valid. | hasValidEmergency()
+ * @invar The location of an emergency is always valid. | isValidLocation(getLocation())
+ * @invar The severity of an emergency is always valid. | isValidSeverity(getSeverity())
+ * @invar The status of an emergency is always valid. | isValidStatus(getStatus())
  * @invar Every emergency has a unique id.
  */
 public abstract class Emergency {
@@ -145,15 +145,6 @@ public abstract class Emergency {
     }
 
     /**
-     * Checks if the current severity level is valid.
-     * @return True if the severity level is valid, otherwise false.
-     * @note This method tests an invariant and so must be always true.
-     */
-    public boolean hasValidSeverity() {
-        return isValidSeverity(this.getSeverity());
-    }
-
-    /**
      * Checks if the given status is a valid status of an emergency.
      * @param status
 	 *		The status to check.
@@ -164,15 +155,6 @@ public abstract class Emergency {
     }
 
     /**
-     * Checks if the current status is valid.
-     * @return True if the current status is valid, otherwise false.
-     * @note This method tests an invariant and so must be always true.
-     */
-    public boolean hasValidStatus() {
-        return isValidStatus(this.getStatus());
-    }
-
-    /**
      * Checks if the given location is a valid location for an emergency.
      * @param location
 	 *		The location to test.
@@ -180,14 +162,5 @@ public abstract class Emergency {
      */
     public static boolean isValidLocation(GPSCoordinate location) {
         return (location != null);
-    }
-
-    /**
-     * Checks if the current location is a valid location.
-     * @return True if this location is a valid location, otherwise false.
-     * @note This method tests an invariant and so must be always true.
-     */
-    public boolean hasValidLocation() {
-        return isValidLocation(this.getLocation());
     }
 }
