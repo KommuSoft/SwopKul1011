@@ -1,6 +1,8 @@
 package projectswop20102011.controllers;
 
+import projectswop20102011.TimeSensitiveUnitBuilding;
 import projectswop20102011.World;
+import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -25,9 +27,12 @@ public class TimeAheadController extends Controller {
      * @param seconds The time difference in seconds.
      * @throws NumberOutOfBoundsException If the number of secons is smaller than zero.
      */
-    public void doTimeAheadAction (long seconds) throws NumberOutOfBoundsException {
-        if(seconds < 0)
+    public void doTimeAheadAction (long seconds) throws NumberOutOfBoundsException, InvalidLocationException {
+        if(seconds < 0) {
             throw new NumberOutOfBoundsException(String.format("The difference in time must be larger or equal to zero and not \"%s\"", seconds));
-        //todo: implement
+        }
+        for(TimeSensitiveUnitBuilding tsub : this.getWorld().getTimeSensitiveUnitBuildingList()) {
+            tsub.changeLocation(seconds);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class EmergencyList implements Iterable<Emergency> {
      *		If the given Emergency is already in this EmergencyList.
      * @post This EmergencyList contains the given Emergency.
      */
-    void addEmergency(Emergency e) throws InvalidEmergencyException {
+    public void addEmergency(Emergency e) throws InvalidEmergencyException {
         for (int i = 0; i < getEmergencies().size(); ++i) {
             if (getEmergencies().get(i).getId() == e.getId()) {
                 throw new InvalidEmergencyException();

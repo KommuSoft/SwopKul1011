@@ -2,6 +2,10 @@ package projectswop20102011.userinterface;
 
 import projectswop20102011.EmergencySeverity;
 import projectswop20102011.GPSCoordinate;
+import projectswop20102011.controllers.Controller;
+import projectswop20102011.controllers.CreateEmergencyController;
+import projectswop20102011.exceptions.InvalidCommandNameException;
+import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 
 /**
@@ -10,9 +14,15 @@ import projectswop20102011.exceptions.ParsingAbortedException;
  */
 public class CreateEmergencyUserInterface extends CommandUserInterface {
 
-    @Override
-    public String getCommandName() {
-        return "create emergency";
+
+    private final CreateEmergencyController controller;
+
+    public CreateEmergencyUserInterface (CreateEmergencyController controller) throws InvalidCommandNameException, InvalidControllerException {
+        super("create emergency");
+        if(controller == null) {
+            throw new InvalidControllerException("Controller must be effective.");
+        }
+        this.controller = controller;
     }
 
     @Override
@@ -25,6 +35,11 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
         } catch (ParsingAbortedException ex) {
             this.writeOutput("command aborted.");
         }
+    }
+
+    @Override
+    public Controller getController() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
