@@ -18,8 +18,10 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
     @Override
     public void HandleUserInterface() {
         try {
-            GPSCoordinate location = UserInterfaceParsers.ParseGPSCoordinate(this, "location of the emergency");
-            EmergencySeverity severity = UserInterfaceParsers.ParseGPSSeverity(this, "severity level of the emergency");
+            GPSCoordinate location = UserInterfaceParsers.parseGPSCoordinate(this, "location of the emergency");
+            EmergencySeverity severity = UserInterfaceParsers.parseGPSSeverity(this, "severity level of the emergency");
+            String emergencyType = UserInterfaceParsers.parseOptionsString(this, "type of the emergency", "fire","robbery","public disturbance","traffic accident");
+            
         } catch (ParsingAbortedException ex) {
             this.writeOutput("command aborted.");
         }
