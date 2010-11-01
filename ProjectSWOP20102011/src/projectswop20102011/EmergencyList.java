@@ -1,7 +1,6 @@
 package projectswop20102011;
 
 import java.util.Iterator;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import java.util.ArrayList;
 
 /**
@@ -37,16 +36,9 @@ public class EmergencyList implements Iterable<Emergency> {
      * is not already in this list of emergencies.
      * @param e
      *		Emergency to be appended to this list of emergencies.
-     * @throws InvalidEmergencyException
-     *		If the given Emergency is already in this EmergencyList.
      * @post This EmergencyList contains the given Emergency.
      */
-    public void addEmergency(Emergency e) throws InvalidEmergencyException {
-        for (int i = 0; i < getEmergencies().size(); ++i) {
-            if (getEmergencies().get(i).getId() == e.getId()) {
-                throw new InvalidEmergencyException();
-            }
-        }
+    public void addEmergency(Emergency e){
         emergencies.add(e);
     }
 

@@ -19,7 +19,7 @@ public class World {
 	/**
      * A variable that registers the timeSensitiveUnitBuildingList of this world.
      */
-    private TimeSensitiveUnitBuildingList timeSensitiveUnitBuildingList;
+    private TimeSensitiveList timeSensitiveUnitBuildingList;
 
 	/**
 	 * Creates a new world
@@ -27,7 +27,7 @@ public class World {
     public World () {
         setEmergencyList(new EmergencyList());
 		setNotTimeSensitiveUnitBuildingList(new NotTimeSensitiveUnitBuildingList());
-		setTimeSensitiveUnitBuildingList(new TimeSensitiveUnitBuildingList());
+		setTimeSensitiveUnitBuildingList(new TimeSensitiveList());
     }
 
 	/**
@@ -76,7 +76,7 @@ public class World {
 	 * @post The is timeSensitiveUnitBuildingLiest attribute of this world is
 	 *		equal to the given parameter.
 	 */
-	private void setTimeSensitiveUnitBuildingList(TimeSensitiveUnitBuildingList timeSensitiveUnitBuildingList){
+	private void setTimeSensitiveUnitBuildingList(TimeSensitiveList timeSensitiveUnitBuildingList){
 		this.timeSensitiveUnitBuildingList = timeSensitiveUnitBuildingList;
 	}
 
@@ -84,7 +84,7 @@ public class World {
      * Returns the timeSensitiveUnitBuildingList of this world.
      * @return The timeSensitiveUnitBuildingList of this world.
 	 */
-    public TimeSensitiveUnitBuildingList getTimeSensitiveUnitBuildingList () {
+    public TimeSensitiveList getTimeSensitiveUnitBuildingList () {
         return this.timeSensitiveUnitBuildingList;
     }
 

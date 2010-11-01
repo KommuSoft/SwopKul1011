@@ -10,7 +10,7 @@ import projectswop20102011.exceptions.InvalidTimeSensitiveUnitBuildingException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 public class TimeSensitiveUnitBuildingListTest{
-	private TimeSensitiveUnitBuildingList tsubl1, tsubl2;
+	private TimeSensitiveList tsubl1, tsubl2;
 	private Iterator<TimeSensitiveUnitBuilding> it1;
 	private Ambulance a1, a2;
 	private String name1, name2;
@@ -49,8 +49,8 @@ public class TimeSensitiveUnitBuildingListTest{
 
 		a2 = new Ambulance(name2, homeLocation2, speed2, currentLocation2, destination2, assigned2);
 
-		tsubl1 = new TimeSensitiveUnitBuildingList();
-		tsubl2 = new TimeSensitiveUnitBuildingList();
+		tsubl1 = new TimeSensitiveList();
+		tsubl2 = new TimeSensitiveList();
 	}
 
 	@Test
