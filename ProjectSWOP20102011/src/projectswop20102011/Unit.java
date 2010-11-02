@@ -1,5 +1,7 @@
 package projectswop20102011;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
@@ -220,16 +222,17 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive{
     }
 
 	/**
-	 *
+	 * Change the current location of this unit over a given time interval.
 	 * @param duration
-	 * @throws InvalidLocationException
+	 *		The duration of the displacement of this unit.
+	 * @effect
+	 *		The location of this unit has been changed according to a given time interval.
+	 *		Stop is the current location of this unit after the time interval.
+	 *		|changeCurrentLocation(stop)
 	 */
 	@Override
-	public void changeLocation(long duration) throws InvalidLocationException{
-		if(destination==null){
-			//TODO: Zal wss wel op andere manier moeten
-			throw new NullPointerException();
-		}else{
+	public void changeLocation(long duration){
+		if(getDestination() != null){
 			long startX = getCurrentLocation().getX();
 			long startY = getCurrentLocation().getY();
 			long goalX = getDestination().getX();
@@ -238,13 +241,18 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive{
 			long stopY;
 
 			double distance = calculateDistance(startX, startY,goalX,goalY);
-			double distanceX = (double)goalX-(double)startX;
-			double distanceY = (double)goalY-(double)startY;
+			long distanceX = goalX-startX;
+			long distanceY = goalY-startY;
 
-			stopX = Math.round((double)startX + (distanceX/distance)*(double)getSpeed()*(double)duration);
-			stopY = Math.round((double)startY + (distanceY/distance)*(double)getSpeed()*(double)duration);
+			stopX = Math.round(startX + (distanceX/distance)*getSpeed()*duration);
+			stopY = Math.round(startY + (distanceY/distance)*getSpeed()*duration);
 			GPSCoordinate stop = new GPSCoordinate(stopX,stopY);
-			changeCurrentLocation(stop);
+			try {
+				changeCurrentLocation(stop);
+			} catch (InvalidLocationException ex) {
+				ex = new InvalidLocationException("The location is invalid");
+				Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+			}
 
 			if(getCurrentLocation().getX() == getDestination().getX() &&
 					getCurrentLocation().getY() == getDestination().getY()){
@@ -255,12 +263,18 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive{
 	}
 
 	/**
-	 *
+	 * Calculates the distance from one location to another.
 	 * @param x1
+	 *		The x-coordinate of the first location.
 	 * @param y1
+	 *		The y-coordinate of the first location.
 	 * @param x2
+	 *		The x-coordinate of the second location.
 	 * @param y2
+	 *		The y-coordinate of the second location.
 	 * @return
+	 *		The distance from one location to another one.
+	 *
 	 */
 	@Override
 	public double calculateDistance(long x1,long y1,long x2,long y2){

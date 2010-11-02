@@ -42,9 +42,9 @@ public class EmergencyListTest {
     public void testAdd() throws InvalidEmergencyException {
         el1.addEmergency(e1);
         assertEquals(1, el1.getEmergencies().size());
-        assertEquals(e1, el1.getEmergencies().get(0));
+        assertTrue(el1.getEmergencies().contains(e1));
         el1.addEmergency(e2);
         assertEquals(2, el1.getEmergencies().size());
-        assertEquals(e2, el1.getEmergencies().get(1));
+        assertTrue(el1.getEmergencies().contains(e2));
     }
 }
