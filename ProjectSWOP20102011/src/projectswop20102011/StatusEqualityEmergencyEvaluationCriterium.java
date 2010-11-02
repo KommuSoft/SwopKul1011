@@ -24,7 +24,7 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
      */
     @Override
     public boolean isValidEmergency(Emergency emergency) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (emergency.getStatus() == this.getStatus());
     }
 
     /**

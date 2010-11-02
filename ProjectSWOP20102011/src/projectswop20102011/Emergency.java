@@ -163,4 +163,19 @@ public abstract class Emergency {
     public static boolean isValidLocation(GPSCoordinate location) {
         return (location != null);
     }
+
+    /**
+     * Returns a string that represents the basic information of the Emergency (type,location,severity)
+     * @return A string representing basic information of the Emergency.
+     * @see Emergency.toLongInformationString
+     */
+    public abstract String toShortInformationString ();
+
+    /**
+     * Returns a string that representa all the information of the emergency that is known.
+     * @return A string representing all the information of the emergency that is known.
+     * @see Emergency.toShortInformationString
+     */
+    public abstract String toLongInformationString ();
+
 }

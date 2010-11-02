@@ -31,7 +31,7 @@ public class InspectEmergenciesController extends Controller {
      */
     public Emergency[] inspectEmergenciesOnStatus (EmergencyStatus status) {
         EmergencyEvaluationCriterium criterium = new StatusEqualityEmergencyEvaluationCriterium(status);
-        return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium);
+        return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).toArray();
     }
 
 }

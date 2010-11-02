@@ -66,4 +66,19 @@ public class PublicDisturbance extends Emergency {
     public static boolean isValidNumberOfPeople (long numberOfPeople) {
         return (numberOfPeople > 0);
     }
+
+    /**
+     * Returns a string that represents the basic information of the public disturbance (type,location,severity)
+     * @return A string representing basic information of the public disturbance.
+     * @see PublicDisturbance.toLongInformationString
+     */
+    @Override
+    public String toShortInformationString() {
+        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+    }
+
+    @Override
+    public String toLongInformationString() {
+        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfPeople());
+    }
 }

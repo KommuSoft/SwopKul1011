@@ -106,4 +106,14 @@ public class TrafficAccident extends Emergency {
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
         return (numberOfInjured >= 0);
     }
+
+    @Override
+    public String toShortInformationString() {
+        return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+    }
+
+    @Override
+    public String toLongInformationString() {
+        return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s; number_of_cars=%s; number_of_injured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfCars(),this.getNumberOfInjured());
+    }
 }

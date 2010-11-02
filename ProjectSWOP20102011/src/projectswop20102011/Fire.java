@@ -161,4 +161,19 @@ public class Fire extends Emergency {
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
         return (numberOfInjured >= 0);
     }
+
+    /**
+     * Returns a string that represents the basic information of the Fire (type,location,severity)
+     * @return A string representing basic information of the Fire.
+     * @see Fire.toLongInformationString
+     */
+    @Override
+    public String toShortInformationString() {
+        return String.format("[Fire id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+    }
+
+    @Override
+    public String toLongInformationString() {
+        return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getSize(),this.isChemical(),this.hasTrappedPeople(),this.getNumberOfInjured());
+    }
 }

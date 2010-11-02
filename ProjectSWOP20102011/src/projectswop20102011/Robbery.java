@@ -76,4 +76,14 @@ public class Robbery extends Emergency {
     private void setInProgress(boolean inProgress) {
         this.inProgress = inProgress;
     }
+
+    @Override
+    public String toShortInformationString() {
+        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+    }
+
+    @Override
+    public String toLongInformationString() {
+        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.isArmed(),this.isInProgress());
+    }
 }

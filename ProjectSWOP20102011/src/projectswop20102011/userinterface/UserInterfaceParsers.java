@@ -4,9 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import projectswop20102011.EmergencySeverity;
 import projectswop20102011.EmergencyStatus;
+import projectswop20102011.FireSize;
 import projectswop20102011.GPSCoordinate;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 
 /**
@@ -21,6 +23,24 @@ public class UserInterfaceParsers {
      * No instances can be created
      */
     private UserInterfaceParsers() {
+    }
+
+    public static boolean parseBoolean(CreateEmergencyUserInterface channel, String parameterName) throws ParsingAbortedException {
+        while (true) {
+            channel.writeOutput(String.format("%s=? (yes/true/false/no)", parameterName));
+            String input = channel.readInput();
+            if (input.toLowerCase().equals("abort")) {
+                throw new ParsingAbortedException("Parsing boolean aborted.");
+            }
+            input = input.toLowerCase();
+            if (input.equals("yes") || input.equals("true")) {
+                return true;
+            } else if (input.equals("no") || input.equals("false")) {
+                return false;
+            } else {
+                channel.writeOutput("Unknown expression, please retry.");
+            }
+        }
     }
 
     public static GPSCoordinate parseGPSCoordinate(UserInterface channel, String parameterName) throws ParsingAbortedException {
@@ -45,7 +65,7 @@ public class UserInterfaceParsers {
         }
     }
 
-    public static EmergencySeverity parseGPSSeverity(UserInterface channel, String parameterName) throws ParsingAbortedException {
+    public static EmergencySeverity parseSeverity(UserInterface channel, String parameterName) throws ParsingAbortedException {
         while (true) {
             channel.writeOutput(String.format("%s=? (benign/normal/serious/urgent)", parameterName));
             String input = channel.readInput();
@@ -70,6 +90,21 @@ public class UserInterfaceParsers {
             try {
                 return EmergencyStatus.parse(input);
             } catch (InvalidEmergencyStatusException ex) {
+                channel.writeOutput("Unknown status, please retry.");
+            }
+        }
+    }
+
+    public static FireSize parseFireSize(UserInterface channel, String parameterName) throws ParsingAbortedException {
+        while (true) {
+            channel.writeOutput(String.format("%s=? (local/house/facility)", parameterName));
+            String input = channel.readInput();
+            if (input.toLowerCase().equals("abort")) {
+                throw new ParsingAbortedException("Parsing FireSize aborted.");
+            }
+            try {
+                return FireSize.parse(input);
+            } catch (InvalidFireSizeException ex) {
                 channel.writeOutput("Unknown status, please retry.");
             }
         }
