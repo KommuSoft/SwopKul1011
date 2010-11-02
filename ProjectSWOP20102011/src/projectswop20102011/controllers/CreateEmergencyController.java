@@ -29,12 +29,7 @@ public class CreateEmergencyController extends Controller {
     }
 
     private void addCreatedEmergencyToTheWorld (Emergency emergency) {
-        try {
-            this.getWorld().getEmergencyList().addEmergency(emergency);
-        } catch (InvalidEmergencyException ex) {
-            //can't be thrown: the emergence is just created so it can't be already in the list.
-            Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.getWorld().getEmergencyList().addEmergency(emergency);
     }
     public void createFireEmergency (GPSCoordinate location, EmergencySeverity severity, FireSize fireSize, boolean chemical, boolean trappedPeople,long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         addCreatedEmergencyToTheWorld(new Fire(location,severity,fireSize,chemical,trappedPeople,numberOfInjured));

@@ -6,12 +6,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidTimeSensitiveUnitBuildingException;
+import projectswop20102011.exceptions.InvalidTimeSensitiveException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
-public class TimeSensitiveUnitBuildingListTest{
-	private TimeSensitiveList tsubl1, tsubl2;
-	private Iterator<TimeSensitiveUnitBuilding> it1;
+public class TimeSensitiveListTest{
+	private TimeSensitiveList tsl1, tsl2;
+	private Iterator<TimeSensitive> it1;
 	private Ambulance a1, a2;
 	private String name1, name2;
 	private GPSCoordinate homeLocation1, homeLocation2;
@@ -49,44 +49,44 @@ public class TimeSensitiveUnitBuildingListTest{
 
 		a2 = new Ambulance(name2, homeLocation2, speed2, currentLocation2, destination2, assigned2);
 
-		tsubl1 = new TimeSensitiveList();
-		tsubl2 = new TimeSensitiveList();
+		tsl1 = new TimeSensitiveList();
+		tsl2 = new TimeSensitiveList();
 	}
 
 	@Test
     public void testConstructor() {
-		assertNotNull(tsubl1);
-        assertEquals(0, tsubl1.getTimeSensitiveUnitBuildings().size());
+		assertNotNull(tsl1);
+        assertEquals(0, tsl1.getTimeSensitives().size());
     }
 
     @Test
-    public void testAdd() throws InvalidTimeSensitiveUnitBuildingException {
-		tsubl1.addTimeSensitiveUnitBuilding(a1);
-        assertEquals(1, tsubl1.getTimeSensitiveUnitBuildings().size());
-        assertEquals(a1, tsubl1.getTimeSensitiveUnitBuildings().get(0));
-        tsubl1.addTimeSensitiveUnitBuilding(a2);
-        assertEquals(2, tsubl1.getTimeSensitiveUnitBuildings().size());
-        assertEquals(a2, tsubl1.getTimeSensitiveUnitBuildings().get(1));
+    public void testAdd() throws InvalidTimeSensitiveException {
+		tsl1.addTimeSensitive(a1);
+        assertEquals(1, tsl1.getTimeSensitives().size());
+        assertEquals(a1, tsl1.getTimeSensitives().get(0));
+        tsl1.addTimeSensitive(a2);
+        assertEquals(2, tsl1.getTimeSensitives().size());
+        assertEquals(a2, tsl1.getTimeSensitives().get(1));
 
 	}
 
-	@Test(expected = InvalidTimeSensitiveUnitBuildingException.class)
-    public void testAddException() throws InvalidTimeSensitiveUnitBuildingException {
-		tsubl2.addTimeSensitiveUnitBuilding(a1);
-		tsubl2.addTimeSensitiveUnitBuilding(a1);
+	@Test(expected = InvalidTimeSensitiveException.class)
+    public void testAddException() throws InvalidTimeSensitiveException {
+		tsl2.addTimeSensitive(a1);
+		tsl2.addTimeSensitive(a1);
     }
 
 	@Test
-	public void testIterator() throws InvalidTimeSensitiveUnitBuildingException {
-		it1 = tsubl1.iterator();
+	public void testIterator() throws InvalidTimeSensitiveException {
+		it1 = tsl1.iterator();
 		assertFalse(it1.hasNext());
-		tsubl1.addTimeSensitiveUnitBuilding(a1);
-		it1 = tsubl1.iterator();
+		tsl1.addTimeSensitive(a1);
+		it1 = tsl1.iterator();
 		assertTrue(it1.hasNext());
 		assertEquals(a1, it1.next());
 		assertFalse(it1.hasNext());
-        tsubl1.addTimeSensitiveUnitBuilding(a2);
-		it1 = tsubl1.iterator();
+        tsl1.addTimeSensitive(a2);
+		it1 = tsl1.iterator();
 		assertTrue(it1.hasNext());
 		assertEquals(a1, it1.next());
 		assertTrue(it1.hasNext());

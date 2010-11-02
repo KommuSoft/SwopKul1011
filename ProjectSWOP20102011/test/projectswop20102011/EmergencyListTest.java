@@ -47,10 +47,4 @@ public class EmergencyListTest {
         assertEquals(2, el1.getEmergencies().size());
         assertEquals(e2, el1.getEmergencies().get(1));
     }
-
-    @Test(expected = InvalidEmergencyException.class)
-    public void testAddException() throws InvalidEmergencyException {
-        el2.addEmergency(e1);
-        el2.addEmergency(e1);
-    }
 }

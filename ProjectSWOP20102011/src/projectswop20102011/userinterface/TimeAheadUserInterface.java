@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 
@@ -28,6 +29,7 @@ public class TimeAheadUserInterface extends CommandUserInterface {
      * Gets the time ahead controller used by this command user interface.
      * @return The controller used by this command user interface.
      */
+	@Override
     public TimeAheadController getController () {
         return this.controller;
     }
@@ -37,7 +39,11 @@ public class TimeAheadUserInterface extends CommandUserInterface {
         try {
             long seconds = UserInterfaceParsers.parseLong(this, "time expired in seconds");
             try {
-                this.getController().doTimeAheadAction(seconds);
+				try {
+					this.getController().doTimeAheadAction(seconds);
+				} catch (InvalidLocationException ex) {
+					Logger.getLogger(TimeAheadUserInterface.class.getName()).log(Level.SEVERE, null, ex);
+				}
             } catch (NumberOutOfBoundsException ex) {
                 this.writeOutput(String.format("ERROR: %s",ex.getMessage()));
             }

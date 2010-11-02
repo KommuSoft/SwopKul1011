@@ -5,18 +5,18 @@ package projectswop20102011.exceptions;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout and Pieter-Jan Vuylsteke
  */
-public class InvalidTimeSensitiveUnitBuildingException extends Exception{
+public class InvalidTimeSensitiveException extends Exception{
 	/**
      * Variable registering the serivalVersionUID of this InvalidEmergencyStatusException.
      */
     private static final long serialVersionUID = 1L;
 
 	/**
-     * Constructs an InvalidTimeSensitiveUnitBuildingException with the specified detail message.
+     * Constructs an InvalidTimeSensitiveException with the specified detail message.
      * @param message
      *      The detail message.
      */
-	public InvalidTimeSensitiveUnitBuildingException(String message) {
+	public InvalidTimeSensitiveException(String message) {
 		super(message);
 	}
 

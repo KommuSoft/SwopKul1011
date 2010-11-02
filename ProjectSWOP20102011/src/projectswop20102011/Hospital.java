@@ -12,7 +12,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  * @invar The name of a hospital is always valid.
  *		|isValidName(getName())
  */
-public class Hospital extends NotTimeSensitiveUnitBuilding{
+public class Hospital extends UnitBuilding{
 
 	/**
 	 * A variable registering the location of this hospital.
