@@ -81,4 +81,15 @@ public class PublicDisturbance extends Emergency {
     public String toLongInformationString() {
         return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfPeople());
     }
+
+	@Override
+	public UnitsNeeded calculateUnitsNeeded() {
+		int size = 1;
+		Class units[] = new Class[size];
+		long numbersNeeded[] = new long[size];
+		units[0] = Policecar.class;
+		numbersNeeded[0] = (getNumberOfPeople()+4)/5;
+
+		return new UnitsNeeded(numbersNeeded, units);
+	}
 }

@@ -176,4 +176,59 @@ public class Fire extends Emergency {
     public String toLongInformationString() {
         return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getSize(),this.isChemical(),this.hasTrappedPeople(),this.getNumberOfInjured());
     }
+
+	@Override
+	public UnitsNeeded calculateUnitsNeeded() {
+		int size;
+		long ambulances = getNumberOfInjured();
+		if(hasTrappedPeople()){
+			++ambulances;
+		}
+
+		Class units[];
+		long numbersNeeded[];
+
+
+		if(ambulances > 0){
+			size = 3;
+			units = new Class[size];
+			numbersNeeded = new long[size];
+			if(getSize() == FireSize.LOCAL){
+				units[0] = Firetruck.class;
+				numbersNeeded[0] = 1;
+			} else if(getSize() == FireSize.HOUSE){
+				units[0] = Firetruck.class;
+				units[1] = Policecar.class;
+				numbersNeeded[0] = 2;
+				numbersNeeded[1] = 1;
+			} else if(getSize() == FireSize.FACILITY){
+				units[0] = Firetruck.class;
+				units[1] = Policecar.class;
+				numbersNeeded[0] = 4;
+				numbersNeeded[1] = 3;
+			}
+			units[2] = Ambulance.class;
+			numbersNeeded[2] = ambulances;
+		} else {
+			size = 2;
+			units = (Class<? extends Unit>[]) new Object[size];
+			numbersNeeded = new long[size];
+			if(getSize() == FireSize.LOCAL){
+				units[0] = Firetruck.class;
+				numbersNeeded[0] = 1;
+			} else if(getSize() == FireSize.HOUSE){
+				units[0] = Firetruck.class;
+				units[1] = Policecar.class;
+				numbersNeeded[0] = 2;
+				numbersNeeded[1] = 1;
+			} else if(getSize() == FireSize.FACILITY){
+				units[0] = Firetruck.class;
+				units[1] = Policecar.class;
+				numbersNeeded[0] = 4;
+				numbersNeeded[1] = 3;
+			}
+		}
+
+		return new UnitsNeeded(numbersNeeded, units);
+	}
 }

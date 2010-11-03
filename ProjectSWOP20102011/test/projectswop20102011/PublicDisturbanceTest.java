@@ -11,6 +11,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 public class PublicDisturbanceTest {
 
     private PublicDisturbance pd1;
+	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
     private long nmbOfPeople1;
@@ -55,4 +56,13 @@ public class PublicDisturbanceTest {
     public void testShortConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
         pd1 = new PublicDisturbance(gp1, es1, -1425);
     }
+
+	@Test
+	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
+		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
+		un1 = pd1.calculateUnitsNeeded();
+		assertEquals(1, un1.getNumbersNeeded().length);
+		assertEquals(134, un1.getNumbersNeeded()[0]);
+		assertEquals(Policecar.class, un1.getUnits()[0]);
+	}
 }

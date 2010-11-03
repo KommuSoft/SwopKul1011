@@ -116,4 +116,51 @@ public class TrafficAccident extends Emergency {
     public String toLongInformationString() {
         return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s; number_of_cars=%s; number_of_injured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfCars(),this.getNumberOfInjured());
     }
+	
+	@Override
+	public UnitsNeeded calculateUnitsNeeded() {
+		int size;
+		Class units[];
+		long numbersNeeded[];
+		
+		if(getNumberOfCars() <= 2){
+			if(getNumberOfInjured() == 0){
+				size = 1;
+				units = new Class[size];
+				numbersNeeded = new long[size];
+				units[0] = Firetruck.class;
+				numbersNeeded[0] = 1;
+			} else {
+				size = 2;
+				units = new Class[size];
+				numbersNeeded = new long[size];
+				units[0] = Firetruck.class;
+				numbersNeeded[0] = 1;
+				units[1] = Ambulance.class;
+				numbersNeeded[1] = getNumberOfInjured();
+			}
+		} else {
+			if(getNumberOfInjured() == 0){
+				size = 2;
+				units = new Class[size];
+				numbersNeeded = new long[size];
+				units[0] = Firetruck.class;
+				numbersNeeded[0] = 1;
+				units[1] = Policecar.class;
+				numbersNeeded[1] = (getNumberOfCars()+1)/2;
+			} else {
+				size = 3;
+				units = new Class[size];
+				numbersNeeded = new long[size];
+				units[0] = Firetruck.class;
+				numbersNeeded[0] = 1;
+				units[1] = Ambulance.class;
+				numbersNeeded[1] = getNumberOfInjured();
+				units[2] = Policecar.class;
+				numbersNeeded[2] = (getNumberOfCars()+1)/2;
+			}
+		}
+		
+		return new UnitsNeeded(numbersNeeded, units);
+	}
 }

@@ -46,7 +46,8 @@ public class EmergencyList implements Iterable<Emergency> {
 
     /**
      * Returns all the emergencies in this EmergencyList that are valid to a certain EmergencyCriterium.
-     * @param criterium the createrium to validate potential solution on.
+     * @param criterium
+	 *		The createrium to validate potential solution on.
      * @return a list with all the emergencies in this EmergencyList who are validated by the EmergencyCriterium.
      */
     public EmergencyList getEmergenciesByCriterium(EmergencyEvaluationCriterium criterium) {

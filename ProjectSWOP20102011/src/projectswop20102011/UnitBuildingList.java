@@ -1,6 +1,7 @@
 package projectswop20102011;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import projectswop20102011.exceptions.InvalidUnitBuildingException;
 
@@ -33,6 +34,22 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
         return (ArrayList<UnitBuilding>) unitBuildings.clone();
     }
 
+	/**
+     * Returns all the UnitBuildings in this UnitBuildingList that are valid to a certain UnitBuildingCriterium.
+     * @param criterium
+	 *		The criterium to validate potential solution on.
+     * @return a list with all the UnitBuildings in this UnitBuildingList who are validated by the UnitBuildingCriterium.
+     */
+    public UnitBuildingList getUnitBuildingsByCriterium(UnitBuildingEvaluationCriterium criterium) throws InvalidUnitBuildingException {
+        UnitBuildingList list = new UnitBuildingList();
+        for(UnitBuilding u : this) {
+            if(criterium.isValidUnitBuilding(u)) {
+                list.addUnitBuilding(u);
+            }
+        }
+        return list;
+    }
+
     /**
      * Adds the given UnitBuilding to this list if the given UnitBuilding
 	 * is not already in this list of units and buildings.
@@ -59,4 +76,22 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
     public Iterator<UnitBuilding> iterator() {
         return unitBuildings.iterator();
     }
+
+	//@TODO: zelfde distance is probleem
+	public ArrayList<Hospital> sort(Emergency e){
+		HashMap<Double, Hospital> hm = new HashMap<Double, Hospital>();
+		DistanceCalculator dc = new DistanceCalculator(e.getLocation());
+
+		for(int i=0; i<getUnitBuildings().size(); ++i){
+			double distance = dc.getDistanceTo(getUnitBuildings().get(i).getHomeLocation());
+			hm.put(distance, (Hospital) getUnitBuildings().get(i));
+		}
+		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+		for(Hospital h: hm.values()){
+			System.out.println(h);
+			hospitals.add(h);
+		}
+
+		return hospitals;
+	}
 }

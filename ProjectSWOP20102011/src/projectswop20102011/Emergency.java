@@ -178,4 +178,6 @@ public abstract class Emergency {
      */
     public abstract String toLongInformationString ();
 
+	public abstract UnitsNeeded calculateUnitsNeeded();
+
 }

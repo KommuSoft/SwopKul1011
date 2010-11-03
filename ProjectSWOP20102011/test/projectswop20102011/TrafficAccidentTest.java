@@ -12,7 +12,8 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 public class TrafficAccidentTest {
 
     private TrafficAccident ta1;
-    private GPSCoordinate gp1;
+    private UnitsNeeded un1;
+	private GPSCoordinate gp1;
     private EmergencySeverity es1;
     private long nmbOfCars1;
     private long nmbOfInjured1;
@@ -59,4 +60,44 @@ public class TrafficAccidentTest {
     public void testConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
         ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, -1);
     }
+
+	@Test
+	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+		ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, nmbOfInjured1);
+		un1 = ta1.calculateUnitsNeeded();
+
+		boolean firetruck = false;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+			}
+		}
+		assertTrue(firetruck);
+
+		long number = 0;
+		boolean policecar = false;
+
+		for(int i=0; i<un1.getUnits().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(policecar);
+		assertEquals(6, number);
+
+		number = 0;
+		boolean ambulance = false;
+
+		for(int i=0; i<un1.getUnits().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		assertEquals(nmbOfInjured1, number);
+	}
 }

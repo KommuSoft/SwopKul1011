@@ -10,7 +10,8 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
 
     /**
      * Creates a new instance of a StatusEqualityEmergencyEvaluationCriterium with a given EmergencyStatus to check on.
-     * @param status The EmergencyStatus that must be equal to the validating Emergency.
+     * @param status
+	 *		The EmergencyStatus that must be equal to the validating Emergency.
      * @post This status is equal to the parameter status | status == getStatus()
      */
     public StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus status) {

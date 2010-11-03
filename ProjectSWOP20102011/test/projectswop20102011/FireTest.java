@@ -12,6 +12,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 public class FireTest {
 
     private Fire f1;
+	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
     private FireSize fs1;
@@ -65,4 +66,34 @@ public class FireTest {
     public void testConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople1, -42);
     }
+
+	@Test
+	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople1, nmbOfInjured1);
+		un1 = f1.calculateUnitsNeeded();
+
+		boolean firetruck = false;
+		long number = 0;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(firetruck);
+		assertEquals(1, number);
+
+		boolean ambulance = false;
+		number = 0;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		assertEquals(123655, number);
+	}
 }

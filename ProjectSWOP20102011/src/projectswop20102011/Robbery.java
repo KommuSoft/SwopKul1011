@@ -86,4 +86,21 @@ public class Robbery extends Emergency {
     public String toLongInformationString() {
         return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.isArmed(),this.isInProgress());
     }
+
+
+	@Override
+	public UnitsNeeded calculateUnitsNeeded() {
+		int size = 1;
+		Class units[] = new Class[size];
+		long numbersNeeded[] = new long[size];
+		units[0] = Policecar.class;
+
+		if(!isArmed() || !isInProgress()){
+			numbersNeeded[0] = 1;
+		} else {
+			numbersNeeded[0] = 3;
+		}
+
+		return new UnitsNeeded(numbersNeeded, units);
+	}
 }

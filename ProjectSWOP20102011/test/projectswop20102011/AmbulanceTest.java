@@ -29,7 +29,6 @@ public class AmbulanceTest {
 		currentLocation = new GPSCoordinate(x1,y1);
 		homeLocation = new GPSCoordinate(x2,y2);
 		destination = new GPSCoordinate(x3,y3);
-
 	}
 
 	@Test
