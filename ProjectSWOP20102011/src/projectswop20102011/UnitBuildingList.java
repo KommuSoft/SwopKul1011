@@ -88,7 +88,6 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
 		}
 		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
 		for(Hospital h: hm.values()){
-			System.out.println(h);
 			hospitals.add(h);
 		}
 
