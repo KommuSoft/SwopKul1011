@@ -36,8 +36,27 @@ Ten slotte besluiten we in sectie \ref{besluit} door o.a. enkele problemen te sc
 \newpage
 \section{Overzicht van het systeem}
 \label{overzicht}
+We deelden het project op in 5 verschillende packages:
+\begin{itemize}
+ \item de domein package (\verb+projectswop20102011+)
+ \item de exception package (\verb+projectswop20102011.exceptions+)
+ \item de factory package (\verb+projectswop20102011.factories+)
+ \item de controller package (\verb+projectswop20102011.controllers+)
+ \item de userinterface package (\verb+projectswop20102011.userinterface+)
+\end{itemize}
+Deze opdeling gebeurde om de verschillende lagen van elkaar te scheiden, waarbij het domein package enkel van de exceptions afhankelijk is. Dit betekent dat het bestaan van klassen in de domeinlaag niet afhangt van het bestaan van klassen in de factory, controller en userinterface laag.
+\paragraph{}
+We zullen nu de verschillende lagen meer in detail bespreken. Centraal in de domeinlaag bevindt zich uiteraard de klasse \verb+Emergency+. Onder deze klasse komen dan de verschillende types emergencies, die elk een subklasse vormen, met hun specifieke attributen. Elk van deze emergency types heeft een eigen factory, een object die in staat is deze emergencies aan te maken. Hiermee proberen we tegemoet te komen aan mogelijke aanpassingen/toevoegingen van emergencies, waarbij we enkel een factory moeten toevoegen of aanpassen. Deze emergencies worden vervolgens bijgehouden in een \verb+EmergencyList+, dit is een set van verschillende emergencies. Op deze set kan men queries uitvoeren met behulp van een \verb+EmergencyEvaluationCriterium+. Deze abstracte klasse valideert emergencies, waarbij de geslaagde emergencies de nieuwe elementen in een nieuwe \verb+EmergencyList+ worden. Hierdoor zijn we op een eenvoudige manier in staat complexe queries uit te voeren. Een andere belangrijke klasse in de domeinlaag is de \verb+Unit+. Deze abstracte klasse houdt een bepaalde eenheid bij, namelijk een \verb+Firetruck+, \verb+Ambulance+ of \verb+Policecar+. Deze units worden vervolgens aan een bepaalde \verb+Emergency+ toegewezen. Een belangrijk aspect is hierbij dat we geen klassen als \verb+Caller+ of \verb+Call+ of \verb+Operator+ implementeren. Immers wordt nergens in een use case gespecifieerd wat het mogelijke nut hiervan zou zijn. Bovendien impliceert iedere implementatie bijkomende voorwaarden op het model, wat de uitbreidbaarheid niet ten goede komt.
+\paragraph{}
+De factory package is de hoeksteen van de uitbreidbaarheid van ons model. Dit abstract factory patroon laat ons toe om dynamisch nieuwe typen emergencies en units toe te voegen. Dit zonder andere delen van het model aan te passen. Dit concept wordt zowel voor emergencies als \verb+UnitBuilding+s toegepast. In het eerste geval om de creatie van emergencies door de actor operator generisch te doen verlopen. In het tweede geval voor het laden van de omgeving.
+\paragraph{}
+Tot slot bevat de controller package alle controllers die de domeinlaag aansturen. Hierbij beschouwen we een abstracte klasse \verb+Controller+. Hierdoor hebben alle controllers een link naar het \verb+World+ object. Dit is een object die het hele domein bijhoudt, waardoor de controllers dit kunnen aanpassen. De controllers zijn behoorlijk gelijklopend met de use cases, waarbij ook voor de initialisatie van de omgeving een aparte controller werd geschreven. In de exception package worden de verschillende exception klassen beschreven en analoog wordt in de userinterface package de userinterface beschreven.
 \newpage
 \section{Invloed van GRASP patterns}
+\verb+DIT IS EEN STUK IN HET KLAD(CORRECTHEID IS NIET GEGARANDEERD)+\\
+We zijn voor het model waarin ambulance, firetruck, policecar overerven van unit. Dit omdat meer aan het patroon van high cohesian voldaan wordt. Als we een enum aanmaken van unit type, dan wordt de klasse Unit heel groot (met geen high cohesian) omdat alle methodes voor iedere 'sub'unit moeten geimplementeerd worden in dezelfde klasse.\\\\
+De klasse UnitsNeeded wordt gebruik om high cohesian te bevorderen. Dit zorgt ervoor dat de klasse Emergency niet zwaarder wordt belast.\\\\
+Emergency is the Information Expert
 \label{grasp}
 \newpage
 \section{Uitbreidbaarheid}
@@ -45,6 +64,8 @@ Ten slotte besluiten we in sectie \ref{besluit} door o.a. enkele problemen te sc
 \newpage
 \section{Aanpak voor het testen}
 \label{testen}
+Om het ontwerp van de testen te illustreren, zullen we dit illustreren met behulp van een voorbeeld.
+
 \newpage
 \section{Projectbeheer}
 \label{projectbeheer}
