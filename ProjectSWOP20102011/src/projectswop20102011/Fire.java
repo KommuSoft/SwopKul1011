@@ -7,6 +7,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
  * A class that represents a fire.
+ * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  * @invar The fire size is always valid. | isValidFireSize(getSize())
  * @invar The number of injured people is always valid. | isValidNumberOfInjured(getNumberOfInjured())
@@ -14,24 +15,25 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 public class Fire extends Emergency {
 
     /**
-     * A variable registering the size of this fire
+     * A variable registering the size of this fire.
      */
     private FireSize size;
     /**
-     * A variable registering whether chemicals are involved or not
+     * A variable registering whether chemicals are involved or not.
      */
     private boolean chemical;
     /**
-     * A variable registering whether there are trapped people or not
+     * A variable registering whether there are trapped people or not.
      */
     private boolean trappedPeople;
     /**
-     * A variable registering the number of injured people of this fire
+     * A variable registering the number of injured people of this fire.
      */
     private long numberOfInjured;
 
     /**
      * Make a new fire emergency with the given parameters.
+	 *
      * @param location
      *		The location of this fire emergency.
      * @param severity
@@ -163,7 +165,7 @@ public class Fire extends Emergency {
     }
 
     /**
-     * Returns a string that represents the basic information of the Fire (type,location,severity)
+     * Returns a string that represents the basic information of the Fire (type,location,severity).
      * @return A string representing basic information of the Fire.
      * @see Fire.toLongInformationString
      */
@@ -172,14 +174,23 @@ public class Fire extends Emergency {
         return String.format("[Fire id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
 
+	/**
+	 * Returns a string that represents all the information of the Fire.
+	 * @return A string that represents all the information of the Fire.
+	 * @see Fire.toShortInformationString
+	 */
     @Override
     public String toLongInformationString() {
         return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getSize(),this.isChemical(),this.hasTrappedPeople(),this.getNumberOfInjured());
     }
 
+	/**
+	 * Calculates the units needed for this fire.
+	 * @return The units needed for this fire.
+	 */
 	@Override
 	public UnitsNeeded calculateUnitsNeeded() {
-		int size;
+		int fireSize;
 		long ambulances = getNumberOfInjured();
 		if(hasTrappedPeople()){
 			++ambulances;
@@ -190,9 +201,9 @@ public class Fire extends Emergency {
 
 
 		if(ambulances > 0){
-			size = 3;
-			units = new Class[size];
-			numbersNeeded = new long[size];
+			fireSize = 3;
+			units = new Class[fireSize];
+			numbersNeeded = new long[fireSize];
 			if(getSize() == FireSize.LOCAL){
 				units[0] = Firetruck.class;
 				numbersNeeded[0] = 1;
@@ -210,9 +221,9 @@ public class Fire extends Emergency {
 			units[2] = Ambulance.class;
 			numbersNeeded[2] = ambulances;
 		} else {
-			size = 2;
-			units = (Class<? extends Unit>[]) new Object[size];
-			numbersNeeded = new long[size];
+			fireSize = 2;
+			units = (Class<? extends Unit>[]) new Object[fireSize];
+			numbersNeeded = new long[fireSize];
 			if(getSize() == FireSize.LOCAL){
 				units[0] = Firetruck.class;
 				numbersNeeded[0] = 1;

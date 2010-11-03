@@ -77,17 +77,31 @@ public class Robbery extends Emergency {
         this.inProgress = inProgress;
     }
 
+	/**
+     * Returns a string that represents the basic information of this robbery.
+     * @return A string representing basic information of this robbery.
+     * @see PublicDisturbance.toLongInformationString
+	 */
     @Override
     public String toShortInformationString() {
         return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
 
+	/**
+	 * Returns a string that represents all the information of this robbery.
+	 * @return A string that represents all the information of this robbery.
+	 * @see PublicDisturbance.toShortInformationString
+	 */
     @Override
     public String toLongInformationString() {
         return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.isArmed(),this.isInProgress());
     }
 
 
+	/**
+	 * Calculates the units needed for this robbery.
+	 * @return The units needed for this robbery.
+	 */
 	@Override
 	public UnitsNeeded calculateUnitsNeeded() {
 		int size = 1;

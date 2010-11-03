@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 /**
  * A list of emergencies where every emergency is unique.
+ * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every Emergency in this EmergencyList is unique.
  */
@@ -32,7 +33,7 @@ public class EmergencyList implements Iterable<Emergency> {
     }
 
     /**
-     * Adds the given emergency to this list of emergencies if the given emergency
+     * Adds the given emergency to this list of emergencies if the given emergency.
      * is not already in this list of emergencies.
      * @param e
      *		Emergency to be appended to this list of emergencies.
@@ -47,7 +48,7 @@ public class EmergencyList implements Iterable<Emergency> {
     /**
      * Returns all the emergencies in this EmergencyList that are valid to a certain EmergencyCriterium.
      * @param criterium
-	 *		The createrium to validate potential solution on.
+	 *		The criterium to validate potential solution on.
      * @return a list with all the emergencies in this EmergencyList who are validated by the EmergencyCriterium.
      */
     public EmergencyList getEmergenciesByCriterium(EmergencyEvaluationCriterium criterium) {

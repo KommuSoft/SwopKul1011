@@ -6,6 +6,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
  * A class that represents a public disturbance.
+ * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar The number of people involved must always be valid | isValidNumberOfPeople(getNumberOfPeople())
  */
@@ -77,11 +78,20 @@ public class PublicDisturbance extends Emergency {
         return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
 
+	/**
+	 * Returns a string that represents all the information of the public disturbance.
+	 * @return A string that represents all the information of the public disturbance.
+	 * @see PublicDisturbance.toShortInformationString
+	 */
     @Override
     public String toLongInformationString() {
         return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfPeople());
     }
 
+	/**
+	 * Calculates the units needed for this public disturbance.
+	 * @return The units needed for this public disturbance.
+	 */
 	@Override
 	public UnitsNeeded calculateUnitsNeeded() {
 		int size = 1;

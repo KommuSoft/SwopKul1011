@@ -15,16 +15,6 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 public class Hospital extends UnitBuilding{
 
 	/**
-	 * A variable registering the location of this hospital.
-	 */
-	private GPSCoordinate location;
-
-	/**
-	 * A variable registering the name of this hospital.
-	 */
-	private String name;
-
-	/**
 	 * Initialize a new not-timesensitive unit or building with given parameters.
 	 *
 	 * @param name

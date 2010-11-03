@@ -79,19 +79,25 @@ public interface TimeSensitive {
     public boolean isValidCurrentLocation(GPSCoordinate currentLocation);
 
 	/**
-	 *
+	 * Change the current location of this TimeSensitive over a given time interval.
 	 * @param duration
-	 * @throws InvalidLocationException
+	 *		The duration of the displacement of this TimeSensitive.
 	 */
-	public void changeLocation(long duration) throws InvalidLocationException;
+	public void changeLocation(long duration);
 
 	/**
+	 * Calculates the distance between two locations.
 	 *
 	 * @param x1
+	 *		The x-coordinate of the first location.
 	 * @param y1
+	 *		The y-coordinate of the first location.
 	 * @param x2
+	 *		The x-coordinate of the second location.
 	 * @param y2
+	 *		The y-coordinate of the second location.
 	 * @return
+	 *		The distance from one location to another one.
 	 */
 	public double calculateDistance(long x1,long y1,long x2,long y2);
 }

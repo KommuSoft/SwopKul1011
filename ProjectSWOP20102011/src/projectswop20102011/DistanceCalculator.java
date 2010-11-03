@@ -33,12 +33,12 @@ public class DistanceCalculator{
 	}
 
 	/**
-	 * Calculates the distance to a given gps.
+	 * Calculates the distance to a given gpsCoordinate.
 	 *
-	 * @param gpsCoordinate 
+	 * @param gpsCoordinate
 	 *		The gpsCoordinate to calculate te distance to.
 	 * @return
-	 *		The distance to a given gpsCoordinate
+	 *		The distance to the given gpsCoordinate.
 	 */
 	public double getDistanceTo(GPSCoordinate gpsCoordinate){
 		double distance;

@@ -4,6 +4,7 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 
 /**
  * An enumeration that represents the size of a fire.
+ * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum FireSize {

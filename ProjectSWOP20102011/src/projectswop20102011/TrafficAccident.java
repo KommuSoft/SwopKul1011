@@ -35,8 +35,10 @@ public class TrafficAccident extends Emergency {
      * @throws InvalidLocationException If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
      * @throws NumberOutOfBoundsException If the number of involved cars or injured people is invalid.
-     * @post The number of involved cars in this traffic accident is equal to the given number of cars. | numberOfCars.equals(getNumberOfCars())
-     * @post The number of injured people in this traffic accident is equal to the given number of people. | numberOfInjured.equals(getNumberOfInjured())
+     * @post The number of involved cars in this traffic accident is equal to the given number of cars.
+	 *		| numberOfCars.equals(getNumberOfCars())
+     * @post The number of injured people in this traffic accident is equal to the given number of people.
+	 *		| numberOfInjured.equals(getNumberOfInjured())
      */
     public TrafficAccident(GPSCoordinate location, EmergencySeverity severity,
             long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
@@ -58,7 +60,8 @@ public class TrafficAccident extends Emergency {
      * @param numberOfCars
      *		The new value of the number of cars involved in this traffic accident.
      * @throws NumberOutOfBoundsException If the number of cars is invalid.
-     * @post The number of involved cars in this traffic accident is equal to the given number of cars. | numberOfCars.equals(getNumberOfCars())
+     * @post The number of involved cars in this traffic accident is equal to the given number of cars.
+	 *		| numberOfCars.equals(getNumberOfCars())
      */
     private void setNumberOfCars(long numberOfCars) throws NumberOutOfBoundsException {
         if (!isValidNumberOfCars(numberOfCars)) {
@@ -80,7 +83,8 @@ public class TrafficAccident extends Emergency {
      * @param numberOfInjured
      *		The new number of injured people involved in this traffic accident.
      * @throws NumberOutOfBoundsException If the number of cars is invalid.
-     * @post The number of injured people in this traffic accident is equal to the given number of people. | numberOfInjured.equals(getNumberOfInjured())
+     * @post The number of injured people in this traffic accident is equal to the given number of people.
+	 *		| numberOfInjured.equals(getNumberOfInjured())
      */
     private void setNumberOfInjured(long numberOfInjured) throws NumberOutOfBoundsException {
         if (!isValidNumberOfInjured(numberOfInjured)) {
@@ -107,16 +111,30 @@ public class TrafficAccident extends Emergency {
         return (numberOfInjured >= 0);
     }
 
+	/**
+     * Returns a string that represents the basic information of the traffic accident.
+     * @return A string representing basic information of the traffic accident.
+     * @see TrafficAccident.toLongInformationString
+	 */
     @Override
     public String toShortInformationString() {
         return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
 
+	/**
+     * Returns a string that represents all the information of the traffic accident.
+     * @return A string representing all the information of the traffic accident.
+     * @see TrafficAccident.toShortInformationString
+	 */
     @Override
     public String toLongInformationString() {
         return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s; number_of_cars=%s; number_of_injured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfCars(),this.getNumberOfInjured());
     }
-	
+
+	/**
+	 * Calculates the units needed for this traffic accident.
+	 * @return The units needed for this traffic accident.
+	 */
 	@Override
 	public UnitsNeeded calculateUnitsNeeded() {
 		int size;
