@@ -22,6 +22,10 @@ public class GPSCoordinate {
      *		The x coordinate of this GPS coordinate.
      * @param y
 	 *		The y coordinate of this GPS coordinate.
+     * @post The x-coordinate of this GPSCoordinate is set according to the given x-coordinate.
+	 *		|new.getX() == x
+     * @post The y-coordinate of this GPSCoordinate is set according to the given y-coordinate.
+	 *		|new.getY() == y
      */
     public GPSCoordinate(long x, long y){
         this.x = x;
