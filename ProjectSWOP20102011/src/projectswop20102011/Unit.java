@@ -33,11 +33,10 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * A variable registering the current location of this unit.
      */
     private GPSCoordinate currentLocation;
-	/**
-	 * A variable registering the emergency of this unit.
-	 */
-	private Emergency emergency;
-
+    /**
+     * A variable registering the emergency of this unit.
+     */
+    private Emergency emergency;
 
     /**
      * Initialize a new unit with given parameters.
@@ -153,23 +152,23 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         }
     }
 
-	/**
-	 * Sets the emergency of this Unit.
-	 * @param emergency
-	 *		The new emergency of this unit.
-	 */
-	private void setEmergency(Emergency emergency){
-		this.emergency = emergency;
-	}
+    /**
+     * Sets the emergency of this Unit.
+     * @param emergency
+     *		The new emergency of this unit.
+     */
+    private void setEmergency(Emergency emergency) {
+        this.emergency = emergency;
+    }
 
-	//TODO: is dit gevaarlijk
-	/**
-	 * Returns the emergency of this unit.
-	 * @return The emergency of this unit.
-	 */
-	public Emergency getEmergency(){
-		return emergency;
-	}
+    //TODO: is dit gevaarlijk? Nee
+    /**
+     * Returns the emergency of this unit.
+     * @return The emergency of this unit if the unit is assigned, otherwise null.
+     */
+    public Emergency getEmergency() {
+        return emergency;
+    }
 
     private void changeCurrentLocation(GPSCoordinate newCurrentLocation) throws InvalidLocationException {
         setCurrentLocation(newCurrentLocation);
@@ -196,48 +195,48 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         return (currentLocation != null);
     }
 
-	/**
-	 * Change the current location of this unit over a given time interval.
-	 * @param duration
-	 *		The duration of the displacement of this unit.
-	 * @effect
-	 *		The location of this unit has been changed according to a given time interval.
-	 *		Stop is the current location of this unit after the time interval.
-	 *		|changeCurrentLocation(stop)
-	 * @throws InvalidDurationException
-	 *		If the given duration is invalid.
-	 */
-	public void changeLocation(long duration)throws InvalidDurationException{
-		if(duration > 0){
-			if(getDestination() != null){
-				long startX = getCurrentLocation().getX();
-				long startY = getCurrentLocation().getY();
-				long goalX = getDestination().getX();
-				long goalY = getDestination().getY();
-				long stopX;
-				long stopY;
+    /**
+     * Change the current location of this unit over a given time interval.
+     * @param duration
+     *		The duration of the displacement of this unit.
+     * @effect
+     *		The location of this unit has been changed according to a given time interval.
+     *		Stop is the current location of this unit after the time interval.
+     *		|changeCurrentLocation(stop)
+     * @throws InvalidDurationException
+     *		If the given duration is invalid.
+     */
+    public void changeLocation(long duration) throws InvalidDurationException {
+        if (duration > 0) {
+            if (getDestination() != null) {
+                long startX = getCurrentLocation().getX();
+                long startY = getCurrentLocation().getY();
+                long goalX = getDestination().getX();
+                long goalY = getDestination().getY();
+                long stopX;
+                long stopY;
 
-				double distance = getCurrentLocation().getDistanceTo(getDestination());
-				long distanceX = goalX-startX;
-				long distanceY = goalY-startY;
+                double distance = getCurrentLocation().getDistanceTo(getDestination());
+                long distanceX = goalX - startX;
+                long distanceY = goalY - startY;
 
-				stopX = Math.round(startX + (distanceX/distance)*getSpeed()*duration/3600);
-				stopY = Math.round(startY + (distanceY/distance)*getSpeed()*duration/3600);
-				GPSCoordinate stop = new GPSCoordinate(stopX,stopY);
-				try {
-					changeCurrentLocation(stop);
-				} catch (InvalidLocationException ex) {
-					Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-				}
+                stopX = Math.round(startX + (distanceX / distance) * getSpeed() * duration / 3600);
+                stopY = Math.round(startY + (distanceY / distance) * getSpeed() * duration / 3600);
+                GPSCoordinate stop = new GPSCoordinate(stopX, stopY);
+                try {
+                    changeCurrentLocation(stop);
+                } catch (InvalidLocationException ex) {
+                    Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-				if(getCurrentLocation().getX() == getDestination().getX() &&
-						getCurrentLocation().getY() == getDestination().getY()){
-					//TODO: report dat de emergency afgewerkt is
-				}
-			}
-		}else if(duration < 0){
-			throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
-		}
+                if (getCurrentLocation().getX() == getDestination().getX()
+                        && getCurrentLocation().getY() == getDestination().getY()) {
+                    //TODO: report dat de emergency afgewerkt is
+                }
+            }
+        } else if (duration < 0) {
+            throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
+        }
 
     }
 
@@ -261,37 +260,38 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         return Math.sqrt(distanceX + distanceY);
     }
 
-	/**
-	 * Advances the time with a given amount of seconds.
-	 * @param seconds
-	 *		The amount of seconds that the time must be advanced.
-	 */
-	@Override
-	public void timeAhead(long seconds){
-		try {
-			changeLocation(seconds);
-		} catch (InvalidDurationException ex) {
-			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
+    /**
+     * Advances the time with a given amount of seconds.
+     * @param seconds
+     *		The amount of seconds that the time must be advanced.
+     */
+    @Override
+    public void timeAhead(long seconds) {
+        try {
+            changeLocation(seconds);
+        } catch (InvalidDurationException ex) {
+            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-	/**
-	 * Assign the unit to a given emergency.
-	 *
-	 * @pre The unit is not assigned.
-	 * @param emergency
-	 *		The emergency where this units have to respond to.
-	 * @throws InvalidEmergencyStatusException
-	 *		If the emergency status is invalid.
-	 */
-	public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException{
-		setEmergency(emergency);
-		setAssigned(true);
-		emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
-		try {
-			setCurrentLocation(getHomeLocation());
-		} catch (InvalidLocationException ex) {
-			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
+    /**
+     * Assign the unit to a given emergency.
+     *
+     * @pre The unit is not assigned.
+     * @param emergency
+     *		The emergency where this units have to respond to.
+     * @throws InvalidEmergencyStatusException
+     *		If the emergency status is invalid.
+     */
+    public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
+        setEmergency(emergency);
+        setAssigned(true);
+        //TODO: Is de verandering van de status hier nodig, is dat niet meer iets voor de controller.
+        emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+        try {
+            setCurrentLocation(getHomeLocation());
+        } catch (InvalidLocationException ex) {
+            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

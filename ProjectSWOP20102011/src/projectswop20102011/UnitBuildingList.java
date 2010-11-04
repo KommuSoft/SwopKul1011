@@ -12,7 +12,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every UnitBuilding in this UnitBuildingList is unique.
  */
-public class UnitBuildingList implements Iterable<UnitBuilding>{
+public class UnitBuildingList implements Iterable<UnitBuilding> {
 
     /**
      * The inner list to manage the units and buildings.
@@ -22,7 +22,7 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
     /**
      * Creating a new instance of an UnitBuildingList. At this moment this list
      * doesn't contain any object.
-	 * @effect The new UnitBuildingList is a list with no elements in it.
+     * @effect The new UnitBuildingList is a list with no elements in it.
      */
     public UnitBuildingList() {
         this.unitBuildings = new ArrayList<UnitBuilding>();
@@ -36,16 +36,16 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
         return (ArrayList<UnitBuilding>) unitBuildings.clone();
     }
 
-	/**
+    /**
      * Returns all the UnitBuildings in this UnitBuildingList that are valid to a certain UnitBuildingCriterium.
      * @param criterium
-	 *		The criterium to validate potential solution on.
+     *		The criterium to validate potential solution on.
      * @return a list with all the UnitBuildings in this UnitBuildingList who are validated by the UnitBuildingCriterium.
      */
     public UnitBuildingList getUnitBuildingsByCriterium(UnitBuildingEvaluationCriterium criterium) throws InvalidUnitBuildingException {
         UnitBuildingList list = new UnitBuildingList();
-        for(UnitBuilding u : this) {
-            if(criterium.isValidUnitBuilding(u)) {
+        for (UnitBuilding u : this) {
+            if (criterium.isValidUnitBuilding(u)) {
                 list.addUnitBuilding(u);
             }
         }
@@ -54,7 +54,7 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
 
     /**
      * Adds the given UnitBuilding to this list if the given UnitBuilding
-	 * is not already in this list of units and buildings.
+     * is not already in this list of units and buildings.
      * @param ub
      *		UnitBuilding to be appended to this list of units and buildings.
      * @throws InvalidUnitBuildingException
@@ -79,27 +79,26 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
         return unitBuildings.iterator();
     }
 
-	/**
-	 * Sorts the UnitBuildings to a given comparator.
-	 * @param <T>
-	 *		The class of the UnitBuilding that must be sorted.
-	 * @param comparator
-	 *		The given comparator.
-	 * @return A list of UnitBuilding correctly sorted.
-	 */
-	public<T extends UnitBuilding> ArrayList<T> sort(Comparator<T> comparator){
-		ArrayList<T> result = new ArrayList<T>();
-		
-		for(UnitBuilding ub: getUnitBuildings()){
-			try{
-				T a = (T) ub;
-				result.add(a);
-			} catch(ClassCastException ex){
-				
-			}
-		}
+    /**
+     * Sorts the UnitBuildings to a given comparator.
+     * @param <T>
+     *		The class of the UnitBuilding that must be sorted.
+     * @param comparator
+     *		The given comparator.
+     * @return A list of UnitBuilding correctly sorted.
+     */
+    public <T extends UnitBuilding> ArrayList<T> sort(Comparator<T> comparator) {
+        ArrayList<T> result = new ArrayList<T>();
 
-		Collections.sort(result, comparator);
-		return result;
-	}
+        for (UnitBuilding ub : getUnitBuildings()) {
+            try {
+                T a = (T) ub;
+                result.add(a);
+            } catch (ClassCastException ex) {
+            }
+        }
+
+        Collections.sort(result, comparator);
+        return result;
+    }
 }
