@@ -106,7 +106,7 @@ public abstract class Emergency {
      * @post This status is equal to the given status.
 	 *		| status.equals(getStatus())
      */
-    private void setStatus(EmergencyStatus status) throws InvalidEmergencyStatusException {
+    public void setStatus(EmergencyStatus status) throws InvalidEmergencyStatusException {
         if(!isValidStatus(status)) {
             throw new InvalidEmergencyStatusException(String.format("\"%s\" is an invalid status for an emergency.", status));
         }

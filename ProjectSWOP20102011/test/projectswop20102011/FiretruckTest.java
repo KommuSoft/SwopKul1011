@@ -8,10 +8,9 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 public class FiretruckTest {
-	private long x1,x2,y1,y2,x3,y3,speed1;
+	private long x1,x2,y1,y2,speed1;
 	private String name;
-	private boolean assigned;
-	private GPSCoordinate currentLocation,homeLocation,destination;
+	private GPSCoordinate homeLocation;
 	private Firetruck brandweerwagen;
 
     @Before
@@ -20,27 +19,20 @@ public class FiretruckTest {
 		y1 = 4;
 		x2 = 19;
 		y2 = 90;
-		x3 = 40;
-		y3 = 11;
 		speed1 = 70;
 		name = "Brandweerwagen";
-		assigned = true;
-		currentLocation = new GPSCoordinate(x1,y1);
 		homeLocation = new GPSCoordinate(x2,y2);
-		destination = null;
-
 	}
 
 	@Test
     public void testValidConstructor() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
-		brandweerwagen = new Firetruck(name,homeLocation, speed1, currentLocation,destination,assigned);
+		brandweerwagen = new Firetruck(name,homeLocation, speed1);
 		assertEquals(name,brandweerwagen.getName());
 		assertEquals(x2,brandweerwagen.getHomeLocation().getX());
 		assertEquals(y2,brandweerwagen.getHomeLocation().getY());
 		assertEquals(speed1,brandweerwagen.getSpeed());
-		assertEquals(x1,brandweerwagen.getCurrentLocation().getX());
-		assertEquals(y1,brandweerwagen.getCurrentLocation().getY());
-		assertEquals(destination,brandweerwagen.getDestination());
-		assertEquals(assigned,brandweerwagen.isAssigned());
+		assertEquals(x2,brandweerwagen.getCurrentLocation().getX());
+		assertEquals(y2,brandweerwagen.getCurrentLocation().getY());
+		assertFalse(brandweerwagen.isAssigned());
 	}
 }

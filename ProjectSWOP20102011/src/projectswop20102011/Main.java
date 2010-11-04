@@ -25,7 +25,11 @@ import projectswop20102011.userinterface.TimeAheadUserInterface;
  * @author Willem Van Onsem, Pieter-Jan Vuylsteke and Jonas Vanthornhout
  */
 public class Main {
-
+//TODO Use Case 2 (stap 2): controleren of er genoeg units zijn om de emergency af te handelen en tonen bij inspect emergencies
+//TODO Use Case 2 (step 4): wanneer gedetailleerde info het aantal aanwezige units tonen.
+//TODO Use Case 2 (step 5,6,7): wanneer dispatch units geselecteerd wordt crasht het programma :(
+//TODO Use Case 4
+	
     /**
      * @param args the command line arguments
      */

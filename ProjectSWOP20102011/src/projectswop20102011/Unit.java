@@ -3,6 +3,7 @@ package projectswop20102011;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidDurationException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
@@ -32,10 +33,11 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * A variable registering the current location of this unit.
      */
     private GPSCoordinate currentLocation;
-    /**
-     * A variable registering the destination of this unit.
-     */
-    private GPSCoordinate destination;
+	/**
+	 * A variable registering the emergency of this unit.
+	 */
+	private Emergency emergency;
+
 
     /**
      * Initialize a new unit with given parameters.
@@ -50,8 +52,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The assigned indicator of the new unit.
      * @param currentLocation
      *		The current location of the new unit.
-     * @param destination
-     *		The destination of the new unit.
      * @param assigned
      *		The assigned indicator of the new unit.
      * @effect The new unit is a unit with given name, home location, speed,
@@ -66,34 +66,11 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @throws InvalidSpeedException
      *		If the given speed is an invalid speed for a unit.
      */
-    Unit(String name, GPSCoordinate homeLocation, long speed, GPSCoordinate currentLocation, GPSCoordinate destination, boolean assigned) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+    Unit(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
         super(name, homeLocation);
         setSpeed(speed);
-        setCurrentLocation(currentLocation);
-        setDestination(destination);
-        setAssigned(assigned);
-    }
-
-    /**
-     * Initialize a new unit who is at the home location and isn't assigned.
-     *
-     * @param name
-     *		The name of the new unit.
-     * @param homeLocation
-     *		The home location of the new unit.
-     * @param speed
-     *		The speed of the new unit.
-     * @effect The new unit is a unit with given name, home location, speed,
-     *         |this(name,homeLocation,speed,homeLocation,null,false);
-     * @throws InvalidUnitBuildingNameException
-     *		If the given name is an invalid name for a unit.
-     * @throws InvalidLocationException
-     *		If the given location is an invalid location for a unit.
-     * @throws InvalidSpeedException
-     *		If the given speed is an invalid speed for a unit.
-     */
-    Unit(String name, GPSCoordinate homeLocation, long speed) throws InvalidUnitBuildingNameException, InvalidLocationException, InvalidSpeedException {
-        this(name, homeLocation, speed, homeLocation, null, false);
+        setCurrentLocation(homeLocation);
+        setAssigned(false);
     }
 
     /**
@@ -137,7 +114,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return The destination of this timesensitive unit or building.
      */
     public GPSCoordinate getDestination() {
-        return destination;
+        return emergency.getLocation();
     }
 
     /**
@@ -176,20 +153,26 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         }
     }
 
+	/**
+	 * Sets the emergency of this Unit.
+	 * @param emergency
+	 *		The new emergency of this unit.
+	 */
+	private void setEmergency(Emergency emergency){
+		this.emergency = emergency;
+	}
+
+	//TODO: is dit gevaarlijk
+	/**
+	 * Returns the emergency of this unit.
+	 * @return The emergency of this unit.
+	 */
+	public Emergency getEmergency(){
+		return emergency;
+	}
+
     private void changeCurrentLocation(GPSCoordinate newCurrentLocation) throws InvalidLocationException {
         setCurrentLocation(newCurrentLocation);
-    }
-
-    /**
-     * Sets the destination of this timesensitive unit or building to the given value.
-     *
-     * @param destination
-     *		The new destination of this timesensitive unit or building.
-     * @post The destination of this timesensitive unit or building is set according to the given destination.
-     *		|new.getDestination() == destination
-     */
-    private void setDestination(GPSCoordinate destination) {
-        this.destination = destination;
     }
 
     /**
@@ -249,7 +232,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 
 				if(getCurrentLocation().getX() == getDestination().getX() &&
 						getCurrentLocation().getY() == getDestination().getY()){
-					setDestination(null);
+					//TODO: report dat de emergency afgewerkt is
 				}
 			}
 		}else if(duration < 0){
@@ -288,6 +271,26 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 		try {
 			changeLocation(seconds);
 		} catch (InvalidDurationException ex) {
+			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	/**
+	 * Assign the unit to a given emergency.
+	 *
+	 * @pre The unit is not assigned.
+	 * @param emergency
+	 *		The emergency where this units have to respond to.
+	 * @throws InvalidEmergencyStatusException
+	 *		If the emergency status is invalid.
+	 */
+	public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException{
+		setEmergency(emergency);
+		setAssigned(true);
+		emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+		try {
+			setCurrentLocation(getHomeLocation());
+		} catch (InvalidLocationException ex) {
 			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}

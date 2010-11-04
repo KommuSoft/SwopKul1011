@@ -16,38 +16,23 @@ public class TimeSensitiveListTest{
 	private String name1, name2;
 	private GPSCoordinate homeLocation1, homeLocation2;
 	private long speed1, speed2;
-	private GPSCoordinate currentLocation1, currentLocation2;
-	private GPSCoordinate destination1, destination2;
-	private boolean assigned1, assigned2;
 	private long hx1, hy1, hx2, hy2;
-	private long cx1, cy1, cx2, cy2;
-	private long dx1, dy1, dx2, dy2;
 
 	@Before
     public void setUp() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
 		hx1 = 456; hy1 = 654;
-		cx1 = 963; cy1 = 369;
-		dx1 = 741; dy1 = 147;
 		homeLocation1 = new GPSCoordinate(hx1, hy1);
-		currentLocation1 = new GPSCoordinate(cx1, cy1);
-		destination1 = new GPSCoordinate(dx1, dy1);
 		name1 = "Eir";
 		speed1 = 50;
-		assigned1 = false;
 
-		a1 = new Ambulance(name1, homeLocation1, speed1, currentLocation1, destination1, assigned1);
+		a1 = new Ambulance(name1, homeLocation1, speed1);
 
 		hx2 = 46; hy2 = 64;
-		cx2 = 93; cy2 = 69;
-		dx2 = 71; dy2 = 14;
 		homeLocation2 = new GPSCoordinate(hx2, hy2);
-		currentLocation2 = new GPSCoordinate(cx2, cy2);
-		destination2 = new GPSCoordinate(dx2, dy2);
 		name2 = "Sleipnir";
 		speed2 = 9;
-		assigned2 = false;
 
-		a2 = new Ambulance(name2, homeLocation2, speed2, currentLocation2, destination2, assigned2);
+		a2 = new Ambulance(name2, homeLocation2, speed2);
 
 		tsl1 = new TimeSensitiveList();
 		tsl2 = new TimeSensitiveList();

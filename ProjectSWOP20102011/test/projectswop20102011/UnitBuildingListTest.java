@@ -25,13 +25,9 @@ public class UnitBuildingListTest{
 	private HospitalDistanceComparator hdc;
 
 	private long speed1;
-	private long duration;
 	private String name;
-	private boolean assigned;
 	private GPSCoordinate fireLocation;
-	private GPSCoordinate currentLocation;
 	private GPSCoordinate homeLocation;
-	private GPSCoordinate destination;
 
 	@Before
     public void setUp() throws InvalidUnitBuildingNameException, InvalidLocationException{
@@ -52,12 +48,8 @@ public class UnitBuildingListTest{
 		fireLocation = new GPSCoordinate(x3, y3);
 
 		speed1 = 90;
-		duration = 9;
 		name = "Ziekenwagen";
-		assigned = false;
-		currentLocation = new GPSCoordinate(x1,y1);
 		homeLocation = new GPSCoordinate(x2,y2);
-		destination = new GPSCoordinate(x2,y2);
 
 		ubl1 = new UnitBuildingList();
 		ubl2 = new UnitBuildingList();
@@ -105,7 +97,7 @@ public class UnitBuildingListTest{
 
 	@Test
 	public void testUnitBuildingsByCriterium() throws InvalidUnitBuildingException, InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
-		a1 = new Ambulance(name,homeLocation, speed1, currentLocation,destination,assigned);
+		a1 = new Ambulance(name,homeLocation, speed1);
 		
 		ubl1.addUnitBuilding(h2);
 		ubl1.addUnitBuilding(a1);
