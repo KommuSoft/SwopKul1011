@@ -23,7 +23,7 @@ public class AmbulanceTest {
 		x3 = 1302;
 		y3 = 2031;
 		speed1 = 90;
-		duration = 9;
+		duration = 9*3600;
 		name = "Ziekenwagen";
 		assigned = false;
 		currentLocation = new GPSCoordinate(x1,y1);
@@ -46,9 +46,9 @@ public class AmbulanceTest {
 	}
 
 	@Test
-	public void testChangeLocation() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
+	public void testTimeAhead() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
 		ziekenwagen = new Ambulance(name,homeLocation,speed1,currentLocation,destination,assigned);
-		ziekenwagen.changeLocation(duration);
+		ziekenwagen.timeAhead(duration);
 		assertEquals(446,ziekenwagen.getCurrentLocation().getX());
 		assertEquals(687,ziekenwagen.getCurrentLocation().getY());
 		assertEquals(x3,ziekenwagen.getDestination().getX());

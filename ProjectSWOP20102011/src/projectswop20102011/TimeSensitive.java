@@ -1,9 +1,5 @@
 package projectswop20102011;
 
-import projectswop20102011.exceptions.InvalidDurationException;
-import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidSpeedException;
-
 /**
  * Implementing this interface means that the object becomes time sensitive.
  * I.e. it state depends on the current time.
@@ -11,96 +7,9 @@ import projectswop20102011.exceptions.InvalidSpeedException;
  */
 public interface TimeSensitive {
 	/**
-	 * Returns the speed of this time sensitive object.
-	 * @return The speed of this time sensitive object.
+	 * Advances the time with a given amount of seconds.
+	 * @param seconds
+	 *		The amount of seconds that the time must be advanced.
 	 */
-	public long getSpeed();
-
-	/**
-	 * Returns the current location of this time sensitive object.
-	 * @return The current location of this time sensitive object.
-	 */
-	public GPSCoordinate getCurrentLocation();
-
-	/**
-	 * Returns the destination of this time sensitive object.
-	 * @return The destination of this time sensitive object.
-	 */
-	public GPSCoordinate getDestination();
-
-	/**
-	 * Sets the speed of this time sensitive object to the given value.
-	 *
-	 * @param speed
-	 *		The new speed of this time sensitive object.
-     * @throws InvalidSpeedException
-	 *		If the given speed isn't a valid speed for a time sensitive object.
-     * @post The speed of this time sensitive object is set according to the given speed.
-	 *		|new.getSpeed() == speed
-	 */
-	public void setSpeed(long speed) throws InvalidSpeedException;
-
-	/**
-	 * Sets the current location of this time sensitive object to the given value.
-	 *
-	 * @param currentLocation
-	 *		The new speed of this time sensitive object.
-     * @throws InvalidLocationException
-	 *		If the given current location isn't a valid current location for a time sensitive object.
-     * @post The current location of this time sensitive object is set according to the given current location.
-	 *		|new.getCurrentLocation() == currentLocation
-	 */
-	public void setCurrentLocation(GPSCoordinate currentLocation) throws InvalidLocationException;
-
-	/**
-	 * Sets the destination of this time sensitive object to the given value.
-	 *
-	 * @param destination
-	 *		The new destination of this time sensitive object.
-     * @post The destination of this time sensitive object is set according to the given destination.
-	 *		|new.getDestination() == destination
-	 */
-	public void setDestination(GPSCoordinate destination);
-
-	/**
-	 * Checks if the given speed is a valid speed for a time sensitive object.
-	 * @param speed
-	 *		The speed of a time sensitive object to test.
-	 * @return True if the speed is valid; false otherwise.
-	 */
-	public boolean isValidSpeed(long speed);
-
-    /**
-     * Checks if the given current location is a valid current location for a time sensitive object.
-	 *
-     * @param currentLocation
-	 *		The current location of a time sensitive to test.
-     * @return True if the current location is valid; false otherwise.
-     */
-    public boolean isValidCurrentLocation(GPSCoordinate currentLocation);
-
-	/**
-	 * Change the current location of this TimeSensitive over a given time interval.
-	 * @param duration
-	 *		The duration of the displacement of this TimeSensitive.
-	 * @throws InvalidDurationException
-	 *		If the given duration is invalid
-	 */
-	public void changeLocation(long duration) throws InvalidDurationException;
-
-	/**
-	 * Calculates the distance between two locations.
-	 *
-	 * @param x1
-	 *		The x-coordinate of the first location.
-	 * @param y1
-	 *		The y-coordinate of the first location.
-	 * @param x2
-	 *		The x-coordinate of the second location.
-	 * @param y2
-	 *		The y-coordinate of the second location.
-	 * @return
-	 *		The distance from one location to another one.
-	 */
-	public double calculateDistance(long x1,long y1,long x2,long y2);
+	public void timeAhead(long seconds);
 }

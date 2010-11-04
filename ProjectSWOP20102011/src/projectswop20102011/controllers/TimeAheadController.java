@@ -32,7 +32,7 @@ public class TimeAheadController extends Controller {
             throw new NumberOutOfBoundsException(String.format("The difference in time must be larger or equal to zero and not \"%s\"", seconds));
         }
         for(TimeSensitive ts : this.getWorld().getTimeSensitiveList()) {
-            ts.changeLocation(seconds);
+            ts.timeAhead(seconds);
         }
     }
 }

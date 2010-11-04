@@ -120,7 +120,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * Returns the speed of this timesensitive unit or building.
      * @return The speed of this timesensitive unit or building.
      */
-    @Override
     public long getSpeed() {
         return speed;
     }
@@ -129,7 +128,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * Returns the current location of this timesensitive unit or building.
      * @return The current location of this timesensitive unit or building.
      */
-    @Override
     public GPSCoordinate getCurrentLocation() {
         return currentLocation;
     }
@@ -138,7 +136,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * Returns the destination of this timesensitive unit or building.
      * @return The destination of this timesensitive unit or building.
      */
-    @Override
     public GPSCoordinate getDestination() {
         return destination;
     }
@@ -153,8 +150,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @post The speed of this unit or building is set according to the given speed.
      *		|new.getSpeed() == speed
      */
-    @Override
-    public final void setSpeed(long speed) throws InvalidSpeedException {
+    private void setSpeed(long speed) throws InvalidSpeedException {
         if (!isValidSpeed(speed)) {
             throw new InvalidSpeedException(String.format("\"%s\" is an invalid name for a timesensitive unit or building.", speed));
         } else {
@@ -172,8 +168,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @post The current location of this unit or building is set according to the given current location.
      *		|new.getCurrentLocation() == currentLocation
      */
-    @Override
-    public final void setCurrentLocation(GPSCoordinate currentLocation) throws InvalidLocationException {
+    private void setCurrentLocation(GPSCoordinate currentLocation) throws InvalidLocationException {
         if (!isValidCurrentLocation(currentLocation)) {
             throw new InvalidLocationException(String.format("\"%s\" is an invalid current location for a unit.", currentLocation));
         } else {
@@ -193,8 +188,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @post The destination of this timesensitive unit or building is set according to the given destination.
      *		|new.getDestination() == destination
      */
-    @Override
-    public final void setDestination(GPSCoordinate destination) {
+    private void setDestination(GPSCoordinate destination) {
         this.destination = destination;
     }
 
@@ -204,7 +198,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The speed of a timesensitive unit or building to test.
      * @return True if the speed is valid; false otherwise.
      */
-    @Override
     public boolean isValidSpeed(long speed) {
         return speed >= 0;
     }
@@ -216,7 +209,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The current location of a unit to test.
      * @return True if the current location is valid; false otherwise.
      */
-    @Override
     public boolean isValidCurrentLocation(GPSCoordinate currentLocation) {
         return (currentLocation != null);
     }
@@ -232,7 +224,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 	 * @throws InvalidDurationException
 	 *		If the given duration is invalid.
 	 */
-	@Override
 	public void changeLocation(long duration)throws InvalidDurationException{
 		if(duration > 0){
 			if(getDestination() != null){
@@ -243,7 +234,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 				long stopX;
 				long stopY;
 
-				double distance = calculateDistance(startX, startY,goalX,goalY);
+				double distance = getCurrentLocation().getDistanceTo(getDestination());
 				long distanceX = goalX-startX;
 				long distanceY = goalY-startY;
 
@@ -253,7 +244,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 				try {
 					changeCurrentLocation(stop);
 				} catch (InvalidLocationException ex) {
-					ex = new InvalidLocationException("The location is invalid");
 					Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
 				}
 
@@ -282,10 +272,23 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The distance from one location to another one.
      *
      */
-    @Override
     public double calculateDistance(long x1, long y1, long x2, long y2) {
         double distanceX = Math.pow((double) x2 - (double) x1, 2);
         double distanceY = Math.pow((double) y2 - (double) y1, 2);
         return Math.sqrt(distanceX + distanceY);
     }
+
+	/**
+	 * Advances the time with a given amount of seconds.
+	 * @param seconds
+	 *		The amount of seconds that the time must be advanced.
+	 */
+	@Override
+	public void timeAhead(long seconds){
+		try {
+			changeLocation(seconds);
+		} catch (InvalidDurationException ex) {
+			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 }

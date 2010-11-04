@@ -1,6 +1,8 @@
 package projectswop20102011;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import projectswop20102011.exceptions.InvalidUnitBuildingException;
@@ -77,20 +79,27 @@ public class UnitBuildingList implements Iterable<UnitBuilding>{
         return unitBuildings.iterator();
     }
 
-	//@TODO: zelfde distance is probleem
-	public ArrayList<Hospital> sort(Emergency e){
-		HashMap<Double, Hospital> hm = new HashMap<Double, Hospital>();
-		DistanceCalculator dc = new DistanceCalculator(e.getLocation());
-
-		for(int i=0; i<getUnitBuildings().size(); ++i){
-			double distance = dc.getDistanceTo(getUnitBuildings().get(i).getHomeLocation());
-			hm.put(distance, (Hospital) getUnitBuildings().get(i));
+	/**
+	 * Sorts the UnitBuildings to a given comparator.
+	 * @param <T>
+	 *		The class of the UnitBuilding that must be sorted.
+	 * @param comparator
+	 *		The given comparator.
+	 * @return A list of UnitBuilding correctly sorted.
+	 */
+	public<T extends UnitBuilding> ArrayList<T> sort(Comparator<T> comparator){
+		ArrayList<T> result = new ArrayList<T>();
+		
+		for(UnitBuilding ub: getUnitBuildings()){
+			try{
+				T a = (T) ub;
+				result.add(a);
+			} catch(ClassCastException ex){
+				
+			}
 		}
-		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
-		for(Hospital h: hm.values()){
-			hospitals.add(h);
-		}
 
-		return hospitals;
+		Collections.sort(result, comparator);
+		return result;
 	}
 }
