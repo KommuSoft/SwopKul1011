@@ -16,10 +16,10 @@ import projectswop20102011.exceptions.ParsingAbortedException;
 public class TimeAheadUserInterface extends CommandUserInterface {
 
     private final TimeAheadController controller;
-    
-    public TimeAheadUserInterface (TimeAheadController controller) throws InvalidControllerException, InvalidCommandNameException {
+
+    public TimeAheadUserInterface(TimeAheadController controller) throws InvalidControllerException, InvalidCommandNameException {
         super("time ahead");
-        if(controller == null) {
+        if (controller == null) {
             throw new InvalidControllerException("controller must be effective.");
         }
         this.controller = controller;
@@ -29,8 +29,8 @@ public class TimeAheadUserInterface extends CommandUserInterface {
      * Gets the time ahead controller used by this command user interface.
      * @return The controller used by this command user interface.
      */
-	@Override
-    public TimeAheadController getController () {
+    @Override
+    public TimeAheadController getController() {
         return this.controller;
     }
 
@@ -39,19 +39,12 @@ public class TimeAheadUserInterface extends CommandUserInterface {
         try {
             long seconds = UserInterfaceParsers.parseLong(this, "time expired in seconds");
             try {
-				try {
-					this.getController().doTimeAheadAction(seconds);
-				} catch (InvalidLocationException ex) {
-					Logger.getLogger(TimeAheadUserInterface.class.getName()).log(Level.SEVERE, null, ex);
-				}
+                this.getController().doTimeAheadAction(seconds);
             } catch (NumberOutOfBoundsException ex) {
-                this.writeOutput(String.format("ERROR: %s",ex.getMessage()));
+                this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
             }
         } catch (ParsingAbortedException ex) {
             this.writeOutput("command aborted.");
         }
     }
-
-
-
 }

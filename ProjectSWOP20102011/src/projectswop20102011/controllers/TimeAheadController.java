@@ -27,7 +27,7 @@ public class TimeAheadController extends Controller {
      * @param seconds The time difference in seconds.
      * @throws NumberOutOfBoundsException If the number of secons is smaller than zero.
      */
-    public void doTimeAheadAction (long seconds) throws NumberOutOfBoundsException, InvalidLocationException {
+    public void doTimeAheadAction (long seconds) throws NumberOutOfBoundsException {
         if(seconds < 0) {
             throw new NumberOutOfBoundsException(String.format("The difference in time must be larger or equal to zero and not \"%s\"", seconds));
         }

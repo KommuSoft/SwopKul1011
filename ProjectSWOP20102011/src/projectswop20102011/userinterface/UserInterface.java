@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.ParsingAbortedException;
+import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.userinterface.parsers.Parser;
 
 /**
  * An abstract class, that represents all textual user interfaces used in this project.
@@ -63,7 +66,7 @@ public abstract class UserInterface {
 
     public void writeOutput(String message) {
         try {
-            this.getBufferedWriter().write(this.indentationString + message + "\n");
+            this.getBufferedWriter().write(this.indentationString + message.replaceAll("\n","\n"+this.indentationString) + "\n");
             this.getBufferedWriter().flush();
         } catch (IOException ex) {
             Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,5 +95,20 @@ public abstract class UserInterface {
      */
     public BufferedWriter getBufferedWriter() {
         return bufferedWriter;
+    }
+
+    public<T> T parseInputToType (Parser<T> parser, String parameterName) throws ParsingAbortedException {
+        while (true) {
+            this.writeOutput(String.format("%s=? (%s)", parameterName,parser.getParserFormatInformation()));
+            String input = this.readInput();
+            if (input.toLowerCase().equals("abort")) {
+                throw new ParsingAbortedException("Parsing aborted by user.");
+            }
+            try {
+                return parser.parseInput(input);
+            } catch (ParsingException ex) {
+                this.writeOutput(String.format("Unable to parse: %s\nplease try again, or typ \"abort\".",ex.getMessage()));
+            }
+        }
     }
 }

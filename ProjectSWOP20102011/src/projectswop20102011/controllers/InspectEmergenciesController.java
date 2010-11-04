@@ -34,4 +34,15 @@ public class InspectEmergenciesController extends Controller {
         return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).toArray();
     }
 
+    /**
+     * Inspect all the emergencies in the world on a certain status, and searches for an emergency with that status who has also the given id.
+     * @param status The status of emergencies to search for.
+     * @param id The id number to search for.
+     * @return The emergency who mets the conditions, if no condition succeeds, null is returned.
+     */
+    public Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) {
+        EmergencyEvaluationCriterium criterium = new StatusEqualityEmergencyEvaluationCriterium(status);
+        return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).getEmergencyFromId(id);
+    }
+
 }

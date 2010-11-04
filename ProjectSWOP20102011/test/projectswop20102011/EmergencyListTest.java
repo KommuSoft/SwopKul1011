@@ -12,7 +12,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class EmergencyListTest {
 
-    private EmergencyList el1, el2;
+    private EmergencyList el1, el2, el3;
     private Emergency e1, e2;
     private GPSCoordinate l1, l2;
     private long x1, y1, x2, y2;
@@ -30,6 +30,7 @@ public class EmergencyListTest {
         e1 = new Fire(l1, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
         el2 = new EmergencyList();
         e2 = new PublicDisturbance(l1, EmergencySeverity.URGENT, 1302);
+        el3 = new EmergencyList();
     }
 
     @Test
@@ -47,4 +48,23 @@ public class EmergencyListTest {
         assertEquals(2, el1.getEmergencies().size());
         assertTrue(el1.getEmergencies().contains(e2));
     }
+
+    @Test
+    public void testGetEmergencyFromId () {
+        assertEquals(null,el3.getEmergencyFromId(e1.getId()));
+        assertEquals(null,el3.getEmergencyFromId(e2.getId()));
+        assertEquals(null,el3.getEmergencyFromId(-1302));
+        assertEquals(null,el3.getEmergencyFromId(-1425));
+        el3.addEmergency(e1);
+        assertEquals(e1,el3.getEmergencyFromId(e1.getId()));
+        assertEquals(null,el3.getEmergencyFromId(e2.getId()));
+        assertEquals(null,el3.getEmergencyFromId(-1302));
+        assertEquals(null,el3.getEmergencyFromId(-1425));
+        el3.addEmergency(e2);
+        assertEquals(e1,el3.getEmergencyFromId(e1.getId()));
+        assertEquals(e2,el3.getEmergencyFromId(e2.getId()));
+        assertEquals(null,el3.getEmergencyFromId(-1302));
+        assertEquals(null,el3.getEmergencyFromId(-1425));
+    }
+
 }
