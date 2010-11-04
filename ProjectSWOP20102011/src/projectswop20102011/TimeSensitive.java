@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 
@@ -82,8 +83,10 @@ public interface TimeSensitive {
 	 * Change the current location of this TimeSensitive over a given time interval.
 	 * @param duration
 	 *		The duration of the displacement of this TimeSensitive.
+	 * @throws InvalidDurationException
+	 *		If the given duration is invalid
 	 */
-	public void changeLocation(long duration);
+	public void changeLocation(long duration) throws InvalidDurationException;
 
 	/**
 	 * Calculates the distance between two locations.

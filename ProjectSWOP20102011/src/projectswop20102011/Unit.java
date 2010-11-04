@@ -2,6 +2,7 @@ package projectswop20102011;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
@@ -229,35 +230,41 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive{
 	 *		The location of this unit has been changed according to a given time interval.
 	 *		Stop is the current location of this unit after the time interval.
 	 *		|changeCurrentLocation(stop)
+	 * @throws InvalidDurationException
+	 *		If the given duration is invalid.
 	 */
 	@Override
-	public void changeLocation(long duration){
-		if(getDestination() != null){
-			long startX = getCurrentLocation().getX();
-			long startY = getCurrentLocation().getY();
-			long goalX = getDestination().getX();
-			long goalY = getDestination().getY();
-			long stopX;
-			long stopY;
+	public void changeLocation(long duration)throws InvalidDurationException{
+		if(duration > 0){
+			if(getDestination() != null){
+				long startX = getCurrentLocation().getX();
+				long startY = getCurrentLocation().getY();
+				long goalX = getDestination().getX();
+				long goalY = getDestination().getY();
+				long stopX;
+				long stopY;
 
-			double distance = calculateDistance(startX, startY,goalX,goalY);
-			long distanceX = goalX-startX;
-			long distanceY = goalY-startY;
+				double distance = calculateDistance(startX, startY,goalX,goalY);
+				long distanceX = goalX-startX;
+				long distanceY = goalY-startY;
 
-			stopX = Math.round(startX + (distanceX/distance)*getSpeed()*duration);
-			stopY = Math.round(startY + (distanceY/distance)*getSpeed()*duration);
-			GPSCoordinate stop = new GPSCoordinate(stopX,stopY);
-			try {
-				changeCurrentLocation(stop);
-			} catch (InvalidLocationException ex) {
-				ex = new InvalidLocationException("The location is invalid");
-				Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+				stopX = Math.round(startX + (distanceX/distance)*getSpeed()*duration/3600);
+				stopY = Math.round(startY + (distanceY/distance)*getSpeed()*duration/3600);
+				GPSCoordinate stop = new GPSCoordinate(stopX,stopY);
+				try {
+					changeCurrentLocation(stop);
+				} catch (InvalidLocationException ex) {
+					ex = new InvalidLocationException("The location is invalid");
+					Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+				if(getCurrentLocation().getX() == getDestination().getX() &&
+						getCurrentLocation().getY() == getDestination().getY()){
+					setDestination(null);
+				}
 			}
-
-			if(getCurrentLocation().getX() == getDestination().getX() &&
-					getCurrentLocation().getY() == getDestination().getY()){
-				setDestination(null);
-			}
+		}else if(duration < 0){
+			throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
 		}
 
 	}
