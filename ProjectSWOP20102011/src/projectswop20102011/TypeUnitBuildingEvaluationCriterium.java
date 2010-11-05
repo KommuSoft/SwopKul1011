@@ -12,7 +12,7 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
     private final Class type;
 
     /**
-     * Creates a new instance of a HospitalUnitBuildingEvaluationCriterium with a given type to check on.
+     * Creates a new instance of a TypeUnitBuildingEvaluationCriterium with a given type to check on.
      * @param type
      *		The type that must be equal to the validating UnitBuilding.
      * @post This type is equal to the parameter type | type == getType()
@@ -24,11 +24,13 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
     /**
      * Validates a given UnitBuilding on type.
      * @param unitBuilding
+	 *		The UnitBuilding to check if this is a valid UnitBuilding.
      * @return True if the status of the UnitBuilding equals this type, otherwise false.
      */
     @Override
     public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
-        return (unitBuilding.getClass() == getType());//TODO: wat met polymorfisme
+        return (unitBuilding.getClass().getSuperclass() == getType() || unitBuilding.getClass() == getType());
+		//TODO: wat met polymorfisme? Is dit een klein beetje beter?
     }
 
     /**

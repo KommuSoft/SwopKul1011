@@ -38,26 +38,23 @@ public class AmbulanceFactory extends UnitBuildingFactory {
      */
     @Override
     public Ambulance createUnitBuilding(Object[] parameters) throws InvalidParameterException {
-        //TODO: reimplement
-        /*if (areValidParameters(parameters)) {
+        //TODO: reimplement Waarom?
+        if (areValidParameters(parameters)) {
             String name = (String) parameters[0];
             GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];
             Long speed = (Long) parameters[2];
-            GPSCoordinate currentLocation = (GPSCoordinate) parameters[3];
-            GPSCoordinate destination = (GPSCoordinate) parameters[4];
-            Boolean assigned = (Boolean) parameters[5];
-            try {
-                return new Ambulance(name, homeLocation, speed, currentLocation, destination, assigned);
-            } catch (InvalidLocationException ex) {
-                Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidUnitBuildingNameException ex) {
-                Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidSpeedException ex) {
-                Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            }
+			try {
+				return new Ambulance(name, homeLocation, speed);
+			} catch (InvalidLocationException ex) {
+				Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidUnitBuildingNameException ex) {
+				Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidSpeedException ex) {
+				Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+			}
         } else {
             throw new InvalidParameterException("Invalid parameters for this fire truck.");
-        }*/
+        }
         return null;
     }
 

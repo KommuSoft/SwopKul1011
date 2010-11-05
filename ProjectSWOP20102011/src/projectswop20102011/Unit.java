@@ -56,6 +56,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         super(name, homeLocation);
         setSpeed(speed);
         setCurrentLocation(homeLocation);
+		setEmergency(null);
     }
 
     /**
@@ -87,10 +88,12 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        if(this.emergency == null)
-            return this.getHomeLocation();
-        else
-            return emergency.getLocation();
+        if(this.emergency == null) {
+			return this.getHomeLocation();
+		}
+        else {
+			return emergency.getLocation();
+		}
     }
 
     /**
@@ -208,7 +211,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 
                 if (getCurrentLocation().getX() == getDestination().getX()
                         && getCurrentLocation().getY() == getDestination().getY()) {
-                    //TODO: report dat de emergency afgewerkt is
+                    //TODO: report dat de emergency afgewerkt is. Is dit alles?
+					finishedJob();
                 }
             }
         } else if (duration < 0) {
@@ -262,7 +266,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
         setEmergency(emergency);
-        //TODO: Is de verandering van de status hier nodig, is dat niet meer iets voor de controller.
+        //TODO: Is de verandering van de status hier nodig, is dat niet meer iets voor de controller? Nee
         emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
         try {
             setCurrentLocation(getHomeLocation());
@@ -270,7 +274,12 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
             Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void finishedJob () {
+
+	/**
+	 * Finishes the job of this Unit.
+	 */
+    public void finishedJob (){
+		//TODO: wanneer alle units gedaan hebben moet de emergencyStatus op FINISHED staan.
         setEmergency(null);
     }
 
