@@ -1,0 +1,23 @@
+\section{Invloed van GRASP patterns}
+\label{grasp}
+\subsection{Bespreking van het systeem}
+In onze implementatie proberen we in de meeste gevallen zo generisch mogelijk te werken. Dit heeft als indirect gevolg dat de koppeling in ons domeinmodel zeer laag is. Immers dient bij een generische implementatie abstractie gemaakt te worden van de details in de ongekende subklassen. Bijgevolg zijn enkel koppelingen zoals deze tussen \verb+Emergency+ en \verb+Unit+, of naar de klassen van hun attributen van belang.
+\paragraph{}
+Het polymorfisme dient vervolgens de ontbrekende details in te vullen. E\'en concreet voorbeeld hiervan is de \verb+calculateUnitsNeeded()+ methode. Hierbij dient een specifiek type \verb+Emergency+ zelf uit te maken welke en hoeveel units er naar deze emergency gestuurd moeten worden. Dit beantwoordt bovendien ook aan het Information Expert patroon. Een Emergency zelf weet immers het best hoe er gereageerd dient te worden.
+\paragraph{}
+\subsection{Uitgewerkte alternatieven}
+Naast dit model werden verschillende andere modellen bestudeerd. Bovendien kwam dit model ook met een zekere evolutie tot stand. Modellen werden ge\"implementeerd, met een kritische blik op het ontstaan van problemen. Frequent werd dan ook het model herbekeken en aangepast. In deze sectie geven we een bondig overzicht van de belangrijkste overwogen alternatieven.
+\paragraph{\texttt{Caller} en \texttt{Call}}
+Het domeinmodel in de opgave suggereert heel vaak dat bepaalde klassen ge\"implementeerd dienen worden, zoals bijvoorbeeld de klassen \verb+Caller+ en \verb+Call+. Deze werden initieel ge\"implementeerd. Er staat echter in geen enkele use case beschreven dat het bijhouden van deze instanties vereist is. Eenvoud ligt immers aan de basis van een goed model. Het ligt in de geest van Extreme Programming om geen functionaliteiten te schrijven die geen duidelijk nut hebben. Bijgevolg werd besloten deze klassen te verwijderen. Bovendien werd de implementatie zo vereenvoudigd.
+\paragraph{Polymorfisme versus typeattribuut}
+%Bijhorende <=> bijbehorende
+Een belangrijke overweging in het model was het design van een \verb+Unit+ en de bijbehorende types eenheden. Hierbij werden drie overwegingen onderzocht. De eerste mogelijkheid was --- zoals het domeinmodel suggereert --- een polymorfe aanpak. Hierbij worden klassen als \verb+Ambulance+ onder de klasse \verb+Unit+ geplaatst. Deze implementatie leidt echter tot klassen zonder inhoud. Zo erven \verb+Firetruck+ en \verb+Policecar+ alle methodes over. Maar dit model heeft geen toegevoegde waarde. De enige informatie die een \verb+Policecar+ meer bevat dan een \verb+Unit+ is zijn typeinformatie. Een alternatief werd gerealiseerd door middel van een typeattribuut. Een enumeratie \verb+UnitType+ bevat de drie verschillende types eenheden. Een \verb+Unit+ bevat vervolgens een associatie met een \verb+UnitType+. Dit model werkt echter niet, omdat een \verb+Ambulance+ wel extra informatie bevat. Het dient immers een hospitaal te kunnen selecteren. Optionele attributen zijn hierbij uit den boze omdat ze de cohesie verlagen. Bovendien druisen ze in tegen normalisatieprincipes uit bijvoorbeeld databanken. De derde onderzochte vorm was een hybride tussen de twee vorige. Hierbij werken we met polymorfisme, maar bevat \verb+Unit+ ook een typeattribuut. Dit model gaat echter in tegen heel wat principes: er ontstaat redundantie, protected variance, high cohesion en low coupling. We opteerden bijgevolg voor de eerste mogelijkheid.
+\paragraph{}
+
+%TO BE REMOVED
+\newpage{}
+\paragraph{}
+\verb+DIT IS EEN STUK IN HET KLAD(CORRECTHEID IS NIET GEGARANDEERD)+\\
+We zijn voor het model waarin ambulance, firetruck, policecar overerven van unit. Dit omdat meer aan het patroon van high cohesian voldaan wordt. Als we een enum aanmaken van unit type, dan wordt de klasse Unit heel groot (met geen high cohesion) omdat alle methodes voor iedere 'sub'unit moeten geimplementeerd worden in dezelfde klasse.\\\\
+De klasse UnitsNeeded wordt gebruik om high cohesian te bevorderen. Dit zorgt ervoor dat de klasse Emergency niet zwaarder wordt belast.\\\\
+Emergency is the Information Expert
