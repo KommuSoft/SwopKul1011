@@ -36,8 +36,6 @@ public class FiretruckFactory extends UnitBuildingFactory {
      */
     @Override
     public Firetruck createUnitBuilding(Object[] parameters) throws InvalidParameterException {
-        //TODO: reimplement Waarom?
-        
         if (areValidParameters(parameters)) {
             String name = (String) parameters[0];
             GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];

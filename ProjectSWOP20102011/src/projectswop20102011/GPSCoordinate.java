@@ -70,6 +70,29 @@ public class GPSCoordinate {
 		distance = Math.sqrt(Math.pow(getX()-gpsCoordinate.getX(), 2)+Math.pow(getY()-gpsCoordinate.getY(), 2));
 		return distance;
 	}
+	
+	/**
+	 * Checks whether the given object is equal to this GPSCoordinate.
+	 * @param o
+	 *		The object to check whether this GPSCoordinate is equal to it.
+	 * @return True if the given object is equal to this GPSCoordinate; false otherwise.
+	 */
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof GPSCoordinate){
+			return equals((GPSCoordinate)o);
+		} else {
+			return false;
+		}
+	}
 
-
+	/**
+	 * Checks whether the given GPSCoordinate is equal to this GPSCoordinate.
+	 * @param gps2
+	 *		The GPSCoordinate to check whether this GPSCoordinate is equal to it.
+	 * @return True if the given GPSCoordinate is equal to this GPSCoordinate; false otherwise.
+	 */
+	public boolean equals(GPSCoordinate gps2){
+		return (getX() == gps2.getX() && getY() == gps2.getY());
+	}
 }

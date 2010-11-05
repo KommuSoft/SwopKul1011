@@ -30,7 +30,7 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
     @Override
     public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
         return (unitBuilding.getClass().getSuperclass() == getType() || unitBuilding.getClass() == getType());
-		//TODO: wat met polymorfisme? Is dit een klein beetje beter?
+		//TODO: wat met polymorfisme? Is dit een klein beetje beter? Ja maar moet nog recursief gebeuren.
     }
 
     /**

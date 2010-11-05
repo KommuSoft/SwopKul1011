@@ -67,6 +67,18 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         return (this.getEmergency() != null);
     }
 
+	/**
+	 * Returns whether this unit is at its destination.
+	 * @return True if this unit is at its destination; false otherwise.
+	 */
+	public boolean isAtDestination(){
+		if(getEmergency() != null){
+			return getCurrentLocation().equals(getEmergency().getLocation());
+		} else {
+			return false;
+		}
+	}
+
     /**
      * Returns the speed of this timesensitive unit or building.
      * @return The speed of this timesensitive unit or building.
@@ -141,7 +153,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         this.emergency = emergency;
     }
 
-    //TODO: is dit gevaarlijk? Nee
     /**
      * Returns the emergency of this unit.
      * @return The emergency of this unit if the unit is assigned, otherwise null.
@@ -208,12 +219,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
                 } catch (InvalidLocationException ex) {
                     Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                if (getCurrentLocation().getX() == getDestination().getX()
-                        && getCurrentLocation().getY() == getDestination().getY()) {
-                    //TODO: report dat de emergency afgewerkt is. Is dit alles?
-					finishedJob();
-                }
             }
         } else if (duration < 0) {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
@@ -266,7 +271,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
         setEmergency(emergency);
-        //TODO: Is de verandering van de status hier nodig, is dat niet meer iets voor de controller? Nee
         emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
         try {
             setCurrentLocation(getHomeLocation());

@@ -38,7 +38,6 @@ public class AmbulanceFactory extends UnitBuildingFactory {
      */
     @Override
     public Ambulance createUnitBuilding(Object[] parameters) throws InvalidParameterException {
-        //TODO: reimplement Waarom?
         if (areValidParameters(parameters)) {
             String name = (String) parameters[0];
             GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];
