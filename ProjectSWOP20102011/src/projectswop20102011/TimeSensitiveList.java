@@ -1,6 +1,6 @@
 package projectswop20102011;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import projectswop20102011.exceptions.InvalidTimeSensitiveException;
 
@@ -14,7 +14,7 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
     /**
      * The inner list to manage the time sensitive objects.
      */
-    private final ArrayList<TimeSensitive> timeSensitives;
+    private final HashSet<TimeSensitive> timeSensitives;
 
     /**
      * Creating a new instance of an TimeSensitiveList. At this moment this list
@@ -22,33 +22,27 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
 	 * @effect The new TimeSensitiveList is a list with no elements in it.
      */
     public TimeSensitiveList() {
-        this.timeSensitives = new ArrayList<TimeSensitive>();
+        this.timeSensitives = new HashSet<TimeSensitive>();
     }
 
     /**
      * Returns the list of objects that are time sensitive.
      * @return The list of objects that are time sensitive.
      */
-    public ArrayList<TimeSensitive> getTimeSensitives() {
-        return (ArrayList<TimeSensitive>) timeSensitives.clone();
+    public HashSet<TimeSensitive> getTimeSensitives() {
+        return (HashSet<TimeSensitive>) timeSensitives.clone();
     }
 
     /**
-     * Adds the given TimeSensitive to this list of time sensitive objects if the given TimeSensitive
-	 * is not already in this list of time sensitive objects.
+     * Adds the given TimeSensitive to this list of time sensitive objects.
+     * If the given TimeSensitive object is already in the list, nothing happens.
      * @param ub
      *		TimeSensitive to be appended to this list of time sensitive objects.
-     * @throws InvalidTimeSensitiveException
-     *		If the given TimeSensitive is already in this TimeSensitiveList.
      * @post This TimeSensitiveList contains the given TimeSensitive.
      */
-    void addTimeSensitive(TimeSensitive ub) throws InvalidTimeSensitiveException {
-        for (int i = 0; i < getTimeSensitives().size(); ++i) {
-            if (getTimeSensitives().get(i) == ub) {
-                throw new InvalidTimeSensitiveException("Invalid time sensitive.");
-            }
-        }
-        timeSensitives.add(ub);
+    void addTimeSensitive(TimeSensitive ub) {
+        if(!this.timeSensitives.contains(ub))
+            timeSensitives.add(ub);
     }
 
     /**
@@ -58,5 +52,15 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
     @Override
     public Iterator<TimeSensitive> iterator() {
         return timeSensitives.iterator();
+    }
+
+    /**
+     * Moves the time forward for all instances in the TimeAheadList for the given amount of seconds.
+     * @param seconds The given amount of seconds.
+     */
+    public void timeAhead (int seconds) {
+        for(TimeSensitive ts : this) {
+            ts.timeAhead(seconds);
+        }
     }
 }

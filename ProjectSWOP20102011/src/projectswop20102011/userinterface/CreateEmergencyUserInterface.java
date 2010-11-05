@@ -1,7 +1,5 @@
 package projectswop20102011.userinterface;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.EmergencySeverity;
 import projectswop20102011.FireSize;
 import projectswop20102011.GPSCoordinate;
@@ -9,11 +7,13 @@ import projectswop20102011.controllers.Controller;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidFireSizeException;
-import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.exceptions.ParsingAbortedException;
+import projectswop20102011.userinterface.parsers.BooleanParser;
+import projectswop20102011.userinterface.parsers.EmergencySeverityParser;
+import projectswop20102011.userinterface.parsers.FireSizeParser;
+import projectswop20102011.userinterface.parsers.GPSCoordinateParser;
+import projectswop20102011.userinterface.parsers.LongParser;
+import projectswop20102011.userinterface.parsers.StringParser;
 
 /**
  * A user interface specialized in creating a new emergency.
@@ -37,14 +37,14 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
         do {
             retry = false;
             try {
-                GPSCoordinate location = UserInterfaceParsers.parseGPSCoordinate(this, "location of the emergency");
-                EmergencySeverity severity = UserInterfaceParsers.parseSeverity(this, "severity level of the emergency");
-                String emergencyType = UserInterfaceParsers.parseOptionsString(this, "type of the emergency", "fire", "robbery", "public disturbance", "traffic accident");
+                GPSCoordinate location = this.parseInputToType(new GPSCoordinateParser(), "location of the emergency");
+                EmergencySeverity severity = this.parseInputToType(new EmergencySeverityParser(), "severity level of the emergency");
+                String emergencyType = this.parseInputToType(new StringParser(), "type of the emergency");//, "fire", "robbery", "public disturbance", "traffic accident"
                 if (emergencyType.equals("fire")) {
-                    FireSize fireSize = UserInterfaceParsers.parseFireSize(this, "size of the fire");
-                    boolean chemical = UserInterfaceParsers.parseBoolean(this, "is the fire chemical");
-                    boolean trappedPeople = UserInterfaceParsers.parseBoolean(this, "are there trapped people");
-                    long numberOfInjured = UserInterfaceParsers.parseLong(this, "number of injured people");
+                    FireSize fireSize = this.parseInputToType(new FireSizeParser(), "size of the fire");
+                    boolean chemical = this.parseInputToType(new BooleanParser(), "is the fire chemical");
+                    boolean trappedPeople = this.parseInputToType(new BooleanParser(), "are there trapped people");
+                    long numberOfInjured = this.parseInputToType(new LongParser(), "number of injured people");
                     try {
                         this.controller.createFireEmergency(location, severity, fireSize, chemical, trappedPeople, numberOfInjured);
                     } catch (Exception ex) {
@@ -53,8 +53,8 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                         retry = this.readInput().toLowerCase().equals("retry");
                     }
                 } else if (emergencyType.equals("robbery")) {
-                    boolean armed = UserInterfaceParsers.parseBoolean(this, "is the robbery armed");
-                    boolean inprogress = UserInterfaceParsers.parseBoolean(this, "is the robbery still in progress");
+                    boolean armed = this.parseInputToType(new BooleanParser(), "is the robbery armed");
+                    boolean inprogress = this.parseInputToType(new BooleanParser(), "is the robbery still in progress");
                     try {
                         this.controller.createRobberyEmergency(location, severity, armed, inprogress);
                     } catch (Exception ex) {
@@ -63,7 +63,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                         retry = this.readInput().toLowerCase().equals("retry");
                     }
                 } else if (emergencyType.equals("public disturbance")) {
-                    long numberOfPeople = UserInterfaceParsers.parseLong(this, "number of people involved in the public disturbance");
+                    long numberOfPeople = this.parseInputToType(new LongParser(), "number of people involved in the public disturbance");
                     try {
                         this.controller.createPublicDisturbanceEmergency(location, severity, numberOfPeople);
                     } catch (Exception ex) {
@@ -72,8 +72,8 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                         retry = this.readInput().toLowerCase().equals("retry");
                     }
                 } else if (emergencyType.equals("traffic accident")) {
-                    long numberOfCars = UserInterfaceParsers.parseLong(this, "number of cars involved in the traffic accident");
-                    long numberOfPeople = UserInterfaceParsers.parseLong(this, "number of people involved in the traffic accident");
+                    long numberOfCars = this.parseInputToType(new LongParser(), "number of cars involved in the traffic accident");
+                    long numberOfPeople = this.parseInputToType(new LongParser(), "number of people involved in the traffic accident");
                     try {
                         this.controller.createTrafficAccidentEmergency(location, severity, numberOfCars, numberOfPeople);
                     } catch (Exception ex) {
@@ -84,7 +84,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                 } else {
                     this.writeOutput("ERROR: unknown emergency type.");
                     this.writeOutput("write \"retry\" to retry to input the emergency, otherwise write anything else");
-                        retry = this.readInput().toLowerCase().equals("retry");
+                    retry = this.readInput().toLowerCase().equals("retry");
                 }
 
             } catch (ParsingAbortedException ex) {

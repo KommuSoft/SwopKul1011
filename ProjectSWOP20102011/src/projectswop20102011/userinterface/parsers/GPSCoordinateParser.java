@@ -17,7 +17,7 @@ public class GPSCoordinateParser extends Parser<GPSCoordinate> {
      * Creates a new GPSCoordinate parser.
      */
     public GPSCoordinateParser() {
-        super("format: (x,y)");
+        super("format: (x,y)",GPSCoordinateParser.class);
     }
 
     /**

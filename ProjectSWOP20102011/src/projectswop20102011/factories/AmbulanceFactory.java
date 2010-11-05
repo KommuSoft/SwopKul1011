@@ -38,7 +38,8 @@ public class AmbulanceFactory extends UnitBuildingFactory {
      */
     @Override
     public Ambulance createUnitBuilding(Object[] parameters) throws InvalidParameterException {
-        if (areValidParameters(parameters)) {
+        //TODO: reimplement
+        /*if (areValidParameters(parameters)) {
             String name = (String) parameters[0];
             GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];
             Long speed = (Long) parameters[2];
@@ -56,7 +57,7 @@ public class AmbulanceFactory extends UnitBuildingFactory {
             }
         } else {
             throw new InvalidParameterException("Invalid parameters for this fire truck.");
-        }
+        }*/
         return null;
     }
 

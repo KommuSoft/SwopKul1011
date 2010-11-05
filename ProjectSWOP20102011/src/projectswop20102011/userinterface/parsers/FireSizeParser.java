@@ -14,7 +14,7 @@ public class FireSizeParser extends Parser<FireSize> {
      * Creates a new fire size parser.
      */
     public FireSizeParser () {
-        super("format: local/house/facility");
+        super("format: local/house/facility",FireSizeParser.class);
     }
 
     /**

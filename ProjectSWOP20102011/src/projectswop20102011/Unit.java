@@ -20,11 +20,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *		|isValidHomeLocation(getHomeLocation())
  */
 public abstract class Unit extends UnitBuilding implements TimeSensitive {
-
-    /**
-     * A variable registering whether this unit is assigned.
-     */
-    private boolean assigned;
+    
     /**
      * A variable registering the speed of this unit.
      */
@@ -47,17 +43,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The home location of the new unit.
      * @param speed
      *		The speed of the new unit.
-     * @param assigned
-     *		The assigned indicator of the new unit.
-     * @param currentLocation
-     *		The current location of the new unit.
-     * @param assigned
-     *		The assigned indicator of the new unit.
-     * @effect The new unit is a unit with given name, home location, speed,
-     *			current location, destination.
-     *         |super(name,homeLocation,speed,currentLocation,destination);
-     * @post The new unit has the given assigned indicator
-     *		|new.isAssigned() == assigned
+     * @effect The new unit is a unit with given name, home location
+     *         |super(name,homeLocation);
      * @throws InvalidUnitBuildingNameException
      *		If the given name is an invalid name for a unit.
      * @throws InvalidLocationException
@@ -69,7 +56,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         super(name, homeLocation);
         setSpeed(speed);
         setCurrentLocation(homeLocation);
-        setAssigned(false);
     }
 
     /**
@@ -77,19 +63,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return True if this unit is assigned; false otherwise.
      */
     public boolean isAssigned() {
-        return assigned;
-    }
-
-    /**
-     * Sets the assigned indicator to the given value.
-     *
-     * @param assigned
-     *		The new value of the assigned indicator.
-     * @post The assigned indicator of this timesensitive unit or building is set according to the given assigned indicator.
-     *		|new.isAssigned() == assigned
-     */
-    private void setAssigned(boolean assigned) {
-        this.assigned = assigned;
+        return (this.getEmergency() != null);
     }
 
     /**
@@ -109,11 +83,14 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
     }
 
     /**
-     * Returns the destination of this timesensitive unit or building.
-     * @return The destination of this timesensitive unit or building.
+     * Returns the destination of this timesensitive unit.
+     * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        return emergency.getLocation();
+        if(this.emergency == null)
+            return this.getHomeLocation();
+        else
+            return emergency.getLocation();
     }
 
     /**
@@ -285,7 +262,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
         setEmergency(emergency);
-        setAssigned(true);
         //TODO: Is de verandering van de status hier nodig, is dat niet meer iets voor de controller.
         emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
         try {
@@ -294,4 +270,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
             Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void finishedJob () {
+        setEmergency(null);
+    }
+
 }

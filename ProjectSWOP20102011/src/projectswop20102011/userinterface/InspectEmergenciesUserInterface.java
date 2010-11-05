@@ -6,6 +6,7 @@ import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
+import projectswop20102011.userinterface.parsers.EmergencyStatusParser;
 
 /**
  * A command user interface to inspect the emergencies (use case #3)
@@ -37,7 +38,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
         do {
             viewOtherList = false;
             try {
-                EmergencyStatus status = UserInterfaceParsers.parseEmergencyStatus(this, "status of the emergency");
+                EmergencyStatus status = this.parseInputToType(new EmergencyStatusParser(), "status of the emergency");
                 Emergency[] emergencies = this.getController().inspectEmergenciesOnStatus(status);
                 this.writeOutput(String.format("Founded emergencies (%s):", emergencies.length));
                 for (Emergency em : emergencies) {

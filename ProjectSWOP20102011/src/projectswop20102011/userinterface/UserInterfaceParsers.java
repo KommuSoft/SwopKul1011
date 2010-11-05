@@ -17,97 +17,10 @@ import projectswop20102011.exceptions.ParsingAbortedException;
  */
 public class UserInterfaceParsers {
 
-    private static Pattern GPS_COORDINATE_PATTERN = Pattern.compile("\\(([^(,)]+),([^(,)]+)\\)");
-
     /**
      * No instances can be created
      */
     private UserInterfaceParsers() {
-    }
-
-    public static boolean parseBoolean(CreateEmergencyUserInterface channel, String parameterName) throws ParsingAbortedException {
-        while (true) {
-            channel.writeOutput(String.format("%s=? (yes/true/false/no)", parameterName));
-            String input = channel.readInput();
-            if (input.toLowerCase().equals("abort")) {
-                throw new ParsingAbortedException("Parsing boolean aborted.");
-            }
-            input = input.toLowerCase();
-            if (input.equals("yes") || input.equals("true")) {
-                return true;
-            } else if (input.equals("no") || input.equals("false")) {
-                return false;
-            } else {
-                channel.writeOutput("Unknown expression, please retry.");
-            }
-        }
-    }
-
-    public static GPSCoordinate parseGPSCoordinate(UserInterface channel, String parameterName) throws ParsingAbortedException {
-        while (true) {
-            channel.writeOutput(String.format("%s=? (format: \"(x,y)\")", parameterName));
-            String input = channel.readInput();
-            if (input.toLowerCase().equals("abort")) {
-                throw new ParsingAbortedException("Parsing GPSCoordinate aborted.");
-            }
-            Matcher matcher = GPS_COORDINATE_PATTERN.matcher(input);
-            if (matcher.find()) {
-                try {
-                    long x = Long.parseLong(matcher.group(1));
-                    long y = Long.parseLong(matcher.group(2));
-                    return new GPSCoordinate(x, y);
-                } catch (Exception e) {
-                    channel.writeOutput(String.format("ERROR: %s", e.getMessage()));
-                }
-            } else {
-                channel.writeOutput("GPSCoordinate wrong formatted, please retry.");
-            }
-        }
-    }
-
-    public static EmergencySeverity parseSeverity(UserInterface channel, String parameterName) throws ParsingAbortedException {
-        while (true) {
-            channel.writeOutput(String.format("%s=? (benign/normal/serious/urgent)", parameterName));
-            String input = channel.readInput();
-            if (input.toLowerCase().equals("abort")) {
-                throw new ParsingAbortedException("Parsing EmergencySeverity aborted.");
-            }
-            try {
-                return EmergencySeverity.parse(input);
-            } catch (InvalidEmergencySeverityException ex) {
-                channel.writeOutput("Unknown severity type, please retry.");
-            }
-        }
-    }
-
-    public static EmergencyStatus parseEmergencyStatus(UserInterface channel, String parameterName) throws ParsingAbortedException {
-        while (true) {
-            channel.writeOutput(String.format("%s=? (recorded but unhandled/response in progress/finished)", parameterName));
-            String input = channel.readInput();
-            if (input.toLowerCase().equals("abort")) {
-                throw new ParsingAbortedException("Parsing EmergencyStatus aborted.");
-            }
-            try {
-                return EmergencyStatus.parse(input);
-            } catch (InvalidEmergencyStatusException ex) {
-                channel.writeOutput("Unknown status, please retry.");
-            }
-        }
-    }
-
-    public static FireSize parseFireSize(UserInterface channel, String parameterName) throws ParsingAbortedException {
-        while (true) {
-            channel.writeOutput(String.format("%s=? (local/house/facility)", parameterName));
-            String input = channel.readInput();
-            if (input.toLowerCase().equals("abort")) {
-                throw new ParsingAbortedException("Parsing FireSize aborted.");
-            }
-            try {
-                return FireSize.parse(input);
-            } catch (InvalidFireSizeException ex) {
-                channel.writeOutput("Unknown status, please retry.");
-            }
-        }
     }
 
     public static String parseOptionsString(UserInterface channel, String parameterName, String... options) throws ParsingAbortedException {
@@ -130,22 +43,6 @@ public class UserInterfaceParsers {
                 }
             }
             channel.writeOutput("Unknown option, please retry.");
-        }
-    }
-
-    public static long parseLong(UserInterface channel, String parameterName) throws ParsingAbortedException {
-        while (true) {
-            channel.writeOutput(String.format("%s=? (number)", parameterName));
-            String input = channel.readInput();
-            if (input.toLowerCase().equals("abort")) {
-                throw new ParsingAbortedException("Parsing number aborted.");
-            }
-            try {
-                return Long.parseLong(input);
-            } catch (Exception e) {
-                channel.writeOutput(String.format("ERROR: %s", e.getMessage()));
-            }
-            channel.writeOutput("Unknown number, please retry.");
         }
     }
 }

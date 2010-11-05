@@ -13,7 +13,7 @@ import projectswop20102011.exceptions.ParsingException;
 public class EmergencySeverityParser extends Parser<EmergencySeverity> {
 
     public EmergencySeverityParser () {
-        super("format: benign/normal/serious/urgent");
+        super("format: benign/normal/serious/urgent",EmergencySeverity.class);
     }
 
     @Override
