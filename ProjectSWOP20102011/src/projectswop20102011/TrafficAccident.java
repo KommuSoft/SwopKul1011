@@ -180,7 +180,13 @@ public class TrafficAccident extends Emergency {
 				numbersNeeded[2] = (getNumberOfCars()+1)/2;
 			}
 		}
-		
+
+		long sum = 0;
+		for(int i=0; i<numbersNeeded.length; ++i){
+			sum += numbersNeeded[i];
+		}
+
+		setWorkingUnits(sum);
 		return new UnitsNeeded(numbersNeeded, units);
 	}
 }

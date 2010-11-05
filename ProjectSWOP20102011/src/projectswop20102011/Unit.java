@@ -283,8 +283,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 	 * Finishes the job of this Unit.
 	 */
     public void finishedJob (){
-		//TODO: wanneer alle units gedaan hebben moet de emergencyStatus op FINISHED staan.
         setEmergency(null);
+		getEmergency().setWorkingUnits(getEmergency().getWorkingUnits()-1);
     }
 
 }

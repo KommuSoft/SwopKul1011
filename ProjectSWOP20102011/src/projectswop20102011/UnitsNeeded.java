@@ -65,13 +65,4 @@ public class UnitsNeeded{
 	private void setUnits(Class<? extends Unit>[] units) {
 		this.units = Arrays.copyOf(units, units.length);
 	}
-
-	/**
-	 *
-	 */
-	public void assign(){
-		if(getUnits().length == getNumbersNeeded().length){
-
-		}
-	}
 }

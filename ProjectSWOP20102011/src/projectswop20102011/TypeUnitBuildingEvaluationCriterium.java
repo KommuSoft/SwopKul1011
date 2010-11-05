@@ -1,5 +1,7 @@
 package projectswop20102011;
 
+import java.util.ArrayList;
+
 /**
  * An implementation for a UnitBuildingEvaluationCriterium that checks if the object is equal to a given type.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
@@ -29,8 +31,23 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
      */
     @Override
     public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
-        return (unitBuilding.getClass().getSuperclass() == getType() || unitBuilding.getClass() == getType());
-		//TODO: wat met polymorfisme? Is dit een klein beetje beter? Ja maar moet nog recursief gebeuren.
+		ArrayList<Class> array = new ArrayList<Class>();
+		Class c = unitBuilding.getClass();
+
+		while(c != Object.class){
+			array.add(c);
+			c = c.getSuperclass();
+		}
+
+		for(int i=0; i<array.size(); ++i){
+			if(array.get(i) == getType()){
+				return true;
+			}
+		}
+
+		return false;
+		
+		//Aangepast origineel: return (unitBuilding.getClass().getSuperclass() == getType() || unitBuilding.getClass() == getType());
     }
 
     /**

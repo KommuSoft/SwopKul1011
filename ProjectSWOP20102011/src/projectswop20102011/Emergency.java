@@ -41,6 +41,10 @@ public abstract class Emergency {
      * A variable registering the status of this emergency.
      */
     private EmergencyStatus status;
+	/**
+	 * A variable registering the number of working units of this emergency.
+	 */
+	private long workingUnits;
 
     /**
      * Make a new emergency with the given location, severity.
@@ -60,6 +64,7 @@ public abstract class Emergency {
         this.id = idDispatcher++;
         setLocation(location);
         setSeverity(severity);
+		setWorkingUnits(0);
         try {
             setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
         } catch (InvalidEmergencyStatusException ex) {
@@ -113,6 +118,24 @@ public abstract class Emergency {
         this.status = status;
     }
 
+	/**
+	 * Sets the number of working units to the given number.
+	 * @param workingUnits
+	 *		The new number of working units.
+	 * @post The number of working units is set to the given number.
+	 *		|this.workingUnits = workingUnits
+	 */
+	protected void setWorkingUnits(long workingUnits){
+		this.workingUnits = workingUnits;
+		if(this.workingUnits == 0){
+			try {
+				setStatus(EmergencyStatus.FINISHED);
+			} catch (InvalidEmergencyStatusException ex) {
+				Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+
     /**
      * Returns the location of this emergency.
      * @return The location of this emergency.
@@ -144,6 +167,14 @@ public abstract class Emergency {
     public long getId() {
         return id;
     }
+
+	/**
+	 * Returns the number of working units for this emergency.
+	 * @return The number of working units for this emergency.
+	 */
+	public long getWorkingUnits(){
+		return workingUnits;
+	}
 
     /**
      * Checks if the given severity is valid as severity level of an emergency.
