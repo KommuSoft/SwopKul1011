@@ -61,7 +61,8 @@ public class PublicDisturbance extends Emergency {
 
     /**
      * Checks if the number of people is a valid number for a public disturbance emergency.
-     * @param numberOfPeople The number of people to check.
+     * @param numberOfPeople
+	 *		The number of people to check.
      * @return True if the number of people is strict larger than zero.
      */
     public static boolean isValidNumberOfPeople (long numberOfPeople) {

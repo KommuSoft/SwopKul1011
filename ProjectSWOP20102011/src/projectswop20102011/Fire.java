@@ -147,7 +147,8 @@ public class Fire extends Emergency {
 
     /**
      * Checks if the given fire size is a valid fire size for a fire emergency.
-     * @param fireSize The fire size to validate.
+     * @param fireSize
+	 *		The fire size to validate.
      * @return True if fireSize is effective, otherwise false.
      */
     public static boolean isValidFireSize(FireSize fireSize) {

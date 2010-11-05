@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
-import projectswop20102011.exceptions.InvalidUnitBuildingException;
 
 /**
  * A list of units and buildings where every unit and building is unique.
@@ -38,7 +37,8 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
 
     /**
      * Search for and return the UnitBuilding in the UnitBuildingList with a name equal to the given name.
-     * @param name The name to compare with.
+     * @param name
+	 *		The name to compare with.
      * @return The UnitBuilding in this list with a name equal to the name, or null if no such UnitBuilding can be found.
      */
     public UnitBuilding getUnitBuildingFromName (String name) {
@@ -74,8 +74,9 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      * @post This UnitBuildingList contains the given UnitBuilding.
      */
     void addUnitBuilding(UnitBuilding ub) {
-        if(!this.unitBuildings.contains(ub))
-            this.unitBuildings.add(ub);
+        if(!this.unitBuildings.contains(ub)) {
+			this.unitBuildings.add(ub);
+		}
     }
 
     /**

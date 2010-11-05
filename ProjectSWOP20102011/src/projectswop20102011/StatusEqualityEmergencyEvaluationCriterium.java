@@ -20,7 +20,8 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
 
     /**
      * Validates a given Emergency on equality on the status of the Emergency, and this status.
-     * @param emergency The emergency to validate.
+     * @param emergency
+	 *		The emergency to validate.
      * @return True if the status of the emergency equals this status, otherwise false.
      */
     @Override

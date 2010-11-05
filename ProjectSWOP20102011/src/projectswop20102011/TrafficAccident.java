@@ -95,7 +95,8 @@ public class TrafficAccident extends Emergency {
 
     /**
      * Checks if the given number of cars is a valid number for a traffic accident.
-     * @param numberOfCars The number of cars to validate.
+     * @param numberOfCars
+	 *		The number of cars to validate.
      * @return True if numberOfCars is larger or equal to zero, otherwise false.
      */
     public static boolean isValidNumberOfCars(long numberOfCars) {
@@ -104,7 +105,8 @@ public class TrafficAccident extends Emergency {
 
     /**
      * Checks if the given number of injured people is a valid number for a traffic accident.
-     * @param numberOfInjured The number of injured people to validate.
+     * @param numberOfInjured
+	 *		The number of injured people to validate.
      * @return True if numberOfInjured is larger or equal to zero, otherwise false.
      */
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
