@@ -41,6 +41,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                     this.writeOutput("Ambulance is not assigned to an emergency");
                     this.writeOutput(String.format("Logout %s", amb));
                 }
+                
             } else {
                 this.writeOutput(String.format("No ambulance exists with name \"%s\"",name));
             }
