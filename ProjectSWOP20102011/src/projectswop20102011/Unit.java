@@ -197,7 +197,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @throws InvalidDurationException
      *		If the given duration is invalid.
      */
-	//TODO Wanneer wordt er hier gecontroleerd of een Unit op zijn bestemming is, want als de duration te groot gekozen is gaat de Unit erover springen.
+	//TODO Wanneer wordt er hier gecontroleerd of een Unit op zijn bestemming is, want als de duration te groot gekozen is gaat de Unit erover springen. Goed Jonas! Heb ik het hiermee verbeterd ? :s
     public void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
             if (getDestination() != null) {
@@ -215,8 +215,14 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
                 stopX = Math.round(startX + (distanceX / distance) * getSpeed() * duration / 3600);
                 stopY = Math.round(startY + (distanceY / distance) * getSpeed() * duration / 3600);
                 GPSCoordinate stop = new GPSCoordinate(stopX, stopY);
+
+				double calculatedDistance = getCurrentLocation().getDistanceTo(stop);
                 try {
-                    changeCurrentLocation(stop);
+					if(calculatedDistance > distance){
+						changeCurrentLocation(getDestination());
+					}else{
+						changeCurrentLocation(stop);
+					}
                 } catch (InvalidLocationException ex) {
                     Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -241,7 +247,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The distance from one location to another one.
      *
      */
-	//TODO wat is het nut hiervan? Dit wordt toch nergens gebruikt.
+	//TODO wat is het nut hiervan? Dit wordt toch nergens gebruikt. Je hebt waarschijnlijk gelijk denk ik, maar ik dacht dat dit eerst wel gebruikt werd, maar dat we de methode veranderd hebben en dat het zo niet meer gebruikt werd en nu dus eigenlijk weg mag.
     public double calculateDistance(long x1, long y1, long x2, long y2) {
         double distanceX = Math.pow((double) x2 - (double) x1, 2);
         double distanceY = Math.pow((double) y2 - (double) y1, 2);
