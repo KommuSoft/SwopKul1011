@@ -82,7 +82,7 @@ public class Robbery extends Emergency {
      * @return A string representing basic information of this robbery.
      * @see PublicDisturbance.toLongInformationString
 	 */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
         return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
@@ -92,7 +92,7 @@ public class Robbery extends Emergency {
 	 * @return A string that represents all the information of this robbery.
 	 * @see PublicDisturbance.toShortInformationString
 	 */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
         return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.isArmed(),this.isInProgress());
     }

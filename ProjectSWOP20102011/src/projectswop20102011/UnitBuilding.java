@@ -86,7 +86,7 @@ public abstract class UnitBuilding{
 	 * @return True if the name is valid; false otherwise.
 	 */
 	public static boolean isValidName(String name){
-		return ((!name.equals(""))&&(name != null));
+		return ((name != null)&&(!name.equals("")));
 	}
 
     /**

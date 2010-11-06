@@ -170,7 +170,7 @@ public class Fire extends Emergency {
      * @return A string representing basic information of the Fire.
      * @see Fire.toLongInformationString
      */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
         return String.format("[Fire id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
@@ -180,7 +180,7 @@ public class Fire extends Emergency {
 	 * @return A string that represents all the information of the Fire.
 	 * @see Fire.toShortInformationString
 	 */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
         return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getSize(),this.isChemical(),this.hasTrappedPeople(),this.getNumberOfInjured());
     }

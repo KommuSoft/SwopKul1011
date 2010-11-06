@@ -17,6 +17,7 @@ public class AmbulanceTest {
 	private GPSCoordinate homeLocation, emergencyLocation;
 	private Ambulance ziekenwagen;
 	private Emergency f1;
+	private long speed2;
 
     @Before
     public void setUp(){
@@ -25,6 +26,7 @@ public class AmbulanceTest {
 		x3 = 1302;
 		y3 = 2031;
 		speed1 = 90;
+		speed2 = -96;
 		duration = 9*3600;
 		name = "Ziekenwagen";
 		homeLocation = new GPSCoordinate(x2,y2);
@@ -41,6 +43,13 @@ public class AmbulanceTest {
 		assertEquals(x2,ziekenwagen.getCurrentLocation().getX());
 		assertEquals(y2,ziekenwagen.getCurrentLocation().getY());
 		assertFalse(ziekenwagen.isAssigned());
+		assertFalse(ziekenwagen.isAtDestination());
+		assertEquals(homeLocation, ziekenwagen.getDestination());
+	}
+
+	@Test(expected = InvalidSpeedException.class)
+    public void testInValidSpeedConstructor() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
+		ziekenwagen = new Ambulance(name,homeLocation, speed2);
 	}
 
 	@Test
@@ -52,10 +61,10 @@ public class AmbulanceTest {
 		ziekenwagen = new Ambulance(name,homeLocation,speed1);
 		ziekenwagen.assignTo(f1);
 		ziekenwagen.timeAhead(duration);
-		assertEquals(446,ziekenwagen.getCurrentLocation().getX());
-		assertEquals(687,ziekenwagen.getCurrentLocation().getY());
-		assertEquals(x3,ziekenwagen.getDestination().getX());
-		assertEquals(y3,ziekenwagen.getDestination().getY());
+		assertEquals(446, ziekenwagen.getCurrentLocation().getX());
+		assertEquals(687, ziekenwagen.getCurrentLocation().getY());
+		assertEquals(x3, ziekenwagen.getDestination().getX());
+		assertEquals(y3, ziekenwagen.getDestination().getY());
 	}
 
 	@Test
@@ -67,5 +76,8 @@ public class AmbulanceTest {
 		ziekenwagen.assignTo(f1);
 		assertEquals(f1.getLocation().getX(), ziekenwagen.getDestination().getX());
 		assertEquals(f1.getLocation().getY(), ziekenwagen.getDestination().getY());
+		assertTrue(ziekenwagen.isAssigned());
+		assertFalse(ziekenwagen.isAtDestination());
+		assertEquals(f1, ziekenwagen.getEmergency());
 	}
 }

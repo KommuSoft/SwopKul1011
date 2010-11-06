@@ -102,8 +102,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
     public GPSCoordinate getDestination() {
         if(this.emergency == null) {
 			return this.getHomeLocation();
-		}
-        else {
+		} else {
 			return emergency.getLocation();
 		}
     }
@@ -136,6 +135,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @post The current location of this unit or building is set according to the given current location.
      *		|new.getCurrentLocation() == currentLocation
      */
+	//TODO moet dit hier geen try-catch zijn? De current location moet toch altijd geset worden vanuit het programma?
     private void setCurrentLocation(GPSCoordinate currentLocation) throws InvalidLocationException {
         if (!isValidCurrentLocation(currentLocation)) {
             throw new InvalidLocationException(String.format("\"%s\" is an invalid current location for a unit.", currentLocation));
@@ -182,7 +182,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The current location of a unit to test.
      * @return True if the current location is valid; false otherwise.
      */
-    public boolean isValidCurrentLocation(GPSCoordinate currentLocation) {
+    public static boolean isValidCurrentLocation(GPSCoordinate currentLocation) {
         return (currentLocation != null);
     }
 
@@ -197,7 +197,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @throws InvalidDurationException
      *		If the given duration is invalid.
      */
-	//TODO Wanneer wordt er hier gecontroleerd of een Unit op zijn bestemming is, want als de duration te groot gekozen is gaat de Unit erover springen. Goed Jonas! Heb ik het hiermee verbeterd ? :s
     private void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
             if (getDestination() != null) {
@@ -205,15 +204,13 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
                 long startY = getCurrentLocation().getY();
                 long goalX = getDestination().getX();
                 long goalY = getDestination().getY();
-                long stopX;
-                long stopY;
 
                 double distance = getCurrentLocation().getDistanceTo(getDestination());
                 long distanceX = goalX - startX;
                 long distanceY = goalY - startY;
 
-                stopX = Math.round(startX + (distanceX / distance) * getSpeed() * duration / 3600);
-                stopY = Math.round(startY + (distanceY / distance) * getSpeed() * duration / 3600);
+                long stopX = Math.round(startX + (distanceX / distance) * getSpeed() * duration / 3600);
+                long stopY = Math.round(startY + (distanceY / distance) * getSpeed() * duration / 3600);
                 GPSCoordinate stop = new GPSCoordinate(stopX, stopY);
 
 				double calculatedDistance = getCurrentLocation().getDistanceTo(stop);

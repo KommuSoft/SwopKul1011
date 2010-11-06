@@ -1,6 +1,5 @@
 package projectswop20102011;
 
-import projectswop20102011.exceptions.InvalidCoordinateException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,7 +22,7 @@ public class FireTest {
     private long y1;
 
     @Before
-    public void setUp() throws InvalidCoordinateException {
+    public void setUp(){
         x1 = 10;
         y1 = 156;
 

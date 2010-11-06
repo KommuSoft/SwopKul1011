@@ -74,7 +74,7 @@ public class PublicDisturbance extends Emergency {
      * @return A string representing basic information of the public disturbance.
      * @see PublicDisturbance.toLongInformationString
      */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
         return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
@@ -84,7 +84,7 @@ public class PublicDisturbance extends Emergency {
 	 * @return A string that represents all the information of the public disturbance.
 	 * @see PublicDisturbance.toShortInformationString
 	 */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
         return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfPeople());
     }

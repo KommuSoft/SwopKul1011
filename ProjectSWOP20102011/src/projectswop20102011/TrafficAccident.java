@@ -118,7 +118,7 @@ public class TrafficAccident extends Emergency {
      * @return A string representing basic information of the traffic accident.
      * @see TrafficAccident.toLongInformationString
 	 */
-    @Override
+    //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
         return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
     }
@@ -128,7 +128,7 @@ public class TrafficAccident extends Emergency {
      * @return A string representing all the information of the traffic accident.
      * @see TrafficAccident.toShortInformationString
 	 */
-    @Override
+	//TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
         return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s; number_of_cars=%s; number_of_injured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfCars(),this.getNumberOfInjured());
     }

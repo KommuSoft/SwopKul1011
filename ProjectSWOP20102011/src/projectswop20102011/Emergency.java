@@ -205,24 +205,19 @@ public abstract class Emergency {
         return (location != null);
     }
 
-    /**
-     * Returns a string that represents the basic information of the Emergency (type,location,severity)
-     * @return A string representing basic information of the Emergency.
-     * @see Emergency.toLongInformationString
-     */
-    public abstract String toShortInformationString ();
-
-    /**
-     * Returns a string that representa all the information of the emergency that is known.
-     * @return A string representing all the information of the emergency that is known.
-     * @see Emergency.toShortInformationString
-     */
-    public abstract String toLongInformationString ();
-
 	/**
 	 * Calculates the units needed for this Emergency.
 	 * @return The units needed for this Emergency.
 	 */
 	public abstract UnitsNeeded calculateUnitsNeeded();
 
+	//TODO deze code moet nog verwijderd worden. Dit is een dummy zodat de userinterface geen errors geeft.
+	public String toShortInformationString() {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+
+	//TODO deze code moet nog verwijderd worden. Dit is een dummy zodat de userinterface geen errors geeft.
+	public String toLongInformationString() {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
 }
