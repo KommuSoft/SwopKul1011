@@ -198,7 +198,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		If the given duration is invalid.
      */
 	//TODO Wanneer wordt er hier gecontroleerd of een Unit op zijn bestemming is, want als de duration te groot gekozen is gaat de Unit erover springen. Goed Jonas! Heb ik het hiermee verbeterd ? :s
-    public void changeLocation(long duration) throws InvalidDurationException {
+    private void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
             if (getDestination() != null) {
                 long startX = getCurrentLocation().getX();
@@ -231,27 +231,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
         }
 
-    }
-
-    /**
-     * Calculates the distance from one location to another.
-     * @param x1
-     *		The x-coordinate of the first location.
-     * @param y1
-     *		The y-coordinate of the first location.
-     * @param x2
-     *		The x-coordinate of the second location.
-     * @param y2
-     *		The y-coordinate of the second location.
-     * @return
-     *		The distance from one location to another one.
-     *
-     */
-	//TODO wat is het nut hiervan? Dit wordt toch nergens gebruikt. Je hebt waarschijnlijk gelijk denk ik, maar ik dacht dat dit eerst wel gebruikt werd, maar dat we de methode veranderd hebben en dat het zo niet meer gebruikt werd en nu dus eigenlijk weg mag.
-    public double calculateDistance(long x1, long y1, long x2, long y2) {
-        double distanceX = Math.pow((double) x2 - (double) x1, 2);
-        double distanceY = Math.pow((double) y2 - (double) y1, 2);
-        return Math.sqrt(distanceX + distanceY);
     }
 
     /**
