@@ -69,7 +69,12 @@ public class EmergencyListTest {
 
 	@Test
 	public void testGetEmergenciesByCriterium(){
+		EmergencyEvaluationCriterium evc = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+		el1.addEmergency(e1);
+        el1.addEmergency(e2);
+		EmergencyList emergencies = el1.getEmergenciesByCriterium(evc);
 
+		assertEquals(2, emergencies.getEmergencies().size());
 	}
 
 	@Test

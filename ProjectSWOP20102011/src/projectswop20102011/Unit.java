@@ -197,6 +197,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @throws InvalidDurationException
      *		If the given duration is invalid.
      */
+	//TODO Wanneer wordt er hier gecontroleerd of een Unit op zijn bestemming is, want als de duration te groot gekozen is gaat de Unit erover springen.
     public void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
             if (getDestination() != null) {
@@ -240,6 +241,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The distance from one location to another one.
      *
      */
+	//TODO wat is het nut hiervan? Dit wordt toch nergens gebruikt.
     public double calculateDistance(long x1, long y1, long x2, long y2) {
         double distanceX = Math.pow((double) x2 - (double) x1, 2);
         double distanceY = Math.pow((double) y2 - (double) y1, 2);
@@ -269,6 +271,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @throws InvalidEmergencyStatusException
      *		If the emergency status is invalid.
      */
+	//TODO is dit niet gevaarlijk? Nu is het mogelijk om gewoon een unit toe te wijzen aan een emergency (dus bv. een ambulance aan een robbery, waar dit totaal niet nodig is; zie pg. 3)
     public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
         setEmergency(emergency);
         emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);

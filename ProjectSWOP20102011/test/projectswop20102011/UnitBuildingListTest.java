@@ -124,16 +124,16 @@ public class UnitBuildingListTest {
     }
 
 	//TODO Sorteren heb ik nu private gemaakt, werd blijkbaar enkel in de klasse zelf gebruikt dus public was nutteloos.
-    @Test
-    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
-        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, true, 6);
-        hdc = new HospitalDistanceComparator(f1);
-        ubl1.addUnitBuilding(h2);
-        ubl1.addUnitBuilding(h1);
-
-        ArrayList<Hospital> h = ubl1.sort(hdc);
-        assertEquals(2, h.size());
-        assertEquals(h1, h.get(0));
-        assertEquals(h2, h.get(1));
-    }
+//    @Test
+//    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
+//        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, true, 6);
+//        hdc = new HospitalDistanceComparator(f1);
+//        ubl1.addUnitBuilding(h2);
+//        ubl1.addUnitBuilding(h1);
+//
+//        ArrayList<Hospital> h = ubl1.sort(hdc);
+//        assertEquals(2, h.size());
+//        assertEquals(h1, h.get(0));
+//        assertEquals(h2, h.get(1));
+//    }
 }

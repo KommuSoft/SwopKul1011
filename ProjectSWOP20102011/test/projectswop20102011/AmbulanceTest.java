@@ -18,7 +18,6 @@ public class AmbulanceTest {
 	private Ambulance ziekenwagen;
 	private Emergency f1;
 
-
     @Before
     public void setUp(){
 		x2 = 11;

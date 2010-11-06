@@ -5,9 +5,7 @@ import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 
 public class EmergencySeverityTest {
-    /**
-     * Test of matches method of class EmergencySeverity.
-     */
+
     @Test
     public void testMatches() {
         assertTrue(EmergencySeverity.BENIGN.matches("BENIGN"));
@@ -47,25 +45,16 @@ public class EmergencySeverityTest {
         assertEquals(EmergencySeverity.URGENT, EmergencySeverity.parse(EmergencySeverity.URGENT.getTextual().toUpperCase()));
     }
 
-    /**
-     * Test of parse method, of class EmergencySeverity.
-     */
     @Test(expected = InvalidEmergencySeverityException.class)
     public void testParseException1() throws InvalidEmergencySeverityException {
         EmergencySeverity.parse("begin");
     }
 
-    /**
-     * Test of parse method, of class EmergencySeverity.
-     */
     @Test(expected = InvalidEmergencySeverityException.class)
     public void testParseException2() throws InvalidEmergencySeverityException {
         EmergencySeverity.parse("normaal");
     }
 
-    /**
-     * Test of parse method, of class EmergencySeverity.
-     */
     @Test(expected = InvalidEmergencySeverityException.class)
     public void testParseException3() throws InvalidEmergencySeverityException {
         EmergencySeverity.parse("serieus");
@@ -75,4 +64,12 @@ public class EmergencySeverityTest {
     public void testParseException4() throws InvalidEmergencySeverityException {
         EmergencySeverity.parse("UGent");
     }
+
+	@Test
+	public void testToString(){
+		assertEquals("benign", EmergencySeverity.BENIGN.toString());
+		assertEquals("normal", EmergencySeverity.NORMAL.toString());
+		assertEquals("serious", EmergencySeverity.SERIOUS.toString());
+		assertEquals("urgent", EmergencySeverity.URGENT.toString());
+	}
 }
