@@ -12,7 +12,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class AmbulanceTest {
-	private long x2,y2,x3,y3,speed1,duration;
+	private long x2,y2,x3,y3,speed1,duration1, duration2;
 	private String name;
 	private GPSCoordinate homeLocation, emergencyLocation;
 	private Ambulance ziekenwagen;
@@ -27,7 +27,8 @@ public class AmbulanceTest {
 		y3 = 2031;
 		speed1 = 90;
 		speed2 = -96;
-		duration = 9*3600;
+		duration1 = 9*3600;
+		duration2 = -5653;
 		name = "Ziekenwagen";
 		homeLocation = new GPSCoordinate(x2,y2);
 		emergencyLocation = new GPSCoordinate(x3, y3);
@@ -60,9 +61,21 @@ public class AmbulanceTest {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
 		ziekenwagen = new Ambulance(name,homeLocation,speed1);
 		ziekenwagen.assignTo(f1);
-		ziekenwagen.timeAhead(duration);
+		ziekenwagen.timeAhead(duration1);
 		assertEquals(446, ziekenwagen.getCurrentLocation().getX());
 		assertEquals(687, ziekenwagen.getCurrentLocation().getY());
+		assertEquals(x3, ziekenwagen.getDestination().getX());
+		assertEquals(y3, ziekenwagen.getDestination().getY());
+	}
+
+	@Test
+	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException, NumberOutOfBoundsException, InvalidEmergencyStatusException{
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		ziekenwagen = new Ambulance(name, homeLocation, speed1);
+		ziekenwagen.assignTo(f1);
+		ziekenwagen.timeAhead(duration2);
+		assertEquals(x2, ziekenwagen.getCurrentLocation().getX());
+		assertEquals(y2, ziekenwagen.getCurrentLocation().getY());
 		assertEquals(x3, ziekenwagen.getDestination().getX());
 		assertEquals(y3, ziekenwagen.getDestination().getY());
 	}
@@ -79,5 +92,16 @@ public class AmbulanceTest {
 		assertTrue(ziekenwagen.isAssigned());
 		assertFalse(ziekenwagen.isAtDestination());
 		assertEquals(f1, ziekenwagen.getEmergency());
+		assertEquals(1, f1.getWorkingUnits());
+	}
+
+	@Test
+	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingNameException, InvalidSpeedException, InvalidEmergencyStatusException{
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		ziekenwagen = new Ambulance(name,homeLocation, speed1);
+		ziekenwagen.assignTo(f1);
+		ziekenwagen.finishedJob();
+		assertFalse(ziekenwagen.isAssigned());
+		assertEquals(0, f1.getWorkingUnits());
 	}
 }

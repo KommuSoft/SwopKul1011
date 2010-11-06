@@ -65,18 +65,16 @@ public class UnitBuildingListTest {
     public void testAdd() throws InvalidUnitBuildingException {
         ubl1.addUnitBuilding(h2);
         assertEquals(1, ubl1.getUnitBuildings().size());
-        //assertEquals(h2, ubl1.getUnitBuildings().get(0));
         assertFalse(ubl1.getUnitBuildings().contains(h1));
         assertTrue(ubl1.getUnitBuildings().contains(h2));
         ubl1.addUnitBuilding(h1);
         assertEquals(2, ubl1.getUnitBuildings().size());
-        //assertEquals(h1, ubl1.getUnitBuildings().get(1));
         assertTrue(ubl1.getUnitBuildings().contains(h1));
         assertTrue(ubl1.getUnitBuildings().contains(h2));
     }
 
-    @Test()
-    public void testAddException() throws InvalidUnitBuildingException {
+    @Test
+    public void testAddAlreadyContains() throws InvalidUnitBuildingException {
         assertEquals(0,ubl2.getUnitBuildings().size());
         ubl2.addUnitBuilding(h2);
         assertEquals(1,ubl2.getUnitBuildings().size());
@@ -113,27 +111,37 @@ public class UnitBuildingListTest {
         ubl1.addUnitBuilding(h1);
 
         TypeUnitBuildingEvaluationCriterium tubec = new TypeUnitBuildingEvaluationCriterium(Hospital.class);
-        UnitBuildingList ubl2 = ubl1.getUnitBuildingsByCriterium(tubec);
+        ubl2 = ubl1.getUnitBuildingsByCriterium(tubec);
 
         assertEquals(2, ubl2.getUnitBuildings().size());
         assertTrue(ubl2.getUnitBuildings().contains(h1));
         assertTrue(ubl2.getUnitBuildings().contains(h2));
         assertFalse(ubl2.getUnitBuildings().contains(a1));
-        //assertEquals(h2, ubl2.getUnitBuildings().get(0));
-        //assertEquals(h1, ubl2.getUnitBuildings().get(1));
     }
 
-	//TODO Sorteren heb ik nu private gemaakt, werd blijkbaar enkel in de klasse zelf gebruikt dus public was nutteloos.
-//    @Test
-//    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
-//        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, true, 6);
-//        hdc = new HospitalDistanceComparator(f1);
-//        ubl1.addUnitBuilding(h2);
-//        ubl1.addUnitBuilding(h1);
-//
-//        ArrayList<Hospital> h = ubl1.sort(hdc);
-//        assertEquals(2, h.size());
-//        assertEquals(h1, h.get(0));
-//        assertEquals(h2, h.get(1));
-//    }
+    @Test
+    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
+        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, true, 6);
+        hdc = new HospitalDistanceComparator(f1);
+        ubl1.addUnitBuilding(h2);
+        ubl1.addUnitBuilding(h1);
+
+        ArrayList<Hospital> h = ubl1.sort(hdc);
+        assertEquals(2, h.size());
+        assertEquals(h1, h.get(0));
+        assertEquals(h2, h.get(1));
+    }
+
+	@Test
+	public void testGetUnitBuildingFromName(){
+		ubl1.addUnitBuilding(h2);
+        ubl1.addUnitBuilding(h1);
+
+		UnitBuilding ub = ubl1.getUnitBuildingFromName("Sjukhus");
+		assertEquals("Sjukhus", ub.getName());
+		assertEquals(homeLocation2, ub.getHomeLocation());
+
+		ub = ubl1.getUnitBuildingFromName("Ziekewagen");
+		assertNull(ub);
+	}
 }

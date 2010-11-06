@@ -150,7 +150,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The new emergency of this unit.
      */
     private void setEmergency(Emergency emergency) {
-        this.emergency = emergency;
+		this.emergency = emergency;
     }
 
     /**
@@ -257,6 +257,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
     public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
         setEmergency(emergency);
         emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+		emergency.setWorkingUnits(emergency.getWorkingUnits()+1);
         try {
             setCurrentLocation(getHomeLocation());
         } catch (InvalidLocationException ex) {
@@ -268,8 +269,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 	 * Finishes the job of this Unit.
 	 */
     public void finishedJob (){
-        setEmergency(null);
 		getEmergency().setWorkingUnits(getEmergency().getWorkingUnits()-1);
+        setEmergency(null);
     }
 
 }

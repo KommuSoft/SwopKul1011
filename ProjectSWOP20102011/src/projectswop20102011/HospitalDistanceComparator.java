@@ -25,7 +25,7 @@ public class HospitalDistanceComparator implements Comparator<Hospital>{
 	 * Returns the emergency of this HospitalDistanceComparator.
 	 * @return the emergency of this HospitalDistanceComparator.
 	 */
-	public Emergency getEmergency(){
+	private Emergency getEmergency(){
 		return emergency;
 	}
 
@@ -44,8 +44,8 @@ public class HospitalDistanceComparator implements Comparator<Hospital>{
 	 */
 	@Override
 	public int compare(Hospital hospital1, Hospital hospital2) {
-		Double distance1 = hospital1.getHomeLocation().getDistanceTo(emergency.getLocation());
-		Double distance2 = hospital2.getHomeLocation().getDistanceTo(emergency.getLocation());
+		Double distance1 = hospital1.getHomeLocation().getDistanceTo(getEmergency().getLocation());
+		Double distance2 = hospital2.getHomeLocation().getDistanceTo(getEmergency().getLocation());
 
 		return distance1.compareTo(distance2);
 	}
