@@ -13,8 +13,8 @@ public class RobberyTest {
 	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
-    private boolean armed1;
-    private boolean inProgress1;
+    private boolean armed1, armed2;
+    private boolean inProgress1, inProgress2;
     private long x1;
     private long y1;
 
@@ -26,7 +26,9 @@ public class RobberyTest {
         gp1 = new GPSCoordinate(x1, y1);
         es1 = EmergencySeverity.SERIOUS;
         armed1 = false;
-        inProgress1 = true;
+		armed2 = true;
+        inProgress1 = false;
+		inProgress2 = true;
     }
 
     @Test
@@ -50,12 +52,46 @@ public class RobberyTest {
     }
 
 	@Test
-	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException{
+	public void testUnitsNeededNotArmedNotInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
 		r1 = new Robbery(gp1, es1, armed1, inProgress1);
 		un1 = r1.calculateUnitsNeeded();
 
+		assertEquals(1, un1.getUnits().length);
 		assertEquals(1, un1.getNumbersNeeded().length);
 		assertEquals(1, un1.getNumbersNeeded()[0]);
+		assertEquals(Policecar.class, un1.getUnits()[0]);
+	}
+
+	@Test
+	public void testUnitsNeededNotArmedInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
+		r1 = new Robbery(gp1, es1, armed1, inProgress2);
+		un1 = r1.calculateUnitsNeeded();
+
+		assertEquals(1, un1.getUnits().length);
+		assertEquals(1, un1.getNumbersNeeded().length);
+		assertEquals(1, un1.getNumbersNeeded()[0]);
+		assertEquals(Policecar.class, un1.getUnits()[0]);
+	}
+
+	@Test
+	public void testUnitsNeededArmedNotInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
+		r1 = new Robbery(gp1, es1, armed2, inProgress1);
+		un1 = r1.calculateUnitsNeeded();
+
+		assertEquals(1, un1.getUnits().length);
+		assertEquals(1, un1.getNumbersNeeded().length);
+		assertEquals(1, un1.getNumbersNeeded()[0]);
+		assertEquals(Policecar.class, un1.getUnits()[0]);
+	}
+
+	@Test
+	public void testUnitsNeededArmedInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
+		r1 = new Robbery(gp1, es1, armed2, inProgress2);
+		un1 = r1.calculateUnitsNeeded();
+
+		assertEquals(1, un1.getUnits().length);
+		assertEquals(1, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getNumbersNeeded()[0]);
 		assertEquals(Policecar.class, un1.getUnits()[0]);
 	}
 }

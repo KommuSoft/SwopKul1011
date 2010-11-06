@@ -123,6 +123,7 @@ public class UnitBuildingListTest {
         //assertEquals(h1, ubl2.getUnitBuildings().get(1));
     }
 
+	//TODO Sorteren heb ik nu private gemaakt, werd blijkbaar enkel in de klasse zelf gebruikt dus public was nutteloos.
     @Test
     public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
         f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, true, 6);

@@ -67,4 +67,30 @@ public class EmergencyListTest {
         assertEquals(null,el3.getEmergencyFromId(-1425));
     }
 
+	@Test
+	public void testGetEmergenciesByCriterium(){
+
+	}
+
+	@Test
+	public void testToArray(){
+		el1.addEmergency(e1);
+        el1.addEmergency(e2);
+		Emergency[] emergencies = el1.toArray();
+
+		assertEquals(2, emergencies.length);
+
+		boolean emergency1 = false;
+		boolean emergency2 = false;
+		for(int i=0; i<emergencies.length; ++i){
+			if(emergencies[i].equals(e1)){
+				emergency1 = true;
+			}
+			if(emergencies[i].equals(e2)){
+				emergency2 = true;
+			}
+		}
+		assertTrue(emergency1);
+		assertTrue(emergency2);
+	}
 }

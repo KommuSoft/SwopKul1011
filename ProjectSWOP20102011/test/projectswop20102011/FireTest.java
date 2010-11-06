@@ -15,10 +15,10 @@ public class FireTest {
 	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
-    private FireSize fs1;
+    private FireSize fs1, fs2, fs3;
     private boolean chemical1;
-    private boolean trappedPeople1;
-    private long nmbOfInjured1;
+    private boolean trappedPeople1, trappedPeople2;
+    private long nmbOfInjured1, nmbOfInjured2;
     private long x1;
     private long y1;
 
@@ -30,9 +30,13 @@ public class FireTest {
         gp1 = new GPSCoordinate(x1, y1);
         es1 = EmergencySeverity.NORMAL;
         fs1 = FireSize.LOCAL;
+		fs2 = FireSize.HOUSE;
+		fs3 = FireSize.FACILITY;
         chemical1 = false;
-        trappedPeople1 = true;
+        trappedPeople1 = false;
+		trappedPeople2 = true;
         nmbOfInjured1 = 123654;
+		nmbOfInjured2 = 0;
     }
 
     @Test
@@ -68,12 +72,144 @@ public class FireTest {
     }
 
 	@Test
-	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+	public void testUnitsNeededLocalNoTrappedInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
 		f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople1, nmbOfInjured1);
 		un1 = f1.calculateUnitsNeeded();
 
+		assertEquals(2, un1.getNumbersNeeded().length);
+		assertEquals(2, un1.getUnits().length);
+
 		boolean firetruck = false;
-		long number = 0;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(1, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured1;
+		if(trappedPeople1){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededHouseNoTrappedInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs2, chemical1, trappedPeople1, nmbOfInjured1);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(3, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(2, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured1;
+		if(trappedPeople1){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededFacilityNoTrappedInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs3, chemical1, trappedPeople1, nmbOfInjured1);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(3, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(4, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(3, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured1;
+		if(trappedPeople1){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededLocalTrappedInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople2, nmbOfInjured1);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(2, un1.getNumbersNeeded().length);
+		assertEquals(2, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
 		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
 			if(un1.getUnits()[i] == Firetruck.class){
 				firetruck = true;
@@ -85,7 +221,7 @@ public class FireTest {
 		assertEquals(1, number);
 
 		boolean ambulance = false;
-		number = 0;
+		number = -1;
 		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
 			if(un1.getUnits()[i] == Ambulance.class){
 				ambulance = true;
@@ -94,6 +230,317 @@ public class FireTest {
 		}
 
 		assertTrue(ambulance);
-		assertEquals(123655, number);
+		long ambulances = nmbOfInjured1;
+		if(trappedPeople2){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededHouseTrappedInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs2, chemical1, trappedPeople2, nmbOfInjured1);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(3, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(2, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured1;
+		if(trappedPeople2){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededFacilityTrappedInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs3, chemical1, trappedPeople2, nmbOfInjured1);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(3, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(4, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(3, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured1;
+		if(trappedPeople2){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededLocalTrappedNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople2, nmbOfInjured2);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(2, un1.getNumbersNeeded().length);
+		assertEquals(2, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(1, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured2;
+		if(trappedPeople2){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededHouseTrappedNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs2, chemical1, trappedPeople2, nmbOfInjured2);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(3, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(2, number);
+
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured2;
+		if(trappedPeople2){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededFacilityTrappedNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs3, chemical1, trappedPeople2, nmbOfInjured2);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(3, un1.getNumbersNeeded().length);
+		assertEquals(3, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(4, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(3, number);
+
+		boolean ambulance = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Ambulance.class){
+				ambulance = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+
+		assertTrue(ambulance);
+		long ambulances = nmbOfInjured2;
+		if(trappedPeople2){
+			++ambulances;
+		}
+		assertEquals(ambulances, number);
+	}
+
+	@Test
+	public void testUnitsNeededLocalNoTrappedNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs1, chemical1, trappedPeople1, nmbOfInjured2);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(1, un1.getNumbersNeeded().length);
+		assertEquals(1, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(1, number);
+	}
+
+	@Test
+	public void testUnitsNeededHouseNoTrappedNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs2, chemical1, trappedPeople1, nmbOfInjured2);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(2, un1.getNumbersNeeded().length);
+		assertEquals(2, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(2, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
+	}
+
+	@Test
+	public void testUnitsNeededFacilityNoTrappedNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+		f1 = new Fire(gp1, es1, fs3, chemical1, trappedPeople1, nmbOfInjured2);
+		un1 = f1.calculateUnitsNeeded();
+
+		assertEquals(2, un1.getNumbersNeeded().length);
+		assertEquals(2, un1.getUnits().length);
+
+		boolean firetruck = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Firetruck.class){
+				firetruck = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(firetruck);
+		assertEquals(4, number);
+
+		boolean policecar = false;
+		number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(3, number);
 	}
 }

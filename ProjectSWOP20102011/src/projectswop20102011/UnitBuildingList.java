@@ -96,7 +96,7 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      *		The given comparator.
      * @return A list of UnitBuilding correctly sorted.
      */
-    public <T extends UnitBuilding> ArrayList<T> sort(Comparator<T> comparator) {
+    private <T extends UnitBuilding> ArrayList<T> sort(Comparator<T> comparator) {
         ArrayList<T> result = new ArrayList<T>();
 
         for (UnitBuilding ub : getUnitBuildings()) {

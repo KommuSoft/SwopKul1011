@@ -197,43 +197,54 @@ public class Fire extends Emergency {
 			++ambulances;
 		}
 
-		Class units[];
-		long numbersNeeded[];
-
+		Class units[] = null;
+		long numbersNeeded[] = null;
 
 		if(ambulances > 0){
-			fireSize = 3;
-			units = new Class[fireSize];
-			numbersNeeded = new long[fireSize];
 			if(getSize() == FireSize.LOCAL){
-				units[0] = Firetruck.class;
-				numbersNeeded[0] = 1;
-			} else if(getSize() == FireSize.HOUSE){
-				units[0] = Firetruck.class;
-				units[1] = Policecar.class;
-				numbersNeeded[0] = 2;
+				fireSize = 2;
+				units = new Class[fireSize];
+				numbersNeeded = new long[fireSize];
+				units[1] = Firetruck.class;
 				numbersNeeded[1] = 1;
+			} else if(getSize() == FireSize.HOUSE){
+				fireSize = 3;
+				units = new Class[fireSize];
+				numbersNeeded = new long[fireSize];
+				units[1] = Firetruck.class;
+				units[2] = Policecar.class;
+				numbersNeeded[1] = 2;
+				numbersNeeded[2] = 1;
 			} else if(getSize() == FireSize.FACILITY){
-				units[0] = Firetruck.class;
-				units[1] = Policecar.class;
-				numbersNeeded[0] = 4;
-				numbersNeeded[1] = 3;
+				fireSize = 3;
+				units = new Class[fireSize];
+				numbersNeeded = new long[fireSize];
+				units[1] = Firetruck.class;
+				units[2] = Policecar.class;
+				numbersNeeded[1] = 4;
+				numbersNeeded[2] = 3;
 			}
-			units[2] = Ambulance.class;
-			numbersNeeded[2] = ambulances;
+			units[0] = Ambulance.class;
+			numbersNeeded[0] = ambulances;
 		} else {
-			fireSize = 2;
-			units = (Class<? extends Unit>[]) new Object[fireSize];
-			numbersNeeded = new long[fireSize];
 			if(getSize() == FireSize.LOCAL){
+				fireSize = 1;
+				units = new Class[fireSize];
+				numbersNeeded = new long[fireSize];
 				units[0] = Firetruck.class;
 				numbersNeeded[0] = 1;
 			} else if(getSize() == FireSize.HOUSE){
+				fireSize = 2;
+				units = new Class[fireSize];
+				numbersNeeded = new long[fireSize];
 				units[0] = Firetruck.class;
 				units[1] = Policecar.class;
 				numbersNeeded[0] = 2;
 				numbersNeeded[1] = 1;
 			} else if(getSize() == FireSize.FACILITY){
+				fireSize = 2;
+				units = new Class[fireSize];
+				numbersNeeded = new long[fireSize];
 				units[0] = Firetruck.class;
 				units[1] = Policecar.class;
 				numbersNeeded[0] = 4;

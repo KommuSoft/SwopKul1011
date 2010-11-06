@@ -61,6 +61,8 @@ public class PublicDisturbanceTest {
 	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
 		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
 		un1 = pd1.calculateUnitsNeeded();
+
+		assertEquals(1, un1.getUnits().length);
 		assertEquals(1, un1.getNumbersNeeded().length);
 		assertEquals(134, un1.getNumbersNeeded()[0]);
 		assertEquals(Policecar.class, un1.getUnits()[0]);
