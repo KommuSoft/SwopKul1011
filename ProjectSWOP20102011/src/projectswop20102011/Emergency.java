@@ -46,7 +46,7 @@ public abstract class Emergency {
 	 */
 	private long workingUnits;
 	/**
-	 * A variable registering the number of units need for this emergency.
+	 * A variable registering the number of units needed for this emergency.
 	 */
 	private UnitsNeeded unitsNeeded;
 
