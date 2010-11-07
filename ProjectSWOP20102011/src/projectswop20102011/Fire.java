@@ -1,8 +1,12 @@
 package projectswop20102011;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -251,7 +255,13 @@ public class Fire extends Emergency {
 				numbersNeeded[1] = 3;
 			}
 		}
-
-		return new UnitsNeeded(numbersNeeded, units);
+		try {
+			return new UnitsNeeded(this, units, numbersNeeded);
+		} catch (InvalidEmergencyException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidUnitsNeededException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
 	}
 }

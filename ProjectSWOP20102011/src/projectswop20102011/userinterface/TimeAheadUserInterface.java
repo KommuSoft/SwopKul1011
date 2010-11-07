@@ -1,8 +1,11 @@
 package projectswop20102011.userinterface;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.userinterface.parsers.IntegerParser;
@@ -36,11 +39,11 @@ public class TimeAheadUserInterface extends CommandUserInterface {
     public void HandleUserInterface() {
         try {
             int seconds = this.parseInputToType(new IntegerParser(), "time expired in seconds");
-            try {
-                this.getController().doTimeAheadAction(seconds);
-            } catch (NumberOutOfBoundsException ex) {
-                this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
-            }
+			try {
+				this.getController().doTimeAheadAction(seconds);
+			} catch (InvalidDurationException ex) {
+				Logger.getLogger(TimeAheadUserInterface.class.getName()).log(Level.SEVERE, null, ex);
+			}
         } catch (ParsingAbortedException ex) {
             this.writeOutput("command aborted.");
         }

@@ -46,11 +46,7 @@ public abstract class Emergency {
      * and does the management of dispatching units and setting the status of this emergency.
      */
     private UnitsNeeded unitsNeeded;
-	/**
-	 * A variable registering the number of units needed for this emergency.
-	 */
-	private UnitsNeeded unitsNeeded;
-
+	
     /**
      * Make a new emergency with the given location, severity.
      *
@@ -153,14 +149,6 @@ public abstract class Emergency {
     public long getId() {
         return id;
     }
-
-	/**
-	 * Returns the units needed for this emergency.
-	 * @return The units needed for this emergency.
-	 */
-	public UnitsNeeded getUnitsNeeded(){
-		return this.unitsNeeded;
-	}
 
     /**
      * Checks if the given severity is valid as severity level of an emergency.

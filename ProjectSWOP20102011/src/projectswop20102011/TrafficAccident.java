@@ -1,7 +1,11 @@
 package projectswop20102011;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -223,6 +227,13 @@ public class TrafficAccident extends Emergency {
         for (int i = 0; i < numbersNeeded.length; ++i) {
             sum += numbersNeeded[i];
         }
-        return new UnitsNeeded(numbersNeeded, units);
+		try {
+			return new UnitsNeeded(this, units, numbersNeeded);
+		} catch (InvalidEmergencyException ex) {
+			Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidUnitsNeededException ex) {
+			Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
     }
 }
