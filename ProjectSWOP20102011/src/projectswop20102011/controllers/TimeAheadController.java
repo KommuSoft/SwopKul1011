@@ -2,6 +2,7 @@ package projectswop20102011.controllers;
 
 import projectswop20102011.TimeSensitive;
 import projectswop20102011.World;
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -25,9 +26,9 @@ public class TimeAheadController extends Controller {
     /**
      * performs a time ahead action, where all the time sensitive objects in the world will be modified under a certain time difference.
      * @param seconds The time difference in seconds.
-     * @throws NumberOutOfBoundsException If the number of secons is smaller than zero.
+     * @throws InvalidDurationException If the given amont of seconds is invalid
      */
-    public void doTimeAheadAction (int seconds) throws NumberOutOfBoundsException {
+    public void doTimeAheadAction (int seconds) throws InvalidDurationException {
         this.getWorld().getTimeSensitiveList().timeAhead(seconds);
     }
 }

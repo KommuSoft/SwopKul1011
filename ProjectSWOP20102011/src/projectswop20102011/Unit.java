@@ -250,7 +250,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		If the emergency status is invalid.
      */
 	//TODO is dit niet gevaarlijk? Nu is het mogelijk om gewoon een unit toe te wijzen aan een emergency (dus bv. een ambulance aan een robbery, waar dit totaal niet nodig is; zie pg. 3)
-    public void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {
+    void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
         setEmergency(emergency);
         emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
 		emergency.setWorkingUnits(emergency.getWorkingUnits()+1);

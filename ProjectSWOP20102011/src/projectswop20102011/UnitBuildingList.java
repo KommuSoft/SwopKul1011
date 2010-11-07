@@ -73,7 +73,7 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      *		UnitBuilding to be appended to this list of units and buildings.
      * @post This UnitBuildingList contains the given UnitBuilding.
      */
-    void addUnitBuilding(UnitBuilding ub) {
+    public void addUnitBuilding(UnitBuilding ub) {
         if(!this.unitBuildings.contains(ub)) {
 			this.unitBuildings.add(ub);
 		}
