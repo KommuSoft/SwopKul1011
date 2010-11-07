@@ -45,6 +45,10 @@ public abstract class Emergency {
 	 * A variable registering the number of working units of this emergency.
 	 */
 	private long workingUnits;
+	/**
+	 * A variable registering the number of units need for this emergency.
+	 */
+	private UnitsNeeded unitsNeeded;
 
     /**
      * Make a new emergency with the given location, severity.
@@ -176,6 +180,14 @@ public abstract class Emergency {
 		return workingUnits;
 	}
 
+	/**
+	 * Returns the units needed for this emergency.
+	 * @return The units needed for this emergency.
+	 */
+	public UnitsNeeded getUnitsNeeded(){
+		return this.unitsNeeded;
+	}
+
     /**
      * Checks if the given severity is valid as severity level of an emergency.
      * @param severity The severity level to check.
@@ -209,7 +221,7 @@ public abstract class Emergency {
 	 * Calculates the units needed for this Emergency.
 	 * @return The units needed for this Emergency.
 	 */
-	public abstract UnitsNeeded calculateUnitsNeeded();
+	protected abstract UnitsNeeded calculateUnitsNeeded();
 
 	//TODO deze code moet nog verwijderd worden. Dit is een dummy zodat de userinterface geen errors geeft.
 	public String toShortInformationString() {

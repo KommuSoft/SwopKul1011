@@ -94,7 +94,7 @@ public class PublicDisturbance extends Emergency {
 	 * @return The units needed for this public disturbance.
 	 */
 	@Override
-	public UnitsNeeded calculateUnitsNeeded() {
+	protected UnitsNeeded calculateUnitsNeeded() {
 		int size = 1;
 		Class units[] = new Class[size];
 		long numbersNeeded[] = new long[size];

@@ -190,7 +190,7 @@ public class Fire extends Emergency {
 	 * @return The units needed for this fire.
 	 */
 	@Override
-	public UnitsNeeded calculateUnitsNeeded() {
+	protected UnitsNeeded calculateUnitsNeeded() {
 		int fireSize;
 		long ambulances = getNumberOfInjured();
 		if(hasTrappedPeople()){

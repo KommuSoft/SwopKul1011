@@ -138,7 +138,7 @@ public class TrafficAccident extends Emergency {
 	 * @return The units needed for this traffic accident.
 	 */
 	@Override
-	public UnitsNeeded calculateUnitsNeeded() {
+	protected UnitsNeeded calculateUnitsNeeded() {
 		int size;
 		Class units[];
 		long numbersNeeded[];
