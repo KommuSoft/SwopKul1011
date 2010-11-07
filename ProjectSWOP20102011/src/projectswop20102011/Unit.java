@@ -2,6 +2,7 @@ package projectswop20102011;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -20,7 +21,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *		|isValidHomeLocation(getHomeLocation())
  */
 public abstract class Unit extends UnitBuilding implements TimeSensitive {
-    
+
     /**
      * A variable registering the speed of this unit.
      */
@@ -56,7 +57,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         super(name, homeLocation);
         setSpeed(speed);
         setCurrentLocation(homeLocation);
-		setEmergency(null);
+        setEmergency(null);
     }
 
     /**
@@ -67,17 +68,17 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         return (this.getEmergency() != null);
     }
 
-	/**
-	 * Returns whether this unit is at its destination.
-	 * @return True if this unit is at its destination; false otherwise.
-	 */
-	public boolean isAtDestination(){
-		if(getEmergency() != null){
-			return getCurrentLocation().equals(getEmergency().getLocation());
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Returns whether this unit is at its destination.
+     * @return True if this unit is at its destination; false otherwise.
+     */
+    public boolean isAtDestination() {
+        if (getEmergency() != null) {
+            return getCurrentLocation().equals(getEmergency().getLocation());
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Returns the speed of this timesensitive unit or building.
@@ -100,11 +101,11 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        if(this.emergency == null) {
-			return this.getHomeLocation();
-		} else {
-			return emergency.getLocation();
-		}
+        if (this.emergency == null) {
+            return this.getHomeLocation();
+        } else {
+            return emergency.getLocation();
+        }
     }
 
     /**
@@ -135,7 +136,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @post The current location of this unit or building is set according to the given current location.
      *		|new.getCurrentLocation() == currentLocation
      */
-	//TODO moet dit hier geen try-catch zijn? De current location moet toch altijd geset worden vanuit het programma?
+    //TODO moet dit hier geen try-catch zijn? De current location moet toch altijd geset worden vanuit het programma?
     private void setCurrentLocation(GPSCoordinate currentLocation) throws InvalidLocationException {
         if (!isValidCurrentLocation(currentLocation)) {
             throw new InvalidLocationException(String.format("\"%s\" is an invalid current location for a unit.", currentLocation));
@@ -150,7 +151,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The new emergency of this unit.
      */
     private void setEmergency(Emergency emergency) {
-		this.emergency = emergency;
+        this.emergency = emergency;
     }
 
     /**
@@ -213,13 +214,13 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
                 long stopY = Math.round(startY + (distanceY / distance) * getSpeed() * duration / 3600);
                 GPSCoordinate stop = new GPSCoordinate(stopX, stopY);
 
-				double calculatedDistance = getCurrentLocation().getDistanceTo(stop);
+                double calculatedDistance = getCurrentLocation().getDistanceTo(stop);
                 try {
-					if(calculatedDistance > distance){
-						changeCurrentLocation(getDestination());
-					}else{
-						changeCurrentLocation(stop);
-					}
+                    if (calculatedDistance > distance) {
+                        changeCurrentLocation(getDestination());
+                    } else {
+                        changeCurrentLocation(stop);
+                    }
                 } catch (InvalidLocationException ex) {
                     Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -237,23 +238,27 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     @Override
     public void timeAhead(long seconds) throws InvalidDurationException {
-		changeLocation(seconds);
+        changeLocation(seconds);
     }
 
     /**
      * Assign the unit to a given emergency.
      *
-     * @pre The unit is not assigned.
      * @param emergency
      *		The emergency where this units have to respond to.
      * @throws InvalidEmergencyStatusException
      *		If the emergency status is invalid.
+     * @throws InvalidAmbulanceException
+     *          If the ambulance is already assigned to an emergency.
      */
-	//TODO is dit niet gevaarlijk? Nu is het mogelijk om gewoon een unit toe te wijzen aan een emergency (dus bv. een ambulance aan een robbery, waar dit totaal niet nodig is; zie pg. 3)
-    void assignTo(Emergency emergency) throws InvalidEmergencyStatusException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
+    //TODO is dit niet gevaarlijk? Nu is het mogelijk om gewoon een unit toe te wijzen aan een emergency (dus bv. een ambulance aan een robbery, waar dit totaal niet nodig is; zie pg. 3)
+    void assignTo(Emergency emergency) throws InvalidEmergencyStatusException, InvalidAmbulanceException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
+        if (this.isAssigned()) {
+            throw new InvalidAmbulanceException("Ambulance is already assigned to an emergency");
+        }
         setEmergency(emergency);
-        emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
-		emergency.setWorkingUnits(emergency.getWorkingUnits()+1);
+        //emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+        //emergency.setWorkingUnits(emergency.getWorkingUnits() + 1);
         try {
             setCurrentLocation(getHomeLocation());
         } catch (InvalidLocationException ex) {
@@ -261,12 +266,10 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
         }
     }
 
-	/**
-	 * Finishes the job of this Unit.
-	 */
-    public void finishedJob (){
-		getEmergency().setWorkingUnits(getEmergency().getWorkingUnits()-1);
+    /**
+     * Finishes the job of this Unit.
+     */
+    public void finishedJob() {
         setEmergency(null);
     }
-
 }
