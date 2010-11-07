@@ -3,6 +3,7 @@ package projectswop20102011;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
@@ -57,7 +58,7 @@ public class AmbulanceTest {
 	public void testTimeAhead() throws InvalidLocationException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencyStatusException,
 			InvalidEmergencySeverityException, InvalidFireSizeException,
-			NumberOutOfBoundsException{
+			NumberOutOfBoundsException, InvalidDurationException{
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
 		ziekenwagen = new Ambulance(name,homeLocation,speed1);
 		ziekenwagen.assignTo(f1);
@@ -68,8 +69,10 @@ public class AmbulanceTest {
 		assertEquals(y3, ziekenwagen.getDestination().getY());
 	}
 
-	@Test
-	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException, NumberOutOfBoundsException, InvalidEmergencyStatusException{
+	@Test (expected = InvalidDurationException.class)
+	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
+			InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException,
+			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException{
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
 		ziekenwagen = new Ambulance(name, homeLocation, speed1);
 		ziekenwagen.assignTo(f1);

@@ -2,6 +2,7 @@ package projectswop20102011;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import projectswop20102011.exceptions.InvalidDurationException;
 
 /**
  * A list of objects that are time sensitive where every object is unique.
@@ -57,8 +58,10 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
      * Moves the time forward for all instances in the TimeAheadList for the given amount of seconds.
      * @param seconds
 	 *		The given amount of seconds.
+	 * @throws InvalidDurationException
+	 *		If the given duration is invalid. I.e. the duration is negative.
      */
-    public void timeAhead (int seconds) {
+    public void timeAhead (int seconds) throws InvalidDurationException {
         for(TimeSensitive ts : this) {
             ts.timeAhead(seconds);
         }

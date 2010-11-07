@@ -236,12 +236,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The amount of seconds that the time must be advanced.
      */
     @Override
-    public void timeAhead(long seconds) {
-        try {
-            changeLocation(seconds);
-        } catch (InvalidDurationException ex) {
-            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void timeAhead(long seconds) throws InvalidDurationException {
+		changeLocation(seconds);
     }
 
     /**

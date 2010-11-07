@@ -31,23 +31,7 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
      */
     @Override
     public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
-		ArrayList<Class> array = new ArrayList<Class>();
-		Class c = unitBuilding.getClass();
-
-		while(c != Object.class){
-			array.add(c);
-			c = c.getSuperclass();
-		}
-
-		for(int i=0; i<array.size(); ++i){
-			if(array.get(i) == getType()){
-				return true;
-			}
-		}
-
-		return false;
-		
-		//Aangepast origineel: return (unitBuilding.getClass().getSuperclass() == getType() || unitBuilding.getClass() == getType());
+		return type.isAssignableFrom(unitBuilding.getClass());
     }
 
     /**
