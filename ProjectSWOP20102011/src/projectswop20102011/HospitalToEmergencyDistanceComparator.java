@@ -20,7 +20,7 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * @throws InvalidEmergencyException
 	 *		If the given emergency is an invalid Emergency.
 	 * @post This emergency is equal to the given emergency.
-	 *		|new.getEmergency()==emergency
+	 *		| new.getEmergency()==emergency
 	 */
 	public HospitalToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException{
 		if(!isValidEmergency(emergency)){
@@ -32,7 +32,7 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 
 	/**
 	 * Returns the emergency of this HospitalToEmergencyDistanceComparator.
-	 * @return the emergency of this HospitalToEmergencyDistanceComparator.
+	 * @return The emergency of this HospitalToEmergencyDistanceComparator.
 	 */
 	private Emergency getEmergency(){
 		return emergency;
@@ -64,7 +64,7 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * @param emergency
 	 *		The emergency to test.
 	 * @return
-	 *		True if the emergency is valid; false otherwise.
+	 *		True if the emergency is effective; false otherwise.
 	 */
 	public static boolean isValidEmergency(Emergency emergency){
 		return (emergency != null);

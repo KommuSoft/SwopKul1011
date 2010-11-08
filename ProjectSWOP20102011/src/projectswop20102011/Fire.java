@@ -53,7 +53,8 @@ public class Fire extends Emergency {
 	 *		The number of trapped people in the fire.
 	 * @param numberOfInjured
 	 *		The number of injured people of this fire emergency.
-	 * @effect super(location,severity)
+	 * @effect The new fire is an emergencys with the given location and severity.
+	 *		| super(location,severity)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for an emergency.
 	 * @throws InvalidEmergencySeverityException

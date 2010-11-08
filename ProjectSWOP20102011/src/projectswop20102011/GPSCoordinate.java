@@ -50,7 +50,7 @@ public class GPSCoordinate {
 
     /**
      * Returns a textual representation of this GPSCoordinate.
-     * @return a textual representation of this GPSCoordinate.
+     * @return A textual representation of this GPSCoordinate.
      */
     @Override
     public String toString () {

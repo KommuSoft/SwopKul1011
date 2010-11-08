@@ -20,9 +20,8 @@ public class Policecar extends Unit{
 	 *		The home location of the new policecar.
 	 * @param speed
 	 *		The speed of the new policecar.
-	 * @effect The new policecar is an policecar with given name, home location, speed,
-	 *			current location, destination and assigned indicator.
-	 *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
+	 * @effect The new policecar is a unit with given name, home location, speed.
+	 *         | super(name,homeLocation,speed);
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a policecar.
 	 * @throws InvalidUnitBuildingNameException

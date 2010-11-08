@@ -33,11 +33,16 @@ public class Robbery extends Emergency {
      *		An indicator that indicates if this robbery is an armed robbery.
      * @param inProgress
      *		An indicator that indicates if this robbery is still in progress.
-     * @effect super(location,severity)
-     * @throws InvalidLocationException If the given location is an invalid location for an emergency.
-     * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
-     * @post The is armed parameter of the robery is equal to the given parameter. | armed.equals(isArmed())
-     * @post the in progress parameter of this robbery is equal to the given parameter. | inProgress.equals(isInProgress())
+     * @effect The new Robbery is a new emergency with the given location and severity.
+	 *		| super(location,severity)
+     * @throws InvalidLocationException
+	 *		If the given location is an invalid location for an emergency.
+     * @throws InvalidEmergencySeverityException
+	 *		If the given severity is an invalid severity for an emergency.
+     * @post The is armed parameter of the robery is equal to the given parameter.
+	 *		| armed.equals(isArmed())
+     * @post the in progress parameter of this robbery is equal to the given parameter.
+	 *		| inProgress.equals(isInProgress())
      */
     public Robbery(GPSCoordinate location, EmergencySeverity severity,
             boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
@@ -58,7 +63,8 @@ public class Robbery extends Emergency {
      * Sets the armed indicator to the given value.
      * @param armed
      *		The new value of the armed indicator.
-     * @post The is armed parameter of this robbery is equal to the given parameter. | armed.equals(isArmed())
+     * @post The is armed parameter of this robbery is equal to the given parameter.
+	 *		| armed.equals(isArmed())
      */
     private void setArmed(boolean armed) {
         this.armed = armed;
@@ -76,7 +82,8 @@ public class Robbery extends Emergency {
      * Sets the in progress indicator to the given value.
      * @param inProgress
      *		The new value of the progress indicator.
-     * @post the in progress parameter of this robbery is equal to the given parameter. | inProgress.equals(isInProgress())
+     * @post The in progress parameter of this robbery is equal to the given parameter.
+	 *		| inProgress.equals(isInProgress())
      */
     private void setInProgress(boolean inProgress) {
         this.inProgress = inProgress;

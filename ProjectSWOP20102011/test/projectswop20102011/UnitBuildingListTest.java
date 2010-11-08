@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -120,7 +121,7 @@ public class UnitBuildingListTest {
     }
 
     @Test
-    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
+    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException, InvalidEmergencyException {
         f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, 1, 6);
         hdc = new HospitalToEmergencyDistanceComparator(f1);
         ubl1.addUnitBuilding(h2);

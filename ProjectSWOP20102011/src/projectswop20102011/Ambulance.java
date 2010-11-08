@@ -27,9 +27,8 @@ public class Ambulance extends Unit {
      *		The home location of the new ambulance.
      * @param speed
      *		The speed of the new ambulance.
-     * @effect The new ambulance is a unit with given name, home location, speed,
-     *			current location, destination and assigned indicator.
-     *		|super(name,homeLocation,speed,currentLocation,destination,assigned);
+     * @effect The new ambulance is a unit with given name, home location, speed.
+     *		|super(name,homeLocation,speed);
 	 * @effect The new ambulance has as current hospital the value null.
 	 *		|getCurrentHospital.equals(null)
      * @throws InvalidLocationException

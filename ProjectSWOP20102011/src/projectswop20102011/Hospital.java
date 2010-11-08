@@ -8,9 +8,9 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar The location of a hospital is always valid.
- *		|isValidLocation(getLocation())
+ *		| isValidLocation(getLocation())
  * @invar The name of a hospital is always valid.
- *		|isValidName(getName())
+ *		| isValidName(getName())
  */
 public class Hospital extends UnitBuilding{
 

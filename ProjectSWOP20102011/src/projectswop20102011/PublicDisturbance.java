@@ -13,7 +13,8 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  * A class that represents a public disturbance.
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
- * @invar The number of people involved must always be valid | isValidNumberOfPeople(getNumberOfPeople())
+ * @invar The number of people involved must always be valid
+ *		| isValidNumberOfPeople(getNumberOfPeople())
  */
 public class PublicDisturbance extends Emergency {
 
@@ -30,11 +31,16 @@ public class PublicDisturbance extends Emergency {
      *		The severity of this public disturbance emergency.
      * @param numberOfPeople
      *		The number of people that are involved in this public disturbance.
-     * @effect super(location,severity)
-     * @throws InvalidLocationException If the given location is an invalid location for an emergency.
-     * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
-     * @throws NumberOutOfBoundsException If the given number of people invlolved is invalid.
+     * @effect The new public disturbance is an emergency with the given location and severity.
+	 *		| super(location,severity)
+     * @throws InvalidLocationException
+	 *		If the given location is an invalid location for an emergency.
+     * @throws InvalidEmergencySeverityException
+	 *		If the given severity is an invalid severity for an emergency.
+     * @throws NumberOutOfBoundsException
+	 *		If the given number of people involved is invalid.
      * @post the number of involved people of this public disturbance is equal to the given number of people.
+	 *		| getNumberOfPeople().equal(numberOfPeople)
      */
     public PublicDisturbance(GPSCoordinate location,
             EmergencySeverity severity, long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
@@ -54,8 +60,10 @@ public class PublicDisturbance extends Emergency {
      * Sets the number of people that are involved in this public disturbance to the given value.
      * @param numberOfPeople
      *		The new number of people that are involved in this public disturbance.
-     * @throws NumberOutOfBoundsException If the given number of people invlolved is invalid.
-     * @post the number of involved people of this public disturbance is equal to the given number of people.
+     * @throws NumberOutOfBoundsException
+	 *		If the given number of people invlolved is invalid.
+     * @post The number of involved people of this public disturbance is equal to the given number of people.
+	 *		| new.getNumberOfPeople() == numberOfPeople
      */
     private void setNumberOfPeople(long numberOfPeople) throws NumberOutOfBoundsException {
         if (!isValidNumberOfPeople(numberOfPeople)) {
