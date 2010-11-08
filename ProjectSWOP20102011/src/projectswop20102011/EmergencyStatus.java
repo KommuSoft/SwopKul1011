@@ -13,19 +13,20 @@ public enum EmergencyStatus {
     RESPONSE_IN_PROGRESS("response in progress"),
     FINISHED("finished");
     /**
-     * textual representation of an EmergencyStatus
+     * The textual representation of an EmergencyStatus.
      */
     private final String textual;
 
     private EmergencyStatus (String textual) {
         this.textual = textual;
     }
+
     /**
-     * Gets the textual representation of the EmergencyStatus.
+     * Returns the textual representation of the EmergencyStatus.
      * @return A textual representation of the EmergencyStatus.
      */
     public String getTextual() {
-        return this.textual;
+        return textual;
     }
 
     /**
@@ -34,7 +35,7 @@ public enum EmergencyStatus {
      */
     @Override
     public String toString() {
-        return this.getTextual();
+        return getTextual();
     }
 
     /**
@@ -48,11 +49,12 @@ public enum EmergencyStatus {
     }
 
     /**
-     * Parses a textual representation intro its EmergencyStatus equivalent.
+     * Parses a textual representation into its EmergencyStatus equivalent.
      * @param textualRepresentation
 	 *		The textual representation to parse.
-     * @return An EmergencyStatus that is the equivalent of the textual representation.
-     * @throws InvalidEmergencyStatusException If no EmergencyStatus matches the textual representation.
+     * @return An EmergencyStatus that is the equivalent to the textual representation.
+     * @throws InvalidEmergencyStatusException
+	 *		If no EmergencyStatus matches the textual representation.
      */
     public static EmergencyStatus parse(String textualRepresentation) throws InvalidEmergencyStatusException {
         for (EmergencyStatus es : EmergencyStatus.values()) {

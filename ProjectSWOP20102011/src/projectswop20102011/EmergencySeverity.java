@@ -14,13 +14,14 @@ public enum EmergencySeverity {
     SERIOUS("serious"),
     URGENT("urgent");
     /**
-     * textual representation of the emergency severity.
+     * The textual representation of the emergency severity.
      */
     private final String textual;
 
     /**
      * Creates a new instance of the EmergencySeverity class with a given textual representation.
-     * @param textual The textual representation of the EmergencySeverity, used for parsing and user interaction.
+     * @param textual
+	 *		The textual representation of the EmergencySeverity, used for parsing and user interaction.
      */
     private EmergencySeverity(String textual) {
         this.textual = textual;
@@ -31,7 +32,7 @@ public enum EmergencySeverity {
      * @return A textual representation of the EmergencyStatus.
      */
     public String getTextual() {
-        return this.textual;
+        return textual;
     }
 
     /**
@@ -40,7 +41,7 @@ public enum EmergencySeverity {
      */
     @Override
     public String toString() {
-        return this.getTextual();
+        return getTextual();
     }
 
     /**
@@ -50,15 +51,16 @@ public enum EmergencySeverity {
      * @return True if the textual representation matches, otherwise false.
      */
     public boolean matches(String textualRepresentation) {
-        return this.getTextual().equals(textualRepresentation.toLowerCase());
+        return getTextual().equals(textualRepresentation.toLowerCase());
     }
 
     /**
-     * Parses a textual representation intro its EmergencyStatus equivalent.
+     * Parses a textual representation into its EmergencyStatus equivalent.
      * @param textualRepresentation
 	 *		The textual representation to parse.
-     * @return An EmergencyStatus that is the equivalent of the textual representation.
-     * @throws InvalidEmergencySeverityException If no EmergencyStatus matches the textual representation.
+     * @return An EmergencyStatus that is the equivalent to the textual representation.
+     * @throws InvalidEmergencySeverityException
+	 *		If no EmergencyStatus matches the textual representation.
      */
     public static EmergencySeverity parse(String textualRepresentation) throws InvalidEmergencySeverityException {
         for (EmergencySeverity es : EmergencySeverity.values()) {

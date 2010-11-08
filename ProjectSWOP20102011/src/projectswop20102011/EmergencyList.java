@@ -19,28 +19,31 @@ public class EmergencyList implements Iterable<Emergency> {
     /**
      * Creating a new instance of an EmergencyList. At this moment this list
      * doesn't contain any emergency.
+	 * @post The inner list that manages the emergencies is initialized.
+	 *		| emergencies = new HashSet<Emergency>()
      */
     public EmergencyList() {
-        this.emergencies = new HashSet<Emergency>();
+        emergencies = new HashSet<Emergency>();
     }
 
     /**
      * Returns the list of emergencies.
-     * @return The list of emergencies.
+     * @return The list of emergencies. 
      */
     public HashSet<Emergency> getEmergencies() {
         return (HashSet<Emergency>) emergencies.clone();
     }
 
     /**
-     * Adds the given emergency to this list of emergencies if the given emergency.
+     * Adds the given emergency to this list of emergencies if the given emergency
      * is not already in this list of emergencies.
      * @param e
      *		Emergency to be appended to this list of emergencies.
      * @post This EmergencyList contains the given Emergency.
+	 *		| getEmergencies().contains(e)
      */
     public void addEmergency(Emergency e){
-        if(!this.emergencies.contains(e)) {
+        if(!getEmergencies().contains(e)) {
             emergencies.add(e);
         }
     }
@@ -49,7 +52,7 @@ public class EmergencyList implements Iterable<Emergency> {
      * Returns all the emergencies in this EmergencyList that are valid to a certain EmergencyCriterium.
      * @param criterium
 	 *		The criterium to validate potential solution on.
-     * @return a list with all the emergencies in this EmergencyList who are validated by the EmergencyCriterium.
+     * @return A list with all the emergencies in this EmergencyList who are validated by the EmergencyCriterium.
      */
     public EmergencyList getEmergenciesByCriterium(EmergencyEvaluationCriterium criterium) {
         EmergencyList list = new EmergencyList();

@@ -9,9 +9,9 @@ public abstract class EmergencyEvaluationCriterium {
 
     /**
      * The validation method for a certain Emergency on the criterium.
-     * @param
-	 *		emergency The emergency to validate.
-     * @return true if the Emergency is valid according to the criterium, otherwise false.
+     * @param emergency
+	 *		The emergency to validate.
+     * @return True if the Emergency is valid according to the criterium, otherwise false.
      */
     public abstract boolean isValidEmergency (Emergency emergency);
 
