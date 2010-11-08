@@ -13,11 +13,10 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Ambulance extends Unit {
-
     /**
      * The selected hospital of the ambulance.
      */
-    private Hospital currentHospital = null;
+    private Hospital currentHospital;
 
     /**
      * Initialize a new ambulance with given parameters.
@@ -30,7 +29,9 @@ public class Ambulance extends Unit {
      *		The speed of the new ambulance.
      * @effect The new ambulance is a unit with given name, home location, speed,
      *			current location, destination and assigned indicator.
-     *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
+     *		|super(name,homeLocation,speed,currentLocation,destination,assigned);
+	 * @effect The new ambulance has as current hospital the value null.
+	 *		|getCurrentHospital.equals(null)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an ambulance.
      * @throws InvalidUnitBuildingNameException
@@ -40,30 +41,36 @@ public class Ambulance extends Unit {
      */
     public Ambulance(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
         super(name, homeLocation, speed);
+		setCurrentHospital(null);
     }
 
     /**
      * Returns the current hospital where the ambulance is assigned to.
-     * @return the current hospital where the ambulance is assigned to.
+     * @return The current hospital where the ambulance is assigned to.
      */
     public Hospital getCurrentHospital() {
-        return this.currentHospital;
+        return currentHospital;
     }
 
     /**
      * Sets the current hospital chosen by this ambulance.
-     * @param hospital The hospital chosen by this ambulance.
+     * @param hospital
+	 *		The hospital chosen by this ambulance.
      */
-    private void setCurrentHospital(Hospital hospital) {
-        this.currentHospital = hospital;
+    private void setCurrentHospital(Hospital currentHospital) {
+        this.currentHospital = currentHospital;
     }
 
     /**
      * Select a hospital where the ambulance will drive the injured patients to.
-     * @param hospital The hospital to assign to the ambulance.
-     * @post The selected hopsital of this ambulance is equal to the given hospital | this.getCurrentHospital().equals(hospital)
-     * @throws InvalidAmbulanceException If this ambulance is not assigned to an emergency or is not at the location of the emergency.
-     * @throws InvalidHospitalException If the given hospital is not effective.
+     * @param hospital
+	 *		The hospital to assign to the ambulance.
+     * @effect The selected hopsital of this ambulance is equal to the given hospital
+	 *		| this.getCurrentHospital().equals(hospital)
+     * @throws InvalidAmbulanceException
+	 *		If this ambulance is not assigned to an emergency or is not at the location of the emergency.
+     * @throws InvalidHospitalException
+	 *		If the given hospital is not effective.
      */
     public void selectHospital(Hospital hospital) throws InvalidAmbulanceException, InvalidHospitalException {
         if (hospital == null) {
@@ -76,9 +83,10 @@ public class Ambulance extends Unit {
     }
 
     /**
-     * Finishing the job of the ambulance.
+     * Finishes the job of the ambulance.
      * @effect super.finishedJob()
-     * @post the selected hospital of this ambulance is null | this.getHospital().equals(null)
+     * @post the selected hospital of this ambulance is null
+	 *		| this.getHospital().equals(null)
      * @throws InvalidEmergencyException
      *		If the unit is not assigned to an emergency.
      * @throws InvalidLocationException
