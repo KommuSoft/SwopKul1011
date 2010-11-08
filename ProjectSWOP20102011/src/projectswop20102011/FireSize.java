@@ -13,7 +13,7 @@ public enum FireSize {
     HOUSE("house"),
     FACILITY("facility");
     /**
-     * textual representation of the fire size.
+     * The textual representation of the fire size.
      */
     private final String textual;
 
@@ -21,6 +21,8 @@ public enum FireSize {
      * Creates a new instance of the FireSize class with a given textual representation.
      * @param textual
 	 *		The textual representation of the FireSize, used for parsing and user interaction.
+	 * @post The textual representation is set to the given textual representation.
+	 *		| new.getTextual().equals(textual)
      */
     private FireSize(String textual) {
         this.textual = textual;
@@ -31,7 +33,7 @@ public enum FireSize {
      * @return A textual representation of the FireSize.
      */
     public String getTextual() {
-        return this.textual;
+        return textual;
     }
 
     /**
@@ -40,25 +42,26 @@ public enum FireSize {
      */
     @Override
     public String toString() {
-        return this.getTextual();
+        return getTextual();
     }
 
     /**
      * Tests if a given textual representation of an FireSize matches this FireSize.
      * @param textualRepresentation
-	 *		the textual representation to test.
+	 *		The textual representation to test.
      * @return True if the textual representation matches, otherwise false.
      */
     public boolean matches(String textualRepresentation) {
-        return this.getTextual().equals(textualRepresentation.toLowerCase());
+        return getTextual().equals(textualRepresentation.toLowerCase());
     }
 
     /**
-     * Parses a textual representation intro its FireSize equivalent.
+     * Parses a textual representation into its FireSize equivalent.
      * @param textualRepresentation
-	 *		the textual representation to parse.
-     * @return An FireSize that is the equivalent of the textual representation.
-     * @throws InvalidFireSizeException If no FireSize matches the textual representation.
+	 *		The textual representation to parse.
+     * @return A FireSize that is the equivalent of the textual representation.
+     * @throws InvalidFireSizeException
+	 *		If no FireSize matches the textual representation.
      */
     public static FireSize parse(String textualRepresentation) throws InvalidFireSizeException {
         for (FireSize fs : FireSize.values()) {

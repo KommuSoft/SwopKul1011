@@ -14,8 +14,10 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  * A class that represents a fire.
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
- * @invar The fire size is always valid. | isValidFireSize(getSize())
- * @invar The number of injured people is always valid. | isValidNumberOfInjured(getNumberOfInjured())
+ * @invar The fire size is always valid.
+ *		| isValidFireSize(getSize())
+ * @invar The number of injured people is always valid.
+ *		| isValidNumberOfInjured(getNumberOfInjured())
  */
 public class Fire extends Emergency {
 
@@ -52,14 +54,22 @@ public class Fire extends Emergency {
 	 * @param numberOfInjured
 	 *		The number of injured people of this fire emergency.
 	 * @effect super(location,severity)
-	 * @throws InvalidLocationException If the given location is an invalid location for an emergency.
-	 * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
-	 * @throws InvalidFireSizeException If the given fire size isn't a valid fire size for a fire emergency.
-	 * @throws NumberOutOfBoundsException If the given number of injured people is smaller than zero.
-	 * @post The number of injured people of the fire emergency is equal to the given number. | numberOfInjured.equals(getNumberOfInjured())
-	 * @post The fire size of this fire emergency is equal to the given fire size. | size.equals(getSize())
-	 * @post The chemical property of the fire emergency is equal to the given chemical property. | chemical.equals(isChemical())
-	 * @post The trapped people property of the fire emergency is equal to the given trapped people property. | trappedPeople.equals(hasTrappedPeople())
+	 * @throws InvalidLocationException
+	 *		If the given location is an invalid location for an emergency.
+	 * @throws InvalidEmergencySeverityException
+	 *		If the given severity is an invalid severity for an emergency.
+	 * @throws InvalidFireSizeException
+	 *		If the given fire size isn't a valid fire size for a fire emergency.
+	 * @throws NumberOutOfBoundsException
+	 *		If the given number of injured people is smaller than zero.
+	 * @post The number of injured people of the fire emergency is equal to the given number.
+	 *		| numberOfInjured.equals(getNumberOfInjured())
+	 * @post The fire size of this fire emergency is equal to the given fire size.
+	 *		| size.equals(getSize())
+	 * @post The chemical property of the fire emergency is equal to the given chemical property.
+	 *		| chemical.equals(isChemical())
+	 * @post The trapped people property of the fire emergency is equal to the given trapped people property.
+	 *		| trappedPeople.equals(hasTrappedPeople())
 	 */
 	public Fire(GPSCoordinate location, EmergencySeverity severity,
 			FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
@@ -82,7 +92,8 @@ public class Fire extends Emergency {
 	 * Sets the chemical indicator to the given value.
 	 * @param chemical
 	 *		The new value of the chemical indicator.
-	 * @post The chemical property of the fire emergency is equal to the given chemical property. | chemical.equals(isChemical())
+	 * @post The chemical property of the fire emergency is equal to the given chemical property.
+	 *		| chemical.equals(isChemical())
 	 */
 	private void setChemical(boolean chemical) {
 		this.chemical = chemical;
@@ -100,8 +111,10 @@ public class Fire extends Emergency {
 	 * Sets the number of injured people of this fire emergency to the given value.
 	 * @param numberOfInjured
 	 *		The new number of injured people of this fire emergency.
-	 * @throws NumberOutOfBoundsException If the given number of injured people is smaller than zero.
-	 * @post The number of injured people of the fire emergency is equal to the given number. | numberOfInjured.equals(getNumberOfInjured())
+	 * @throws NumberOutOfBoundsException
+	 *		If the given number of injured people is smaller than zero.
+	 * @post The number of injured people of the fire emergency is equal to the given number.
+	 *		| numberOfInjured.equals(getNumberOfInjured())
 	 */
 	private void setNumberOfInjured(long numberOfInjured) throws NumberOutOfBoundsException {
 		if (!isValidNumberOfInjured(numberOfInjured)) {
@@ -122,8 +135,10 @@ public class Fire extends Emergency {
 	 * Sets the size of this fire emergency to the given value.
 	 * @param size
 	 *		The new size of this fire emergency.
-	 * @throws InvalidFireSizeException If the given fire size isn't a valid fire size for a fire emergency.
-	 * @post The fire size of this fire emergency is equal to the given fire size. | size.equals(getSize())
+	 * @throws InvalidFireSizeException
+	 *		If the given fire size isn't a valid fire size for a fire emergency.
+	 * @post The fire size of this fire emergency is equal to the given fire size.
+	 *		| size.equals(getSize())
 	 */
 	private void setSize(FireSize size) throws InvalidFireSizeException {
 		if (!isValidFireSize(size)) {
@@ -144,8 +159,10 @@ public class Fire extends Emergency {
 	 * Sets the number of trapped people indicator to the given value.
 	 * @param trappedPeople
 	 *		The new value of the number of trapped people indicator.
-	 * @throws NumberOutOfBoundsException If the given number of trapped people is smaller than zero.
-	 * @post The trapped people property of the fire emergency is equal to the given trapped people property. | trappedPeople.equals(hasTrappedPeople())
+	 * @throws NumberOutOfBoundsException
+	 *		If the given number of trapped people is smaller than zero.
+	 * @post The trapped people property of the fire emergency is equal to the given trapped people property.
+	 *		| trappedPeople.equals(hasTrappedPeople())
 	 */
 	private void setTrappedPeople(long trappedPeople) throws NumberOutOfBoundsException {
 		if (!isValidTrappedPeople(trappedPeople)) {
@@ -234,6 +251,5 @@ public class Fire extends Emergency {
 		}
 		//should never be returned.
 		return null;
-
 	}
 }

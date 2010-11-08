@@ -22,6 +22,8 @@ public enum EmergencySeverity {
      * Creates a new instance of the EmergencySeverity class with a given textual representation.
      * @param textual
 	 *		The textual representation of the EmergencySeverity, used for parsing and user interaction.
+	 * @post The textual representation is set to the given textual representation.
+	 *		| new.getTextual().equals(textual)
      */
     private EmergencySeverity(String textual) {
         this.textual = textual;
@@ -58,7 +60,7 @@ public enum EmergencySeverity {
      * Parses a textual representation into its EmergencyStatus equivalent.
      * @param textualRepresentation
 	 *		The textual representation to parse.
-     * @return An EmergencyStatus that is the equivalent to the textual representation.
+     * @return An EmergencyStatus that is the equivalent of the textual representation.
      * @throws InvalidEmergencySeverityException
 	 *		If no EmergencyStatus matches the textual representation.
      */

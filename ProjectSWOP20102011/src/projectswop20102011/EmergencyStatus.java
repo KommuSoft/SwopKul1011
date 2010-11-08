@@ -17,6 +17,13 @@ public enum EmergencyStatus {
      */
     private final String textual;
 
+	/**
+	 * Creates a new instance of the EmergencyStatus class with a given textual representation.
+     * @param textual
+	 *		The textual representation of the EmergencyStatus, used for parsing and user interaction.
+	 * @post The textual representation is set to the given textual representation.
+	 *		| new.getTextual().equals(textual)
+	 */
     private EmergencyStatus (String textual) {
         this.textual = textual;
     }
@@ -52,7 +59,7 @@ public enum EmergencyStatus {
      * Parses a textual representation into its EmergencyStatus equivalent.
      * @param textualRepresentation
 	 *		The textual representation to parse.
-     * @return An EmergencyStatus that is the equivalent to the textual representation.
+     * @return An EmergencyStatus that is the equivalent of the textual representation.
      * @throws InvalidEmergencyStatusException
 	 *		If no EmergencyStatus matches the textual representation.
      */
