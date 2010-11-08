@@ -2,6 +2,7 @@ package projectswop20102011;
 
 import org.junit.Before;
 import org.junit.Test;
+import projectswop20102011.exceptions.InvalidAmbulanceException;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -50,7 +51,7 @@ public class FiretruckTest {
 	public void testTimeAhead() throws InvalidLocationException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name,homeLocation,speed1);
 
 		Unit[] units = {brandweerwagen};
@@ -62,4 +63,20 @@ public class FiretruckTest {
 		assertEquals(x1,brandweerwagen.getDestination().getX());
 		assertEquals(y1,brandweerwagen.getDestination().getY());
 	}
+
+	@Test(expected = InvalidDurationException.class)
+    public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
+            InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException,
+            NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException {
+        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 0);
+        brandweerwagen = new Firetruck(name, homeLocation, speed1);
+
+        Unit[] units = {brandweerwagen};
+        f1.getUnitsNeeded().assignUnitsToEmergency(units);
+        brandweerwagen.timeAhead(-23);
+        assertEquals(x2, brandweerwagen.getCurrentLocation().getX());
+        assertEquals(y2, brandweerwagen.getCurrentLocation().getY());
+        assertEquals(x1, brandweerwagen.getDestination().getX());
+        assertEquals(y1, brandweerwagen.getDestination().getY());
+    }
 }
