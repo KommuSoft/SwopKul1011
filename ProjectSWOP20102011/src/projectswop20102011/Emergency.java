@@ -46,6 +46,10 @@ public abstract class Emergency {
      * and does the management of dispatching units and setting the status of this emergency.
      */
     private UnitsNeeded unitsNeeded;
+	/**
+	 * A variable registering the amount of units that are currently working at the emergency.
+	 */
+	private long workingUnits;
 
     /**
      * Make a new emergency with the given location, severity.
@@ -56,9 +60,9 @@ public abstract class Emergency {
      *		The severity of this emergency.
      * @throws InvalidLocationException If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
-     * @post This location is equal to the parameter location.
+     * @effect This location is equal to the parameter location.
      *		|location.equals(this.getLocation())
-     * @post This severity is equal to the parameter severity.
+     * @effect This severity is equal to the parameter severity.
      *		|severity.equals(this.getSeverity())
      */
     protected Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
@@ -118,6 +122,27 @@ public abstract class Emergency {
         this.status = status;
     }
 
+	/**
+	 * Sets the working units of this emergency to the given amount of working units.
+	 * @param workingUnits
+	 *		The new amount of working units for this emergency.
+	 * @post This workingUnit is equal to the given workingUnits.
+	 *		| new.getWorkingUnits() == workingUnits
+	 * @effect If workingUnits is zero than the emergency is finished, so its status is set to finished.
+	 *		| getStatus().equals(EmergencyStatus.FINISHED)
+	 */
+	void setWorkingUnits(long workingUnits){
+		if(workingUnits == 0){
+			try {
+				setStatus(EmergencyStatus.FINISHED);
+			} catch (InvalidEmergencyStatusException ex) {
+				//We ensure this can never happen.
+				Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		this.workingUnits = workingUnits;
+	}
+
     /**
      * Returns the location of this emergency.
      * @return The location of this emergency.
@@ -149,6 +174,14 @@ public abstract class Emergency {
     public long getId() {
         return id;
     }
+
+	/**
+	 * Returns the amount of working units of this emergency.
+	 * @return The amount of working units of this emergency.
+	 */
+	public long getWorkingUnits(){
+		return workingUnits;
+	}
 
     /**
      * Checks if the given severity is valid as severity level of an emergency.

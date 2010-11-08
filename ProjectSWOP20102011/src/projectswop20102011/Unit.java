@@ -3,6 +3,7 @@ package projectswop20102011;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidDurationException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingException;
@@ -43,8 +44,14 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The home location of the new unit.
      * @param speed
      *		The speed of the new unit.
-     * @effect The new unit is a unit with given name, home location
-     *         |super(name,homeLocation);
+     * @effect The new unit is a unit with given name, home location.
+     *		|super(name,homeLocation);
+	 * @effect This speed is equal to the given parameter speed.
+	 *		|speed.equals(getSpeed())
+	 * @effect This currentLocation is equal to the given parameter homeLocation.
+	 *		|homeLocation.equals(getCurrentLocation())
+	 * @effect This emergency is equal to null.
+	 *		|getEmergency().equals(null)
      * @throws InvalidUnitBuildingNameException
      *		If the given name is an invalid name for a unit.
      * @throws InvalidLocationException
@@ -100,10 +107,10 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        if (this.emergency == null) {
-            return this.getHomeLocation();
+        if (getEmergency() == null) {
+            return getHomeLocation();
         } else {
-            return emergency.getLocation();
+            return getEmergency().getLocation();
         }
     }
 
@@ -130,18 +137,12 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *
      * @param currentLocation
      *		The new speed of this timesensitive unit or building.
-     * @throws InvalidLocationException
-     *		If the given current location isn't a valid current location for a timesensitive unit or building.
      * @post The current location of this unit or building is set according to the given current location.
      *		|new.getCurrentLocation() == currentLocation
      */
-    //TODO moet dit hier geen try-catch zijn? De current location moet toch altijd geset worden vanuit het programma?
-    private void setCurrentLocation(GPSCoordinate currentLocation) throws InvalidLocationException {
-        if (!isValidCurrentLocation(currentLocation)) {
-            throw new InvalidLocationException(String.format("\"%s\" is an invalid current location for a unit.", currentLocation));
-        } else {
-            this.currentLocation = currentLocation;
-        }
+    private void setCurrentLocation(GPSCoordinate currentLocation){
+		this.currentLocation = currentLocation;
+		//TODO normaal zou de gegeven location altijd valid moeten zijn
     }
 
     /**
@@ -159,10 +160,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     public Emergency getEmergency() {
         return emergency;
-    }
-
-    private void changeCurrentLocation(GPSCoordinate newCurrentLocation) throws InvalidLocationException {
-        setCurrentLocation(newCurrentLocation);
     }
 
     /**
@@ -214,15 +211,11 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
                 GPSCoordinate stop = new GPSCoordinate(stopX, stopY);
 
                 double calculatedDistance = getCurrentLocation().getDistanceTo(stop);
-                try {
-                    if (calculatedDistance > distance) {
-                        changeCurrentLocation(getDestination());
-                    } else {
-                        changeCurrentLocation(stop);
-                    }
-                } catch (InvalidLocationException ex) {
-                    Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-                }
+				if (calculatedDistance > distance) {
+					setCurrentLocation(getDestination());
+				} else {
+					setCurrentLocation(stop);
+				}
             }
         } else if (duration < 0) {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
@@ -245,8 +238,8 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *
      * @param emergency
      *		The emergency where this units have to respond to.
-     * @post The unit's emergency is equal to the given emergency | this.getEmergency().equals(emergency)
-     * @post The unit is assigned.
+     * @effect The unit's emergency is equal to the given emergency | this.getEmergency().equals(emergency)
+     * @effect The unit is assigned.
      * @throws InvalidUnitBuildingException
      *          If the unit is already assigned to an emergency.
      */
@@ -255,21 +248,28 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
             throw new InvalidUnitBuildingException("Unit can't be assigned");
         }
         setEmergency(emergency);
-        try {
-            setCurrentLocation(getHomeLocation());
-        } catch (InvalidLocationException ex) {
-            //We assume this can't happen
-            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
      * Finishes the job of this Unit.
-     * @post The emergency the unit is handling is null | this.getEmergency().equals(null)
-     * @post The unit is not assigned | !this.isAssigned()
+     * @effect The emergency of this unit is null | this.getEmergency().equals(null)
+	 * @effect The unit is not assigned | !this.isAssigned()
+	 * @throws InvalidEmergencyException 
+	 *		If the unit is not assigned to an emergency.
+	 * @throws InvalidLocationException
+	 *		If the unit is not at the location of the emergency.
      */
-    public void finishedJob() {
-        setEmergency(null);
+    public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
+		if(getEmergency() != null){
+			if(getCurrentLocation().equals(getEmergency().getLocation())){
+				getEmergency().setWorkingUnits(getEmergency().getWorkingUnits()-1);
+				setEmergency(null);
+			} else {
+				throw new InvalidLocationException("The unit is not at the location of the emergency.");
+			}
+		} else {
+			throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
+		}
     }
 
     /**
