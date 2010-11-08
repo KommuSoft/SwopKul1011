@@ -15,9 +15,9 @@ public class InvalidUnitBuildingException extends Exception{
     /**
      * Constructs an InvalidUnitBuildingException with no detail message.
      */
-	public InvalidUnitBuildingException(){
-		super();
-	}
+    public InvalidUnitBuildingException() {
+        super();
+    }
 
     /**
      * Constructs an InvalidUnitBuildingException with the specified detail message.

@@ -4,6 +4,9 @@ import projectswop20102011.TypeUnitBuildingEvaluationCriterium;
 import projectswop20102011.Unit;
 import projectswop20102011.UnitBuildingEvaluationCriterium;
 import projectswop20102011.World;
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
@@ -19,6 +22,13 @@ public class EndOfEmergencyController extends Controller {
     public Unit findUnit (String unitName) {
         UnitBuildingEvaluationCriterium criterium = new TypeUnitBuildingEvaluationCriterium(Unit.class);
         return (Unit) this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).getUnitBuildingFromName(unitName);
+    }
+
+    public void indicateEndOfEmergency (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException {
+        if(unit == null) {
+            throw new InvalidUnitException("The given unit must be effective.");
+        }
+        unit.finishedJob();
     }
 
 }

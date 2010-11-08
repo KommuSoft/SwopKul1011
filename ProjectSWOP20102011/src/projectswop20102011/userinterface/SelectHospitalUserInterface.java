@@ -49,17 +49,6 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                 } else {
                     Hospital[] hospitals = this.getController().getHospitalList(amb);
                     if (hospitals.length > 0) {
-                        ViewTable table = new ViewTable();
-                        int id = 0;
-                        for (int i = 0; i < hospitals.length; i++) {
-                            Hospital h = hospitals[i];
-                            Hashtable<String, String> entry = new Hashtable<String, String>();
-                            entry.put("id", "" + i);
-                            entry.put("name", h.getName());
-                            entry.put("distance", "" + Math.round(amb.getCurrentLocation().getDistanceTo(h.getHomeLocation())));
-                            table.addEntry(entry);
-                        }
-                        this.writeOutput(table.toString());
                         int selected = this.parseInputToType(new IntegerParser(), "selected hospital id");
                         if (selected < 0 || selected >= hospitals.length) {
                             this.writeOutput("Couldn't find hospital id.");
