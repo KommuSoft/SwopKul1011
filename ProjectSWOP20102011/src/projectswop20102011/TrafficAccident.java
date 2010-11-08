@@ -137,103 +137,21 @@ public class TrafficAccident extends Emergency {
         return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s; number_of_cars=%s; number_of_injured=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.getNumberOfCars(), this.getNumberOfInjured());
     }
 
-	/**
-	 * Calculates the units needed for this traffic accident.
-	 * @return The units needed for this traffic accident.
-	 */
-	@Override
-	protected UnitsNeeded calculateUnitsNeeded() {
-		int size;
-		Class units[];
-		long numbersNeeded[];
-		
-		if(getNumberOfCars() <= 2){
-			if(getNumberOfInjured() == 0){
-				size = 1;
-				units = new Class[size];
-				numbersNeeded = new long[size];
-				units[0] = Firetruck.class;
-				numbersNeeded[0] = 1;
-			} else {
-				size = 2;
-				units = new Class[size];
-				numbersNeeded = new long[size];
-				units[0] = Firetruck.class;
-				numbersNeeded[0] = 1;
-				units[1] = Ambulance.class;
-				numbersNeeded[1] = getNumberOfInjured();
-			}
-		} else {
-			if(getNumberOfInjured() == 0){
-				size = 2;
-				units = new Class[size];
-				numbersNeeded = new long[size];
-				units[0] = Firetruck.class;
-				numbersNeeded[0] = 1;
-				units[1] = Policecar.class;
-				numbersNeeded[1] = (getNumberOfCars()+1)/2;
-			} else {
-				size = 3;
-				units = new Class[size];
-				numbersNeeded = new long[size];
-				units[0] = Firetruck.class;
-				numbersNeeded[0] = 1;
-				units[1] = Ambulance.class;
-				numbersNeeded[1] = getNumberOfInjured();
-				units[2] = Policecar.class;
-				numbersNeeded[2] = (getNumberOfCars()+1)/2;
-			}
-		}
-
-        if (getNumberOfCars() <= 2) {
-            if (getNumberOfInjured() == 0) {
-                size = 1;
-                units = new Class[size];
-                numbersNeeded = new long[size];
-                units[0] = Firetruck.class;
-                numbersNeeded[0] = 1;
-            } else {
-                size = 2;
-                units = new Class[size];
-                numbersNeeded = new long[size];
-                units[0] = Firetruck.class;
-                numbersNeeded[0] = 1;
-                units[1] = Ambulance.class;
-                numbersNeeded[1] = getNumberOfInjured();
-            }
-        } else {
-            if (getNumberOfInjured() == 0) {
-                size = 2;
-                units = new Class[size];
-                numbersNeeded = new long[size];
-                units[0] = Firetruck.class;
-                numbersNeeded[0] = 1;
-                units[1] = Policecar.class;
-                numbersNeeded[1] = (getNumberOfCars() + 1) / 2;
-            } else {
-                size = 3;
-                units = new Class[size];
-                numbersNeeded = new long[size];
-                units[0] = Firetruck.class;
-                numbersNeeded[0] = 1;
-                units[1] = Ambulance.class;
-                numbersNeeded[1] = getNumberOfInjured();
-                units[2] = Policecar.class;
-                numbersNeeded[2] = (getNumberOfCars() + 1) / 2;
-            }
+    /**
+     * Calculates the units needed for this traffic accident.
+     * @return The units needed for this traffic accident.
+     */
+    @Override
+    protected UnitsNeeded calculateUnitsNeeded() {
+        try {
+            return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{1, this.getNumberOfInjured(), (this.getNumberOfCars() + 1) / 2});
+        } catch (InvalidEmergencyException ex) {
+            //we assume this can't happen
+            Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we assume this can't happen
+            Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        long sum = 0;
-        for (int i = 0; i < numbersNeeded.length; ++i) {
-            sum += numbersNeeded[i];
-        }
-		try {
-			return new UnitsNeeded(this, units, numbersNeeded);
-		} catch (InvalidEmergencyException ex) {
-			Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitsNeededException ex) {
-			Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
+        return null;
     }
 }

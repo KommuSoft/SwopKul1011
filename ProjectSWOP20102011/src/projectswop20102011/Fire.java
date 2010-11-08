@@ -27,9 +27,9 @@ public class Fire extends Emergency {
      */
     private boolean chemical;
     /**
-     * A variable registering whether there are trapped people or not.
+     * A variable registering how many trapped people there are
      */
-    private boolean trappedPeople;
+    private long trappedPeople;
     /**
      * A variable registering the number of injured people of this fire.
      */
@@ -37,7 +37,7 @@ public class Fire extends Emergency {
 
     /**
      * Make a new fire emergency with the given parameters.
-	 *
+     *
      * @param location
      *		The location of this fire emergency.
      * @param severity
@@ -47,7 +47,7 @@ public class Fire extends Emergency {
      * @param chemical
      *		Indicates whether this fire emergency is a chemical fire or not.
      * @param trappedPeople
-     *		Indicates whether this fire emergency has trapped people or not.
+     *		The number of trapped people in the fire.
      * @param numberOfInjured
      *		The number of injured people of this fire emergency.
      * @effect super(location,severity)
@@ -61,7 +61,7 @@ public class Fire extends Emergency {
      * @post The trapped people property of the fire emergency is equal to the given trapped people property. | trappedPeople.equals(hasTrappedPeople())
      */
     public Fire(GPSCoordinate location, EmergencySeverity severity,
-            FireSize size, boolean chemical, boolean trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+            FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         super(location, severity);
         setSize(size);
         setChemical(chemical);
@@ -132,27 +132,27 @@ public class Fire extends Emergency {
     }
 
     /**
-     * Indicates whether there are trapped people in this fire emergency.
-     * @return True if this fire emergency has trapped people; false otherwise.
+     * Indicates the number of trapped people in the fire.
+     * @return The number of trapped people in the fire.
      */
-    public boolean hasTrappedPeople() {
+    public long getTrappedPeople() {
         return trappedPeople;
     }
 
     /**
-     * Sets the trapped people indicator to the given value.
+     * Sets the number of trapped people indicator to the given value.
      * @param trappedPeople
-     *		The new value of the trapped people indicator.
+     *		The new value of the number of trapped people indicator.
      * @post The trapped people property of the fire emergency is equal to the given trapped people property. | trappedPeople.equals(hasTrappedPeople())
      */
-    private void setTrappedPeople(boolean trappedPeople) {
+    private void setTrappedPeople(long trappedPeople) {
         this.trappedPeople = trappedPeople;
     }
 
     /**
      * Checks if the given fire size is a valid fire size for a fire emergency.
      * @param fireSize
-	 *		The fire size to validate.
+     *		The fire size to validate.
      * @return True if fireSize is effective, otherwise false.
      */
     public static boolean isValidFireSize(FireSize fireSize) {
@@ -162,7 +162,7 @@ public class Fire extends Emergency {
     /**
      * Checks if the given number of injured people is a valid number for a fire emergency.
      * @param numberOfInjured
-	 *		The number of injured people to validate.
+     *		The number of injured people to validate.
      * @return True if injured people is larger or equal to zero, otherwise false.
      */
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
@@ -176,92 +176,49 @@ public class Fire extends Emergency {
      */
     //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
-        return String.format("[Fire id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+        return String.format("[Fire id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
     }
 
-	/**
-	 * Returns a string that represents all the information of the Fire.
-	 * @return A string that represents all the information of the Fire.
-	 * @see Fire.toShortInformationString
-	 */
+    /**
+     * Returns a string that represents all the information of the Fire.
+     * @return A string that represents all the information of the Fire.
+     * @see Fire.toShortInformationString
+     */
     //TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
-        return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getSize(),this.isChemical(),this.hasTrappedPeople(),this.getNumberOfInjured());
+        return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.getSize(), this.isChemical(), this.getTrappedPeople(), this.getNumberOfInjured());
     }
 
-	/**
-	 * Calculates the units needed for this fire.
-	 * @return The units needed for this fire.
-	 */
-	@Override
-	protected UnitsNeeded calculateUnitsNeeded() {
-		int fireSize;
-		long ambulances = getNumberOfInjured();
-		if(hasTrappedPeople()){
-			++ambulances;
-		}
-
-		Class units[] = null;
-		long numbersNeeded[] = null;
-
-		if(ambulances > 0){
-			if(getSize() == FireSize.LOCAL){
-				fireSize = 2;
-				units = new Class[fireSize];
-				numbersNeeded = new long[fireSize];
-				units[1] = Firetruck.class;
-				numbersNeeded[1] = 1;
-			} else if(getSize() == FireSize.HOUSE){
-				fireSize = 3;
-				units = new Class[fireSize];
-				numbersNeeded = new long[fireSize];
-				units[1] = Firetruck.class;
-				units[2] = Policecar.class;
-				numbersNeeded[1] = 2;
-				numbersNeeded[2] = 1;
-			} else if(getSize() == FireSize.FACILITY){
-				fireSize = 3;
-				units = new Class[fireSize];
-				numbersNeeded = new long[fireSize];
-				units[1] = Firetruck.class;
-				units[2] = Policecar.class;
-				numbersNeeded[1] = 4;
-				numbersNeeded[2] = 3;
-			}
-			units[0] = Ambulance.class;
-			numbersNeeded[0] = ambulances;
-		} else {
-			if(getSize() == FireSize.LOCAL){
-				fireSize = 1;
-				units = new Class[fireSize];
-				numbersNeeded = new long[fireSize];
-				units[0] = Firetruck.class;
-				numbersNeeded[0] = 1;
-			} else if(getSize() == FireSize.HOUSE){
-				fireSize = 2;
-				units = new Class[fireSize];
-				numbersNeeded = new long[fireSize];
-				units[0] = Firetruck.class;
-				units[1] = Policecar.class;
-				numbersNeeded[0] = 2;
-				numbersNeeded[1] = 1;
-			} else if(getSize() == FireSize.FACILITY){
-				fireSize = 2;
-				units = new Class[fireSize];
-				numbersNeeded = new long[fireSize];
-				units[0] = Firetruck.class;
-				units[1] = Policecar.class;
-				numbersNeeded[0] = 4;
-				numbersNeeded[1] = 3;
-			}
-		}
-		try {
-			return new UnitsNeeded(this, units, numbersNeeded);
-		} catch (InvalidEmergencyException ex) {
-			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitsNeededException ex) {
-			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
+    /**
+     * Calculates the units needed for this fire.
+     * @return The units needed for this fire.
+     */
+    @Override
+    protected UnitsNeeded calculateUnitsNeeded() {
+        long firetrucks = 0;
+        long policecars = 0;
+        switch (this.getSize()) {
+            case LOCAL:
+                firetrucks = 1;
+                break;
+            case HOUSE:
+                firetrucks = 2;
+                policecars = 1;
+                break;
+            case FACILITY:
+                firetrucks = 4;
+                policecars = 3;
+        }
+        try {
+            return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
+        } catch (InvalidEmergencyException ex) {
+            //we assume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we assume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //should never be returned.
+        return null;
+    }
 }

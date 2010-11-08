@@ -57,8 +57,8 @@ public class PublicDisturbance extends Emergency {
      * @post the number of involved people of this public disturbance is equal to the given number of people.
      */
     private void setNumberOfPeople(long numberOfPeople) throws NumberOutOfBoundsException {
-        if(!isValidNumberOfPeople(numberOfPeople)) {
-            throw new NumberOutOfBoundsException(String.format("The number of people involved in a public disturbance must be strict larger than zero and not \"%s\".",numberOfPeople));
+        if (!isValidNumberOfPeople(numberOfPeople)) {
+            throw new NumberOutOfBoundsException(String.format("The number of people involved in a public disturbance must be strict larger than zero and not \"%s\".", numberOfPeople));
         }
         this.numberOfPeople = numberOfPeople;
     }
@@ -66,10 +66,10 @@ public class PublicDisturbance extends Emergency {
     /**
      * Checks if the number of people is a valid number for a public disturbance emergency.
      * @param numberOfPeople
-	 *		The number of people to check.
+     *		The number of people to check.
      * @return True if the number of people is strict larger than zero.
      */
-    public static boolean isValidNumberOfPeople (long numberOfPeople) {
+    public static boolean isValidNumberOfPeople(long numberOfPeople) {
         return (numberOfPeople > 0);
     }
 
@@ -80,38 +80,34 @@ public class PublicDisturbance extends Emergency {
      */
     //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
-        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
     }
 
-	/**
-	 * Returns a string that represents all the information of the public disturbance.
-	 * @return A string that represents all the information of the public disturbance.
-	 * @see PublicDisturbance.toShortInformationString
-	 */
+    /**
+     * Returns a string that represents all the information of the public disturbance.
+     * @return A string that represents all the information of the public disturbance.
+     * @see PublicDisturbance.toShortInformationString
+     */
     //TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
-        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.getNumberOfPeople());
+        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.getNumberOfPeople());
     }
 
-	/**
-	 * Calculates the units needed for this public disturbance.
-	 * @return The units needed for this public disturbance.
-	 */
-	@Override
-	protected UnitsNeeded calculateUnitsNeeded() {
-		int size = 1;
-		Class units[] = new Class[size];
-		long numbersNeeded[] = new long[size];
-		units[0] = Policecar.class;
-		numbersNeeded[0] = (getNumberOfPeople()+4)/5;
-
-		try {
-			return new UnitsNeeded(this, units, numbersNeeded);
-		} catch (InvalidEmergencyException ex) {
-			Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitsNeededException ex) {
-			Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
+    /**
+     * Calculates the units needed for this public disturbance.
+     * @return The units needed for this public disturbance.
+     */
+    @Override
+    protected UnitsNeeded calculateUnitsNeeded() {
+        try {
+            return new UnitsNeeded(this, new Class[]{Policecar.class}, new long[]{(this.getNumberOfPeople() + 4) / 5});
+        } catch (InvalidEmergencyException ex) {
+            //we assume this can't happen
+            Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we assume this can't happen
+            Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

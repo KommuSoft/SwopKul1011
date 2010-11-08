@@ -46,7 +46,7 @@ public abstract class Emergency {
      * and does the management of dispatching units and setting the status of this emergency.
      */
     private UnitsNeeded unitsNeeded;
-	
+
     /**
      * Make a new emergency with the given location, severity.
      *
@@ -190,8 +190,8 @@ public abstract class Emergency {
      * @return A UnitsNeeded structure that contains the amount and types of units needed for this emergency.
      * @note Handling dispatching and updating the status of the emergency is also done by this object.
      */
-    public UnitsNeeded getUnitsNeeded () {
-        if(this.unitsNeeded == null) {
+    public UnitsNeeded getUnitsNeeded() {
+        if (this.unitsNeeded == null) {
             this.unitsNeeded = this.calculateUnitsNeeded();
         }
         return this.unitsNeeded;

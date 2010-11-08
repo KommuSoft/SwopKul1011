@@ -36,7 +36,7 @@ public class Robbery extends Emergency {
      * @throws InvalidLocationException If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
      * @post The is armed parameter of the robery is equal to the given parameter. | armed.equals(isArmed())
-	 * @post the in progress parameter of this robbery is equal to the given parameter. | inProgress.equals(isInProgress())
+     * @post the in progress parameter of this robbery is equal to the given parameter. | inProgress.equals(isInProgress())
      */
     public Robbery(GPSCoordinate location, EmergencySeverity severity,
             boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
@@ -81,50 +81,45 @@ public class Robbery extends Emergency {
         this.inProgress = inProgress;
     }
 
-	/**
+    /**
      * Returns a string that represents the basic information of this robbery.
      * @return A string representing basic information of this robbery.
      * @see PublicDisturbance.toLongInformationString
-	 */
+     */
     //TODO deze code moet nog verplaatst worden
     public String toShortInformationString() {
-        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus());
+        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
     }
 
-	/**
-	 * Returns a string that represents all the information of this robbery.
-	 * @return A string that represents all the information of this robbery.
-	 * @see PublicDisturbance.toShortInformationString
-	 */
+    /**
+     * Returns a string that represents all the information of this robbery.
+     * @return A string that represents all the information of this robbery.
+     * @see PublicDisturbance.toShortInformationString
+     */
     //TODO deze code moet nog verplaatst worden
     public String toLongInformationString() {
-        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]",this.getId(),this.getLocation(),this.getSeverity(),this.getStatus(),this.isArmed(),this.isInProgress());
+        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.isArmed(), this.isInProgress());
     }
 
-
-	/**
-	 * Calculates the units needed for this robbery.
-	 * @return The units needed for this robbery.
-	 */
-	@Override
-	protected UnitsNeeded calculateUnitsNeeded() {
-		int size = 1;
-		Class units[] = new Class[size];
-		long numbersNeeded[] = new long[size];
-		units[0] = Policecar.class;
-
-		if(!isArmed() || !isInProgress()){
-			numbersNeeded[0] = 1;
-		} else {
-			numbersNeeded[0] = 3;
-		}
-		try {
-			return new UnitsNeeded(this, units, numbersNeeded);
-		} catch (InvalidEmergencyException ex) {
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitsNeededException ex) {
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
+    /**
+     * Calculates the units needed for this robbery.
+     * @return The units needed for this robbery.
+     */
+    @Override
+    protected UnitsNeeded calculateUnitsNeeded() {
+        try {
+            if (!isArmed() || !isInProgress()) {
+                return new UnitsNeeded(this, new Class[]{Policecar.class}, new long[]{1});
+            } else {
+                return new UnitsNeeded(this, new Class[]{Policecar.class}, new long[]{3});
+            }
+        } catch (InvalidEmergencyException ex) {
+            //we assume this can't happen
+            Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we assume this can't happen
+            Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

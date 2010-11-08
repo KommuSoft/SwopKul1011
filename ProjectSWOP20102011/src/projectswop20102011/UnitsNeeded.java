@@ -40,7 +40,7 @@ public class UnitsNeeded {
      * @throws InvalidUnitsNeededException If the given units or numbersNeeded aren't valid.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
-    UnitsNeeded(Emergency emergency, Class<? extends Unit>[] units, long[] numbersNeeded) throws InvalidEmergencyException, InvalidUnitsNeededException {
+    UnitsNeeded(Emergency emergency, Class[] units, long[] numbersNeeded) throws InvalidEmergencyException, InvalidUnitsNeededException {
         if(!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
