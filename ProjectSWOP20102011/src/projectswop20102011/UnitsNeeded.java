@@ -9,44 +9,50 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
 /**
- * A class that represents the units for an Emergency.
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
- * @invar The emergency is valid. | isValidEmergency(getEmergency())
- * @invar The unit type list and number of units list are valid | areValidTypesAndNumbersOfUnits(getUnits(),getNumbersNeeded())
+ * A class that represents the units needed for an Emergency.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ * @invar The emergency is valid.
+ *		| isValidEmergency(getEmergency())
+ * @invar The unit type list and number of units list are valid.
+ *		| areValidTypesAndNumbersOfUnits(getUnits(),getNumbersNeeded())
  */
 public class UnitsNeeded {
-    /**
+
+	/**
      * The emergency that is been handled by this UnitsNeeded class.
      */
     private final Emergency emergency;
+
     /**
      * A variable registering the numbersNeeded of this UnitsNeeded.
      */
     private final long[] numbersNeeded;
+
     /**
      * A variable registering the units of the emergency.
      */
     private final Class[] units;
+
 	/**
 	 * A variable registering the amount of units that are currently working at the emergency.
 	 */
 	private long workingUnits;
 
     /**
-     * Creates a new Object that calculates the units needed for an emergency.
+     * Creates a new object that calculates the units needed for an emergency.
      *
      * @param numbersNeeded
      *		The numbers of units needed for this emergency.
      * @param units
      *		The units needed for this emergency.
 	 * @post This emergency is set to the given emergency.
-	 *		| new.getEmergency().equals(emergency)
+	 *		| new.getEmergency()==emergency
 	 * @post This units is set to the given units.
-	 *		| new.getUnits().equals(units.clone())
-	 * @post This numbersNeeded is set to the given numbersNeeded
-	 *		| new.getNumbersNeeded().equals(numbersNeeded.clone())
+	 *		| new.getUnits()==units.clone()
+	 * @post This numbersNeeded is set to the given numbersNeeded.
+	 *		| new.getNumbersNeeded()==numbersNeeded.clone()
 	 * @effect Initialize the workingUnits.
-	 *		| getWorkingUnits() == 0
+	 *		| initWorkingUnits()
      * @throws InvalidEmergencyException
 	 *		If the given emergency is not effective.
      * @throws InvalidUnitsNeededException
@@ -68,7 +74,7 @@ public class UnitsNeeded {
 
 	/**
 	 * Sets the working units of the emergency to zero.
-	 * @post This workingUnit is equal to zero.
+	 * @post This workingUnits is equal to zero.
 	 *		| new.getWorkingUnits() == 0
 	 */
 	private void initWorkingUnits(){
@@ -81,8 +87,8 @@ public class UnitsNeeded {
 	 *		The new amount of working units for the emergency.
 	 * @post This workingUnit is equal to the given workingUnits.
 	 *		| new.getWorkingUnits() == workingUnits
-	 * @effect If workingUnits is zero than the emergency is finished, so its status is set to finished.
-	 *		| getEmergency().getStatus().equals(EmergencyStatus.FINISHED)
+	 * @effect If workingUnits is zero, then the emergency is finished, so its status is set to finished.
+	 *		| getEmergency().setStatus(EmergencyStatus.FINISHED)
 	 */
 	void setWorkingUnits(long workingUnits){
 		if(workingUnits == 0){
@@ -142,8 +148,10 @@ public class UnitsNeeded {
      * Checks if the given unit types and numbers are valid for this UnitsNeeded class.
      * @param units
 	 *		The types of units needed.
-     * @param numbersNeeded The amount of units needed of a certain type.
-     * @return True if both arrays are effective and have the same length, no unit type is uneffective and all are subclasses of the Unit class (or are the Unit class), and all the number of units are at least zero.
+     * @param numbersNeeded
+	 *		The amount of units needed of a certain type.
+     * @return True if both arrays are effective and have the same length,
+	 *		no unit type is uneffective and all are subclasses of the Unit class (or are the Unit class), and all the number of units are at least zero.
      */
     public static boolean areValidTypesAndNumberOfUnits(Class[] units, long[] numbersNeeded) {
         if (units == null || numbersNeeded  == null || units.length != numbersNeeded.length) {
@@ -166,7 +174,9 @@ public class UnitsNeeded {
      * Checks if the given units can be assigned to the emergency.
      * @param units
 	 *		The units to be assigned.
-     * @return True if the emergency is not handled yet, if all the given units are effective, unique and can be assigned and for every quantity constraint, this array succeeds, otherwise false.
+     * @return True if the emergency is not handled yet, if all the given units are effective, 
+	 *		unique and can be assigned and for every quantity constraint,
+	 *		this array succeeds, otherwise false.
      */
     public boolean canAssignUnitsToEmergency(Unit[] units) {
         if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED) {
@@ -195,12 +205,16 @@ public class UnitsNeeded {
     }
 
     /**
-     * assign the given array of units to the emergency.
+     * Assign the given array of units to the emergency.
+	 * 
      * @param units
-	 *		The given array of units
-     * @post The status of the emergency is RESPONSE_IN_PROGRESS | this.getEmergency().getStatus().equals(EmergencyStatus.RESPONSE_IN_PROGRESS)
-     * @post All the units in the given array are assigned | forall u in units, u.isAssigned()
-     * @post All the units in the given array are handling the emergency of this UnitNeeded | forall u in units.getEmergency().equals(this.getEmergency())
+	 *		The given array of units.
+     * @post The status of the emergency is RESPONSE_IN_PROGRESS
+	 *		| this.getEmergency().getStatus().equals(EmergencyStatus.RESPONSE_IN_PROGRESS)
+     * @post All the units in the given array are assigned
+	 *		| forall u in units, u.isAssigned()
+     * @post All the units in the given array are handling the emergency of this UnitNeeded
+	 *		| forall u in units.getEmergency().equals(this.getEmergency())
      * @throws InvalidEmergencyException
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
      * @see UnitsNeeded.canAssignUnitsToEmergency
