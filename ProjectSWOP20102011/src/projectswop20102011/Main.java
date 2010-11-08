@@ -1,6 +1,10 @@
 package projectswop20102011;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
@@ -36,14 +40,17 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         World world = new World();
 
         try {
             EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Type in the path to the environment file?");
+            String environmentFile = reader.readLine();
             try {
-                er.readEnvironmentData(new FileInputStream("environment.dat"));//TODO: change
+                er.readEnvironmentData(new FileInputStream(environmentFile));
             } catch (Exception ex) {
                 System.out.println(String.format("ERROR: %s", ex.getMessage()));
                 System.out.println("program will now stop.");

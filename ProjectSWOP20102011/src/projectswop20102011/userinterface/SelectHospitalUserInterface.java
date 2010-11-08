@@ -1,11 +1,17 @@
 package projectswop20102011.userinterface;
 
+import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.Ambulance;
 import projectswop20102011.Hospital;
 import projectswop20102011.controllers.SelectHospitalController;
+import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.ParsingAbortedException;
+import projectswop20102011.userinterface.parsers.IntegerParser;
 import projectswop20102011.userinterface.parsers.StringParser;
 
 /**
@@ -43,20 +49,27 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                 } else {
                     Hospital[] hospitals = this.getController().getHospitalList(amb);
                     if (hospitals.length > 0) {
-                        int nameTextLengthMax = 4;
-                        int locationTextLengthMax = 8;
-                        int idTextLengthMax = Math.max(2,(int) Math.floor(Math.log10(hospitals.length)) + 1);
-                        for (Hospital h : hospitals) {
-                            nameTextLengthMax = Math.max(nameTextLengthMax, h.getName().length());
-                            locationTextLengthMax = Math.max(locationTextLengthMax, h.getHomeLocation().toString().length());
+                        ViewTable table = new ViewTable();
+                        int id = 0;
+                        for (int i = 0; i < hospitals.length; i++) {
+                            Hospital h = hospitals[i];
+                            Hashtable<String, String> entry = new Hashtable<String, String>();
+                            entry.put("id", "" + i);
+                            entry.put("name", h.getName());
+                            entry.put("distance", "" + Math.round(amb.getCurrentLocation().getDistanceTo(h.getHomeLocation())));
+                            table.addEntry(entry);
                         }
-                        int index = 1;
-                        String idLine = new String(new char[] {'-'},0,idTextLengthMax);
-                        String nameLine = new String(new char[] {'-'},0,nameTextLengthMax);
-                        String locationLine = new String(new char[] {'-'},0,locationTextLengthMax);
-                        this.writeOutput(String.format("\t+%s+%s+%s+",idLine,nameLine,locationLine));
-                        for(Hospital h : hospitals) {
-                            this.writeOutput(name);
+                        this.writeOutput(table.toString());
+                        int selected = this.parseInputToType(new IntegerParser(), "selected hospital id");
+                        if (selected < 0 || selected >= hospitals.length) {
+                            this.writeOutput("Couldn't find hospital id.");
+                        } else {
+                            try {
+                                this.getController().SelectHospital(amb, hospitals[selected]);
+                                this.writeOutput("Select Hosital Done!");
+                            } catch (Exception ex) {
+                                this.writeOutput(String.format("ERROR: %s",ex.getMessage()));
+                            }
                         }
                     } else {
                         this.writeOutput("No hospitals found!");

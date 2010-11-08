@@ -1,6 +1,7 @@
 package projectswop20102011;
 
 import projectswop20102011.exceptions.InvalidAmbulanceException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -78,9 +79,13 @@ public class Ambulance extends Unit {
      * Finishing the job of the ambulance.
      * @effect super.finishedJob()
      * @post the selected hospital of this ambulance is null | this.getHospital().equals(null)
+     * @throws InvalidEmergencyException
+     *		If the unit is not assigned to an emergency.
+     * @throws InvalidLocationException
+     *		If the unit is not at the location of the emergency.
      */
     @Override
-    public void finishedJob() {
+    public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
         this.setCurrentHospital(null);
         super.finishedJob();
     }

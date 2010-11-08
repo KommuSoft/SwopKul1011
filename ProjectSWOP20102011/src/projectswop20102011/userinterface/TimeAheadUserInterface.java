@@ -39,11 +39,11 @@ public class TimeAheadUserInterface extends CommandUserInterface {
     public void HandleUserInterface() {
         try {
             int seconds = this.parseInputToType(new IntegerParser(), "time expired in seconds");
-			try {
-				this.getController().doTimeAheadAction(seconds);
-			} catch (InvalidDurationException ex) {
-				Logger.getLogger(TimeAheadUserInterface.class.getName()).log(Level.SEVERE, null, ex);
-			}
+            try {
+                this.getController().doTimeAheadAction(seconds);
+            } catch (InvalidDurationException ex) {
+                Logger.getLogger(TimeAheadUserInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (ParsingAbortedException ex) {
             this.writeOutput("command aborted.");
         }

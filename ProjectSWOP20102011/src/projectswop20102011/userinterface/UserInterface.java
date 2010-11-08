@@ -53,7 +53,7 @@ public abstract class UserInterface {
         this.indentationString = indentationS;
     }
 
-    public String readInput() {
+    protected String readInput() {
         try {
             this.getBufferedWriter().write(this.indentationString + "> ");
             this.getBufferedWriter().flush();
