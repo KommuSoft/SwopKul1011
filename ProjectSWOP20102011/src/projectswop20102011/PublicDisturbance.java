@@ -79,6 +79,7 @@ public class PublicDisturbance extends Emergency {
 	 * This hashtable contains the id, location, severity, status the working units and the number of people.
      * @return A hashtable that represents all the information of the public disturbance.
      */
+	@Override
 	public Hashtable<String, String>  toLongInformationString() {
 		Hashtable<String, String> information = toInformationString();
 

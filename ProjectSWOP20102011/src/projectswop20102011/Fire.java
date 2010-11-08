@@ -191,6 +191,7 @@ public class Fire extends Emergency {
 	 * the number of trapped people and the number of injured.
 	 * @return A hashtable that represents all the information of the Fire.
 	 */
+	@Override
 	public Hashtable<String, String> toLongInformationString() {
 		Hashtable<String, String> information = toInformationString();
 

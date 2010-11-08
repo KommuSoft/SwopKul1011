@@ -123,6 +123,7 @@ public class TrafficAccident extends Emergency {
 	 * This hashtable contains the id, location, severity, status, the working units, the number of cars and the number of injured.
 	 * @return A hashtable representing all the information of the traffic accident.
 	 */
+	@Override
 	public Hashtable<String, String> toLongInformationString() {
 		Hashtable<String, String> information = toInformationString();
 

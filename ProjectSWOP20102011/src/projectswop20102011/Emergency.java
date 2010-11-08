@@ -217,6 +217,13 @@ public abstract class Emergency {
 
 	/**
 	 * Returns a hashtable that contains the information of this emergency.
+	 * This hashtable contains the id, location, severity, status, the working units and specific elements of the child of this emergency.
+	 * @return A hashtable that contains the information of this emergency.
+	 */
+	public abstract Hashtable<String, String> toLongInformationString();
+
+	/**
+	 * Returns a hashtable that contains the information of this emergency.
 	 * This hashtable contains the id, location, severity, status and the working units.
 	 * @return A hashtable that contains the information of this emergency.
 	 */

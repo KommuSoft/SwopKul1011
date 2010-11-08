@@ -88,6 +88,7 @@ public class Robbery extends Emergency {
 	 * a boolean representing if the robbery is armed and one if the robbery is in progress.
      * @return A hashtable that represents all the information of this robbery.
      */
+	@Override
     public Hashtable<String, String>  toLongInformationString() {
 		Hashtable<String, String> information = toInformationString();
 
