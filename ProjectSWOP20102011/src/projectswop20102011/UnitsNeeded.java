@@ -3,6 +3,7 @@ package projectswop20102011;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -125,7 +126,16 @@ public class UnitsNeeded {
             throw new InvalidEmergencyException("Units can't be assigned to the emergency");
         }
         try {
-            this.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+            getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+			//getEmergency().setWorkingUnits(emergency.getWorkingUnits() + 1);
+			for(int i=0; i<units.length; ++i){
+				try {
+					units[i].assignTo(getEmergency());
+				} catch (InvalidAmbulanceException ex) {
+					//We assume this can't happen
+					Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
         } catch (InvalidEmergencyStatusException ex) {
             //We assume this cannot happen
             Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);

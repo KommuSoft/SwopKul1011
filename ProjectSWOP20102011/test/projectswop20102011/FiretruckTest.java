@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidDurationException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
@@ -48,10 +49,13 @@ public class FiretruckTest {
 	@Test
 	public void testTimeAhead() throws InvalidLocationException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencySeverityException,
-			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException{
+			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException{
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
 		brandweerwagen = new Firetruck(name,homeLocation,speed1);
-		brandweerwagen.assignTo(f1);
+
+		Unit[] units = {brandweerwagen};
+		f1.getUnitsNeeded().assignUnitsToEmergency(units);
+
 		brandweerwagen.timeAhead(duration);
 		assertEquals(x1,brandweerwagen.getCurrentLocation().getX());
 		assertEquals(y1,brandweerwagen.getCurrentLocation().getY());
