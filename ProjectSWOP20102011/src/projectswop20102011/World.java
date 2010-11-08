@@ -1,28 +1,35 @@
 package projectswop20102011;
 /**
- * A class that represents a world
+ * A class that represents a world.
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class World {
 
     /**
-     * A variable that registers the emergencylist of this world.
+     * A variable that registers the emergencyList of this world.
      */
     private EmergencyList emergencyList;
 
 	/**
-     * A variable that registers the UnitBuildingList of this world.
+     * A variable that registers the unitBuildingList of this world.
      */
     private UnitBuildingList unitBuildingList;
 
 	/**
-     * A variable that registers the TimeSensitiveList of this world.
+     * A variable that registers the timeSensitiveList of this world.
      */
     private TimeSensitiveList timeSensitiveList;
 
 	/**
-	 * Creates a new world
+	 * Creates a new world.
+	 *
+	 * @effect Initializes the emergencyList.
+	 *			|setEmergencyList(new EmergencyList())
+	 * @effect Initializes unitBuildingList.
+	 *			|setUnitBuildingList(new UnitBuildingList())
+	 * @effect Initializes the timeSensitiveList.
+	 *			|setTimeSensitiveList(new TimeSensitiveList())
 	 */
     public World () {
         setEmergencyList(new EmergencyList());
@@ -32,18 +39,19 @@ public class World {
 
 	/**
      * Sets the emergencylist of this world.
+	 *
      * @param emergencyList
-     *		The emergencylist of this world.
-	 * @post The is emergencyList attribute of this world is equal to the given parameter.
+     *		The emergencyList of this World.
+	 * @post The emergencyList of this World is set according to the given emergencyList.
+	 *		|new.getEmergencyList()==emergencyList
 	 */
 	private void setEmergencyList(EmergencyList emergencyList){
 		this.emergencyList = emergencyList;
 	}
 
 	/**
-     * Returns the emergencylist of this world.
-	 * 
-     * @return The emergencylist of this world.
+     * Returns the emergencyList of this world.
+     * @return The emergencyList of this world.
 	 */
     public EmergencyList getEmergencyList () {
         return this.emergencyList;
@@ -53,17 +61,16 @@ public class World {
      * Sets the UnitBuildingList of this world.
      * @param UnitBuildingList
      *		The new UnitBuildingList of this world.
-	 * @post The is UnitBuildingList attribute of this world is
-	 *		equal to the given parameter.
+	 * @post The unitBuildingList of this World is set according to the given unitBuildingList.
+	 *		|new.getUnitBuildingList()==unitBuildingList
 	 */
 	private void setUnitBuildingList(UnitBuildingList unitBuildingList){
 		this.unitBuildingList = unitBuildingList;
 	}
 
 	/**
-     * Returns the UnitBuildingList of this world.
-	 *
-     * @return The UnitBuildingList of this world.
+     * Returns the unitBuildingList of this world.
+     * @return The unitBuildingList of this world.
 	 */
     public UnitBuildingList getUnitBuildingList () {
         return this.unitBuildingList;
@@ -73,8 +80,8 @@ public class World {
      * Sets the timeSensitiveList of this world.
      * @param timeSensitiveList
      *		The timeSensitiveList of this world.
-	 * @post The is timeSensitiveList attribute of this world is
-	 *		equal to the given parameter.
+	 * @post The timeSensitiveList of this World is set according to the given timeSensitiveList.
+	 *		|new.getTimeSensitiveList()==timeSensitiveList
 	 */
 	private void setTimeSensitiveList(TimeSensitiveList timeSensitiveList){
 		this.timeSensitiveList = timeSensitiveList;
