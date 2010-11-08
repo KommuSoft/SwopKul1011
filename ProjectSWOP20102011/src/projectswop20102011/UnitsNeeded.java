@@ -122,7 +122,7 @@ public class UnitsNeeded {
         }
         HashSet<Unit> uniqueUnits = new HashSet<Unit>();
         for (Unit u : units) {
-            if (u == null || u.canBeAssigned() || !uniqueUnits.add(u)) {
+            if (u == null || !u.canBeAssigned() || !uniqueUnits.add(u)) {
                 return false;
             }
         }
