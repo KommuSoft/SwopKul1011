@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -74,23 +75,16 @@ public class PublicDisturbance extends Emergency {
     }
 
     /**
-     * Returns a string that represents the basic information of the public disturbance (type,location,severity)
-     * @return A string representing basic information of the public disturbance.
-     * @see PublicDisturbance.toLongInformationString
+     * Returns a hashtable that represents all the information of the public disturbance.
+	 * This hashtable contains the id, location, severity, status the working units and the number of people.
+     * @return A hashtable that represents all the information of the public disturbance.
      */
-    //TODO deze code moet nog verplaatst worden
-    public String toShortInformationString() {
-        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
-    }
+	public Hashtable<String, String>  toLongInformationString() {
+		Hashtable<String, String> information = toInformationString();
 
-    /**
-     * Returns a string that represents all the information of the public disturbance.
-     * @return A string that represents all the information of the public disturbance.
-     * @see PublicDisturbance.toShortInformationString
-     */
-    //TODO deze code moet nog verplaatst worden
-    public String toLongInformationString() {
-        return String.format("[Public Disturbance id=%s; location=%s; severity=%s; status=%s; number_of_people=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.getNumberOfPeople());
+		information.put("number of people", ""+getNumberOfPeople());
+
+		return information;
     }
 
     /**

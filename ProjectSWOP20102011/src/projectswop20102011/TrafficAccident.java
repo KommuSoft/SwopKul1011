@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -118,23 +119,17 @@ public class TrafficAccident extends Emergency {
 	}
 
 	/**
-	 * Returns a string that represents the basic information of the traffic accident.
-	 * @return A string representing basic information of the traffic accident.
-	 * @see TrafficAccident.toLongInformationString
+	 * Returns a hashtable that represents all the information of the traffic accident.
+	 * This hashtable contains the id, location, severity, status, the working units, the number of cars and the number of injured.
+	 * @return A hashtable representing all the information of the traffic accident.
 	 */
-	//TODO deze code moet nog verplaatst worden
-	public String toShortInformationString() {
-		return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
-	}
+	public Hashtable<String, String> toLongInformationString() {
+		Hashtable<String, String> information = toInformationString();
 
-	/**
-	 * Returns a string that represents all the information of the traffic accident.
-	 * @return A string representing all the information of the traffic accident.
-	 * @see TrafficAccident.toShortInformationString
-	 */
-	//TODO deze code moet nog verplaatst worden
-	public String toLongInformationString() {
-		return String.format("[Traffic Accident id=%s; location=%s; severity=%s; status=%s; number_of_cars=%s; number_of_injured=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.getNumberOfCars(), this.getNumberOfInjured());
+		information.put("number of cars", ""+getNumberOfCars());
+		information.put("number of injured", ""+getNumberOfInjured());
+
+		return information;
 	}
 
 	/**

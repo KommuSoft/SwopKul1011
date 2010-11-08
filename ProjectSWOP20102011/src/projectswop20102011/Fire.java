@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -184,23 +185,21 @@ public class Fire extends Emergency {
 	}
 
 	/**
-	 * Returns a string that represents the basic information of the Fire (type,location,severity).
-	 * @return A string representing basic information of the Fire.
-	 * @see Fire.toLongInformationString
+	 * Returns a hashtable that represents all the information of the Fire.
+	 * This hashtable contains the id, location, severity, status, the working units,
+	 * the size of the fire, a boolean representing if the fire is chemical,
+	 * the number of trapped people and the number of injured.
+	 * @return A hashtable that represents all the information of the Fire.
 	 */
-	//TODO deze code moet nog verplaatst worden
-	public String toShortInformationString() {
-		return String.format("[Fire id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
-	}
+	public Hashtable<String, String> toLongInformationString() {
+		Hashtable<String, String> information = toInformationString();
 
-	/**
-	 * Returns a string that represents all the information of the Fire.
-	 * @return A string that represents all the information of the Fire.
-	 * @see Fire.toShortInformationString
-	 */
-	//TODO deze code moet nog verplaatst worden
-	public String toLongInformationString() {
-		return String.format("[Fire id=%s; location=%s; severity=%s; status=%s; size=%s; chemical=%s; trapped_people=%s numberOfInjured=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.getSize(), this.isChemical(), this.getTrappedPeople(), this.getNumberOfInjured());
+		information.put("size", getSize().getTextual());
+		information.put("chemical", ""+isChemical());
+		information.put("trapped people", ""+getTrappedPeople());
+		information.put("number of injured", ""+getNumberOfInjured());
+
+		return information;
 	}
 
 	/**

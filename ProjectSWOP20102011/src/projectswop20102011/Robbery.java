@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -82,23 +83,18 @@ public class Robbery extends Emergency {
     }
 
     /**
-     * Returns a string that represents the basic information of this robbery.
-     * @return A string representing basic information of this robbery.
-     * @see PublicDisturbance.toLongInformationString
+     * Returns a hashtable that represents all the information of this robbery.
+	 * This hashtable contains the id, location, severity, status, working units,
+	 * a boolean representing if the robbery is armed and one if the robbery is in progress.
+     * @return A hashtable that represents all the information of this robbery.
      */
-    //TODO deze code moet nog verplaatst worden
-    public String toShortInformationString() {
-        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus());
-    }
+    public Hashtable<String, String>  toLongInformationString() {
+		Hashtable<String, String> information = toInformationString();
 
-    /**
-     * Returns a string that represents all the information of this robbery.
-     * @return A string that represents all the information of this robbery.
-     * @see PublicDisturbance.toShortInformationString
-     */
-    //TODO deze code moet nog verplaatst worden
-    public String toLongInformationString() {
-        return String.format("[Robbery id=%s; location=%s; severity=%s; status=%s; armed=%s; in_progress=%s]", this.getId(), this.getLocation(), this.getSeverity(), this.getStatus(), this.isArmed(), this.isInProgress());
+		information.put("armed", ""+isArmed());
+		information.put("in progress", ""+isInProgress());
+
+		return information;
     }
 
     /**

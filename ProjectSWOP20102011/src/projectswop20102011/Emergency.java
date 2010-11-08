@@ -206,7 +206,20 @@ public abstract class Emergency {
         return this.unitsNeeded;
     }
 
-	//TODO bestaat elke to string wel?
+	/**
+	 * Returns a hashtable that contains the information of this emergency.
+	 * This hashtable contains the id, location, severity, status and the working units.
+	 * @return A hashtable that contains the information of this emergency.
+	 */
+	public Hashtable<String, String> toShortInformationString(){
+		return toInformationString();
+	}
+
+	/**
+	 * Returns a hashtable that contains the information of this emergency.
+	 * This hashtable contains the id, location, severity, status and the working units.
+	 * @return A hashtable that contains the information of this emergency.
+	 */
     public Hashtable<String, String> toInformationString() {
 		Hashtable<String, String> information = new Hashtable<String, String>();
 
