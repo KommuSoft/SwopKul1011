@@ -1,6 +1,7 @@
 package projectswop20102011;
 
 import java.util.Comparator;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 
 /**
  * A class that represents a comparator that compares the distance of two units to a given emergency.
@@ -17,9 +18,17 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 	 * Creates a new UnitToEmergencyDistanceComparator with the given emergency.
 	 * @param emergency
 	 *		The emergency of the new UnitToEmergencyDistanceComparator.
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is an invalid Emergency.
+	 * @post This emergency is equal to the given emergency.
+	 *		|new.getEmergency()==emergency
 	 */
-	public UnitToEmergencyDistanceComparator(Emergency emergency){
-		this.emergency = emergency;
+	public UnitToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException{
+		if(!isValidEmergency(emergency)){
+			throw new InvalidEmergencyException(String.format("\"%s\" is an invalid emergency for an UnitToEmergencyDistanceComparator.", emergency));
+		}else{
+			this.emergency = emergency;
+		}
 	}
 
 	/**
@@ -50,4 +59,14 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 		return distance1.compareTo(distance2);
 	}
 
+	/**
+	 * Checks if the given Emergency is a valid Emergency for this UnitToEmergencyDistanceComparator.
+	 * @param emergency
+	 *		The emergency to test.
+	 * @return
+	 *		True if the emergency is valid; false otherwise.
+	 */
+	public static boolean isValidEmergency(Emergency emergency){
+		return (emergency != null);
+	}
 }

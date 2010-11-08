@@ -1,6 +1,7 @@
 package projectswop20102011;
 
 import java.util.Comparator;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 
 /**
  * A class that represents a comparator that compares the distance of two hospitals to a given emergency.
@@ -16,9 +17,17 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * Creates a new HospitalToEmergencyDistanceComparator with the given emergency.
 	 * @param emergency
 	 *		The emergency of the new HospitalToEmergencyDistanceComparator.
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is an invalid Emergency.
+	 * @post This emergency is equal to the given emergency.
+	 *		|new.getEmergency()==emergency
 	 */
-	public HospitalToEmergencyDistanceComparator(Emergency emergency){
-		this.emergency = emergency;
+	public HospitalToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException{
+		if(!isValidEmergency(emergency)){
+			throw new InvalidEmergencyException(String.format("\"%s\" is an invalid emergency for an HospitalToEmergencyDistanceComparator.", emergency));
+		}else{
+			this.emergency = emergency;
+		}
 	}
 
 	/**
@@ -48,6 +57,17 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 		Double distance2 = hospital2.getHomeLocation().getDistanceTo(getEmergency().getLocation());
 
 		return distance1.compareTo(distance2);
+	}
+
+	/**
+	 * Checks if the given Emergency is a valid Emergency for this HospitalToEmergencyDistanceComparator.
+	 * @param emergency
+	 *		The emergency to test.
+	 * @return
+	 *		True if the emergency is valid; false otherwise.
+	 */
+	public static boolean isValidEmergency(Emergency emergency){
+		return (emergency != null);
 	}
 
 }
