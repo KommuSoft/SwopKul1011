@@ -15,7 +15,6 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  * @invar The unit type list and number of units list are valid | areValidTypesAndNumbersOfUnits(getUnits(),getNumbersNeeded())
  */
 public class UnitsNeeded {
-
     /**
      * The emergency that is been handled by this UnitsNeeded class.
      */
@@ -28,6 +27,10 @@ public class UnitsNeeded {
      * A variable registering the units of the emergency.
      */
     private final Class[] units;
+	/**
+	 * A variable registering the amount of units that are currently working at the emergency.
+	 */
+	private long workingUnits;
 
     /**
      * Creates a new Object that calculates the units needed for an emergency.
@@ -36,8 +39,18 @@ public class UnitsNeeded {
      *		The numbers of units needed for this emergency.
      * @param units
      *		The units needed for this emergency.
-     * @throws InvalidEmergencyException If the given emergency is not effective.
-     * @throws InvalidUnitsNeededException If the given units or numbersNeeded aren't valid.
+	 * @post This emergency is set to the given emergency.
+	 *		| new.getEmergency().equals(emergency)
+	 * @post This units is set to the given units.
+	 *		| new.getUnits().equals(units.clone())
+	 * @post This numbersNeeded is set to the given numbersNeeded
+	 *		| new.getNumbersNeeded().equals(numbersNeeded.clone())
+	 * @effect Initialize the workingUnits.
+	 *		| getWorkingUnits() == 0
+     * @throws InvalidEmergencyException
+	 *		If the given emergency is not effective.
+     * @throws InvalidUnitsNeededException
+	 *		If the given units or numbersNeeded aren't valid.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
     UnitsNeeded(Emergency emergency, Class[] units, long[] numbersNeeded) throws InvalidEmergencyException, InvalidUnitsNeededException {
@@ -50,7 +63,38 @@ public class UnitsNeeded {
         this.emergency = emergency;
         this.units = (Class[]) units.clone();
         this.numbersNeeded = (long[]) numbersNeeded.clone();
+		initWorkingUnits();
     }
+
+	/**
+	 * Sets the working units of the emergency to zero.
+	 * @post This workingUnit is equal to zero.
+	 *		| new.getWorkingUnits() == 0
+	 */
+	private void initWorkingUnits(){
+		this.workingUnits = 0;
+	}
+
+	/**
+	 * Sets the working units of the emergency to the given amount of working units.
+	 * @param workingUnits
+	 *		The new amount of working units for the emergency.
+	 * @post This workingUnit is equal to the given workingUnits.
+	 *		| new.getWorkingUnits() == workingUnits
+	 * @effect If workingUnits is zero than the emergency is finished, so its status is set to finished.
+	 *		| getEmergency().getStatus().equals(EmergencyStatus.FINISHED)
+	 */
+	void setWorkingUnits(long workingUnits){
+		if(workingUnits == 0){
+			try {
+				getEmergency().setStatus(EmergencyStatus.FINISHED);
+			} catch (InvalidEmergencyStatusException ex) {
+				//We ensure this can never happen.
+				Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		this.workingUnits = workingUnits;
+	}
 
     /**
      * Returns the number of units needed for the emergency.
@@ -75,6 +119,14 @@ public class UnitsNeeded {
     public Emergency getEmergency() {
         return this.emergency;
     }
+
+	/**
+	 * Returns the working units of the emergency.
+	 * @return The working units of the emergency.
+	 */
+	public long getWorkingUnits(){
+		return workingUnits;
+	}
 
     /**
      * Checks if the given Emergency is valid for this UnitsNeeded class.
@@ -171,5 +223,6 @@ public class UnitsNeeded {
                 Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+		setWorkingUnits(units.length);
     }
 }

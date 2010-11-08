@@ -1,5 +1,6 @@
 package projectswop20102011;
 
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -46,10 +47,6 @@ public abstract class Emergency {
      * and does the management of dispatching units and setting the status of this emergency.
      */
     private UnitsNeeded unitsNeeded;
-	/**
-	 * A variable registering the amount of units that are currently working at the emergency.
-	 */
-	private long workingUnits;
 
     /**
      * Make a new emergency with the given location, severity.
@@ -58,12 +55,16 @@ public abstract class Emergency {
      *		The location of this emergency.
      * @param severity
      *		The severity of this emergency.
-     * @throws InvalidLocationException If the given location is an invalid location for an emergency.
-     * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
+     * @throws InvalidLocationException
+	 *		If the given location is an invalid location for an emergency.
+     * @throws InvalidEmergencySeverityException
+	 *		If the given severity is an invalid severity for an emergency.
      * @effect This location is equal to the parameter location.
      *		|location.equals(this.getLocation())
      * @effect This severity is equal to the parameter severity.
      *		|severity.equals(this.getSeverity())
+	 * @effect This status is equal to the EmergencyStatus RECORDED_BUT_UNHANDLED.
+	 *		|getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)
      */
     protected Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
         this.id = idDispatcher++;
@@ -81,12 +82,13 @@ public abstract class Emergency {
      * Sets the location of this emergency.
      * @param location
      *		The location of this emergency.
-     * @throws InvalidLocationException If the given location isn't valid for an emergency.
+     * @throws InvalidLocationException
+	 *		If the given location isn't valid for an emergency.
      * @post This location is equal to the given location.
      *		| location.equals(getLocation())
      */
     private void setLocation(GPSCoordinate location) throws InvalidLocationException {
-        if (!isValidLocation(location)) {
+        if (!isValidLocation(location)){
             throw new InvalidLocationException(String.format("\"%s\" is an invalid location for an emergency.", location));
         }
         this.location = location;
@@ -96,7 +98,8 @@ public abstract class Emergency {
      * Sets the severity of this emergency.
      * @param severity
      *		The severity of this emergency.
-     * @throws InvalidEmergencySeverityException If the given severity level is invalid for an emergency.
+     * @throws InvalidEmergencySeverityException
+	 *		If the given severity level is invalid for an emergency.
      * @post This severity level is equal to the given severity level.
      *		| severity.equals(getSeverity())
      */
@@ -111,7 +114,8 @@ public abstract class Emergency {
      * Sets the status of this emergency.
      * @param status
      *		The status of this emergency.
-     * @throws InvalidEmergencyStatusException If the given staus is invalid for an emergency.
+     * @throws InvalidEmergencyStatusException
+	 *		If the given status is invalid for an emergency.
      * @post This status is equal to the given status.
      *		| status.equals(getStatus())
      */
@@ -121,27 +125,6 @@ public abstract class Emergency {
         }
         this.status = status;
     }
-
-	/**
-	 * Sets the working units of this emergency to the given amount of working units.
-	 * @param workingUnits
-	 *		The new amount of working units for this emergency.
-	 * @post This workingUnit is equal to the given workingUnits.
-	 *		| new.getWorkingUnits() == workingUnits
-	 * @effect If workingUnits is zero than the emergency is finished, so its status is set to finished.
-	 *		| getStatus().equals(EmergencyStatus.FINISHED)
-	 */
-	void setWorkingUnits(long workingUnits){
-		if(workingUnits == 0){
-			try {
-				setStatus(EmergencyStatus.FINISHED);
-			} catch (InvalidEmergencyStatusException ex) {
-				//We ensure this can never happen.
-				Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		this.workingUnits = workingUnits;
-	}
 
     /**
      * Returns the location of this emergency.
@@ -169,24 +152,17 @@ public abstract class Emergency {
 
     /**
      * Returns the id of this emergency.
-     * @return The is of this emergency.
+     * @return The id of this emergency.
      */
     public long getId() {
         return id;
     }
 
-	/**
-	 * Returns the amount of working units of this emergency.
-	 * @return The amount of working units of this emergency.
-	 */
-	public long getWorkingUnits(){
-		return workingUnits;
-	}
-
     /**
      * Checks if the given severity is valid as severity level of an emergency.
-     * @param severity The severity level to check.
-     * @return true if the severity level is effective, otherwise false.
+     * @param severity
+	 *		The severity level to check.
+     * @return True if the severity level is effective, otherwise false.
      */
     public static boolean isValidSeverity(EmergencySeverity severity) {
         return (severity != null);
@@ -196,7 +172,7 @@ public abstract class Emergency {
      * Checks if the given status is a valid status of an emergency.
      * @param status
      *		The status to check.
-     * @return true if the status is effective, otherwise false.
+     * @return True if the status is effective, otherwise false.
      */
     public static boolean isValidStatus(EmergencyStatus status) {
         return (status != null);
@@ -225,18 +201,21 @@ public abstract class Emergency {
      */
     public UnitsNeeded getUnitsNeeded() {
         if (this.unitsNeeded == null) {
-            this.unitsNeeded = this.calculateUnitsNeeded();
+            this.unitsNeeded = calculateUnitsNeeded();
         }
         return this.unitsNeeded;
     }
 
-    //TODO deze code moet nog verwijderd worden. Dit is een dummy zodat de userinterface geen errors geeft.
-    public String toShortInformationString() {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+	//TODO bestaat elke to string wel?
+    public Hashtable<String, String> toInformationString() {
+		Hashtable<String, String> information = new Hashtable<String, String>();
 
-    //TODO deze code moet nog verwijderd worden. Dit is een dummy zodat de userinterface geen errors geeft.
-    public String toLongInformationString() {
-        throw new UnsupportedOperationException("Not yet implemented");
+		information.put("id", ""+getId());
+		information.put("location", getLocation().toString());
+		information.put("severity", getSeverity().getTextual());
+		information.put("status", getStatus().getTextual());
+		information.put("working units", ""+getUnitsNeeded().getWorkingUnits());
+
+		return information;
     }
 }
