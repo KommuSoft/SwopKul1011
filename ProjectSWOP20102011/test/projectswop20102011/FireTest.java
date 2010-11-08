@@ -16,7 +16,7 @@ public class FireTest {
     private EmergencySeverity es1;
     private FireSize fs1, fs2, fs3;
     private boolean chemical1;
-    private boolean trappedPeople1, trappedPeople2;
+    private long trappedPeople1, trappedPeople2;
     private long nmbOfInjured1, nmbOfInjured2;
     private long x1;
     private long y1;
@@ -32,8 +32,8 @@ public class FireTest {
 		fs2 = FireSize.HOUSE;
 		fs3 = FireSize.FACILITY;
         chemical1 = false;
-        trappedPeople1 = false;
-		trappedPeople2 = true;
+        trappedPeople1 = 0;
+		trappedPeople2 = 1;
         nmbOfInjured1 = 123654;
 		nmbOfInjured2 = 0;
     }
@@ -46,7 +46,7 @@ public class FireTest {
         assertEquals(EmergencySeverity.NORMAL, f1.getSeverity());
         assertEquals(FireSize.LOCAL, f1.getSize());
         assertEquals(chemical1, f1.isChemical());
-        assertEquals(trappedPeople1, f1.hasTrappedPeople());
+        assertEquals(trappedPeople1, f1.getTrappedPeople());
         assertEquals(nmbOfInjured1, f1.getNumberOfInjured());
     }
 
@@ -100,9 +100,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured1;
-		if(trappedPeople1){
-			++ambulances;
-		}
+		ambulances += trappedPeople1;
 		assertEquals(ambulances, number);
 	}
 
@@ -146,9 +144,7 @@ public class FireTest {
 		}
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured1;
-		if(trappedPeople1){
-			++ambulances;
-		}
+		ambulances += trappedPeople1;
 		assertEquals(ambulances, number);
 	}
 
@@ -193,9 +189,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured1;
-		if(trappedPeople1){
-			++ambulances;
-		}
+		ambulances += trappedPeople1;
 		assertEquals(ambulances, number);
 	}
 
@@ -230,9 +224,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured1;
-		if(trappedPeople2){
-			++ambulances;
-		}
+		ambulances += trappedPeople2;
 		assertEquals(ambulances, number);
 	}
 
@@ -277,9 +269,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured1;
-		if(trappedPeople2){
-			++ambulances;
-		}
+		ambulances += trappedPeople2;
 		assertEquals(ambulances, number);
 	}
 
@@ -324,9 +314,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured1;
-		if(trappedPeople2){
-			++ambulances;
-		}
+		ambulances += trappedPeople2;
 		assertEquals(ambulances, number);
 	}
 
@@ -360,9 +348,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured2;
-		if(trappedPeople2){
-			++ambulances;
-		}
+		ambulances += trappedPeople2;
 		assertEquals(ambulances, number);
 	}
 
@@ -408,9 +394,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured2;
-		if(trappedPeople2){
-			++ambulances;
-		}
+		ambulances += trappedPeople2;
 		assertEquals(ambulances, number);
 	}
 
@@ -455,9 +439,7 @@ public class FireTest {
 
 		assertTrue(ambulance);
 		long ambulances = nmbOfInjured2;
-		if(trappedPeople2){
-			++ambulances;
-		}
+		ambulances += trappedPeople2;
 		assertEquals(ambulances, number);
 	}
 

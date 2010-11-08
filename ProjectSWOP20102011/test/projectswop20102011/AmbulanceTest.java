@@ -61,7 +61,7 @@ public class AmbulanceTest {
 			InvalidSpeedException, InvalidEmergencyStatusException,
 			InvalidEmergencySeverityException, InvalidFireSizeException,
 			NumberOutOfBoundsException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
 		ziekenwagen = new Ambulance(name,homeLocation,speed1);
 		Unit[] units = {ziekenwagen};
 		f1.getUnitsNeeded().assignUnitsToEmergency(units);
@@ -76,7 +76,7 @@ public class AmbulanceTest {
 	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException,
 			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
 		ziekenwagen = new Ambulance(name, homeLocation, speed1);
 
 		Unit[] units = {ziekenwagen};
@@ -92,7 +92,7 @@ public class AmbulanceTest {
 	public void testAssignTo() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidAmbulanceException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
 		ziekenwagen = new Ambulance(name,homeLocation, speed1);
 
 		Unit[] units = {ziekenwagen};
@@ -108,7 +108,7 @@ public class AmbulanceTest {
 
 	@Test
 	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingNameException, InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidAmbulanceException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
 		ziekenwagen = new Ambulance(name,homeLocation, speed1);
 
 		Unit[] units = {ziekenwagen};

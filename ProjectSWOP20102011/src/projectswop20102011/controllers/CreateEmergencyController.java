@@ -51,7 +51,7 @@ public class CreateEmergencyController extends Controller {
 	 * @throws InvalidFireSizeException
 	 * @throws NumberOutOfBoundsException
 	 */
-    public void createFireEmergency (GPSCoordinate location, EmergencySeverity severity, FireSize fireSize, boolean chemical, boolean trappedPeople,long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+    public void createFireEmergency (GPSCoordinate location, EmergencySeverity severity, FireSize fireSize, boolean chemical, long trappedPeople,long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         addCreatedEmergencyToTheWorld(new Fire(location,severity,fireSize,chemical,trappedPeople,numberOfInjured));
     }
 

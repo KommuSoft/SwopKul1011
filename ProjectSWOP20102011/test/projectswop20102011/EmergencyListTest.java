@@ -27,7 +27,7 @@ public class EmergencyListTest {
         l2 = new GPSCoordinate(x2, y2);
 
         el1 = new EmergencyList();
-        e1 = new Fire(l1, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+        e1 = new Fire(l1, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
         el2 = new EmergencyList();
         e2 = new PublicDisturbance(l1, EmergencySeverity.URGENT, 1302);
         el3 = new EmergencyList();

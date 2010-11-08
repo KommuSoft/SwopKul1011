@@ -33,7 +33,7 @@ public class StatusEqualityEmergencyEvaluationCriteriumTest {
     @Before
     public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         GPSCoordinate gp1  = new GPSCoordinate(1425,1302);
-        e1r = new Fire(gp1,EmergencySeverity.BENIGN,FireSize.HOUSE,false,true,42);
+        e1r = new Fire(gp1,EmergencySeverity.BENIGN,FireSize.HOUSE,false,1,42);
         e2r = new PublicDisturbance(gp1,EmergencySeverity.NORMAL,16);
         e3r = new Robbery(gp1,EmergencySeverity.SERIOUS,false,false);
         e4r = new TrafficAccident(gp1,EmergencySeverity.URGENT,128,256);

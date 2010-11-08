@@ -106,7 +106,7 @@ public class TimeSensitiveListTest {
 	@Test
 	public void testTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidAmbulanceException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, false, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
 
 		a1.assignTo(f1);
 		a2.assignTo(f1);
