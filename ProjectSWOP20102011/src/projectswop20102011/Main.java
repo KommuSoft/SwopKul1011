@@ -3,7 +3,6 @@ package projectswop20102011;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +49,9 @@ public class Main {
             System.out.println("Type in the path to the environment file?");
             String environmentFile = reader.readLine();
             try {
-                er.readEnvironmentData(new FileInputStream(environmentFile));
+                FileInputStream fis = new FileInputStream(environmentFile);
+                er.readEnvironmentData(fis);
+                fis.close();
             } catch (Exception ex) {
                 System.out.println(String.format("ERROR: %s", ex.getMessage()));
                 System.out.println("program will now stop.");

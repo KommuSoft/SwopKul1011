@@ -2,7 +2,7 @@ package projectswop20102011.controllers;
 
 import projectswop20102011.Ambulance;
 import projectswop20102011.Hospital;
-import projectswop20102011.HospitalDistanceComparator;
+import projectswop20102011.HospitalToEmergencyDistanceComparator;
 import projectswop20102011.TypeUnitBuildingEvaluationCriterium;
 import projectswop20102011.UnitBuildingEvaluationCriterium;
 import projectswop20102011.World;
@@ -36,7 +36,7 @@ public class SelectHospitalController extends Controller {
      * @return A list of the hospitals sorted on the distance to the location of the assigned emergency of the ambulance.
      */
     public Hospital[] getHospitalList (Ambulance ambulance) {
-        HospitalDistanceComparator comparator = new HospitalDistanceComparator(ambulance.getEmergency());
+        HospitalToEmergencyDistanceComparator comparator = new HospitalToEmergencyDistanceComparator(ambulance.getEmergency());
         return this.getWorld().getUnitBuildingList().sort(comparator).toArray(new Hospital[0]);
     }
 

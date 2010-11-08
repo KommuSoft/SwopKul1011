@@ -3,7 +3,7 @@ package projectswop20102011;
 import java.util.Comparator;
 
 /**
- * A class that represents a comparator that compares the distance of two hospitals.
+ * A class that represents a comparator that compares the distance of two hospitals to a given emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class HospitalToEmergencyDistanceComparator implements Comparator<Hospital>{

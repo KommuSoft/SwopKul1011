@@ -23,7 +23,7 @@ public class UnitBuildingListTest {
     private String name1, name2;
     private GPSCoordinate homeLocation1, homeLocation2;
     private long x1, y1, x2, y2, x3, y3;
-    private HospitalDistanceComparator hdc;
+    private HospitalToEmergencyDistanceComparator hdc;
     private long speed1;
     private String name;
     private GPSCoordinate fireLocation;
@@ -122,7 +122,7 @@ public class UnitBuildingListTest {
     @Test
     public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException {
         f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, 1, 6);
-        hdc = new HospitalDistanceComparator(f1);
+        hdc = new HospitalToEmergencyDistanceComparator(f1);
         ubl1.addUnitBuilding(h2);
         ubl1.addUnitBuilding(h1);
 
