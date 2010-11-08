@@ -2,9 +2,7 @@ package projectswop20102011;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidDurationException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingException;
@@ -253,7 +251,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *          If the unit is already assigned to an emergency.
      */
     void assignTo(Emergency emergency) throws InvalidUnitBuildingException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
-        if (!this.canBeAssigned()) {
+        if (!canBeAssigned()) {
             throw new InvalidUnitBuildingException("Unit can't be assigned");
         }
         setEmergency(emergency);
@@ -279,6 +277,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return True if this unit can be assigned, otherwise false.
      */
     public boolean canBeAssigned() {
-        return !this.isAssigned();
+        return !isAssigned();
     }
 }

@@ -210,29 +210,70 @@ public class Fire extends Emergency {
     protected UnitsNeeded calculateUnitsNeeded() {
         long firetrucks = 0;
         long policecars = 0;
-        switch (this.getSize()) {
-            case LOCAL:
-                firetrucks = 1;
-                break;
-            case HOUSE:
-                firetrucks = 2;
-                policecars = 1;
-                break;
-            case FACILITY:
-                firetrucks = 4;
-                policecars = 3;
-        }
-        try {
-            return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
-        } catch (InvalidEmergencyException ex) {
-            //we assume this can't happen
-            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidUnitsNeededException ex) {
-            //we assume this can't happen
-            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-        }
+		switch (getSize()) {
+			case LOCAL:
+				firetrucks = 1;
+				if(this.getNumberOfInjured()+this.getTrappedPeople() == 0){
+					try {
+						return new UnitsNeeded(this, new Class[]{Firetruck.class}, new long[]{firetrucks});
+					} catch (InvalidEmergencyException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (InvalidUnitsNeededException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}else{
+					try {
+						return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople()});
+					} catch (InvalidEmergencyException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (InvalidUnitsNeededException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}
+				break;
+			case HOUSE:
+				firetrucks = 2;
+				policecars = 1;
+				if(this.getNumberOfInjured()+this.getTrappedPeople() == 0){
+					try {
+						return new UnitsNeeded(this, new Class[]{Firetruck.class, Policecar.class}, new long[]{firetrucks, policecars});
+					} catch (InvalidEmergencyException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (InvalidUnitsNeededException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}else{
+					try {
+						return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
+					} catch (InvalidEmergencyException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (InvalidUnitsNeededException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}
+				break;
+			case FACILITY:
+				firetrucks = 4;
+				policecars = 3;
+				if(this.getNumberOfInjured()+this.getTrappedPeople() == 0){
+					try {
+						return new UnitsNeeded(this, new Class[]{Firetruck.class, Policecar.class}, new long[]{firetrucks, policecars});
+					} catch (InvalidEmergencyException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (InvalidUnitsNeededException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}else{
+					try {
+						return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
+					} catch (InvalidEmergencyException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (InvalidUnitsNeededException ex) {
+						Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}
+		}
         //should never be returned.
-        return null;
-
+		return null;
     }
 }

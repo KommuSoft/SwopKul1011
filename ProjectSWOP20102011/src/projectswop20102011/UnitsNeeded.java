@@ -1,6 +1,5 @@
 package projectswop20102011;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,7 +78,8 @@ public class UnitsNeeded {
 
     /**
      * Checks if the given Emergency is valid for this UnitsNeeded class.
-     * @param emergency The emergency to test.
+     * @param emergency
+	 *		The emergency to test.
      * @return True if the given emergency is valid, otherwise false.
      */
     public static boolean isValidEmergency(Emergency emergency) {
@@ -88,7 +88,8 @@ public class UnitsNeeded {
 
     /**
      * Checks if the given unit types and numbers are valid for this UnitsNeeded class.
-     * @param units The types of units needed.
+     * @param units
+	 *		The types of units needed.
      * @param numbersNeeded The amount of units needed of a certain type.
      * @return True if both arrays are effective and have the same length, no unit type is uneffective and all are subclasses of the Unit class (or are the Unit class), and all the number of units are at least zero.
      */
@@ -111,7 +112,8 @@ public class UnitsNeeded {
 
     /**
      * Checks if the given units can be assigned to the emergency.
-     * @param units The units to be assigned.
+     * @param units
+	 *		The units to be assigned.
      * @return True if the emergency is not handled yet, if all the given units are effective, unique and can be assigned and for every quantity constraint, this array succeeds, otherwise false.
      */
     public boolean canAssignUnitsToEmergency(Unit[] units) {
@@ -142,11 +144,13 @@ public class UnitsNeeded {
 
     /**
      * assign the given array of units to the emergency.
-     * @param units The given array of units
+     * @param units
+	 *		The given array of units
      * @post The status of the emergency is RESPONSE_IN_PROGRESS | this.getEmergency().getStatus().equals(EmergencyStatus.RESPONSE_IN_PROGRESS)
      * @post All the units in the given array are assigned | forall u in units, u.isAssigned()
      * @post All the units in the given array are handling the emergency of this UnitNeeded | forall u in units.getEmergency().equals(this.getEmergency())
-     * @throws InvalidEmergencyException If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
+     * @throws InvalidEmergencyException
+	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
      * @see UnitsNeeded.canAssignUnitsToEmergency
      */
     public synchronized void assignUnitsToEmergency(Unit[] units) throws InvalidEmergencyException {

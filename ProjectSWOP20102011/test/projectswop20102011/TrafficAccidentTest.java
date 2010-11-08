@@ -28,7 +28,7 @@ public class TrafficAccidentTest {
         nmbOfInjured1 = 94;
 		nmbOfInjured2 = 10;
 		nmbOfInjured3 = 0;
-		nmbOfCars2 = 2;
+		nmbOfCars2 = 1;
     }
 
     @Test

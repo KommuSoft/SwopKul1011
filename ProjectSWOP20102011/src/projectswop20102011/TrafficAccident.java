@@ -143,15 +143,44 @@ public class TrafficAccident extends Emergency {
      */
     @Override
     protected UnitsNeeded calculateUnitsNeeded() {
-        try {
-            return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{1, this.getNumberOfInjured(), (this.getNumberOfCars() + 1) / 2});
-        } catch (InvalidEmergencyException ex) {
-            //we assume this can't happen
-            Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidUnitsNeededException ex) {
-            //we assume this can't happen
-            Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+		if(getNumberOfInjured() > 0){
+			if(getNumberOfCars() > 1){
+				try {
+					return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{1, getNumberOfInjured(), getNumberOfCars() / 2});
+				} catch (InvalidEmergencyException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (InvalidUnitsNeededException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			} else {
+				try {
+					return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class}, new long[]{1, getNumberOfInjured()});
+				} catch (InvalidEmergencyException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (InvalidUnitsNeededException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		} else {
+			if(getNumberOfCars() > 1){
+				try {
+					return new UnitsNeeded(this, new Class[]{Firetruck.class, Policecar.class}, new long[]{1, getNumberOfCars() / 2});
+				} catch (InvalidEmergencyException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (InvalidUnitsNeededException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			} else {
+				try {
+					return new UnitsNeeded(this, new Class[]{Firetruck.class}, new long[]{1});
+				} catch (InvalidEmergencyException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (InvalidUnitsNeededException ex) {
+					Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		//should never be returned.
+		return null;
     }
 }
