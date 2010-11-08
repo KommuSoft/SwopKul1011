@@ -7,6 +7,7 @@ import projectswop20102011.TypeUnitBuildingEvaluationCriterium;
 import projectswop20102011.UnitBuildingEvaluationCriterium;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
@@ -35,7 +36,7 @@ public class SelectHospitalController extends Controller {
      * @param ambulance The ambulance to generate the list from.
      * @return A list of the hospitals sorted on the distance to the location of the assigned emergency of the ambulance.
      */
-    public Hospital[] getHospitalList (Ambulance ambulance) {
+    public Hospital[] getHospitalList (Ambulance ambulance) throws InvalidEmergencyException {
         HospitalToEmergencyDistanceComparator comparator = new HospitalToEmergencyDistanceComparator(ambulance.getEmergency());
         return this.getWorld().getUnitBuildingList().sort(comparator).toArray(new Hospital[0]);
     }

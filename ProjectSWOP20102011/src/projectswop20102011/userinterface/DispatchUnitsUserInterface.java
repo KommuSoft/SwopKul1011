@@ -35,12 +35,11 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
         try {
             long emergencyId = this.parseInputToType(new LongParser(), "The id of the emergency");
             Emergency selectedEmergency = this.getController().getEmergencyFromId(emergencyId);
-            if (emergencyId == null) {
+            if (selectedEmergency == null) {
                 this.writeOutput("Emergency not found.");
             } else {
-
+                
             }
-
         } catch (ParsingAbortedException ex) {
             this.writeOutput("Command aborted.");
         }
