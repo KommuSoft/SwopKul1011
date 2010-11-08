@@ -7,6 +7,7 @@ import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
+import projectswop20102011.exceptions.InvalidUnitBuildingException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
 
 /**
@@ -246,30 +247,38 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *
      * @param emergency
      *		The emergency where this units have to respond to.
-     * @throws InvalidEmergencyStatusException
-     *		If the emergency status is invalid.
-     * @throws InvalidAmbulanceException
-     *          If the ambulance is already assigned to an emergency.
+     * @post The unit's emergency is equal to the given emergency | this.getEmergency().equals(emergency)
+     * @post The unit is assigned.
+     * @throws InvalidUnitBuildingException
+     *          If the unit is already assigned to an emergency.
      */
-    //TODO is dit niet gevaarlijk? Nu is het mogelijk om gewoon een unit toe te wijzen aan een emergency (dus bv. een ambulance aan een robbery, waar dit totaal niet nodig is; zie pg. 3)
-    void assignTo(Emergency emergency) throws InvalidEmergencyStatusException, InvalidAmbulanceException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
-        if (this.isAssigned()) {
-            throw new InvalidAmbulanceException("Ambulance is already assigned to an emergency");
+    void assignTo(Emergency emergency) throws InvalidUnitBuildingException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
+        if (!this.canBeAssigned()) {
+            throw new InvalidUnitBuildingException("Unit can't be assigned");
         }
         setEmergency(emergency);
-        //emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
-        //emergency.setWorkingUnits(emergency.getWorkingUnits() + 1);
         try {
             setCurrentLocation(getHomeLocation());
         } catch (InvalidLocationException ex) {
+            //We assume this can't happen
             Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * Finishes the job of this Unit.
+     * @post The emergency the unit is handling is null | this.getEmergency().equals(null)
+     * @post The unit is not assigned | !this.isAssigned()
      */
     public void finishedJob() {
         setEmergency(null);
+    }
+
+    /**
+     * Checks if this unit can be assigned
+     * @return True if this unit can be assigned, otherwise false.
+     */
+    public boolean canBeAssigned() {
+        return !this.isAssigned();
     }
 }

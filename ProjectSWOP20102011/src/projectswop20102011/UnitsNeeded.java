@@ -1,10 +1,11 @@
 package projectswop20102011;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidUnitBuildingException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
@@ -27,7 +28,7 @@ public class UnitsNeeded {
     /**
      * A variable registering the units of the emergency.
      */
-    private final Class<? extends Unit>[] units;
+    private final Class[] units;
 
     /**
      * Creates a new Object that calculates the units needed for an emergency.
@@ -41,11 +42,11 @@ public class UnitsNeeded {
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
     UnitsNeeded(Emergency emergency, Class[] units, long[] numbersNeeded) throws InvalidEmergencyException, InvalidUnitsNeededException {
-        if(!isValidEmergency(emergency)) {
+        if (!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
-        if(!areValidTypesAndNumberOfUnits(units,numbersNeeded)) {
-                throw new InvalidUnitsNeededException("The unit arrays must have the same length, no unit type is uneffective, and all the number of units are at least zero");
+        if (!areValidTypesAndNumberOfUnits(units, numbersNeeded)) {
+            throw new InvalidUnitsNeededException("The unit arrays must have the same length, no unit type is uneffective, and all the number of units are at least zero");
         }
         this.emergency = emergency;
         this.units = Arrays.copyOf(units, units.length);
@@ -64,7 +65,7 @@ public class UnitsNeeded {
      * Returns the units needed for this emergency.
      * @return the units needed for this emergency.
      */
-    public Class<? extends Unit>[] getUnits() {
+    public Class[] getUnits() {
         return units.clone();
     }
 
@@ -72,7 +73,7 @@ public class UnitsNeeded {
      * Returns the emergency handled by this UnitsNeeded.
      * @return The emergency handled by this UnitsNeeded.
      */
-    public Emergency getEmergency () {
+    public Emergency getEmergency() {
         return this.emergency;
     }
 
@@ -81,65 +82,90 @@ public class UnitsNeeded {
      * @param emergency The emergency to test.
      * @return True if the given emergency is valid, otherwise false.
      */
-    public static boolean isValidEmergency (Emergency emergency) {
+    public static boolean isValidEmergency(Emergency emergency) {
         return (emergency != null);
     }
+
     /**
      * Checks if the given unit types and numbers are valid for this UnitsNeeded class.
      * @param units The types of units needed.
      * @param numbersNeeded The amount of units needed of a certain type.
-     * @return True if both arrays have the same length, no unit type is uneffective, the given unit types list does not contain duplicates, and all the number of units are at least zero.
-     * @note Note however that the array of unittypes may contains several classes who are subclasses of some other type. This only creates additional constraints on the list of units.
+     * @return True if both arrays have the same length, no unit type is uneffective and all are subclasses of the Unit class (or are the Unit class), and all the number of units are at least zero.
      */
-    public static boolean areValidTypesAndNumberOfUnits (Class<? extends Unit>[] units, long[] numbersNeeded) {
-        if(units.length != numbersNeeded.length) {
+    public static boolean areValidTypesAndNumberOfUnits(Class[] units, long[] numbersNeeded) {
+        if (units.length != numbersNeeded.length) {
             return false;
         }
-        for(int i = 0; i < units.length; i++) {
-            if(units[i] == null) {
+        for (Class c : units) {
+            if (c == null || Unit.class.isAssignableFrom(c)) {
                 return false;
             }
-            for(int j = 0; j < i; j++) {
-                if(units[i].equals(units[j])) {
-                    return false;
+        }
+        for (long n : numbersNeeded) {
+            if (n < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the given units can be assigned to the emergency.
+     * @param units The units to be assigned.
+     * @return True if the emergency is not handled yet, if all the given units are effective, unique and can be assigned and for every quantity constraint, this array succeeds, otherwise false.
+     */
+    public boolean canAssignUnitsToEmergency(Unit[] units) {
+        if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED) {
+            return false;
+        }
+        HashSet<Unit> uniqueUnits = new HashSet<Unit>();
+        for (Unit u : units) {
+            if (u == null || u.canBeAssigned() || !uniqueUnits.add(u)) {
+                return false;
+            }
+        }
+        for (int i = 0; i < this.getUnits().length; i++) {
+            Class searchClass = this.units[i];
+            long needed = this.numbersNeeded[i];
+            int instances = 0;
+            for (Unit u : units) {
+                if (searchClass.isInstance(u)) {
+                    instances++;
                 }
             }
-        }
-        for(long n : numbersNeeded) {
-            if(n < 0) {
+            if (instances < needed) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean canAssignUnitsToEmergency (Unit[] units) {
-        if(this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED) {
-            return false;
-        }
-        //TODO: checks number conditions
-        return true;
-    }
-
-    public synchronized void assignUnitsToEmergency (Unit[] units) throws InvalidEmergencyException {
-        if(!canAssignUnitsToEmergency(units)) {
-            throw new InvalidEmergencyException("Units can't be assigned to the emergency");
+    /**
+     * assign the given array of units to the emergency.
+     * @param units The given array of units
+     * @post The status of the emergency is RESPONSE_IN_PROGRESS | this.getEmergency().getStatus().equals(EmergencyStatus.RESPONSE_IN_PROGRESS)
+     * @post All the units in the given array are assigned | forall u in units, u.isAssigned()
+     * @post All the units in the given array are handling the emergency of this UnitNeeded | forall u in units.getEmergency().equals(this.getEmergency())
+     * @throws InvalidEmergencyException If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
+     * @see UnitsNeeded.canAssignUnitsToEmergency
+     */
+    public synchronized void assignUnitsToEmergency(Unit[] units) throws InvalidEmergencyException {
+        if (!canAssignUnitsToEmergency(units)) {
+            throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
         }
         try {
-            getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
-			//getEmergency().setWorkingUnits(emergency.getWorkingUnits() + 1);
-			for(int i=0; i<units.length; ++i){
-				try {
-					units[i].assignTo(getEmergency());
-				} catch (InvalidAmbulanceException ex) {
-					//We assume this can't happen
-					Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
-				}
-			}
+            this.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
         } catch (InvalidEmergencyStatusException ex) {
-            //We assume this cannot happen
+            //We assume this can't happen
             Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
         }
+        for (Unit u : units) {
+            try {
+                u.assignTo(this.getEmergency());
+            } catch (InvalidUnitBuildingException ex) {
+                //We assume this can't be true (checked by the canAssigUnitsToEmergency method)
+                Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
-
 }
