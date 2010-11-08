@@ -49,8 +49,8 @@ public class UnitsNeeded {
             throw new InvalidUnitsNeededException("The unit arrays must have the same length, no unit type is uneffective, and all the number of units are at least zero");
         }
         this.emergency = emergency;
-        this.units = Arrays.copyOf(units, units.length);
-        this.numbersNeeded = Arrays.copyOf(numbersNeeded, numbersNeeded.length);
+        this.units = (Class[]) units.clone();
+        this.numbersNeeded = (long[]) numbersNeeded.clone();
     }
 
     /**
@@ -90,14 +90,14 @@ public class UnitsNeeded {
      * Checks if the given unit types and numbers are valid for this UnitsNeeded class.
      * @param units The types of units needed.
      * @param numbersNeeded The amount of units needed of a certain type.
-     * @return True if both arrays have the same length, no unit type is uneffective and all are subclasses of the Unit class (or are the Unit class), and all the number of units are at least zero.
+     * @return True if both arrays are effective and have the same length, no unit type is uneffective and all are subclasses of the Unit class (or are the Unit class), and all the number of units are at least zero.
      */
     public static boolean areValidTypesAndNumberOfUnits(Class[] units, long[] numbersNeeded) {
-        if (units.length != numbersNeeded.length) {
+        if (units == null || numbersNeeded  == null || units.length != numbersNeeded.length) {
             return false;
         }
         for (Class c : units) {
-            if (c == null || Unit.class.isAssignableFrom(c)) {
+            if (c == null || !Unit.class.isAssignableFrom(c)) {
                 return false;
             }
         }

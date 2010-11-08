@@ -60,6 +60,7 @@ public class Ambulance extends Unit {
     /**
      * Select a hospital where the ambulance will drive the injured patients to.
      * @param hospital The hospital to assign to the ambulance.
+     * @post The selected hopsital of this ambulance is equal to the given hospital | this.getCurrentHospital().equals(hospital)
      * @throws InvalidAmbulanceException If this ambulance is not assigned to an emergency or is not at the location of the emergency.
      * @throws InvalidHospitalException If the given hospital is not effective.
      */
@@ -75,6 +76,8 @@ public class Ambulance extends Unit {
 
     /**
      * Finishing the job of the ambulance.
+     * @effect super.finishedJob()
+     * @post the selected hospital of this ambulance is null | this.getHospital().equals(null)
      */
     @Override
     public void finishedJob() {

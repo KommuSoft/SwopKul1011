@@ -143,9 +143,13 @@ public class Fire extends Emergency {
      * Sets the number of trapped people indicator to the given value.
      * @param trappedPeople
      *		The new value of the number of trapped people indicator.
+     * @throws NumberOutOfBoundsException If the given number of trapped people is smaller than zero.
      * @post The trapped people property of the fire emergency is equal to the given trapped people property. | trappedPeople.equals(hasTrappedPeople())
      */
-    private void setTrappedPeople(long trappedPeople) {
+    private void setTrappedPeople(long trappedPeople) throws NumberOutOfBoundsException {
+        if (!isValidTrappedPeople(trappedPeople)) {
+            throw new NumberOutOfBoundsException(String.format("Number of trapped people must be larger or equal to zero and not \"%s\"", trappedPeople));
+        }
         this.trappedPeople = trappedPeople;
     }
 
@@ -163,10 +167,19 @@ public class Fire extends Emergency {
      * Checks if the given number of injured people is a valid number for a fire emergency.
      * @param numberOfInjured
      *		The number of injured people to validate.
-     * @return True if injured people is larger or equal to zero, otherwise false.
+     * @return True if the number injured people is larger or equal to zero, otherwise false.
      */
     public static boolean isValidNumberOfInjured(long numberOfInjured) {
         return (numberOfInjured >= 0);
+    }
+    /**
+     * Checks if the given number of trapped people is a valid number for a fire emergency.
+     * @param trappedPeople
+     *		The number of trapped people to validate.
+     * @return True if the number of trapped people is larger or equal to zero, otherwise false.
+     */
+    public static boolean isValidTrappedPeople(long trappedPeople) {
+        return (trappedPeople >= 0);
     }
 
     /**
@@ -200,67 +213,26 @@ public class Fire extends Emergency {
         switch (this.getSize()) {
             case LOCAL:
                 firetrucks = 1;
-				if(this.getNumberOfInjured()+this.getTrappedPeople() == 0){
-			try {
-				return new UnitsNeeded(this, new Class[]{Firetruck.class}, new long[]{firetrucks});
-			} catch (InvalidEmergencyException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidUnitsNeededException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			}
-				}else{
-			try {
-				return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople()});
-			} catch (InvalidEmergencyException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidUnitsNeededException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			}
-				}
                 break;
             case HOUSE:
                 firetrucks = 2;
                 policecars = 1;
-				if(this.getNumberOfInjured()+this.getTrappedPeople() == 0){
-			try {
-				return new UnitsNeeded(this, new Class[]{Firetruck.class, Policecar.class}, new long[]{firetrucks, policecars});
-			} catch (InvalidEmergencyException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidUnitsNeededException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			}
-				}else{
-			try {
-				return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
-			} catch (InvalidEmergencyException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidUnitsNeededException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			}
-				}
                 break;
             case FACILITY:
                 firetrucks = 4;
                 policecars = 3;
-				if(this.getNumberOfInjured()+this.getTrappedPeople() == 0){
-			try {
-				return new UnitsNeeded(this, new Class[]{Firetruck.class, Policecar.class}, new long[]{firetrucks, policecars});
-			} catch (InvalidEmergencyException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidUnitsNeededException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			}
-				}else{
-			try {
-				return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
-			} catch (InvalidEmergencyException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidUnitsNeededException ex) {
-				Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-			}
-				}
+        }
+        try {
+            return new UnitsNeeded(this, new Class[]{Firetruck.class, Ambulance.class, Policecar.class}, new long[]{firetrucks, this.getNumberOfInjured() + this.getTrappedPeople(), policecars});
+        } catch (InvalidEmergencyException ex) {
+            //we assume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we assume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
         }
         //should never be returned.
         return null;
+
     }
 }
