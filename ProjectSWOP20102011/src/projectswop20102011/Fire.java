@@ -210,8 +210,8 @@ public class Fire extends Emergency {
 	 * @return A hashtable that represents all the information of the Fire.
 	 */
 	@Override
-	public Hashtable<String, String> toLongInformationString() {
-		Hashtable<String, String> information = toInformationString();
+	public Hashtable<String, String> getLongInformation() {
+		Hashtable<String, String> information = getInformation();
 
 		information.put("size", getSize().getTextual());
 		information.put("chemical", ""+isChemical());

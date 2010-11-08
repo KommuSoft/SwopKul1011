@@ -96,8 +96,8 @@ public class Robbery extends Emergency {
      * @return A hashtable that represents all the information of this robbery.
      */
 	@Override
-    public Hashtable<String, String>  toLongInformationString() {
-		Hashtable<String, String> information = toInformationString();
+    public Hashtable<String, String>  getLongInformation() {
+		Hashtable<String, String> information = getInformation();
 
 		information.put("armed", ""+isArmed());
 		information.put("in progress", ""+isInProgress());

@@ -124,8 +124,8 @@ public class TrafficAccident extends Emergency {
 	 * @return A hashtable representing all the information of the traffic accident.
 	 */
 	@Override
-	public Hashtable<String, String> toLongInformationString() {
-		Hashtable<String, String> information = toInformationString();
+	public Hashtable<String, String> getLongInformation() {
+		Hashtable<String, String> information = getInformation();
 
 		information.put("number of cars", ""+getNumberOfCars());
 		information.put("number of injured", ""+getNumberOfInjured());

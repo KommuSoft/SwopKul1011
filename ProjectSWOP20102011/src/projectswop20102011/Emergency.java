@@ -211,8 +211,8 @@ public abstract class Emergency {
 	 * This hashtable contains the id, location, severity, status and the working units.
 	 * @return A hashtable that contains the information of this emergency.
 	 */
-	public Hashtable<String, String> toShortInformationString(){
-		return toInformationString();
+	public Hashtable<String, String> getShortInformation(){
+		return getInformation();
 	}
 
 	/**
@@ -220,17 +220,18 @@ public abstract class Emergency {
 	 * This hashtable contains the id, location, severity, status, the working units and specific elements of the child of this emergency.
 	 * @return A hashtable that contains the information of this emergency.
 	 */
-	public abstract Hashtable<String, String> toLongInformationString();
+	public abstract Hashtable<String, String> getLongInformation();
 
 	/**
 	 * Returns a hashtable that contains the information of this emergency.
 	 * This hashtable contains the id, location, severity, status and the working units.
 	 * @return A hashtable that contains the information of this emergency.
 	 */
-    public Hashtable<String, String> toInformationString() {
+    public Hashtable<String, String> getInformation() {
 		Hashtable<String, String> information = new Hashtable<String, String>();
 
 		information.put("id", ""+getId());
+		information.put("type", this.getClass().getSimpleName());
 		information.put("location", getLocation().toString());
 		information.put("severity", getSeverity().getTextual());
 		information.put("status", getStatus().getTextual());
