@@ -108,9 +108,6 @@ public class TrafficAccidentTest {
 		ta1 = new TrafficAccident(gp1, es1, nmbOfCars2, nmbOfInjured2);
 		un1 = ta1.calculateUnitsNeeded();
 
-		assertEquals(2, un1.getUnits().length);
-		assertEquals(2, un1.getNumbersNeeded().length);
-
 		boolean firetruck = false;
 		long number = -1;
 		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
@@ -139,9 +136,6 @@ public class TrafficAccidentTest {
 		ta1 = new TrafficAccident(gp1, es1, nmbOfCars2, nmbOfInjured3);
 		un1 = ta1.calculateUnitsNeeded();
 
-		assertEquals(1, un1.getUnits().length);
-		assertEquals(1, un1.getNumbersNeeded().length);
-
 		boolean firetruck = false;
 		long number = -1;
 		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
@@ -158,9 +152,6 @@ public class TrafficAccidentTest {
 	public void testUnitsNeededManyCarsNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
 		ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, nmbOfInjured3);
 		un1 = ta1.calculateUnitsNeeded();
-
-		assertEquals(2, un1.getUnits().length);
-		assertEquals(2, un1.getNumbersNeeded().length);
 
 		boolean firetruck = false;
 		long number = -1;
