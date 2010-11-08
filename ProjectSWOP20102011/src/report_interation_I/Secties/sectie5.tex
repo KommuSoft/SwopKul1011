@@ -1,4 +1,32 @@
 \section{Aanpak voor het testen}
 \label{testen}
-Om het ontwerp van de testen te illustreren, zullen we dit illustreren met behulp van een voorbeeld.
+Toen we aan dit project begonnen, hadden we voor ogen om \textit{Test-Driven Development} toe te passen.
+Namelijk eerst een test schrijven (die zou moeten falen) voor aan de eigenlijke implementatie te beginnen.
+Zo hebben we relatief gemakkelijker fouten kunnen opsporen en corrigeren.
+Bij het maken van testen voor dit project, was het ook onze bedoeling dit zo uitgebreid mogelijk te doen.
+De code coverage tool \textit{EMMA} vormde hierbij een leidraad. Het gaf ons een overzicht van welke stukken code er reeds getest werden.
+Voor bijna iedere klasse uit de domeinlaag maakten we een respectievelijke testklasse.
+Bijvoorbeeld de testklasse \verb+FiretruckTest+ voor de klasse \verb+Firetruck+ en analoog voor de andere testklassen.
+Er werd steeds volgens hetzelfde patroon gewerkt. Eerst werden de constructors getest en vervolgens de andere niet-triviale methoden.
+Ook de testen werden incrementeel opgebouwd, aangezien verscheidene delen van het model in de loop van het project werden verworpen of uitgebreid.
+Deze aanpassingen werden dan doorgevoerd op de testklassen.
+Om het ontwerp van onze testen te illustreren, geven we hieronder een ruwe schets van hoe we te werk gingen.
+\begin{verbatim}
+//Imports
+public class Testklasse{
+     //Declaratie van variabelen
 
+     @Before
+     public void setUp(){
+          //Initialisatie van variabelen en hulpobjecten
+     }
+
+     @Test
+     public void testEenMethode()<Exceptions die kunnen gegooid worden>{
+          //Aanmaken van objecten
+          //Schrijven van assert statements
+
+     }
+}
+
+\end{verbatim}
