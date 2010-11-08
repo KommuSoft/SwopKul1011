@@ -100,7 +100,7 @@ public class PublicDisturbance extends Emergency {
     @Override
     protected UnitsNeeded calculateUnitsNeeded() {
         try {
-            return new UnitsNeeded(this, new Class[]{Policecar.class}, new long[]{(this.getNumberOfPeople() + 4) / 5});
+            return new UnitsNeeded(this, new Class[]{Policecar.class, Ambulance.class, Firetruck.class}, new long[]{(getNumberOfPeople() + 4) / 5, 0, 0});
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
             Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);

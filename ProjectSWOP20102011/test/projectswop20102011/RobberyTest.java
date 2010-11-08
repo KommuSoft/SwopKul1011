@@ -55,10 +55,16 @@ public class RobberyTest {
 		r1 = new Robbery(gp1, es1, armed1, inProgress1);
 		un1 = r1.calculateUnitsNeeded();
 
-		assertEquals(1, un1.getUnits().length);
-		assertEquals(1, un1.getNumbersNeeded().length);
-		assertEquals(1, un1.getNumbersNeeded()[0]);
-		assertEquals(Policecar.class, un1.getUnits()[0]);
+		boolean policecar = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
 	}
 
 	@Test
@@ -66,10 +72,16 @@ public class RobberyTest {
 		r1 = new Robbery(gp1, es1, armed1, inProgress2);
 		un1 = r1.calculateUnitsNeeded();
 
-		assertEquals(1, un1.getUnits().length);
-		assertEquals(1, un1.getNumbersNeeded().length);
-		assertEquals(1, un1.getNumbersNeeded()[0]);
-		assertEquals(Policecar.class, un1.getUnits()[0]);
+		boolean policecar = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
 	}
 
 	@Test
@@ -77,10 +89,16 @@ public class RobberyTest {
 		r1 = new Robbery(gp1, es1, armed2, inProgress1);
 		un1 = r1.calculateUnitsNeeded();
 
-		assertEquals(1, un1.getUnits().length);
-		assertEquals(1, un1.getNumbersNeeded().length);
-		assertEquals(1, un1.getNumbersNeeded()[0]);
-		assertEquals(Policecar.class, un1.getUnits()[0]);
+		boolean policecar = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(1, number);
 	}
 
 	@Test
@@ -88,9 +106,15 @@ public class RobberyTest {
 		r1 = new Robbery(gp1, es1, armed2, inProgress2);
 		un1 = r1.calculateUnitsNeeded();
 
-		assertEquals(1, un1.getUnits().length);
-		assertEquals(1, un1.getNumbersNeeded().length);
-		assertEquals(3, un1.getNumbersNeeded()[0]);
-		assertEquals(Policecar.class, un1.getUnits()[0]);
+		boolean policecar = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(3, number);
 	}
 }

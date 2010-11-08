@@ -109,9 +109,9 @@ public class Robbery extends Emergency {
     protected UnitsNeeded calculateUnitsNeeded() {
         try {
             if (!isArmed() || !isInProgress()) {
-                return new UnitsNeeded(this, new Class[]{Policecar.class}, new long[]{1});
+                return new UnitsNeeded(this, new Class[]{Policecar.class, Ambulance.class, Firetruck.class}, new long[]{1, 0, 0});
             } else {
-                return new UnitsNeeded(this, new Class[]{Policecar.class}, new long[]{3});
+                return new UnitsNeeded(this, new Class[]{Policecar.class, Ambulance.class, Firetruck.class}, new long[]{3, 0, 0});
             }
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen

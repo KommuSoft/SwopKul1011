@@ -62,10 +62,16 @@ public class PublicDisturbanceTest {
 		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
 		un1 = pd1.calculateUnitsNeeded();
 
-		assertEquals(1, un1.getUnits().length);
-		assertEquals(1, un1.getNumbersNeeded().length);
-		assertEquals(134, un1.getNumbersNeeded()[0]);
-		assertEquals(Policecar.class, un1.getUnits()[0]);
+		boolean policecar = false;
+		long number = -1;
+		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
+			if(un1.getUnits()[i] == Policecar.class){
+				policecar = true;
+				number = un1.getNumbersNeeded()[i];
+			}
+		}
+		assertTrue(policecar);
+		assertEquals(134, number);
 	}
 
 	@Test(expected = InvalidEmergencyStatusException.class)
