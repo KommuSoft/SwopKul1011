@@ -11,6 +11,11 @@ public abstract class CommandUserInterface extends UserInterface {
 
     private final String commandName;
 
+    /**
+     * Creates a new command user interface.
+     * @param commandName The name of the command.
+     * @throws InvalidCommandNameException If the name of the command is invalid.
+     */
     protected CommandUserInterface (String commandName) throws InvalidCommandNameException {
         if(!isValidCommandName(commandName)) {
             throw new InvalidCommandNameException(String.format("Command name must be effective and not empty and not \"%s\"" ,commandName));

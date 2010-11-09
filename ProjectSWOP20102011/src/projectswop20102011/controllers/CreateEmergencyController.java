@@ -22,77 +22,77 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 public class CreateEmergencyController extends Controller {
 
 	/**
-	 *
-	 * @param world
-	 * @throws InvalidWorldException
+	 * Creates a new CreateEmergencyController with a given world.
+	 * @param world The world that will be manipulated by the controller.
+	 * @throws InvalidWorldException If the world is invalid.
 	 */
     public CreateEmergencyController (World world) throws InvalidWorldException {
         super(world);
     }
 
 	/**
-	 *
-	 * @param emergency
+	 * Adding the given Emergency to the world.
+	 * @param emergency The emergency to add to the world.
 	 */
     private void addCreatedEmergencyToTheWorld (Emergency emergency) {
         this.getWorld().getEmergencyList().addEmergency(emergency);
     }
 
 	/**
-	 *
-	 * @param location
-	 * @param severity
-	 * @param fireSize
-	 * @param chemical
-	 * @param trappedPeople
-	 * @param numberOfInjured
-	 * @throws InvalidLocationException
-	 * @throws InvalidEmergencySeverityException
-	 * @throws InvalidFireSizeException
-	 * @throws NumberOutOfBoundsException
+	 * Creates a new fire in the world, and add's it to the world.
+	 * @param location The location of the fire.
+	 * @param severity The severity level of the fire.
+	 * @param fireSize The size of the fire.
+	 * @param chemical An indicator that indicates if the fire is chemical.
+	 * @param trappedPeople The number of trapped people in the fire.
+	 * @param numberOfInjured The number of injured people in the fire.
+	 * @throws InvalidLocationException If the given location is invalid.
+	 * @throws InvalidEmergencySeverityException If the given severity level is invalid.
+	 * @throws InvalidFireSizeException If the given size is invalid.
+	 * @throws NumberOutOfBoundsException if the given number of trapped or injured people is invalid.
 	 */
-    public void createFireEmergency (GPSCoordinate location, EmergencySeverity severity, FireSize fireSize, boolean chemical, long trappedPeople,long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
-        addCreatedEmergencyToTheWorld(new Fire(location,severity,fireSize,chemical,trappedPeople,numberOfInjured));
+    public void createFireEmergency (GPSCoordinate location, EmergencySeverity severity, String description, FireSize fireSize, boolean chemical, long trappedPeople,long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        addCreatedEmergencyToTheWorld(new Fire(location,severity,description,fireSize,chemical,trappedPeople,numberOfInjured));
     }
 
 	/**
-	 *
-	 * @param location
-	 * @param severity
-	 * @param armed
-	 * @param inProgress
-	 * @throws InvalidLocationException
-	 * @throws InvalidEmergencySeverityException
+	 * Create a robbery in the world.
+	 * @param location The location of the robbery.
+	 * @param severity The severity level of the robbery.
+	 * @param armed An indicator that indicates if the robber is armed.
+	 * @param inProgress An indicator that indicates if the robbery is still in progress.
+	 * @throws InvalidLocationException If the given location is invalid.
+	 * @throws InvalidEmergencySeverityException If the severity level is invalid.
 	 */
-    public void createRobberyEmergency (GPSCoordinate location, EmergencySeverity severity, boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
-        addCreatedEmergencyToTheWorld(new Robbery(location,severity,armed,inProgress));
+    public void createRobberyEmergency (GPSCoordinate location, EmergencySeverity severity, String description, boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
+        addCreatedEmergencyToTheWorld(new Robbery(location,severity,description,armed,inProgress));
     }
 
 	/**
-	 *
-	 * @param location
-	 * @param severity
-	 * @param numberOfPeople
-	 * @throws InvalidLocationException
-	 * @throws InvalidEmergencySeverityException
-	 * @throws NumberOutOfBoundsException
+	 * Creates a new public disturbance in the world.
+	 * @param location The location of the public disturbance.
+	 * @param severity The severity level of the public disturbance.
+	 * @param numberOfPeople The number of people involved in the public disturbance.
+	 * @throws InvalidLocationException If the given location is invalid.
+	 * @throws InvalidEmergencySeverityException If the given severity level is invalid.
+	 * @throws NumberOutOfBoundsException If the given number of envolved people is invalid.
 	 */
-    public void createPublicDisturbanceEmergency (GPSCoordinate location, EmergencySeverity severity, long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        addCreatedEmergencyToTheWorld(new PublicDisturbance(location,severity,numberOfPeople));
+    public void createPublicDisturbanceEmergency (GPSCoordinate location, EmergencySeverity severity, String description, long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+        addCreatedEmergencyToTheWorld(new PublicDisturbance(location,severity,description,numberOfPeople));
     }
 
 	/**
-	 *
-	 * @param location
-	 * @param severity
-	 * @param numberOfCars
-	 * @param numberOfInjured
-	 * @throws InvalidLocationException
-	 * @throws InvalidEmergencySeverityException
-	 * @throws NumberOutOfBoundsException
+	 * Creates a new traffic accident in the world.
+	 * @param location The location of the traffic accident.
+	 * @param severity The severity level of the traffic accident.
+	 * @param numberOfCars The number of cars involved in the traffic accident.
+	 * @param numberOfInjured The number of injured people.
+	 * @throws InvalidLocationException If the given location is invalid.
+	 * @throws InvalidEmergencySeverityException If the severity level of the traffic accident.
+	 * @throws NumberOutOfBoundsException If the given number of injured people is invalid.
 	 */
-    public void createTrafficAccidentEmergency (GPSCoordinate location, EmergencySeverity severity,long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        addCreatedEmergencyToTheWorld(new TrafficAccident(location,severity,numberOfCars,numberOfInjured));
+    public void createTrafficAccidentEmergency (GPSCoordinate location, EmergencySeverity severity, String description,long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+        addCreatedEmergencyToTheWorld(new TrafficAccident(location,severity,description,numberOfCars,numberOfInjured));
     }
 
 }

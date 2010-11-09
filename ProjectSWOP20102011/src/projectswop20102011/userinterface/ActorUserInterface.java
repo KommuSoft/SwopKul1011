@@ -4,29 +4,45 @@ import java.util.Hashtable;
 
 /**
  * An class that represents a user interface used by a specific user
- * @author willem
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class ActorUserInterface extends UserInterface {
 
     private final Hashtable<String, CommandUserInterface> commandUserInterfaces;
     private final String actorName;
 
-    public ActorUserInterface(String actorName, CommandUserInterface... commands) {
+    /**
+     * Creates a new ActorUserInterface with given the name of the actor and a list of commands of that actor.
+     * @param actorName The name of the actor.
+     * @param commands A list of commands used by the actor.
+     */
+    protected ActorUserInterface(String actorName, CommandUserInterface... commands) {
         this.actorName = actorName;
         this.commandUserInterfaces = new Hashtable<String, CommandUserInterface>();
         this.AddCommands(commands);
     }
 
+    /**
+     * Add the given commands to the ActorUserInterface.
+     * @param commands The given commands to addd.
+     */
     public void AddCommands(CommandUserInterface... commands) {
         for (CommandUserInterface command : commands) {
             this.commandUserInterfaces.put(command.getCommandName(), command);
         }
     }
 
+    /**
+     * Returns the name of the actor.
+     * @return the name of the actor.
+     */
     public String getActorName() {
         return this.actorName;
     }
 
+    /**
+     * Handles the actor user interface.
+     */
     @Override
     public void HandleUserInterface() {
         boolean nextRun;
