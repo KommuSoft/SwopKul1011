@@ -1,7 +1,5 @@
 package projectswop20102011;
 
-import java.util.ArrayList;
-
 /**
  * An implementation for a UnitBuildingEvaluationCriterium that checks if the object is equal to a given type.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
@@ -17,7 +15,8 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
      * Creates a new instance of a TypeUnitBuildingEvaluationCriterium with a given type to check on.
      * @param type
      *		The type that must be equal to the validating UnitBuilding.
-     * @post This type is equal to the parameter type | type == getType()
+     * @post This type is equal to the parameter type
+	 *		| type == getType()
      */
     public TypeUnitBuildingEvaluationCriterium(Class type) {
         this.type = type;
@@ -31,7 +30,7 @@ public class TypeUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationC
      */
     @Override
     public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
-		return type.isAssignableFrom(unitBuilding.getClass());
+		return getType().isAssignableFrom(unitBuilding.getClass());
     }
 
     /**

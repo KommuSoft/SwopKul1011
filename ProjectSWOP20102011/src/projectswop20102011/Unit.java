@@ -42,7 +42,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *		The home location of the new unit.
      * @param speed
      *		The speed of the new unit.
-     * @effect The new unit is a unit with given name, home location.
+     * @effect The new unit is a unit with given name and home location.
      *		|super(name,homeLocation);
 	 * @effect This speed is equal to the given parameter speed.
 	 *		|speed.equals(getSpeed())
@@ -69,7 +69,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      * @return True if this unit is assigned; false otherwise.
      */
     public boolean isAssigned() {
-        return (this.getEmergency() != null);
+        return (getEmergency() != null);
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     public boolean isAtDestination() {
         if (getEmergency() != null) {
-            return getCurrentLocation().equals(getEmergency().getLocation());
+            return getCurrentLocation().equals(getDestination());
         } else {
             return false;
         }
@@ -140,7 +140,6 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      */
     private void setCurrentLocation(GPSCoordinate currentLocation){
 		this.currentLocation = currentLocation;
-		//TODO normaal zou de gegeven location altijd valid moeten zijn
     }
 
     /**
@@ -236,12 +235,13 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
      *
      * @param emergency
      *		The emergency where this units have to respond to.
-     * @effect The unit's emergency is equal to the given emergency | this.getEmergency().equals(emergency)
+     * @effect The unit's emergency is equal to the given emergency
+	 *		| this.getEmergency().equals(emergency)
      * @effect The unit is assigned.
      * @throws InvalidUnitBuildingException
      *          If the unit is already assigned to an emergency.
      */
-    void assignTo(Emergency emergency) throws InvalidUnitBuildingException {//package, verantwoordelijkheid ligt bij de NeededUnit class, status aanpassen ook?!?!
+    void assignTo(Emergency emergency) throws InvalidUnitBuildingException {
         if (!canBeAssigned()) {
             throw new InvalidUnitBuildingException("Unit can't be assigned");
         }
@@ -250,8 +250,10 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 
     /**
      * Finishes the job of this Unit.
-     * @effect The emergency of this unit is null | this.getEmergency().equals(null)
-	 * @effect The unit is not assigned | !this.isAssigned()
+     * @effect The emergency of this unit is null
+	 *		| this.getEmergency().equals(null)
+	 * @effect The unit is not assigned
+	 *		| !this.isAssigned()
 	 * @throws InvalidEmergencyException 
 	 *		If the unit is not assigned to an emergency.
 	 * @throws InvalidLocationException
