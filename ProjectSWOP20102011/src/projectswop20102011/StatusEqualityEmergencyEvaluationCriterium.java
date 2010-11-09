@@ -6,13 +6,17 @@ package projectswop20102011;
  */
 public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluationCriterium {
 
+	/**
+	 * A variable registering the status of this StatusEqualityEmergencyEvaluationCriterium.
+	 */
     private final EmergencyStatus status;
 
     /**
      * Creates a new instance of a StatusEqualityEmergencyEvaluationCriterium with a given EmergencyStatus to check on.
      * @param status
 	 *		The EmergencyStatus that must be equal to the validating Emergency.
-     * @post This status is equal to the parameter status | status == getStatus()
+     * @post This status is equal to the parameter status
+	 *		| status == getStatus()
      */
     public StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus status) {
         this.status = status;
@@ -26,7 +30,7 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
      */
     @Override
     public boolean isValidEmergency(Emergency emergency) {
-        return (emergency.getStatus() == this.getStatus());
+        return (emergency.getStatus() == getStatus());
     }
 
     /**

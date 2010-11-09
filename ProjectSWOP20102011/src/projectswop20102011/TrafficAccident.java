@@ -12,8 +12,10 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 /**
  * A class that represents a traffic accident.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
- * @invar the number of cars is always valid | isValidNumberOfCars(getNumberOfCars())
- * @invar the number of injured is always valid | isValidNumberOfInjured(getNumberOfInjured())
+ * @invar The number of cars is always valid.
+ *		| isValidNumberOfCars(getNumberOfCars())
+ * @invar The number of injured is always valid.
+ *		| isValidNumberOfInjured(getNumberOfInjured())
  */
 public class TrafficAccident extends Emergency {
 
@@ -36,10 +38,14 @@ public class TrafficAccident extends Emergency {
 	 *		The number of cars involved in this traffic accident.
 	 * @param numberOfInjured
 	 *		The number of injured people of this traffic accident.
-	 * @effect super(location,severity)
-	 * @throws InvalidLocationException If the given location is an invalid location for an emergency.
-	 * @throws InvalidEmergencySeverityException If the given severity is an invalid severity for an emergency.
-	 * @throws NumberOutOfBoundsException If the number of involved cars or injured people is invalid.
+	 * @effect The new traffic accident is a new emergency with the given location and severity.
+	 *		| super(location,severity)
+	 * @throws InvalidLocationException
+	 *		If the given location is an invalid location for an emergency.
+	 * @throws InvalidEmergencySeverityException
+	 *		If the given severity is an invalid severity for an emergency.
+	 * @throws NumberOutOfBoundsException
+	 *		If the number of involved cars or injured people is invalid.
 	 * @post The number of involved cars in this traffic accident is equal to the given number of cars.
 	 *		| numberOfCars.equals(getNumberOfCars())
 	 * @post The number of injured people in this traffic accident is equal to the given number of people.
@@ -64,7 +70,8 @@ public class TrafficAccident extends Emergency {
 	 * Sets then number of cars involved in this traffic accident to the given value.
 	 * @param numberOfCars
 	 *		The new value of the number of cars involved in this traffic accident.
-	 * @throws NumberOutOfBoundsException If the number of cars is invalid.
+	 * @throws NumberOutOfBoundsException
+	 *		If the number of cars is invalid.
 	 * @post The number of involved cars in this traffic accident is equal to the given number of cars.
 	 *		| numberOfCars.equals(getNumberOfCars())
 	 */
@@ -87,7 +94,8 @@ public class TrafficAccident extends Emergency {
 	 * Sets the number of injured people in this traffic accident to the given value.
 	 * @param numberOfInjured
 	 *		The new number of injured people involved in this traffic accident.
-	 * @throws NumberOutOfBoundsException If the number of cars is invalid.
+	 * @throws NumberOutOfBoundsException
+	 *		If the number of cars is invalid.
 	 * @post The number of injured people in this traffic accident is equal to the given number of people.
 	 *		| numberOfInjured.equals(getNumberOfInjured())
 	 */

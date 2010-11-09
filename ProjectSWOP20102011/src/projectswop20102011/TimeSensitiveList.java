@@ -19,7 +19,8 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
     /**
      * Creating a new instance of an TimeSensitiveList. At this moment this list
      * doesn't contain any object.
-	 * @effect The new TimeSensitiveList is a list with no elements in it.
+	 * @post The new TimeSensitiveList is a list with no elements in it.
+	 *		|new.getTimeSensitives().size() == 0
      */
     public TimeSensitiveList() {
         this.timeSensitives = new HashSet<TimeSensitive>();
@@ -37,12 +38,14 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
      * Adds the given TimeSensitive to this list of time sensitive objects.
      * If the given TimeSensitive object is already in the list, nothing happens.
      * @param ub
-     *		TimeSensitive to be appended to this list of time sensitive objects.
+     *		The TimeSensitive to be appended to this list of time sensitive objects.
      * @post This TimeSensitiveList contains the given TimeSensitive.
+	 *		|new.getTimeSensitives().contains(ub)
      */
     void addTimeSensitive(TimeSensitive ub) {
-        if(!this.timeSensitives.contains(ub))
-            timeSensitives.add(ub);
+        if(!getTimeSensitives().contains(ub)) {
+			timeSensitives.add(ub);
+		}
     }
 
     /**
@@ -51,11 +54,11 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
      */
     @Override
     public Iterator<TimeSensitive> iterator() {
-        return timeSensitives.iterator();
+        return getTimeSensitives().iterator();
     }
 
     /**
-     * Moves the time forward for all instances in the TimeAheadList for the given amount of seconds.
+     * Moves the time forward for all instances in this TimeSensitiveList for the given amount of seconds.
      * @param seconds
 	 *		The given amount of seconds.
 	 * @throws InvalidDurationException
