@@ -6,19 +6,19 @@ package projectswop20102011.exceptions;
  */
 public class NumberOutOfBoundsException extends Exception {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Creates a new instance of <code>NumberOutOfBoundsException</code> without detail message.
-     */
-    public NumberOutOfBoundsException() {
-    }
+	/**
+	 * Creates a new instance of <code>NumberOutOfBoundsException</code> without detail message.
+	 */
+	public NumberOutOfBoundsException() {
+	}
 
-    /**
-     * Constructs an instance of <code>NumberOutOfBoundsException</code> with the specified detail message.
-     * @param msg The detail message.
-     */
-    public NumberOutOfBoundsException(String msg) {
-        super(msg);
-    }
+	/**
+	 * Constructs an instance of <code>NumberOutOfBoundsException</code> with the specified detail message.
+	 * @param msg The detail message.
+	 */
+	public NumberOutOfBoundsException(String msg) {
+		super(msg);
+	}
 }

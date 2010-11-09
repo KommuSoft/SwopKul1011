@@ -6,12 +6,11 @@ package projectswop20102011.exceptions;
  */
 public class InvalidWorldException extends Exception {
 
-    /**
-     * Creates a new instance of an InvalidWorldException class, with a specific message.
-     * @param message A message explaining the reason of the exception.
-     */
-    public InvalidWorldException(String message) {
-        super(message);
-    }
-
+	/**
+	 * Creates a new instance of an InvalidWorldException class, with a specific message.
+	 * @param message A message explaining the reason of the exception.
+	 */
+	public InvalidWorldException(String message) {
+		super(message);
+	}
 }

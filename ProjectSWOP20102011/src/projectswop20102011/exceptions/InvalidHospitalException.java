@@ -6,19 +6,18 @@ package projectswop20102011.exceptions;
  */
 public class InvalidHospitalException extends InvalidUnitBuildingException {
 
-    /**
-     * Creates a new instance of <code>InvalidHospitalException</code> without detail message.
-     */
-    public InvalidHospitalException() {
-        super();
-    }
+	/**
+	 * Creates a new instance of <code>InvalidHospitalException</code> without detail message.
+	 */
+	public InvalidHospitalException() {
+		super();
+	}
 
-
-    /**
-     * Constructs an instance of <code>InvalidHospitalException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public InvalidHospitalException(String msg) {
-        super(msg);
-    }
+	/**
+	 * Constructs an instance of <code>InvalidHospitalException</code> with the specified detail message.
+	 * @param msg the detail message.
+	 */
+	public InvalidHospitalException(String msg) {
+		super(msg);
+	}
 }

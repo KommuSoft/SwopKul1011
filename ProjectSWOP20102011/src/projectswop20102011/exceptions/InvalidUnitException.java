@@ -6,18 +6,18 @@ package projectswop20102011.exceptions;
  */
 public class InvalidUnitException extends InvalidUnitBuildingException {
 
-    /**
-     * Constructs an InvalidUnitBuildingException with no detail message.
-     */
-    public InvalidUnitException() {
-        super();
-    }
+	/**
+	 * Constructs an InvalidUnitBuildingException with no detail message.
+	 */
+	public InvalidUnitException() {
+		super();
+	}
 
-    /**
-     * Creates a new instance of an InvalidUnitException with a given message.
-     * @param message A message explaining why this exception has been thrown.
-     */
-    public InvalidUnitException(String message) {
-        super(message);
-    }
+	/**
+	 * Creates a new instance of an InvalidUnitException with a given message.
+	 * @param message A message explaining why this exception has been thrown.
+	 */
+	public InvalidUnitException(String message) {
+		super(message);
+	}
 }

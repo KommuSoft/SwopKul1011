@@ -6,12 +6,11 @@ package projectswop20102011.exceptions;
  */
 public class InvalidEmergencyFactoryClassException extends Exception {
 
-    /**
-     * Creates a new instance of an InvalidEmergencyFactoryClassException with a given message.
-     * @param message A message explaining the reason of the exception.
-     */
-    public InvalidEmergencyFactoryClassException(String message) {
-        super(message);
-    }
-
+	/**
+	 * Creates a new instance of an InvalidEmergencyFactoryClassException with a given message.
+	 * @param message A message explaining the reason of the exception.
+	 */
+	public InvalidEmergencyFactoryClassException(String message) {
+		super(message);
+	}
 }

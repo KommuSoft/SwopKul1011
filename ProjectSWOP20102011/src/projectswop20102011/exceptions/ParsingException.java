@@ -6,12 +6,11 @@ package projectswop20102011.exceptions;
  */
 public class ParsingException extends Exception {
 
-
-    /**
-     * Constructs an instance of <code>ParsingException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public ParsingException(String msg) {
-        super(msg);
-    }
+	/**
+	 * Constructs an instance of <code>ParsingException</code> with the specified detail message.
+	 * @param msg the detail message.
+	 */
+	public ParsingException(String msg) {
+		super(msg);
+	}
 }

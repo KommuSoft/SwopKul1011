@@ -6,8 +6,7 @@ package projectswop20102011.exceptions;
  */
 public class ParsingAbortedException extends Exception {
 
-    public ParsingAbortedException(String message) {
-        super(message);
-    }
-
+	public ParsingAbortedException(String message) {
+		super(message);
+	}
 }

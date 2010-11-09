@@ -6,12 +6,11 @@ package projectswop20102011.exceptions;
  */
 public class InvalidCommandNameException extends Exception {
 
-    /**
-     * Creates a new instance of an InvalidCommandNameException with a given message.
-     * @param message A message explaining why the exception has been thrown.
-     */
-    public InvalidCommandNameException(String message) {
-        super(message);
-    }
-
+	/**
+	 * Creates a new instance of an InvalidCommandNameException with a given message.
+	 * @param message A message explaining why the exception has been thrown.
+	 */
+	public InvalidCommandNameException(String message) {
+		super(message);
+	}
 }

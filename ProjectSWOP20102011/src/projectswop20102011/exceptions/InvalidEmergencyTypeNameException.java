@@ -6,12 +6,11 @@ package projectswop20102011.exceptions;
  */
 public class InvalidEmergencyTypeNameException extends Exception {
 
-    /**
-     * Creates a new InvalidEmergencyTypeNameException instance with a given message.
-     * @param message A message that specifieds why the error was thrown.
-     */
-    public InvalidEmergencyTypeNameException(String message) {
-        super(message);
-    }
-
+	/**
+	 * Creates a new InvalidEmergencyTypeNameException instance with a given message.
+	 * @param message A message that specifieds why the error was thrown.
+	 */
+	public InvalidEmergencyTypeNameException(String message) {
+		super(message);
+	}
 }

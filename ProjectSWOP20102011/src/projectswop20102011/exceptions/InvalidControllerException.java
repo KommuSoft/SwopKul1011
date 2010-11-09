@@ -6,12 +6,11 @@ package projectswop20102011.exceptions;
  */
 public class InvalidControllerException extends Exception {
 
-    /**
-     * Creates a new instance of an InvalidControllerException with a given message.
-     * @param message A message explaining the cause of the exception.
-     */
-    public InvalidControllerException(String message) {
-        super(message);
-    }
-
+	/**
+	 * Creates a new instance of an InvalidControllerException with a given message.
+	 * @param message A message explaining the cause of the exception.
+	 */
+	public InvalidControllerException(String message) {
+		super(message);
+	}
 }
