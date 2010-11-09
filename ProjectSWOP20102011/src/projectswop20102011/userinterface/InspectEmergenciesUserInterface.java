@@ -60,7 +60,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
                             long id = Long.parseLong(input);
                             Emergency emergency = this.getController().inspectEmergencyDetailOnStatusId(status, id);
                             if (emergency != null) {
-                                this.writeOutput(String.format("\t%s", emergency.toLongInformationString()));
+                                this.writeOutput(String.format("\t%s", emergency.getLongInformation()));
                             } else {
                                 this.writeOutput("ERROR: can't find the asked emergency, please try again.");
                             }
