@@ -45,6 +45,8 @@ public class Fire extends Emergency {
 	 *		The location of this fire emergency.
 	 * @param severity
 	 *		The severity of this fire emergency.
+	 * @param description
+	 *		The description of this fire emergency.
 	 * @param size
 	 *		The size of this fire emergency.
 	 * @param chemical
@@ -72,9 +74,9 @@ public class Fire extends Emergency {
 	 * @post The trapped people property of the fire emergency is equal to the given trapped people property.
 	 *		| trappedPeople.equals(hasTrappedPeople())
 	 */
-	public Fire(GPSCoordinate location, EmergencySeverity severity,
+	public Fire(GPSCoordinate location, EmergencySeverity severity, String description,
 			FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
-		super(location, severity);
+		super(location, severity, description);
 		setSize(size);
 		setChemical(chemical);
 		setTrappedPeople(trappedPeople);

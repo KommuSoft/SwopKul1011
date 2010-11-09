@@ -34,6 +34,8 @@ public class TrafficAccident extends Emergency {
 	 *		The location of this traffic accident emergency.
 	 * @param severity
 	 *		The severity of this traffic accident emergency.
+	 * @param description
+	 *		The description of this traffic accident emergency.
 	 * @param numberOfCars
 	 *		The number of cars involved in this traffic accident.
 	 * @param numberOfInjured
@@ -51,9 +53,9 @@ public class TrafficAccident extends Emergency {
 	 * @post The number of injured people in this traffic accident is equal to the given number of people.
 	 *		| numberOfInjured.equals(getNumberOfInjured())
 	 */
-	public TrafficAccident(GPSCoordinate location, EmergencySeverity severity,
+	public TrafficAccident(GPSCoordinate location, EmergencySeverity severity, String description,
 			long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-		super(location, severity);
+		super(location, severity, description);
 		setNumberOfCars(numberOfCars);
 		setNumberOfInjured(numberOfInjured);
 	}

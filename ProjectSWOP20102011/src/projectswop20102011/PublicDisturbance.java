@@ -29,7 +29,9 @@ public class PublicDisturbance extends Emergency {
      *		The location of this public disturbance emergency.
      * @param severity
      *		The severity of this public disturbance emergency.
-     * @param numberOfPeople
+	 * @param description
+	 *		The description of this public disturbance emergency.
+	 * @param numberOfPeople
      *		The number of people that are involved in this public disturbance.
      * @effect The new public disturbance is an emergency with the given location and severity.
 	 *		| super(location,severity)
@@ -42,9 +44,9 @@ public class PublicDisturbance extends Emergency {
      * @post the number of involved people of this public disturbance is equal to the given number of people.
 	 *		| getNumberOfPeople().equal(numberOfPeople)
      */
-    public PublicDisturbance(GPSCoordinate location,
-            EmergencySeverity severity, long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        super(location, severity);
+    public PublicDisturbance(GPSCoordinate location, EmergencySeverity severity, String description,
+			long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+        super(location, severity, description);
         setNumberOfPeople(numberOfPeople);
     }
 

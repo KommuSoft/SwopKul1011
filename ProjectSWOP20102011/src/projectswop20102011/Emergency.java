@@ -47,6 +47,10 @@ public abstract class Emergency {
      * and does the management of dispatching units and setting the status of this emergency.
      */
     private UnitsNeeded unitsNeeded;
+	/**
+	 * A variable registering the description of the emergency.
+	 */
+	private final String description;
 
     /**
      * Make a new emergency with the given location, severity.
@@ -55,7 +59,9 @@ public abstract class Emergency {
      *		The location of this emergency.
      * @param severity
      *		The severity of this emergency.
-     * @throws InvalidLocationException
+	 * @param description
+	 *		The description of this emergency.
+	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException
 	 *		If the given severity is an invalid severity for an emergency.
@@ -65,11 +71,14 @@ public abstract class Emergency {
      *		|severity.equals(this.getSeverity())
 	 * @effect This status is equal to the EmergencyStatus RECORDED_BUT_UNHANDLED.
 	 *		|getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)
+	 * @post This description is equal to the given description.
+	 *		|new.getDescription().equals(description)
      */
-    protected Emergency(GPSCoordinate location, EmergencySeverity severity) throws InvalidLocationException, InvalidEmergencySeverityException {
+    protected Emergency(GPSCoordinate location, EmergencySeverity severity, String description) throws InvalidLocationException, InvalidEmergencySeverityException {
         this.id = idDispatcher++;
         setLocation(location);
         setSeverity(severity);
+		this.description = description;
         try {
             setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
         } catch (InvalidEmergencyStatusException ex) {
@@ -157,6 +166,14 @@ public abstract class Emergency {
     public long getId() {
         return id;
     }
+
+	/**
+	 * Returns the description of this emergency.
+	 * @return The description of this emergency.
+	 */
+	public String getDescription(){
+		return description;
+	}
 
     /**
      * Checks if the given severity is valid as severity level of an emergency.

@@ -29,7 +29,9 @@ public class Robbery extends Emergency {
      *		The location of this robbery emergency.
      * @param severity
      *		The severity of this robbery emergency.
-     * @param armed
+	 * @param description
+	 *		The description of this robbery emergency.
+	 * @param armed
      *		An indicator that indicates if this robbery is an armed robbery.
      * @param inProgress
      *		An indicator that indicates if this robbery is still in progress.
@@ -44,9 +46,9 @@ public class Robbery extends Emergency {
      * @post the in progress parameter of this robbery is equal to the given parameter.
 	 *		| inProgress.equals(isInProgress())
      */
-    public Robbery(GPSCoordinate location, EmergencySeverity severity,
+    public Robbery(GPSCoordinate location, EmergencySeverity severity, String description,
             boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
-        super(location, severity);
+        super(location, severity, description);
         setArmed(armed);
         setInProgress(inProgress);
     }
