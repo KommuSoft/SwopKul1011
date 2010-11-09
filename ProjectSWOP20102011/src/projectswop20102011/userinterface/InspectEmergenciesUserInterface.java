@@ -42,7 +42,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
                 Emergency[] emergencies = this.getController().inspectEmergenciesOnStatus(status);
                 this.writeOutput(String.format("Founded emergencies (%s):", emergencies.length));
                 for (Emergency em : emergencies) {
-                    this.writeOutput(String.format("\t%s", em.toShortInformationString()));
+                    this.writeOutput(String.format("\t%s", em.getLongInformation()));
                 }
                 do {
                     viewEmergencyDetail = true;

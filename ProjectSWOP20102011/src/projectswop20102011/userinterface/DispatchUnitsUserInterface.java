@@ -43,7 +43,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
             if (selectedEmergency == null) {
                 this.writeOutput("Emergency not found.");
             } else {
-                Hashtable<String, String> information = selectedEmergency.toLongInformationString();
+                Hashtable<String, String> information = selectedEmergency.getLongInformation();
                 this.writeOutput("EMERGENCY DETAILS:");
                 this.writeOutput(String.format("\ttype: %s", selectedEmergency.getClass().getSimpleName()));
                 for (Entry<String, String> entry : information.entrySet()) {
