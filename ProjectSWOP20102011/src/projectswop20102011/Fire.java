@@ -216,10 +216,10 @@ public class Fire extends Emergency {
 		Hashtable<String, String> information = getInformation();
 
 		information.put("size", getSize().getTextual());
-		information.put("chemical", ""+isChemical());
-		information.put("trapped people", ""+getTrappedPeople());
-		information.put("number of injured", ""+getNumberOfInjured());
-		information.put("description", ""+getDescription());
+		information.put("chemical", "" + isChemical());
+		information.put("trapped people", "" + getTrappedPeople());
+		information.put("number of injured", "" + getNumberOfInjured());
+		information.put("description", "" + getDescription());
 
 		return information;
 	}

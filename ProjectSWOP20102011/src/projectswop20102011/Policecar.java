@@ -9,7 +9,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class Policecar extends Unit{
+public class Policecar extends Unit {
 
 	/**
 	 * Initialize a new policecar with given parameters.
@@ -29,7 +29,7 @@ public class Policecar extends Unit{
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a policecar.
 	 */
-	public Policecar(String name,GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+	public Policecar(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
 		super(name, homeLocation, speed);
 	}
 }

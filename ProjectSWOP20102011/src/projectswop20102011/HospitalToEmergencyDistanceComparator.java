@@ -7,7 +7,8 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  * A class that represents a comparator that compares the distance of two hospitals to a given emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class HospitalToEmergencyDistanceComparator implements Comparator<Hospital>{
+public class HospitalToEmergencyDistanceComparator implements Comparator<Hospital> {
+
 	/**
 	 * The emergency where distances must be calculated from.
 	 */
@@ -22,10 +23,10 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * @post This emergency is equal to the given emergency.
 	 *		| new.getEmergency()==emergency
 	 */
-	public HospitalToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException{
-		if(!isValidEmergency(emergency)){
+	public HospitalToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException {
+		if (!isValidEmergency(emergency)) {
 			throw new InvalidEmergencyException(String.format("\"%s\" is an invalid emergency for an HospitalToEmergencyDistanceComparator.", emergency));
-		}else{
+		} else {
 			this.emergency = emergency;
 		}
 	}
@@ -34,7 +35,7 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * Returns the emergency of this HospitalToEmergencyDistanceComparator.
 	 * @return The emergency of this HospitalToEmergencyDistanceComparator.
 	 */
-	private Emergency getEmergency(){
+	private Emergency getEmergency() {
 		return emergency;
 	}
 
@@ -66,8 +67,7 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * @return
 	 *		True if the emergency is effective; false otherwise.
 	 */
-	public static boolean isValidEmergency(Emergency emergency){
+	public static boolean isValidEmergency(Emergency emergency) {
 		return (emergency != null);
 	}
-
 }

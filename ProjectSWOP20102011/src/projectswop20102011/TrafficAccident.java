@@ -137,9 +137,9 @@ public class TrafficAccident extends Emergency {
 	public Hashtable<String, String> getLongInformation() {
 		Hashtable<String, String> information = getInformation();
 
-		information.put("number of cars", ""+getNumberOfCars());
-		information.put("number of injured", ""+getNumberOfInjured());
-		information.put("description", ""+getDescription());
+		information.put("number of cars", "" + getNumberOfCars());
+		information.put("number of injured", "" + getNumberOfInjured());
+		information.put("description", "" + getDescription());
 
 		return information;
 	}

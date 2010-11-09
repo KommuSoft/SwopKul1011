@@ -9,7 +9,7 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  */
 public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 
-    /**
+	/**
 	 * The emergency where distances must be calculated from.
 	 */
 	private final Emergency emergency;
@@ -24,10 +24,10 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 	 * @post This emergency is set according to the given emergency.
 	 *		|new.getEmergency()==emergency
 	 */
-	public UnitToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException{
-		if(!isValidEmergency(emergency)){
+	public UnitToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException {
+		if (!isValidEmergency(emergency)) {
 			throw new InvalidEmergencyException(String.format("\"%s\" is an invalid emergency for an UnitToEmergencyDistanceComparator.", emergency));
-		}else{
+		} else {
 			this.emergency = emergency;
 		}
 	}
@@ -36,7 +36,7 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 	 * Returns the emergency of this UnitToEmergencyDistanceComparator.
 	 * @return the emergency of this UnitToEmergencyDistanceComparator.
 	 */
-	private Emergency getEmergency(){
+	private Emergency getEmergency() {
 		return emergency;
 	}
 
@@ -68,7 +68,7 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 	 * @return
 	 *		True if the emergency is valid; false otherwise.
 	 */
-	public static boolean isValidEmergency(Emergency emergency){
+	public static boolean isValidEmergency(Emergency emergency) {
 		return (emergency != null);
 	}
 }

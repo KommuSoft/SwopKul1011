@@ -8,6 +8,7 @@ import projectswop20102011.exceptions.InvalidDurationException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public interface TimeSensitive {
+
 	/**
 	 * Advances the time with a given amount of seconds.
 	 * @param seconds

@@ -32,55 +32,55 @@ import projectswop20102011.userinterface.TimeAheadUserInterface;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws IOException {
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) throws IOException {
 
-        World world = new World();
+		World world = new World();
 
-        try {
-            EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Type in the path to the environment file?");
-            String environmentFile = reader.readLine();
-            try {
-                FileInputStream fis = new FileInputStream(environmentFile);
-                er.readEnvironmentData(fis);
-                fis.close();
-            } catch (Exception ex) {
-                System.out.println(String.format("ERROR: %s", ex.getMessage()));
-                System.out.println("program will now stop.");
-                return;
-            }
+		try {
+			EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Type in the path to the environment file?");
+			String environmentFile = reader.readLine();
+			try {
+				FileInputStream fis = new FileInputStream(environmentFile);
+				er.readEnvironmentData(fis);
+				fis.close();
+			} catch (Exception ex) {
+				System.out.println(String.format("ERROR: %s", ex.getMessage()));
+				System.out.println("program will now stop.");
+				return;
+			}
 
-            //MainController mainController = new MainController(world);
-            MainUserInterface mainUserInterface = new MainUserInterface();
+			//MainController mainController = new MainController(world);
+			MainUserInterface mainUserInterface = new MainUserInterface();
 
 
-            CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
-            CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world));
-            CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsUserInterface(new DispatchUnitsController(world));
-            CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
-            CommandUserInterface endOfEmergencyUserInterface = new EndOfEmergencyUserInterface(new EndOfEmergencyController(world));
-            CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world));
+			CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
+			CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world));
+			CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsUserInterface(new DispatchUnitsController(world));
+			CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
+			CommandUserInterface endOfEmergencyUserInterface = new EndOfEmergencyUserInterface(new EndOfEmergencyController(world));
+			CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world));
 
-            ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
-            ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface);
-            ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
-            ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
+			ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
+			ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface);
+			ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
+			ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
 
-            mainUserInterface.addActorUserInterfaces(operatorUserInterface, dispatcherUserInterface, demonstratorUserInterface, unitCommanderUserInterface);
-            mainUserInterface.HandleUserInterface();
-        } catch (InvalidCommandNameException ex) {
-            //can't be thrown, ensured by the our implementation
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidControllerException ex) {
-            //can't be thrown, ensured by the our implementation
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidWorldException ex) {
-            //can't be thrown, ensured by the our implementation
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+			mainUserInterface.addActorUserInterfaces(operatorUserInterface, dispatcherUserInterface, demonstratorUserInterface, unitCommanderUserInterface);
+			mainUserInterface.HandleUserInterface();
+		} catch (InvalidCommandNameException ex) {
+			//can't be thrown, ensured by the our implementation
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidControllerException ex) {
+			//can't be thrown, ensured by the our implementation
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidWorldException ex) {
+			//can't be thrown, ensured by the our implementation
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 }

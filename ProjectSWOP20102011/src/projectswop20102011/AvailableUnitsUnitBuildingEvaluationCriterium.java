@@ -6,13 +6,13 @@ package projectswop20102011;
  */
 public class AvailableUnitsUnitBuildingEvaluationCriterium extends UnitBuildingEvaluationCriterium {
 
-    /**
-     * Validates a given unitBuilding if the given UnitBuilding is an available unit.
-     * @param unitBuilding The given UnitBuilding to validate.
-     * @return True if the UnitBuilding is a unit and can be assigned to an emergency.
-     */
-    @Override
-    public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
-        return (unitBuilding instanceof Unit && ((Unit) unitBuilding).canBeAssigned());
-    }
+	/**
+	 * Validates a given unitBuilding if the given UnitBuilding is an available unit.
+	 * @param unitBuilding The given UnitBuilding to validate.
+	 * @return True if the UnitBuilding is a unit and can be assigned to an emergency.
+	 */
+	@Override
+	public boolean isValidUnitBuilding(UnitBuilding unitBuilding) {
+		return (unitBuilding instanceof Unit && ((Unit) unitBuilding).canBeAssigned());
+	}
 }

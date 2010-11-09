@@ -8,13 +8,12 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public abstract class UnitBuilding{
+public abstract class UnitBuilding {
 
 	/**
 	 * A variable registering the name of this unit or building.
 	 */
 	private String name;
-
 	/**
 	 * A variable registering the name of this unit or building.
 	 */
@@ -29,7 +28,7 @@ public abstract class UnitBuilding{
 	 *		The home location of the new unit or building.
 	 * @effect The new unit or building has the given name.
 	 *		|setName(name)
-     * @post The home location of this unit or building is set according to the given home location.
+	 * @post The home location of this unit or building is set according to the given home location.
 	 *		|new.getHomeLocation() == homeLocation
 	 * @throws InvalidUnitBuildingNameException
 	 *		If the given name is an invalid name for a unit or building.
@@ -37,18 +36,19 @@ public abstract class UnitBuilding{
 	 *		If the given location is an invalid location for a unit or building.
 
 	 */
-	UnitBuilding(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException{
+	UnitBuilding(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException {
 		setName(name);
-		if(!isValidHomeLocation(homeLocation)){
+		if (!isValidHomeLocation(homeLocation)) {
 			throw new InvalidLocationException(String.format("\"%s\" is an invalid home location for a unit or building.", homeLocation));
 		}
 		this.homeLocation = homeLocation;
 	}
+
 	/**
 	 * Returns the name of this unit or building.
 	 * @return The name of this unit or building.
 	 */
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 
@@ -56,7 +56,7 @@ public abstract class UnitBuilding{
 	 * Returns the home location of this unit or building.
 	 * @return The home location of this unit or building.
 	 */
-	public GPSCoordinate getHomeLocation(){
+	public GPSCoordinate getHomeLocation() {
 		return homeLocation;
 	}
 
@@ -65,15 +65,15 @@ public abstract class UnitBuilding{
 	 *
 	 * @param name
 	 *		The new name of this unit or building.
-     * @throws InvalidUnitBuildingNameException
+	 * @throws InvalidUnitBuildingNameException
 	 *		If the given name isn't a valid name for a unit or building.
-     * @post The name of this unit or building is set according to the given name.
+	 * @post The name of this unit or building is set according to the given name.
 	 *		|new.getName() == name
 	 */
-	private void setName(String name) throws InvalidUnitBuildingNameException{
-		if(!isValidName(name)){
+	private void setName(String name) throws InvalidUnitBuildingNameException {
+		if (!isValidName(name)) {
 			throw new InvalidUnitBuildingNameException(String.format("\"%s\" is an invalid name for a unit or building.", name));
-		}else{
+		} else {
 			this.name = name;
 		}
 	}
@@ -85,18 +85,18 @@ public abstract class UnitBuilding{
 	 *		The name of a unit or building to test.
 	 * @return True if the name is valid; false otherwise.
 	 */
-	public static boolean isValidName(String name){
-		return ((name != null)&&(!name.equals("")));
+	public static boolean isValidName(String name) {
+		return ((name != null) && (!name.equals("")));
 	}
 
-    /**
-     * Checks if the given home location is a valid home location for a unit or building.
+	/**
+	 * Checks if the given home location is a valid home location for a unit or building.
 	 *
-     * @param homeLocation
+	 * @param homeLocation
 	 *		The home location of a unit or building to test.
-     * @return True if the home location is valid; false otherwise.
-     */
-    public static boolean isValidHomeLocation(GPSCoordinate homeLocation) {
-        return (homeLocation != null);
-    }
+	 * @return True if the home location is valid; false otherwise.
+	 */
+	public static boolean isValidHomeLocation(GPSCoordinate homeLocation) {
+		return (homeLocation != null);
+	}
 }

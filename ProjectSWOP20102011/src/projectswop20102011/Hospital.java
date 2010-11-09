@@ -12,7 +12,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  * @invar The name of a hospital is always valid.
  *		| isValidName(getName())
  */
-public class Hospital extends UnitBuilding{
+public class Hospital extends UnitBuilding {
 
 	/**
 	 * Initialize a new not-timesensitive unit or building with given parameters.
@@ -28,7 +28,7 @@ public class Hospital extends UnitBuilding{
 	 * @throws InvalidLocationException
 	 *		If the given home location is an invalid home location for this hospital.
 	 */
-	public Hospital(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException{
-		super(name,homeLocation);
+	public Hospital(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException {
+		super(name, homeLocation);
 	}
 }
