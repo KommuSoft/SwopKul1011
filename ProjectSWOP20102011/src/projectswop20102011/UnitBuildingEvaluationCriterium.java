@@ -10,7 +10,7 @@ public abstract class UnitBuildingEvaluationCriterium{
      * The validation method for a certain UnitBuilding on the criterium.
      * @param unitBuilding
 	 *		The UnitBuilding to validate.
-     * @return true if the UnitBuilding is valid according to the criterium, otherwise false.
+     * @return True if the UnitBuilding is valid according to the criterium, otherwise false.
      */
     public abstract boolean isValidUnitBuilding (UnitBuilding unitBuilding);
 
