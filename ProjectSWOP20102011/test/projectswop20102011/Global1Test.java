@@ -95,8 +95,7 @@ public class Global1Test {
         assertEquals(f1.getLocation().getX(), ziekenwagen1.getDestination().getX());
         assertEquals(f1.getLocation().getY(), ziekenwagen1.getDestination().getY());
         assertTrue(ziekenwagen1.isAssigned());
-        //TODO working units
-        //assertEquals(1, f1.getWorkingUnits());
+
 	}
 
 	@Test
@@ -114,6 +113,8 @@ public class Global1Test {
 		}
 		f1.getUnitsNeeded().assignUnitsToEmergency(units);
 
+		assertEquals(1338,f1.getUnitsNeeded().getWorkingUnits());
+
 		for(int i=0;i<aantal;i++){
 			units[i].timeAhead(1000000000);
 		}
@@ -124,6 +125,5 @@ public class Global1Test {
 			assertFalse(units[i].isAssigned());
 		}
         //TODO working units
-        //assertEquals(0, f1.getWorkingUnits());
     }
 }

@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 /**
  * A list of units and buildings where every unit and building is unique.
+ *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every UnitBuilding in this UnitBuildingList is unique.
  */
@@ -21,6 +22,7 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
     /**
      * Creating a new instance of an UnitBuildingList. At this moment this list
      * doesn't contain any object.
+	 *
      * @effect The new UnitBuildingList is a list with no elements in it.
      */
     public UnitBuildingList() {
@@ -39,7 +41,8 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      * Search for and return the UnitBuilding in the UnitBuildingList with a name equal to the given name.
      * @param name
 	 *		The name to compare with.
-     * @return The UnitBuilding in this list with a name equal to the name, or null if no such UnitBuilding can be found.
+     * @return The UnitBuilding in this list with a name equal to the name,
+	 * or null if no such UnitBuilding can be found.
      */
     public UnitBuilding getUnitBuildingFromName (String name) {
         for(UnitBuilding ub : this) {
@@ -54,7 +57,8 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      * Returns all the UnitBuildings in this UnitBuildingList that are valid to a certain UnitBuildingCriterium.
      * @param criterium
      *		The criterium to validate potential solution on.
-     * @return a list with all the UnitBuildings in this UnitBuildingList who are validated by the UnitBuildingCriterium.
+     * @return a list with all the UnitBuildings in this UnitBuildingList who are
+	 * validated by the UnitBuildingCriterium.
      */
     public UnitBuildingList getUnitBuildingsByCriterium(UnitBuildingEvaluationCriterium criterium) {
         UnitBuildingList list = new UnitBuildingList();
@@ -70,7 +74,7 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      * Adds the given UnitBuilding to this list if the given UnitBuilding
      * is not already in this list of units and buildings.
      * @param ub
-     *		UnitBuilding to be appended to this list of units and buildings.
+     *		The UnitBuilding to be appended to this list of units and buildings.
      * @post This UnitBuildingList contains the given UnitBuilding.
      */
     public void addUnitBuilding(UnitBuilding ub) {
@@ -96,7 +100,6 @@ public class UnitBuildingList implements Iterable<UnitBuilding> {
      *		The given comparator.
      * @return A list of UnitBuilding correctly sorted.
      */
-	//TODO Dit moet nog ergens gebruikt worden.
     public <T extends UnitBuilding> ArrayList<T> sort(Comparator<T> comparator) {
         ArrayList<T> result = new ArrayList<T>();
 
