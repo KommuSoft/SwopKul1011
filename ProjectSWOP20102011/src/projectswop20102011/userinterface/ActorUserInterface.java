@@ -16,7 +16,7 @@ public class ActorUserInterface extends UserInterface {
      * @param actorName The name of the actor.
      * @param commands A list of commands used by the actor.
      */
-    protected ActorUserInterface(String actorName, CommandUserInterface... commands) {
+    public ActorUserInterface(String actorName, CommandUserInterface... commands) {
         this.actorName = actorName;
         this.commandUserInterfaces = new Hashtable<String, CommandUserInterface>();
         this.AddCommands(commands);
