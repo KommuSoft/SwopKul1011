@@ -1,10 +1,13 @@
 package projectswop20102011.controllers;
 
+import java.util.Map.Entry;
+import java.util.Set;
 import projectswop20102011.AvailableUnitsUnitBuildingEvaluationCriterium;
 import projectswop20102011.Emergency;
 import projectswop20102011.Unit;
 import projectswop20102011.UnitBuildingEvaluationCriterium;
 import projectswop20102011.UnitToEmergencyDistanceComparator;
+import projectswop20102011.UnitsNeeded;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -25,6 +28,10 @@ public class DispatchUnitsController extends Controller {
     public Unit[] getAvailableUnitsSorted (Emergency emergency) throws InvalidEmergencyException {
         UnitBuildingEvaluationCriterium criterium = new AvailableUnitsUnitBuildingEvaluationCriterium();
         return this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency)).toArray(new Unit[0]);
+    }
+
+    public UnitsNeeded getNeededUnits(Emergency selectedEmergency) {
+        return selectedEmergency.getUnitsNeeded();
     }
 
 }

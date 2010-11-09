@@ -12,11 +12,16 @@ import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- *
+ * A controller for the SelectHospitalController (use case #5).
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class SelectHospitalController extends Controller {
 
+    /**
+     * Creates a new instance of a SelectHospitalController with a reference to the world, who will be manipulated.
+     * @param world A world containing a domain.
+     * @throws InvalidWorldException If the world is invalid.
+     */
     public SelectHospitalController (World world) throws InvalidWorldException {
         super(world);
     }

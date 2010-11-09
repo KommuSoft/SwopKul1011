@@ -9,6 +9,7 @@ import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.userinterface.parsers.IntegerParser;
@@ -47,21 +48,31 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                 } else if (amb.isAtDestination()) {
                     this.writeOutput("Ambulance is not at the location of the emergency");
                 } else {
-                    Hospital[] hospitals = this.getController().getHospitalList(amb);
-                    if (hospitals.length > 0) {
-                        int selected = this.parseInputToType(new IntegerParser(), "selected hospital id");
-                        if (selected < 0 || selected >= hospitals.length) {
-                            this.writeOutput("Couldn't find hospital id.");
-                        } else {
-                            try {
-                                this.getController().SelectHospital(amb, hospitals[selected]);
-                                this.writeOutput("Select Hosital Done!");
-                            } catch (Exception ex) {
-                                this.writeOutput(String.format("ERROR: %s",ex.getMessage()));
+                    Hospital[] hospitals;
+                    try {
+                        hospitals = this.getController().getHospitalList(amb);
+                        if (hospitals.length > 0) {
+                            for(int i = 0; i < hospitals.length; i++) {
+                                Hospital h = hospitals[i];
+                                double distance = h.getHomeLocation().getDistanceTo(amb.getEmergency().getLocation());
+                                this.writeOutput(String.format("%s\t|\t%s\t|\t%s",i,hospitals,distance));
                             }
+                            int selected = this.parseInputToType(new IntegerParser(), "selected hospital id");
+                            if (selected < 0 || selected >= hospitals.length) {
+                                this.writeOutput("Couldn't find hospital id.");
+                            } else {
+                                try {
+                                    this.getController().SelectHospital(amb, hospitals[selected]);
+                                    this.writeOutput("Select Hosital Done!");
+                                } catch (Exception ex) {
+                                    this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+                                }
+                            }
+                        } else {
+                            this.writeOutput("No hospitals found!");
                         }
-                    } else {
-                        this.writeOutput("No hospitals found!");
+                    } catch (Exception ex) {
+                        this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                     }
                 }
                 this.writeOutput(String.format("Logout %s", amb));
