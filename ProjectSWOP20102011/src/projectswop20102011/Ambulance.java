@@ -51,6 +51,19 @@ public class Ambulance extends Unit {
         return currentHospital;
     }
 
+	/**
+     * Returns the destination of this Ambulance.
+     * @return The location of the assigned hospital if the ambulance has a hospital as destination, otherwise the homelocation or the location of the emergency..
+     */
+	@Override
+    public GPSCoordinate getDestination() {
+		if(getCurrentHospital() == null){
+			return super.getDestination();
+		} else {
+			return getCurrentHospital().getHomeLocation();
+		}
+    }
+
     /**
      * Sets the current hospital chosen by this ambulance.
      * @param hospital
@@ -75,10 +88,10 @@ public class Ambulance extends Unit {
         if (hospital == null) {
             throw new InvalidHospitalException("The selected hospital must be effective");
         }
-        if (!this.isAssigned() || !this.isAtDestination()) {
+        if (!isAssigned() || !isAtDestination()) {
             throw new InvalidAmbulanceException("Ambulance must be assigned and at the emergency.");
         }
-        this.setCurrentHospital(hospital);
+        setCurrentHospital(hospital);
     }
 
     /**
