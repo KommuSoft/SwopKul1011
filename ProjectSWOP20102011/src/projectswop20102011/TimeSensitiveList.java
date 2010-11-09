@@ -42,7 +42,7 @@ public class TimeSensitiveList implements Iterable<TimeSensitive>{
      * @post This TimeSensitiveList contains the given TimeSensitive.
 	 *		|new.getTimeSensitives().contains(ub)
      */
-    void addTimeSensitive(TimeSensitive ub) {
+    public void addTimeSensitive(TimeSensitive ub) {
         if(!getTimeSensitives().contains(ub)) {
 			timeSensitives.add(ub);
 		}

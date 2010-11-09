@@ -37,7 +37,7 @@ public class EndOfEmergencyUserInterface extends CommandUserInterface {
                 }
                 this.writeOutput(String.format("logout %s.", unit));
             } else {
-                this.writeOutput(String.format("Can't find a unit named \"%s\"", unit));
+                this.writeOutput(String.format("Can't find a unit named \"%s\"", name));
             }
         } catch (ParsingAbortedException ex) {
             this.writeOutput("Command aborted.");

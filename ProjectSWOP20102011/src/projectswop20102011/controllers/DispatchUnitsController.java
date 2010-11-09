@@ -34,4 +34,8 @@ public class DispatchUnitsController extends Controller {
         return selectedEmergency.getUnitsNeeded();
     }
 
+    public void dispatchToEmergency(Emergency selectedEmergency, Unit[] units) throws InvalidEmergencyException {
+        selectedEmergency.getUnitsNeeded().assignUnitsToEmergency(units);
+    }
+
 }

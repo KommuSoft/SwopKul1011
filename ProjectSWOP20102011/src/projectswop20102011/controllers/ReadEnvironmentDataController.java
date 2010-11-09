@@ -5,6 +5,7 @@ import projectswop20102011.Firetruck;
 import projectswop20102011.GPSCoordinate;
 import projectswop20102011.Hospital;
 import projectswop20102011.Policecar;
+import projectswop20102011.Unit;
 import projectswop20102011.UnitBuilding;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -25,20 +26,29 @@ public class ReadEnvironmentDataController extends Controller {
     private void addUnitBuildingToUnitBuildingList(UnitBuilding ub) {
         this.getWorld().getUnitBuildingList().addUnitBuilding(ub);
     }
+    private void addUnitToTimeSensitiveList (Unit unit) {
+        this.getWorld().getTimeSensitiveList().addTimeSensitive(unit);
+    }
 
     public void addHospital(String name, GPSCoordinate coordinate) throws InvalidUnitBuildingNameException, InvalidLocationException {
         this.addUnitBuildingToUnitBuildingList(new Hospital(name, coordinate));
     }
 
     public void addFiretruck(String name, GPSCoordinate coordinate, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
-        this.addUnitBuildingToUnitBuildingList(new Firetruck(name, coordinate, speed));
+        Unit u = new Firetruck(name, coordinate, speed);
+        this.addUnitBuildingToUnitBuildingList(u);
+        this.addUnitToTimeSensitiveList(u);
     }
 
     public void addPolicecar(String name, GPSCoordinate coordinate, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
-        this.addUnitBuildingToUnitBuildingList(new Policecar(name, coordinate, speed));
+        Unit u = new Policecar(name, coordinate, speed);
+        this.addUnitBuildingToUnitBuildingList(u);
+        this.addUnitToTimeSensitiveList(u);
     }
 
     public void addAmbulance(String name, GPSCoordinate coordinate, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
-        this.addUnitBuildingToUnitBuildingList(new Ambulance(name, coordinate, speed));
+        Unit u = new Ambulance(name, coordinate, speed);
+        this.addUnitBuildingToUnitBuildingList(u);
+        this.addUnitToTimeSensitiveList(u);
     }
 }
