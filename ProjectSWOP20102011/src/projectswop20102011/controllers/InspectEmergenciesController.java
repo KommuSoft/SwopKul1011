@@ -1,9 +1,16 @@
 package projectswop20102011.controllers;
 
+import java.util.Map.Entry;
+import java.util.Set;
+import projectswop20102011.AvailableUnitsUnitBuildingEvaluationCriterium;
 import projectswop20102011.Emergency;
 import projectswop20102011.EmergencyEvaluationCriterium;
 import projectswop20102011.EmergencyStatus;
 import projectswop20102011.StatusEqualityEmergencyEvaluationCriterium;
+import projectswop20102011.Unit;
+import projectswop20102011.UnitBuilding;
+import projectswop20102011.UnitBuildingEvaluationCriterium;
+import projectswop20102011.UnitBuildingList;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
@@ -43,6 +50,21 @@ public class InspectEmergenciesController extends Controller {
     public Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) {
         EmergencyEvaluationCriterium criterium = new StatusEqualityEmergencyEvaluationCriterium(status);
         return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).getEmergencyFromId(id);
+    }
+
+    public Set<Entry<String, String>> getEmergencyShortInformation(Emergency e) {
+        return e.getShortInformation().entrySet();
+    }
+    public boolean canBeAssigned (Emergency e) {
+        UnitBuildingEvaluationCriterium criterium = new AvailableUnitsUnitBuildingEvaluationCriterium();
+        UnitBuildingList availableUnitsList = this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium);
+        UnitBuilding[] ubs = availableUnitsList.toArray();
+        Unit[] units = new Unit[ubs.length];
+        int i = 0;
+        for(UnitBuilding ub : ubs) {
+            units[i++] = (Unit) ub;
+        }
+        return e.getUnitsNeeded().canAssignUnitsToEmergency(units);
     }
 
 }

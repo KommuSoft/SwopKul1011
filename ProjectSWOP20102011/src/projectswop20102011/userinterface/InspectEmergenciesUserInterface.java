@@ -1,5 +1,7 @@
 package projectswop20102011.userinterface;
 
+import java.util.Map.Entry;
+import java.util.Set;
 import projectswop20102011.Emergency;
 import projectswop20102011.EmergencyStatus;
 import projectswop20102011.controllers.InspectEmergenciesController;
@@ -32,6 +34,21 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
         return this.controller;
     }
 
+    /**
+     * Build a short textual representation of the given emergency.
+     * @param emergency The given emergency to convert.
+     * @return A textual representation of the given Emergency.
+     */
+    private String getShortInformationString(Emergency emergency) {
+        String result = String.format("[type=%s", emergency.getClass().getSimpleName());
+        result += String.format("; assignable=%s", this.getController().canBeAssigned(emergency));
+        Set<Entry<String, String>> set = this.getController().getEmergencyShortInformation(emergency);
+        for (Entry<String, String> e : set) {
+            result += String.format("; %s=%s", e.getKey(), e.getValue());
+        }
+        return result + "]";
+    }
+
     @Override
     public void HandleUserInterface() {
         boolean viewOtherList, viewEmergencyDetail;
@@ -42,7 +59,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
                 Emergency[] emergencies = this.getController().inspectEmergenciesOnStatus(status);
                 this.writeOutput(String.format("Founded emergencies (%s):", emergencies.length));
                 for (Emergency em : emergencies) {
-                    this.writeOutput(String.format("\t%s", em.getLongInformation()));
+                    this.writeOutput(String.format("\t%s", this.getShortInformationString(em)));
                 }
                 do {
                     viewEmergencyDetail = true;
