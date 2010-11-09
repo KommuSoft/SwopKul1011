@@ -219,6 +219,7 @@ public class Fire extends Emergency {
 		information.put("chemical", ""+isChemical());
 		information.put("trapped people", ""+getTrappedPeople());
 		information.put("number of injured", ""+getNumberOfInjured());
+		information.put("description", ""+getDescription());
 
 		return information;
 	}

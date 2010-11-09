@@ -32,7 +32,7 @@ public class RobberyTest {
 
     @Test
     public void testConstructor() throws InvalidLocationException, InvalidEmergencySeverityException {
-        r1 = new Robbery(gp1, es1, armed1, inProgress1);
+        r1 = new Robbery(gp1, es1, "", armed1, inProgress1);
         assertEquals(x1, r1.getLocation().getX());
         assertEquals(y1, r1.getLocation().getY());
         assertEquals(EmergencySeverity.SERIOUS, r1.getSeverity());
@@ -42,17 +42,17 @@ public class RobberyTest {
 
     @Test(expected = InvalidLocationException.class)
     public void testConstructorException1() throws InvalidLocationException, InvalidEmergencySeverityException {
-        r1 = new Robbery(null, es1, armed1, inProgress1);
+        r1 = new Robbery(null, es1, "", armed1, inProgress1);
     }
 
     @Test(expected = InvalidEmergencySeverityException.class)
     public void testConstructorException2() throws InvalidLocationException, InvalidEmergencySeverityException {
-        r1 = new Robbery(gp1, null, armed1, inProgress1);
+        r1 = new Robbery(gp1, null, "", armed1, inProgress1);
     }
 
 	@Test
 	public void testUnitsNeededNotArmedNotInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
-		r1 = new Robbery(gp1, es1, armed1, inProgress1);
+		r1 = new Robbery(gp1, es1, "", armed1, inProgress1);
 		un1 = r1.calculateUnitsNeeded();
 
 		boolean policecar = false;
@@ -69,7 +69,7 @@ public class RobberyTest {
 
 	@Test
 	public void testUnitsNeededNotArmedInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
-		r1 = new Robbery(gp1, es1, armed1, inProgress2);
+		r1 = new Robbery(gp1, es1, "", armed1, inProgress2);
 		un1 = r1.calculateUnitsNeeded();
 
 		boolean policecar = false;
@@ -86,7 +86,7 @@ public class RobberyTest {
 
 	@Test
 	public void testUnitsNeededArmedNotInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
-		r1 = new Robbery(gp1, es1, armed2, inProgress1);
+		r1 = new Robbery(gp1, es1, "", armed2, inProgress1);
 		un1 = r1.calculateUnitsNeeded();
 
 		boolean policecar = false;
@@ -103,7 +103,7 @@ public class RobberyTest {
 
 	@Test
 	public void testUnitsNeededArmedInProgress() throws InvalidLocationException, InvalidEmergencySeverityException{
-		r1 = new Robbery(gp1, es1, armed2, inProgress2);
+		r1 = new Robbery(gp1, es1, "", armed2, inProgress2);
 		un1 = r1.calculateUnitsNeeded();
 
 		boolean policecar = false;

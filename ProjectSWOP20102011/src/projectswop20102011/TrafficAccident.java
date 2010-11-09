@@ -139,6 +139,7 @@ public class TrafficAccident extends Emergency {
 
 		information.put("number of cars", ""+getNumberOfCars());
 		information.put("number of injured", ""+getNumberOfInjured());
+		information.put("description", ""+getDescription());
 
 		return information;
 	}

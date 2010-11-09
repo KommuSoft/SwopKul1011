@@ -122,7 +122,7 @@ public class UnitBuildingListTest {
 
     @Test
     public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException, InvalidEmergencyException {
-        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, FireSize.LOCAL, true, 1, 6);
+        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, "",FireSize.LOCAL, true, 1, 6);
         hdc = new HospitalToEmergencyDistanceComparator(f1);
         ubl1.addUnitBuilding(h2);
         ubl1.addUnitBuilding(h1);

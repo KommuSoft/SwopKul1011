@@ -74,7 +74,7 @@ public class Global1Test {
 	public void testAssignToFire() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException {
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 1, 2);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
@@ -105,7 +105,7 @@ public class Global1Test {
 	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException {
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
 		//ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 
 		Unit[] units = new Unit[1338];
@@ -131,7 +131,7 @@ public class Global1Test {
 
 	@Test
 	public void testSelectHospital() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingNameException, InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidAmbulanceException, InvalidHospitalException {
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 1, 2);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);

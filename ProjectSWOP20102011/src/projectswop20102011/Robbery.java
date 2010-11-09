@@ -103,6 +103,7 @@ public class Robbery extends Emergency {
 
 		information.put("armed", ""+isArmed());
 		information.put("in progress", ""+isInProgress());
+		information.put("description", ""+getDescription());
 
 		return information;
     }

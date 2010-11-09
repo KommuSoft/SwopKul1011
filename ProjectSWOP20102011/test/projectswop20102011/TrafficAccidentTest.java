@@ -33,7 +33,7 @@ public class TrafficAccidentTest {
 
     @Test
     public void testConstructor() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, nmbOfInjured1);
+        ta1 = new TrafficAccident(gp1, es1, "", nmbOfCars1, nmbOfInjured1);
         assertEquals(x1, ta1.getLocation().getX());
         assertEquals(y1, ta1.getLocation().getY());
         assertEquals(EmergencySeverity.SERIOUS, ta1.getSeverity());
@@ -43,27 +43,27 @@ public class TrafficAccidentTest {
 
     @Test(expected = InvalidLocationException.class)
     public void testConstructorException1() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        ta1 = new TrafficAccident(null, es1, nmbOfCars1, nmbOfInjured1);
+        ta1 = new TrafficAccident(null, es1, "", nmbOfCars1, nmbOfInjured1);
     }
 
     @Test(expected = InvalidEmergencySeverityException.class)
     public void testConstructorException2() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        ta1 = new TrafficAccident(gp1, null, nmbOfCars1, nmbOfInjured1);
+        ta1 = new TrafficAccident(gp1, null, "", nmbOfCars1, nmbOfInjured1);
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
     public void testConstructorException3() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        ta1 = new TrafficAccident(gp1, es1, -1, nmbOfInjured1);
+        ta1 = new TrafficAccident(gp1, es1, "", -1, nmbOfInjured1);
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
     public void testConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, -1);
+        ta1 = new TrafficAccident(gp1, es1, "", nmbOfCars1, -1);
     }
 
 	@Test
 	public void testUnitsNeededManyCarsManyInjured() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-		ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, nmbOfInjured1);
+		ta1 = new TrafficAccident(gp1, es1, "", nmbOfCars1, nmbOfInjured1);
 		un1 = ta1.calculateUnitsNeeded();
 
 		assertEquals(3, un1.getUnits().length);
@@ -105,7 +105,7 @@ public class TrafficAccidentTest {
 
 	@Test
 	public void testUnitsNeededFewCarsManyInjured() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-		ta1 = new TrafficAccident(gp1, es1, nmbOfCars2, nmbOfInjured2);
+		ta1 = new TrafficAccident(gp1, es1, "", nmbOfCars2, nmbOfInjured2);
 		un1 = ta1.calculateUnitsNeeded();
 
 		boolean firetruck = false;
@@ -133,7 +133,7 @@ public class TrafficAccidentTest {
 
 	@Test
 	public void testUnitsNeededFewCarsNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-		ta1 = new TrafficAccident(gp1, es1, nmbOfCars2, nmbOfInjured3);
+		ta1 = new TrafficAccident(gp1, es1, "", nmbOfCars2, nmbOfInjured3);
 		un1 = ta1.calculateUnitsNeeded();
 
 		boolean firetruck = false;
@@ -150,7 +150,7 @@ public class TrafficAccidentTest {
 
 	@Test
 	public void testUnitsNeededManyCarsNoInjured() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-		ta1 = new TrafficAccident(gp1, es1, nmbOfCars1, nmbOfInjured3);
+		ta1 = new TrafficAccident(gp1, es1, "", nmbOfCars1, nmbOfInjured3);
 		un1 = ta1.calculateUnitsNeeded();
 
 		boolean firetruck = false;

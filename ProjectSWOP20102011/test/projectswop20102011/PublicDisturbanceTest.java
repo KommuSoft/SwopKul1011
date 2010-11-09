@@ -29,7 +29,7 @@ public class PublicDisturbanceTest {
 
     @Test
     public void testConstructor() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
+        pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
         assertEquals(x1, pd1.getLocation().getX());
         assertEquals(y1, pd1.getLocation().getY());
         assertEquals(EmergencySeverity.SERIOUS, pd1.getSeverity());
@@ -39,27 +39,27 @@ public class PublicDisturbanceTest {
 
     @Test(expected = InvalidLocationException.class)
     public void testConstructorException1() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        pd1 = new PublicDisturbance(null, es1, nmbOfPeople1);
+        pd1 = new PublicDisturbance(null, es1, "", nmbOfPeople1);
     }
 
     @Test(expected = InvalidEmergencySeverityException.class)
     public void testConstructorException2() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        pd1 = new PublicDisturbance(gp1, null, nmbOfPeople1);
+        pd1 = new PublicDisturbance(gp1, null, "", nmbOfPeople1);
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
     public void testConstructorException3() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        pd1 = new PublicDisturbance(gp1, es1, 0);
+        pd1 = new PublicDisturbance(gp1, es1, "", 0);
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
     public void testConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
-        pd1 = new PublicDisturbance(gp1, es1, -1425);
+        pd1 = new PublicDisturbance(gp1, es1, "", -1425);
     }
 
 	@Test
 	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
-		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
+		pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
 		un1 = pd1.calculateUnitsNeeded();
 
 		boolean policecar = false;
@@ -77,13 +77,13 @@ public class PublicDisturbanceTest {
 	@Test(expected = InvalidEmergencyStatusException.class)
 	public void testSetStatus() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidEmergencyStatusException, NumberOutOfBoundsException{
 		EmergencyStatus es = null;
-		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
+		pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
 		pd1.setStatus(es);
 	}
 	
 	@Test
 	public void testGetId() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
-		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
+		pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
 		assertTrue(pd1.getId()>=0);
 	}
 }

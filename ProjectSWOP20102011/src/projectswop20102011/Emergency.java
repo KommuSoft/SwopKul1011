@@ -244,7 +244,7 @@ public abstract class Emergency {
 	 * This hashtable contains the id, location, severity, status and the working units.
 	 * @return A hashtable that contains the information of this emergency.
 	 */
-    public Hashtable<String, String> getInformation() {
+    protected Hashtable<String, String> getInformation() {
 		Hashtable<String, String> information = new Hashtable<String, String>();
 
 		information.put("id", ""+getId());

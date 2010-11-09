@@ -51,7 +51,7 @@ public class FiretruckTest {
 	public void testTimeAhead() throws InvalidLocationException, InvalidUnitBuildingNameException,
 			InvalidSpeedException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 0);
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name,homeLocation,speed1);
 
 		Unit[] units = {brandweerwagen};
@@ -68,7 +68,7 @@ public class FiretruckTest {
     public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
             InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException,
             NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException {
-        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 0);
+        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
         brandweerwagen = new Firetruck(name, homeLocation, speed1);
 
         Unit[] units = {brandweerwagen};
