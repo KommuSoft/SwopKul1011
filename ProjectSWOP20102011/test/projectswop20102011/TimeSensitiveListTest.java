@@ -102,23 +102,4 @@ public class TimeSensitiveListTest {
         assertTrue(element1 != element2 && (element2 == a1 || element2 == a2));
         assertFalse(it1.hasNext());
     }
-
-    //TODO: repair test
-    /*@Test
-	public void testTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
-			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidAmbulanceException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, FireSize.LOCAL, false, 0, 1337);
-
-		a1.assignTo(f1);
-		a2.assignTo(f1);
-		tsl1.addTimeSensitive(a1);
-        tsl1.addTimeSensitive(a2);
-
-		tsl1.timeAhead((int) duration);
-
-		assertEquals(446,a1.getCurrentLocation().getX());
-		assertEquals(687,a1.getCurrentLocation().getY());
-		assertEquals(1302,a2.getCurrentLocation().getX());
-		assertEquals(2031,a2.getCurrentLocation().getY());
-	}*/
 }

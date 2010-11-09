@@ -124,6 +124,5 @@ public class Global1Test {
 		for(int i=0;i<aantal;i++){
 			assertFalse(units[i].isAssigned());
 		}
-        //TODO working units
     }
 }

@@ -80,13 +80,6 @@ public class PublicDisturbanceTest {
 		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
 		pd1.setStatus(es);
 	}
-
-	@Test
-	public void testGetWorkingUnits() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
-		pd1 = new PublicDisturbance(gp1, es1, nmbOfPeople1);
-		//TODO working units
-		//assertEquals(0, pd1.getWorkingUnits());
-	}
 	
 	@Test
 	public void testGetId() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
