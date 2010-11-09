@@ -16,11 +16,12 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 
 	/**
 	 * Creates a new UnitToEmergencyDistanceComparator with the given emergency.
+	 *
 	 * @param emergency
 	 *		The emergency of the new UnitToEmergencyDistanceComparator.
 	 * @throws InvalidEmergencyException
 	 *		If the given emergency is an invalid Emergency.
-	 * @post This emergency is equal to the given emergency.
+	 * @post This emergency is set according to the given emergency.
 	 *		|new.getEmergency()==emergency
 	 */
 	public UnitToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException{
@@ -41,6 +42,7 @@ public class UnitToEmergencyDistanceComparator implements Comparator<Unit> {
 
 	/**
 	 * Compares the distance of the two units to the emergency.
+	 *
 	 * @param unit1
 	 *		Unit number one.
 	 * @param unit2
