@@ -42,10 +42,8 @@ public class Main {
 		try {
 			EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Type in the path to the environment file?");
-			String environmentFile = reader.readLine();
 			try {
-				FileInputStream fis = new FileInputStream(environmentFile);
+				FileInputStream fis = new FileInputStream(args[0]);
 				er.readEnvironmentData(fis);
 				fis.close();
 			} catch (Exception ex) {
