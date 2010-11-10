@@ -49,6 +49,21 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
         return result + "]";
     }
 
+    /**
+     * Build a short textual representation of the given emergency.
+     * @param emergency The given emergency to convert.
+     * @return A textual representation of the given Emergency.
+     */
+    private String getLongInformationString (Emergency emergency) {
+        String result = String.format("\ttype=%s", emergency.getClass().getSimpleName());
+        result += String.format("\n\tassignable=%s", this.getController().canBeAssigned(emergency));
+        Set<Entry<String, String>> set = this.getController().getEmergencyLongInformation(emergency);
+        for (Entry<String, String> e : set) {
+            result += String.format("\n\t%s=%s", e.getKey(), e.getValue());
+        }
+        return result;
+    }
+
     @Override
     public void HandleUserInterface() {
         boolean viewOtherList, viewEmergencyDetail;
@@ -65,7 +80,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
                     viewEmergencyDetail = true;
                     this.writeOutput("Type in an id, to view an details of an emergency,");
                     this.writeOutput("otherwise type \"other list\", to view another list");
-                    this.writeOutput("finally type \"quit\", to end this command");
+                    this.writeOutput("finally type \"quit\", to end inspecting emergencies");
                     String input = this.readInput().toLowerCase();
                     if (input.equals("quit")) {
                         return;
@@ -77,7 +92,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
                             long id = Long.parseLong(input);
                             Emergency emergency = this.getController().inspectEmergencyDetailOnStatusId(status, id);
                             if (emergency != null) {
-                                this.writeOutput(String.format("\t%s", emergency.getLongInformation()));
+                                this.writeOutput(this.getLongInformationString(emergency));
                             } else {
                                 this.writeOutput("ERROR: can't find the asked emergency, please try again.");
                             }

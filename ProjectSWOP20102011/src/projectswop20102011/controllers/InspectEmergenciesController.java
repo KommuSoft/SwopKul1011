@@ -67,4 +67,8 @@ public class InspectEmergenciesController extends Controller {
         return e.getUnitsNeeded().canAssignUnitsToEmergency(units);
     }
 
+    public Set<Entry<String, String>> getEmergencyLongInformation(Emergency emergency) {
+        return emergency.getLongInformation().entrySet();
+    }
+
 }
