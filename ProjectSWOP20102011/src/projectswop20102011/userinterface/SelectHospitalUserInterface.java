@@ -45,7 +45,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                 this.writeOutput(String.format("Login %s", amb));
                 if (!amb.isAssigned()) {
                     this.writeOutput("Ambulance is not assigned to an emergency");
-                } else if (amb.isAtDestination()) {
+                } else if (!amb.isAtDestination()) {
                     this.writeOutput("Ambulance is not at the location of the emergency");
                 } else {
                     Hospital[] hospitals;
@@ -55,7 +55,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                             for(int i = 0; i < hospitals.length; i++) {
                                 Hospital h = hospitals[i];
                                 double distance = h.getHomeLocation().getDistanceTo(amb.getEmergency().getLocation());
-                                this.writeOutput(String.format("%s\t|\t%s\t|\t%s",i,hospitals,distance));
+                                this.writeOutput(String.format("%s\t|\t%s\t|\t%s",i,h.getName(),distance));
                             }
                             int selected = this.parseInputToType(new IntegerParser(), "selected hospital id");
                             if (selected < 0 || selected >= hospitals.length) {

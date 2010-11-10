@@ -261,11 +261,11 @@ public abstract class Unit extends UnitBuilding implements TimeSensitive {
 	 */
 	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
 		if (getEmergency() != null) {
-			if (getCurrentLocation().equals(getEmergency().getLocation())) {
-				getEmergency().getUnitsNeeded().setWorkingUnits(getEmergency().getUnitsNeeded().getWorkingUnits() - 1);
+			if (this.isAtDestination()) {
+				getEmergency().getUnitsNeeded().unitFinishedJob();
 				setEmergency(null);
 			} else {
-				throw new InvalidLocationException("The unit is not at the location of the emergency.");
+				throw new InvalidLocationException("The unit is not at it's destination.");
 			}
 		} else {
 			throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");

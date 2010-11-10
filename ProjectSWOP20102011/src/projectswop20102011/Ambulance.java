@@ -107,7 +107,7 @@ public class Ambulance extends Unit {
 	 */
 	@Override
 	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
+                super.finishedJob();
 		this.setCurrentHospital(null);
-		super.finishedJob();
 	}
 }

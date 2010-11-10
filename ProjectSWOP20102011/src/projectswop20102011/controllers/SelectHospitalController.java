@@ -42,8 +42,9 @@ public class SelectHospitalController extends Controller {
      * @return A list of the hospitals sorted on the distance to the location of the assigned emergency of the ambulance.
      */
     public Hospital[] getHospitalList (Ambulance ambulance) throws InvalidEmergencyException {
+        TypeUnitBuildingEvaluationCriterium tubec = new TypeUnitBuildingEvaluationCriterium(Hospital.class);
         HospitalToEmergencyDistanceComparator comparator = new HospitalToEmergencyDistanceComparator(ambulance.getEmergency());
-        return this.getWorld().getUnitBuildingList().sort(comparator).toArray(new Hospital[0]);
+        return this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(tubec).sort(comparator).toArray(new Hospital[0]);
     }
 
     /**
