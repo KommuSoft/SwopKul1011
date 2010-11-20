@@ -1,14 +1,5 @@
 package projectswop20102011.userinterface;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import projectswop20102011.EmergencySeverity;
-import projectswop20102011.EmergencyStatus;
-import projectswop20102011.FireSize;
-import projectswop20102011.GPSCoordinate;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
-import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 
 /**

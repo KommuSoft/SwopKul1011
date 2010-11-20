@@ -1,11 +1,8 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.TimeSensitive;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidDurationException;
-import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidWorldException;
-import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
  * A controller used to go forward in time (use case #7).

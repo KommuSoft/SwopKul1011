@@ -3,8 +3,6 @@ package projectswop20102011.userinterface;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.Emergency;
 import projectswop20102011.Unit;
 import projectswop20102011.UnitsNeeded;

@@ -1,16 +1,10 @@
 package projectswop20102011.userinterface;
 
-import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.Ambulance;
 import projectswop20102011.Hospital;
 import projectswop20102011.controllers.SelectHospitalController;
-import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.userinterface.parsers.IntegerParser;
 import projectswop20102011.userinterface.parsers.StringParser;

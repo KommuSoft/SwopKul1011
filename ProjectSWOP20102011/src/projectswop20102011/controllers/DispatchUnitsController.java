@@ -1,7 +1,5 @@
 package projectswop20102011.controllers;
 
-import java.util.Map.Entry;
-import java.util.Set;
 import projectswop20102011.AvailableUnitsUnitBuildingEvaluationCriterium;
 import projectswop20102011.Emergency;
 import projectswop20102011.Unit;
