@@ -1,0 +1,31 @@
+<XMI xmi.version="1.2"  xmlns:UML="org.omg.xmi.namespace.UML"  timestamp="10 november 2010 1:13:37 CET" >
+<XMI.content>
+<UML:Diagram isVisible="false"  zoom="1.0"  name="use case handle emergency"  xmi.id="DCE.504C6E80-4DAF-15D0-2321-76D39DE0CC38" >
+<UML:GraphElement.position>
+     <XMI.field>0</XMI.field>
+     <XMI.field>0</XMI.field>
+</UML:GraphElement.position>
+<UML:GraphNode.size>
+     <XMI.field>0</XMI.field>
+     <XMI.field>0</XMI.field>
+</UML:GraphNode.size>
+<UML:Diagram.viewport>
+     <XMI.field>0</XMI.field>
+     <XMI.field>0</XMI.field>
+</UML:Diagram.viewport>
+<UML:DiagramElement.property>
+<UML:Property value="DCE.2A1B2572-38F5-CC88-97C1-EC70F37F9723"  key="netbeans-diagram-namespace" />
+<UML:Property value="DCE.60CEF279-89FD-8C8D-B744-B71692C0C277"  xmi.id="Property2_PEID"  key="netbeans-diagram-projectID" />
+<UML:Property value="false"  key="Show Message Numbers" />
+<UML:Property value="true"  key="Show Return Messages" />
+</UML:DiagramElement.property>
+<UML:GraphElement.semanticModel>
+<UML:SimpleSemanticModelElement presentation=""  xmi.id="DCE.504C6E80-4DAF-15D0-2321-76D39DE0CC38"  typeinfo="Sequence Diagram" />
+</UML:GraphElement.semanticModel>
+<UML:GraphElement.contained>
+</UML:GraphElement.contained>
+<UML:Diagram.owner>
+</UML:Diagram.owner>
+</UML:Diagram>
+</XMI.content>
+</XMI>
