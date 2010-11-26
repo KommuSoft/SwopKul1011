@@ -4,16 +4,10 @@ import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.exceptions.InvalidAmbulanceException;
-import projectswop20102011.exceptions.InvalidDurationException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
-import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidTimeSensitiveException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
-import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class TimeSensitiveListTest {
 

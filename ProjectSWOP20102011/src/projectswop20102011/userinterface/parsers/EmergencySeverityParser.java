@@ -1,7 +1,5 @@
 package projectswop20102011.userinterface.parsers;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.EmergencySeverity;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.ParsingException;

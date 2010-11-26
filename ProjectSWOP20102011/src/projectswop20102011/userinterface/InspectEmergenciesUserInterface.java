@@ -78,9 +78,9 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
                 }
                 do {
                     viewEmergencyDetail = true;
-                    this.writeOutput("Type in an id, to view an details of an emergency,");
-                    this.writeOutput("otherwise type \"other list\", to view another list");
-                    this.writeOutput("finally type \"quit\", to end inspecting emergencies");
+                    this.writeOutput("Type in an id to view any details of an emergency,");
+                    this.writeOutput("otherwise type \"other list\" to view another list,");
+                    this.writeOutput("finally type \"quit\" to end inspecting emergencies.");
                     String input = this.readInput().toLowerCase();
                     if (input.equals("quit")) {
                         return;
