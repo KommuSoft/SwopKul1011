@@ -1,7 +1,7 @@
 package projectswop20102011.userinterface;
 
-import projectswop20102011.Ambulance;
-import projectswop20102011.Hospital;
+import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Hospital;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;

@@ -1,9 +1,9 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.TypeUnitBuildingEvaluationCriterium;
-import projectswop20102011.Unit;
-import projectswop20102011.UnitBuildingEvaluationCriterium;
-import projectswop20102011.World;
+import projectswop20102011.domain.TypeUnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.Unit;
+import projectswop20102011.domain.UnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidUnitException;

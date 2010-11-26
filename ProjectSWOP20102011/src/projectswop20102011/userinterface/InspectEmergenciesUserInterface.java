@@ -2,8 +2,8 @@ package projectswop20102011.userinterface;
 
 import java.util.Map.Entry;
 import java.util.Set;
-import projectswop20102011.Emergency;
-import projectswop20102011.EmergencyStatus;
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;

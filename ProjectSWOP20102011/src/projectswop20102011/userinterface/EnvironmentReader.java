@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import projectswop20102011.GPSCoordinate;
+import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.userinterface.parsers.GPSCoordinateParser;

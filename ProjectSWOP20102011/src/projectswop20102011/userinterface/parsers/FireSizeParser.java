@@ -1,6 +1,6 @@
 package projectswop20102011.userinterface.parsers;
 
-import projectswop20102011.FireSize;
+import projectswop20102011.domain.FireSize;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.ParsingException;
 

@@ -1,6 +1,6 @@
 package projectswop20102011.userinterface.parsers;
 
-import projectswop20102011.EmergencySeverity;
+import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.ParsingException;
 

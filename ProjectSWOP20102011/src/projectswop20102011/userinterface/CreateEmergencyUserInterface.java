@@ -1,8 +1,8 @@
 package projectswop20102011.userinterface;
 
-import projectswop20102011.EmergencySeverity;
-import projectswop20102011.FireSize;
-import projectswop20102011.GPSCoordinate;
+import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.controllers.Controller;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.exceptions.InvalidCommandNameException;

@@ -1,13 +1,13 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.Ambulance;
-import projectswop20102011.Firetruck;
-import projectswop20102011.GPSCoordinate;
-import projectswop20102011.Hospital;
-import projectswop20102011.Policecar;
-import projectswop20102011.Unit;
-import projectswop20102011.UnitBuilding;
-import projectswop20102011.World;
+import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Firetruck;
+import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.Hospital;
+import projectswop20102011.domain.Policecar;
+import projectswop20102011.domain.Unit;
+import projectswop20102011.domain.UnitBuilding;
+import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitBuildingNameException;

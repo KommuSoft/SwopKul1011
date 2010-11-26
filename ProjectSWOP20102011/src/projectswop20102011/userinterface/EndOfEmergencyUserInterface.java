@@ -1,6 +1,6 @@
 package projectswop20102011.userinterface;
 
-import projectswop20102011.Unit;
+import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.EndOfEmergencyController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;

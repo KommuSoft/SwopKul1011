@@ -2,7 +2,7 @@ package projectswop20102011.userinterface.parsers;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import projectswop20102011.GPSCoordinate;
+import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.exceptions.ParsingException;
 
 /**

@@ -1,14 +1,14 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.Emergency;
-import projectswop20102011.EmergencySeverity;
-import projectswop20102011.Fire;
-import projectswop20102011.FireSize;
-import projectswop20102011.GPSCoordinate;
-import projectswop20102011.PublicDisturbance;
-import projectswop20102011.Robbery;
-import projectswop20102011.TrafficAccident;
-import projectswop20102011.World;
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.Fire;
+import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.PublicDisturbance;
+import projectswop20102011.domain.Robbery;
+import projectswop20102011.domain.TrafficAccident;
+import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;

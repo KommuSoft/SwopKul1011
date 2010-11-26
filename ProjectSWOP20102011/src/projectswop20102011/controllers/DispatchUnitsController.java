@@ -1,12 +1,12 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.AvailableUnitsUnitBuildingEvaluationCriterium;
-import projectswop20102011.Emergency;
-import projectswop20102011.Unit;
-import projectswop20102011.UnitBuildingEvaluationCriterium;
-import projectswop20102011.UnitToEmergencyDistanceComparator;
-import projectswop20102011.UnitsNeeded;
-import projectswop20102011.World;
+import projectswop20102011.domain.AvailableUnitsUnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.Unit;
+import projectswop20102011.domain.UnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.UnitToEmergencyDistanceComparator;
+import projectswop20102011.domain.UnitsNeeded;
+import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidWorldException;
 

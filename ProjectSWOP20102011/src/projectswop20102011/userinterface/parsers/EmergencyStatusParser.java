@@ -1,6 +1,6 @@
 package projectswop20102011.userinterface.parsers;
 
-import projectswop20102011.EmergencyStatus;
+import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.ParsingException;
 
