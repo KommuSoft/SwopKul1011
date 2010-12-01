@@ -18,7 +18,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  * @invar The home location of a unit is always valid.
  *		|isValidHomeLocation(getHomeLocation())
  */
-public abstract class Unit extends UnitBuilding implements TimeSensitive {
+public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * A variable registering the speed of this unit.

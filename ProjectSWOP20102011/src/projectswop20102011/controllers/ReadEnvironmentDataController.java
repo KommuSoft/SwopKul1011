@@ -6,7 +6,7 @@ import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.UnitBuilding;
+import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -23,7 +23,7 @@ public class ReadEnvironmentDataController extends Controller {
         super(world);
     }
 
-    private void addUnitBuildingToUnitBuildingList(UnitBuilding ub) {
+    private void addUnitBuildingToUnitBuildingList(MapItem ub) {
         this.getWorld().getUnitBuildingList().addUnitBuilding(ub);
     }
     private void addUnitToTimeSensitiveList (Unit unit) {

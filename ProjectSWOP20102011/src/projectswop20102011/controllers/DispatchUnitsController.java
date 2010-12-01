@@ -1,9 +1,9 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.AvailableUnitsUnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.AvailableUnitsMapItemEvaluationCriterium;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.UnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.MapItemEvaluationCriterium;
 import projectswop20102011.domain.UnitToEmergencyDistanceComparator;
 import projectswop20102011.domain.UnitsNeeded;
 import projectswop20102011.domain.World;
@@ -24,7 +24,7 @@ public class DispatchUnitsController extends Controller {
         return this.getWorld().getEmergencyList().getEmergencyFromId(id);
     }
     public Unit[] getAvailableUnitsSorted (Emergency emergency) throws InvalidEmergencyException {
-        UnitBuildingEvaluationCriterium criterium = new AvailableUnitsUnitBuildingEvaluationCriterium();
+        MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
         return this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency)).toArray(new Unit[0]);
     }
 

@@ -4,7 +4,7 @@ import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.HospitalToEmergencyDistanceComparator;
 import projectswop20102011.domain.TypeUnitBuildingEvaluationCriterium;
-import projectswop20102011.domain.UnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.MapItemEvaluationCriterium;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -32,7 +32,7 @@ public class SelectHospitalController extends Controller {
      * @return An ambulance from the world with a name equal to the given name, or null if no ambulance is found.
      */
     public Ambulance findAmbulance (String name) {
-        UnitBuildingEvaluationCriterium criterium = new TypeUnitBuildingEvaluationCriterium(Ambulance.class);
+        MapItemEvaluationCriterium criterium = new TypeUnitBuildingEvaluationCriterium(Ambulance.class);
         return (Ambulance) this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).getUnitBuildingFromName(name);
     }
 

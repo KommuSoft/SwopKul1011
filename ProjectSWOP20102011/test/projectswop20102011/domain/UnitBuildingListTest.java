@@ -16,10 +16,10 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class UnitBuildingListTest {
 
-    private UnitBuildingList ubl1, ubl2;
+    private MapItemList ubl1, ubl2;
     private Fire f1;
     private Ambulance a1;
-    private Iterator<UnitBuilding> it1;
+    private Iterator<MapItem> it1;
     private Hospital h2, h1;
     private String name1, name2;
     private GPSCoordinate homeLocation1, homeLocation2;
@@ -52,8 +52,8 @@ public class UnitBuildingListTest {
         name = "Ziekenwagen";
         homeLocation = new GPSCoordinate(x2, y2);
 
-        ubl1 = new UnitBuildingList();
-        ubl2 = new UnitBuildingList();
+        ubl1 = new MapItemList();
+        ubl2 = new MapItemList();
     }
 
     @Test
@@ -95,10 +95,10 @@ public class UnitBuildingListTest {
         ubl1.addUnitBuilding(h1);
         it1 = ubl1.iterator();
         assertTrue(it1.hasNext());
-        UnitBuilding el1 = it1.next();
+        MapItem el1 = it1.next();
         assertTrue(h1 == el1 || h2 == el1);
         assertTrue(it1.hasNext());
-        UnitBuilding el2 = it1.next();
+        MapItem el2 = it1.next();
         assertTrue(el1 != el2 && (h1 == el2 || h2 == el2));
         assertFalse(it1.hasNext());
     }
@@ -138,7 +138,7 @@ public class UnitBuildingListTest {
 		ubl1.addUnitBuilding(h2);
         ubl1.addUnitBuilding(h1);
 
-		UnitBuilding ub = ubl1.getUnitBuildingFromName("Sjukhus");
+		MapItem ub = ubl1.getUnitBuildingFromName("Sjukhus");
 		assertEquals("Sjukhus", ub.getName());
 		assertEquals(homeLocation2, ub.getHomeLocation());
 

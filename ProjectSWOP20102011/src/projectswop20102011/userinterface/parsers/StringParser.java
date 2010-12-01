@@ -2,7 +2,7 @@ package projectswop20102011.userinterface.parsers;
 
 /**
  * A parser to parse String expressions (including aborting condition)
- * @author willem
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class StringParser extends Parser<String> {
 

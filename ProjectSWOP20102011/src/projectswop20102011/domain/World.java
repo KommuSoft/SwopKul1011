@@ -14,7 +14,7 @@ public class World {
 	/**
 	 * A variable that registers the unitBuildingList of this world.
 	 */
-	private UnitBuildingList unitBuildingList;
+	private MapItemList unitBuildingList;
 	/**
 	 * A variable that registers the timeSensitiveList of this world.
 	 */
@@ -26,13 +26,13 @@ public class World {
 	 * @effect Initializes the emergencyList.
 	 *			|setEmergencyList(new EmergencyList())
 	 * @effect Initializes unitBuildingList.
-	 *			|setUnitBuildingList(new UnitBuildingList())
+	 *			|setUnitBuildingList(new MapItemList())
 	 * @effect Initializes the timeSensitiveList.
 	 *			|setTimeSensitiveList(new TimeSensitiveList())
 	 */
 	public World() {
 		setEmergencyList(new EmergencyList());
-		setUnitBuildingList(new UnitBuildingList());
+		setUnitBuildingList(new MapItemList());
 		setTimeSensitiveList(new TimeSensitiveList());
 	}
 
@@ -57,13 +57,13 @@ public class World {
 	}
 
 	/**
-	 * Sets the UnitBuildingList of this world.
-	 * @param UnitBuildingList
-	 *		The new UnitBuildingList of this world.
+	 * Sets the MapItemList of this world.
+	 * @param MapItemList
+	 *		The new MapItemList of this world.
 	 * @post The unitBuildingList of this World is set according to the given unitBuildingList.
 	 *		|new.getUnitBuildingList()==unitBuildingList
 	 */
-	private void setUnitBuildingList(UnitBuildingList unitBuildingList) {
+	private void setUnitBuildingList(MapItemList unitBuildingList) {
 		this.unitBuildingList = unitBuildingList;
 	}
 
@@ -71,7 +71,7 @@ public class World {
 	 * Returns the unitBuildingList of this world.
 	 * @return The unitBuildingList of this world.
 	 */
-	public UnitBuildingList getUnitBuildingList() {
+	public MapItemList getUnitBuildingList() {
 		return this.unitBuildingList;
 	}
 

@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public abstract class UnitBuilding {
+public abstract class MapItem {
 
 	/**
 	 * A variable registering the name of this unit or building.
@@ -36,7 +36,7 @@ public abstract class UnitBuilding {
 	 *		If the given location is an invalid location for a unit or building.
 
 	 */
-	UnitBuilding(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException {
+	MapItem(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException {
 		setName(name);
 		if (!isValidHomeLocation(homeLocation)) {
 			throw new InvalidLocationException(String.format("\"%s\" is an invalid home location for a unit or building.", homeLocation));

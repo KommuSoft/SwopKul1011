@@ -33,11 +33,11 @@ public class UnitBuildingTest{
 
 	@Test
 	public void testIsValidName(){
-		assertFalse(UnitBuilding.isValidName(name1));
-		assertTrue(UnitBuilding.isValidName(name2));
-		assertTrue(UnitBuilding.isValidName(name3));
-		assertTrue(UnitBuilding.isValidName(name4));
-		assertTrue(UnitBuilding.isValidName(name5));
-		assertFalse(UnitBuilding.isValidName(name6));
+		assertFalse(MapItem.isValidName(name1));
+		assertTrue(MapItem.isValidName(name2));
+		assertTrue(MapItem.isValidName(name3));
+		assertTrue(MapItem.isValidName(name4));
+		assertTrue(MapItem.isValidName(name5));
+		assertFalse(MapItem.isValidName(name6));
 	}
 }
