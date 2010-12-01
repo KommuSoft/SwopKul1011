@@ -11,7 +11,7 @@ import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class FiretruckTest {
@@ -36,7 +36,7 @@ public class FiretruckTest {
 	}
 
 	@Test
-    public void testValidConstructor() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException{
+    public void testValidConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException{
 		brandweerwagen = new Firetruck(name,homeLocation, speed1);
 		assertEquals(name,brandweerwagen.getName());
 		assertEquals(x2,brandweerwagen.getHomeLocation().getX());
@@ -48,7 +48,7 @@ public class FiretruckTest {
 	}
 
 	@Test
-	public void testTimeAhead() throws InvalidLocationException, InvalidUnitBuildingNameException,
+	public void testTimeAhead() throws InvalidLocationException, InvalidMapItemNameException,
 			InvalidSpeedException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException{
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
@@ -66,7 +66,7 @@ public class FiretruckTest {
 
 	@Test(expected = InvalidDurationException.class)
     public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
-            InvalidFireSizeException, InvalidUnitBuildingNameException, InvalidSpeedException,
+            InvalidFireSizeException, InvalidMapItemNameException, InvalidSpeedException,
             NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException {
         f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
         brandweerwagen = new Firetruck(name, homeLocation, speed1);

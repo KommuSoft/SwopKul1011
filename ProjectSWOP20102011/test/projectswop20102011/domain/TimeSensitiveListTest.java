@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidTimeSensitiveException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 public class TimeSensitiveListTest {
 
@@ -22,7 +22,7 @@ public class TimeSensitiveListTest {
 	private long duration;
 
     @Before
-    public void setUp() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+    public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
         hx1 = 11;
         hy1 = 4;
         homeLocation1 = new GPSCoordinate(hx1, hy1);

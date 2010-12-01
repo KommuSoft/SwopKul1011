@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
-import projectswop20102011.exceptions.InvalidUnitBuildingException;
+import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
@@ -229,7 +229,7 @@ public class UnitsNeeded {
         for (Unit u : units) {
             try {
                 u.assignTo(this.getEmergency());
-            } catch (InvalidUnitBuildingException ex) {
+            } catch (InvalidMapItemException ex) {
                 //We assume this can't be true (checked by the canAssigUnitsToEmergency method)
                 Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -57,12 +57,12 @@ public class InspectEmergenciesController extends Controller {
     }
     public boolean canBeAssigned (Emergency e) {
         MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
-        MapItemList availableUnitsList = this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium);
-        MapItem[] ubs = availableUnitsList.toArray();
-        Unit[] units = new Unit[ubs.length];
+        MapItemList availableUnitsList = this.getWorld().getMapItemList().getMapItemsByCriterium(criterium);
+        MapItem[] mis = availableUnitsList.toArray();
+        Unit[] units = new Unit[mis.length];
         int i = 0;
-        for(MapItem ub : ubs) {
-            units[i++] = (Unit) ub;
+        for(MapItem mi : mis) {
+            units[i++] = (Unit) mi;
         }
         return e.getUnitsNeeded().canAssignUnitsToEmergency(units);
     }

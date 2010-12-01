@@ -2,7 +2,7 @@ package projectswop20102011.domain;
 
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 /**
  * A class that represents a policecar.
@@ -24,12 +24,12 @@ public class Policecar extends Unit {
 	 *         | super(name,homeLocation,speed);
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a policecar.
-	 * @throws InvalidUnitBuildingNameException
+	 * @throws InvalidMapItemNameException
 	 *		If the given name is an invalid name for a policecar.
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a policecar.
 	 */
-	public Policecar(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+	public Policecar(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
 		super(name, homeLocation, speed);
 	}
 }

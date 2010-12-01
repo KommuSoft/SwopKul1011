@@ -25,7 +25,7 @@ public class DispatchUnitsController extends Controller {
     }
     public Unit[] getAvailableUnitsSorted (Emergency emergency) throws InvalidEmergencyException {
         MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
-        return this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency)).toArray(new Unit[0]);
+        return this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency)).toArray(new Unit[0]);
     }
 
     public UnitsNeeded getNeededUnits(Emergency selectedEmergency) {

@@ -8,9 +8,9 @@ public abstract class MapItemEvaluationCriterium {
 
 	/**
 	 * The validation method for a certain MapItem on the criterium.
-	 * @param unitBuilding
+	 * @param mapItem
 	 *		The MapItem to validate.
 	 * @return True if the MapItem is valid according to the criterium, otherwise false.
 	 */
-	public abstract boolean isValidUnitBuilding(MapItem unitBuilding);
+	public abstract boolean isValidMapItem(MapItem mapItem);
 }

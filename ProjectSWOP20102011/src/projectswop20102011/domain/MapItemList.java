@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * A list of units and buildings where every unit and building is unique.
+ * A list of mapitems where every mapitem is unique.
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every MapItem in this MapItemList is unique.
@@ -15,9 +15,9 @@ import java.util.Iterator;
 public class MapItemList implements Iterable<MapItem> {
 
     /**
-     * The inner list to manage the units and buildings.
+     * The inner list to manage the mapitems
      */
-    private final HashSet<MapItem> unitBuildings;
+    private final HashSet<MapItem> mapItems;
 
     /**
      * Creating a new instance of an MapItemList. At this moment this list
@@ -26,15 +26,15 @@ public class MapItemList implements Iterable<MapItem> {
      * @effect The new MapItemList is a list with no elements in it.
      */
     public MapItemList() {
-        this.unitBuildings = new HashSet<MapItem>();
+        this.mapItems = new HashSet<MapItem>();
     }
 
     /**
-     * Returns the list of units and buildings.
-     * @return The list of units and buildings.
+     * Returns the list of mapitems.
+     * @return The list of mapitems.
      */
-    public HashSet<MapItem> getUnitBuildings() {
-        return (HashSet<MapItem>) unitBuildings.clone();
+    public HashSet<MapItem> getMapItems() {
+        return (HashSet<MapItem>) mapItems.clone();
     }
 
     /**
@@ -44,27 +44,27 @@ public class MapItemList implements Iterable<MapItem> {
      * @return The MapItem in this list with a name equal to the name,
      * or null if no such MapItem can be found.
      */
-    public MapItem getUnitBuildingFromName(String name) {
-        for (MapItem ub : this) {
-            if (ub.getName().equals(name)) {
-                return ub;
+    public MapItem getMapItemFromName(String name) {
+        for (MapItem mi : this) {
+            if (mi.getName().equals(name)) {
+                return mi;
             }
         }
         return null;
     }
 
     /**
-     * Returns all the UnitBuildings in this MapItemList that are valid to a certain UnitBuildingCriterium.
+     * Returns all the Mapitems in this MapItemList that are valid to a certain MapItemCriterium.
      * @param criterium
      *		The criterium to validate potential solution on.
-     * @return a list with all the UnitBuildings in this MapItemList who are
-     * validated by the UnitBuildingCriterium.
+     * @return a list with all the MapItems in this MapItemList who are
+     * validated by the MapItemCriterium.
      */
-    public MapItemList getUnitBuildingsByCriterium(MapItemEvaluationCriterium criterium) {
+    public MapItemList getMapItemsByCriterium(MapItemEvaluationCriterium criterium) {
         MapItemList list = new MapItemList();
         for (MapItem u : this) {
-            if (criterium.isValidUnitBuilding(u)) {
-                list.addUnitBuilding(u);
+            if (criterium.isValidMapItem(u)) {
+                list.addMapItem(u);
             }
         }
         return list;
@@ -72,28 +72,28 @@ public class MapItemList implements Iterable<MapItem> {
 
     /**
      * Adds the given MapItem to this list if the given MapItem
-     * is not already in this list of units and buildings.
+     * is not already in this list of mapitems.
      * @param ub
-     *		The MapItem to be appended to this list of units and buildings.
+     *		The MapItem to be appended to this list of mapitems.
      * @post This MapItemList contains the given MapItem.
      */
-    public void addUnitBuilding(MapItem ub) {
-        if (!this.unitBuildings.contains(ub)) {
-            this.unitBuildings.add(ub);
+    public void addMapItem(MapItem mi) {
+        if (!this.mapItems.contains(mi)) {
+            this.mapItems.add(mi);
         }
     }
 
     /**
-     * Generates an iterator to iterate over the list of units and buildings.
-     * @return An iterator to iterate of the list of units and buildings.
+     * Generates an iterator to iterate over the list of mapitems.
+     * @return An iterator to iterate of the list of mapitems.
      */
     @Override
     public Iterator<MapItem> iterator() {
-        return unitBuildings.iterator();
+        return mapItems.iterator();
     }
 
     /**
-     * Sorts the UnitBuildings to a given comparator.
+     * Sorts the MapItems to a given comparator.
      * @param <T>
      *		The class of the MapItem that must be sorted.
      * @param comparator
@@ -103,9 +103,9 @@ public class MapItemList implements Iterable<MapItem> {
     public <T extends MapItem> ArrayList<T> sort(Comparator<T> comparator) {
         ArrayList<T> result = new ArrayList<T>();
 
-        for (MapItem ub : getUnitBuildings()) {
+        for (MapItem mi : getMapItems()) {
             try {
-                T a = (T) ub;
+                T a = (T) mi;
                 result.add(a);
             } catch (ClassCastException ex) {
             }
@@ -115,7 +115,11 @@ public class MapItemList implements Iterable<MapItem> {
         return result;
     }
     public MapItem[] toArray () {
-        return this.unitBuildings.toArray(new MapItem[0]);
+        return this.mapItems.toArray(new MapItem[0]);
+    }
+
+    public void withdraw(long[] ids){
+
     }
 
 }

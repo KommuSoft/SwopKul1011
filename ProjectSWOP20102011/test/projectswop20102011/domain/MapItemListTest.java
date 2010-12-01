@@ -10,11 +10,11 @@ import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitBuildingException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-public class UnitBuildingListTest {
+public class MapItemListTest {
 
     private MapItemList ubl1, ubl2;
     private Fire f1;
@@ -31,7 +31,7 @@ public class UnitBuildingListTest {
     private GPSCoordinate homeLocation;
 
     @Before
-    public void setUp() throws InvalidUnitBuildingNameException, InvalidLocationException {
+    public void setUp() throws InvalidMapItemNameException, InvalidLocationException {
         x1 = 123;
         y1 = 321;
         homeLocation1 = new GPSCoordinate(x1, y1);
@@ -59,40 +59,40 @@ public class UnitBuildingListTest {
     @Test
     public void testConstructor() {
         assertNotNull(ubl1);
-        assertEquals(0, ubl1.getUnitBuildings().size());
+        assertEquals(0, ubl1.getMapItems().size());
     }
 
     @Test
-    public void testAdd() throws InvalidUnitBuildingException {
-        ubl1.addUnitBuilding(h2);
-        assertEquals(1, ubl1.getUnitBuildings().size());
-        assertFalse(ubl1.getUnitBuildings().contains(h1));
-        assertTrue(ubl1.getUnitBuildings().contains(h2));
-        ubl1.addUnitBuilding(h1);
-        assertEquals(2, ubl1.getUnitBuildings().size());
-        assertTrue(ubl1.getUnitBuildings().contains(h1));
-        assertTrue(ubl1.getUnitBuildings().contains(h2));
+    public void testAdd() throws InvalidMapItemException {
+        ubl1.addMapItem(h2);
+        assertEquals(1, ubl1.getMapItems().size());
+        assertFalse(ubl1.getMapItems().contains(h1));
+        assertTrue(ubl1.getMapItems().contains(h2));
+        ubl1.addMapItem(h1);
+        assertEquals(2, ubl1.getMapItems().size());
+        assertTrue(ubl1.getMapItems().contains(h1));
+        assertTrue(ubl1.getMapItems().contains(h2));
     }
 
     @Test
-    public void testAddAlreadyContains() throws InvalidUnitBuildingException {
-        assertEquals(0,ubl2.getUnitBuildings().size());
-        ubl2.addUnitBuilding(h2);
-        assertEquals(1,ubl2.getUnitBuildings().size());
-        ubl2.addUnitBuilding(h2);
-        assertEquals(1,ubl2.getUnitBuildings().size());
+    public void testAddAlreadyContains() throws InvalidMapItemException {
+        assertEquals(0,ubl2.getMapItems().size());
+        ubl2.addMapItem(h2);
+        assertEquals(1,ubl2.getMapItems().size());
+        ubl2.addMapItem(h2);
+        assertEquals(1,ubl2.getMapItems().size());
     }
 
     @Test
-    public void testIterator() throws InvalidUnitBuildingException {
+    public void testIterator() throws InvalidMapItemException {
         it1 = ubl1.iterator();
         assertFalse(it1.hasNext());
-        ubl1.addUnitBuilding(h2);
+        ubl1.addMapItem(h2);
         it1 = ubl1.iterator();
         assertTrue(it1.hasNext());
         assertEquals(h2, it1.next());
         assertFalse(it1.hasNext());
-        ubl1.addUnitBuilding(h1);
+        ubl1.addMapItem(h1);
         it1 = ubl1.iterator();
         assertTrue(it1.hasNext());
         MapItem el1 = it1.next();
@@ -104,28 +104,28 @@ public class UnitBuildingListTest {
     }
 
     @Test
-    public void testUnitBuildingsByCriterium() throws InvalidUnitBuildingException, InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+    public void testMapItemsByCriterium() throws InvalidMapItemException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
         a1 = new Ambulance(name, homeLocation, speed1);
 
-        ubl1.addUnitBuilding(h2);
-        ubl1.addUnitBuilding(a1);
-        ubl1.addUnitBuilding(h1);
+        ubl1.addMapItem(h2);
+        ubl1.addMapItem(a1);
+        ubl1.addMapItem(h1);
 
-        TypeUnitBuildingEvaluationCriterium tubec = new TypeUnitBuildingEvaluationCriterium(Hospital.class);
-        ubl2 = ubl1.getUnitBuildingsByCriterium(tubec);
+        TypeMapItemEvaluationCriterium tubec = new TypeMapItemEvaluationCriterium(Hospital.class);
+        ubl2 = ubl1.getMapItemsByCriterium(tubec);
 
-        assertEquals(2, ubl2.getUnitBuildings().size());
-        assertTrue(ubl2.getUnitBuildings().contains(h1));
-        assertTrue(ubl2.getUnitBuildings().contains(h2));
-        assertFalse(ubl2.getUnitBuildings().contains(a1));
+        assertEquals(2, ubl2.getMapItems().size());
+        assertTrue(ubl2.getMapItems().contains(h1));
+        assertTrue(ubl2.getMapItems().contains(h2));
+        assertFalse(ubl2.getMapItems().contains(a1));
     }
 
     @Test
-    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidUnitBuildingException, InvalidEmergencyException {
+    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemException, InvalidEmergencyException {
         f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, "",FireSize.LOCAL, true, 1, 6);
         hdc = new HospitalToEmergencyDistanceComparator(f1);
-        ubl1.addUnitBuilding(h2);
-        ubl1.addUnitBuilding(h1);
+        ubl1.addMapItem(h2);
+        ubl1.addMapItem(h1);
 
         ArrayList<Hospital> h = ubl1.sort(hdc);
         assertEquals(2, h.size());
@@ -134,15 +134,15 @@ public class UnitBuildingListTest {
     }
 
 	@Test
-	public void testGetUnitBuildingFromName(){
-		ubl1.addUnitBuilding(h2);
-        ubl1.addUnitBuilding(h1);
+	public void testGetMapItemFromName(){
+		ubl1.addMapItem(h2);
+        ubl1.addMapItem(h1);
 
-		MapItem ub = ubl1.getUnitBuildingFromName("Sjukhus");
-		assertEquals("Sjukhus", ub.getName());
-		assertEquals(homeLocation2, ub.getHomeLocation());
+		MapItem mi = ubl1.getMapItemFromName("Sjukhus");
+		assertEquals("Sjukhus", mi.getName());
+		assertEquals(homeLocation2, mi.getHomeLocation());
 
-		ub = ubl1.getUnitBuildingFromName("Ziekewagen");
-		assertNull(ub);
+		mi = ubl1.getMapItemFromName("Ziekewagen");
+		assertNull(mi);
 	}
 }

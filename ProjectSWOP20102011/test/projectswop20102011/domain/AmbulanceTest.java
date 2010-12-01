@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 public class AmbulanceTest {
 
@@ -32,7 +32,7 @@ public class AmbulanceTest {
     }
 
     @Test
-    public void testValidConstructor() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+    public void testValidConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
         ziekenwagen = new Ambulance(name, homeLocation, speed1);
         assertEquals(name, ziekenwagen.getName());
         assertEquals(x2, ziekenwagen.getHomeLocation().getX());
@@ -46,7 +46,7 @@ public class AmbulanceTest {
     }
 
     @Test(expected = InvalidSpeedException.class)
-    public void testInValidSpeedConstructor() throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+    public void testInValidSpeedConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
         ziekenwagen = new Ambulance(name, homeLocation, speed2);
     }
 }

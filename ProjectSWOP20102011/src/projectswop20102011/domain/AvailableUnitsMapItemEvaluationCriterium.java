@@ -7,12 +7,12 @@ package projectswop20102011.domain;
 public class AvailableUnitsMapItemEvaluationCriterium extends MapItemEvaluationCriterium {
 
 	/**
-	 * Validates a given unitBuilding if the given MapItem is an available unit.
-	 * @param unitBuilding The given MapItem to validate.
+	 * Validates a given mapitem if the given MapItem is an available unit.
+	 * @param mapItem The given MapItem to validate.
 	 * @return True if the MapItem is a unit and can be assigned to an emergency.
 	 */
 	@Override
-	public boolean isValidUnitBuilding(MapItem unitBuilding) {
-		return (unitBuilding instanceof Unit && ((Unit) unitBuilding).canBeAssigned());
+	public boolean isValidMapItem(MapItem mapItem) {
+		return (mapItem instanceof Unit && ((Unit) mapItem).canBeAssigned());
 	}
 }

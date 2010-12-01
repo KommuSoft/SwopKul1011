@@ -1,7 +1,7 @@
 package projectswop20102011.domain;
 
 import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 /**
  * A class that represents a hospital.
@@ -23,12 +23,12 @@ public class Hospital extends MapItem {
 	 *		The home location of the new hospital.
 	 * @effect The new hospital is a not-timesensitive unit or building with given name and home home location.
 	 *         |super(name,homeLocation)
-	 * @throws InvalidUnitBuildingNameException
+	 * @throws InvalidMapItemNameException
 	 *		If the given name is an invalid name for this hospital.
 	 * @throws InvalidLocationException
 	 *		If the given home location is an invalid home location for this hospital.
 	 */
-	public Hospital(String name, GPSCoordinate homeLocation) throws InvalidUnitBuildingNameException, InvalidLocationException {
+	public Hospital(String name, GPSCoordinate homeLocation) throws InvalidMapItemNameException, InvalidLocationException {
 		super(name, homeLocation);
 	}
 }

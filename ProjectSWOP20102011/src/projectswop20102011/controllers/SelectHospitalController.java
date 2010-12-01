@@ -3,7 +3,7 @@ package projectswop20102011.controllers;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.HospitalToEmergencyDistanceComparator;
-import projectswop20102011.domain.TypeUnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.TypeMapItemEvaluationCriterium;
 import projectswop20102011.domain.MapItemEvaluationCriterium;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
@@ -32,8 +32,8 @@ public class SelectHospitalController extends Controller {
      * @return An ambulance from the world with a name equal to the given name, or null if no ambulance is found.
      */
     public Ambulance findAmbulance (String name) {
-        MapItemEvaluationCriterium criterium = new TypeUnitBuildingEvaluationCriterium(Ambulance.class);
-        return (Ambulance) this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).getUnitBuildingFromName(name);
+        MapItemEvaluationCriterium criterium = new TypeMapItemEvaluationCriterium(Ambulance.class);
+        return (Ambulance) this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItemFromName(name);
     }
 
     /**
@@ -42,9 +42,9 @@ public class SelectHospitalController extends Controller {
      * @return A list of the hospitals sorted on the distance to the location of the assigned emergency of the ambulance.
      */
     public Hospital[] getHospitalList (Ambulance ambulance) throws InvalidEmergencyException {
-        TypeUnitBuildingEvaluationCriterium tubec = new TypeUnitBuildingEvaluationCriterium(Hospital.class);
+        TypeMapItemEvaluationCriterium tubec = new TypeMapItemEvaluationCriterium(Hospital.class);
         HospitalToEmergencyDistanceComparator comparator = new HospitalToEmergencyDistanceComparator(ambulance.getEmergency());
-        return this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(tubec).sort(comparator).toArray(new Hospital[0]);
+        return this.getWorld().getMapItemList().getMapItemsByCriterium(tubec).sort(comparator).toArray(new Hospital[0]);
     }
 
     /**

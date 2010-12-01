@@ -4,10 +4,10 @@ package projectswop20102011.exceptions;
  * An exception class used when a Unit is invalid.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class InvalidUnitException extends InvalidUnitBuildingException {
+public class InvalidUnitException extends InvalidMapItemException {
 
 	/**
-	 * Constructs an InvalidUnitBuildingException with no detail message.
+	 * Constructs an InvalidUnitException with no detail message.
 	 */
 	public InvalidUnitException() {
 		super();

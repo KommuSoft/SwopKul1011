@@ -5,7 +5,7 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 /**
  * A class that represents an ambulance.
@@ -34,12 +34,12 @@ public class Ambulance extends Unit {
 	 *		|getCurrentHospital.equals(null)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for an ambulance.
-	 * @throws InvalidUnitBuildingNameException
+	 * @throws InvalidMapItemNameException
 	 *		If the given name is an invalid name for an ambulance.
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for an ambulance.
 	 */
-	public Ambulance(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+	public Ambulance(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
 		super(name, homeLocation, speed);
 		setCurrentHospital(null);
 	}

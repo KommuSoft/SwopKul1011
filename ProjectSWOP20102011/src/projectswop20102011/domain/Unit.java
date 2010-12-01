@@ -4,8 +4,8 @@ import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitBuildingException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 /**
  * A class that represents a unit.
@@ -50,14 +50,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *		|homeLocation.equals(getCurrentLocation())
 	 * @effect This emergency is equal to null.
 	 *		|getEmergency().equals(null)
-	 * @throws InvalidUnitBuildingNameException
+	 * @throws InvalidMapItemNameException
 	 *		If the given name is an invalid name for a unit.
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a unit.
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a unit.
 	 */
-	Unit(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidUnitBuildingNameException, InvalidSpeedException {
+	Unit(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
 		super(name, homeLocation);
 		setSpeed(speed);
 		setCurrentLocation(homeLocation);
@@ -238,12 +238,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @effect The unit's emergency is equal to the given emergency
 	 *		| this.getEmergency().equals(emergency)
 	 * @effect The unit is assigned.
-	 * @throws InvalidUnitBuildingException
+	 * @throws InvalidMapItemException
 	 *          If the unit is already assigned to an emergency.
 	 */
-	void assignTo(Emergency emergency) throws InvalidUnitBuildingException {
+	void assignTo(Emergency emergency) throws InvalidMapItemException {
 		if (!canBeAssigned()) {
-			throw new InvalidUnitBuildingException("Unit can't be assigned");
+			throw new InvalidMapItemException("Unit can't be assigned");
 		}
 		setEmergency(emergency);
 	}

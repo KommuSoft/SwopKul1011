@@ -1,6 +1,6 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.TypeUnitBuildingEvaluationCriterium;
+import projectswop20102011.domain.TypeMapItemEvaluationCriterium;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItemEvaluationCriterium;
 import projectswop20102011.domain.World;
@@ -20,8 +20,8 @@ public class EndOfEmergencyController extends Controller {
     }
 
     public Unit findUnit (String unitName) {
-        MapItemEvaluationCriterium criterium = new TypeUnitBuildingEvaluationCriterium(Unit.class);
-        return (Unit) this.getWorld().getUnitBuildingList().getUnitBuildingsByCriterium(criterium).getUnitBuildingFromName(unitName);
+        MapItemEvaluationCriterium criterium = new TypeMapItemEvaluationCriterium(Unit.class);
+        return (Unit) this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItemFromName(unitName);
     }
 
     public void indicateEndOfEmergency (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException {

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidUnitBuildingNameException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 public class HospitalTest {
 
@@ -23,20 +23,20 @@ public class HospitalTest {
 	}
 
 	@Test
-    public void testValidConstructor() throws InvalidUnitBuildingNameException, InvalidLocationException{
+    public void testValidConstructor() throws InvalidMapItemNameException, InvalidLocationException{
 		ziekenhuis1 = new Hospital(name1,location);
 		assertEquals(x,ziekenhuis1.getHomeLocation().getX());
 		assertEquals(y,ziekenhuis1.getHomeLocation().getY());
 		assertEquals(name1,ziekenhuis1.getName());
 	}
 
-    @Test(expected = InvalidUnitBuildingNameException.class)
-	public void testInvalidNameException() throws InvalidUnitBuildingNameException, InvalidLocationException{
+    @Test(expected = InvalidMapItemNameException.class)
+	public void testInvalidNameException() throws InvalidMapItemNameException, InvalidLocationException{
 		ziekenhuis2 = new Hospital(name2,location);
 	}
 
 	@Test(expected = InvalidLocationException.class)
-	public void testInvalidLocationException() throws InvalidUnitBuildingNameException, InvalidLocationException{
+	public void testInvalidLocationException() throws InvalidMapItemNameException, InvalidLocationException{
 		ziekenhuis2 = new Hospital(name1,null);
 	}
 

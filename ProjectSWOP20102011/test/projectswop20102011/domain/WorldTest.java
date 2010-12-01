@@ -16,7 +16,7 @@ public class WorldTest{
 	public void testConstructor() {
 		assertNotNull(w1);
 		assertNotNull(w1.getEmergencyList());
-		assertNotNull(w1.getUnitBuildingList());
+		assertNotNull(w1.getMapItemList());
 		assertNotNull(w1.getTimeSensitiveList());
 	}
 

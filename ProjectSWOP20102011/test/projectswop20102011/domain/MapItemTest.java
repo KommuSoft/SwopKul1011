@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class UnitBuildingTest{
+public class MapItemTest{
 	private GPSCoordinate gp1, gp2;
 	private long x1, y1;
 	private String name1, name2, name3, name4, name5, name6;
