@@ -28,7 +28,7 @@ public class DispatchUnitsController extends Controller {
         return this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency)).toArray(new Unit[0]);
     }
 
-    public UnitsNeeded getNeededUnits(Emergency selectedEmergency) {
+    public UnitsNeeded getUnitsNeeded(Emergency selectedEmergency) {
         return selectedEmergency.getUnitsNeeded();
     }
 

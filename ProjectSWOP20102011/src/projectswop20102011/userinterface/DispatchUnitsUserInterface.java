@@ -50,7 +50,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                     this.writeOutput(String.format("\t%s: %s", entry.getKey(), entry.getValue()));
                 }
                 this.writeOutput("NEEDED UNITS:");
-                UnitsNeeded unitsNeeded = this.controller.getNeededUnits(selectedEmergency);
+                UnitsNeeded unitsNeeded = this.controller.getUnitsNeeded(selectedEmergency);
                 Class[] types = unitsNeeded.getUnits();
                 long[] needed = unitsNeeded.getNumbersNeeded();
                 for (int i = 0; i < types.length; i++) {
