@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 
 /**
  * A list of mapitems where every mapitem is unique.
@@ -118,8 +120,10 @@ public class MapItemList implements Iterable<MapItem> {
         return this.mapItems.toArray(new MapItem[0]);
     }
 
-    public void withdraw(long[] ids){
-
+    public void withdraw(String[] names) throws InvalidWithdrawalException, InvalidEmergencyException{
+		for(String name: names){
+			((Unit) getMapItemFromName(name)).withdraw();
+		}
     }
 
 }

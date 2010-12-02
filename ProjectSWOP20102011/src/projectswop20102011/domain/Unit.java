@@ -6,6 +6,7 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 
 /**
  * A class that represents a unit.
@@ -260,7 +261,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *		If the unit is not at the location of the emergency.
 	 */
 	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
-		if (getEmergency() != null) {
+		if (isAssigned()) {
 			if (this.isAtDestination()) {
 				getEmergency().getUnitsNeeded().unitFinishedJob();
 				setEmergency(null);
@@ -278,5 +279,26 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 */
 	public boolean canBeAssigned() {
 		return !isAssigned();
+	}
+
+	/**
+	 * Withdraw this unit from the emergency he is currently assigned to
+	 *
+	 * @throws InvalidWithdrawalException
+	 *			If the unit is already at site of the emergency
+	 * @throws InvalidEmergencyException
+	 *			If the unit isn't assigned to an emergency
+	 */
+	public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyException{
+		if(!isAtDestination()){
+			if(isAssigned()){
+				getEmergency().getUnitsNeeded().unitFinishedJob();
+				setEmergency(null);
+			}else{
+				throw new InvalidEmergencyException("The unit is not assigned to an emergency, so it can't be withdrawn.");
+			}
+		}else{
+			throw new InvalidWithdrawalException("The unit is already at site of the emergency, so it can't be withdrawn.");
+		}
 	}
 }
