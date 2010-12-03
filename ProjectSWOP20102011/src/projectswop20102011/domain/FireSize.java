@@ -4,8 +4,8 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 
 /**
  * An enumeration that represents the size of a fire.
- * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ * @note The enum defines automatically the total order relation amongst the fire sizes. Where the largest fire size is the fire that is the most difficult to handle.
  */
 public enum FireSize {
 

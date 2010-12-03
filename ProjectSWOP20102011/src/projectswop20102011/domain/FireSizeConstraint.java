@@ -5,25 +5,26 @@ package projectswop20102011.domain;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class SizeConstraint implements Constraint{
+public class FireSizeConstraint implements Constraint{
+        
 	private Firetruck firetruck;
 	private FireSize fireSize;
 
 	/**
-	 * Creates a SizeConstraint with the given firetruck and firesize.
+	 * Creates a FireSizeConstraint with the given firetruck and firesize.
 	 * @param firetruck
-	 *		The firetruck of this SizeConstraint.
+	 *		The firetruck of this FireSizeConstraint.
 	 * @param fireSize
-	 *		The fireSize of this SizeConstraint.
+	 *		The fireSize of this FireSizeConstraint.
 	 */
-	public SizeConstraint(Firetruck firetruck, FireSize fireSize){
+	public FireSizeConstraint(Firetruck firetruck, FireSize fireSize){
 		setFiretruck(firetruck);
 		setFireSize(fireSize);
 	}
 
 	/**
-	 * Returns the firetruck of this SizeConstraint.
-	 * @return The firetruck of this SizeConstraint.
+	 * Returns the firetruck of this FireSizeConstraint.
+	 * @return The firetruck of this FireSizeConstraint.
 	 */
 	public Firetruck getFiretruck() {
 		return firetruck;
@@ -59,6 +60,6 @@ public class SizeConstraint implements Constraint{
 	 */
 	@Override
 	public boolean isValid() {
-		return getFiretruck().maxSize() >= getFireSize();
+		return getFiretruck().canHandleFireSize(this.getFireSize());
 	}
 }
