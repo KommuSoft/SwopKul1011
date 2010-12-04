@@ -7,12 +7,13 @@ package projectswop20102011.domain;
  */
 public interface UnitValidator {
 
-	/**
-	 * Validates the given unit.
-	 * @param unit
-	 *		The unit to validate
-	 * @return
-	 *		True if the given unit is valid; false otherwise.
-	 */
-    public <T extends Unit> boolean isValid(T unit);
+    /**
+     * Validates the given unit.
+     * @param unit
+     *		The unit to validate
+     * @return
+     *		True if the given unit is valid; false otherwise.
+     */
+    public abstract boolean isValid(Unit unit);
+
 }

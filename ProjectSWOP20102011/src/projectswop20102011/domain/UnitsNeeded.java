@@ -1,8 +1,8 @@
 package projectswop20102011.domain;
 
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
@@ -44,14 +44,16 @@ public class UnitsNeeded {
      *		| initWorkingUnits()
      * @throws InvalidEmergencyException
      *		If the given emergency is not effective.
+     * @throws InvalidDispatchUnitsConstraintException
+     *          If the given constraint is invalid.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
-    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidUnitsNeededException {
+    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidUnitsNeededException, InvalidDispatchUnitsConstraintException {
         if (!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
-        if(!isValidConstraint(constraint)) {
-            throw new InvalidDispatchUnitsConstraint("The constraint must be effective.");
+        if (!isValidConstraint(constraint)) {
+            throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
         }
         this.emergency = emergency;
         this.constraint = constraint;
@@ -126,6 +128,7 @@ public class UnitsNeeded {
         if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED) {
             return false;
         }
+
         //TODO: remove duplicates and null pointers out of <units>
 
         return this.constraint.areValidDispatchUnits(units);
@@ -172,5 +175,14 @@ public class UnitsNeeded {
      */
     void unitFinishedJob() {
         this.setWorkingUnits(this.getWorkingUnits() - 1);
+    }
+
+    /**
+     * Tests if the given DispatchUnitConstraint can be a valid constraint.
+     * @param constraint The constraint to check.
+     * @return True if the given constraint is effective, otherwise false.
+     */
+    public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
+        return (constraint != null);
     }
 }

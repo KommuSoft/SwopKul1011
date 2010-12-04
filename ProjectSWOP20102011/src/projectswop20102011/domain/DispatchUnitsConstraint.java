@@ -6,7 +6,7 @@ package projectswop20102011.domain;
  * @note Constraints need to hold an implicit constraint we call the consistency constraint. We define this constraint as follow:
  *          "If a list of units is statisfies this constraint, any expansion of that list also needs to statisfy this constraint"
  */
-public abstract class DispatchUnitsConstraint {
+public interface DispatchUnitsConstraint {
 
     /**
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
@@ -15,12 +15,5 @@ public abstract class DispatchUnitsConstraint {
      * @return True if this constraint passes with the given iterable of units, otherwise false.
      */
     public abstract boolean areValidDispatchUnits (Unit[] units);
-
-    /**
-     * Returns a textual representation of the DispatchUnitsConstraint.
-     * @return A textual representation of the DispatchUnitsConstraint.
-     */
-    @Override
-    public abstract String toString ();
 
 }
