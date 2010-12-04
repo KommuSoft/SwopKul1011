@@ -14,6 +14,13 @@ public abstract class DispatchUnitsConstraint {
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return True if this constraint passes with the given iterable of units, otherwise false.
      */
-    public abstract boolean areValidDispatchUnits (Iterable<? extends Unit> units);
+    public abstract boolean areValidDispatchUnits (Unit[] units);
+
+    /**
+     * Returns a textual representation of the DispatchUnitsConstraint.
+     * @return A textual representation of the DispatchUnitsConstraint.
+     */
+    @Override
+    public abstract String toString ();
 
 }

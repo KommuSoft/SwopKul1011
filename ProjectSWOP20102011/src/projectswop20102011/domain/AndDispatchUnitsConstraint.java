@@ -40,13 +40,21 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     }
 
     /**
+     * Returns a list of all the DispatchUnitConstraints below this AndDispatchUnitsConstraint.
+     * @return A list of all the DispatchUnitConstraints below this AndDispatchUnitsConstraint.
+     */
+    public DispatchUnitsConstraint[] getConstraints () {
+        return this.constraints.clone();
+    }
+
+    /**
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
      * @param units An iterable object containing only unique and only effective units.
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return If all the constraints below this constraint pass, otherwise false.
      */
     @Override
-    public boolean areValidDispatchUnits(Iterable<? extends Unit> units) {
+    public boolean areValidDispatchUnits(Unit[] units) {
         for (DispatchUnitsConstraint duc : this.constraints) {
             if (!duc.areValidDispatchUnits(units)) {
                 return false;
@@ -54,4 +62,24 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
         }
         return true;
     }
+
+    /**
+     * Returns a textual representation of the AndDispatchUnitsConstraint.
+     * @return A textual representation of the AndDispatchUnitsConstraint.
+     */
+    @Override
+    public String toString () {
+        DispatchUnitsConstraint[] constraints = this.getConstraints();
+        if(constraints.length == 0)
+            return "TRUE";
+        else {
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format("(%s)",constraints[0].toString()));
+            for(int i = 1; i < constraints.length; i++) {
+                sb.append(String.format(" AND (%s)", constraints[i]));
+            }
+            return sb.toString();
+        }
+    }
+
 }

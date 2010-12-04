@@ -84,7 +84,8 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
      */
-    public boolean areValidDispatchUnits (Iterable<? extends Unit> units) {
+    @Override
+    public boolean areValidDispatchUnits (Unit[] units) {
         long n = 0;
         long needed = this.getNumber();
         UnitValidator uv = this.getValidator();
@@ -97,6 +98,15 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns a textual representation of the NumberDispatchUnitsConstraint.
+     * @return A textual representation of the NumberDispatchUnitsConstraint.
+     */
+    @Override
+    public String toString() {
+        return String.format("number of %s most be larger or equal to %s",this.getValidator().toString(),this.getNumber());
     }
 
 }
