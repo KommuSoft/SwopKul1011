@@ -79,4 +79,6 @@ public class FiretruckTest {
         assertEquals(x1, brandweerwagen.getDestination().getX());
         assertEquals(y1, brandweerwagen.getDestination().getY());
     }
+
+	//TODO test maxSize
 }

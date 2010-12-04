@@ -5,26 +5,23 @@ package projectswop20102011.domain;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class NumberConstraint implements Constraint{
-	/**
-	 * A variable registering the units of this NumberConstraint.
-	 */
-	private Unit[] units;
+public class NumberConstraint implements AtomicConstraint{
 	/**
 	 * A variable registering the desired number of units.
 	 */
 	private long number;
-	
+
 	/**
 	 * Creates a NumberConstraint with the given units and number.
-	 * 
-	 * @param units
-	 *		The units to check.
+	 *
 	 * @param number
 	 *		The desired number of units.
+	 * @param validator
+	 *		The validator of this constraint.
+	 * @effect This number is equal to the given number.
+	 *		|this.number.equals(number)
 	 */
-	public NumberConstraint(Unit[] units, long number){
-		setUnits(units);
+	public NumberConstraint(long number){
 		setNumber(number);
 	}
 
@@ -37,37 +34,31 @@ public class NumberConstraint implements Constraint{
 	}
 
 	/**
-	 *
+	 * Sets the number of this number constraint to the given value.
 	 * @param number
+	 *		The new value of this number constraint.
+	 * @post This number is equal to the given number.
+	 *		|new.number.equals(number)
 	 */
 	private void setNumber(long number) {
 		this.number = number;
 	}
 
 	/**
-	 * Returns the units to check.
-	 * @return The units of this constraint.
-	 */
-	public Unit[] getUnits() {
-		return units.clone();
-	}
-
-	/**
-	 *
+	 * Checks if the given units are valid.
+	 * @param <T>
+	 *		The type of units to check.
 	 * @param units
-	 */
-	private void setUnits(Unit[] units) {
-		this.units = units.clone();
-	}
-
-	/**
-	 * Checks if the constraint is valid.
-	 *
-	 * @return True if the constraint is valid; false otherwise.
+	 *		The units to validater.
+	 * @return True if the units are valid; false otherwise.
 	 */
 	@Override
-	public boolean isValid() {
-		return getUnits().length > getNumber();
+	public <T extends Unit> boolean isValid(T... units) {
+		if(units.length < getNumber()){
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

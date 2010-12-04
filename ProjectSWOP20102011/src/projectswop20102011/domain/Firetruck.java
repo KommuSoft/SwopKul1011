@@ -12,11 +12,11 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 public class Firetruck extends Unit {
 
     /**
-     * The maximimal firesize the firetruck can handle.
+     * The maximal firesize the firetruck can handle.
      */
     private FireSize maxSize;
 
-    /**
+	/**
      * Initialize a new firetruck with given parameters.
      *
      * @param name
@@ -28,6 +28,8 @@ public class Firetruck extends Unit {
      * @effect The new firetruck is a firetruck with given name, home location, speed,
      *			current location, destination and assigned indicator.
      *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
+	 * @effect The new firetruck can handle a house-fire size.
+	 *		|this.maxSize.equals(FireSize.HOUSE)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for a firetruck.
      * @throws InvalidMapItemNameException
@@ -36,24 +38,55 @@ public class Firetruck extends Unit {
      *		If the given speed is an invalid speed for a firetruck.
      */
     public Firetruck(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
+		//TODO deze constructor is aangemaakt zodat de oude testen nog werken.
         super(name, homeLocation, speed);
+		setMaxSize(FireSize.HOUSE);
     }
 
     /**
-     * Returns the maximum firesize the firetruck can handle.
-     * @return the maximum firesize the firetruck can handle.
+     * Initialize a new firetruck with given parameters.
+     *
+     * @param name
+     *		The name of the new firetruck.
+     * @param homeLocation
+     *		The home location of the new firetruck.
+     * @param speed
+     *		The speed of the new firetruck.
+	 * @param maxSize
+	 *		The maximum size that this firetruck can handle.
+     * @effect The new firetruck is a firetruck with given name, home location, speed,
+     *			current location, destination and assigned indicator.
+     *         |super(name,homeLocation,speed,currentLocation,destination,assigned)
+	 * @effect The new firetruck can handle the given fire size.
+	 *		|this.maxSize.equals(maxSize)
+     * @throws InvalidLocationException
+     *		If the given location is an invalid location for a firetruck.
+     * @throws InvalidMapItemNameException
+     *		If the given name is an invalid name for a firetruck.
+     * @throws InvalidSpeedException
+     *		If the given speed is an invalid speed for a firetruck.
      */
-    FireSize getMaxSize() {
-        return this.maxSize;
+    public Firetruck(String name, GPSCoordinate homeLocation, long speed, FireSize maxSize) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
+        super(name, homeLocation, speed);
+		setMaxSize(maxSize);
     }
 
     /**
-     * Checks if the given fire size can be handled by the firetruck.
-     * @param fireSize
-     * @return
+     * Returns the maximum fire size the firetruck can handle.
+     * @return the maximum fire size the firetruck can handle.
      */
-    public boolean canHandleFireSize (FireSize fireSize) {
-        return this.maxSize.compareTo(fireSize) >= 0;
+    public FireSize getMaxSize() {
+        return maxSize;
     }
 
+	/**
+	 * Sets the maximum fire size to the given value.
+	 * @param maxSize
+	 *		The new maximum fire size of this firetruck.
+	 * @post This maximum fire size is equal to the given maximum size.
+	 *		|new.maxSize.equals(maxSize)
+	 */
+	private void setMaxSize(FireSize maxSize){
+		this.maxSize = maxSize;
+	}
 }
