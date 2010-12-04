@@ -40,7 +40,7 @@ public class TypeUnitValidator implements UnitValidator {
      */
     @Override
     public boolean isValid(Unit unit) {
-        return false;
+        return this.getUnitClass().isInstance(unit);
     }
 
     /**
@@ -50,5 +50,14 @@ public class TypeUnitValidator implements UnitValidator {
      */
     public static boolean isValidUnitClass(Class<? extends Unit> unitClass) {
         return (unitClass != null);
+    }
+
+    /**
+     * Returns a textual representation of the given UnitValidator.
+     * @return A textual representation of the given UnitValidator.
+     */
+    @Override
+    public String toString() {
+        return this.getUnitClass().getSimpleName();
     }
 }

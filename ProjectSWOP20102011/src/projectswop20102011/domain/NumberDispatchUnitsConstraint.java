@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
+public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
 
     /**
      * A variable registering the desired number of units.

@@ -6,7 +6,7 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
  * A constraint class checking if a collection of other constraints all pass.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
+public class AndDispatchUnitsConstraint implements DispatchUnitsConstraint {
 
     private final DispatchUnitsConstraint[] constraints;
 
@@ -69,14 +69,15 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      */
     @Override
     public String toString () {
-        DispatchUnitsConstraint[] constraints = this.getConstraints();
-        if(constraints.length == 0)
+        DispatchUnitsConstraint[] c = this.getConstraints();
+        if(c.length == 0) {
             return "TRUE";
+        }
         else {
             StringBuilder sb = new StringBuilder();
-            sb.append(String.format("(%s)",constraints[0].toString()));
-            for(int i = 1; i < constraints.length; i++) {
-                sb.append(String.format(" AND (%s)", constraints[i]));
+            sb.append(String.format("(%s)",c[0].toString()));
+            for(int i = 1; i < c.length; i++) {
+                sb.append(String.format(" AND (%s)", c[i]));
             }
             return sb.toString();
         }
