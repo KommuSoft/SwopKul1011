@@ -23,13 +23,9 @@ public class UnitsNeeded {
      */
     private final Emergency emergency;
     /**
-     * A variable registering the numbersNeeded of this UnitsNeeded.
+     * A DispatchUnitsConstraint object specifying which units can be allocated to the emergency.
      */
-    private final long[] numbersNeeded;
-    /**
-     * A variable registering the units of the emergency.
-     */
-    private final Class[] units;
+    private DispatchUnitsConstraint constraint;
     /**
      * A variable registering the amount of units that are currently working at the emergency.
      */
@@ -37,11 +33,7 @@ public class UnitsNeeded {
 
     /**
      * Creates a new object that calculates the units needed for an emergency.
-     *
-     * @param numbersNeeded
-     *		The numbers of units needed for this emergency.
-     * @param units
-     *		The units needed for this emergency.
+     * 
      * @post This emergency is set to the given emergency.
      *		| new.getEmergency()==emergency
      * @post This units is set to the given units.
@@ -52,20 +44,17 @@ public class UnitsNeeded {
      *		| initWorkingUnits()
      * @throws InvalidEmergencyException
      *		If the given emergency is not effective.
-     * @throws InvalidUnitsNeededException
-     *		If the given units or numbersNeeded aren't valid.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
-    UnitsNeeded(Emergency emergency, Class[] units, long[] numbersNeeded) throws InvalidEmergencyException, InvalidUnitsNeededException {
+    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidUnitsNeededException {
         if (!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
-        if (!areValidTypesAndNumberOfUnits(units, numbersNeeded)) {
-            throw new InvalidUnitsNeededException("The unit arrays must have the same length, no unit type is uneffective, and all the number of units are at least zero");
+        if(!isValidConstraint(constraint)) {
+            throw new InvalidDispatchUnitsConstraint("The constraint must be effective.");
         }
         this.emergency = emergency;
-        this.units = (Class[]) units.clone();
-        this.numbersNeeded = (long[]) numbersNeeded.clone();
+        this.constraint = constraint;
         initWorkingUnits();
     }
 
@@ -97,22 +86,6 @@ public class UnitsNeeded {
             }
         }
         this.workingUnits = workingUnits;
-    }
-
-    /**
-     * Returns the number of units needed for the emergency.
-     * @return the number of units needed for the emergency.
-     */
-    public long[] getNumbersNeeded() {
-        return numbersNeeded.clone();
-    }
-
-    /**
-     * Returns the units needed for this emergency.
-     * @return the units needed for this emergency.
-     */
-    public Class[] getUnits() {
-        return units.clone();
     }
 
     /**
@@ -179,26 +152,9 @@ public class UnitsNeeded {
         if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED) {
             return false;
         }
-        HashSet<Unit> uniqueUnits = new HashSet<Unit>();
-        for (Unit u : units) {
-            if (u == null || !u.canBeAssigned() || !uniqueUnits.add(u)) {
-                return false;
-            }
-        }
-        for (int i = 0; i < this.getUnits().length; i++) {
-            Class searchClass = this.units[i];
-            long needed = this.numbersNeeded[i];
-            int instances = 0;
-            for (Unit u : units) {
-                if (searchClass.isInstance(u)) {
-                    instances++;
-                }
-            }
-            if (instances < needed) {
-                return false;
-            }
-        }
-        return true;
+        //TODO: remove duplicates and null pointers out of <units>
+
+        return this.constraint.areValidDispatchUnits(units);
     }
 
     /**

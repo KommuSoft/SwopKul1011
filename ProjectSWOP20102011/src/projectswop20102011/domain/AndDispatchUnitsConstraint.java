@@ -43,7 +43,7 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
      * @param units An iterable object containing only unique and only effective units.
      * @pre The given units parameter contains only unique (no duplicates) effective units.
-     * @return True if this constraint passes with the given iterable of units, otherwise false.
+     * @return If all the constraints below this constraint pass, otherwise false.
      */
     @Override
     public boolean areValidDispatchUnits(Iterable<? extends Unit> units) {
