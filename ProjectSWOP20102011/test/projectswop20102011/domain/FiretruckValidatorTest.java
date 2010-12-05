@@ -11,23 +11,23 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 
 public class FiretruckValidatorTest {
 
-	FireSize fs1, fs2, fs3;
-	FireSize fts1, fts2, fts3;
-	Firetruck ft1, ft2, ft3;
-	String name1, name2, name3;
-	GPSCoordinate gps1, gps2, gps3;
-	long x1, y1, x2, y2, x3, y3;
-	long speed1, speed2, speed3;
-	FiretruckValidator ftv1, ftv2, ftv3;
+	private FireSize fs1, fs2, fs3;
+	private FireSize fts1, fts2, fts3;
+	private Firetruck ft1, ft2, ft3;
+	private String name1, name2, name3;
+	private GPSCoordinate gps1, gps2, gps3;
+	private long x1, y1, x2, y2, x3, y3;
+	private long speed1, speed2, speed3;
+	private FiretruckValidator ftv1, ftv2, ftv3;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
-		fs1 = FireSize.HOUSE;
-		fs2 = FireSize.LOCAL;
+                fs1 = FireSize.LOCAL;
+		fs2 = FireSize.HOUSE;
 		fs3 = FireSize.FACILITY;
 
-		fts1 = FireSize.HOUSE;
-		fts2 = FireSize.LOCAL;
+		fts1 = FireSize.LOCAL;
+		fts2 = FireSize.HOUSE;
 		fts3 = FireSize.FACILITY;
 
 		name1 = "Mini-Vuurwagen";
