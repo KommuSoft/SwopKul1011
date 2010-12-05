@@ -2,10 +2,10 @@ package projectswop20102011.domain;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
-import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
 /**
@@ -18,6 +18,10 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  */
 public class UnitsNeeded {
 
+    /**
+     * A policy for allocating units to this UnitsNeeded.
+     */
+    private final DispatchPolicy policy;
     /**
      * The emergency that is been handled by this UnitsNeeded class.
      */
@@ -33,7 +37,12 @@ public class UnitsNeeded {
 
     /**
      * Creates a new object that calculates the units needed for an emergency.
-     * 
+     * @param emergency
+     *          The emergency that will be handled by this UnitsNeeded.
+     * @param constraint
+     *          A constraint used to determine when units can be assigned to the emergency.
+     * @param policy
+     *          A DispatchPolicy object that can give a unit allocation proposal.
      * @post This emergency is set to the given emergency.
      *		| new.getEmergency()==emergency
      * @post This units is set to the given units.
@@ -46,17 +55,23 @@ public class UnitsNeeded {
      *		If the given emergency is not effective.
      * @throws InvalidDispatchUnitsConstraintException
      *          If the given constraint is invalid.
+     * @throws InvalidDispatchPolicyException
+     *          If the given policy is ineffective.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
-    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
+    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint, DispatchPolicy policy) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException, InvalidDispatchPolicyException {
         if (!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
         if (!isValidConstraint(constraint)) {
             throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
         }
+        if(!isValidPolicy(policy)) {
+            throw new InvalidDispatchPolicyException("The policy must be effective.");
+        }
         this.emergency = emergency;
         this.constraint = constraint;
+        this.policy = policy;
         initWorkingUnits();
     }
 
@@ -178,11 +193,28 @@ public class UnitsNeeded {
     }
 
     /**
+     * Returns a DispatchPolicy object that can give a proposal for unit allocations.
+     * @return A DispatchPolicy object that can give a proposal for unit allocations.
+     */
+    public DispatchPolicy getPolicy () {
+        return this.policy;
+    }
+
+    /**
      * Tests if the given DispatchUnitConstraint can be a valid constraint.
      * @param constraint The constraint to check.
      * @return True if the given constraint is effective, otherwise false.
      */
     public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
         return (constraint != null);
+    }
+
+    /**
+     * Tests if the given policy is a valid policy for a UnitsNeeded object.
+     * @param policy The policy to check.
+     * @return True if the given policy is effective, otherwise false.
+     */
+    public static boolean isValidPolicy(DispatchPolicy policy) {
+        return (policy != null);
     }
 }
