@@ -49,6 +49,7 @@ public class Firetruck extends Unit {
             //we assume this can never happen
             Logger.getLogger(Firetruck.class.getName()).log(Level.SEVERE, null, ex);
         }
+        setWithdrawBehavior(new NotWithdraw());
     }
 
     /**

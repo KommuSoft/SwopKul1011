@@ -119,11 +119,4 @@ public class MapItemList implements Iterable<MapItem> {
     public MapItem[] toArray () {
         return this.mapItems.toArray(new MapItem[0]);
     }
-
-    public void withdraw(String[] names) throws InvalidWithdrawalException, InvalidEmergencyException{
-		for(String name: names){
-			((Unit) getMapItemFromName(name)).withdraw();
-		}
-    }
-
 }

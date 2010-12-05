@@ -33,6 +33,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * A variable registering the emergency of this unit.
      */
     private Emergency emergency;
+    /**
+     * A variable registering the withdrawBehavior of this unit.
+     */
+    private WithdrawBehavior withdrawBehavior;
 
     /**
      * Initialize a new unit with given parameters.
@@ -114,6 +118,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     }
 
     /**
+     * Returns the withdraw behavior of this unit.
+     * @return The withdraw behavior of this unit.
+     */
+    public WithdrawBehavior getWithdrawBehavior() {
+        return withdrawBehavior;
+    }
+
+    /**
      * Sets the speed of this timesensitive unit or building to the given value.
      *
      * @param speed
@@ -148,8 +160,18 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @param emergency
      *		The new emergency of this unit.
      */
-    private void setEmergency(Emergency emergency) {
+    void setEmergency(Emergency emergency) {
         this.emergency = emergency;
+    }
+
+    /**
+     * Sets the withdraw behavior of this unit.
+     *
+     * @param wb
+     *      The new withdrawBehavior of this unit.
+     */
+    void setWithdrawBehavior(WithdrawBehavior wb) {
+        this.withdrawBehavior = wb;
     }
 
     /**
@@ -290,15 +312,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *			If the unit isn't assigned to an emergency
      */
     public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyException {
-        if (!isAtDestination()) {
-            if (isAssigned()) {
-                getEmergency().getUnitsNeeded().unitFinishedJob();
-                setEmergency(null);
-            } else {
-                throw new InvalidEmergencyException("The unit is not assigned to an emergency, so it can't be withdrawn.");
-            }
-        } else {
-            throw new InvalidWithdrawalException("The unit is already at site of the emergency, so it can't be withdrawn.");
-        }
+        getWithdrawBehavior().withdraw(this);
     }
 }

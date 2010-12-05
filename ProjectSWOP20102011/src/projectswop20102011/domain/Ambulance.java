@@ -42,6 +42,7 @@ public class Ambulance extends Unit {
 	public Ambulance(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
 		super(name, homeLocation, speed);
 		setCurrentHospital(null);
+        setWithdrawBehavior(new NormalWithdraw());
 	}
 
 	/**

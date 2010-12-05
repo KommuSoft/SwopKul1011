@@ -31,5 +31,6 @@ public class Policecar extends Unit {
 	 */
 	public Policecar(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
 		super(name, homeLocation, speed);
+        setWithdrawBehavior(new NormalWithdraw());
 	}
 }
