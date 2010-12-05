@@ -57,23 +57,6 @@ public class PublicDisturbanceTest {
         pd1 = new PublicDisturbance(gp1, es1, "", -1425);
     }
 
-	@Test
-	public void testUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
-		pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
-		un1 = pd1.calculateUnitsNeeded();
-
-		boolean policecar = false;
-		long number = -1;
-		for(int i=0; i<un1.getNumbersNeeded().length; ++i){
-			if(un1.getUnits()[i] == Policecar.class){
-				policecar = true;
-				number = un1.getNumbersNeeded()[i];
-			}
-		}
-		assertTrue(policecar);
-		assertEquals(134, number);
-	}
-
 	@Test(expected = InvalidEmergencyStatusException.class)
 	public void testSetStatus() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidEmergencyStatusException, NumberOutOfBoundsException{
 		EmergencyStatus es = null;
