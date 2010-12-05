@@ -230,6 +230,7 @@ public class Fire extends Emergency {
 	 */
 	@Override
 	protected UnitsNeeded calculateUnitsNeeded() {
+            //TODO: kan niet geïmplementeerd worden: wachten op firetruckvalidator
 		long firetrucks = 0;
 		long policecars = 0;
 		switch (this.getSize()) {
