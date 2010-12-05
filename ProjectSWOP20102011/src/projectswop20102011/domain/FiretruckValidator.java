@@ -43,14 +43,12 @@ public class FiretruckValidator implements UnitValidator{
 
 	/**
 	 * Checks if the given firetruck is valid for the fire size.
-	 * @param <T>
-	 *		The type of elements to check.
 	 * @param unit
 	 *		The element to check.
 	 * @return True is the given unit is valid; false otherwise.
 	 */
 	@Override
-	public  <T extends Unit> boolean isValid(T unit) {
+	public boolean isValid(Unit unit) {
 		if(unit instanceof Firetruck){
 			Firetruck firetruck = (Firetruck) unit;
 			return firetruck.getMaxSize().ordinal() >= getFireSize().ordinal();

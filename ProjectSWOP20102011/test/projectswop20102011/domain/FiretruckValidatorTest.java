@@ -3,6 +3,7 @@ package projectswop20102011.domain;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -19,7 +20,7 @@ public class FiretruckValidatorTest {
 	FiretruckValidator ftv1, ftv2, ftv3;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
+	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
 		fs1 = FireSize.HOUSE;
 		fs2 = FireSize.LOCAL;
 		fs3 = FireSize.FACILITY;
@@ -70,15 +71,15 @@ public class FiretruckValidatorTest {
 		ftv3 = new FiretruckValidator(fs3);
 
 		assertTrue(ftv1.isValid(ft1));
-//		assertTrue(ftv1.isValid(ft2));
-//		assertTrue(ftv1.isValid(ft3));
-//
-//		assertFalse(ftv2.isValid(ft1));
-//		assertTrue(ftv2.isValid(ft2));
-//		assertTrue(ftv2.isValid(ft3));
-//
-//		assertFalse(ftv3.isValid(ft1));
-//		assertFalse(ftv3.isValid(ft2));
-//		assertTrue(ftv3.isValid(ft3));
+		assertTrue(ftv1.isValid(ft2));
+		assertTrue(ftv1.isValid(ft3));
+
+		assertFalse(ftv2.isValid(ft1));
+		assertTrue(ftv2.isValid(ft2));
+		assertTrue(ftv2.isValid(ft3));
+
+		assertFalse(ftv3.isValid(ft1));
+		assertFalse(ftv3.isValid(ft2));
+		assertTrue(ftv3.isValid(ft3));
 	}
 }
