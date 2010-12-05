@@ -96,7 +96,7 @@ public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
                 }
             }
         }
-        return false;
+        return n >= needed;
     }
 
     /**

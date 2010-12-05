@@ -249,8 +249,8 @@ public class Fire extends Emergency {
                 policecars = 3;
         }
         try {
-            DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), firetrucks);
-            DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), this.getNumberOfInjured() + this.getTrappedPeople());
+            DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckValidator(this.getSize()), firetrucks);
+            DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured() + this.getTrappedPeople());
             DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
             return new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
         } catch (InvalidEmergencyException ex) {
