@@ -139,7 +139,7 @@ public class AndDispatchUnitsConstraintTest {
 
 		c5 = new AndDispatchUnitsConstraint(c1, c2, c4);
 		assertTrue(c5.areValidDispatchUnits(new Unit[]{u1, u2, u3, u4}));
-		assertFalse(c5.areValidDispatchUnits(new Unit[]{u1, u2, u4}));
+		assertFalse(c5.areValidDispatchUnits(new Unit[]{u1, u3, u4}));
 
 		c5 = new AndDispatchUnitsConstraint(c1, c2);
 		c6 = new AndDispatchUnitsConstraint(c4, c5);
@@ -149,7 +149,7 @@ public class AndDispatchUnitsConstraintTest {
 
 	@Test(expected = InvalidConstraintListException.class)
 	public void testInvalidConstraintList1() throws InvalidConstraintListException{
-		c5 = new AndDispatchUnitsConstraint();
+		c5 = new AndDispatchUnitsConstraint(null);
 	}
 
 	@Test(expected = InvalidConstraintListException.class)
