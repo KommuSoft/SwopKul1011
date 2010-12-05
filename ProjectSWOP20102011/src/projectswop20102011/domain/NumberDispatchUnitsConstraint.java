@@ -21,11 +21,10 @@ public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
 
     /**
      * Creates a NumberConstraint with the given units and number.
-     *
-     * @param number
-     *		The desired number of units.
      * @param validator
      *		The validator that specifies what will be counted.
+     * @param number
+     *		The desired number of units.
      * @throws NumberOutOfBoundsException If the given number is invalid.
      * @throws InvalidUnitValidatorException If the given UnitValidator is invalid.
      * @post This number is equal to the given number.
@@ -33,7 +32,7 @@ public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
      * @post This validator is equal to the given validator.
      *		|this.validator.equals(validator)
      */
-    public NumberDispatchUnitsConstraint(long number, UnitValidator validator) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    public NumberDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
         if (!isValidNumber(number)) {
             throw new NumberOutOfBoundsException("The number needs to be larger or equal to zero.");
         }

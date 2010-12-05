@@ -48,7 +48,7 @@ public class UnitsNeeded {
      *          If the given constraint is invalid.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
-    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidUnitsNeededException, InvalidDispatchUnitsConstraintException {
+    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
         if (!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
