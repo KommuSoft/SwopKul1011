@@ -100,7 +100,7 @@ public class Firetruck extends Unit {
      *          If the given maximum fire size is not effective.
      */
     private void setMaxSize(FireSize maxSize) throws InvalidFireSizeException {
-        if(isValidMaxFireSize(maxSize)) {
+        if(!isValidMaxFireSize(maxSize)) {
             throw new InvalidFireSizeException("The given maximum fire size must be effective.");
         }
         this.maxSize = maxSize;

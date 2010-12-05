@@ -1,11 +1,13 @@
 package projectswop20102011.domain;
 
+import java.io.InvalidClassException;
+
 /**
  * A class that represents a validator that checks if a given firetruck is capable to extinguish a given fire size.
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class FiretruckValidator implements UnitValidator{
+public class FiretruckValidator extends TypeUnitValidator{
 	/**
 	 * A variable registering the fire size of this fire truck validator.
 	 */
@@ -18,7 +20,8 @@ public class FiretruckValidator implements UnitValidator{
 	 * @effect This fire size is equal to the given fire size.
 	 *		|this.fireSize.equals(fireSize)
 	 */
-    FiretruckValidator(FireSize fireSize){
+    FiretruckValidator(FireSize fireSize) throws InvalidClassException{
+		super(Firetruck.class);
         setFireSize(fireSize);
     }
 

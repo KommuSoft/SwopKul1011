@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.io.InvalidClassException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -54,7 +55,7 @@ public class FiretruckValidatorTest {
 	}
 
 	@Test
-	public void testConstructor() {
+	public void testConstructor() throws InvalidClassException {
 		ftv1 = new FiretruckValidator(fs1);
 		ftv2 = new FiretruckValidator(fs2);
 		ftv3 = new FiretruckValidator(fs3);
@@ -65,7 +66,7 @@ public class FiretruckValidatorTest {
 	}
 
 	@Test
-	public void testIsValid() {
+	public void testIsValid() throws InvalidClassException {
 		ftv1 = new FiretruckValidator(fs1);
 		ftv2 = new FiretruckValidator(fs2);
 		ftv3 = new FiretruckValidator(fs3);

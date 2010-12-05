@@ -54,15 +54,15 @@ public class TypeUnitValidatorTest {
 
 	@Test
 	public void testConstructor() throws InvalidClassException {
-		tuv1 = new TypeUnitValidator(u1.getClass());
-		tuv2 = new TypeUnitValidator(u2.getClass());
-		tuv3 = new TypeUnitValidator(u3.getClass());
-		tuv4 = new TypeUnitValidator(u4.getClass());
+		tuv1 = new TypeUnitValidator(Ambulance.class);
+		tuv2 = new TypeUnitValidator(Policecar.class);
+		tuv3 = new TypeUnitValidator(Ambulance.class);
+		tuv4 = new TypeUnitValidator(Firetruck.class);
 
-		assertEquals(u1.getClass(), tuv1.getUnitClass());
-		assertEquals(u2.getClass(), tuv2.getUnitClass());
-		assertEquals(u3.getClass(), tuv3.getUnitClass());
-		assertEquals(u4.getClass(), tuv4.getUnitClass());
+		assertEquals(Ambulance.class, tuv1.getUnitClass());
+		assertEquals(Policecar.class, tuv2.getUnitClass());
+		assertEquals(Ambulance.class, tuv3.getUnitClass());
+		assertEquals(Firetruck.class, tuv4.getUnitClass());
 	}
 
 	@Test(expected = InvalidClassException.class)
@@ -72,10 +72,10 @@ public class TypeUnitValidatorTest {
 
 	@Test
 	public void testIsValid() throws InvalidClassException {
-		tuv1 = new TypeUnitValidator(u1.getClass());
-		tuv2 = new TypeUnitValidator(u2.getClass());
-		tuv3 = new TypeUnitValidator(u3.getClass());
-		tuv4 = new TypeUnitValidator(u4.getClass());
+		tuv1 = new TypeUnitValidator(Ambulance.class);
+		tuv2 = new TypeUnitValidator(Policecar.class);
+		tuv3 = new TypeUnitValidator(Ambulance.class);
+		tuv4 = new TypeUnitValidator(Firetruck.class);
 
 		assertTrue(tuv1.isValid(u1));
 		assertTrue(tuv1.isValid(u3));

@@ -59,9 +59,9 @@ public class AndDispatchUnitsConstraintTest {
 		u3 = new Ambulance(name3, gps3, speed3);
 		u4 = new Firetruck(name4, gps4, speed4, fs1);
 
-		uv1 = new TypeUnitValidator(u1.getClass());
-		uv2 = new TypeUnitValidator(u2.getClass());
-		uv3 = new TypeUnitValidator(u3.getClass());
+		uv1 = new TypeUnitValidator(Ambulance.class);
+		uv2 = new TypeUnitValidator(Policecar.class);
+		uv3 = new TypeUnitValidator(Ambulance.class);
 		uv4 = new FiretruckValidator(fs1);
 
 		number1 = 1;
