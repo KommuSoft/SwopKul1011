@@ -95,20 +95,26 @@ public class NumberDispatchUnitsConstraintTest {
 	public void testAreValidDispatchUnits() throws NumberOutOfBoundsException, InvalidUnitValidatorException {
 		nduc = new NumberDispatchUnitsConstraint(uv1, number1);
 		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u1}));
+		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u1, u2}));
+		assertFalse(nduc.areValidDispatchUnits(new Unit[]{u4}));
 		
 		nduc = new NumberDispatchUnitsConstraint(uv1, number3);
 		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u1, u3}));
+		assertFalse(nduc.areValidDispatchUnits(new Unit[]{u1}));
 
 		nduc = new NumberDispatchUnitsConstraint(uv3, number1);
 		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u3}));
 
 		nduc = new NumberDispatchUnitsConstraint(uv3, number3);
 		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u1, u3}));
+		assertFalse(nduc.areValidDispatchUnits(new Unit[]{u3}));
 
 		nduc = new NumberDispatchUnitsConstraint(uv2, number2);
 		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u2}));
+		assertFalse(nduc.areValidDispatchUnits(new Unit[]{}));
 
 		nduc = new NumberDispatchUnitsConstraint(uv4, number4);
 		assertTrue(nduc.areValidDispatchUnits(new Unit[]{}));
+		assertTrue(nduc.areValidDispatchUnits(new Unit[]{u4}));
 	}
 }
