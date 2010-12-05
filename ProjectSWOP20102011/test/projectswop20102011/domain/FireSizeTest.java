@@ -50,10 +50,23 @@ public class FireSizeTest {
         FireSize.parse("faculteit");
     }
 
-	@Test
-	public void testToString(){
-		assertEquals("facility", FireSize.FACILITY.toString());
-		assertEquals("house", FireSize.HOUSE.toString());
-		assertEquals("local", FireSize.LOCAL.toString());
-	}
+    @Test
+    public void testToString() {
+        assertEquals("facility", FireSize.FACILITY.toString());
+        assertEquals("house", FireSize.HOUSE.toString());
+        assertEquals("local", FireSize.LOCAL.toString());
+    }
+
+    @Test
+    public void testCompareTo () {
+        assertTrue(FireSize.LOCAL.compareTo(FireSize.LOCAL) == 0);
+        assertTrue(FireSize.LOCAL.compareTo(FireSize.HOUSE) < 0);
+        assertTrue(FireSize.LOCAL.compareTo(FireSize.FACILITY) < 0);
+        assertTrue(FireSize.HOUSE.compareTo(FireSize.LOCAL) > 0);
+        assertTrue(FireSize.HOUSE.compareTo(FireSize.HOUSE) == 0);
+        assertTrue(FireSize.HOUSE.compareTo(FireSize.FACILITY) < 0);
+        assertTrue(FireSize.FACILITY.compareTo(FireSize.LOCAL) > 0);
+        assertTrue(FireSize.FACILITY.compareTo(FireSize.HOUSE) > 0);
+        assertTrue(FireSize.FACILITY.compareTo(FireSize.FACILITY) == 0);
+    }
 }

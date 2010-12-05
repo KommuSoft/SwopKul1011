@@ -115,4 +115,13 @@ public class Firetruck extends Unit {
         return (maxFireSize != null);
     }
 
+    /**
+     * Tests if this firetruck can handle a fire with a given fire size
+     * @param fireSize The fire size of the fire to test.
+     * @return True if the maximum fire size of this firetruck is larger or equal to the given fire size, otherwise false.
+     */
+    public boolean canHandleFireSize (FireSize fireSize) {
+        return (this.getMaxSize().compareTo(fireSize) >= 0);
+    }
+
 }
