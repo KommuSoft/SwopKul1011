@@ -11,14 +11,12 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 
 public class TypeUnitValidatorTest {
 
-	TypeUnitValidator tuv1, tuv2, tuv3, tuv4;
-	long number1, number2, number3, number4;
-	Unit u1, u2, u3, u4;
-	String name1, name2, name3, name4;
-	GPSCoordinate gps1, gps2, gps3, gps4;
-	long speed1, speed2, speed3, speed4;
-	FireSize fs1;
-	long x1, y1, x2, y2, x3, y3, x4, y4;
+	private TypeUnitValidator tuv1, tuv2, tuv3, tuv4;
+	private Unit u1, u2, u3, u4;
+	private String name1, name2, name3, name4;
+	private GPSCoordinate gps1, gps2, gps3, gps4;
+	private long speed1, speed2, speed3, speed4;
+	private long x1, y1, x2, y2, x3, y3, x4, y4;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {

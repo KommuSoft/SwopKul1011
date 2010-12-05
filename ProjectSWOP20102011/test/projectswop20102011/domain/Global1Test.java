@@ -106,7 +106,6 @@ public class Global1Test {
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
 			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
-		//ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 
 		Unit[] units = new Unit[1338];
 		int aantal = units.length;

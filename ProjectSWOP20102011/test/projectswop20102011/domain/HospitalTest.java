@@ -11,7 +11,7 @@ public class HospitalTest {
 	private GPSCoordinate location;
 	private long x,y;
 	private String name1,name2;
-	private Hospital ziekenhuis1,ziekenhuis2;
+	private Hospital ziekenhuis;
 
     @Before
     public void setUp(){
@@ -24,20 +24,20 @@ public class HospitalTest {
 
 	@Test
     public void testValidConstructor() throws InvalidMapItemNameException, InvalidLocationException{
-		ziekenhuis1 = new Hospital(name1,location);
-		assertEquals(x,ziekenhuis1.getHomeLocation().getX());
-		assertEquals(y,ziekenhuis1.getHomeLocation().getY());
-		assertEquals(name1,ziekenhuis1.getName());
+		ziekenhuis = new Hospital(name1,location);
+		assertEquals(x,ziekenhuis.getHomeLocation().getX());
+		assertEquals(y,ziekenhuis.getHomeLocation().getY());
+		assertEquals(name1,ziekenhuis.getName());
 	}
 
     @Test(expected = InvalidMapItemNameException.class)
 	public void testInvalidNameException() throws InvalidMapItemNameException, InvalidLocationException{
-		ziekenhuis2 = new Hospital(name2,location);
+		ziekenhuis = new Hospital(name2,location);
 	}
 
 	@Test(expected = InvalidLocationException.class)
 	public void testInvalidLocationException() throws InvalidMapItemNameException, InvalidLocationException{
-		ziekenhuis2 = new Hospital(name1,null);
+		ziekenhuis = new Hospital(name1,null);
 	}
 
 }

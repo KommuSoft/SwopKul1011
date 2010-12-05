@@ -15,11 +15,9 @@ public class TimeSensitiveListTest {
     private Iterator<TimeSensitive> it1;
     private Ambulance a1, a2;
     private String name1, name2;
-    private GPSCoordinate homeLocation1, homeLocation2, emergencyLocation;
+    private GPSCoordinate homeLocation1, homeLocation2;
     private long speed1, speed2;
     private long hx1, hy1, hx2, hy2, ex, ey;
-	private Emergency f1;
-	private long duration;
 
     @Before
     public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
@@ -39,8 +37,6 @@ public class TimeSensitiveListTest {
 
 		ex = 1302;
 		ey = 2031;
-		duration = 9*3600;
-		emergencyLocation = new GPSCoordinate(ex, ey);
 
         tsl1 = new TimeSensitiveList();
         tsl2 = new TimeSensitiveList();
@@ -58,10 +54,9 @@ public class TimeSensitiveListTest {
         assertEquals(1, tsl1.getTimeSensitives().size());
         assertTrue(tsl1.getTimeSensitives().contains(a1));
         assertFalse(tsl1.getTimeSensitives().contains(a2));
-        //assertEquals(a1, tsl1.getTimeSensitives().get(0));
+
         tsl1.addTimeSensitive(a2);
         assertEquals(2, tsl1.getTimeSensitives().size());
-        //ssertEquals(a2, tsl1.getTimeSensitives().get(1));
         assertTrue(tsl1.getTimeSensitives().contains(a1));
         assertTrue(tsl1.getTimeSensitives().contains(a2));
     }
@@ -69,8 +64,10 @@ public class TimeSensitiveListTest {
     @Test()
     public void testAddException() throws InvalidTimeSensitiveException {
         assertEquals(0,tsl2.getTimeSensitives().size());
+
         tsl2.addTimeSensitive(a1);
         assertEquals(1,tsl2.getTimeSensitives().size());
+
         tsl2.addTimeSensitive(a1);
         assertEquals(1,tsl2.getTimeSensitives().size());
     }

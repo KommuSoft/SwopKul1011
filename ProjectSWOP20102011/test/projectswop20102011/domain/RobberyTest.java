@@ -9,11 +9,10 @@ import projectswop20102011.exceptions.InvalidLocationException;
 public class RobberyTest {
 
     private Robbery r1;
-	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
-    private boolean armed1, armed2;
-    private boolean inProgress1, inProgress2;
+    private boolean armed1;
+    private boolean inProgress1;
     private long x1;
     private long y1;
 
@@ -25,9 +24,7 @@ public class RobberyTest {
         gp1 = new GPSCoordinate(x1, y1);
         es1 = EmergencySeverity.SERIOUS;
         armed1 = false;
-		armed2 = true;
         inProgress1 = false;
-		inProgress2 = true;
     }
 
     @Test

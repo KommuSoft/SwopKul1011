@@ -9,11 +9,10 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class TrafficAccidentTest {
     private TrafficAccident ta1;
-    private UnitsNeeded un1;
 	private GPSCoordinate gp1;
     private EmergencySeverity es1;
-    private long nmbOfCars1, nmbOfCars2;
-    private long nmbOfInjured1, nmbOfInjured2, nmbOfInjured3;
+    private long nmbOfCars1;
+    private long nmbOfInjured1;
     private long x1;
     private long y1;
 
@@ -26,9 +25,6 @@ public class TrafficAccidentTest {
         es1 = EmergencySeverity.SERIOUS;
         nmbOfCars1 = 12;
         nmbOfInjured1 = 94;
-		nmbOfInjured2 = 10;
-		nmbOfInjured3 = 0;
-		nmbOfCars2 = 1;
     }
 
     @Test

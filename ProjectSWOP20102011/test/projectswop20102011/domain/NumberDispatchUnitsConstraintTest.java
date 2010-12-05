@@ -12,15 +12,14 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class NumberDispatchUnitsConstraintTest {
 
-	NumberDispatchUnitsConstraint nduc;
-	long number1, number2, number3, number4, number5;
-	UnitValidator uv1, uv2, uv3, uv4, uv5;
-	Unit u1, u2, u3, u4;
-	String name1, name2, name3, name4;
-	GPSCoordinate gps1, gps2, gps3, gps4;
-	long speed1, speed2, speed3, speed4;
-	FireSize fs1;
-	long x1, y1, x2, y2, x3, y3, x4, y4;
+	private NumberDispatchUnitsConstraint nduc;
+	private long number1, number2, number3, number4, number5;
+	private UnitValidator uv1, uv2, uv3, uv4, uv5;
+	private Unit u1, u2, u3, u4;
+	private String name1, name2, name3, name4;
+	private GPSCoordinate gps1, gps2, gps3, gps4;
+	private long speed1, speed2, speed3, speed4;
+	private long x1, y1, x2, y2, x3, y3, x4, y4;
 
 	@Before
 	public void setUp() throws InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {

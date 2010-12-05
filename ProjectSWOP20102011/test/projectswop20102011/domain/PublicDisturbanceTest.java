@@ -10,7 +10,6 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class PublicDisturbanceTest {
     private PublicDisturbance pd1;
-	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
     private long nmbOfPeople1;

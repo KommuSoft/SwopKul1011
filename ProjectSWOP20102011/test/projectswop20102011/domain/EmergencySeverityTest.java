@@ -30,9 +30,6 @@ public class EmergencySeverityTest {
         assertFalse(EmergencySeverity.URGENT.matches("UGent"));
     }
 
-    /**
-     * Test of parse method, of class EmergencySeverity.
-     */
     @Test
     public void testParse() throws InvalidEmergencySeverityException {
         assertEquals(EmergencySeverity.BENIGN, EmergencySeverity.parse(EmergencySeverity.BENIGN.getTextual()));

@@ -11,13 +11,12 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 public class FireTest {
 
     private Fire f1;
-	private UnitsNeeded un1;
     private GPSCoordinate gp1;
     private EmergencySeverity es1;
-    private FireSize fs1, fs2, fs3;
+    private FireSize fs1;
     private boolean chemical1;
-    private long trappedPeople1, trappedPeople2;
-    private long nmbOfInjured1, nmbOfInjured2;
+    private long trappedPeople1;
+    private long nmbOfInjured1;
     private long x1;
     private long y1;
 
@@ -29,13 +28,9 @@ public class FireTest {
         gp1 = new GPSCoordinate(x1, y1);
         es1 = EmergencySeverity.NORMAL;
         fs1 = FireSize.LOCAL;
-		fs2 = FireSize.HOUSE;
-		fs3 = FireSize.FACILITY;
         chemical1 = false;
         trappedPeople1 = 0;
-		trappedPeople2 = 1;
         nmbOfInjured1 = 123654;
-		nmbOfInjured2 = 0;
     }
 
     @Test

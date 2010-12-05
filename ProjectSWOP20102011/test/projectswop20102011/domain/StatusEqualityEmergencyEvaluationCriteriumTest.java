@@ -11,13 +11,9 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-/**
- *
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
- */
 public class StatusEqualityEmergencyEvaluationCriteriumTest {
 
-	Emergency e1r, e2r, e3r, e4r;//recorded but unhandled
+	private Emergency e1r, e2r, e3r, e4r;//recorded but unhandled
 
 	public StatusEqualityEmergencyEvaluationCriteriumTest() {
 	}
@@ -39,13 +35,6 @@ public class StatusEqualityEmergencyEvaluationCriteriumTest {
 		e4r = new TrafficAccident(gp1, EmergencySeverity.URGENT, "", 128, 256);
 	}
 
-	@After
-	public void tearDown() {
-	}
-
-	/**
-	 * Test of isValidEmergency method, of class StatusEqualityEmergencyEvaluationCriterium.
-	 */
 	@Test
 	public void testIsValidEmergency() {
 		StatusEqualityEmergencyEvaluationCriterium seeec1 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RECORDED_BUT_UNHANDLED);
@@ -54,10 +43,7 @@ public class StatusEqualityEmergencyEvaluationCriteriumTest {
 		assertTrue(seeec1.isValidEmergency(e3r));
 		assertTrue(seeec1.isValidEmergency(e4r));
 	}
-
-	/**
-	 * Test of constructor, of class StatusEqualityEmergencyEvaluationCriterium.
-	 */
+	
 	@Test
 	public void testConstructor() {
 		StatusEqualityEmergencyEvaluationCriterium seeec1 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RECORDED_BUT_UNHANDLED);
