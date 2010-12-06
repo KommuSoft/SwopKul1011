@@ -1,4 +1,6 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
+
+import projectswop20102011.domain.Unit;
 
 /**
  * An abstract class representing a constraint to dispatch units.

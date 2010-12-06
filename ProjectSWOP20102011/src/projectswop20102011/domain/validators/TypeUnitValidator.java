@@ -1,6 +1,7 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
 import java.io.InvalidClassException;
+import projectswop20102011.domain.Unit;
 
 /**
  * A class representing a UnitValidator that validates if a given Unit is from a given type (example: Ambulance, Firetruck,...)

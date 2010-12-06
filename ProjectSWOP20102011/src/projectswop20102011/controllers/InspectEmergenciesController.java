@@ -2,14 +2,14 @@ package projectswop20102011.controllers;
 
 import java.util.Map.Entry;
 import java.util.Set;
-import projectswop20102011.domain.AvailableUnitsMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.AvailableUnitsMapItemEvaluationCriterium;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencyEvaluationCriterium;
+import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
 import projectswop20102011.domain.EmergencyStatus;
-import projectswop20102011.domain.StatusEqualityEmergencyEvaluationCriterium;
+import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCriterium;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItem;
-import projectswop20102011.domain.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
 import projectswop20102011.domain.MapItemList;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidWorldException;

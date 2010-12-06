@@ -1,5 +1,7 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.TypeUnitValidator;
 import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;

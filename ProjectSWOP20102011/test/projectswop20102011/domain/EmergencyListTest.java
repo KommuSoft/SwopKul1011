@@ -1,5 +1,7 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
+import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCriterium;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidCoordinateException;
 import org.junit.Test;

@@ -1,5 +1,7 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.validators.TypeMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.HospitalToEmergencyDistanceComparator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.Before;

@@ -1,4 +1,7 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
+
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.EmergencyStatus;
 
 /**
  * An implementation for an EmergencyEvaluationCriterium that checks if the status is equal to a given status.

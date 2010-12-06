@@ -1,6 +1,9 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
 import java.io.InvalidClassException;
+import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.Firetruck;
+import projectswop20102011.domain.Unit;
 
 /**
  * A class that represents a validator that checks if a given firetruck is capable to extinguish a given fire size.

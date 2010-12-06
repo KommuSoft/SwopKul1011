@@ -1,6 +1,8 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
 import java.util.Comparator;
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.Hospital;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
 /**

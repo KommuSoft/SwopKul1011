@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;

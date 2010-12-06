@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

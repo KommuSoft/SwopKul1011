@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
 import java.util.Iterator;
 import java.util.HashSet;
 

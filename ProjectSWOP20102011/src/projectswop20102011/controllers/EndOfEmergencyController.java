@@ -1,8 +1,8 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.TypeMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.TypeMapItemEvaluationCriterium;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidLocationException;

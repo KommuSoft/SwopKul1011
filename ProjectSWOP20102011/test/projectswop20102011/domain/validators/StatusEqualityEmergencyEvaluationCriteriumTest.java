@@ -1,10 +1,20 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
+import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCriterium;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.Fire;
+import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.PublicDisturbance;
+import projectswop20102011.domain.Robbery;
+import projectswop20102011.domain.TrafficAccident;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;

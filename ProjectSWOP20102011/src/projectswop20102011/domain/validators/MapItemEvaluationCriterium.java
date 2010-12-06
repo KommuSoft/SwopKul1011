@@ -1,4 +1,6 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
+
+import projectswop20102011.domain.MapItem;
 
 /**
  * A class representing an evaluation criterium on an MapItem.

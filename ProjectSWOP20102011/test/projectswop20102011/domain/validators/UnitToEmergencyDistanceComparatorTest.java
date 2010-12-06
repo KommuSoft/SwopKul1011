@@ -1,7 +1,14 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
+import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
 import org.junit.Before;
 import org.junit.Test;
+import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.PublicDisturbance;
+import projectswop20102011.domain.Unit;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;

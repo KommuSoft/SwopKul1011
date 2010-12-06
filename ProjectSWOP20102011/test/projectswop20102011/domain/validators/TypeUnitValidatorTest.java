@@ -1,8 +1,14 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
+import projectswop20102011.domain.validators.TypeUnitValidator;
 import java.io.InvalidClassException;
 import org.junit.Before;
 import org.junit.Test;
+import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Firetruck;
+import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.Policecar;
+import projectswop20102011.domain.Unit;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;

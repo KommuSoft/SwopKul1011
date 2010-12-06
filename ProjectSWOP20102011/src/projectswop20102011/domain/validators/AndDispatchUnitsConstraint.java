@@ -1,5 +1,6 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
+import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 
 /**

@@ -2,9 +2,9 @@ package projectswop20102011.controllers;
 
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
-import projectswop20102011.domain.HospitalToEmergencyDistanceComparator;
-import projectswop20102011.domain.TypeMapItemEvaluationCriterium;
-import projectswop20102011.domain.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.HospitalToEmergencyDistanceComparator;
+import projectswop20102011.domain.validators.TypeMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;

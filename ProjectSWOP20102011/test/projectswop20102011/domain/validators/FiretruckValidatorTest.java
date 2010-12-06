@@ -1,8 +1,12 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.validators;
 
+import projectswop20102011.domain.validators.FiretruckValidator;
 import java.io.InvalidClassException;
 import org.junit.Before;
 import org.junit.Test;
+import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.Firetruck;
+import projectswop20102011.domain.GPSCoordinate;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
