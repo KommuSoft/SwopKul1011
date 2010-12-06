@@ -14,5 +14,6 @@
 
    <XMI.content>
    <UML:Profile xmi.id="DCE.64BF3014-EB55-352D-DE24-1F345E37EF2B" name="Unnamed" isCloned="true" href=".\SwopUMLIteratie1.etup#//*[@xmi.id=&apos;DCE.64BF3014-EB55-352D-DE24-1F345E37EF2B&apos;]" isDirty="false"><UML:Element.ownedElement>
-<UML:Stereotype xmi.id="DCE.48F9C15E-9FDB-56C1-A386-00E4D9ACA591" name="enum" owner="__uri_.\SwopUMLIteratie1.etup#//*[@xmi.id=&apos;DCE.64BF3014-EB55-352D-DE24-1F345E37EF2B&apos;]"/></UML:Element.ownedElement></UML:Profile></XMI.content>
+<UML:Stereotype xmi.id="DCE.48F9C15E-9FDB-56C1-A386-00E4D9ACA591" name="enum" owner="__uri_.\SwopUMLIteratie1.etup#//*[@xmi.id=&apos;DCE.64BF3014-EB55-352D-DE24-1F345E37EF2B&apos;]"/>
+<UML:Stereotype xmi.id="DCE.C256E5F8-0ED6-52CE-64F9-777CDF4732D5" name="interface" owner="__uri_.\SwopUMLIteratie1.etup#//*[@xmi.id=&apos;DCE.64BF3014-EB55-352D-DE24-1F345E37EF2B&apos;]"/></UML:Element.ownedElement></UML:Profile></XMI.content>
 </XMI>
