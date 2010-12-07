@@ -10,6 +10,7 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -257,7 +258,9 @@ public class Fire extends Emergency {
             DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckValidator(this.getSize()), firetrucks);
             DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured() + this.getTrappedPeople());
             DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
-            return new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
+            UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
+            new ASAPDispatchPolicy(un);//TODO: additional arguments to the ASAPDispatchPolicy
+            return un;
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
             Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
@@ -276,6 +279,12 @@ public class Fire extends Emergency {
         } catch (InvalidConstraintListException ex) {
             //we assume this can't happen
             Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we asume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidDispatchPolicyException ex) {
+            //we asume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
         }
         //should never be returned.
         return null;

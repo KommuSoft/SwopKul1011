@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
@@ -12,8 +13,9 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
      * Creates a new insatance with a given UnitsNeeded object of the emergency that will be handled.
      * @param unitsNeeded The unitsNeeded object of the emergency this
      * @throws InvalidUnitsNeededException If the given UnitsNeeded object is not effective.
+     * @throws InvalidDispatchPolicyException If the given UnitsNeeded object has already a Policy.
      */
-    public ASAPDispatchPolicy (UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
+    public ASAPDispatchPolicy (UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded);
     }
 

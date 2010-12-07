@@ -22,7 +22,7 @@ public class UnitsNeeded {
     /**
      * A policy for allocating units to this UnitsNeeded.
      */
-    private final DispatchPolicy policy;
+    private DispatchPolicy policy;
     /**
      * The emergency that is been handled by this UnitsNeeded class.
      */
@@ -42,8 +42,6 @@ public class UnitsNeeded {
      *          The emergency that will be handled by this UnitsNeeded.
      * @param constraint
      *          A constraint used to determine when units can be assigned to the emergency.
-     * @param policy
-     *          A DispatchPolicy object that can give a unit allocation proposal.
      * @post This emergency is set to the given emergency.
      *		| new.getEmergency()==emergency
      * @post This units is set to the given units.
@@ -56,23 +54,17 @@ public class UnitsNeeded {
      *		If the given emergency is not effective.
      * @throws InvalidDispatchUnitsConstraintException
      *          If the given constraint is invalid.
-     * @throws InvalidDispatchPolicyException
-     *          If the given policy is ineffective.
      * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
      */
-    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint, DispatchPolicy policy) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException, InvalidDispatchPolicyException {
+    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
         if (!isValidEmergency(emergency)) {
             throw new InvalidEmergencyException("Emergency must be effective.");
         }
         if (!isValidConstraint(constraint)) {
             throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
         }
-        if(!isValidPolicy(policy)) {
-            throw new InvalidDispatchPolicyException("The policy must be effective.");
-        }
         this.emergency = emergency;
         this.constraint = constraint;
-        this.policy = policy;
         initWorkingUnits();
     }
 
@@ -152,7 +144,6 @@ public class UnitsNeeded {
 
     /**
      * Assign the given array of units to the emergency.
-     *
      * @param units
      *		The given array of units.
      * @post The status of the emergency is RESPONSE_IN_PROGRESS
@@ -197,8 +188,22 @@ public class UnitsNeeded {
      * Returns a DispatchPolicy object that can give a proposal for unit allocations.
      * @return A DispatchPolicy object that can give a proposal for unit allocations.
      */
-    public DispatchPolicy getPolicy () {
+    public DispatchPolicy getPolicy() {
         return this.policy;
+    }
+
+    /**
+     * Sets the policy of this UnitsNeeded object to the given object.
+     * @param policy The given policy to set.
+     * @post The given policy is equal to the policy of this UnitsNeeded
+     *          | new.getPolicy() == policy
+     * @throws InvalidDispatchPolicyException if the policy of the UnitsNeeded is already been set.
+     */
+    void setPolicy(DispatchPolicy policy) throws InvalidDispatchPolicyException {
+        if (this.getPolicy() != null) {
+            throw new InvalidDispatchPolicyException("Policy has already been set.");
+        }
+        this.policy = policy;
     }
 
     /**
@@ -208,14 +213,5 @@ public class UnitsNeeded {
      */
     public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
         return (constraint != null);
-    }
-
-    /**
-     * Tests if the given policy is a valid policy for a UnitsNeeded object.
-     * @param policy The policy to check.
-     * @return True if the given policy is effective, otherwise false.
-     */
-    public static boolean isValidPolicy(DispatchPolicy policy) {
-        return (policy != null);
     }
 }

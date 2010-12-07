@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
@@ -17,11 +18,13 @@ public abstract class DispatchPolicy {
      * Creates a new instance of a DispatchPolicy class with a given UnitsNeeded object of the emergency it will handle.
      * @param unitsNeeded The unitsNeeded object of the emergency this policy will handle.
      * @throws InvalidUnitsNeededException If the given UnitsNeeded is not effective.
+     * @throws InvalidDispatchPolicyException If the given UnitsNeeded has already a policy object.
      */
-    protected DispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
+    protected DispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         if (!isValidUnitsNeeded(unitsNeeded)) {
             throw new InvalidUnitsNeededException("UnitsNeeded must be effective.");
         }
+        unitsNeeded.setPolicy(this);
         this.unitsNeeded = unitsNeeded;
     }
 

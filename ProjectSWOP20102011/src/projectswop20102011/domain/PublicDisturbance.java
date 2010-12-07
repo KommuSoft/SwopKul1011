@@ -6,11 +6,13 @@ import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -110,7 +112,9 @@ public class PublicDisturbance extends Emergency {
     @Override
     protected UnitsNeeded calculateUnitsNeeded() {
         try {
-            return new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
+            UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
+            new DefaultDispatchPolicy(un);
+            return un;
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
             Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,6 +130,12 @@ public class PublicDisturbance extends Emergency {
         } catch (InvalidClassException ex) {
             //we assume this can't happen
             Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we asume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidDispatchPolicyException ex) {
+            //we asume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

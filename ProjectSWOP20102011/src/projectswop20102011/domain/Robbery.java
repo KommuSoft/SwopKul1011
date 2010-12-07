@@ -6,6 +6,7 @@ import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -122,7 +123,10 @@ public class Robbery extends Emergency {
     protected UnitsNeeded calculateUnitsNeeded() {
         int nPolice = ((isArmed() && isInProgress()) ? 3 : 1);
         try {
-            return new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice));
+            UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice));
+            new ASAPDispatchPolicy(un);
+            return un;
+
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
             Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,6 +142,12 @@ public class Robbery extends Emergency {
         } catch (InvalidClassException ex) {
             //we assume this can't happen
             Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidUnitsNeededException ex) {
+            //we asume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidDispatchPolicyException ex) {
+            //we asume this can't happen
+            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

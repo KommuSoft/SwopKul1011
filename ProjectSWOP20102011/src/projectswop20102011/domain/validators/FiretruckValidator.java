@@ -24,7 +24,7 @@ public class FiretruckValidator extends TypeUnitValidator {
      * @effect This fire size is equal to the given fire size.
      *		|this.fireSize.equals(fireSize)
      */
-    FiretruckValidator(FireSize fireSize) throws InvalidClassException {
+    public FiretruckValidator(FireSize fireSize) throws InvalidClassException {
         super(Firetruck.class);
         setFireSize(fireSize);
     }
