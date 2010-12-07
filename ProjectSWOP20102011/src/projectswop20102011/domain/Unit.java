@@ -37,6 +37,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * A variable registering the withdrawBehavior of this unit.
      */
     private WithdrawBehavior withdrawBehavior;
+	/**
+	 * A variable registering whether a unit was already at the site of emergency.
+	 */
+	private boolean wasAlreadyAtSite;
 
     /**
      * Initialize a new unit with given parameters.
@@ -67,6 +71,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         setSpeed(speed);
         setCurrentLocation(homeLocation);
         setEmergency(null);
+		setWasAlreadyAtSite(false);
     }
 
     /**
@@ -125,6 +130,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return withdrawBehavior;
     }
 
+	/**
+	 * Returns whether a unit was already at the site of emergency.
+	 * @return True if this unit was already at the site of emergency, false otherwise.
+	 */
+	public boolean wasAlreadyAtSite(){
+		return wasAlreadyAtSite;
+	}
+
     /**
      * Sets the speed of this timesensitive unit or building to the given value.
      *
@@ -173,6 +186,16 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     void setWithdrawBehavior(WithdrawBehavior wb) {
         this.withdrawBehavior = wb;
     }
+
+	/**
+	 * Sets whether a unit was already at the site of emergency.
+	 *
+	 * @param wasAlreadyAtSite
+	 *		The condition whether a unit was already at the site of emergency.
+	 */
+	private void setWasAlreadyAtSite(boolean wasAlreadyAtSite){
+		this.wasAlreadyAtSite = wasAlreadyAtSite;
+	}
 
     /**
      * Returns the emergency of this unit.
@@ -251,6 +274,9 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     @Override
     public void timeAhead(long seconds) throws InvalidDurationException {
         changeLocation(seconds);
+		if(isAssigned() && wasAlreadyAtSite() == false && getCurrentLocation()==getEmergency().getLocation()){
+			setWasAlreadyAtSite(true);
+		}
     }
 
     /**
@@ -269,6 +295,9 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             throw new InvalidMapItemException("Unit can't be assigned");
         }
         setEmergency(emergency);
+		if(getCurrentLocation() == emergency.getLocation()){
+			setWasAlreadyAtSite(true);
+		}
     }
 
     /**
@@ -287,6 +316,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             if (this.isAtDestination()) {
                 getEmergency().getUnitsNeeded().unitFinishedJob();
                 setEmergency(null);
+				setWasAlreadyAtSite(false);
             } else {
                 throw new InvalidLocationException("The unit is not at it's destination.");
             }

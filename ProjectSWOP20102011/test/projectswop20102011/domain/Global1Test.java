@@ -111,7 +111,8 @@ public class Global1Test {
     public void testNormalWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
             InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
             InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException {
-        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+        //Brand aanmaken + alle units
+		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
         ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
         ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
         ziekenwagen3 = new Ambulance(name3, homeLocation3, speed3);
@@ -119,6 +120,7 @@ public class Global1Test {
         ziekenwagen5 = new Ambulance(name5, homeLocation5, speed5);
         brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6);
 
+		//units toevoegen aan de mapitemlist
         mapitemList.addMapItem(ziekenwagen1);
         mapitemList.addMapItem(ziekenwagen2);
         mapitemList.addMapItem(ziekenwagen3);
@@ -126,8 +128,11 @@ public class Global1Test {
         mapitemList.addMapItem(ziekenwagen5);
         mapitemList.addMapItem(brandweerwagen1);
 
+		//We wijzen de units toe aan een emergency
         Unit[] units = {ziekenwagen1, ziekenwagen2, ziekenwagen3, ziekenwagen4, ziekenwagen5, brandweerwagen1};
         f1.getUnitsNeeded().assignUnitsToEmergency(units);
+
+		//We spoelen de tijd door
         ziekenwagen1.timeAhead(duration3);
         ziekenwagen2.timeAhead(duration3);
         ziekenwagen3.timeAhead(duration3);
@@ -135,6 +140,8 @@ public class Global1Test {
         ziekenwagen5.timeAhead(duration3);
         brandweerwagen1.timeAhead(duration3);
 
+		//We veronderstellen dat de units nog niet op hun bestemming zijn,
+		//aangezien het tijdsinterval heel klein werd gekozen.
         assertFalse(ziekenwagen1.isAtDestination());
         assertFalse(ziekenwagen2.isAtDestination());
         assertFalse(ziekenwagen3.isAtDestination());
@@ -142,9 +149,28 @@ public class Global1Test {
         assertFalse(ziekenwagen5.isAtDestination());
         assertFalse(brandweerwagen1.isAtDestination());
 
+		//We veronderstellen dus ook dat de units nog niet op de plaats van het ongeval geweest zijn
+		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+        assertFalse(ziekenwagen2.wasAlreadyAtSite());
+        assertFalse(ziekenwagen3.wasAlreadyAtSite());
+        assertFalse(ziekenwagen4.wasAlreadyAtSite());
+        assertFalse(ziekenwagen5.wasAlreadyAtSite());
+        assertFalse(brandweerwagen1.wasAlreadyAtSite());
+
+		//We trekken nu twee units terug
         String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
         WithdrawUnits wu = new WithdrawUnits(mapitemList);
         wu.withdraw(unitNames);
+
+		//Nog steeds is geen enkele unit op de plaats van het ongeval geweest
+		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+        assertFalse(ziekenwagen2.wasAlreadyAtSite());
+        assertFalse(ziekenwagen3.wasAlreadyAtSite());
+        assertFalse(ziekenwagen4.wasAlreadyAtSite());
+        assertFalse(ziekenwagen5.wasAlreadyAtSite());
+        assertFalse(brandweerwagen1.wasAlreadyAtSite());
+
+		//Enkel de eerste 2 units kunnen weer aan een emergency toegewezen worden
         assertTrue(ziekenwagen1.canBeAssigned());
         assertTrue(ziekenwagen2.canBeAssigned());
         assertFalse(ziekenwagen3.canBeAssigned());
@@ -152,7 +178,41 @@ public class Global1Test {
         assertFalse(ziekenwagen5.canBeAssigned());
         assertFalse(brandweerwagen1.canBeAssigned());
 
+		//we veronderstellen dat er nog 4 units zijn toegewezen
         assertEquals(4, f1.getUnitsNeeded().getWorkingUnits());
+
+		//
+		ziekenwagen1.timeAhead(duration2);
+		ziekenwagen2.timeAhead(duration2);
+        ziekenwagen3.timeAhead(duration2);
+        ziekenwagen4.timeAhead(duration2);
+        ziekenwagen5.timeAhead(duration2);
+        brandweerwagen1.timeAhead(duration2);
+
+		//We veronderstellen nu (door het grote tijdsinterval) dat de 4 units
+		//reeds op de plaats van het ongeval zijn geweest
+		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+        assertFalse(ziekenwagen2.wasAlreadyAtSite());
+        assertTrue(ziekenwagen3.wasAlreadyAtSite());
+        assertTrue(ziekenwagen4.wasAlreadyAtSite());
+        assertTrue(ziekenwagen5.wasAlreadyAtSite());
+        assertTrue(brandweerwagen1.wasAlreadyAtSite());
+
+		//We spoelen de tijd nog een beetje door
+		ziekenwagen3.timeAhead(duration2);
+        ziekenwagen4.timeAhead(duration2);
+        ziekenwagen5.timeAhead(duration2);
+        brandweerwagen1.timeAhead(duration2);
+
+		//We veronderstellen nog steeds dat de 4 units al op de plaats van het ongeval zijn geweest
+		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+        assertFalse(ziekenwagen2.wasAlreadyAtSite());
+        assertTrue(ziekenwagen3.wasAlreadyAtSite());
+        assertTrue(ziekenwagen4.wasAlreadyAtSite());
+        assertTrue(ziekenwagen5.wasAlreadyAtSite());
+        assertTrue(brandweerwagen1.wasAlreadyAtSite());
+
+
 
     }
 
@@ -160,7 +220,7 @@ public class Global1Test {
     public void testNotWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
             InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
             InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException {
-        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 2);
         ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
         ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
         brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6);
@@ -178,6 +238,10 @@ public class Global1Test {
         assertFalse(ziekenwagen1.isAtDestination());
         assertFalse(ziekenwagen2.isAtDestination());
         assertFalse(brandweerwagen1.isAtDestination());
+
+        assertFalse(ziekenwagen1.wasAlreadyAtSite());
+        assertFalse(ziekenwagen2.wasAlreadyAtSite());
+        assertFalse(brandweerwagen1.wasAlreadyAtSite());
 
         String[] unitNames = {brandweerwagen1.getName()};
         WithdrawUnits wu = new WithdrawUnits(mapitemList);
