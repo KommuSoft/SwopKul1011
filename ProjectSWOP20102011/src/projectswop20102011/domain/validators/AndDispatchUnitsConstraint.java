@@ -45,7 +45,7 @@ public class AndDispatchUnitsConstraint implements DispatchUnitsConstraint {
      * @return A list of all the DispatchUnitConstraints below this AndDispatchUnitsConstraint.
      */
     public DispatchUnitsConstraint[] getConstraints () {
-        return this.constraints.clone();
+        return constraints.clone();
     }
 
     /**
@@ -56,7 +56,7 @@ public class AndDispatchUnitsConstraint implements DispatchUnitsConstraint {
      */
     @Override
     public boolean areValidDispatchUnits(Unit[] units) {
-        for (DispatchUnitsConstraint duc : this.constraints) {
+        for (DispatchUnitsConstraint duc : getConstraints()) {
             if (!duc.areValidDispatchUnits(units)) {
                 return false;
             }
@@ -70,7 +70,7 @@ public class AndDispatchUnitsConstraint implements DispatchUnitsConstraint {
      */
     @Override
     public String toString () {
-        DispatchUnitsConstraint[] c = this.getConstraints();
+        DispatchUnitsConstraint[] c = getConstraints();
         if(c.length == 0) {
             return "TRUE";
         }

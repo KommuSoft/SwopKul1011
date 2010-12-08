@@ -114,6 +114,14 @@ public class UnitsNeeded {
         return workingUnits;
     }
 
+	/**
+	 * Returns the constraint of this UnitsNeeded.
+	 * @return The constraint used by this UnitsNeeded.
+	 */
+	private DispatchUnitsConstraint getConstraint(){
+		return constraint;
+	}
+
     /**
      * Checks if the given Emergency is valid for this UnitsNeeded class.
      * @param emergency
@@ -139,7 +147,7 @@ public class UnitsNeeded {
 
         //TODO: remove duplicates and null pointers out of <units>
 
-        return this.constraint.areValidDispatchUnits(units);
+		return getConstraint().areValidDispatchUnits(units);
     }
 
     /**
