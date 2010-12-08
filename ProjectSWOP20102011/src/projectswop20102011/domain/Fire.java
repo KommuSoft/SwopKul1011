@@ -1,7 +1,7 @@
 package projectswop20102011.domain;
 
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
-import projectswop20102011.domain.validators.FiretruckValidator;
+import projectswop20102011.domain.validators.FiretruckFireSizeValidator;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
@@ -255,7 +255,7 @@ public class Fire extends Emergency {
                 policecars = 3;
         }
         try {
-            DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckValidator(this.getSize()), firetrucks);
+            DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(this.getSize()), firetrucks);
             DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured() + this.getTrappedPeople());
             DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
             UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

@@ -1,6 +1,6 @@
 package projectswop20102011.domain.validators;
 
-import projectswop20102011.domain.validators.FiretruckValidator;
+import projectswop20102011.domain.validators.FiretruckFireSizeValidator;
 import java.io.InvalidClassException;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class FiretruckValidatorTest {
 	private GPSCoordinate gps1, gps2, gps3;
 	private long x1, y1, x2, y2, x3, y3;
 	private long speed1, speed2, speed3;
-	private FiretruckValidator ftv1, ftv2, ftv3;
+	private FiretruckFireSizeValidator ftv1, ftv2, ftv3;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
@@ -60,9 +60,9 @@ public class FiretruckValidatorTest {
 
 	@Test
 	public void testConstructor() throws InvalidClassException {
-		ftv1 = new FiretruckValidator(fs1);
-		ftv2 = new FiretruckValidator(fs2);
-		ftv3 = new FiretruckValidator(fs3);
+		ftv1 = new FiretruckFireSizeValidator(fs1);
+		ftv2 = new FiretruckFireSizeValidator(fs2);
+		ftv3 = new FiretruckFireSizeValidator(fs3);
 
 		assertEquals(fs1, ftv1.getFireSize());
 		assertEquals(fs2, ftv2.getFireSize());
@@ -71,9 +71,9 @@ public class FiretruckValidatorTest {
 
 	@Test
 	public void testIsValid() throws InvalidClassException {
-		ftv1 = new FiretruckValidator(fs1);
-		ftv2 = new FiretruckValidator(fs2);
-		ftv3 = new FiretruckValidator(fs3);
+		ftv1 = new FiretruckFireSizeValidator(fs1);
+		ftv2 = new FiretruckFireSizeValidator(fs2);
+		ftv3 = new FiretruckFireSizeValidator(fs3);
 
 		assertTrue(ftv1.isValid(ft1));
 		assertTrue(ftv1.isValid(ft2));

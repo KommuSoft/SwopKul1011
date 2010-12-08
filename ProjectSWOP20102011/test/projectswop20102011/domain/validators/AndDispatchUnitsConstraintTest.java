@@ -1,6 +1,6 @@
 package projectswop20102011.domain.validators;
 
-import projectswop20102011.domain.validators.FiretruckValidator;
+import projectswop20102011.domain.validators.FiretruckFireSizeValidator;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.UnitValidator;
@@ -28,7 +28,7 @@ public class AndDispatchUnitsConstraintTest {
 	private NumberDispatchUnitsConstraint c1, c2, c3, c4;
 	private AndDispatchUnitsConstraint c5, c6;
 	private UnitValidator uv1, uv2, uv3;
-	private FiretruckValidator uv4;
+	private FiretruckFireSizeValidator uv4;
 	private long number1, number2, number3, number4;
 	private Unit u1, u2, u3, u4;
 	private String name1, name2, name3, name4;
@@ -73,7 +73,7 @@ public class AndDispatchUnitsConstraintTest {
 		uv1 = new TypeUnitValidator(Ambulance.class);
 		uv2 = new TypeUnitValidator(Policecar.class);
 		uv3 = new TypeUnitValidator(Ambulance.class);
-		uv4 = new FiretruckValidator(fs1);
+		uv4 = new FiretruckFireSizeValidator(fs1);
 
 		number1 = 1;
 		number2 = 1;

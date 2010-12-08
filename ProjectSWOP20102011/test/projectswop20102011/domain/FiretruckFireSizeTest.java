@@ -14,7 +14,7 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-public class FiretruckTest {
+public class FiretruckFireSizeTest {
 
     private long x1, x2, y1, y2, speed1, duration;
     private String name;

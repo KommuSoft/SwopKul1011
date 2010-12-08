@@ -10,7 +10,7 @@ import projectswop20102011.domain.Unit;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class FiretruckValidator extends TypeUnitValidator {
+public class FiretruckFireSizeValidator extends TypeUnitValidator {
 
     /**
      * A variable registering the fire size of this fire truck validator.
@@ -24,7 +24,7 @@ public class FiretruckValidator extends TypeUnitValidator {
      * @effect This fire size is equal to the given fire size.
      *		|this.fireSize.equals(fireSize)
      */
-    public FiretruckValidator(FireSize fireSize) throws InvalidClassException {
+    public FiretruckFireSizeValidator(FireSize fireSize) throws InvalidClassException {
         super(Firetruck.class);
         setFireSize(fireSize);
     }
@@ -56,10 +56,6 @@ public class FiretruckValidator extends TypeUnitValidator {
      */
     @Override
     public boolean isValid(Unit unit) {
-        if (!super.isValid(unit)) {
-            return false;
-        }
-        Firetruck firetruck = (Firetruck) unit;
-        return firetruck.canHandleFireSize(this.getFireSize());
+        return (super.isValid(unit) && ((Firetruck) unit).canHandleFireSize(this.getFireSize()));
     }
 }
