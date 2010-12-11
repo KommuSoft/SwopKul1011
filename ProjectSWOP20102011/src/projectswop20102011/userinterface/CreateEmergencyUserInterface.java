@@ -105,6 +105,6 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
 
     @Override
     public Controller getController() {
-        return this.getController();
+        return this.controller;
     }
 }
