@@ -8,7 +8,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi{
 
 	@Override
 	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 }
