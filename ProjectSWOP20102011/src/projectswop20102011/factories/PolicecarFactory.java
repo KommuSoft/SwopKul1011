@@ -1,6 +1,5 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.GPSCoordinate;
@@ -30,52 +29,36 @@ public class PolicecarFactory extends MapItemFactory {
     /**
      * Creates a new Policecar.
      *
-     * @param parameters
-     *		The parameters to construct the Policecar.
+     * @param s
+     *      A string with specifications of the new policecar.
      * @return The new Policecar.
-     * @throws InvalidParameterException
-     *		If the parameters are invalid for this Policecar.
      */
     @Override
-    public Policecar createMapItem(Object[] parameters) throws InvalidParameterException {
-        if (areValidParameters(parameters)) {
-            String name = (String) parameters[0];
-            GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];
-            Long speed = (Long) parameters[2];
-            try {
-                return new Policecar(name, homeLocation, speed);
-            } catch (InvalidLocationException ex) {
-                Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidMapItemNameException ex) {
-                Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidSpeedException ex) {
-                Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            throw new InvalidParameterException("Invalid parameters for this fire truck.");
+    public Policecar createMapItem(String s){
+        String name = parseName(s);
+        GPSCoordinate homeLocation = parseHomeLocation(s);
+        Long speed = parseSpeed(s);
+        try {
+            return new Policecar(name, homeLocation, speed);
+        } catch (InvalidLocationException ex) {
+            Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidMapItemNameException ex) {
+            Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidSpeedException ex) {
+            Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    /**
-     * Returns true if the given parameters are valid parameters for a Policecar.
-     * @param parameters
-     *		The desired parameters of the Policecar.
-     * @return
-     *		True if the given parameters are valid for a Policecar; false otherwise.
-     */
-    public boolean areValidParameters(Object[] parameters) {
-        if (parameters.length != 6) {
-            return false;
-        }
-        if (parameters[0].getClass() != String.class
-                || parameters[1].getClass() != GPSCoordinate.class
-                || parameters[2].getClass() != Long.class
-                || parameters[3].getClass() != GPSCoordinate.class
-                || parameters[4].getClass() != GPSCoordinate.class
-                || parameters[5].getClass() != Boolean.class) {
-            return false;
-        }
-        return true;
+    private String parseName(String s) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private GPSCoordinate parseHomeLocation(String s) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private Long parseSpeed(String s) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

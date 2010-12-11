@@ -1,6 +1,5 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 
@@ -17,7 +16,7 @@ public abstract class MapItemFactory{
 	 * Creates a new UnitBuildingFactory with a given emergency type name.
 	 * @param unitBuildingTypeName
 	 *		The name of the type of UnitBuilding the factory will create.
-	 * @throws InvalidUnitBuildingTypeNameException
+     * @throws InvalidMapItemTypeNameException
 	 *		If the name of the emergency type is invalid.
 	 */
 	protected MapItemFactory (String unitBuildingTypeName) throws InvalidMapItemTypeNameException {
@@ -29,13 +28,12 @@ public abstract class MapItemFactory{
 
 	/**
 	 * Creates a new specific UnitBuilding with the given parameters
-	 * @param parameters
-	 *		The parameters of the constructor.
-	 * @return The UnitBuilding created by the factory.
-	 * @throws InvalidParameterException
-	 *		If the given parameters are invalid parameters for the UnitBuilding.
+     * @param s
+     *      A string with the specifications of the new mapItem.
+     * @return The UnitBuilding created by the factory.
+
 	 */
-	public abstract MapItem createMapItem (Object[] parameters) throws InvalidParameterException;
+	public abstract MapItem createMapItem (String s);
 
 	/**
 	 * Tests if the given emergency type name is valid for an UnitBuildingFactory object.

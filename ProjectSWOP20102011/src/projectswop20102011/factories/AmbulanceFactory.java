@@ -1,11 +1,9 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.GPSCoordinate;
-import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -32,13 +30,11 @@ public class AmbulanceFactory extends MapItemFactory {
      * Creates a new Ambulance.
      *
      * @param s
-     * @param parameters
-     *		The parameters to construct the Ambulance.
+     *      A string with the specifications of the new ambulance.
      * @return The new Ambulance.
-     * @throws InvalidParameterException
-     *		If the parameters are invalid for this Ambulance.
      */
-    public Ambulance createMapItem(String s) throws InvalidParameterException {
+    @Override
+    public Ambulance createMapItem(String s){
 
         String name = parseName(s);
         GPSCoordinate homeLocation = parseHomeLocation(s);
