@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projectswop20102011.factories;
 
 import projectswop20102011.domain.FireSize;
