@@ -12,15 +12,17 @@ import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 public class PublicDisturbanceFactory extends EmergencyFactory{
 
     /**
-     * 
+     * Creates a new PublicDisturbance.
+     *
      * @throws InvalidEmergencyTypeNameException
+     *      If the type name of the new PublicDisturbance is invalid.
      */
     public PublicDisturbanceFactory() throws InvalidEmergencyTypeNameException{
         super("public disturbance");
     }
 
     /**
-     *
+     * Creates a new PublicDisturbance.
      * @param parameters
      * @return
      * @throws InvalidParameterException

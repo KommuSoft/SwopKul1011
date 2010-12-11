@@ -17,8 +17,10 @@ import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 public class FiretruckFactory extends MapItemFactory {
 
     /**
+     * Creates a new FiretruckFactory.
      *
      * @throws InvalidMapItemTypeNameException
+     *      If the type name of the new firetruck is invalid.
      */
     public FiretruckFactory() throws InvalidMapItemTypeNameException {
         super("firetruck");

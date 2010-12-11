@@ -12,15 +12,17 @@ import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 public class TrafficAccidentFactory extends EmergencyFactory{
 
     /**
+     * Creates a new TrafficAccidentFactory.
      *
      * @throws InvalidEmergencyTypeNameException
+     *      If the type name of the new TrafficAccident is invalid.
      */
     public TrafficAccidentFactory() throws InvalidEmergencyTypeNameException{
         super("traffic accident");
     }
 
     /**
-     *
+     * Creates a new TrafficAccident.
      * @param parameters
      * @return
      * @throws InvalidParameterException

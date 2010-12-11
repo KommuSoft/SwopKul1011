@@ -12,15 +12,17 @@ import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 public class RobberyFactory extends EmergencyFactory{
 
     /**
+     * Creates a new RobberyFactory.
      *
      * @throws InvalidEmergencyTypeNameException
+     *      If the type name of the new Robbery is invalid.
      */
     public RobberyFactory() throws InvalidEmergencyTypeNameException{
         super("robbery");
     }
 
     /**
-     *
+     * Creates a new Robbery.
      * @param parameters
      * @return
      * @throws InvalidParameterException

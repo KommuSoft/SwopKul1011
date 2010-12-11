@@ -12,15 +12,17 @@ import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 public class FireFactory extends EmergencyFactory{
 
     /**
-     * 
+     * Creates a new FireFactory.
+     *
      * @throws InvalidEmergencyTypeNameException
+     *      If the type name of the new FireFactory is invalid.
      */
     public FireFactory() throws InvalidEmergencyTypeNameException{
         super("fire");
     }
 
     /**
-     *
+     * Creates a new Ambulance.
      * @param parameters
      * @return
      * @throws InvalidParameterException
