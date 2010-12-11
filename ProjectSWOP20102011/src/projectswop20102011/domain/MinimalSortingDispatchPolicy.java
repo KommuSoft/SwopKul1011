@@ -45,7 +45,6 @@ public abstract class MinimalSortingDispatchPolicy extends DispatchPolicy {
                 }
             }
         }
-        //TODO: remove unessesary units
         return proposal;
     }
 
