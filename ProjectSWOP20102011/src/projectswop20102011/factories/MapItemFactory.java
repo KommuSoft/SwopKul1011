@@ -35,7 +35,7 @@ public abstract class MapItemFactory{
 	 * @throws InvalidParameterException
 	 *		If the given parameters are invalid parameters for the UnitBuilding.
 	 */
-	public abstract MapItem createUnitBuilding (Object[] parameters) throws InvalidParameterException;
+	public abstract MapItem createMapItem (Object[] parameters) throws InvalidParameterException;
 
 	/**
 	 * Tests if the given emergency type name is valid for an UnitBuildingFactory object.

@@ -19,7 +19,7 @@ public class FiretruckFactory extends MapItemFactory {
 
     /**
      *
-     * @throws InvalidUnitBuildingTypeNameException
+     * @throws InvalidMapItemTypeNameException
      */
     public FiretruckFactory() throws InvalidMapItemTypeNameException {
         super("firetruck");
@@ -35,7 +35,7 @@ public class FiretruckFactory extends MapItemFactory {
      *		If the parameters are invalid for this Firetruck.
      */
     @Override
-    public Firetruck createUnitBuilding(Object[] parameters) throws InvalidParameterException {
+    public Firetruck createMapItem(Object[] parameters) throws InvalidParameterException {
         if (areValidParameters(parameters)) {
             String name = (String) parameters[0];
             GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];

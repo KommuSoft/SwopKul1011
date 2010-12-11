@@ -20,7 +20,7 @@ public class PolicecarFactory extends MapItemFactory {
     /**
      * Creates a new PolicecarFactory.
      *
-     * @throws InvalidUnitBuildingTypeNameException
+     * @throws InvalidMapItemTypeNameException
      *		If the type name of the new PolicecarFactory is invalid.
      */
     public PolicecarFactory() throws InvalidMapItemTypeNameException {
@@ -37,7 +37,7 @@ public class PolicecarFactory extends MapItemFactory {
      *		If the parameters are invalid for this Policecar.
      */
     @Override
-    public Policecar createUnitBuilding(Object[] parameters) throws InvalidParameterException {
+    public Policecar createMapItem(Object[] parameters) throws InvalidParameterException {
         if (areValidParameters(parameters)) {
             String name = (String) parameters[0];
             GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];

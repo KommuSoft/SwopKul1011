@@ -19,7 +19,7 @@ public class HospitalFactory extends MapItemFactory{
 	/**
 	 * Creates a new HospitalFactory.
 	 *
-	 * @throws InvalidUnitBuildingTypeNameException
+	 * @throws InvalidMapItemTypeNameException
 	 *		If the type name of the new HospitalFactory is invalid.
 	 */
 	public HospitalFactory() throws InvalidMapItemTypeNameException{
@@ -36,7 +36,7 @@ public class HospitalFactory extends MapItemFactory{
 	 *		If the parameters are invalid for this Hospital.
 	 */
 	@Override
-	public Hospital createUnitBuilding(Object[] parameters) throws InvalidParameterException {
+	public Hospital createMapItem(Object[] parameters) throws InvalidParameterException {
 		if(areValidParameters(parameters)){
 			String name = (String) parameters[0];
 			GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];

@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -20,7 +21,7 @@ public class AmbulanceFactory extends MapItemFactory {
     /**
      * Creates a new AmbulanceFactory.
      *
-     * @throws InvalidUnitBuildingTypeNameException
+     * @throws InvalidMapItemTypeNameException
      *		If the type name of the new AmbulanceFactory is invalid.
      */
     public AmbulanceFactory() throws InvalidMapItemTypeNameException {
@@ -30,52 +31,40 @@ public class AmbulanceFactory extends MapItemFactory {
     /**
      * Creates a new Ambulance.
      *
+     * @param s
      * @param parameters
      *		The parameters to construct the Ambulance.
      * @return The new Ambulance.
      * @throws InvalidParameterException
      *		If the parameters are invalid for this Ambulance.
      */
-    @Override
-    public Ambulance createUnitBuilding(Object[] parameters) throws InvalidParameterException {
-        if (areValidParameters(parameters)) {
-            String name = (String) parameters[0];
-            GPSCoordinate homeLocation = (GPSCoordinate) parameters[1];
-            Long speed = (Long) parameters[2];
-            try {
-                return new Ambulance(name, homeLocation, speed);
-            } catch (InvalidLocationException ex) {
-                Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidMapItemNameException ex) {
-                Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidSpeedException ex) {
-                Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            throw new InvalidParameterException("Invalid parameters for this fire truck.");
+    public Ambulance createMapItem(String s) throws InvalidParameterException {
+
+        String name = parseName(s);
+        GPSCoordinate homeLocation = parseHomeLocation(s);
+        Long speed = parseSpeed(s);
+        try {
+            return new Ambulance(name, homeLocation, speed);
+        } catch (InvalidLocationException ex) {
+            Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidMapItemNameException ex) {
+            Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidSpeedException ex) {
+            Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    /**
-     * Returns true if the given parameters are valid parameters for an Ambulance.
-     * @param parameters
-     *		The desired parameters of the Ambulance.
-     * @return
-     *		True if the given parameters are valid for an Ambulance; false otherwise.
-     */
-    public boolean areValidParameters(Object[] parameters) {
-        if (parameters.length != 6) {
-            return false;
-        }
-        if (parameters[0].getClass() != String.class
-                || parameters[1].getClass() != GPSCoordinate.class
-                || parameters[2].getClass() != Long.class
-                || parameters[3].getClass() != GPSCoordinate.class
-                || parameters[4].getClass() != GPSCoordinate.class
-                || parameters[5].getClass() != Boolean.class) {
-            return false;
-        }
-        return true;
+    private String parseName(String s) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private GPSCoordinate parseHomeLocation(String s) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private Long parseSpeed(String s) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
+
