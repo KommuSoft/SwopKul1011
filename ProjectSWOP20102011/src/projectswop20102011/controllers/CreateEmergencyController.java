@@ -42,7 +42,8 @@ public class CreateEmergencyController extends Controller {
 	 * Creates a new fire in the world, and add's it to the world.
 	 * @param location The location of the fire.
 	 * @param severity The severity level of the fire.
-	 * @param fireSize The size of the fire.
+     * @param description The description of the fire.
+     * @param fireSize The size of the fire.
 	 * @param chemical An indicator that indicates if the fire is chemical.
 	 * @param trappedPeople The number of trapped people in the fire.
 	 * @param numberOfInjured The number of injured people in the fire.
@@ -59,7 +60,8 @@ public class CreateEmergencyController extends Controller {
 	 * Create a robbery in the world.
 	 * @param location The location of the robbery.
 	 * @param severity The severity level of the robbery.
-	 * @param armed An indicator that indicates if the robber is armed.
+     * @param description The description of the robbery.
+     * @param armed An indicator that indicates if the robber is armed.
 	 * @param inProgress An indicator that indicates if the robbery is still in progress.
 	 * @throws InvalidLocationException If the given location is invalid.
 	 * @throws InvalidEmergencySeverityException If the severity level is invalid.
@@ -72,7 +74,8 @@ public class CreateEmergencyController extends Controller {
 	 * Creates a new public disturbance in the world.
 	 * @param location The location of the public disturbance.
 	 * @param severity The severity level of the public disturbance.
-	 * @param numberOfPeople The number of people involved in the public disturbance.
+     * @param description The description of the public disturbance.
+     * @param numberOfPeople The number of people involved in the public disturbance.
 	 * @throws InvalidLocationException If the given location is invalid.
 	 * @throws InvalidEmergencySeverityException If the given severity level is invalid.
 	 * @throws NumberOutOfBoundsException If the given number of envolved people is invalid.
@@ -85,7 +88,8 @@ public class CreateEmergencyController extends Controller {
 	 * Creates a new traffic accident in the world.
 	 * @param location The location of the traffic accident.
 	 * @param severity The severity level of the traffic accident.
-	 * @param numberOfCars The number of cars involved in the traffic accident.
+     * @param description The description of the traffic accident.
+     * @param numberOfCars The number of cars involved in the traffic accident.
 	 * @param numberOfInjured The number of injured people.
 	 * @throws InvalidLocationException If the given location is invalid.
 	 * @throws InvalidEmergencySeverityException If the severity level of the traffic accident.

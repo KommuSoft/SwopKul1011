@@ -29,7 +29,7 @@ public abstract class Controller {
     }
 
     /**
-     * Gets the domainworld of the controller, this wold will be modified by the controller.
+     * Gets the domainworld of the controller, this world will be modified by the controller.
      * @return the domain world of the controller.
      */
     protected World getWorld () {
@@ -38,7 +38,8 @@ public abstract class Controller {
 
     /**
      * Tests if the given world is a valid world for the controller structure.
-     * @param world The given world to test.
+     * @param world
+     *      The given world to test.
      * @return true if the given world is effective, otherwise false.
      */
     public static boolean isValidWorld (World world) {

@@ -50,11 +50,11 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                     this.writeOutput(String.format("\t%s: %s", entry.getKey(), entry.getValue()));
                 }
                 this.writeOutput("NEEDED UNITS:");
-                UnitsNeeded unitsNeeded = this.controller.getUnitsNeeded(selectedEmergency);
+                UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
                 this.writeOutput("AVAILABLE UNITS:");
                 Unit[] availableUnits;
                 try {
-                    availableUnits = this.controller.getAvailableUnitsSorted(selectedEmergency);
+                    availableUnits = this.getController().getAvailableUnitsSorted(selectedEmergency);
                     for (int i = 0; i < availableUnits.length; i++) {
                         Unit u = availableUnits[i];
                         double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
@@ -75,7 +75,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                             }
                         }
                     } while (!expression.equals("stop"));
-                    this.getController().dispatchToEmergency(selectedEmergency,assignedUnits.toArray(new Unit[0]));
+                    this.getController().dispatchToEmergency(selectedEmergency, assignedUnits.toArray(new Unit[0]));
                     this.writeOutput("Units are assigned");
                 } catch (InvalidEmergencyException ex) {
                     this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
