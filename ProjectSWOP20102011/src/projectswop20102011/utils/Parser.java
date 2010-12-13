@@ -49,21 +49,25 @@ public abstract class Parser<T> {
      * @throws ParsingException If the given text can't be parsed.
      */
     public T parse(String text) throws ParsingException {
-        if (!canParse(text)) {
-            throw new ParsingException("Unable to parse text to a generic type: Invalid format.");
-        }
-        Matcher matcher = this.getRegex().matcher(text);
-        matcher.find();
-        return parseFromMatcher(matcher);
+        ObjectHolder<T> holder = new ObjectHolder<T>();
+        parse(text,holder);
+        return holder.getObject();
     }
 
-    int parse (String text, final T object) throws ParsingException {
+    /**
+     * Parses the object out of the string returning the number of used characters in the string and the parsed object.
+     * @param text The text that will be parsed.
+     * @param parsedObjectHolder An output parameter thet contains a reference to the created object.
+     * @return The number of characters used by the parser.
+     * @throws ParsingException If the given text does not contains a textual representation of the object to parse.
+     */
+    int parse (String text, final ObjectHolder<? super T> parsedObjectHolder) throws ParsingException {
         if (!canParse(text)) {
             throw new ParsingException("Unable to parse text to a generic type: Invalid format.");
         }
         Matcher matcher = this.getRegex().matcher(text);
         matcher.find();
-        object = parseFromMatcher(matcher);
+        parsedObjectHolder.setObject(parseFromMatcher(matcher));
         return matcher.end(0);
     }
 

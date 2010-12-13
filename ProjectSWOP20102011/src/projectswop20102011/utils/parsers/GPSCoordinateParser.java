@@ -11,10 +11,19 @@ import projectswop20102011.utils.Parser;
  */
 public class GPSCoordinateParser extends Parser<GPSCoordinate> {
 
+    /**
+     * Creates a new instance of a GPSCoordinateParser.
+     */
     public GPSCoordinateParser () {
         super("\\((-?[0-9]+),(-?[0-9]+)\\)");
     }
 
+    /**
+     * Parses a GPSCoordinate out of the matcher of the defined regex.
+     * @param matcher The matcher containing data about the match of the regex and the text it parses.
+     * @return An object that is the equivalent of the given textual representation in the matcher.
+     * @throws ParsingException If the given representation can't be parsed.
+     */
     @Override
     protected GPSCoordinate parseFromMatcher(Matcher matcher) throws ParsingException {
         long x = Long.parseLong(matcher.group(1));
