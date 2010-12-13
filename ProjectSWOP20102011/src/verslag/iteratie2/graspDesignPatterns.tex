@@ -1,0 +1,28 @@
+\subsection{GRASP-patterns}
+\subsection{Design patterns}
+\subsubsection{Composite}
+\paragraph{}
+We stellen onze constraints op onze emergency voor als een boom, deze implementatie is een toepassing van het \textit{Composite} patroon, hierbij zien we \texttt{Dispatch\-Units\-Constraint} in de rol van \texttt{Component} de \texttt{Number\-Dispatch\-Units\-Constraint} is \'e\'en van de eventueel later uitgebreide \texttt{Leaf}s. Tot slot zien we \texttt{And\-Dispatch\-Units\-Constraint} als de \texttt{Composite} klasse. Gegeven de specificaties in de opgave
+\begin{figure}[htb]
+\centering
+\begin{emp}[classdiag](20, 20)
+Class.A("A")()();
+Class.B("B")()();
+B.e = A.w + (-20, 0);
+drawObjects(A, B);
+link(inheritance)(B.e -- A.w);
+\end{emp}
+\caption{Implementatie van het \textit{Composite} patroon bij \texttt{DispatchUnitsConstraint}}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{emp}[classdiag](20, 20)
+Class.A("A")()();
+Class.B("B")()();
+B.e = A.w + (-20, 0);
+drawObjects(A, B);
+link(inheritance)(B.e -- A.w);
+\end{emp}
+\caption{A class diagram}
+\end{figure}

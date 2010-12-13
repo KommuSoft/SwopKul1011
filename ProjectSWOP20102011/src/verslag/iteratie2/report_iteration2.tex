@@ -1,10 +1,24 @@
 \documentclass[a4paper,titlepage]{article}
 \usepackage[dutch]{babel}
+\usepackage{fullpage}
+\usepackage{emp}
+
+\ifx\pdftexversion\undefined
+\usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
+
 \title{Software Ontwerp - Verslag Iteratie 2\\Prof. T. Holvoet\\Dhr. T. Heyman}
 \author{Willem Van Onsem\\Jonas Vanthornhout\\Pieter-Jan Vuylsteke}
 \date{22 december 2010}
 
 \begin{document}
+\begin{empfile}
+\begin{empcmds}
+input metauml;
+\end{empcmds}
 \begin{titlepage}
 \maketitle
 \end{titlepage}
@@ -33,4 +47,5 @@
 \newpage
 \appendix
 \section{Bijlagen}
+\end{empfile}
 \end{document}
