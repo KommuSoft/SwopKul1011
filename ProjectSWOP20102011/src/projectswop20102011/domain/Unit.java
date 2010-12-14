@@ -314,7 +314,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
         if (isAssigned()) {
             if (this.isAtDestination()) {
-                getEmergency().getUnitsNeeded().unitFinishedJob();
+                getEmergency().getUnitsNeeded().unitFinishedJob(this);
                 setEmergency(null);
 				setWasAlreadyAtSite(false);
             } else {

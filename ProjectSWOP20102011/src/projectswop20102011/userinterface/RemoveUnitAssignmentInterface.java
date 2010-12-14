@@ -2,7 +2,6 @@ package projectswop20102011.userinterface;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.controllers.Controller;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.exceptions.InvalidCommandNameException;
@@ -11,8 +10,9 @@ import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.userinterface.parsers.LongParser;
 
 /**
+ * A user interface that handles the remove unit assignment use case
  *
- * @author Pieter-Jan
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 

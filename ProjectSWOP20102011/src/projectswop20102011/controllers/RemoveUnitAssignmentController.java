@@ -9,7 +9,7 @@ import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
  *
- * @author Pieter-Jan
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class RemoveUnitAssignmentController extends Controller {
 
