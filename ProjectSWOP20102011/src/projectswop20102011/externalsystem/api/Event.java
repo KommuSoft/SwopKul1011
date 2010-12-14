@@ -1,6 +1,7 @@
 package projectswop20102011.externalsystem.api;
 
 import be.kuleuven.cs.swop.api.IEvent;
+import be.kuleuven.cs.swop.api.ILocation;
 import be.kuleuven.cs.swop.api.ITime;
 import java.util.Map;
 import projectswop20102011.domain.Emergency;
@@ -9,12 +10,15 @@ import projectswop20102011.domain.World;
 public abstract class Event implements IEvent {
 
 	private final Time time;
+	private final Location location;
 	private Emergency emergency;
-	private World world;
+	private final World world;
 
-	public Event(Time time, Emergency emergency) {
+	public Event(Time time, Location location, Emergency emergency, World world) {
 		this.time = time;
+		this.location = location;
 		setEmergency(emergency);
+		this.world = world;
 	}
 
 	@Override
@@ -22,19 +26,25 @@ public abstract class Event implements IEvent {
 		return time;
 	}
 
-	Emergency getEmergency() {
-		return emergency;
+	@Override
+	public ILocation getLocation(){
+		return location;
 	}
 
-	private void setEmergency(Emergency emergency) {
-		this.emergency = emergency;
+	@Override
+	public String getSeverity(){
+		return getEmergency().getSeverity().getTextual();
 	}
 
 	@Override
 	public abstract String getType();
 
-	protected void setWorld(World world) {
-		this.world = world;
+	protected Emergency getEmergency() {
+		return emergency;
+	}
+
+	protected void setEmergency(Emergency emergency){
+		this.emergency = emergency;
 	}
 
 	protected World getWorld() {
