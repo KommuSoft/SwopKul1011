@@ -3,17 +3,17 @@ package projectswop20102011.externalsystem;
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.IEvent;
-import be.kuleuven.cs.swop.external.ExternalSystemException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
-public class EmergencyDispatchApi implements IEmergencyDispatchApi{
+public class EmergencyDispatchApi implements IEmergencyDispatchApi {
+
 	private World world;
 
-	public EmergencyDispatchApi(World world) throws InvalidWorldException{
+	public EmergencyDispatchApi(World world) throws InvalidWorldException {
 		setWorld(world);
 	}
 
@@ -37,5 +37,4 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi{
 		//TODO deze methode heb ik ff public gezet
 		cec.addCreatedEmergencyToTheWorld(e.getEmergency());
 	}
-
 }
