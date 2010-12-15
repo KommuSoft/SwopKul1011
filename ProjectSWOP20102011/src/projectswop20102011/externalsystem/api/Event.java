@@ -7,6 +7,10 @@ import java.util.Map;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.World;
 
+/**
+ * A class that represents an event.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public abstract class Event implements IEvent {
 
 	private final Time time;

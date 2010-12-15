@@ -65,6 +65,13 @@ public class ExternalSystem implements IExternalSystem {
 		}
 	}
 
+	/**
+	 * Checks if the given time is a valid new time for this ExternalSystem
+	 * @param time
+	 *		The time to check.
+	 * @return True if the given time is a valid new time; false otherwise.
+	 *		A valid new time is a time that is not null and that is after the current time.
+	 */
 	public boolean isValidNewTime(Time time) {
 		return (time != null) && (getCurrentTime().compareTo(time) < 0);
 	}
