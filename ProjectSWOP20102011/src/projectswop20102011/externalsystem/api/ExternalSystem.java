@@ -1,5 +1,6 @@
 package projectswop20102011.externalsystem.api;
 
+import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.IEvent;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
@@ -8,19 +9,36 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.controllers.TimeAheadController;
-import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 public class ExternalSystem implements IExternalSystem {
+
 	private Time currentTime;
 	private TimeAheadController tac;
-	private World world;
+	private EmergencyDispatchApi emergencyDispatchApi;
+	
+	public ExternalSystem(IEmergencyDispatchApi emergencyDispatchApi) throws InvalidWorldException{
+		setEmergencyDispatchApi((EmergencyDispatchApi) emergencyDispatchApi);
+		setCurrentTime(new Time(0, 0));
+		setTimeAheadController(new TimeAheadController(getEmergencyDispatchApi().getWorld()));
+	}
 
-	public ExternalSystem(World world) throws InvalidWorldException {
-		setCurrentTime(new Time(0,0));
-		setWorld(world);
-		tac = new TimeAheadController(world);
+	public static IExternalSystem bootstrap(IEmergencyDispatchApi emergencyDispatchApi) {
+		try {
+			return new ExternalSystem(emergencyDispatchApi);
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(ExternalSystem.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
+		}
+	}
+
+	private EmergencyDispatchApi getEmergencyDispatchApi(){
+		return emergencyDispatchApi;
+	}
+
+	private void setEmergencyDispatchApi(EmergencyDispatchApi emergencyDispatchApi){
+		this.emergencyDispatchApi = emergencyDispatchApi;
 	}
 
 	public Time getCurrentTime() {
@@ -28,25 +46,19 @@ public class ExternalSystem implements IExternalSystem {
 	}
 
 	private void setCurrentTime(Time currentTime) {
-		if(isValidNewTime(currentTime)){
+		if (isValidNewTime(currentTime)) {
 			this.currentTime = currentTime;
 		} else {
 			throw new IllegalArgumentException("The new time is not effective or before the current time.");
 		}
 	}
 
-	private World getWorld(){
-		return world;
+	private TimeAheadController getTimeAheadController(){
+		return tac;
 	}
 
-	private void setWorld(World world){
-		this.world = world;
-	}
-
-	public void addEvent(IEvent e) throws InvalidWorldException{
-		Event event = (Event) e;
-		CreateEmergencyController cec = new CreateEmergencyController(getWorld());
-		cec.addCreatedEmergencyToTheWorld(event.getEmergency());
+	private void setTimeAheadController(TimeAheadController tac){
+		this.tac = tac;
 	}
 
 	@Override
@@ -55,7 +67,7 @@ public class ExternalSystem implements IExternalSystem {
 		Time t = (Time) time;
 		if (isValidNewTime(t)) {
 			try {
-				tac.doTimeAheadAction(t.getHours() * 3600 + t.getMinutes() * 60);
+				getTimeAheadController().doTimeAheadAction(t.getHours() * 3600 + t.getMinutes() * 60);
 				setCurrentTime((Time) time);
 			} catch (InvalidDurationException ex) {
 				Logger.getLogger(ExternalSystem.class.getName()).log(Level.SEVERE, null, ex);

@@ -4,12 +4,17 @@ import java.util.Map;
 
 public class PublicDisturbanceEvent extends Event {
 
-	public PublicDisturbanceEvent(Time time) {
-		super("PublicDisturbance", time);
+	public PublicDisturbanceEvent(){
+		super(null, null, null, null);
 	}
 
 	@Override
 	public Map<String, String> getEventProperties() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public String getType() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
