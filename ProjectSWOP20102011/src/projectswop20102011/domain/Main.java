@@ -11,6 +11,7 @@ import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfEmergencyController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
@@ -24,6 +25,7 @@ import projectswop20102011.userinterface.EndOfEmergencyUserInterface;
 import projectswop20102011.userinterface.EnvironmentReader;
 import projectswop20102011.userinterface.InspectEmergenciesUserInterface;
 import projectswop20102011.userinterface.MainUserInterface;
+import projectswop20102011.userinterface.RemoveUnitAssignmentInterface;
 import projectswop20102011.userinterface.SelectHospitalUserInterface;
 import projectswop20102011.userinterface.TimeAheadUserInterface;
 
@@ -62,9 +64,10 @@ public class Main {
 			CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
 			CommandUserInterface endOfEmergencyUserInterface = new EndOfEmergencyUserInterface(new EndOfEmergencyController(world));
 			CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world));
+            CommandUserInterface removeUnitAssignmentInterface = new RemoveUnitAssignmentInterface(new RemoveUnitAssignmentController(world));
 
 			ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
-			ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface);
+			ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentInterface);
 			ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
 			ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
 

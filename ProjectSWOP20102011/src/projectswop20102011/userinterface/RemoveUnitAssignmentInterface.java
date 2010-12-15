@@ -1,13 +1,19 @@
 package projectswop20102011.userinterface;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.userinterface.parsers.LongParser;
+import projectswop20102011.userinterface.parsers.StringParser;
 
 /**
  * A user interface that handles the remove unit assignment use case
@@ -46,9 +52,43 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
                 this.writeOutput("Emergency not found.");
             } else {
                 //TODO: Hier komt dan het echte werk
+                this.writeOutput("WORKING UNITS:");
+                ArrayList<Unit> workingUnits = this.getController().getWorkingUnits(selectedEmergency);
+                for(int i=0;i<workingUnits.size();i++){
+                    this.writeOutput(String.format("\t%s\t%s\t%s\t%s", i, workingUnits.get(i).getClass().getSimpleName(), workingUnits.get(i).getName()));
+                }
+
+                String expression;
+                ArrayList<Unit> unitsToRemove = new ArrayList<Unit>(0);
+                do {
+                    this.writeOutput("Type in a unit id, or type \"stop\" to finish the list.");
+                    expression = this.parseInputToType(new StringParser(), "id");
+                    if (!expression.equals("stop")) {
+                        try {
+                            int id = Integer.parseInt(expression);
+                            unitsToRemove.add(workingUnits.get(id));
+                            this.writeOutput("Unit added.");
+                        } catch (Exception ex) {
+                            this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+                        }
+                    }
+                } while (!expression.equals("stop"));
+
+                String[] names = new String[unitsToRemove.size()];
+                for(int i=0;i<unitsToRemove.size();i++){
+                    names[i] = unitsToRemove.get(i).getName();
+                }
+                try {
+                    getController().withdrawUnits(names);
+                    this.writeOutput("Units are removed");
+                } catch (InvalidWithdrawalException ex) {
+                    this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+                } catch (InvalidEmergencyException ex) {
+                    this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+                }
             }
         } catch (ParsingAbortedException ex) {
-            Logger.getLogger(RemoveUnitAssignmentInterface.class.getName()).log(Level.SEVERE, null, ex);
+            this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
         }
     }
 }

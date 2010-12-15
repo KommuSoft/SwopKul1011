@@ -1,6 +1,8 @@
 package projectswop20102011.controllers;
 
+import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.WithdrawUnits;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -27,7 +29,11 @@ public class RemoveUnitAssignmentController extends Controller {
         return this.getWorld().getEmergencyList().getEmergencyFromId(id);
     }
 
-    public void withdrawUnits(Emergency selectedEmergency, String[] names) throws InvalidWithdrawalException, InvalidEmergencyException{
+    public ArrayList<Unit> getWorkingUnits(Emergency selectedEmergency){
+        return selectedEmergency.getUnitsNeeded().getWorkingUnits();
+    }
+
+    public void withdrawUnits(String[] names) throws InvalidWithdrawalException, InvalidEmergencyException{
         WithdrawUnits wu = new WithdrawUnits(getWorld().getMapItemList());
         wu.withdraw(names);
     }
