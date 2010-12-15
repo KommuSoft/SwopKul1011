@@ -8,8 +8,6 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 import projectswop20102011.exceptions.ParsingException;
-import projectswop20102011.utils.TextScanner;
-import projectswop20102011.utils.parsers.GPSCoordinateParser;
 
 /**
  * A class that represents a HospitalFactory.

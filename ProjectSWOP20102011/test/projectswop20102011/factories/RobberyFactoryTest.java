@@ -16,8 +16,8 @@ public class RobberyFactoryTest {
 	private GPSCoordinate gps1, gps2;
 	private EmergencySeverity severity1, severity2;
 	private String description1, description2;
-	boolean armed1;
-	boolean inProgress1;
+	private boolean armed1;
+	private boolean inProgress1;
 	private RobberyFactory rf;
 
 	@Before

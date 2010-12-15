@@ -3,20 +3,20 @@ package projectswop20102011.factories;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Firetruck;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 
-public class AmbulanceFactoryTest {
+public class FireTruckFactoryTest {
 
 	private String name1;
 	private String homeLocation1;
 	private String speed1;
 	private String s1;
-	private AmbulanceFactory af;
+	private FiretruckFactory ftf;
 
 	@Before
 	public void setUp() {
-		name1 = "Ambulance";
+		name1 = "Brandweerwagen";
 		homeLocation1 = "(15,15)";
 		speed1 = "5";
 
@@ -25,16 +25,16 @@ public class AmbulanceFactoryTest {
 
 	@Test
 	public void testConstructor() throws InvalidMapItemTypeNameException {
-		af = new AmbulanceFactory();
+		ftf = new FiretruckFactory();
 	}
 
 	@Test
 	public void testCreateMapItem() throws InvalidMapItemTypeNameException {
-		af = new AmbulanceFactory();
+		ftf = new FiretruckFactory();
 
-		Ambulance a = af.createMapItem(s1);
-		assertEquals(name1, a.getName());
-		assertEquals(homeLocation1, a.getHomeLocation());
-		assertEquals(speed1, a.getSpeed());
+		Firetruck ft = ftf.createMapItem(s1);
+		assertEquals(name1, ft.getName());
+		assertEquals(homeLocation1, ft.getHomeLocation());
+		assertEquals(speed1, ft.getSpeed());
 	}
 }

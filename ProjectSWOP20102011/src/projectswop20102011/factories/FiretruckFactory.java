@@ -36,7 +36,7 @@ public class FiretruckFactory extends UnitFactory {
     @Override
     public Firetruck createMapItem(String s){
         String name = parseName(s);
-        GPSCoordinate homeLocation;
+        GPSCoordinate homeLocation = null;
 		try {
 			homeLocation = parseHomeLocation(s);
 		} catch (ParsingException ex) {
