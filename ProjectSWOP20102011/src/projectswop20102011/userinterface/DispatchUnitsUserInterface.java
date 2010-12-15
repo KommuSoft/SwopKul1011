@@ -1,5 +1,6 @@
 package projectswop20102011.userinterface;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map.Entry;
@@ -75,7 +76,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                             }
                         }
                     } while (!expression.equals("stop"));
-                    this.getController().dispatchToEmergency(selectedEmergency, assignedUnits.toArray(new Unit[0]));
+                    this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
                     this.writeOutput("Units are assigned");
                 } catch (InvalidEmergencyException ex) {
                     this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
