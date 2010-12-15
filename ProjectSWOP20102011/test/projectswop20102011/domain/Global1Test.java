@@ -279,7 +279,8 @@ public class Global1Test {
     @Test
     public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException,
             InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-            InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException {
+            InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+            InvalidAmbulanceException, InvalidHospitalException {
         f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
 
         Unit[] units = new Unit[1338];
@@ -295,6 +296,15 @@ public class Global1Test {
         for (int i = 0; i < aantal; i++) {
             units[i].timeAhead(1000000000);
         }
+
+        for(int i=1;i<aantal;i++){
+            ((Ambulance) units[i]).selectHospital(hospital1);
+        }
+
+        for (int i = 0; i < aantal; i++) {
+            units[i].timeAhead(1000000000);
+        }
+        
         for (int i = 0; i < aantal; i++) {
             units[i].finishedJob();
         }
