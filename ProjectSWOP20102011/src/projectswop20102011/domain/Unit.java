@@ -193,7 +193,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @param wasAlreadyAtSite
 	 *		The condition whether a unit was already at the site of emergency.
 	 */
-	private void setWasAlreadyAtSite(boolean wasAlreadyAtSite){
+	protected void setWasAlreadyAtSite(boolean wasAlreadyAtSite){
 		this.wasAlreadyAtSite = wasAlreadyAtSite;
 	}
 

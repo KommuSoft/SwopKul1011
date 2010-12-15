@@ -53,8 +53,8 @@ public class UnitsNeeded {
 	 *		| new.getUnits()==units.clone()
 	 * @post This numbersNeeded is set to the given numbersNeeded.
 	 *		| new.getNumbersNeeded()==numbersNeeded.clone()
-	 * @effect Initialize the workingUnits.
-	 *		| initWorkingUnits()
+	 * @effect Initialize the Units.
+	 *		| initUnits()
 	 * @throws InvalidEmergencyException
 	 *		If the given emergency is not effective.
 	 * @throws InvalidDispatchUnitsConstraintException
@@ -94,8 +94,8 @@ public class UnitsNeeded {
 	 */
 	private void setWorkingUnits(ArrayList<Unit> workingUnits) {
 		if (workingUnits.isEmpty()) {
+            //TODO: moet nog een voorwaarde opgelegd worden om te controleren of de juiste units gefinished zijn
 			try {
-				//TODO: moet nog een voorwaarde opgelegd worden om te controleren of de juiste units gefinished zijn
 				getEmergency().setStatus(EmergencyStatus.FINISHED);
 			} catch (InvalidEmergencyStatusException ex) {
 				//We ensure this can never happen.
@@ -105,11 +105,23 @@ public class UnitsNeeded {
 		this.workingUnits = workingUnits;
 	}
 
+    /**
+     * Add a given unit to the working units.
+     * @param u
+     *      The unit that must be added to the working units
+     * @effect The given unit is added to the working units.
+     */
 	private void addWorkingUnits(Unit u) {
 		getWorkingUnits().add(u);
 		//Is waarschijnlijk overbodig: setWorkingUnits(getWorkingUnits());
 	}
 
+    /**
+     * Add a given unit to the finished units.
+     * @param u
+     *      The unit that must be added to the finished units
+     * @effect The given unit is added to the finished units.
+     */
 	private void addFinishedUnits(Unit u){
 		getFinishedUnits().add(u);
 	}

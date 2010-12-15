@@ -109,7 +109,16 @@ public class Ambulance extends Unit {
     @Override
     public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
         //TODO: Stel dat de ambulance op de plaats van de emergency is, dan mag hij wel gefinished worden zeker?, maar volgens de usecase kan een ambulance enkel gefinished worden als hij gearriveerd is bij het ziekenhuis.
-        super.finishedJob();
-        this.setCurrentHospital(null);
+        if (isAssigned()) {
+            if (getCurrentHospital() != null && this.isAtDestination()) {
+                getEmergency().getUnitsNeeded().unitFinishedJob(this);
+                setEmergency(null);
+				setWasAlreadyAtSite(false);
+            } else {
+                throw new InvalidLocationException("The unit is not at it's destination.");
+            }
+        } else {
+            throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
+        }
     }
 }

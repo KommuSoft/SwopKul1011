@@ -80,7 +80,7 @@ public class FiretruckFireSizeTest {
         assertEquals(x1, brandweerwagen.getDestination().getX());
         assertEquals(y1, brandweerwagen.getDestination().getY());
     }
-    //TODO test maxSize
+    //TODO: In orde nu? test maxSize
     @Test(expected = InvalidFireSizeException.class)
     public void testInvalidMaxSize() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException{
         brandweerwagen = new Firetruck(name,homeLocation,speed1, null);
