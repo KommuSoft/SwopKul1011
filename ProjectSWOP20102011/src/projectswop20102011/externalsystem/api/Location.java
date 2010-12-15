@@ -49,6 +49,6 @@ public class Location implements ILocation {
 	 */
 	@Override
 	public int getY() {
-		return (int) getGpsCoordinate().getX();
+		return (int) getGpsCoordinate().getY();
 	}
 }
