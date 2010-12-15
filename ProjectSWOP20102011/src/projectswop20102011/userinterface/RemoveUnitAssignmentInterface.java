@@ -1,9 +1,6 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
@@ -53,9 +50,10 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
             } else {
                 //TODO: Hier komt dan het echte werk
                 this.writeOutput("WORKING UNITS:");
+                //TODO: Komt niet goed overeen met de lijst van units die eronder staan:  this.writeOutput(String.format("\t%s\t%s\t%s", "id", "Unit type", "Unit name"));
                 ArrayList<Unit> workingUnits = this.getController().getWorkingUnits(selectedEmergency);
                 for(int i=0;i<workingUnits.size();i++){
-                    this.writeOutput(String.format("\t%s\t%s\t%s\t%s", i, workingUnits.get(i).getClass().getSimpleName(), workingUnits.get(i).getName()));
+                    this.writeOutput(String.format("\t%s\t%s\t%s", i, workingUnits.get(i).getClass().getSimpleName(), workingUnits.get(i).getName()));
                 }
 
                 String expression;
