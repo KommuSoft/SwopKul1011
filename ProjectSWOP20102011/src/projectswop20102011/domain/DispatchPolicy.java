@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.util.Comparator;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
@@ -7,7 +8,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
  * A class representing a default policy used by the dispatch center (for example: defaut policy, ASAP policy,...)
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public abstract class DispatchPolicy {
+public abstract class DispatchPolicy implements Comparator<Unit> {
 
     /**
      * The unitsneeded object of the emergency where this policy will be applied on.

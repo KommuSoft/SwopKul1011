@@ -1,15 +1,15 @@
 package projectswop20102011.domain.validators;
 
+import java.util.List;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
  * A class that represents a constraint that checks the number of units.
- *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
+public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
     /**
      * A variable registering the desired number of units.
@@ -85,12 +85,13 @@ public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
      * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
      */
     @Override
-    public boolean areValidDispatchUnits (Unit[] units) {
+    public boolean areValidDispatchUnits (List<Unit> units, boolean[] used) {
         long n = 0;
         long needed = this.getNumber();
         UnitValidator uv = this.getValidator();
-        for(Unit u : units) {
-            if(uv.isValid(u)) {
+        for(int i = 0; i < units.size(); i++) {
+            if(uv.isValid(units.get(i))) {
+                used[i] = true;
                 n++;
                 if(n >= needed) {
                     return true;
@@ -106,7 +107,7 @@ public class NumberDispatchUnitsConstraint implements DispatchUnitsConstraint {
      */
     @Override
     public String toString() {
-        return String.format("number of %s most be larger or equal to %s",this.getValidator().toString(),this.getNumber());
+        return String.format("number of %s must be %s",this.getValidator().toString(),this.getNumber());
     }
 
 }

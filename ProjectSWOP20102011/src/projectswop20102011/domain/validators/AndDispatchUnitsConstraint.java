@@ -1,5 +1,6 @@
 package projectswop20102011.domain.validators;
 
+import java.util.List;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 
@@ -7,7 +8,7 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
  * A constraint class checking if a collection of other constraints all pass.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class AndDispatchUnitsConstraint implements DispatchUnitsConstraint {
+public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
     private final DispatchUnitsConstraint[] constraints;
 
@@ -55,9 +56,9 @@ public class AndDispatchUnitsConstraint implements DispatchUnitsConstraint {
      * @return If all the constraints below this constraint pass, otherwise false.
      */
     @Override
-    public boolean areValidDispatchUnits(Unit[] units) {
+    public boolean areValidDispatchUnits(List<Unit> units, boolean[] used) {
         for (DispatchUnitsConstraint duc : getConstraints()) {
-            if (!duc.areValidDispatchUnits(units)) {
+            if (!duc.areValidDispatchUnits(units,used)) {
                 return false;
             }
         }
