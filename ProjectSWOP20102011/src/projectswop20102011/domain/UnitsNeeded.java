@@ -176,8 +176,9 @@ public class UnitsNeeded {
 	 *		unique and can be assigned and for every quantity constraint,
 	 *		this array succeeds, otherwise false.
 	 */
+    //TODO: Moet er getest worden of de emergency reeds gefinished is?
 	public boolean canAssignUnitsToEmergency(Unit[] units) {
-		if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED) {
+		if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED && this.getEmergency().getStatus() != EmergencyStatus.FINISHED) {
 			return false;
 		}
 

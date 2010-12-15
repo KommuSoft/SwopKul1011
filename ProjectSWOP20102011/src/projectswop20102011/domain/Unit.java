@@ -293,11 +293,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     void assignTo(Emergency emergency) throws InvalidMapItemException {
         if (!canBeAssigned()) {
             throw new InvalidMapItemException("Unit can't be assigned");
+        }else{
+            setEmergency(emergency);
+            if(getCurrentLocation() == emergency.getLocation()){
+                setWasAlreadyAtSite(true);
+            }
         }
-        setEmergency(emergency);
-		if(getCurrentLocation() == emergency.getLocation()){
-			setWasAlreadyAtSite(true);
-		}
     }
 
     /**
