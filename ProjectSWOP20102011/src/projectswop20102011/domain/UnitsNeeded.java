@@ -95,7 +95,7 @@ public class UnitsNeeded {
      *		| getEmergency().setStatus(EmergencyStatus.FINISHED)
      */
     private void setWorkingUnits(ArrayList<Unit> workingUnits) {
-        if (workingUnits.isEmpty()) {
+        if (workingUnits.isEmpty() && getConstraint().areValidDispatchUnits(getFinishedUnits())) {
             //TODO: moet nog een voorwaarde opgelegd worden om te controleren of de juiste units gefinished zijn
             try {
                 getEmergency().setStatus(EmergencyStatus.FINISHED);
@@ -237,12 +237,8 @@ public class UnitsNeeded {
      * A method called when a unit finishes his job to manage the emergency.
      */
     void unitFinishedJob(Unit u) {
-        //TODO: Hier moet wss nog iets komen van constraintchecking
         getWorkingUnits().remove(u);
-        //Deze controle is nodig om te weten of de unit gewithdrawed of echt finished is
-        if (u.wasAlreadyAtSite()) {
-            addFinishedUnits(u);
-        }
+        addFinishedUnits(u);
         setWorkingUnits(getWorkingUnits());
     }
 
@@ -275,5 +271,10 @@ public class UnitsNeeded {
      */
     public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
         return (constraint != null);
+    }
+
+    void unitWithdrawnJob(Unit u) {
+        getWorkingUnits().remove(u);
+        setWorkingUnits(getWorkingUnits());
     }
 }
