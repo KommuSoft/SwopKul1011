@@ -53,7 +53,7 @@ public class FireFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidParameterException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException{
 		ff = new FireFactory();
 		Fire f = (Fire) ff.createEmergency(new Object[] {gps1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1});
 
@@ -67,7 +67,7 @@ public class FireFactoryTest {
 	}
 
 	@Test(expected = InvalidParameterException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidParameterException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException{
 		ff = new FireFactory();
 		ff.createEmergency(new Object[] {});
 	}
