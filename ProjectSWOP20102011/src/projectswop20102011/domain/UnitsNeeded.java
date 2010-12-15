@@ -176,7 +176,7 @@ public class UnitsNeeded {
      */
     //TODO: Moet er getest worden of de emergency reeds gefinished is?
     public boolean canAssignUnitsToEmergency(List<Unit> units) {
-        if (this.getEmergency().getStatus() != EmergencyStatus.RECORDED_BUT_UNHANDLED && this.getEmergency().getStatus() != EmergencyStatus.FINISHED) {
+        if (this.getEmergency().getStatus() == EmergencyStatus.FINISHED) {
             return false;
         } else {
             units.addAll((Collection<? extends Unit>) getWorkingUnits().clone());
