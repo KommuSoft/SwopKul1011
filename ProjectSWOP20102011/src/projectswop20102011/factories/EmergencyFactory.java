@@ -24,7 +24,7 @@ public abstract class EmergencyFactory {
      *		If the name of the emergency type is invalid.
      */
     protected EmergencyFactory(String emergencyTypeName) throws InvalidEmergencyTypeNameException {
-        if (isValidEmergencyTypeName(emergencyTypeName)) {
+        if (!isValidEmergencyTypeName(emergencyTypeName)) {
             throw new InvalidEmergencyTypeNameException("emergencyTypeName must be effective and not empty");
         }
         this.emergencyTypeName = emergencyTypeName;

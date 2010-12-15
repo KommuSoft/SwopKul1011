@@ -13,15 +13,14 @@ import projectswop20102011.domain.World;
  */
 public abstract class Event implements IEvent {
 
-	private final Time time;
+	private final ITime time;
 	private final Location location;
 	private Emergency emergency;
 	private final World world;
 
-	public Event(Time time, Location location, Emergency emergency, World world) {
+	public Event(ITime time, Location location, Emergency emergency, World world) {
 		this.time = time;
 		this.location = location;
-		setEmergency(emergency);
 		this.world = world;
 	}
 

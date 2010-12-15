@@ -2,7 +2,15 @@ package projectswop20102011.factories;
 
 import java.security.InvalidParameterException;
 import projectswop20102011.domain.Emergency;
+import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.Fire;
+import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
+import projectswop20102011.exceptions.InvalidFireSizeException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
  * A class that represents an FireFactory.
@@ -22,15 +30,22 @@ public class FireFactory extends EmergencyFactory{
     }
 
     /**
-     * Creates a new Ambulance.
-     * @param parameters
-     * @return
-     * @throws InvalidParameterException
-     * @throws Exception
-     */
+	 * 
+	 * @param parameters
+	 * @return
+	 * @throws InvalidParameterException
+	 * @throws InvalidLocationException
+	 * @throws InvalidEmergencySeverityException
+	 * @throws InvalidFireSizeException
+	 * @throws NumberOutOfBoundsException
+	 */
     @Override
-    public Emergency createEmergency(Object[] parameters) throws InvalidParameterException, Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Emergency createEmergency(Object[] parameters) throws InvalidParameterException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+		if(parameters.length != 7){
+			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
+		} else {
+			return new Fire((GPSCoordinate)parameters[0], (EmergencySeverity)parameters[1], (String)parameters[2], (FireSize)parameters[3], (Boolean)parameters[4], (Long)parameters[5], (Long)parameters[6]);
+		}
     }
 
     /**
