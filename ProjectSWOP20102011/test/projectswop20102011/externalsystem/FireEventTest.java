@@ -57,7 +57,20 @@ public class FireEventTest {
 		assertEquals(severity1.getTextual(), event1.getSeverity());
 	}
 
-	//TODO test getEventProperties
+	@Test
+	public void testGetEventProperties() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException {
+		event1 = new FireEvent(time1, world, location1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1);
+		assertTrue(event1.getEventProperties().containsKey("time"));
+		assertTrue(event1.getEventProperties().containsKey("severity"));
+		assertTrue(event1.getEventProperties().containsKey("location"));
+		assertTrue(event1.getEventProperties().containsKey("type"));
+
+		assertTrue(event1.getEventProperties().containsValue(time1.toString()));
+		assertTrue(event1.getEventProperties().containsValue(severity1.getTextual()));
+		assertTrue(event1.getEventProperties().containsValue(location1.toString()));
+		assertTrue(event1.getEventProperties().containsValue("Fire"));
+	}
+
 	@Test
 	public void testCompareTo() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException {
 		event1 = new FireEvent(time1, world, location1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1);

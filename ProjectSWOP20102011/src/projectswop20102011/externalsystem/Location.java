@@ -51,4 +51,12 @@ public class Location implements ILocation {
 	public int getY() {
 		return (int) getGpsCoordinate().getY();
 	}
+
+	/**
+	 * Returns a textual representation of this location.
+	 * @return A textual representation of this location.
+	 */
+	public String toString(){
+		return getGpsCoordinate().toString();
+	}
 }

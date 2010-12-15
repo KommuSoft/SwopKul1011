@@ -2,13 +2,6 @@ package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.api.ITime;
 import java.security.InvalidParameterException;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
@@ -35,24 +28,6 @@ public class FireEvent extends Event {
 	//TODO adapter pattern?
 	private GPSCoordinate convertLocation(Location location){
 		return new GPSCoordinate(location.getX(), location.getY());
-	}
-
-	@Override
-	public Map<String, String> getEventProperties() {
-		InspectEmergenciesController iec = null;
-		try {
-			iec = new InspectEmergenciesController(getWorld());
-		} catch (InvalidWorldException ex) {
-			Logger.getLogger(FireEvent.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		ConcurrentHashMap<String, String> result = new ConcurrentHashMap<String, String>();
-		Set<Entry<String, String>> entries = iec.getEmergencyLongInformation(getEmergency());
-		for (Entry<String, String> entry : entries) {
-			result.put(entry.getKey(), entry.getValue());
-		}
-
-		return result;
 	}
 
 	@Override

@@ -17,44 +17,29 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class FireFactory extends EmergencyFactory{
+public class FireFactory extends EmergencyFactory {
 
-    /**
-     * Creates a new FireFactory.
-     *
-     * @throws InvalidEmergencyTypeNameException
-     *      If the type name of the new FireFactory is invalid.
-     */
-    public FireFactory() throws InvalidEmergencyTypeNameException{
-        super("fire");
-    }
-
-    /**
-	 * 
-	 * @param parameters
-	 * @return
-	 * @throws InvalidParameterException
-	 * @throws InvalidLocationException
-	 * @throws InvalidEmergencySeverityException
-	 * @throws InvalidFireSizeException
-	 * @throws NumberOutOfBoundsException
+	/**
+	 * Creates a new FireFactory.
+	 *
+	 * @throws InvalidEmergencyTypeNameException
+	 *      If the type name of the new FireFactory is invalid.
 	 */
-    @Override
-    public Emergency createEmergency(Object[] parameters) throws InvalidParameterException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
-		if(parameters.length != 7){
+	public FireFactory() throws InvalidEmergencyTypeNameException {
+		super("fire");
+	}
+
+	@Override
+	public Emergency createEmergency(Object[] parameters) throws InvalidParameterException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+		if (parameters.length != 7) {
 			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
 		} else {
-			return new Fire((GPSCoordinate)parameters[0], (EmergencySeverity)parameters[1], (String)parameters[2], (FireSize)parameters[3], (Boolean)parameters[4], (Long)parameters[5], (Long)parameters[6]);
+			return new Fire((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (FireSize) parameters[3], (Boolean) parameters[4], (Long) parameters[5], (Long) parameters[6]);
 		}
-    }
+	}
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Class[] getParameterClasses() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+	@Override
+	public Class[] getParameterClasses() {
+		return new Class[] {GPSCoordinate.class, EmergencySeverity.class, String.class, FireSize.class, Boolean.class, Long.class, Long.class};
+	}
 }

@@ -95,4 +95,12 @@ public class Time implements ITime {
 	public static boolean areValidMinutes(int minutes) {
 		return !(minutes < 0) && !(minutes > 59);
 	}
+
+	/**
+	 * Returns a textual representation of this time.
+	 * @return A textual representation of this time.
+	 */
+	public String toString(){
+		return getHours() + "h" + getMinutes() + "m";
+	}
 }
