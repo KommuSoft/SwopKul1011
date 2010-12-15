@@ -7,6 +7,9 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
+import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.utils.TextScanner;
+import projectswop20102011.utils.parsers.GPSCoordinateParser;
 
 /**
  * A class that represents a HospitalFactory.
@@ -28,29 +31,25 @@ public class HospitalFactory extends MapItemFactory {
     /**
      * Creates a new Hospital.
      * @param s
-     *          A string with the specifications of the new hospital.
+     *		A string with the specifications of the new hospital.
      * @return The new Hospital.
      */
     @Override
     public Hospital createMapItem(String s){
         String name = parseName(s);
-        GPSCoordinate homeLocation = parseHomeLocation(s);
+        GPSCoordinate homeLocation = null;
+		try {
+			homeLocation = parseHomeLocation(s);
+		} catch (ParsingException ex) {
+			Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
+		}
         try {
             return new Hospital(name, homeLocation);
-            //return null;
         } catch (InvalidMapItemNameException ex) {
             Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidLocationException ex) {
             Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-
-    private String parseName(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private GPSCoordinate parseHomeLocation(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

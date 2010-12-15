@@ -8,13 +8,14 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
+import projectswop20102011.exceptions.ParsingException;
 
 /**
  * A class that represents a PolicecarFactory.
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class PolicecarFactory extends MapItemFactory {
+public class PolicecarFactory extends UnitFactory {
 
     /**
      * Creates a new PolicecarFactory.
@@ -36,7 +37,12 @@ public class PolicecarFactory extends MapItemFactory {
     @Override
     public Policecar createMapItem(String s){
         String name = parseName(s);
-        GPSCoordinate homeLocation = parseHomeLocation(s);
+        GPSCoordinate homeLocation = null;
+		try {
+			homeLocation = parseHomeLocation(s);
+		} catch (ParsingException ex) {
+			Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
+		}
         Long speed = parseSpeed(s);
         try {
             return new Policecar(name, homeLocation, speed);
@@ -48,17 +54,5 @@ public class PolicecarFactory extends MapItemFactory {
             Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-
-    private String parseName(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private GPSCoordinate parseHomeLocation(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private Long parseSpeed(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

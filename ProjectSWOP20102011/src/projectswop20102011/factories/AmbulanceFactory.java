@@ -8,13 +8,14 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
+import projectswop20102011.exceptions.ParsingException;
 
 /**
  * A class that represents an AmbulanceFactory.
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class AmbulanceFactory extends MapItemFactory {
+public class AmbulanceFactory extends UnitFactory {
 
 	/**
 	 * Creates a new AmbulanceFactory.
@@ -35,9 +36,13 @@ public class AmbulanceFactory extends MapItemFactory {
 	 */
 	@Override
 	public Ambulance createMapItem(String s) {
-
 		String name = parseName(s);
-		GPSCoordinate homeLocation = parseHomeLocation(s);
+		GPSCoordinate homeLocation = null;
+		try {
+			homeLocation = parseHomeLocation(s);
+		} catch (ParsingException ex) {
+			Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		Long speed = parseSpeed(s);
 		try {
 			return new Ambulance(name, homeLocation, speed);
@@ -51,15 +56,4 @@ public class AmbulanceFactory extends MapItemFactory {
 		return null;
 	}
 
-	private String parseName(String s) {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	private GPSCoordinate parseHomeLocation(String s) {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	private Long parseSpeed(String s) {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
 }

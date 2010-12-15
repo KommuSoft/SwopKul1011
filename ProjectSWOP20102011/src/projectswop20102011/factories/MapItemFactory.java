@@ -1,7 +1,12 @@
 package projectswop20102011.factories;
 
+import javax.naming.NameParser;
+import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
+import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.utils.TextScanner;
+import projectswop20102011.utils.parsers.GPSCoordinateParser;
 
 /**
  * A class that represents a MapItemFactory.
@@ -10,6 +15,9 @@ import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
  */
 public abstract class MapItemFactory{
 
+	/**
+	 * The name of the MapItem that this factory will create.
+	 */
 	private final String mapItemTypeName;
 
 	/**
@@ -24,6 +32,14 @@ public abstract class MapItemFactory{
 			throw new InvalidMapItemTypeNameException("emergencyTypeName must be effective and not empty");
 		}
 		this.mapItemTypeName = mapItemTypeName;
+	}
+
+	/**
+	 * Returns the name of the MapItem that this factory will create.
+	 * @return The name of the MapItem that this factory will create.
+	 */
+	public String getMapItemTypeName(){
+		return mapItemTypeName;
 	}
 
 	/**
@@ -45,4 +61,14 @@ public abstract class MapItemFactory{
 		return (mapItemTypeName != null && mapItemTypeName.length() > 0);
 	}
 
+
+	protected String parseName(String s) {
+		TextScanner ts = new TextScanner(s);
+		return ts.read(new NameParser());
+	}
+
+	protected GPSCoordinate parseHomeLocation(String s) throws ParsingException {
+		TextScanner ts = new TextScanner(s);
+		return ts.read(new GPSCoordinateParser());
+	}
 }

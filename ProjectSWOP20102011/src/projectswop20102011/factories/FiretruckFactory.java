@@ -8,13 +8,14 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
+import projectswop20102011.exceptions.ParsingException;
 
 /**
  * A class that represents a FiretruckFactory.
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class FiretruckFactory extends MapItemFactory {
+public class FiretruckFactory extends UnitFactory {
 
     /**
      * Creates a new FiretruckFactory.
@@ -35,7 +36,12 @@ public class FiretruckFactory extends MapItemFactory {
     @Override
     public Firetruck createMapItem(String s){
         String name = parseName(s);
-        GPSCoordinate homeLocation = parseHomeLocation(s);
+        GPSCoordinate homeLocation;
+		try {
+			homeLocation = parseHomeLocation(s);
+		} catch (ParsingException ex) {
+			Logger.getLogger(FiretruckFactory.class.getName()).log(Level.SEVERE, null, ex);
+		}
         Long speed = parseSpeed(s);
         try {
             return new Firetruck(name, homeLocation, speed);
@@ -47,18 +53,5 @@ public class FiretruckFactory extends MapItemFactory {
             Logger.getLogger(FiretruckFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-
-
-    private String parseName(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private GPSCoordinate parseHomeLocation(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private Long parseSpeed(String s) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
