@@ -86,17 +86,10 @@ public class UnitsNeeded {
     }
 
     /**
-     * Sets the working units of the emergency to the given amount of working units.
-     * @param workingUnits
-     *		The new amount of working units for the emergency.
-     * @post This workingUnit is equal to the given workingUnits.
-     *		| new.getWorkingUnits() == workingUnits
-     * @effect If workingUnits is zero, then the emergency is finished, so its status is set to finished.
-     *		| getEmergency().setStatus(EmergencyStatus.FINISHED)
+     * Checks if the emergency is finished.
      */
-    private void setWorkingUnits(ArrayList<Unit> workingUnits) {
-        if (workingUnits.isEmpty() && getConstraint().areValidDispatchUnits(getFinishedUnits())) {
-            //TODO: moet nog een voorwaarde opgelegd worden om te controleren of de juiste units gefinished zijn
+    private void checkEmergencyFinished(){
+        if(getConstraint().areValidDispatchUnits(getFinishedUnits())){
             try {
                 getEmergency().setStatus(EmergencyStatus.FINISHED);
             } catch (InvalidEmergencyStatusException ex) {
@@ -104,7 +97,6 @@ public class UnitsNeeded {
                 Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.workingUnits = workingUnits;
     }
 
     //TODO: de @pre moet misschien nog weg, maar voorlopg wordt deze methode enkel opgeroepen als de unit zeker en vast gealloceerd mag worden.
@@ -129,6 +121,7 @@ public class UnitsNeeded {
      */
     private void addFinishedUnits(Unit u) {
         getFinishedUnits().add(u);
+        checkEmergencyFinished();
     }
 
     /**
@@ -239,7 +232,6 @@ public class UnitsNeeded {
     void unitFinishedJob(Unit u) {
         getWorkingUnits().remove(u);
         addFinishedUnits(u);
-        setWorkingUnits(getWorkingUnits());
     }
 
     /**
@@ -275,6 +267,5 @@ public class UnitsNeeded {
 
     void unitWithdrawnJob(Unit u) {
         getWorkingUnits().remove(u);
-        setWorkingUnits(getWorkingUnits());
     }
 }
