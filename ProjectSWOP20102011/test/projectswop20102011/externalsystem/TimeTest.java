@@ -3,7 +3,6 @@ package projectswop20102011.externalsystem;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.externalsystem.api.Time;
 
 public class TimeTest {
 	private int hours1, hours2, hours3, hours4;

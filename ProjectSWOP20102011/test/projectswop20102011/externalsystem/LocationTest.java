@@ -3,7 +3,6 @@ package projectswop20102011.externalsystem;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.externalsystem.api.Location;
 
 public class LocationTest {
 
