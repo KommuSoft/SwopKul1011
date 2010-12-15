@@ -107,8 +107,11 @@ public class UnitsNeeded {
         this.workingUnits = workingUnits;
     }
 
+    //TODO: de @pre moet misschien nog weg, maar voorlopg wordt deze methode enkel opgeroepen als de unit zeker en vast gealloceerd mag worden.
     /**
      * Add a given unit to the working units.
+     * @pre
+     *      The given unit is allowed to be assigned
      * @param u
      *      The unit that must be added to the working units
      * @effect The given unit is added to the working units.
@@ -225,7 +228,6 @@ public class UnitsNeeded {
                 Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        ArrayList<Unit> unitsToAssign = new ArrayList<Unit>(units.size());
         for (int i = 0; i < units.size(); i++) {
             addWorkingUnits(units.get(i));
         }
@@ -235,7 +237,9 @@ public class UnitsNeeded {
      * A method called when a unit finishes his job to manage the emergency.
      */
     void unitFinishedJob(Unit u) {
+        //TODO: Hier moet wss nog iets komen van constraintchecking
         getWorkingUnits().remove(u);
+        //Deze controle is nodig om te weten of de unit gewithdrawed of echt finished is
         if (u.wasAlreadyAtSite()) {
             addFinishedUnits(u);
         }

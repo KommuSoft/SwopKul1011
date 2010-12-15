@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
@@ -55,7 +56,8 @@ public class FiretruckFireSizeTest {
         f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
         brandweerwagen = new Firetruck(name, homeLocation, speed1);
 
-        Unit[] units = {brandweerwagen};
+        ArrayList<Unit> units = new ArrayList<Unit>();
+        units.add(brandweerwagen);
         f1.getUnitsNeeded().assignUnitsToEmergency(units);
 
         brandweerwagen.timeAhead(duration);
@@ -72,7 +74,8 @@ public class FiretruckFireSizeTest {
         f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
         brandweerwagen = new Firetruck(name, homeLocation, speed1);
 
-        Unit[] units = {brandweerwagen};
+        ArrayList<Unit> units = new ArrayList<Unit>();
+        units.add(brandweerwagen);
         f1.getUnitsNeeded().assignUnitsToEmergency(units);
         brandweerwagen.timeAhead(-23);
         assertEquals(x2, brandweerwagen.getCurrentLocation().getX());
