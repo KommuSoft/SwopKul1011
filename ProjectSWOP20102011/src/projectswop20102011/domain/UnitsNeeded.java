@@ -93,9 +93,9 @@ public class UnitsNeeded {
 	 *		| getEmergency().setStatus(EmergencyStatus.FINISHED)
 	 */
 	private void setWorkingUnits(ArrayList<Unit> workingUnits) {
-		if (workingUnits.size() == 0) {
+		if (workingUnits.isEmpty()) {
 			try {
-				//TODO: moet nog aangepast worden
+				//TODO: moet nog een voorwaarde opgelegd worden om te controleren of de juiste units gefinished zijn
 				getEmergency().setStatus(EmergencyStatus.FINISHED);
 			} catch (InvalidEmergencyStatusException ex) {
 				//We ensure this can never happen.

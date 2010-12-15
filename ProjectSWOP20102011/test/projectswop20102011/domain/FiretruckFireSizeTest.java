@@ -81,4 +81,14 @@ public class FiretruckFireSizeTest {
         assertEquals(y1, brandweerwagen.getDestination().getY());
     }
     //TODO test maxSize
+    @Test(expected = InvalidFireSizeException.class)
+    public void testInvalidMaxSize() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException{
+        brandweerwagen = new Firetruck(name,homeLocation,speed1, null);
+    }
+
+    @Test
+    public void testValidMaxSize() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException{
+        brandweerwagen = new Firetruck(name,homeLocation,speed1,FireSize.HOUSE);
+        assertEquals(FireSize.HOUSE, brandweerwagen.getMaxSize());
+    }
 }

@@ -5,7 +5,6 @@ package projectswop20102011.exceptions;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-//TODO: Deze exception-klasse wordt bij factories gebruikt, maar we hebben geen factories... :)
 public class InvalidMapItemTypeNameException extends Exception {
 
 	/**
