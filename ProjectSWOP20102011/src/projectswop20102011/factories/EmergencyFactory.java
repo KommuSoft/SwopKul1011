@@ -30,6 +30,14 @@ public abstract class EmergencyFactory {
         this.emergencyTypeName = emergencyTypeName;
     }
 
+	/**
+	 * Returns the name of the emergency this factory will create.
+	 * @return The name of the emergency this factory will create.
+	 */
+	public String getEmergencyTypeName(){
+		return emergencyTypeName;
+	}
+
     /**
      * Creates a new specific emergency with the given parameters
      * @param parameters
@@ -37,10 +45,8 @@ public abstract class EmergencyFactory {
      * @return The emergency created by the factory.
      * @throws InvalidParameterException
      *		If the given parameters are invalid parameters for the Emergency.
-     * @throws Exception
-     *          If the constructor in the factory throws an exception.
      */
-    public abstract Emergency createEmergency(Object[] parameters) throws InvalidParameterException, Exception;
+    public abstract Emergency createEmergency(Object[] parameters) throws InvalidParameterException;
 
     
     /**

@@ -76,12 +76,11 @@ public class FireFactoryTest {
 	public void testGetParameterClasses() throws InvalidEmergencyTypeNameException{
 		ff = new FireFactory();
 		Class[] c1 = {GPSCoordinate.class, EmergencySeverity.class, String.class, FireSize.class, Boolean.class, Long.class, Long.class};
-		Class[] c2 = ff.getParameterClasses();
 
-		assertEquals(c1.length, c2.length);
+		assertEquals(c1.length, ff.getParameterClasses().length);
 
 		for(int i=0; i<c1.length; ++i){
-			assertEquals(c1[i], c2[i]);
+			assertEquals(c1[i], ff.getParameterClasses()[i]);
 		}
 	}
 
@@ -95,5 +94,12 @@ public class FireFactoryTest {
 		assertFalse(ff.areValidParameters(new Object[] {gps1, severity1, description1, size2, chemical1, trappedPeople1, numberOfInjured1}));
 		assertTrue(ff.areValidParameters(new Object[] {gps1, severity1, description1, size1, chemical1, trappedPeople2, numberOfInjured1}));
 		assertTrue(ff.areValidParameters(new Object[] {gps1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured2}));
+	}
+
+	@Test
+	public void testGetEmergencyTypeName() throws InvalidEmergencyTypeNameException{
+		ff = new FireFactory();
+
+		assertEquals("fire", ff.getEmergencyTypeName());
 	}
 }
