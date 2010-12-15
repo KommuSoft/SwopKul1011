@@ -37,10 +37,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * A variable registering the withdrawBehavior of this unit.
      */
     private WithdrawBehavior withdrawBehavior;
-	/**
-	 * A variable registering whether a unit was already at the site of emergency.
-	 */
-	private boolean wasAlreadyAtSite;
+    /**
+     * A variable registering whether a unit was already at the site of emergency.
+     */
+    private boolean wasAlreadyAtSite;
 
     /**
      * Initialize a new unit with given parameters.
@@ -71,7 +71,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         setSpeed(speed);
         setCurrentLocation(homeLocation);
         setEmergency(null);
-		setWasAlreadyAtSite(false);
+        setWasAlreadyAtSite(false);
     }
 
     /**
@@ -130,13 +130,13 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return withdrawBehavior;
     }
 
-	/**
-	 * Returns whether a unit was already at the site of emergency.
-	 * @return True if this unit was already at the site of emergency, false otherwise.
-	 */
-	public boolean wasAlreadyAtSite(){
-		return wasAlreadyAtSite;
-	}
+    /**
+     * Returns whether a unit was already at the site of emergency.
+     * @return True if this unit was already at the site of emergency, false otherwise.
+     */
+    public boolean wasAlreadyAtSite() {
+        return wasAlreadyAtSite;
+    }
 
     /**
      * Sets the speed of this timesensitive unit or building to the given value.
@@ -187,15 +187,15 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         this.withdrawBehavior = wb;
     }
 
-	/**
-	 * Sets whether a unit was already at the site of emergency.
-	 *
-	 * @param wasAlreadyAtSite
-	 *		The condition whether a unit was already at the site of emergency.
-	 */
-	protected void setWasAlreadyAtSite(boolean wasAlreadyAtSite){
-		this.wasAlreadyAtSite = wasAlreadyAtSite;
-	}
+    /**
+     * Sets whether a unit was already at the site of emergency.
+     *
+     * @param wasAlreadyAtSite
+     *		The condition whether a unit was already at the site of emergency.
+     */
+    protected void setWasAlreadyAtSite(boolean wasAlreadyAtSite) {
+        this.wasAlreadyAtSite = wasAlreadyAtSite;
+    }
 
     /**
      * Returns the emergency of this unit.
@@ -274,9 +274,9 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     @Override
     public void timeAhead(long seconds) throws InvalidDurationException {
         changeLocation(seconds);
-		if(isAssigned() && wasAlreadyAtSite() == false && getCurrentLocation()==getEmergency().getLocation()){
-			setWasAlreadyAtSite(true);
-		}
+        if (isAssigned() && wasAlreadyAtSite() == false && getCurrentLocation() == getEmergency().getLocation()) {
+            setWasAlreadyAtSite(true);
+        }
     }
 
     /**
@@ -293,9 +293,9 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     void assignTo(Emergency emergency) throws InvalidMapItemException {
         if (!canBeAssigned()) {
             throw new InvalidMapItemException("Unit can't be assigned");
-        }else{
+        } else {
             setEmergency(emergency);
-            if(getCurrentLocation() == emergency.getLocation()){
+            if (getCurrentLocation() == emergency.getLocation()) {
                 setWasAlreadyAtSite(true);
             }
         }
@@ -317,7 +317,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             if (this.isAtDestination()) {
                 getEmergency().getUnitsNeeded().unitFinishedJob(this);
                 setEmergency(null);
-				setWasAlreadyAtSite(false);
+                setWasAlreadyAtSite(false);
             } else {
                 throw new InvalidLocationException("The unit is not at it's destination.");
             }
@@ -344,5 +344,23 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      */
     public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyException {
         getWithdrawBehavior().withdraw(this);
+    }
+
+    /**
+     * Calculates the expected time of arrival to a location.
+     * @param location The given location.
+     * @return The number of seconds this unit would use to reach the given location.
+     */
+    public long getETA(GPSCoordinate location) {
+        return Math.round(this.getDistanceTo(location) / this.getSpeed());
+    }
+
+    /**
+     * Calculates the distance of this unit to the given location.
+     * @param location The location to calculate the distance to.
+     * @return The distance between this unit and the given location.
+     */
+    public double getDistanceTo(GPSCoordinate location) {
+        return this.getCurrentLocation().getDistanceTo(location);
     }
 }

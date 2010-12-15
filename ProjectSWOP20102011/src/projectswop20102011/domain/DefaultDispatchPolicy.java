@@ -31,4 +31,9 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public int compare(Unit o1, Unit o2) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

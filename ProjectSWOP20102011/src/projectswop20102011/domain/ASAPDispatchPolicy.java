@@ -30,4 +30,16 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Compares two different units by there expected time of arrival (ETA)
+     * @param unit1 The first unit to compare.
+     * @param unit2 The second unit to compare.
+     * @return a negative integer, zero, or a positive integer as the first unit is more, equal or less intresting than the unit according to this Policy.
+     */
+    @Override
+    public int compare (Unit unit1, Unit unit2) {
+        GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation();
+        return ((Long) unit1.getETA(emergencyLocation)).compareTo(unit2.getETA(emergencyLocation));
+    }
+
 }
