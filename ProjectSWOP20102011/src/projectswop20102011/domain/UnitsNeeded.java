@@ -107,7 +107,7 @@ public class UnitsNeeded {
 
 	private void addWorkingUnits(Unit u) {
 		getWorkingUnits().add(u);
-		setWorkingUnits(getWorkingUnits());
+		//Is waarschijnlijk overbodig: setWorkingUnits(getWorkingUnits());
 	}
 
 	private void addFinishedUnits(Unit u){
@@ -217,10 +217,10 @@ public class UnitsNeeded {
 	 */
 	void unitFinishedJob(Unit u) {
 		getWorkingUnits().remove(u);
-		setWorkingUnits(getWorkingUnits());
 		if(u.wasAlreadyAtSite()){
 			addFinishedUnits(u);
 		}
+        setWorkingUnits(getWorkingUnits());
 	}
 
 	/**
