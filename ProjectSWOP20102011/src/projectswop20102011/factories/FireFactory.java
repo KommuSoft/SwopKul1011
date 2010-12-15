@@ -39,6 +39,7 @@ public class FireFactory extends EmergencyFactory {
 	}
 
 	@Override
+	//TODO mag dit niet static?
 	public Class[] getParameterClasses() {
 		return new Class[] {GPSCoordinate.class, EmergencySeverity.class, String.class, FireSize.class, Boolean.class, Long.class, Long.class};
 	}

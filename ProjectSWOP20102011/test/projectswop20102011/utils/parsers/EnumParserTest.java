@@ -40,6 +40,7 @@ public class EnumParserTest {
 
     @Test
     public void testConstructor() {
+		//TODO dit print iets af
         new EnumParser(FireSize.class);
     }
     

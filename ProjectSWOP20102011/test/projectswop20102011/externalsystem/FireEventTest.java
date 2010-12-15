@@ -20,7 +20,6 @@ public class FireEventTest {
 	private Event event1, event2;
 	private Time time1, time2;
 	private Location location1;
-	private Emergency emergency1;
 	private World world;
 	private int x1, y1;
 	private EmergencySeverity severity1;

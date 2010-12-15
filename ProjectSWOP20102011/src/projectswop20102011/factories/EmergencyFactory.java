@@ -62,6 +62,7 @@ public abstract class EmergencyFactory {
     /**
      * Checks if the given parameters can be used to construct the specific emergency.
      * @return True if the given parameters can be used to initialize the specific emergency constructor, otherwise false.
+	 * @note Only the instance is checked. E.g. if we expect a positive Integer and we give a negative Integer as parameter then this method returns true.
      */
     public boolean areValidParameters (Object[] parameters) {
         Class[] parameterClasses = this.getParameterClasses();
