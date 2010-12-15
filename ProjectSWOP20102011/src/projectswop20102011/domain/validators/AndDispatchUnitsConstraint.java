@@ -57,12 +57,11 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      */
     @Override
     public boolean areValidDispatchUnits(List<Unit> units, boolean[] used) {
+        boolean result = true;
         for (DispatchUnitsConstraint duc : getConstraints()) {
-            if (!duc.areValidDispatchUnits(units,used)) {
-                return false;
-            }
+            result &= duc.areValidDispatchUnits(units,used);
         }
-        return true;
+        return result;
     }
 
     /**

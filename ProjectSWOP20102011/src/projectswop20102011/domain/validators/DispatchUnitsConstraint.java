@@ -44,6 +44,10 @@ public abstract class DispatchUnitsConstraint {
         return true;
     }
 
+    public boolean areValidDispatchUnits (List<Unit> units) {
+        return areValidDispatchUnits(units,new boolean[units.size()]);
+    }
+
     /**
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
      * @param units An iterable object containing only unique and only effective units.
