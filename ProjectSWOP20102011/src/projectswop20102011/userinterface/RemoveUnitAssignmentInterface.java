@@ -65,7 +65,7 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
                         try {
                             int id = Integer.parseInt(expression);
                             unitsToRemove.add(workingUnits.get(id));
-                            this.writeOutput("Unit added.");
+                            this.writeOutput("Unit removed.");
                         } catch (Exception ex) {
                             this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                         }
