@@ -1,5 +1,6 @@
 package projectswop20102011.controllers;
 
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemEvaluationCriterium;
@@ -59,10 +60,9 @@ public class InspectEmergenciesController extends Controller {
         MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
         MapItemList availableUnitsList = this.getWorld().getMapItemList().getMapItemsByCriterium(criterium);
         MapItem[] mis = availableUnitsList.toArray();
-        Unit[] units = new Unit[mis.length];
-        int i = 0;
+        ArrayList<Unit> units = new ArrayList<Unit>(mis.length);
         for(MapItem mi : mis) {
-            units[i++] = (Unit) mi;
+            units.add((Unit) mi);
         }
         return e.getUnitsNeeded().canAssignUnitsToEmergency(units);
     }

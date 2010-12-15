@@ -1,5 +1,6 @@
 package projectswop20102011.controllers;
 
+import java.util.List;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemEvaluationCriterium;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
@@ -32,7 +33,7 @@ public class DispatchUnitsController extends Controller {
         return selectedEmergency.getUnitsNeeded();
     }
 
-    public void dispatchToEmergency(Emergency selectedEmergency, Unit[] units) throws InvalidEmergencyException {
+    public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyException {
         selectedEmergency.getUnitsNeeded().assignUnitsToEmergency(units);
     }
 
