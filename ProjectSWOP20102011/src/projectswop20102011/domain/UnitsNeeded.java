@@ -179,7 +179,8 @@ public class UnitsNeeded {
         if (this.getEmergency().getStatus() == EmergencyStatus.FINISHED) {
             return false;
         } else {
-            units.addAll((Collection<? extends Unit>) getWorkingUnits().clone());
+            ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits().clone();
+            totalUnits.addAll(units);
             return getConstraint().areAllUnitsUsed(units);
         }
 
