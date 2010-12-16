@@ -4,23 +4,24 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.Firetruck;
+import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 
 public class FireTruckFactoryTest {
 
+	private long x1, y1;
 	private String name1;
-	private String homeLocation1;
-	private String speed1;
-	private String s1;
+	private GPSCoordinate homeLocation1;
+	private long speed1;
 	private FiretruckFactory ftf;
 
 	@Before
 	public void setUp() {
+		x1 = 15;
+		y1 = 15;
 		name1 = "Brandweerwagen";
-		homeLocation1 = "(15,15)";
-		speed1 = "5";
-
-		s1 = name1 + homeLocation1 + speed1;
+		homeLocation1 = new GPSCoordinate(x1,y1);
+		speed1 = 5;
 	}
 
 	@Test
@@ -32,7 +33,7 @@ public class FireTruckFactoryTest {
 	public void testCreateMapItem() throws InvalidMapItemTypeNameException {
 		ftf = new FiretruckFactory();
 
-		Firetruck ft = ftf.createMapItem(s1);
+		Firetruck ft = ftf.createMapItem(new Object[] {name1, homeLocation1, speed1});
 		assertEquals(name1, ft.getName());
 		assertEquals(homeLocation1, ft.getHomeLocation());
 		assertEquals(speed1, ft.getSpeed());

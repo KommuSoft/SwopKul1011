@@ -2,7 +2,6 @@ package projectswop20102011.factories;
 
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
-import projectswop20102011.utils.TextScanner;
 
 public abstract class UnitFactory extends MapItemFactory {
 
@@ -11,10 +10,6 @@ public abstract class UnitFactory extends MapItemFactory {
 	}
 
 	@Override
-	public abstract MapItem createMapItem(String s);
+	public abstract MapItem createMapItem(Object[] parameters);
 
-	protected Long parseSpeed(String s) {
-		TextScanner ts = new TextScanner(s);
-		return ts.read(new SpeedParser());
-	}
 }

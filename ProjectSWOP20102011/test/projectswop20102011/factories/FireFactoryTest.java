@@ -1,4 +1,4 @@
-package projectswop20102011.factories;
+	package projectswop20102011.factories;
 
 import java.security.InvalidParameterException;
 import org.junit.Before;

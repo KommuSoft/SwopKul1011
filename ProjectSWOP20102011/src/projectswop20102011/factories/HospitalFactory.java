@@ -1,5 +1,6 @@
 package projectswop20102011.factories;
 
+import java.security.InvalidParameterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.GPSCoordinate;
@@ -7,7 +8,6 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
-import projectswop20102011.exceptions.ParsingException;
 
 /**
  * A class that represents a HospitalFactory.
@@ -28,26 +28,24 @@ public class HospitalFactory extends MapItemFactory {
 
     /**
      * Creates a new Hospital.
-     * @param s
-     *		A string with the specifications of the new hospital.
+	 * @param parameters
+     *		The parameters of the constructor.
      * @return The new Hospital.
      */
     @Override
-    public Hospital createMapItem(String s){
-        String name = parseName(s);
-        GPSCoordinate homeLocation = null;
-		try {
-			homeLocation = parseHomeLocation(s);
-		} catch (ParsingException ex) {
-			Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
+    public Hospital createMapItem(Object[] parameters){
+		if (parameters.length != 2) {
+			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
+		} else {
+			try {
+				//TODO hieronder nog zinvolle errors geven
+				return new Hospital((String) parameters[0], (GPSCoordinate) parameters[1]);
+			} catch (InvalidMapItemNameException ex) {
+				Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidLocationException ex) {
+				Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			return null;
 		}
-        try {
-            return new Hospital(name, homeLocation);
-        } catch (InvalidMapItemNameException ex) {
-            Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidLocationException ex) {
-            Logger.getLogger(HospitalFactory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 }

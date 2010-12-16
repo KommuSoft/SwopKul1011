@@ -38,8 +38,6 @@ public class RobberyFactory extends EmergencyFactory{
 	 */
 	@Override
     public Emergency createEmergency(Object[] parameters) throws InvalidParameterException {
-		//GPSCoordinate location, EmergencySeverity severity, java.lang.String description, boolean armed, boolean inProgress
-
 		if (parameters.length != 5) {
 			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
 		} else {

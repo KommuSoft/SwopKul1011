@@ -1,5 +1,6 @@
 package projectswop20102011.factories;
 
+import java.security.InvalidParameterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Ambulance;
@@ -8,7 +9,6 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
-import projectswop20102011.exceptions.ParsingException;
 
 /**
  * A class that represents an AmbulanceFactory.
@@ -29,31 +29,28 @@ public class AmbulanceFactory extends UnitFactory {
 
 	/**
 	 * Creates a new Ambulance.
-	 *
-	 * @param s
-	 *      A string with the specifications of the new ambulance.
+	 * @param parameters
+     *		The parameters of the constructor.
 	 * @return The new Ambulance.
 	 */
 	@Override
-	public Ambulance createMapItem(String s) {
-		String name = parseName(s);
-		GPSCoordinate homeLocation = null;
-		try {
-			homeLocation = parseHomeLocation(s);
-		} catch (ParsingException ex) {
-			Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+	public Ambulance createMapItem(Object[] parameters) {
+		if (parameters.length != 3) {
+			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
+		} else {
+			try {
+				//TODO hieronder nog zinvolle errors geven
+				return new Ambulance((String) parameters[0], (GPSCoordinate) parameters[1], (Long) parameters[2]);
+			} catch (InvalidLocationException ex) {
+				Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidMapItemNameException ex) {
+				Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidSpeedException ex) {
+				Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			return null;
 		}
-		Long speed = parseSpeed(s);
-		try {
-			return new Ambulance(name, homeLocation, speed);
-		} catch (InvalidLocationException ex) {
-			Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidMapItemNameException ex) {
-			Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidSpeedException ex) {
-			Logger.getLogger(AmbulanceFactory.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
 	}
+		
 
 }

@@ -1,12 +1,7 @@
 package projectswop20102011.factories;
 
-import javax.naming.NameParser;
-import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
-import projectswop20102011.exceptions.ParsingException;
-import projectswop20102011.utils.TextScanner;
-import projectswop20102011.utils.parsers.GPSCoordinateParser;
 
 /**
  * A class that represents a MapItemFactory.
@@ -28,7 +23,7 @@ public abstract class MapItemFactory{
 	 *		If the name of the emergency type is invalid.
 	 */
 	protected MapItemFactory (String mapItemTypeName) throws InvalidMapItemTypeNameException {
-		if(isValidMapItemTypeName(mapItemTypeName)) {
+		if(!isValidMapItemTypeName(mapItemTypeName)) {
 			throw new InvalidMapItemTypeNameException("emergencyTypeName must be effective and not empty");
 		}
 		this.mapItemTypeName = mapItemTypeName;
@@ -44,12 +39,12 @@ public abstract class MapItemFactory{
 
 	/**
 	 * Creates a new specific MapItem with the given parameters
-     * @param s
-     *      A string with the specifications of the new mapItem.
+	 * @param parameters
+     *		The parameters of the constructor.
      * @return The MapItem created by the factory.
 
 	 */
-	public abstract MapItem createMapItem (String s);
+	public abstract MapItem createMapItem (Object[] parameters);
 
 	/**
 	 * Tests if the given emergency type name is valid for an MapItemFactory object.
@@ -59,16 +54,5 @@ public abstract class MapItemFactory{
 	 */
 	public static boolean isValidMapItemTypeName (String mapItemTypeName) {
 		return (mapItemTypeName != null && mapItemTypeName.length() > 0);
-	}
-
-
-	protected String parseName(String s) {
-		TextScanner ts = new TextScanner(s);
-		return ts.read(new NameParser());
-	}
-
-	protected GPSCoordinate parseHomeLocation(String s) throws ParsingException {
-		TextScanner ts = new TextScanner(s);
-		return ts.read(new GPSCoordinateParser());
 	}
 }
