@@ -2,13 +2,16 @@
 \usepackage[dutch]{babel}
 \usepackage{fullpage}
 \usepackage{emp}
+\usepackage{pst-uml}
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
 
-\ifx\pdftexversion\undefined
-\usepackage[dvips]{graphicx}
-\else
-\usepackage[pdftex]{graphicx}
-\DeclareGraphicsRule{*}{mps}{*}{}
-\fi
+%\ifx\pdftexversion\undefined
+%\usepackage[dvips]{graphicx}
+%\else
+%\usepackage[pdftex]{graphicx}
+%\DeclareGraphicsRule{*}{mps}{*}{}
+%\fi
 
 \title{Software Ontwerp - Verslag Iteratie 2\\Prof. T. Holvoet\\Dhr. T. Heyman}
 \author{Willem Van Onsem\\Jonas Vanthornhout\\Pieter-Jan Vuylsteke}
@@ -47,5 +50,7 @@ input metauml;
 \newpage
 \appendix
 \section{Bijlagen}
+\bibliographystyle{alpha}
+\bibliography{boeken}
 \end{empfile}
 \end{document}
