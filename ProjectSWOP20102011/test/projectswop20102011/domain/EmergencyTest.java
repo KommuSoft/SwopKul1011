@@ -17,7 +17,7 @@ public class EmergencyTest{
         gp1 = new GPSCoordinate(x1, y1);
 		gp2 = null;
 
-		es1 = EmergencyStatus.FINISHED;
+		es1 = EmergencyStatus.COMPLETED;
 		es2 = null;
     }
 

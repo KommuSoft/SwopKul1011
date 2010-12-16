@@ -60,8 +60,8 @@ public class StatusEqualityEmergencyEvaluationCriteriumTest {
 		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, seeec1.getStatus());
 		StatusEqualityEmergencyEvaluationCriterium seeec2 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RESPONSE_IN_PROGRESS);
 		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, seeec2.getStatus());
-		StatusEqualityEmergencyEvaluationCriterium seeec3 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.FINISHED);
-		assertEquals(EmergencyStatus.FINISHED, seeec3.getStatus());
+		StatusEqualityEmergencyEvaluationCriterium seeec3 = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.COMPLETED);
+		assertEquals(EmergencyStatus.COMPLETED, seeec3.getStatus());
 		StatusEqualityEmergencyEvaluationCriterium seeec4 = new StatusEqualityEmergencyEvaluationCriterium(null);
 		assertEquals(null, seeec4.getStatus());
 	}

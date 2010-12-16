@@ -11,7 +11,7 @@ public enum EmergencyStatus {
 
 	RECORDED_BUT_UNHANDLED("recorded but unhandled"),
 	RESPONSE_IN_PROGRESS("response in progress"),
-	FINISHED("finished");
+	COMPLETED("completed");
 	/**
 	 * The textual representation of an EmergencyStatus.
 	 */

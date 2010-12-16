@@ -18,21 +18,21 @@ public class EmergencyStatusTest {
         assertTrue(EmergencyStatus.RESPONSE_IN_PROGRESS.matches("response in progress"));
         assertTrue(EmergencyStatus.RESPONSE_IN_PROGRESS.matches(EmergencyStatus.RESPONSE_IN_PROGRESS.getTextual()));
         assertFalse(EmergencyStatus.RESPONSE_IN_PROGRESS.matches("response out of progress"));
-        assertTrue(EmergencyStatus.FINISHED.matches("FINISHED"));
-        assertTrue(EmergencyStatus.FINISHED.matches("FiNiShEd"));
-        assertTrue(EmergencyStatus.FINISHED.matches("finished"));
-        assertTrue(EmergencyStatus.FINISHED.matches(EmergencyStatus.FINISHED.getTextual()));
-        assertFalse(EmergencyStatus.FINISHED.matches("finem"));
+        assertTrue(EmergencyStatus.COMPLETED.matches("FINISHED"));
+        assertTrue(EmergencyStatus.COMPLETED.matches("FiNiShEd"));
+        assertTrue(EmergencyStatus.COMPLETED.matches("finished"));
+        assertTrue(EmergencyStatus.COMPLETED.matches(EmergencyStatus.COMPLETED.getTextual()));
+        assertFalse(EmergencyStatus.COMPLETED.matches("finem"));
     }
 
     @Test
     public void testParse() throws InvalidEmergencyStatusException {
         assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, EmergencyStatus.parse(EmergencyStatus.RECORDED_BUT_UNHANDLED.getTextual()));
         assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, EmergencyStatus.parse(EmergencyStatus.RESPONSE_IN_PROGRESS.getTextual()));
-        assertEquals(EmergencyStatus.FINISHED, EmergencyStatus.parse(EmergencyStatus.FINISHED.getTextual()));
+        assertEquals(EmergencyStatus.COMPLETED, EmergencyStatus.parse(EmergencyStatus.COMPLETED.getTextual()));
         assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, EmergencyStatus.parse(EmergencyStatus.RECORDED_BUT_UNHANDLED.getTextual().toUpperCase()));
         assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, EmergencyStatus.parse(EmergencyStatus.RESPONSE_IN_PROGRESS.getTextual().toUpperCase()));
-        assertEquals(EmergencyStatus.FINISHED, EmergencyStatus.parse(EmergencyStatus.FINISHED.getTextual().toUpperCase()));
+        assertEquals(EmergencyStatus.COMPLETED, EmergencyStatus.parse(EmergencyStatus.COMPLETED.getTextual().toUpperCase()));
     }
 
     @Test(expected = InvalidEmergencyStatusException.class)
@@ -52,7 +52,7 @@ public class EmergencyStatusTest {
 
 	@Test
 	public void testToString(){
-		assertEquals("finished", EmergencyStatus.FINISHED.toString());
+		assertEquals("finished", EmergencyStatus.COMPLETED.toString());
 		assertEquals("recorded but unhandled", EmergencyStatus.RECORDED_BUT_UNHANDLED.toString());
 		assertEquals("response in progress", EmergencyStatus.RESPONSE_IN_PROGRESS.toString());
 	}

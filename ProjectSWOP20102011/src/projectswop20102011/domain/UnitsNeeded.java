@@ -91,7 +91,7 @@ public class UnitsNeeded {
     private void checkEmergencyFinished(){
         if(getConstraint().areValidDispatchUnits(getFinishedUnits())){
             try {
-                getEmergency().setStatus(EmergencyStatus.FINISHED);
+                getEmergency().setStatus(EmergencyStatus.COMPLETED);
             } catch (InvalidEmergencyStatusException ex) {
                 //We ensure this can never happen.
                 Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,7 +176,7 @@ public class UnitsNeeded {
      */
     //TODO: Moet er getest worden of de emergency reeds gefinished is?
     public boolean canAssignUnitsToEmergency(List<Unit> units) {
-        if (this.getEmergency().getStatus() == EmergencyStatus.FINISHED) {
+        if (this.getEmergency().getStatus() == EmergencyStatus.COMPLETED) {
             return false;
         } else {
             ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits().clone();
