@@ -67,7 +67,7 @@ public class FireFactoryTest {
 		assertEquals(numberOfInjured1, f.getNumberOfInjured());
 	}
 
-	@Test(expected = InvalidParameterException.class)
+	@Test(expected = InvalidAmountOfParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidAmountOfParametersException, NumberOutOfBoundsException{
 		ff = new FireFactory();
 		ff.createEmergency(new Object[] {});

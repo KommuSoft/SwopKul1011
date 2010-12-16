@@ -56,7 +56,7 @@ public class TrafficAccidentFactoryTest {
 		assertEquals(numberOfInjured1, ta.getNumberOfInjured());
 	}
 
-	@Test(expected = InvalidParameterException.class)
+	@Test(expected = InvalidAmountOfParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidAmountOfParametersException {
 		taf = new TrafficAccidentFactory();
 		taf.createEmergency(new Object[]{});

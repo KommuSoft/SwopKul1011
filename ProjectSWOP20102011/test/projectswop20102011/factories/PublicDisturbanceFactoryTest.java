@@ -54,7 +54,7 @@ public class PublicDisturbanceFactoryTest {
 		assertEquals(numberOfPeople1, pd.getNumberOfPeople());
 	}
 
-	@Test(expected = InvalidParameterException.class)
+	@Test(expected = InvalidAmountOfParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidAmountOfParametersException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
 		pdf = new PublicDisturbanceFactory();
 		pdf.createEmergency(new Object[]{});

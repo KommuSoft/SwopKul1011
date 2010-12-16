@@ -56,7 +56,7 @@ public class RobberyFactoryTest {
 		assertEquals(inProgress1, r.isInProgress());
 	}
 
-	@Test(expected = InvalidParameterException.class)
+	@Test(expected = InvalidAmountOfParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidAmountOfParametersException {
 		rf = new RobberyFactory();
 		rf.createEmergency(new Object[]{});
