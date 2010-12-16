@@ -1,7 +1,6 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import java.util.logging.Level;

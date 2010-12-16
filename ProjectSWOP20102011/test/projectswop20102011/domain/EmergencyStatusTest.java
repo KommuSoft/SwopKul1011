@@ -18,9 +18,9 @@ public class EmergencyStatusTest {
         assertTrue(EmergencyStatus.RESPONSE_IN_PROGRESS.matches("response in progress"));
         assertTrue(EmergencyStatus.RESPONSE_IN_PROGRESS.matches(EmergencyStatus.RESPONSE_IN_PROGRESS.getTextual()));
         assertFalse(EmergencyStatus.RESPONSE_IN_PROGRESS.matches("response out of progress"));
-        assertTrue(EmergencyStatus.COMPLETED.matches("FINISHED"));
-        assertTrue(EmergencyStatus.COMPLETED.matches("FiNiShEd"));
-        assertTrue(EmergencyStatus.COMPLETED.matches("finished"));
+        assertTrue(EmergencyStatus.COMPLETED.matches("COMPLETED"));
+        assertTrue(EmergencyStatus.COMPLETED.matches("CoMpLeTeD"));
+        assertTrue(EmergencyStatus.COMPLETED.matches("completed"));
         assertTrue(EmergencyStatus.COMPLETED.matches(EmergencyStatus.COMPLETED.getTextual()));
         assertFalse(EmergencyStatus.COMPLETED.matches("finem"));
     }
@@ -52,7 +52,7 @@ public class EmergencyStatusTest {
 
 	@Test
 	public void testToString(){
-		assertEquals("finished", EmergencyStatus.COMPLETED.toString());
+		assertEquals("completed", EmergencyStatus.COMPLETED.toString());
 		assertEquals("recorded but unhandled", EmergencyStatus.RECORDED_BUT_UNHANDLED.toString());
 		assertEquals("response in progress", EmergencyStatus.RESPONSE_IN_PROGRESS.toString());
 	}
