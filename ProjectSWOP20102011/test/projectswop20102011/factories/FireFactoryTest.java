@@ -8,7 +8,12 @@ import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
+import projectswop20102011.exceptions.InvalidFireSizeException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class FireFactoryTest {
 
@@ -49,7 +54,7 @@ public class FireFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException{
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidAmountOfParametersException{
 		ff = new FireFactory();
 		Fire f = (Fire) ff.createEmergency(new Object[] {gps1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1});
 
@@ -63,7 +68,7 @@ public class FireFactoryTest {
 	}
 
 	@Test(expected = InvalidParameterException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException{
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidAmountOfParametersException, NumberOutOfBoundsException{
 		ff = new FireFactory();
 		ff.createEmergency(new Object[] {});
 	}

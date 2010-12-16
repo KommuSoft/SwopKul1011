@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -17,38 +18,36 @@ import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
  */
 public class FiretruckFactory extends UnitFactory {
 
-    /**
-     * Creates a new FiretruckFactory.
-     *
-     * @throws InvalidMapItemTypeNameException
-     *      If the type name of the new firetruck is invalid.
-     */
-    public FiretruckFactory() throws InvalidMapItemTypeNameException {
-        super("firetruck");
-    }
+	/**
+	 * Creates a new FiretruckFactory.
+	 *
+	 * @throws InvalidMapItemTypeNameException
+	 *      If the type name of the new firetruck is invalid.
+	 */
+	public FiretruckFactory() throws InvalidMapItemTypeNameException {
+		super("firetruck");
+	}
 
-    /**
-     * Creates a new Firetruck.
+	/**
+	 * Creates a new Firetruck.
 	 * @param parameters
-     *		The parameters of the constructor.
-     * @return The new Firetruck.
-     */
-    @Override
-    public Firetruck createMapItem(Object[] parameters){
+	 *		The parameters of the constructor.
+	 * @return The new Firetruck.
+	 * @throws InvalidLocationException
+	 *		If the given location is invalid.
+	 * @throws InvalidMapItemNameException
+	 *		If the given name for the mapItem is invalid.
+	 * @throws InvalidSpeedException
+	 *		If the given speed is invalid.
+	 * @throws InvalidAmountOfParametersException
+	 *		If the amount of given parameters is invalid.
+	 */
+	@Override
+	public Firetruck createMapItem(Object[] parameters) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
 		if (parameters.length != 3) {
-			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
+			throw new InvalidAmountOfParametersException("The number of parameters doesn't match the desired number of parameters.");
 		} else {
-			try {
-				//TODO hieronder nog zinvolle errors geven
-				return new Firetruck((String) parameters[0], (GPSCoordinate) parameters[1], (Long) parameters[2]);
-			} catch (InvalidLocationException ex) {
-				Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidMapItemNameException ex) {
-				Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidSpeedException ex) {
-				Logger.getLogger(PolicecarFactory.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			return null;
+			return new Firetruck((String) parameters[0], (GPSCoordinate) parameters[1], (Long) parameters[2]);
 		}
-    }
+	}
 }

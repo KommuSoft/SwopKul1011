@@ -1,6 +1,5 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 
@@ -43,10 +42,10 @@ public abstract class EmergencyFactory {
      * @param parameters
      *		The parameters of the constructor.
      * @return The emergency created by the factory.
-     * @throws InvalidParameterException
-     *		If the given parameters are invalid parameters for the Emergency.
+     * @throws Exception
+     *		If an error occurs.
      */
-    public abstract Emergency createEmergency(Object[] parameters) throws InvalidParameterException;
+    public abstract Emergency createEmergency(Object[] parameters) throws Exception;
 
     
     /**

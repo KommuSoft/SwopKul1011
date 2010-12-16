@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Robbery;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
+import projectswop20102011.exceptions.InvalidLocationException;
 
 public class RobberyFactoryTest {
 
@@ -42,7 +45,7 @@ public class RobberyFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException {
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidAmountOfParametersException {
 		rf = new RobberyFactory();
 		Robbery r  = (Robbery) rf.createEmergency(new Object[]{gps1, severity1, description1, armed1, inProgress1});
 
@@ -54,7 +57,7 @@ public class RobberyFactoryTest {
 	}
 
 	@Test(expected = InvalidParameterException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException {
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidAmountOfParametersException {
 		rf = new RobberyFactory();
 		rf.createEmergency(new Object[]{});
 	}

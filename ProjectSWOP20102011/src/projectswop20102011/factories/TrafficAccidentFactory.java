@@ -1,12 +1,10 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.TrafficAccident;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -34,35 +32,30 @@ public class TrafficAccidentFactory extends EmergencyFactory {
 	 * @param parameters
 	 *		The parameters of the new traffic accident.
 	 * @return The created traffic accident.
-	 * @throws InvalidParameterException
-	 *		Thrown when the number of parameters doesn't match the desired number of parameters.
+	 * @throws InvalidLocationException
+	 *		If the given location is invalid.
+	 * @throws InvalidEmergencySeverityException
+	 *		If the given emergency severity is invalid.
+	 * @throws NumberOutOfBoundsException
+	 *		If the number of involved cars or injured people is invalid.
+	 * @throws InvalidAmountOfParametersException
+	 *		If the amount of given parameteres is invalid.
 	 */
 	@Override
-	public Emergency createEmergency(Object[] parameters) throws InvalidParameterException {
-
+	public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidAmountOfParametersException {
 		if (parameters.length != 5) {
-			throw new InvalidParameterException("The number of parameters doesn't match the desired number of parameters.");
+			throw new InvalidAmountOfParametersException("The number of parameters doesn't match the desired number of parameters.");
 		} else {
-			try {
-				//TODO hieronder nog zinvolle errors geven
-				return new TrafficAccident((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
-			} catch (InvalidLocationException ex) {
-				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidEmergencySeverityException ex) {
-				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (NumberOutOfBoundsException ex) {
-				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			return null;
+			return new TrafficAccident((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
 		}
 	}
 
 	/**
-     * Returns a list of the types of parameters to construct a traffic accident emergency.
-     * @return A list of the types of parameters to construct a traffic accident emergency.
-     */
+	 * Returns a list of the types of parameters to construct a traffic accident emergency.
+	 * @return A list of the types of parameters to construct a traffic accident emergency.
+	 */
 	@Override
 	public Class[] getParameterClasses() {
-		return new Class[] {GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class, Long.class};
+		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class, Long.class};
 	}
 }

@@ -74,7 +74,7 @@ public class Fire extends Emergency {
      * @throws InvalidFireSizeException
      *		If the given fire size isn't a valid fire size for a fire emergency.
      * @throws NumberOutOfBoundsException
-     *		If the given number of injured people is smaller than zero.
+     *		If the given number of injured people is smaller than zero or if the number of trapped people is smaller than zero.
      * @post The number of injured people of the fire emergency is equal to the given number.
      *		| numberOfInjured.equals(getNumberOfInjured())
      * @post The fire size of this fire emergency is equal to the given fire size.

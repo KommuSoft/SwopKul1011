@@ -5,7 +5,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
+import projectswop20102011.exceptions.InvalidSpeedException;
 
 public class AmbulanceFactoryTest {
 
@@ -28,7 +32,7 @@ public class AmbulanceFactoryTest {
 	}
 
 	@Test
-	public void testCreateMapItem() throws InvalidMapItemTypeNameException {
+	public void testCreateMapItem() throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
 		af = new AmbulanceFactory();
 
 		Ambulance a = af.createMapItem(new Object[] {name1, homeLocation1, speed1});

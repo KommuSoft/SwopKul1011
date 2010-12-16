@@ -44,7 +44,7 @@ public abstract class MapItemFactory{
      * @return The MapItem created by the factory.
 
 	 */
-	public abstract MapItem createMapItem (Object[] parameters);
+	public abstract MapItem createMapItem (Object[] parameters) throws Exception;
 
 	/**
 	 * Tests if the given emergency type name is valid for an MapItemFactory object.

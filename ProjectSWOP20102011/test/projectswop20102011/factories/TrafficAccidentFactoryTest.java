@@ -7,7 +7,11 @@ import static org.junit.Assert.*;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.TrafficAccident;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
+import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
+import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class TrafficAccidentFactoryTest {
 
@@ -41,7 +45,7 @@ public class TrafficAccidentFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException {
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidAmountOfParametersException {
 		taf = new TrafficAccidentFactory();
 		TrafficAccident ta = (TrafficAccident) taf.createEmergency(new Object[]{gps1, severity1, description1, numberOfCars1, numberOfInjured1});
 
@@ -53,7 +57,7 @@ public class TrafficAccidentFactoryTest {
 	}
 
 	@Test(expected = InvalidParameterException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException {
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidAmountOfParametersException {
 		taf = new TrafficAccidentFactory();
 		taf.createEmergency(new Object[]{});
 	}
