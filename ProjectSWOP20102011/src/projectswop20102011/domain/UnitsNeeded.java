@@ -277,6 +277,6 @@ public class UnitsNeeded {
     }
 
     public Unit[] chooseUnits(Unit[] availableUnits) {
-        
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
