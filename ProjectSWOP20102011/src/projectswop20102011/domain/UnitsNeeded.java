@@ -275,4 +275,8 @@ public class UnitsNeeded {
     void unitWithdrawnJob(Unit u) {
         takeWorkingUnits().remove(u);
     }
+
+    public Unit[] chooseUnits(Unit[] availableUnits) {
+        
+    }
 }
