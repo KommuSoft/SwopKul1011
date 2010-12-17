@@ -1,6 +1,8 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
@@ -52,39 +54,35 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
                 this.writeOutput("WORKING UNITS:");
                 //TODO: Komt niet goed overeen met de lijst van units die eronder staan:  this.writeOutput(String.format("\t%s\t%s\t%s", "id", "Unit type", "Unit name"));
                 ArrayList<Unit> workingUnits = this.getController().getWorkingUnits(selectedEmergency);
-                for(int i=0;i<workingUnits.size();i++){
-                    this.writeOutput(String.format("\t%s\t%s\t%s", i, workingUnits.get(i).getClass().getSimpleName(), workingUnits.get(i).getName()));
-                }
-
-                String expression;
-                ArrayList<Unit> unitsToRemove = new ArrayList<Unit>(0);
-                do {
-                    this.writeOutput("Type in a unit id, or type \"stop\" to finish the list.");
-                    expression = this.parseInputToType(new StringParser(), "id");
-                    if (!expression.equals("stop")) {
-                        try {
+                if (workingUnits.isEmpty()) {
+                    this.writeOutput("ERROR: There are no working units.");
+                } else {
+                    for (int i = 0; i < workingUnits.size(); i++) {
+                        this.writeOutput(String.format("\t%s\t%s\t%s", i, workingUnits.get(i).getClass().getSimpleName(), workingUnits.get(i).getName()));
+                    }
+                    String expression;
+                    ArrayList<Unit> unitsToRemove = new ArrayList<Unit>(0);
+                    do {
+                        this.writeOutput("Type in a unit id, or type \"stop\" to finish the list.");
+                        expression = this.parseInputToType(new StringParser(), "id");
+                        if (!expression.equals("stop")) {
                             int id = Integer.parseInt(expression);
                             unitsToRemove.add(workingUnits.get(id));
                             this.writeOutput("Unit removed.");
-                        } catch (Exception ex) {
-                            this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                         }
+                    } while (!expression.equals("stop"));
+                    String[] names = new String[unitsToRemove.size()];
+                    for (int i = 0; i < unitsToRemove.size(); i++) {
+                        names[i] = unitsToRemove.get(i).getName();
                     }
-                } while (!expression.equals("stop"));
-
-                String[] names = new String[unitsToRemove.size()];
-                for(int i=0;i<unitsToRemove.size();i++){
-                    names[i] = unitsToRemove.get(i).getName();
-                }
-                try {
                     getController().withdrawUnits(names);
                     this.writeOutput("Units are removed");
-                } catch (InvalidWithdrawalException ex) {
-                    this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
-                } catch (InvalidEmergencyException ex) {
-                    this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                 }
             }
+        } catch (InvalidWithdrawalException ex) {
+            this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+        } catch (InvalidEmergencyException ex) {
+            this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
         } catch (ParsingAbortedException ex) {
             this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
         }
