@@ -8,6 +8,7 @@ import projectswop20102011.domain.World;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
@@ -48,7 +49,7 @@ public class FireEventTest {
 	}
 
 	@Test
-	public void testConstructor() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException {
+	public void testConstructor() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException, InvalidAmountOfParametersException {
 		event1 = new FireEvent(time1, world, location1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1);
 		assertEquals(0, event1.getTime().compareTo(time1));
 		assertEquals("Fire", event1.getType());
@@ -57,7 +58,7 @@ public class FireEventTest {
 	}
 
 	@Test
-	public void testGetEventProperties() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException {
+	public void testGetEventProperties() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException, InvalidAmountOfParametersException {
 		event1 = new FireEvent(time1, world, location1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1);
 		assertTrue(event1.getEventProperties().containsKey("time"));
 		assertTrue(event1.getEventProperties().containsKey("severity"));
@@ -71,7 +72,7 @@ public class FireEventTest {
 	}
 
 	@Test
-	public void testCompareTo() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException {
+	public void testCompareTo() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException, InvalidAmountOfParametersException {
 		event1 = new FireEvent(time1, world, location1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1);
 		event2 = new FireEvent(time2, world, location1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1);
 

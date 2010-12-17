@@ -1,14 +1,15 @@
 package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
-import be.kuleuven.cs.swop.api.IEvent;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
+import java.security.InvalidParameterException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.World;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
@@ -33,7 +34,7 @@ public class ExternalSystemTest {
 	private long numberOfInjured1;
 
 	@Before
-	public void setUp() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException {
+	public void setUp() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException, InvalidAmountOfParametersException {
 		x1 = 10;
 		y1 = 156;
 
