@@ -1,6 +1,9 @@
 package projectswop20102011.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
@@ -43,7 +46,11 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @return A list of units that would be allocated to the emergency if the policy would be applied.
      * @pre The list of available units is effective and contains unique (no duplicates) units that are available for an emergency.
      */
-    public abstract Unit[] filterAvailableUnits(Unit[] availableUnits);
+    public List<Unit> filterAvailableUnits(List<Unit> availableUnits) {
+        ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
+        Collections.sort(clonedList,this);
+        return this.getUnitsNeeded().generateProposal(clonedList);
+    }
 
     /**
      * Tests if the given UnitsNeeded object is a valid UnitsNeeded parameter.

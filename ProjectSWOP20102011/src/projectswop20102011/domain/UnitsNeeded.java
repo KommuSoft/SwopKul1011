@@ -276,7 +276,10 @@ public class UnitsNeeded {
         takeWorkingUnits().remove(u);
     }
 
-    public Unit[] chooseUnits(Unit[] availableUnits) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    List<Unit> generateProposal(List<Unit> options) {
+        List<Unit> fixedPart = this.getWorkingUnits();
+        fixedPart.addAll(this.takeWorkingUnits());
+        return this.getConstraint().generateProposal(fixedPart,options);
     }
+
 }
