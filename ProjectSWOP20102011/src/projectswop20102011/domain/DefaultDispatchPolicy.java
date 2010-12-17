@@ -1,6 +1,5 @@
 package projectswop20102011.domain;
 
-import java.util.Arrays;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
@@ -18,23 +17,6 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
      */
     public DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded);
-    }
-
-    /**
-     * Fiters the selected units (by the policy) out of a number of available units
-     * @param availableUnits A list of units that are available to handle an emergency (not necessarily this emergency in particular).
-     * @return A list of units that would be allocated to the emergency if the policy would be applied.
-     * @pre The list of available units is effective and contains unique (no duplicates) units that are available for an emergency.
-     */
-    @Override
-    public Unit[] filterAvailableUnits(Unit[] availableUnits) {
-        //TODO: Implement (wait for the Constraint classes)
-        Arrays.sort(availableUnits, this);
-        Unit[] used = getUnitsNeeded().chooseUnits(availableUnits);
-        
-
-        throw new UnsupportedOperationException("Not supported yet.");
-
     }
 
     /**

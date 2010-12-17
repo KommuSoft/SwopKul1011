@@ -20,17 +20,6 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
     }
 
     /**
-     * Tests if the given UnitsNeeded object is a valid UnitsNeeded parameter.
-     * @param unitsNeeded The UnitsNeeded object to test.
-     * @return True if the UnitsNeeded object is effective, otherwise false.
-     */
-    @Override
-    public Unit[] filterAvailableUnits(Unit[] availableUnits) {
-        //TODO: Implement (wait for the Constraint classes)
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
      * Compares two different units by there expected time of arrival (ETA)
      * @param unit1 The first unit to compare.
      * @param unit2 The second unit to compare.
