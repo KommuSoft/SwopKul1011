@@ -2,7 +2,6 @@ package projectswop20102011.utils.parsers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -29,7 +28,8 @@ public class EnumParser<T extends Enum> extends Parser<T> {
                 for(int i = 1; i < elements.length; i++) {
                     sb.append(String.format("|%s",elements[i].name()));
                 }
-                System.out.println(sb.toString());
+                //TODO onderstaande regel mag weg waarschijnlijk
+				//System.out.println(sb.toString());
                 return sb.toString();
             }
         } catch (NoSuchMethodException ex) {

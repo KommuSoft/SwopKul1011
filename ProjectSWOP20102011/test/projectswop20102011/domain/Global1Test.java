@@ -280,7 +280,6 @@ public class Global1Test {
 		wu.withdraw(unitNames);
 	}
 
-	//TODO: vroeger stond hier een invalidEmergencyException, raar dat dit nu een invalidWithdrawalException moet zijn :s
 	@Test(expected = InvalidWithdrawalException.class)
 	public void testInvalidNormalWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
