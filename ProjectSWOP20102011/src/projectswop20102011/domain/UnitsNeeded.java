@@ -108,8 +108,7 @@ public class UnitsNeeded {
      * @effect The given unit is added to the working units.
      */
     private void addWorkingUnits(Unit u) {
-        getWorkingUnits().add(u);
-        //TODO: Is hier waarschijnlijk overbodig: setWorkingUnits(getWorkingUnits());
+        takeWorkingUnits().add(u);
     }
 
     /**
@@ -136,6 +135,14 @@ public class UnitsNeeded {
      * @return The working units of the emergency.
      */
     public ArrayList<Unit> getWorkingUnits() {
+        return (ArrayList<Unit>) workingUnits.clone();
+    }
+
+    /**
+     * Returns the working units of the emergency.
+     * @return The working units of the emergency.
+     */
+    private ArrayList<Unit> takeWorkingUnits() {
         return workingUnits;
     }
 
@@ -178,7 +185,7 @@ public class UnitsNeeded {
         if (this.getEmergency().getStatus() == EmergencyStatus.COMPLETED) {
             return false;
         } else {
-            ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits().clone();
+            ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits();
             totalUnits.addAll(units);
             return getConstraint().areAllUnitsUsed(units);
         }
@@ -230,7 +237,7 @@ public class UnitsNeeded {
      * A method called when a unit finishes his job to manage the emergency.
      */
     void unitFinishedJob(Unit u) {
-        getWorkingUnits().remove(u);
+        takeWorkingUnits().remove(u);
         addFinishedUnits(u);
     }
 
@@ -266,6 +273,6 @@ public class UnitsNeeded {
     }
 
     void unitWithdrawnJob(Unit u) {
-        getWorkingUnits().remove(u);
+        takeWorkingUnits().remove(u);
     }
 }

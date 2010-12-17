@@ -11,7 +11,7 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 
-public class PoliceCarFactoryTest {
+public class PolicecarFactoryTest {
 
 	private long x1, y1;
 	private String name1;
@@ -41,5 +41,12 @@ public class PoliceCarFactoryTest {
 		assertEquals(name1, pc.getName());
 		assertEquals(homeLocation1, pc.getHomeLocation());
 		assertEquals(speed1, pc.getSpeed());
+	}
+
+	@Test(expected = InvalidAmountOfParametersException.class)
+	public void testCreateMapItemInvalidAmount() throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
+		pcf = new PolicecarFactory();
+
+		Policecar pc = pcf.createMapItem(new Object[] {name1, homeLocation1, speed1, speed1});
 	}
 }

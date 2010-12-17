@@ -38,4 +38,11 @@ public class HospitalFactoryTest {
 		assertEquals(name1, h.getName());
 		assertEquals(homeLocation1, h.getHomeLocation());
 	}
+
+	@Test(expected = InvalidAmountOfParametersException.class)
+	public void testCreateMapItemInvalidAmount() throws InvalidMapItemTypeNameException, InvalidMapItemNameException, InvalidLocationException, InvalidAmountOfParametersException {
+		hf = new HospitalFactory();
+
+		Hospital h = hf.createMapItem(new Object[]{name1});
+	}
 }

@@ -41,6 +41,13 @@ public class AmbulanceFactoryTest {
 		assertEquals(speed1, a.getSpeed());
 	}
 
+	@Test(expected = InvalidAmountOfParametersException.class)
+	public void testCreateMapItemInvalidAmount() throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
+		af = new AmbulanceFactory();
+
+		Ambulance a = af.createMapItem(new Object[] {name1, homeLocation1});
+	}
+
 	@Test
 	public void testGetMapItemTypeName() throws InvalidMapItemTypeNameException{
 		af = new AmbulanceFactory();
