@@ -1,6 +1,5 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.GPSCoordinate;
@@ -56,9 +55,7 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
 	 * Returns a list of the types of parameters to construct a public disturbance emergency.
 	 * @return A list of the types of parameters to construct a public disturbance emergency.
 	 */
-	@Override
-	//TODO mag dit niet static?
-	public Class[] getParameterClasses() {
+	public static Class[] getParameterClasses() {
 		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class};
 	}
 }

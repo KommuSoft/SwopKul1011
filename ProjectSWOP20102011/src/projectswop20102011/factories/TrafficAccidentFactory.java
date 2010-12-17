@@ -54,8 +54,7 @@ public class TrafficAccidentFactory extends EmergencyFactory {
 	 * Returns a list of the types of parameters to construct a traffic accident emergency.
 	 * @return A list of the types of parameters to construct a traffic accident emergency.
 	 */
-	@Override
-	public Class[] getParameterClasses() {
+	public static Class[] getParameterClasses() {
 		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class, Long.class};
 	}
 }

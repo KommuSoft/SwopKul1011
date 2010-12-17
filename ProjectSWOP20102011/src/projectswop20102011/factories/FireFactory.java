@@ -58,9 +58,7 @@ public class FireFactory extends EmergencyFactory {
 	 * Returns a list of the types of parameters to construct a fire emergency.
 	 * @return A list of the types of parameters to construct a fire emergency.
 	 */
-	@Override
-	//TODO mag dit niet static?
-	public Class[] getParameterClasses() {
+	public static Class[] getParameterClasses() {
 		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, FireSize.class, Boolean.class, Long.class, Long.class};
 	}
 }

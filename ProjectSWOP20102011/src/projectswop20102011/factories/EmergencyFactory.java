@@ -52,7 +52,9 @@ public abstract class EmergencyFactory {
      * Returns a list of the types of parameters to construct that special type of emergency.
      * @return A list of the types of parameters to construct that special type of emergency.
      */
-    public abstract Class[] getParameterClasses ();
+    public static Class[] getParameterClasses (){
+		return null;
+	}
 
     /**
      * Tests if the given emergency type name is valid for an EmergencyFactory object.
