@@ -10,9 +10,15 @@ import projectswop20102011.exceptions.InvalidEmergencyStatusException;
  */
 public enum EmergencyStatus {
 
-	RECORDED_BUT_UNHANDLED("recorded but unhandled"),
-	RESPONSE_IN_PROGRESS("response in progress"),
-	COMPLETED("completed");
+	RECORDED_BUT_UNHANDLED("recorded but unhandled") {
+            
+        },
+	RESPONSE_IN_PROGRESS("response in progress") {
+
+        },
+	COMPLETED("completed") {
+
+        };
 	/**
 	 * The textual representation of an EmergencyStatus.
 	 */
@@ -77,8 +83,23 @@ public enum EmergencyStatus {
         /**
          * A method representing a potential transition where units are allocated to the emergency.
          * @param emergency The emergency where the action takes place.
-         * @param units
+         * @param units The units to allocate to the emergency.
+         * @note This method has a package visibility: Only the emergency class can call this method.
          */
-        public abstract void assign_units (Emergency emergency, List<Unit> units);
+        public abstract void assignUnits (Emergency emergency, List<Unit> units);
+        /**
+         * A method representing a transition where a unit signals it has finished it's job.
+         * @param emergency The emergency where the action takes place.
+         * @param unit The unit that signals it has finished it's job.
+         * @note This method has a package visibility: Only the emergency class can call this method.
+         */
+        abstract void finishUnit (Emergency emergency, Unit unit);
+        /**
+         * A method that handles a situation where a given unit withdraws from a given emergency.
+         * @param emergency The emergency the unit is withdrawing from.
+         * @param unit The unit that withdraws from an emergency.
+         * @note This method has a package visibility: Only the emergency class can call this method.
+         */
+        abstract void withdrawUnit (Emergency emergency, Unit unit);
 
 }
