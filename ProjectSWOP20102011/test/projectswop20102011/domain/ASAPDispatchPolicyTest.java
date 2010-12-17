@@ -9,13 +9,14 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-public class DefaultDispatchPolicyTest {
+public class ASAPDispatchPolicyTest {
 
 	private Emergency e1;
 	private long x1, y1, x2, y2, x3, y3;
 	private GPSCoordinate location1, location2, location3;
 	private EmergencySeverity severity1;
-	private long numberOfPeople1;
+	private boolean armed1;
+	private boolean inProgress1;
 	private String name1, name2;
 	private long speed1, speed2;
 	private Unit u1, u2;
@@ -34,15 +35,16 @@ public class DefaultDispatchPolicyTest {
 		location3 = new GPSCoordinate(x3, y3);
 
 		severity1 = EmergencySeverity.BENIGN;
-		numberOfPeople1 = 10;
+		armed1 = false;
+		inProgress1 = false;
 
 		name1 = "PC1";
 		name2 = "PC2";
 
 		speed1 = 5;
-		speed2 = 10;
+		speed2 = 5;
 
-		e1 = new PublicDisturbance(location1, severity1, "", numberOfPeople1);
+		e1 = new Robbery(location1, severity1, "", armed1, inProgress1);
 		u1 = new Policecar(name1, location2, speed1);
 		u2 = new Policecar(name2, location3, speed2);
 	}
@@ -53,4 +55,5 @@ public class DefaultDispatchPolicyTest {
 		assertTrue(e1.getUnitsNeeded().getPolicy().compare(u1, u1) == 0);
 		assertTrue(e1.getUnitsNeeded().getPolicy().compare(u2, u1) > 0);
 	}
+
 }
