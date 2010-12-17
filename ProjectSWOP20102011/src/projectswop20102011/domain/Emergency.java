@@ -255,7 +255,7 @@ public abstract class Emergency {
         information.put("status", getStatus().getTextual());
         ArrayList<Unit> units = getUnitsNeeded().getWorkingUnits();
         int number = units.size();
-        String workingUnits = " [ ";
+        String workingUnits = "[ ";
         if (number > 0) {
             for (int i = 0; i < number - 1; i++) {
                 workingUnits += units.get(i).getName() + ", ";

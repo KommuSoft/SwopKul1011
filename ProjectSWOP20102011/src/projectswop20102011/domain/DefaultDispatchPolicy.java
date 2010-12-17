@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.util.Arrays;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
@@ -15,7 +16,7 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
      * @throws InvalidUnitsNeededException If the given UnitsNeeded policy is ineffective.
      * @throws InvalidDispatchPolicyException If the given UnitsNeeded object has already a Policy.
      */
-    public DefaultDispatchPolicy (UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    public DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded);
     }
 
@@ -28,7 +29,12 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
     @Override
     public Unit[] filterAvailableUnits(Unit[] availableUnits) {
         //TODO: Implement (wait for the Constraint classes)
+        Arrays.sort(availableUnits, this);
+        Unit[] used = getUnitsNeeded().chooseUnits(availableUnits);
+        
+
         throw new UnsupportedOperationException("Not supported yet.");
+
     }
 
     /**
@@ -44,5 +50,4 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
         GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation();
         return ((Double) unit1.getDistanceTo(emergencyLocation)).compareTo(unit2.getDistanceTo(emergencyLocation));
     }
-
 }
