@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.util.List;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
 /**
@@ -71,4 +72,13 @@ public enum EmergencyStatus {
 		}
 		throw new InvalidEmergencyStatusException(String.format("Unknown emergency status level \"%s\".", textualRepresentation));
 	}
+
+        
+        /**
+         * A method representing a potential transition where units are allocated to the emergency.
+         * @param emergency The emergency where the action takes place.
+         * @param units
+         */
+        public abstract void assign_units (Emergency emergency, List<Unit> units);
+
 }

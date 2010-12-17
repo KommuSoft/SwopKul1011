@@ -276,6 +276,12 @@ public class UnitsNeeded {
         takeWorkingUnits().remove(u);
     }
 
+    /**
+     * Generates a proposal based on a list of available units to allocate to the emergency.
+     * @param options A list of units that are available for this allocation.
+     * @return A subset of the given list containing units proposed for allocation.
+     * @note The first items in the list will first be added to the proposal (This is usefor for Policies that sort the list of units before they generate a proposal).
+     */
     List<Unit> generateProposal(List<Unit> options) {
         List<Unit> fixedPart = this.getWorkingUnits();
         fixedPart.addAll(this.takeWorkingUnits());
