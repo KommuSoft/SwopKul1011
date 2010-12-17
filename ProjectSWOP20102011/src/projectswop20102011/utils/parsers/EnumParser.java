@@ -28,8 +28,6 @@ public class EnumParser<T extends Enum> extends Parser<T> {
                 for(int i = 1; i < elements.length; i++) {
                     sb.append(String.format("|%s",elements[i].name()));
                 }
-                //TODO onderstaande regel mag weg waarschijnlijk
-				//System.out.println(sb.toString());
                 return sb.toString();
             }
         } catch (NoSuchMethodException ex) {

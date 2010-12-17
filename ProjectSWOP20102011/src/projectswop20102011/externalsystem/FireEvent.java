@@ -21,7 +21,6 @@ public class FireEvent extends Event {
 		super(time, location, null, world);
 
 		FireFactory ff = new FireFactory();
-		//TODO location is hier van de klasse Location en niet van het verwachte type GPSCoordinate
 		Object[] parameters = {convertLocation(location), severity, description, size, chemical, trappedPeople, numberOfInjured};
 		setEmergency(ff.createEmergency(parameters));
 	}

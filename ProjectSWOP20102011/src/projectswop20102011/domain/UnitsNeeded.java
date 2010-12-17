@@ -21,260 +21,260 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  */
 public class UnitsNeeded {
 
-    /**
-     * A policy for allocating units to this UnitsNeeded.
-     */
-    private DispatchPolicy policy;
-    /**
-     * The emergency that is been handled by this UnitsNeeded class.
-     */
-    private final Emergency emergency;
-    /**
-     * A DispatchUnitsConstraint object specifying which units can be allocated to the emergency.
-     */
-    private DispatchUnitsConstraint constraint;
-    /**
-     * A variable registering the units that are currently working at the emergency.
-     */
-    private ArrayList<Unit> workingUnits;
-    /**
-     * A variable registering the units of this emergency that have finished their job
-     */
-    private ArrayList<Unit> finishedUnits;
+	/**
+	 * A policy for allocating units to this UnitsNeeded.
+	 */
+	private DispatchPolicy policy;
+	/**
+	 * The emergency that is been handled by this UnitsNeeded class.
+	 */
+	private final Emergency emergency;
+	/**
+	 * A DispatchUnitsConstraint object specifying which units can be allocated to the emergency.
+	 */
+	private DispatchUnitsConstraint constraint;
+	/**
+	 * A variable registering the units that are currently working at the emergency.
+	 */
+	private ArrayList<Unit> workingUnits;
+	/**
+	 * A variable registering the units of this emergency that have finished their job
+	 */
+	private ArrayList<Unit> finishedUnits;
 
-    /**
-     * Creates a new object that calculates the units needed for an emergency.
-     * @param emergency
-     *          The emergency that will be handled by this UnitsNeeded.
-     * @param constraint
-     *          A constraint used to determine when units can be assigned to the emergency.
-     * @post This emergency is set to the given emergency.
-     *		| new.getEmergency()==emergency
-     * @post This units is set to the given units.
-     *		| new.getUnits()==units.clone()
-     * @post This numbersNeeded is set to the given numbersNeeded.
-     *		| new.getNumbersNeeded()==numbersNeeded.clone()
-     * @effect Initialize the Units.
-     *		| initUnits()
-     * @throws InvalidEmergencyException
-     *		If the given emergency is not effective.
-     * @throws InvalidDispatchUnitsConstraintException
-     *          If the given constraint is invalid.
-     * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
-     */
-    UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
-        if (!isValidEmergency(emergency)) {
-            throw new InvalidEmergencyException("Emergency must be effective.");
-        }
-        if (!isValidConstraint(constraint)) {
-            throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
-        }
-        this.emergency = emergency;
-        this.constraint = constraint;
-        initUnits();
-    }
+	/**
+	 * Creates a new object that calculates the units needed for an emergency.
+	 * @param emergency
+	 *          The emergency that will be handled by this UnitsNeeded.
+	 * @param constraint
+	 *          A constraint used to determine when units can be assigned to the emergency.
+	 * @post This emergency is set to the given emergency.
+	 *		| new.getEmergency()==emergency
+	 * @post This units is set to the given units.
+	 *		| new.getUnits()==units.clone()
+	 * @post This numbersNeeded is set to the given numbersNeeded.
+	 *		| new.getNumbersNeeded()==numbersNeeded.clone()
+	 * @effect Initialize the Units.
+	 *		| initUnits()
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is not effective.
+	 * @throws InvalidDispatchUnitsConstraintException
+	 *          If the given constraint is invalid.
+	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create UnitsNeeded.
+	 */
+	UnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
+		if (!isValidEmergency(emergency)) {
+			throw new InvalidEmergencyException("Emergency must be effective.");
+		}
+		if (!isValidConstraint(constraint)) {
+			throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
+		}
+		this.emergency = emergency;
+		this.constraint = constraint;
+		initUnits();
+	}
 
-    /**
-     * Sets the working units of the emergency to zero.
-     * @post This workingUnits is equal to zero.
-     *		| new.getWorkingUnits().size() == 0
-     */
-    private void initUnits() {
-        this.workingUnits = new ArrayList<Unit>(0);
-        this.finishedUnits = new ArrayList<Unit>(0);
-    }
+	/**
+	 * Sets the working units of the emergency to zero.
+	 * @post This workingUnits is equal to zero.
+	 *		| new.getWorkingUnits().size() == 0
+	 */
+	private void initUnits() {
+		this.workingUnits = new ArrayList<Unit>(0);
+		this.finishedUnits = new ArrayList<Unit>(0);
+	}
 
-    /**
-     * Checks if the emergency is finished.
-     */
-    private void checkEmergencyFinished(){
-        if(getConstraint().areValidDispatchUnits(getFinishedUnits())){
-            try {
-                getEmergency().setStatus(EmergencyStatus.COMPLETED);
-            } catch (InvalidEmergencyStatusException ex) {
-                //We ensure this can never happen.
-                Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+	/**
+	 * Checks if the emergency is finished.
+	 */
+	private void checkEmergencyFinished() {
+		if (getConstraint().areValidDispatchUnits(getFinishedUnits())) {
+			try {
+				getEmergency().setStatus(EmergencyStatus.COMPLETED);
+			} catch (InvalidEmergencyStatusException ex) {
+				//We ensure this can never happen.
+				Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
 
-    //TODO: de @pre moet misschien nog weg, maar voorlopg wordt deze methode enkel opgeroepen als de unit zeker en vast gealloceerd mag worden.
-    /**
-     * Add a given unit to the working units.
-     * @pre
-     *      The given unit is allowed to be assigned
-     * @param u
-     *      The unit that must be added to the working units
-     * @effect The given unit is added to the working units.
-     */
-    private void addWorkingUnits(Unit u) {
-        takeWorkingUnits().add(u);
-    }
+	//TODO: de @pre moet misschien nog weg, maar voorlopg wordt deze methode enkel opgeroepen als de unit zeker en vast gealloceerd mag worden.
+	/**
+	 * Add a given unit to the working units.
+	 * @pre
+	 *      The given unit is allowed to be assigned
+	 * @param u
+	 *      The unit that must be added to the working units
+	 * @effect The given unit is added to the working units.
+	 */
+	private void addWorkingUnits(Unit u) {
+		takeWorkingUnits().add(u);
+	}
 
-    /**
-     * Add a given unit to the finished units.
-     * @param u
-     *      The unit that must be added to the finished units
-     * @effect The given unit is added to the finished units.
-     */
-    private void addFinishedUnits(Unit u) {
-        getFinishedUnits().add(u);
-        checkEmergencyFinished();
-    }
+	/**
+	 * Add a given unit to the finished units.
+	 * @param u
+	 *      The unit that must be added to the finished units
+	 * @effect The given unit is added to the finished units.
+	 */
+	private void addFinishedUnits(Unit u) {
+		getFinishedUnits().add(u);
+		checkEmergencyFinished();
+	}
 
-    /**
-     * Returns the emergency handled by this UnitsNeeded.
-     * @return The emergency handled by this UnitsNeeded.
-     */
-    public Emergency getEmergency() {
-        return this.emergency;
-    }
+	/**
+	 * Returns the emergency handled by this UnitsNeeded.
+	 * @return The emergency handled by this UnitsNeeded.
+	 */
+	public Emergency getEmergency() {
+		return this.emergency;
+	}
 
-    /**
-     * Returns the working units of the emergency.
-     * @return The working units of the emergency.
-     */
-    public ArrayList<Unit> getWorkingUnits() {
-        return (ArrayList<Unit>) workingUnits.clone();
-    }
+	/**
+	 * Returns the working units of the emergency.
+	 * @return The working units of the emergency.
+	 */
+	public ArrayList<Unit> getWorkingUnits() {
+		return (ArrayList<Unit>) workingUnits.clone();
+	}
 
-    /**
-     * Returns the working units of the emergency.
-     * @return The working units of the emergency.
-     */
-    private ArrayList<Unit> takeWorkingUnits() {
-        return workingUnits;
-    }
+	/**
+	 * Returns the working units of the emergency.
+	 * @return The working units of the emergency.
+	 */
+	private ArrayList<Unit> takeWorkingUnits() {
+		return workingUnits;
+	}
 
-    /**
-     * Returns the finished units of this emergency.
-     * @return The finished units of this emergency.
-     */
-    public ArrayList<Unit> getFinishedUnits() {
-        return finishedUnits;
-    }
+	/**
+	 * Returns the finished units of this emergency.
+	 * @return The finished units of this emergency.
+	 */
+	public ArrayList<Unit> getFinishedUnits() {
+		return finishedUnits;
+	}
 
-    /**
-     * Returns the constraint of this UnitsNeeded.
-     * @return The constraint used by this UnitsNeeded.
-     */
-    private DispatchUnitsConstraint getConstraint() {
-        return constraint;
-    }
+	/**
+	 * Returns the constraint of this UnitsNeeded.
+	 * @return The constraint used by this UnitsNeeded.
+	 */
+	private DispatchUnitsConstraint getConstraint() {
+		return constraint;
+	}
 
-    /**
-     * Checks if the given Emergency is valid for this UnitsNeeded class.
-     * @param emergency
-     *		The emergency to test.
-     * @return True if the given emergency is valid, otherwise false.
-     */
-    public static boolean isValidEmergency(Emergency emergency) {
-        return (emergency != null);
-    }
+	/**
+	 * Checks if the given Emergency is valid for this UnitsNeeded class.
+	 * @param emergency
+	 *		The emergency to test.
+	 * @return True if the given emergency is valid, otherwise false.
+	 */
+	public static boolean isValidEmergency(Emergency emergency) {
+		return (emergency != null);
+	}
 
-    /**
-     * Checks if the given units can be assigned to the emergency.
-     * @param units
-     *		The units to be assigned.
-     * @return True if the emergency is not handled yet, if all the given units are effective,
-     *		unique and can be assigned and for every quantity constraint,
-     *		this array succeeds, otherwise false.
-     */
-    //TODO: Moet er getest worden of de emergency reeds gefinished is?
-    public boolean canAssignUnitsToEmergency(List<Unit> units) {
-        if (this.getEmergency().getStatus() == EmergencyStatus.COMPLETED) {
-            return false;
-        } else {
-            ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits();
-            totalUnits.addAll(units);
-            return getConstraint().areAllUnitsUsed(units);
-        }
+	/**
+	 * Checks if the given units can be assigned to the emergency.
+	 * @param units
+	 *		The units to be assigned.
+	 * @return True if the emergency is not handled yet, if all the given units are effective,
+	 *		unique and can be assigned and for every quantity constraint,
+	 *		this array succeeds, otherwise false.
+	 */
+	//TODO: Moet er getest worden of de emergency reeds gefinished is?
+	public boolean canAssignUnitsToEmergency(List<Unit> units) {
+		if (this.getEmergency().getStatus() == EmergencyStatus.COMPLETED) {
+			return false;
+		} else {
+			ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits();
+			totalUnits.addAll(units);
+			return getConstraint().areAllUnitsUsed(units);
+		}
 
-        //TODO: remove duplicates and null pointers out of <units>
-    }
+		//TODO: remove duplicates and null pointers out of <units>
+	}
 
-    /**
-     * Assign the given array of units to the emergency.
-     * @param units
-     *		The given array of units.
-     * @post The status of the emergency is RESPONSE_IN_PROGRESS
-     *		| this.getEmergency().getStatus().equals(EmergencyStatus.RESPONSE_IN_PROGRESS)
-     * @post All the units in the given array are assigned
-     *		| forall u in units, u.isAssigned()
-     * @post All the units in the given array are handling the emergency of this UnitNeeded
-     *		| forall u in units.getEmergency().equals(this.getEmergency())
-     * @throws InvalidEmergencyException
-     *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
-     * @see UnitsNeeded.canAssignUnitsToEmergency
-     */
-    public synchronized void assignUnitsToEmergency(List<Unit> units) throws InvalidEmergencyException {
-        if (!canAssignUnitsToEmergency(units)) {
-            throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
-        }
-        try {
-            //TODO: Deze conditie mag misschien wel weg
-            if (getEmergency().getStatus() != EmergencyStatus.RESPONSE_IN_PROGRESS) {
-                this.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
-            }
-        } catch (InvalidEmergencyStatusException ex) {
-            //We assume this can't happen
-            Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (Unit u : units) {
-            try {
-                u.assignTo(this.getEmergency());
-            } catch (InvalidMapItemException ex) {
-                //We assume this can't be true (checked by the canAssigUnitsToEmergency method)
-                Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        for (int i = 0; i < units.size(); i++) {
-            addWorkingUnits(units.get(i));
-        }
-    }
+	/**
+	 * Assign the given array of units to the emergency.
+	 * @param units
+	 *		The given array of units.
+	 * @post The status of the emergency is RESPONSE_IN_PROGRESS
+	 *		| this.getEmergency().getStatus().equals(EmergencyStatus.RESPONSE_IN_PROGRESS)
+	 * @post All the units in the given array are assigned
+	 *		| forall u in units, u.isAssigned()
+	 * @post All the units in the given array are handling the emergency of this UnitNeeded
+	 *		| forall u in units.getEmergency().equals(this.getEmergency())
+	 * @throws InvalidEmergencyException
+	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
+	 * @see UnitsNeeded.canAssignUnitsToEmergency
+	 */
+	public synchronized void assignUnitsToEmergency(List<Unit> units) throws InvalidEmergencyException {
+		if (!canAssignUnitsToEmergency(units)) {
+			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
+		}
+		try {
+			//TODO: Deze conditie mag misschien wel weg
+			if (getEmergency().getStatus() != EmergencyStatus.RESPONSE_IN_PROGRESS) {
+				this.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+			}
+		} catch (InvalidEmergencyStatusException ex) {
+			//We assume this can't happen
+			Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		for (Unit u : units) {
+			try {
+				u.assignTo(this.getEmergency());
+			} catch (InvalidMapItemException ex) {
+				//We assume this can't be true (checked by the canAssigUnitsToEmergency method)
+				Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		for (int i = 0; i < units.size(); i++) {
+			addWorkingUnits(units.get(i));
+		}
+	}
 
-    /**
-     * A method called when a unit finishes his job to manage the emergency.
-     */
-    void unitFinishedJob(Unit u) {
-        takeWorkingUnits().remove(u);
-        addFinishedUnits(u);
-    }
+	/**
+	 * A method called when a unit finishes his job to manage the emergency.
+	 */
+	void unitFinishedJob(Unit u) {
+		takeWorkingUnits().remove(u);
+		addFinishedUnits(u);
+	}
 
-    /**
-     * Returns a DispatchPolicy object that can give a proposal for unit allocations.
-     * @return A DispatchPolicy object that can give a proposal for unit allocations.
-     */
-    public DispatchPolicy getPolicy() {
-        return this.policy;
-    }
+	/**
+	 * Returns a DispatchPolicy object that can give a proposal for unit allocations.
+	 * @return A DispatchPolicy object that can give a proposal for unit allocations.
+	 */
+	public DispatchPolicy getPolicy() {
+		return this.policy;
+	}
 
-    /**
-     * Sets the policy of this UnitsNeeded object to the given object.
-     * @param policy The given policy to set.
-     * @post The given policy is equal to the policy of this UnitsNeeded
-     *          | new.getPolicy() == policy
-     * @throws InvalidDispatchPolicyException if the policy of the UnitsNeeded is already been set.
-     */
-    void setPolicy(DispatchPolicy policy) throws InvalidDispatchPolicyException {
-        if (this.getPolicy() != null) {
-            throw new InvalidDispatchPolicyException("Policy has already been set.");
-        }
-        this.policy = policy;
-    }
+	/**
+	 * Sets the policy of this UnitsNeeded object to the given object.
+	 * @param policy The given policy to set.
+	 * @post The given policy is equal to the policy of this UnitsNeeded
+	 *          | new.getPolicy() == policy
+	 * @throws InvalidDispatchPolicyException if the policy of the UnitsNeeded is already been set.
+	 */
+	void setPolicy(DispatchPolicy policy) throws InvalidDispatchPolicyException {
+		if (this.getPolicy() != null) {
+			throw new InvalidDispatchPolicyException("Policy has already been set.");
+		}
+		this.policy = policy;
+	}
 
-    /**
-     * Tests if the given DispatchUnitConstraint can be a valid constraint.
-     * @param constraint The constraint to check.
-     * @return True if the given constraint is effective, otherwise false.
-     */
-    public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
-        return (constraint != null);
-    }
+	/**
+	 * Tests if the given DispatchUnitConstraint can be a valid constraint.
+	 * @param constraint The constraint to check.
+	 * @return True if the given constraint is effective, otherwise false.
+	 */
+	public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
+		return (constraint != null);
+	}
 
-    void unitWithdrawnJob(Unit u) {
-        takeWorkingUnits().remove(u);
-    }
+	void unitWithdrawnJob(Unit u) {
+		takeWorkingUnits().remove(u);
+	}
 
     /**
      * Generates a proposal based on a list of available units to allocate to the emergency.

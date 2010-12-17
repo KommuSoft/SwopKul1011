@@ -30,7 +30,7 @@ public class Firetruck extends Unit {
      *		The speed of the new firetruck.
      * @effect The new firetruck is a firetruck with given name, home location, speed,
      *			current location, destination and assigned indicator.
-     *         |super(name,homeLocation,speed,currentLocation,destination,assigned);
+     *         |super(name,homeLocation,speed)
      * @effect The new firetruck can handle a house-fire size.
      *		|this.maxSize.equals(FireSize.HOUSE)
      * @throws InvalidLocationException
@@ -41,7 +41,6 @@ public class Firetruck extends Unit {
      *		If the given speed is an invalid speed for a firetruck.
      */
     public Firetruck(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-        //TODO deze constructor is aangemaakt zodat de oude testen nog werken.
         super(name, homeLocation, speed);
         try {
             setMaxSize(FireSize.HOUSE);
@@ -65,7 +64,7 @@ public class Firetruck extends Unit {
      *		The maximum size that this firetruck can handle.
      * @effect The new firetruck is a firetruck with given name, home location, speed,
      *			current location, destination and assigned indicator.
-     *         |super(name,homeLocation,speed,currentLocation,destination,assigned)
+     *         |super(name,homeLocation,speed)
      * @effect The new firetruck can handle the given fire size.
      *		|this.maxSize.equals(maxSize)
      * @throws InvalidLocationException
