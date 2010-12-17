@@ -2,7 +2,6 @@ package projectswop20102011.domain.validators;
 
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
 
 /**
  * A validation criterium that only validates units who are available for an emergency.
