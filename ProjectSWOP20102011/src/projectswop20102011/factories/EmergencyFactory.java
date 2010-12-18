@@ -52,9 +52,7 @@ public abstract class EmergencyFactory {
      * Returns a list of the types of parameters to construct that special type of emergency.
      * @return A list of the types of parameters to construct that special type of emergency.
      */
-    public static Class[] getParameterClasses (){
-		return null;
-	}
+    public abstract Class[] getParameterClasses ();
 
     /**
      * Tests if the given emergency type name is valid for an EmergencyFactory object.
@@ -72,7 +70,8 @@ public abstract class EmergencyFactory {
 	 * @note Only the instance is checked. E.g. if we expect a positive Integer and we give a negative Integer as parameter then this method returns true.
      */
     public boolean areValidParameters (Object[] parameters) {
-        Class[] parameterClasses = this.getParameterClasses();
+		Class[] parameterClasses = getParameterClasses();
+
         if(parameterClasses.length != parameters.length) {
             return false;
         }

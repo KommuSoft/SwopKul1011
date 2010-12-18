@@ -63,7 +63,8 @@ public class RobberyFactory extends EmergencyFactory {
 	 * Returns a list of the types of parameters to construct a robbery emergency.
 	 * @return A list of the types of parameters to construct a robbery emergency.
 	 */
-	public static Class[] getParameterClasses() {
+	@Override
+	public Class[] getParameterClasses() {
 		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, Boolean.class, Boolean.class};
 	}
 }

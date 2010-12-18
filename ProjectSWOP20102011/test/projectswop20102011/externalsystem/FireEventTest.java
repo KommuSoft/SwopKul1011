@@ -3,7 +3,6 @@ package projectswop20102011.externalsystem;
 import java.security.InvalidParameterException;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.EmergencySeverity;
-import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.World;
 import org.junit.Before;
 import org.junit.Test;

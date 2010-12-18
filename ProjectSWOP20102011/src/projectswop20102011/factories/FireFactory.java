@@ -58,7 +58,8 @@ public class FireFactory extends EmergencyFactory {
 	 * Returns a list of the types of parameters to construct a fire emergency.
 	 * @return A list of the types of parameters to construct a fire emergency.
 	 */
-	public static Class[] getParameterClasses() {
+	@Override
+	public Class[] getParameterClasses() {
 		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, FireSize.class, Boolean.class, Long.class, Long.class};
 	}
 }

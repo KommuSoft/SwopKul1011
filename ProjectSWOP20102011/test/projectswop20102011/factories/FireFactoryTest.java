@@ -1,6 +1,5 @@
 	package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

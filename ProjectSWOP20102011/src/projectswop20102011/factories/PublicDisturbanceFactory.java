@@ -55,7 +55,8 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
 	 * Returns a list of the types of parameters to construct a public disturbance emergency.
 	 * @return A list of the types of parameters to construct a public disturbance emergency.
 	 */
-	public static Class[] getParameterClasses() {
+	@Override
+	public Class[] getParameterClasses() {
 		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class};
 	}
 }
