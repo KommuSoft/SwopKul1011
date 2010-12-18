@@ -1,11 +1,12 @@
 package projectswop20102011.domain;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
 /**
  * An enumeration that represents the status of an emergency.
- * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum EmergencyStatus {
@@ -15,14 +16,22 @@ public enum EmergencyStatus {
 
         @Override
         void assignUnits(Emergency emergency, List<Unit> units) {
+            try {
+                emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+            } catch (InvalidEmergencyStatusException ex) {
+                //We assume this can't happen.
+                Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         @Override
-        void finishUnit(Emergency emergency, Unit unit) {
+        void finishUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
+            throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
         }
 
         @Override
-        void withdrawUnit(Emergency emergency, Unit unit) {
+        void withdrawUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
+            throw new InvalidEmergencyStatusException("Can't withdraw units from an unhandled emergency.");
         }
     },
     RESPONSE_IN_PROGRESS("response in progress") {
@@ -42,7 +51,8 @@ public enum EmergencyStatus {
     COMPLETED("completed") {
 
         @Override
-        void assignUnits(Emergency emergency, List<Unit> units) {
+        void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyStatusException {
+            throw new InvalidEmergencyStatusException("Unable to assign units to a completed emergency.");
         }
 
         @Override
@@ -51,6 +61,7 @@ public enum EmergencyStatus {
 
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) {
+
         }
     };
     /**
@@ -119,7 +130,7 @@ public enum EmergencyStatus {
      * @param units The units to allocate to the emergency.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void assignUnits(Emergency emergency, List<Unit> units);
+    abstract void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyStatusException, Exception;
 
     /**
      * A method representing a transition where a unit signals it has finished it's job.
@@ -127,7 +138,7 @@ public enum EmergencyStatus {
      * @param unit The unit that signals it has finished it's job.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void finishUnit(Emergency emergency, Unit unit);
+    abstract void finishUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException, Exception;
 
     /**
      * A method that handles a situation where a given unit withdraws from a given emergency.
@@ -135,5 +146,5 @@ public enum EmergencyStatus {
      * @param unit The unit that withdraws from an emergency.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void withdrawUnit(Emergency emergency, Unit unit);
+    abstract void withdrawUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException, Exception;
 }

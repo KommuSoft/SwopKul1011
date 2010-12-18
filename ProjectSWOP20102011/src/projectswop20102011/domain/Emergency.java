@@ -2,6 +2,7 @@ package projectswop20102011.domain;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -225,6 +226,36 @@ public abstract class Emergency {
     }
 
     /**
+     * Assigning units to this emergency.
+     * @param units A list of units to assign.
+     * @throws InvalidEmergencyStatusException If the status of this emergency does not allow this action.
+     * @throws Exception If another exception is thrown by performing this operation (for instance those units are already assigned).
+     */
+    public void assignUnits (List<Unit> units) throws InvalidEmergencyStatusException, Exception {
+        this.getStatus().assignUnits(this, units);
+    }
+    /**
+     * Enable a unit to finish his job to this emergency.
+     * @param unitToFinish The unit that want's to finish this emergency.
+     * @throws InvalidEmergencyStatusException If the status of this emergency does not allow this action.
+     * @throws Exception If another exception is thrown by performing this operation.
+     * @note this method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
+     */
+    void finishUnit (Unit unitToFinish) throws InvalidEmergencyStatusException, Exception {
+        this.getStatus().finishUnit(this, unitToFinish);
+    }
+    /**
+     * Withdraws a unit from this emergency.
+     * @param unitToWithdraw The unit that want's to withdraw from this emergency.
+     * @throws InvalidEmergencyStatusException If the status of this emergency does not allow this action.
+     * @throws Exception If another exception is thrown by performing this operation.
+     * @note this method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
+     */
+    void withdrawUnit (Unit unitToWithdraw) throws InvalidEmergencyStatusException, Exception {
+        this.getStatus().withdrawUnit(this, unitToWithdraw);
+    }
+
+    /**
      * Returns a hashtable that contains the information of this emergency.
      * This hashtable contains the id, location, severity, status and the working units.
      * @return A hashtable that contains the information of this emergency.
@@ -262,7 +293,7 @@ public abstract class Emergency {
             }
             workingUnits += units.get(number - 1).getName();
         }
-        workingUnits+=" ]";
+        workingUnits += " ]";
         information.put("working units", workingUnits);
 
         return information;
