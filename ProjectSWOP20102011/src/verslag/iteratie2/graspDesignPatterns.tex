@@ -2,22 +2,35 @@
 \subsection{Design patterns}
 \subsubsection{Composite}
 \paragraph{}
-We stellen onze constraints op onze emergency voor als een boom, deze implementatie is een toepassing van het \textit{Composite}-pattern, hierbij zien we \texttt{Dispatch\-Units\-Constraint} in de rol van \texttt{Component} de \texttt{Number\-Dispatch\-Units\-Constraint} is \'e\'en van de eventueel later uitgebreide \texttt{Leaf}s. Tot slot zien we \texttt{And\-Dispatch\-Units\-Constraint} als de \texttt{Composite} klasse. Gegeven de specificaties in de opgave is dergelijke structuur misschien ``overkill''. We zijn echter makkelijk in staat om nieuwe types constraints toe te voegen, net als connectoren (zoals bijvoorbeeld een OR).
+We stellen onze constraints op onze emergency voor als een boom, deze implementatie is een toepassing van het \textit{Composite}-pattern, hierbij zien we \texttt{Dispatch\-Units\-Constraint} in de rol van \texttt{Component} de \texttt{Number\-Dispatch\-Units\-Constraint} is \'e\'en van de eventueel later uitgebreide \texttt{Leaf}s. Tot slot zien we \texttt{And\-Dispatch\-Units\-Constraint} als de \texttt{Composite} klasse. Gegeven de specificaties in de opgave is dergelijke structuur misschien ``overkill''. We zijn echter makkelijk in staat om nieuwe types constraints toe te voegen, net als connectoren (zoals bijvoorbeeld een OR). Het uitgewerkte UML diagram met de relevante methodes staat op figuur \ref{fig:compositePattern}
+\begin{figure}[htb]
+\includegraphics[width=1.0\textwidth]{CD_compositePattern.pdf}
+\caption{UML diagram van de implementatie van het \textit{Composite}-pattern in het project.}
+\label{fig:compositePattern}
+\end{figure}
+Tot slot kan opgemerkt worden dat in het boek er operaties in de Composite-participant gedefinieerd worden. In deze implementatie voegen we eenvoudigweg geen operaties toe. Het kennen van de parent levert voor \verb+AndDispatchUnitsConstraint+ geen meerwaarde op. Verder kan geargumenteerd worden dat de opbouw van de boom hiermee vastligt: bottom-up, er kan dus bijgevolg geen boom met een tak naar zichzelf bestaan. En tot slot zou het ook kunnen betekenen dat een component op veschillende plaatsen in de boom voorkomt, wat de structuur dus meer dynamiek geeft.
 \subsubsection{State}
-Hoewel we geen cancel-emergency use-case moesten implementeren. Participeren we op de creatie van nieuwe staten waarin een emergency zich kan bevinden. Anderzijds willen we de voordelen die een \verb+enum+ ons biedt niet verliezen. Daarom opteerden we voor een hybride structuur. Deze structuur behoudt in zekere zin de geest van het \textit{State}-pattern beschreven in het boek \cite{book:designpatterns}. In \verb#C++# zijn \verb+enum+s echter niet polymorf: het is een lijst van waarden die met een binaire waarde geassocieerd worden. In java kunnen elementen in een enumeratie in zekere zin als een singleton-subklasse van de enumeratie beschouwd worden (uiteraard gaat die vergelijking niet volledig op). Het gevolg is dat we ook methodes aan deze elementen kunnen toewijzen, en dus individueel anders kunnen implementeren. In ons model beschouwen we een toestandsdiagram zoal op figuur \ref{fig:stateDiagramEmergency}.
-\newcommand{\classComponent}{\umlClass{DispatchUnitsConstraint}{
-\hline
-areValidDispatchUnits(units:List<Unit>, used:boolean[]):boolean
-}}
+Hoewel we geen \verb+cancel+-emergency use-case moesten implementeren, participeerden we op de creatie van nieuwe staten waarin een emergency zich kan bevinden. We modelleerden dan ook een toestandsdiagram zoals op figuur \ref{fig:stateDiagramEmergency}.
 \begin{figure}
 \centering
 \begin{tikzpicture}
-\node[rectangle,draw=black] (RBU) at (90:3) {Recorded but unhandled};
-\node[rectangle,draw=black] (RIP) at (210:3) {Response in progress};
-\node[rectangle,draw=black] (C) at (330:3) {Completed};
-\draw[->] (RBU.south) .. controls +(down:10mm) and +(up:10mm) .. (RIP.north);
-\draw[->] (RIP) -- (C);
+\node[rectangle,draw=black] (RBU) at (0,0) {Recorded but unhandled};
+\node[rectangle,draw=black] (RIP) at (6,0) {Response in progress};
+\node[rectangle,dashed,draw=black] (Cl) at (6,-3.2) {Cancelled};
+\node[rectangle,draw=black] (C) at (12,0) {Completed};
+\draw[->] (RBU) to node[above,midway]{\small\texttt{assignUnits}} (RIP);
+\draw[->] (RIP.east) -| ++(0.5,1) -- ++(-1.0) -| (RIP.north);
+\draw[->] (RIP) to node[above,midway]{\small\texttt{finishUnit}} (C);
+\draw[dashed,->] (BRU) -- ++(0,-3.2) to node[above,midway]{\small\texttt{cancelEmergency}} (Cl);
+\draw[dashed,->] (RIP) to node[above,midway,sloped]{\small\texttt{cancelEmergency}} (Cl);
 \end{tikzpicture}
 \caption{Beschrijving van de toestanden en overgangen van Emergency}
 \label{fig:stateDiagramEmergency}
 \end{figure}
+Anderzijds willen we de voordelen die een \verb+enum+ ons biedt niet verliezen\footnote{Zoals bijvoorbeeld een opsomming van de verschillende toestanden.}. Daarom opteerden we voor een hybride structuur. Deze structuur behoudt in zekere zin de geest van het \textit{State}-pattern beschreven in het boek \cite{book:designpatterns}. In \verb#C++# zijn \verb+enum+s echter niet polymorf: het is een lijst van sleutels die met een binaire waarde geassocieerd worden. In java kunnen elementen in een enumeratie in zekere zin als een singleton-subklasse van de enumeratie beschouwd worden\footnote{Uiteraard gaat die vergelijking niet volledig op.}. Het gevolg is dat we ook methodes aan deze elementen kunnen toewijzen, en dus individueel anders kunnen implementeren.
+\begin{figure}[htb]
+\includegraphics[width=1.0\textwidth]{CD_statePattern.pdf}
+\caption{UML diagram van de implementatie van het \textit{State}-pattern in het project.}
+\label{fig:statePattern}
+\end{figure}
+Het grote nadeel van deze methode is dat alle toestanden zichtbaar zijn. Indien we dus later in het project juist een toestand willen implementeren waarover we niet kunnen filteren zal deze implementatie grondig bekeken moeten worden. Verder biedt deze implementatie alle voordelen van het \textit{State}-pattern en een \verb+enum+.
