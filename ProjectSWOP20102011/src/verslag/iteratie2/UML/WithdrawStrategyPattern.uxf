@@ -25,7 +25,7 @@
 --
 --
 /+withdraw(u: Unit): void/</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>310</x><y>150</y><w>180</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>30;30;160;30</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>90</x><y>80</y><w>250</w><h>150</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
-Unit
+/Unit/
 --
 ...
 -withdrawBehavior: WithdrawBehavior
