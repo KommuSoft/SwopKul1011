@@ -3,13 +3,12 @@ package projectswop20102011.utils.parsers;
 import java.util.regex.Matcher;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.exceptions.ParsingException;
-import projectswop20102011.utils.Parser;
 
 /**
  * A parser that can parse GPSCoordinates
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class GPSCoordinateParser extends Parser<GPSCoordinate> {
+public class GPSCoordinateParser extends RegexParser<GPSCoordinate> {
 
     /**
      * Creates a new instance of a GPSCoordinateParser.
