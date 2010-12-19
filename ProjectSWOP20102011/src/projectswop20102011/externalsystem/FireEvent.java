@@ -1,7 +1,6 @@
 package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.api.ITime;
-import java.security.InvalidParameterException;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
@@ -17,7 +16,7 @@ import projectswop20102011.factories.FireFactory;
 
 public class FireEvent extends Event {
 
-	public FireEvent(ITime time, World world, Location location, EmergencySeverity severity, String description, FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidParameterException, InvalidAmountOfParametersException {
+	public FireEvent(ITime time, World world, Location location, EmergencySeverity severity, String description, FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyTypeNameException, InvalidAmountOfParametersException {
 		super(time, location, null, world);
 
 		FireFactory ff = new FireFactory();

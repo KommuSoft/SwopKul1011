@@ -51,6 +51,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                     this.writeOutput(String.format("\t%s: %s", entry.getKey(), entry.getValue()));
                 }
                 this.writeOutput("NEEDED UNITS:");
+				//TODO zou hier niet iets ontbreken
                 UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
                 this.writeOutput("AVAILABLE UNITS:");
                 Unit[] availableUnits;

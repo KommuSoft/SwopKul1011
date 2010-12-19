@@ -30,6 +30,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
      * Returns the InspectEmergenciesController used by this command user interface.
      * @return The controller used by this command user interface.
      */
+	@Override
     public InspectEmergenciesController getController() {
         return this.controller;
     }
@@ -40,7 +41,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
      * @return A textual representation of the given Emergency.
      */
     private String getShortInformationString(Emergency emergency) {
-        String result = String.format("[type=%s", emergency.getClass().getSimpleName());
+		String result = String.format("[type=%s", emergency.getClass().getSimpleName());
         result += String.format("; assignable=%s", this.getController().canBeAssigned(emergency));
         Set<Entry<String, String>> set = this.getController().getEmergencyShortInformation(emergency);
         for (Entry<String, String> e : set) {
