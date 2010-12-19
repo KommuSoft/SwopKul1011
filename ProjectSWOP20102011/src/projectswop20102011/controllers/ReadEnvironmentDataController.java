@@ -1,17 +1,19 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.Ambulance;
-import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Hospital;
-import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.World;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.factories.AmbulanceFactory;
+import projectswop20102011.factories.FiretruckFactory;
+import projectswop20102011.factories.PolicecarFactory;
 
 /**
  * A controller that reads in the environmental data, and constructs the units and buildings described in it.
@@ -34,20 +36,23 @@ public class ReadEnvironmentDataController extends Controller {
         this.addMapItemToMapItemList(new Hospital(name, coordinate));
     }
 
-    public void addFiretruck(String name, GPSCoordinate coordinate, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-        Unit u = new Firetruck(name, coordinate, speed);
+    public void addFiretruck(String name, GPSCoordinate coordinate, long speed) throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
+		FiretruckFactory ff = new FiretruckFactory();
+        Unit u = ff.createMapItem(new Object[] {name, coordinate, speed});
         this.addMapItemToMapItemList(u);
         this.addUnitToTimeSensitiveList(u);
     }
 
-    public void addPolicecar(String name, GPSCoordinate coordinate, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-        Unit u = new Policecar(name, coordinate, speed);
+    public void addPolicecar(String name, GPSCoordinate coordinate, long speed) throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
+		PolicecarFactory pf = new PolicecarFactory();
+        Unit u = pf.createMapItem(new Object[] {name, coordinate, speed});
         this.addMapItemToMapItemList(u);
         this.addUnitToTimeSensitiveList(u);
     }
 
-    public void addAmbulance(String name, GPSCoordinate coordinate, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-        Unit u = new Ambulance(name, coordinate, speed);
+    public void addAmbulance(String name, GPSCoordinate coordinate, long speed) throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException  {
+		AmbulanceFactory af = new AmbulanceFactory();
+        Unit u = af.createMapItem(new Object[] {name, coordinate, speed});
         this.addMapItemToMapItemList(u);
         this.addUnitToTimeSensitiveList(u);
     }
