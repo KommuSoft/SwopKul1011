@@ -217,8 +217,9 @@ public abstract class Emergency {
      * Returns a UnitsNeeded structure that contains the amount and types of units needed for this emergency.
      * @return A UnitsNeeded structure that contains the amount and types of units needed for this emergency.
      * @note Handling dispatching and updating the status of the emergency is also done by this object.
+     * @note The visibility of this method is package. No classes outside the domain have access to the UnitsNeeded object.
      */
-    public synchronized UnitsNeeded getUnitsNeeded() {
+    synchronized UnitsNeeded getUnitsNeeded() {
         if (this.unitsNeeded == null) {
             this.unitsNeeded = calculateUnitsNeeded();
         }

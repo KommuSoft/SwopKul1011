@@ -11,7 +11,7 @@ We stellen onze constraints op onze emergency voor als een boom. Deze implementa
 Tot slot kan opgemerkt worden dat in het boek er operaties in de Composite-participant gedefinieerd worden. In deze implementatie voegen we eenvoudigweg geen operaties toe. Het kennen van de parent levert voor \verb+AndDispatchUnitsConstraint+ geen meerwaarde op. Verder kan geargumenteerd worden dat de opbouw van de boom hiermee vastligt: bottom-up, er kan dus bijgevolg geen boom met een tak naar zichzelf bestaan. Tot slot zou het ook kunnen betekenen dat een component op veschillende plaatsen in de boom voorkomt, wat de structuur dus meer dynamiek geeft.
 \subsubsection{State}
 Hoewel we geen \verb+cancel+-emergency use-case moesten implementeren, participeerden we toch op de creatie van nieuwe staten waarin een emergency zich kan bevinden. We modelleerden dan ook een toestandsdiagram zoals op figuur \ref{fig:stateDiagramEmergency}.
-\begin{figure}
+\begin{figure}[htb]
 \centering
 \begin{tikzpicture}
 \node[rectangle,draw=black] (RBU) at (0,0) {Recorded but unhandled};
@@ -34,3 +34,11 @@ Anderzijds willen we de voordelen die een \verb+enum+ ons biedt niet verliezen\f
 \label{fig:statePattern}
 \end{figure}
 Het grote nadeel van deze methode is dat alle toestanden zichtbaar zijn. Indien we dus later in het project juist een toestand willen implementeren waarover we niet kunnen filteren zal deze implementatie grondig bekeken moeten worden. Verder biedt deze implementatie alle voordelen van het \textit{State}-pattern en een \verb+enum+.
+\subsubsection{Factory Method}
+Omdat units en emergencies vaak aangemaakt worden met behulp van een tekstbestand of door een extern systeem met behulp van een \verb+String+, leek het ons nuttig om hiervoor een \textit{Factory Method}-pattern te gebruiken. Op die manier kunnen we dan een set van factories bijhouden, waarbij iedere factorie een bepaald derectief bijhoudt. Indien bij het inlezen van het tekstbestand een derectief wordt ingelezen, zal de bijbehorende factorie uit de set gehaald worden, die dan vervolgens een unit of emergency aanmaakt. Hierbij werden we echter geconfronteerd met een belangrijk probleem: de parameters van de verschillende units of emergencies zijn niet uniform. We kunnen dus bijgevolg geen abstracte factory laag bouwen waarbij de parameters gesepcifieerd zijn. Dit losten we echter op door een lijst van objecten als parameter mee te geven. Parameters die wel bekend waren\footnote{Omdat ze in de constructor van bijvoorbeeld \verb+Emergency+ reeds gedefinieerd zijn.} werden uiteraard wel in de methode signatuur opgenomen. Dit probleem werd op verschillende constructie patterns bestudeerd maar werd nergens concreet opgelost\footnote{Een prototype kan dit misschien wel oplossen, maar ons domein zou hierop fout kunnen reageren, vanwege finale velden. Bovendien gaan sommige methodes uit van deze finale velden}. De implementatie is beschreven op figuur \ref{fig:factoryMethodPattern}.
+\begin{figure}[thtb]
+\includegraphics[width=1.0\textwidth]{CD_factoryMethodPattern.pdf}
+\caption{UML diagram van de implementatie van het \textit{Factory Method}-pattern in het project.}
+\label{fig:factoryMethodPattern}
+\end{figure}
+Een ander probleem is hoe we informatie over deze velden naar buiten kunnen brengen. Hiervoor construeerden we een \verb+EmergencyDescription+ klasse. Deze klasse bevat informatie over de verschillende parameters: hun type, naam en eventueel een beschrijving. Bovendien is deze beschrijving in staat om te controleren of een bepaalde lijst van objecten aan deze beschrijving voldoet.

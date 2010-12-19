@@ -3,6 +3,7 @@ package projectswop20102011.domain;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
 /**
@@ -11,11 +12,17 @@ import projectswop20102011.exceptions.InvalidEmergencyStatusException;
  */
 public enum EmergencyStatus {
 
-    //TODO: implement methods!!
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
+        /**
+         * Assigns the given units to the given emergency.
+         * @param emergency The emergency where the units are assigned to.
+         * @param units A list of units we want to assign to that emergency.
+         * @throws InvalidEmergencyException If the given list of exception does not met the constraints produces by the emergency.
+         */
         @Override
-        void assignUnits(Emergency emergency, List<Unit> units) {
+        void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyException {
+            emergency.getUnitsNeeded().assignUnitsToEmergency(units);
             try {
                 emergency.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
             } catch (InvalidEmergencyStatusException ex) {
@@ -24,11 +31,23 @@ public enum EmergencyStatus {
             }
         }
 
+        /**
+         * Finish the given unit of it's job from the given emergency.
+         * @param emergency The emergency where the unit is assigned to.
+         * @param unit The unit that want's to finish it's job.
+         * @throws InvalidEmergencyStatusException Always, units never can finish from an emergency where no units are assigned to.
+         */
         @Override
         void finishUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
         }
 
+        /**
+         * Withdraws the given unit from is's assignment to the given emergency.
+         * @param emergency The emergency the unit want's to withdraw from.
+         * @param unit The unit that want's to withdraw.
+         * @throws InvalidEmergencyStatusException Always, units never can finish from an emergency where no units are assigned to.
+         */
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't withdraw units from an unhandled emergency.");
@@ -36,16 +55,43 @@ public enum EmergencyStatus {
     },
     RESPONSE_IN_PROGRESS("response in progress") {
 
+        /**
+         * Assigns the given units to the given emergency.
+         * @param emergency The emergency where the units are assigned to.
+         * @param units The units that are assigned to the given emergency.
+         * @throws InvalidEmergencyException If the given units does not met the constraints of the given emergency.
+         */
         @Override
-        void assignUnits(Emergency emergency, List<Unit> units) {
+        void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyException {
+            emergency.getUnitsNeeded().assignUnitsToEmergency(units);
         }
 
+        /**
+         * Let the given unit finish his job from the given emergency.
+         * @param emergency The emergency where the unit was assigned to.
+         * @param unit The unit that want's to finish his job.
+         */
         @Override
         void finishUnit(Emergency emergency, Unit unit) {
+            emergency.getUnitsNeeded().unitFinishedJob(unit);
+            if(emergency.getUnitsNeeded().canFinish()) {
+                try {
+                    emergency.setStatus(COMPLETED);
+                } catch (InvalidEmergencyStatusException ex) {
+                    //We assume this can't happen
+                    Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
+        /**
+         * Withdraws the given unit from the given emergency.
+         * @param emergency The emergency where the unit want's to withdraw from.
+         * @param unit The unit that want's to withdraw.
+         */
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) {
+            emergency.getUnitsNeeded().WithdrawUnit(unit);
         }
     },
     COMPLETED("completed") {
@@ -57,11 +103,12 @@ public enum EmergencyStatus {
 
         @Override
         void finishUnit(Emergency emergency, Unit unit) {
+            //TODO: Implement
         }
 
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) {
-
+            //TODO: Implement
         }
     };
     /**
