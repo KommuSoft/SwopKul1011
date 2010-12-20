@@ -1,0 +1,37 @@
+\label{testen}
+Net als in de eerste iteratie hadden we voor ogen om \textit{Test-Driven Development} toe te passen.
+Namelijk eerst een test schrijven (die zou moeten falen) voor aan de eigenlijke implementatie te beginnen.
+Zo hebben we relatief gemakkelijk fouten kunnen opsporen en corrigeren.
+Bij het maken van testen voor deze iteratie, was het ook onze bedoeling dit zo uitgebreid mogelijk te doen.
+De code coverage tool \textit{EMMA} vormde hierbij een leidraad. Het gaf ons een overzicht welke stukken code er reeds getest werden.
+Voor bijna iedere klasse uit de domeinlaag maakten we een respectievelijke testklasse.
+Bijvoorbeeld de testklasse \texttt{FiretruckTest} voor de klasse \texttt{Firetruck} en analoog voor de andere testklassen.
+Er werd steeds volgens hetzelfde patroon gewerkt. Eerst werden de constructors getest en vervolgens de andere niet-triviale methoden.
+Ook de testen werden incrementeel opgebouwd, aangezien verschillende delen van het model in de loop van het project werden verworpen of uitgebreid.
+Deze aanpassingen werden dan doorgevoerd op de testklassen.
+Om het ontwerp van onze testen te illustreren, geven we hieronder een ruwe schets van hoe we te werk gingen.
+\begin{lstlisting}
+//Imports
+public class Testklasse{
+     //Declaratie van variabelen
+
+     @Before
+     public void setUp(){
+          //Initialisatie van variabelen en hulpobjecten
+     }
+
+     @Test
+     public void testEenMethode() throws ... {
+          //Aanmaken van objecten
+          //Schrijven van assert statements
+
+     }
+     @Test(expected = ExceptionClass.class)
+     public void testEenMethode() throws ... {
+          //Aanmaken van objecten
+          //Schrijven van commando's die ExceptionClass moeten gooien.
+
+     }
+
+}
+\end{lstlisting}
