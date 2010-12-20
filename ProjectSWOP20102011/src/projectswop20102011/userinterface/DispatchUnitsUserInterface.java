@@ -51,8 +51,8 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                     this.writeOutput(String.format("\t%s: %s", entry.getKey(), entry.getValue()));
                 }
                 this.writeOutput("NEEDED UNITS:");
-				//TODO zou hier niet iets ontbreken
-                UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
+		//TODO: alternatief voor constraint zoeken
+                //UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
                 this.writeOutput("AVAILABLE UNITS:");
                 Unit[] availableUnits;
                 try {
@@ -79,7 +79,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                     } while (!expression.equals("stop"));
                     this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
                     this.writeOutput("Units are assigned");
-                } catch (InvalidEmergencyException ex) {
+                } catch (Exception ex) {
                     this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                 }
             }

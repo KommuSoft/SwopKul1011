@@ -314,6 +314,6 @@ public abstract class Emergency {
      * @return True if the given list of units can be assigned, otherwise false.
      */
     public boolean canAssignUnits(ArrayList<Unit> units) {
-        return this.getStatus().canAssignUnits(units);
+        return this.getStatus().canAssignUnits(this,units);
     }
 }
