@@ -6,7 +6,7 @@ import projectswop20102011.domain.MapItem;
  * An implementation for a MapItemEvaluationCriterium that checks if the object is equal to a given type.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class TypeMapItemEvaluationCriterium extends MapItemEvaluationCriterium {
+public class TypeMapItemEvaluationCriterium implements MapItemEvaluationCriterium {
 
 	/**
 	 * The class of mapitems that will be accepted
