@@ -106,7 +106,9 @@ public class EnumParser<T extends Enum> implements Parser<T> {
             throw new ParsingException("Can't find a textual representation that can be parsed.");
         }
         Matcher matcher = this.getSearchPattern().matcher(textualRepresentation);
-        objectHolder.setObject(this.getEnumerationDictionary().get(matcher.group(0)));
+        matcher.find();
+        T value = this.getEnumerationDictionary().get(matcher.group(0));
+        objectHolder.setObject(value);
         return matcher.end(0);
     }
 
