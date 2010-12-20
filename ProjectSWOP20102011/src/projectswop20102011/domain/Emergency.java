@@ -285,7 +285,7 @@ public abstract class Emergency {
         information.put("location", getLocation().toString());
         information.put("severity", getSeverity().getTextual());
         information.put("status", getStatus().getTextual());
-        ArrayList<Unit> units = getUnitsNeeded().getWorkingUnits();
+        ArrayList<Unit> units = this.getWorkingUnits();
         int number = units.size();
         String workingUnits = "[ ";
         if (number > 0) {
@@ -298,5 +298,22 @@ public abstract class Emergency {
         information.put("working units", workingUnits);
 
         return information;
+    }
+
+    /**
+     * Returns a list of units currently working at this emergency.
+     * @return a list of units currently working at this emergency.
+     */
+    public ArrayList<Unit> getWorkingUnits() {
+        return this.getUnitsNeeded().getWorkingUnits();
+    }
+
+    /**
+     * Checks if the given unit can assign the given list of units to the emergency.
+     * @param units A list of units to check.
+     * @return True if the given list of units can be assigned, otherwise false.
+     */
+    public boolean canAssignUnits(ArrayList<Unit> units) {
+        return this.getStatus().canAssignUnits(units);
     }
 }

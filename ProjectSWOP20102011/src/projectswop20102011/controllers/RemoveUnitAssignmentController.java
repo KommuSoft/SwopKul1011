@@ -30,7 +30,7 @@ public class RemoveUnitAssignmentController extends Controller {
     }
 
     public ArrayList<Unit> getWorkingUnits(Emergency selectedEmergency){
-        return selectedEmergency.getUnitsNeeded().getWorkingUnits();
+        return selectedEmergency.getWorkingUnits();
     }
 
     public void withdrawUnits(String[] names) throws InvalidWithdrawalException, InvalidEmergencyException{

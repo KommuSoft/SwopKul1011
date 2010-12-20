@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,14 +13,11 @@ import projectswop20102011.exceptions.InvalidEmergencyStatusException;
  */
 public enum EmergencyStatus {
 
+    /**
+     * A state where the emergency is recorded by the operator but not yet handled by the dispatcher.
+     */
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
-        /**
-         * Assigns the given units to the given emergency.
-         * @param emergency The emergency where the units are assigned to.
-         * @param units A list of units we want to assign to that emergency.
-         * @throws InvalidEmergencyException If the given list of exception does not met the constraints produces by the emergency.
-         */
         @Override
         void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyException {
             emergency.getUnitsNeeded().assignUnitsToEmergency(units);
@@ -31,50 +29,35 @@ public enum EmergencyStatus {
             }
         }
 
-        /**
-         * Finish the given unit of it's job from the given emergency.
-         * @param emergency The emergency where the unit is assigned to.
-         * @param unit The unit that want's to finish it's job.
-         * @throws InvalidEmergencyStatusException Always, units never can finish from an emergency where no units are assigned to.
-         */
         @Override
         void finishUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
         }
 
-        /**
-         * Withdraws the given unit from is's assignment to the given emergency.
-         * @param emergency The emergency the unit want's to withdraw from.
-         * @param unit The unit that want's to withdraw.
-         * @throws InvalidEmergencyStatusException Always, units never can finish from an emergency where no units are assigned to.
-         */
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't withdraw units from an unhandled emergency.");
         }
+
+        @Override
+        boolean canAssignUnits(Emergency emergency, List<Unit> unit) {
+            return emergency.getUnitsNeeded().canAssignUnitsToEmergency(unit);
+        }
     },
+    /**
+     * A state of an emergency where the dispatcher has already sent units (this does not mean there are still units working or already finished).
+     */
     RESPONSE_IN_PROGRESS("response in progress") {
 
-        /**
-         * Assigns the given units to the given emergency.
-         * @param emergency The emergency where the units are assigned to.
-         * @param units The units that are assigned to the given emergency.
-         * @throws InvalidEmergencyException If the given units does not met the constraints of the given emergency.
-         */
         @Override
         void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyException {
             emergency.getUnitsNeeded().assignUnitsToEmergency(units);
         }
 
-        /**
-         * Let the given unit finish his job from the given emergency.
-         * @param emergency The emergency where the unit was assigned to.
-         * @param unit The unit that want's to finish his job.
-         */
         @Override
         void finishUnit(Emergency emergency, Unit unit) {
             emergency.getUnitsNeeded().unitFinishedJob(unit);
-            if(emergency.getUnitsNeeded().canFinish()) {
+            if (emergency.getUnitsNeeded().canFinish()) {
                 try {
                     emergency.setStatus(COMPLETED);
                 } catch (InvalidEmergencyStatusException ex) {
@@ -84,16 +67,19 @@ public enum EmergencyStatus {
             }
         }
 
-        /**
-         * Withdraws the given unit from the given emergency.
-         * @param emergency The emergency where the unit want's to withdraw from.
-         * @param unit The unit that want's to withdraw.
-         */
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) {
             emergency.getUnitsNeeded().WithdrawUnit(unit);
         }
+
+        @Override
+        boolean canAssignUnits(Emergency emergency, List<Unit> units) {
+            return emergency.getUnitsNeeded().canAssignUnitsToEmergency(units);
+        }
     },
+    /**
+     * A state of an emergency where the emergency has been completly handled. All the units needed for this emergency have finished.
+     */
     COMPLETED("completed") {
 
         @Override
@@ -102,13 +88,18 @@ public enum EmergencyStatus {
         }
 
         @Override
-        void finishUnit(Emergency emergency, Unit unit) {
-            //TODO: Implement
+        void finishUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
+            throw new InvalidEmergencyStatusException("Unable to finish units from a completed emergency.");
         }
 
         @Override
-        void withdrawUnit(Emergency emergency, Unit unit) {
-            //TODO: Implement
+        void withdrawUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
+            throw new InvalidEmergencyStatusException("Unable to withdraw units from a competed emergency.");
+        }
+
+        @Override
+        boolean canAssignUnits(Emergency emergency, List<Unit> units) {
+            return false;
         }
     };
     /**
@@ -194,4 +185,12 @@ public enum EmergencyStatus {
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
     abstract void withdrawUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException, Exception;
+
+    /**
+     * A method that checks if the given units can be assigned to the given emergency.
+     * @param emergency The emergency to check allocation from.
+     * @param units A list of units to check for.
+     * @return True if the given list of units can be assigned, otherwise false (this also includes states where no allocation can be done).
+     */
+    abstract boolean canAssignUnits(Emergency emergency, List<Unit> units);
 }

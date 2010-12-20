@@ -9,6 +9,7 @@ import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
 import projectswop20102011.domain.UnitsNeeded;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
@@ -33,8 +34,8 @@ public class DispatchUnitsController extends Controller {
         return selectedEmergency.getUnitsNeeded();
     }
 
-    public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyException {
-        selectedEmergency.getUnitsNeeded().assignUnitsToEmergency(units);
+    public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyStatusException, Exception {
+        selectedEmergency.assignUnits(units);
     }
 
 }

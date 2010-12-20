@@ -64,7 +64,7 @@ public class InspectEmergenciesController extends Controller {
         for(MapItem mi : mis) {
             units.add((Unit) mi);
         }
-        return e.getUnitsNeeded().canAssignUnitsToEmergency(units);
+        return e.canAssignUnits(units);
     }
 
     public Set<Entry<String, String>> getEmergencyLongInformation(Emergency emergency) {
