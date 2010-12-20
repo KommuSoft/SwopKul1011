@@ -6,7 +6,7 @@ import projectswop20102011.domain.MapItem;
  * A class representing an evaluation criterium on an MapItem.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public abstract class MapItemEvaluationCriterium {
+public interface MapItemEvaluationCriterium {
 
 	/**
 	 * The validation method for a certain MapItem on the criterium.
@@ -14,5 +14,5 @@ public abstract class MapItemEvaluationCriterium {
 	 *		The MapItem to validate.
 	 * @return True if the MapItem is valid according to the criterium, otherwise false.
 	 */
-	public abstract boolean isValidMapItem(MapItem mapItem);
+	public boolean isValidMapItem(MapItem mapItem);
 }
