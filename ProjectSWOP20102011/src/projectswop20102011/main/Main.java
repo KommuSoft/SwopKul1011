@@ -1,4 +1,4 @@
-package projectswop20102011;
+package projectswop20102011.main;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
