@@ -20,6 +20,9 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.factories.EmergencyFactory;
 import projectswop20102011.factories.FireFactory;
+import projectswop20102011.factories.PublicDisturbanceFactory;
+import projectswop20102011.factories.RobberyFactory;
+import projectswop20102011.factories.TrafficAccidentFactory;
 
 public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
@@ -39,6 +42,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
+		System.out.println(event);
 		CreateEmergencyController cec = null;
 		try {
 			cec = new CreateEmergencyController(getWorld());
@@ -75,10 +79,38 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			} catch (Exception ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
-
 		} else if (event.getType().equals("PublicDisturbance")) {
+			try {
+				factory = new PublicDisturbanceFactory();
+			} catch (InvalidEmergencyTypeNameException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			try {
+				emergency = factory.createEmergency(new Object[]{gps, es, "", Long.parseLong(properties.get("numberOfPeople"))});
+			} catch (Exception ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		} else if (event.getType().equals("Robbery")) {
-		} else if (event.getType().equals("TrafficAccident")) {
+			try {
+				factory = new RobberyFactory();
+			} catch (InvalidEmergencyTypeNameException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			try {
+				emergency = factory.createEmergency(new Object[]{gps, es, "", properties.get("armed").equals("true") ? true : false, properties.get("inProgress").equals("true") ? true : false});
+			} catch (Exception ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else if (event.getType().equals("TrafficAccident")) {try {
+				factory = new TrafficAccidentFactory();
+			} catch (InvalidEmergencyTypeNameException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			try {
+				emergency = factory.createEmergency(new Object[]{gps, es, "", Long.parseLong(properties.get("numberOfCars")), Long.parseLong(properties.get("numberOfInjured"))});
+			} catch (Exception ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
 
 
@@ -99,7 +131,5 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			}
 			cec.addCreatedEmergencyToTheWorld(emergency);
 		}
-
-
 	}
 }

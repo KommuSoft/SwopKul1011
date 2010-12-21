@@ -39,7 +39,7 @@ public class CreateEmergencyController extends Controller {
 	 * @param emergency The emergency to add to the world.
 	 */
 	public void addCreatedEmergencyToTheWorld(Emergency emergency) {
-		this.getWorld().getEmergencyList().addEmergency(emergency);
+		getWorld().getEmergencyList().addEmergency(emergency);
 	}
 
 	/**
