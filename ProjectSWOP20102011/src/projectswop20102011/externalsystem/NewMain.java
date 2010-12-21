@@ -1,6 +1,5 @@
 package projectswop20102011.externalsystem;
 
-import be.kuleuven.cs.swop.events.SimpleScenario;
 import be.kuleuven.cs.swop.external.ExternalSystem;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
 import be.kuleuven.cs.swop.external.IExternalSystem;
@@ -39,7 +38,6 @@ public class NewMain {
 		World world = new World();
 		EmergencyDispatchApi api = new EmergencyDispatchApi(world);
 		IExternalSystem es = ExternalSystem.bootstrap(api);
-		api.setExternalSystem(es);
 
 		try {
 			EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));

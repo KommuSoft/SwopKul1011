@@ -3,7 +3,6 @@ package projectswop20102011.externalsystem;
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.IEvent;
-import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,23 +24,39 @@ import projectswop20102011.factories.TrafficAccidentFactory;
 
 public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
-	private World world;
-	private IExternalSystem externalSystem;
+	/**
+	 * A variable registering the world that is connected with this EmergencyDispatchApi.
+	 */
+	private final World world;
 
-	public EmergencyDispatchApi(World world){
-		setWorld(world);
-	}
-
-	private void setWorld(World world) {
+	/**
+	 * Creates a new EmergencyDispatchApi with the given world.
+	 * @param world
+	 *		The world that this EmergencyDispatchApi is connected with.
+	 * @effect The world is set to the given world.
+	 *		|world.equals(getWorld())
+	 */
+	public EmergencyDispatchApi(World world) {
 		this.world = world;
 	}
 
+	/**
+	 * Returns the world of this EmergencyDispatchApi.
+	 * @return The world of this EmergencyDispatchApi.
+	 */
 	private World getWorld() {
 		return world;
 	}
 
+	/**
+	 * Registers a new event.
+	 * @param event
+	 *		The event that must be registered.
+	 * @throws EmergencyDispatchException
+	 *		if an exception occurs in the emergency dispatch system.
+	 */
 	@Override
-	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
+	public void registerNewEvent(IEvent event) throws EmergencyDispatchException { //TODO dit MOET korter
 		CreateEmergencyController cec = null;
 		try {
 			cec = new CreateEmergencyController(getWorld());
@@ -101,7 +116,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} else if (event.getType().equals("TrafficAccident")) {
-            try {
+			try {
 				factory = new TrafficAccidentFactory();
 			} catch (InvalidEmergencyTypeNameException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,27 +128,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			}
 		}
 
-
-////		if (event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 <= getWorld().getTime()) {
-			//TODO deze methode heb ik ff public gezet
-			cec.addCreatedEmergencyToTheWorld(emergency);
-//		} else {
-//			TimeAheadController tac = null;
-//			try {
-//				tac = new TimeAheadController(world, externalSystem);
-//			} catch (InvalidWorldException ex) {
-//				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//			try {
-//				tac.doTimeAheadAction((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) - getWorld().getTime());
-//			} catch (InvalidDurationException ex) {
-//				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//			cec.addCreatedEmergencyToTheWorld(emergency);
-//		}
-	}
-
-	public void setExternalSystem(IExternalSystem externalSystem) {
-		this.externalSystem = externalSystem;
+		cec.addCreatedEmergencyToTheWorld(emergency);
 	}
 }

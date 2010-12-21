@@ -16,13 +16,23 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class TimeAheadController extends Controller {
 
-	IExternalSystem externalSystem;
+	/**
+	 * A variabele registering the externalSystem of this timeAheadController.
+	 */
+	private final IExternalSystem externalSystem;
 
 	/**
 	 * Creates a new instance of a TimeAhead controller with a given world.
-	 * @param world The world that will be modified by the controller.
-	 * @effect super(world)
-	 * @throws InvalidWorldException If the world is not effective.
+	 * @param world
+	 *		The world that will be modified by the controller.
+	 * @param externalSystem
+	 *		The externalSystem that is connected with this TimeAheadController.
+	 * @effect The world of this controller is set to the given world.
+	 *		| super(world)
+	 * @post The externalSystem of this controller is set to the given externalSystem.
+	 *		| externalSystem.equals(getExternalSystem)
+	 * @throws InvalidWorldException
+	 *		If the world is not effective.
 	 */
 	public TimeAheadController(World world, IExternalSystem externalSystem) throws InvalidWorldException {
 		super(world);
@@ -31,29 +41,43 @@ public class TimeAheadController extends Controller {
 
 	/**
 	 * Creates a new instance of a TimeAhead controller with a given world.
-	 * @param world The world that will be modified by the controller.
-	 * @effect super(world)
-	 * @throws InvalidWorldException If the world is not effective.
+	 * @param world
+	 *		The world that will be modified by the controller.
+	 * @effect The world of this controller is set to the given world.
+	 *		|super(world)
+	 * @post The externalSystem of this controller is set to null.
+	 *		|getExternalSystem() == null
+	 * @throws InvalidWorldException
+	 *		If the world is not effective.
 	 */
 	public TimeAheadController(World world) throws InvalidWorldException {
 		super(world);
+		this.externalSystem = null;
 	}
 
 	/**
-	 * performs a time ahead action, where all the time sensitive objects in the world will be modified under a certain time difference.
+	 * Returns the externalSystem of this TimeAheadController.
+	 * @return The externalSystem of this TimeAheadContrller.
+	 */
+	private IExternalSystem getExternalSystem(){
+		return externalSystem;
+	}
+
+	/**
+	 * Performs a time ahead action, where all the time sensitive objects in the world will be modified under a certain time difference.
 	 * @param seconds
 	 *		The time difference in seconds.
-	 * @throws InvalidDurationException If the given amont of seconds is invalid
+	 * @throws InvalidDurationException
+	 *		If the given amont of seconds is invalid.
 	 */
 	public void doTimeAheadAction(long seconds) throws InvalidDurationException {
-		this.getWorld().getTimeSensitiveList().timeAhead(seconds);
-		if (externalSystem != null) {
+		getWorld().getTimeSensitiveList().timeAhead(seconds);
+		if (getExternalSystem() != null) {
 			int s = (int) (seconds + getWorld().getTime());
 			int hours = (int) (s / 3600);
 			int minutes = (int) ((s - (3600 * hours)) / 60);
 			ITime time = new Time(hours, minutes);
 			try {
-				System.out.println("De tijd is: " + time);
 				externalSystem.notifyTimeChanged(time);
 			} catch (ExternalSystemException ex) {
 				Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
