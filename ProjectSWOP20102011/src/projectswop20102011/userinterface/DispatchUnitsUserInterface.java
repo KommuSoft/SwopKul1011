@@ -52,11 +52,11 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 		//TODO: alternatief voor constraint zoeken
                 //UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
                 this.writeOutput("AVAILABLE UNITS:");
-                Unit[] availableUnits;
+                ArrayList<Unit> availableUnits;
                 try {
-                    availableUnits = this.getController().getAvailableUnitsSorted(selectedEmergency);
-                    for (int i = 0; i < availableUnits.length; i++) {
-                        Unit u = availableUnits[i];
+                    availableUnits = (ArrayList<Unit>) this.getController().getUnitsByPolicy(selectedEmergency);
+                    for (int i = 0; i < availableUnits.size(); i++) {
+                        Unit u = availableUnits.get(i);
                         double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
                         this.writeOutput(String.format("\t%s\t%s\t%s\t%s", i, u.getClass().getSimpleName(), u.getName(), distance));
                     }
@@ -68,7 +68,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
                         if (!expression.equals("stop")) {
                             try {
                                 int id = Integer.parseInt(expression);
-                                assignedUnits.add(availableUnits[id]);
+                                assignedUnits.add(availableUnits.get(id));
                                 this.writeOutput("Unit added.");
                             } catch (Exception ex) {
                                 this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
