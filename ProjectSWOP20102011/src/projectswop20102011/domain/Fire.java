@@ -216,7 +216,7 @@ public class Fire extends Emergency {
 
     /**
      * Returns a hashtable that represents all the information of the Fire.
-     * This hashtable contains the id, location, severity, status, the working units,
+     * This hashtable contains the id, type, location, severity, status, the working units,
      * the size of the fire, a boolean representing if the fire is chemical,
      * the number of trapped people and the number of injured.
      * @return A hashtable that represents all the information of the Fire.

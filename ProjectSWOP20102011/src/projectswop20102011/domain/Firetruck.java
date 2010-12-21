@@ -33,6 +33,8 @@ public class Firetruck extends Unit {
      *         |super(name,homeLocation,speed)
      * @effect The new firetruck can handle a house-fire size.
      *		|this.maxSize.equals(FireSize.HOUSE)
+     * @effect The withdrawBehavior of this new firetruck is set to the given notwithdraw behavior.
+     *      |setWithdrawBehavior(new NotWithdraw())
      * @throws InvalidLocationException
      *		If the given location is an invalid location for a firetruck.
      * @throws InvalidMapItemNameException
@@ -62,8 +64,7 @@ public class Firetruck extends Unit {
      *		The speed of the new firetruck.
      * @param maxSize
      *		The maximum size that this firetruck can handle.
-     * @effect The new firetruck is a firetruck with given name, home location, speed,
-     *			current location, destination and assigned indicator.
+     * @effect The new firetruck is a unit with given name, home location, speed and maxSize.
      *         |super(name,homeLocation,speed)
      * @effect The new firetruck can handle the given fire size.
      *		|this.maxSize.equals(maxSize)
@@ -107,7 +108,8 @@ public class Firetruck extends Unit {
 
     /**
      * Tests if the given maximum fire size is a valid maximum fire size for a firetruck.
-     * @param maxFireSize The given maximum fire size.
+     * @param maxFireSize
+     *      The given maximum fire size.
      * @return True if the given maximum fire size is effective, otherwise false.
      */
     public static boolean isValidMaxFireSize (FireSize maxFireSize) {
@@ -116,7 +118,8 @@ public class Firetruck extends Unit {
 
     /**
      * Tests if this firetruck can handle a fire with a given fire size
-     * @param fireSize The fire size of the fire to test.
+     * @param fireSize
+     *      The fire size of the fire to test.
      * @return True if the maximum fire size of this firetruck is larger or equal to the given fire size, otherwise false.
      */
     public boolean canHandleFireSize (FireSize fireSize) {
