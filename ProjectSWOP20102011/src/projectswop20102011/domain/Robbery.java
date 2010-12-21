@@ -124,7 +124,7 @@ public class Robbery extends Emergency {
         int nPolice = ((isArmed() && isInProgress()) ? 3 : 1);
         try {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice));
-            new ASAPDispatchPolicy(un); //TODO zie TrafficAccident
+            un.pushPolicy(new ASAPDispatchPolicy(un));
             return un;
 
         } catch (InvalidEmergencyException ex) {
@@ -149,6 +149,7 @@ public class Robbery extends Emergency {
             //we asume this can't happen
             Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Should never be returned
         return null;
     }
 }

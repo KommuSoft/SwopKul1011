@@ -17,10 +17,8 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
      *          |super(unitsNeeded)
      * @throws InvalidUnitsNeededException
      *      If the given UnitsNeeded policy is ineffective.
-     * @throws InvalidDispatchPolicyException
-     *      If the given UnitsNeeded object has already a Policy.
      */
-    DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
         super(unitsNeeded);
     }
 

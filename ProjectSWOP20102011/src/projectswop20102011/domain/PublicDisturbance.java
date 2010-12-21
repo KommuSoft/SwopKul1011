@@ -113,7 +113,6 @@ public class PublicDisturbance extends Emergency {
     protected UnitsNeeded calculateUnitsNeeded() { //TODO zie TrafficAccident
         try {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
-            new DefaultDispatchPolicy(un); //TODO zie TrafficAccident
             return un;
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
@@ -130,12 +129,6 @@ public class PublicDisturbance extends Emergency {
         } catch (InvalidClassException ex) {
             //we assume this can't happen
             Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidUnitsNeededException ex) {
-            //we asume this can't happen
-            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidDispatchPolicyException ex) {
-            //we asume this can't happen
-            Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

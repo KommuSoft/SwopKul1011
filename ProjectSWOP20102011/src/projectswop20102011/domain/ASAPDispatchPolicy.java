@@ -17,10 +17,8 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
      *		| super(unitsNeeded)
      * @throws InvalidUnitsNeededException
      *      If the given UnitsNeeded object is not effective.
-     * @throws InvalidDispatchPolicyException
-     *      If the given UnitsNeeded object has already a Policy.
      */
-    ASAPDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    ASAPDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
         super(unitsNeeded);
     }
 

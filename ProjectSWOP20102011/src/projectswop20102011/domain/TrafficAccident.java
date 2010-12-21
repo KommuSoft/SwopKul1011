@@ -165,7 +165,6 @@ public class TrafficAccident extends Emergency {
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), this.getNumberOfInjured());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
 			UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
-			new DefaultDispatchPolicy(un); //TODO kan dit niet mooier
 			return un;
 		} catch (InvalidEmergencyException ex) {
 			//we assume this can't happen
@@ -185,12 +184,6 @@ public class TrafficAccident extends Emergency {
 		} catch (InvalidConstraintListException ex) {
 			//we assume this can't happen
 			Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitsNeededException ex) {
-			//we asume this can't happen
-			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidDispatchPolicyException ex) {
-			//we asume this can't happen
-			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
 	}
