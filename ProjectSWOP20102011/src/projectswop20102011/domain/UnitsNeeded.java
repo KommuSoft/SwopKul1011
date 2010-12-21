@@ -307,7 +307,7 @@ class UnitsNeeded {
      * @return A subset of the given list containing units proposed for allocation.
      * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
      */
-    List<Unit> generateProposal(List<Unit> options) {
+    ArrayList<Unit> generateProposal(List<Unit> options) {
         List<Unit> fixedPart = this.getWorkingUnits();
         fixedPart.addAll(this.takeWorkingUnits());
         return this.getConstraint().generateProposal(fixedPart, options);
@@ -318,7 +318,6 @@ class UnitsNeeded {
      * @return A list of units proposed by the policy of this Emergency.
      */
     public ArrayList<Unit> getPolicyProposal (List<? extends Unit> availableUnits) {
-        //TODO: implement
-        throw new NotImplementedException();
+        return this.getPolicy().filterAvailableUnits(availableUnits);
     }
 }
