@@ -20,30 +20,37 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class DispatchUnitsController extends Controller {
 
-    public DispatchUnitsController (World world) throws InvalidWorldException {
-        super(world);
-    }
+	public DispatchUnitsController(World world) throws InvalidWorldException {
+		super(world);
+	}
 
-    public Emergency getEmergencyFromId (long id) {
-        return this.getWorld().getEmergencyList().getEmergencyFromId(id);
-    }
-    public List<Unit> getUnitsByPolicy (Emergency emergency) throws InvalidEmergencyException {
-        MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
-        HashSet<MapItem> mapItems = getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItems();
-        ArrayList<Unit> availableUnits = new ArrayList<Unit>();
-        for(MapItem u: mapItems){
-            availableUnits.add((Unit) u);
-        }
+	public Emergency getEmergencyFromId(long id) {
+		return this.getWorld().getEmergencyList().getEmergencyFromId(id);
+	}
 
-        ArrayList<Unit> unitsByPolicy = new ArrayList<Unit>();
-        for(Unit u : emergency.getPolicyProposal(availableUnits)){
-            unitsByPolicy.add(u);
-        }
-        return unitsByPolicy;
-    }
+	public List<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
+		MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
+		HashSet<MapItem> mapItems = getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItems();
+		ArrayList<Unit> availableUnits = new ArrayList<Unit>();
+		for (MapItem u : mapItems) {
+			availableUnits.add((Unit) u);
+			System.out.println(u.toString());
+		}
+		System.out.println("----------------------------------------------");
+		ArrayList<Unit> unitsByPolicy = new ArrayList<Unit>();
+		for (Unit u : emergency.getPolicyProposal(availableUnits)) {
+			unitsByPolicy.add(u);
+			System.out.println(u.toString());
+		}
+		return unitsByPolicy;
+	}
 
-    public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyStatusException, Exception {
-        selectedEmergency.assignUnits(units);
-    }
+	public List<Unit> getAvailableUnitsSorted(Emergency emergency) throws InvalidEmergencyException {
+		MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
+		return this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency));
+	}
 
+	public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyStatusException, Exception {
+		selectedEmergency.assignUnits(units);
+	}
 }

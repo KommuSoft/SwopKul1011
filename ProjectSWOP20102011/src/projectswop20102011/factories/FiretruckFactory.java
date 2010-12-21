@@ -1,8 +1,10 @@
 package projectswop20102011.factories;
 
+import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
+import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -40,11 +42,11 @@ public class FiretruckFactory extends UnitFactory {
 	 *		If the amount of given parameters is invalid.
 	 */
 	@Override
-	public Firetruck createMapItem(Object[] parameters) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException {
-		if (parameters.length != 3) {
+	public Firetruck createMapItem(Object[] parameters) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidFireSizeException {
+		if (parameters.length != 4) {
 			throw new InvalidAmountOfParametersException("The number of parameters doesn't match the desired number of parameters.");
 		} else {
-			return new Firetruck((String) parameters[0], (GPSCoordinate) parameters[1], (Long) parameters[2]);
+			return new Firetruck((String) parameters[0], (GPSCoordinate) parameters[1], (Long) parameters[2], (FireSize) parameters[3]);
 		}
 	}
 }

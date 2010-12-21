@@ -58,7 +58,7 @@ public class EnvironmentReader {
                     if (type.equals("Policecar")) {
                         this.controller.addPolicecar(name, location, speed);
                     } else if(type.equals("Firetruck")) {
-                        this.controller.addFiretruck(name, location, speed);
+                        this.controller.addFiretruck(name, location, speed,fireSize);
                     } else if(type.equals("Ambulance")) {
                         this.controller.addAmbulance(name, location, speed);
                     }
