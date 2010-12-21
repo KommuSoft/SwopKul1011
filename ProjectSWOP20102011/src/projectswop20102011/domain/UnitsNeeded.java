@@ -13,13 +13,14 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * A class that records which units are working on an emergency and does
- *          the accounting which units are working on the emergency.
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ *		the accounting which units are working on the emergency.
  * @invar The emergency is valid.
  *		| isValidEmergency(getEmergency())
- * @invar The unit type list and number of units list are valid.
- *		| areValidTypesAndNumbersOfUnits(getUnits(),getNumbersNeeded())
+ * @invar The constraint is valid.
+ *		| isValidConstraint(getConstraint())
  * @note This class has a package visibility and is a pure fabrication object.
+ *
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 class UnitsNeeded {
 
@@ -28,13 +29,13 @@ class UnitsNeeded {
      */
     private DispatchPolicy policy;
     /**
-     * The emergency that is been handled by this UnitsNeeded class.
+     * The emergency that is been handled by this UnitsNeeded.
      */
     private final Emergency emergency;
     /**
      * A DispatchUnitsConstraint object specifying which units can be allocated to the emergency.
      */
-    private DispatchUnitsConstraint constraint;
+    private final DispatchUnitsConstraint constraint;
     /**
      * A variable registering the units that are currently working at the emergency.
      */
@@ -47,15 +48,13 @@ class UnitsNeeded {
     /**
      * Creates a new object that calculates the units needed for an emergency.
      * @param emergency
-     *          The emergency that will be handled by this UnitsNeeded.
+     *		The emergency that will be handled by this UnitsNeeded.
      * @param constraint
-     *          A constraint used to determine when units can be assigned to the emergency.
+     *		A constraint used to determine when units can be assigned to the emergency.
      * @post This emergency is set to the given emergency.
-     *		| new.getEmergency()==emergency
-     * @post This units is set to the given units.
-     *		| new.getUnits()==units.clone()
-     * @post This numbersNeeded is set to the given numbersNeeded.
-     *		| new.getNumbersNeeded()==numbersNeeded.clone()
+     *		| new.getEmergency() == emergency
+     * @post This constraint is set to the given constraint.
+     *		| new.getConstraint() == constraint
      * @effect Initialize the Units.
      *		| initUnits()
      * @throws InvalidEmergencyException
@@ -80,6 +79,8 @@ class UnitsNeeded {
      * Sets the working units of the emergency to zero.
      * @post This workingUnits is equal to zero.
      *		| new.getWorkingUnits().size() == 0
+	 * @post This finishedUnits is equal to zero.
+	 *		| new.getFinishedUnits().size() == 0
      */
     private void initUnits() {
         this.workingUnits = new ArrayList<Unit>(0);
@@ -88,21 +89,18 @@ class UnitsNeeded {
 
     /**
      * Checks if the units needed for the emergency are all finished.
-     * @return True if all units needed for the emergency are finished, otherwise false.
+     * @return True if all units needed for the emergency are finished; otherwise false.
      */
     public boolean canFinish() {
         return getConstraint().areValidDispatchUnits(takeFinishedUnits());
     }
 
-    //TODO: de @pre moet misschien nog weg, maar voorlopg wordt deze methode enkel opgeroepen als de unit zeker en vast gealloceerd mag worden.
     /**
      * Add a given unit to the working units.
-     * @pre
-     *      The given unit is allowed to be assigned
-     *          | canAssignUnitsToEmergenc(new ArrayList(new Unit[] {unit}))
      * @param unit
-     *      The unit that must be added to the working units
+     *      The unit that must be added to the working units.
      * @effect The given unit is added to the working units.
+	 *		| takeWorkingUnits().add(unit)
      */
     private void addWorkingUnits(Unit unit) {
         takeWorkingUnits().add(unit);
@@ -110,12 +108,12 @@ class UnitsNeeded {
 
     /**
      * Add a given unit to the finished units.
-     * @param u
-     *      The unit that must be added to the finished units
+     * @param unit
+     *      The unit that must be added to the finished units.
      * @effect The given unit is added to the finished units.
      */
-    private void addFinishedUnits(Unit u) {
-        takeFinishedUnits().add(u);
+    private void addFinishedUnits(Unit unit) {
+        takeFinishedUnits().add(unit);
     }
 
     /**
@@ -129,12 +127,10 @@ class UnitsNeeded {
     /**
      * Returns a list of units working on the emergency.
      * @return A list of the units working on the emergency.
-     * @note The difference between takeWorkingUnits and
-     *          getWorkingUnits is that getWorkingUnits
-     *          first clones the list, takeWorkingUnits
-     *          is only visible at private level and
-     *          returns the real list.
-     * @see UnitsNeeded.takWorkingUnits
+     * @note The difference between takeWorkingUnits and getWorkingUnits is that
+	 *		getWorkingUnits first clones the list, takeWorkingUnits is only
+	 *		visible at private level and returns the real list.
+     * @see #takeWorkingUnits()
      */
     public ArrayList<Unit> getWorkingUnits() {
         return (ArrayList<Unit>) workingUnits.clone();
@@ -143,12 +139,10 @@ class UnitsNeeded {
     /**
      * Returns the working units of the emergency.
      * @return The working units of the emergency.
-     * @note The difference between takeWorkingUnits and
-     *          getWorkingUnits is that getWorkingUnits
-     *          first clones the list, takeWorkingUnits
-     *          is only visible at private level and
-     *          returns the real list.
-     * @see UnitsNeeded.getWorkingUnits
+     * @note The difference between takeWorkingUnits and getWorkingUnits is that
+	 *		getWorkingUnits first clones the list, takeWorkingUnits is only
+	 *		visible at private level and returns the real list.
+     * @see #getWorkingUnits()
      */
     private ArrayList<Unit> takeWorkingUnits() {
         return workingUnits;
@@ -157,12 +151,10 @@ class UnitsNeeded {
     /**
      * Returns the finished units of this emergency.
      * @return The finished units of this emergency.
-     * @note The difference between takeFinishedUnits and
-     *          getFinishedUnits is that getFinishedUnits
-     *          first clones the list, takeFinishedUnits
-     *          is only visible at private level and
-     *          returns the real list.
-     * @see UnitsNeeded.getFinishedUnits
+     * @note The difference between takeFinishedUnits and getFinishedUnits is
+	 *		that getFinishedUnits first clones the list, takeFinishedUnits is
+	 *		only visible at private level and returns the real list.
+     * @see #getFinishedUnits()
      */
     private ArrayList<Unit> takeFinishedUnits() {
         return finishedUnits;
@@ -171,12 +163,10 @@ class UnitsNeeded {
     /**
      * Returns a list of units who have finished working on this emergency.
      * @return a list of units who have finished working on this emergency.
-     * @note The difference between takeFinishedUnits and
-     *          getFinishedUnits is that getFinishedUnits
-     *          first clones the list, takeFinishedUnits
-     *          is only visible at private level and
-     *          returns the real list.
-     * @see UnitsNeeded.takeFinishedUnits
+     * @note The difference between takeFinishedUnits and getFinishedUnits is
+	 *		that getFinishedUnits first clones the list, takeFinishedUnits is
+	 *		only visible at private level and returns the real list.
+     * @see #takeFinishedUnits()
      */
     public ArrayList<Unit> getFinishedUnits () {
         return (ArrayList<Unit>) this.finishedUnits.clone();
@@ -191,10 +181,11 @@ class UnitsNeeded {
     }
 
     /**
-     * Checks if the given Emergency is valid for this UnitsNeeded class.
+     * Checks if the given Emergency is valid for this UnitsNeeded class, i.e
+	 *		the emergency is not null.
      * @param emergency
      *		The emergency to test.
-     * @return True if the given emergency is valid, otherwise false.
+     * @return True if the given emergency is valid; otherwise false.
      */
     public static boolean isValidEmergency(Emergency emergency) {
         return (emergency != null);
@@ -205,7 +196,7 @@ class UnitsNeeded {
      * @param units
      *		The units to be assigned.
      * @return True if all the given units are effective, unique and
-     *          can be assigned and the constraint for allocation is passed,
+     *          can be assigned and the constraint for allocation is passed;
      *          otherwise false.
      */
     public boolean canAssignUnitsToEmergency(List<Unit> units) {
@@ -221,16 +212,18 @@ class UnitsNeeded {
     }
 
     /**
-     * Assign the given array of units to the emergency.
+     * Assign the given list of units to the emergency.
      * @param units
-     *		The given array of units.
-     * @post All the units in the given array are assigned
-     *		| forall u in units, u.isAssigned()
-     * @post All the units in the given array are handling the emergency of this UnitNeeded
-     *		| forall u in units.getEmergency().equals(this.getEmergency())
+     *		The given list of units.
+     * @post All the units in the given list are assigned
+     *		| forall (u in units)
+	 *		|	u.isAssigned()
+     * @post All the units in the given list are handling the emergency of this UnitNeeded
+     *		| forall (u in units)
+	 *		|	u.getEmergency().equals(this.getEmergency())
      * @throws InvalidEmergencyException
      *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
-     * @see UnitsNeeded.canAssignUnitsToEmergency
+     * @see #canAssignUnitsToEmergency()
      */
     public synchronized void assignUnitsToEmergency(List<Unit> units) throws InvalidEmergencyException {
         if (!canAssignUnitsToEmergency(units)) {
@@ -248,13 +241,17 @@ class UnitsNeeded {
             addWorkingUnits(units.get(i));
         }
     }
-
-    /**
-     * A method called when a unit finishes his job to manage the emergency.
-     */
-    void unitFinishedJob(Unit u) {
-        takeWorkingUnits().remove(u);
-        addFinishedUnits(u);
+	
+	/**
+	 * A method called when a unit finishes his job to manage the emergency.
+	 * @param unit
+	 *		The unit that finishes his job.
+	 * @effect The unit is removed from the workingUnits list.
+	 *		|takeWorkingUnit().remove(unit)
+	 */
+    void unitFinishedJob(Unit unit) {
+		withdrawUnit(unit);
+        addFinishedUnits(unit);
     }
 
     /**
@@ -267,10 +264,12 @@ class UnitsNeeded {
 
     /**
      * Sets the policy of this UnitsNeeded object to the given object.
-     * @param policy The given policy to set.
+     * @param policy
+	 *		The given policy to set.
      * @post The given policy is equal to the policy of this UnitsNeeded
-     *          | new.getPolicy() == policy
-     * @throws InvalidDispatchPolicyException if the policy of the UnitsNeeded is already been set.
+     *		| new.getPolicy() == policy
+     * @throws InvalidDispatchPolicyException
+	 *		If the policy of the UnitsNeeded is already been set.
      */
     void setPolicy(DispatchPolicy policy) throws InvalidDispatchPolicyException {
         if (this.getPolicy() != null) {
@@ -280,9 +279,11 @@ class UnitsNeeded {
     }
 
     /**
-     * Tests if the given DispatchUnitConstraint can be a valid constraint.
-     * @param constraint The constraint to check.
-     * @return True if the given constraint is effective, otherwise false.
+     * Tests if the given DispatchUnitConstraint can be a valid constraint, i.e.
+	 *		the constraint is not null.
+     * @param constraint
+	 *		The constraint to check.
+     * @return True if the given constraint is effective; otherwise false.
      */
     public static boolean isValidConstraint(DispatchUnitsConstraint constraint) {
         return (constraint != null);
@@ -290,17 +291,21 @@ class UnitsNeeded {
 
     /**
      * Handles operations needed when a unit withdraws from it's emergency.
-     * @param unit The unit that want's to withdraw.
+     * @param unit
+	 *		The unit that want's to withdraw.
+	 * @post The unit is removed from the workingUnits list.
+	 *		|takeWorkingUnit().remove(unit)
      */
-    void WithdrawUnit(Unit unit) {
+    void withdrawUnit(Unit unit) {
         takeWorkingUnits().remove(unit);
     }
 
     /**
      * Generates a proposal based on a list of available units to allocate to the emergency.
-     * @param options A list of units that are available for this allocation.
+     * @param options
+	 *		A list of units that are available for this allocation.
      * @return A subset of the given list containing units proposed for allocation.
-     * @note The first items in the list will first be added to the proposal (This is usefor for Policies that sort the list of units before they generate a proposal).
+     * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
      */
     List<Unit> generateProposal(List<Unit> options) {
         List<Unit> fixedPart = this.getWorkingUnits();

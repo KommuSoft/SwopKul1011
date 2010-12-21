@@ -10,15 +10,14 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
  */
 public interface WithdrawBehavior {
 
-    /**
-     * Withdraw this unit from the emergency he is currently assigned to
-     *
-     * @param u
-     *      The unit to be withdrawn
-     * @throws InvalidWithdrawalException
-     *			If the unit is already at site of the emergency
-     * @throws InvalidEmergencyException
-     *			If the unit isn't assigned to an emergency
-     */
-    public void withdraw(Unit u) throws InvalidWithdrawalException, InvalidEmergencyException;
+	/**
+	 * Withdraw the given unit from the emergency he is currently assigned to.
+	 * @param unit
+	 *      The unit to be withdrawn.
+	 * @throws InvalidWithdrawalException
+	 *		If the unit is already at site of the emergency.
+	 * @throws InvalidEmergencyException
+	 *		If the unit isn't assigned to an emergency.
+	 */
+	public void withdraw(Unit unit) throws InvalidWithdrawalException, InvalidEmergencyException;
 }

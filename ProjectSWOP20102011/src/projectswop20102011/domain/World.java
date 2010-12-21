@@ -37,12 +37,12 @@ public class World {
 	}
 
 	/**
-	 * Sets the emergencylist of this world.
+	 * Sets the emergencyList of this world.
 	 *
 	 * @param emergencyList
 	 *		The emergencyList of this World.
 	 * @post The emergencyList of this World is set according to the given emergencyList.
-	 *		|new.getEmergencyList()==emergencyList
+	 *		|new.getEmergencyList() == emergencyList
 	 */
 	private void setEmergencyList(EmergencyList emergencyList) {
 		this.emergencyList = emergencyList;
@@ -61,7 +61,7 @@ public class World {
 	 * @param MapItemList
 	 *		The new MapItemList of this world.
 	 * @post The mapItemList of this World is set according to the given mapItemList.
-	 *		|new.getMapItemList()==mapItemList
+	 *		|new.getMapItemList() == mapItemList
 	 */
 	private void setMapItemList(MapItemList mapItemList) {
 		this.mapItemList = mapItemList;

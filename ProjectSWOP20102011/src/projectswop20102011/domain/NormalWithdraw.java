@@ -14,7 +14,7 @@ public class NormalWithdraw implements WithdrawBehavior {
 	public void withdraw(Unit u) throws InvalidEmergencyException, InvalidWithdrawalException {
 		if (u.isAssigned()) {
 			if (!u.wasAlreadyAtSite()) {
-				u.getEmergency().getUnitsNeeded().WithdrawUnit(u);
+				u.getEmergency().getUnitsNeeded().withdrawUnit(u);
 				u.setEmergency(null);
 			} else {
 				throw new InvalidWithdrawalException("The unit was already at site of the emergency, so it can't be withdrawn.");
