@@ -42,7 +42,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
-		System.out.println(event);
 		CreateEmergencyController cec = null;
 		try {
 			cec = new CreateEmergencyController(getWorld());

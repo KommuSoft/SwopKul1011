@@ -7,6 +7,7 @@ import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 public class NewMain {
+	//TODO wanneer we het project indienen zou het wel eens verstandig kunnen zijn om dit weg te doen.
     public static void main(String[] args) throws ExternalSystemException, InvalidWorldException {
 		World world = new World();
 		EmergencyDispatchApi api = new EmergencyDispatchApi(world);
