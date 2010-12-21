@@ -5,6 +5,10 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 /**
  * A class that represents a mapitem.
+ * @invar This mapItem always has a valid name.
+ *		|isValidName(getName())
+ * @invar This mapItem always has a valid home location.
+ *		|isVlaidHomeLocation(getHomeLocation())
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
@@ -34,7 +38,6 @@ public abstract class MapItem {
 	 *		If the given name is an invalid name for a mapitem.
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a mapitem.
-
 	 */
 	MapItem(String name, GPSCoordinate homeLocation) throws InvalidMapItemNameException, InvalidLocationException {
 		setName(name);
@@ -62,7 +65,6 @@ public abstract class MapItem {
 
 	/**
 	 * Sets the name of this mapitem to the given value.
-	 *
 	 * @param name
 	 *		The new name of this mapitem.
 	 * @throws InvalidMapItemNameException
@@ -80,7 +82,6 @@ public abstract class MapItem {
 
 	/**
 	 * Checks if the given name is a valid name for a mapitem.
-	 *
 	 * @param name
 	 *		The name of a mapitem to test.
 	 * @return True if the name is valid; false otherwise.
@@ -91,7 +92,6 @@ public abstract class MapItem {
 
 	/**
 	 * Checks if the given home location is a valid home location for a mapitem.
-	 *
 	 * @param homeLocation
 	 *		The home location of a mapitem to test.
 	 * @return True if the home location is valid; false otherwise.

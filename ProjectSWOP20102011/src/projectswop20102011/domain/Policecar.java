@@ -21,7 +21,9 @@ public class Policecar extends Unit {
 	 * @param speed
 	 *		The speed of the new policecar.
 	 * @effect The new policecar is a unit with given name, home location, speed.
-	 *         | super(name,homeLocation,speed);
+	 *		| super(name,homeLocation,speed);
+	 * @effect The withdrawBehaviour of this policecar is initialised.
+	 *		|setWithdrawBehavior(new NormalWithdraw())
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a policecar.
 	 * @throws InvalidMapItemNameException

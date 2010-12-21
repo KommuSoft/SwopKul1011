@@ -59,11 +59,9 @@ public class GPSCoordinate {
 
 	/**
 	 * Calculates the distance to a given gpsCoordinate.
-	 *
 	 * @param gpsCoordinate
 	 *		The gpsCoordinate to calculate te distance to.
-	 * @return
-	 *		The distance to the given gpsCoordinate.
+	 * @return The distance to the given gpsCoordinate.
 	 */
 	public double getDistanceTo(GPSCoordinate gpsCoordinate) {
 		double distance;

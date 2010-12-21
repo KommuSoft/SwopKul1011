@@ -10,12 +10,25 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
  */
 public class NormalWithdraw implements WithdrawBehavior {
 
+	/**
+	 * Withdraw a unit.
+	 * @param unit
+	 *		The unit that must be withdrawn.
+	 * @effect The given unit is withdrawn from his emergency.
+	 *		|unit.getEmergency().getUnitsNeeded().withdrawUnit(unit)
+	 * @effect The emergency of the given unit is set to null.
+	 *		|unit.setEmergency(null)
+	 * @throws InvalidEmergencyException
+	 *		If the given units isn't assigned to an emergency.
+	 * @throws InvalidWithdrawalException
+	 *		If the given was already at the site of the emergency.
+	 */
 	@Override
-	public void withdraw(Unit u) throws InvalidEmergencyException, InvalidWithdrawalException {
-		if (u.isAssigned()) {
-			if (!u.wasAlreadyAtSite()) {
-				u.getEmergency().getUnitsNeeded().withdrawUnit(u);
-				u.setEmergency(null);
+	public void withdraw(Unit unit) throws InvalidEmergencyException, InvalidWithdrawalException {
+		if (unit.isAssigned()) {
+			if (!unit.wasAlreadyAtSite()) {
+				unit.getEmergency().getUnitsNeeded().withdrawUnit(unit);
+				unit.setEmergency(null);
 			} else {
 				throw new InvalidWithdrawalException("The unit was already at site of the emergency, so it can't be withdrawn.");
 			}

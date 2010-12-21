@@ -9,8 +9,15 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
  */
 public class NotWithdraw implements WithdrawBehavior {
 
+	/**
+	 * Throw an error when this method is called because the given unit can't be withdrawn.
+	 * @param unit
+	 *		The unit that must be withdrawn.
+	 * @throws InvalidWithdrawalException
+	 *		Always thrown because the given unit can't be withdrawn.
+	 */
     @Override
-    public void withdraw(Unit u) throws InvalidWithdrawalException {
+    public void withdraw(Unit unit) throws InvalidWithdrawalException {
         throw new InvalidWithdrawalException("This unit can't be withdrawn");
     }
 }
