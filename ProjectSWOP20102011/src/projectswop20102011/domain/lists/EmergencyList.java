@@ -1,8 +1,9 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.lists;
 
 import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
 import java.util.Iterator;
 import java.util.HashSet;
+import projectswop20102011.domain.Emergency;
 
 /**
  * A list of emergencies where every emergency is unique.
@@ -39,7 +40,7 @@ public class EmergencyList implements Iterable<Emergency> {
 	 * Adds the given emergency to this list of emergencies if the given emergency
 	 * is not already in this list of emergencies.
 	 * @param e
-	 *		The emergency to be appended to this list of emergencies.
+	 *		Emergency to be appended to this list of emergencies.
 	 * @post This EmergencyList contains the given Emergency.
 	 *		| getEmergencies().contains(e)
 	 */

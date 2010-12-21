@@ -339,4 +339,12 @@ public abstract class Emergency {
         return this.getStatus().getPolicyProposal(this,availableUnits);
     }
 
+    /**
+     * Returns the policy for allocation used by this emergency.
+     * @return The policy for allocation used by this emergency.
+     */
+    public DispatchPolicy getDispatchPolicy () {
+        return this.getUnitsNeeded().getPolicy();
+    }
+
 }

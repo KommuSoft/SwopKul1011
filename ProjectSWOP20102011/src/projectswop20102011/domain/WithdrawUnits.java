@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 

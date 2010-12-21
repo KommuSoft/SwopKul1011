@@ -11,7 +11,7 @@ import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCr
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
-import projectswop20102011.domain.MapItemList;
+import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 

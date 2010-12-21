@@ -1,7 +1,8 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.lists;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import projectswop20102011.domain.TimeSensitive;
 import projectswop20102011.exceptions.InvalidDurationException;
 
 /**
@@ -23,7 +24,7 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	 *		|new.getTimeSensitives().size() == 0
 	 */
 	public TimeSensitiveList() {
-		this.timeSensitives = new HashSet<TimeSensitive>(0);
+		this.timeSensitives = new HashSet<TimeSensitive>();
 	}
 
 	/**
@@ -37,14 +38,14 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	/**
 	 * Adds the given TimeSensitive to this list of time sensitive objects.
 	 * If the given TimeSensitive object is already in the list, nothing happens.
-	 * @param timeSensitive
+	 * @param ub
 	 *		The TimeSensitive to be appended to this list of time sensitive objects.
 	 * @post This TimeSensitiveList contains the given TimeSensitive.
 	 *		|new.getTimeSensitives().contains(ub)
 	 */
-	public void addTimeSensitive(TimeSensitive timeSensitive) {
-		if (!getTimeSensitives().contains(timeSensitive)) {
-			timeSensitives.add(timeSensitive);
+	public void addTimeSensitive(TimeSensitive ub) {
+		if (!getTimeSensitives().contains(ub)) {
+			timeSensitives.add(ub);
 		}
 	}
 

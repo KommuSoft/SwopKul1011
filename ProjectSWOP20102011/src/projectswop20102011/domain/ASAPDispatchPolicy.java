@@ -20,7 +20,7 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
      * @throws InvalidDispatchPolicyException
      *      If the given UnitsNeeded object has already a Policy.
      */
-    public ASAPDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    ASAPDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded);
     }
 

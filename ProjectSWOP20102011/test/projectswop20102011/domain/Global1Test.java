@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.lists.MapItemList;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;

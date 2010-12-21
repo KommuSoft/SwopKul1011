@@ -20,7 +20,7 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
      * @throws InvalidDispatchPolicyException
      *      If the given UnitsNeeded object has already a Policy.
      */
-    public DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded);
     }
 

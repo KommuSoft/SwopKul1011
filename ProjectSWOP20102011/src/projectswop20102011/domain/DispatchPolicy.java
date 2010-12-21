@@ -9,19 +9,39 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
  * A class representing a policy used by the dispatch center (for example: defaut policy, ASAP policy,...)
+ * @invar The UnitsNeeded object of this policy is always valid.
+ *              |isValidUnitsNeeded(getUnitsNeeded())
+ * @note Policies are basically sorters who define which units are the most intresting. Based on their criteria they filter the most intresting allocatable units out of a list of units.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class DispatchPolicy implements Comparator<Unit> {
 
     /**
-     * The unitsneeded object of the emergency where this policy will be applied on.
+     * An object that points to the UnitsNeeded object of the emergency this policy will handle.
      */
     private final UnitsNeeded unitsNeeded;
+    /**
+     * 
+     */
+    private DispatchPolicy successor;
 
     /**
-     * Creates a new instance of a DispatchPolicy class with a given UnitsNeeded object of the emergency it will handle.
+     * Creates a new DispatchPolicy with a given unitsNeeded it will handle but without any successor.
+     * @param unitsNeeded A unitsNeeded object of the emergency this policy will handle.
+     * @effect this(unitsNeeded,null)
+     * @throws InvalidUnitsNeededException If the given UnitsNeeded is not effective.
+     * @throws InvalidDispatchPolicyException If the given UnitsNeeded has already a policy object.
+     */
+    protected DispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+        this(unitsNeeded, null);
+    }
+
+    /**
+     * Creates a new instance of a DispatchPolicy class with a given UnitsNeeded object of the emergency it will handle and a successor to determine an order if this emergency doesn't find any.
      * @param unitsNeeded 
      *      The unitsNeeded object of the emergency this policy will handle.
+     * @param successor
+     *      The successor of this DispatchPolicy.
      * @effect The policy of the unitsNeed object is set to this policy.
      *      | unitsNeeded.setPolicy(this);
      * @post The unitsNeeded object is set to the given unitsNeeded object.
@@ -30,7 +50,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @throws InvalidDispatchPolicyException
      *      If the given UnitsNeeded has already a policy object.
      */
-    protected DispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    protected DispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         if (!isValidUnitsNeeded(unitsNeeded)) {
             throw new InvalidUnitsNeededException("UnitsNeeded must be effective.");
         }
@@ -55,7 +75,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      */
     public ArrayList<Unit> filterAvailableUnits(List<? extends Unit> availableUnits) {
         ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
-        Collections.sort(clonedList,this);
+        Collections.sort(clonedList, this);
         return this.getUnitsNeeded().generateProposal(clonedList);
     }
 
@@ -67,5 +87,17 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      */
     public static boolean isValidUnitsNeeded(UnitsNeeded unitsNeeded) {
         return (unitsNeeded != null);
+    }
+
+    /**
+     * Compares two units to find the most intresting one (according to the policy).
+     * @param unit1 The first unit to compare
+     * @param unit2 The second unit to compare
+     * @return A negative integer, zero, or a positive integer as the first unit is more, equal or less intresting than the unit according to this Policy.
+     * @note If two objects are assumed to be equivalent, the comparison passes to the successor until one succesor finds a difference, or no successors are available anyomore.
+     */
+    @Override
+    public final int compare(Unit o1, Unit o2) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

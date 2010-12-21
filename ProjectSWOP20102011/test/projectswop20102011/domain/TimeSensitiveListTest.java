@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import projectswop20102011.domain.lists.TimeSensitiveList;
 import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;

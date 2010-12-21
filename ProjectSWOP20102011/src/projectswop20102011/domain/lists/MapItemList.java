@@ -1,4 +1,4 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.lists;
 
 import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
 import java.util.ArrayList;
@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import projectswop20102011.domain.MapItem;
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 
 /**
  * A list of mapitems where every mapitem is unique.
@@ -21,14 +24,13 @@ public class MapItemList implements Iterable<MapItem> {
     private final HashSet<MapItem> mapItems;
 
     /**
-     * Creates a new instance of an MapItemList. At this moment this list
+     * Creating a new instance of an MapItemList. At this moment this list
      * doesn't contain any object.
      *
-     * @post The new MapItemList is a list with no elements in it.
-	 *		|getMapItems().size() == 0
+     * @effect The new MapItemList is a list with no elements in it.
      */
     public MapItemList() {
-        this.mapItems = new HashSet<MapItem>(0);
+        this.mapItems = new HashSet<MapItem>();
     }
 
     /**
@@ -78,7 +80,6 @@ public class MapItemList implements Iterable<MapItem> {
      * @param ub
      *		The MapItem to be appended to this list of mapitems.
      * @post This MapItemList contains the given MapItem.
-	 *		|mapItems.add(mi)
      */
     public void addMapItem(MapItem mi) {
         if (!this.mapItems.contains(mi)) {
@@ -117,11 +118,6 @@ public class MapItemList implements Iterable<MapItem> {
         Collections.sort(result, comparator);
         return result;
     }
-
-	/**
-	 * Converts this MapItemList to an array.
-	 * @return An array representation of this MapItemList.
-	 */
     public MapItem[] toArray () {
         return this.mapItems.toArray(new MapItem[0]);
     }
