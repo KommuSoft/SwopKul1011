@@ -29,7 +29,7 @@ public class Location implements ILocation {
 	 * Returns the GPSCoordinate of this location.
 	 * @return The GPSCoordinate of this location.
 	 */
-	private GPSCoordinate getGpsCoordinate() {
+	public GPSCoordinate getGpsCoordinate() {
 		return gpsCoordinate;
 	}
 
