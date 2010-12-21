@@ -9,6 +9,7 @@ import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * A class that records which units are working on an emergency and does
@@ -18,8 +19,9 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
  *		| isValidEmergency(getEmergency())
  * @invar The unit type list and number of units list are valid.
  *		| areValidTypesAndNumbersOfUnits(getUnits(),getNumbersNeeded())
+ * @note This class has a package visibility and is a pure fabrication object.
  */
-public class UnitsNeeded {
+class UnitsNeeded {
 
     /**
      * A policy for allocating units to this UnitsNeeded.
@@ -304,5 +306,14 @@ public class UnitsNeeded {
         List<Unit> fixedPart = this.getWorkingUnits();
         fixedPart.addAll(this.takeWorkingUnits());
         return this.getConstraint().generateProposal(fixedPart, options);
+    }
+
+    /**
+     * Generates a proposal for unit allocation based on the policy of the emergency.
+     * @return A list of units proposed by the policy of this Emergency.
+     */
+    public ArrayList<Unit> getPolicyProposal () {
+        //TODO: implement
+        throw new NotImplementedException();
     }
 }
