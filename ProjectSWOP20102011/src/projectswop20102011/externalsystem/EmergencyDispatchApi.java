@@ -3,6 +3,8 @@ package projectswop20102011.externalsystem;
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.IEvent;
+import be.kuleuven.cs.swop.external.ExternalSystem;
+import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +29,9 @@ import projectswop20102011.factories.TrafficAccidentFactory;
 public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	private World world;
+	private IExternalSystem externalSystem;
 
-	public EmergencyDispatchApi(World world) {
+	public EmergencyDispatchApi(World world){
 		setWorld(world);
 	}
 
@@ -114,22 +117,26 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 
 
-		if (event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 <= getWorld().getTime()) {
+////		if (event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 <= getWorld().getTime()) {
 			//TODO deze methode heb ik ff public gezet
 			cec.addCreatedEmergencyToTheWorld(emergency);
-		} else {
-			TimeAheadController tac = null;
-			try {
-				tac = new TimeAheadController(world);
-			} catch (InvalidWorldException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			try {
-				tac.doTimeAheadAction((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) - getWorld().getTime());
-			} catch (InvalidDurationException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			cec.addCreatedEmergencyToTheWorld(emergency);
-		}
+//		} else {
+//			TimeAheadController tac = null;
+//			try {
+//				tac = new TimeAheadController(world, externalSystem);
+//			} catch (InvalidWorldException ex) {
+//				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+//			}
+//			try {
+//				tac.doTimeAheadAction((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) - getWorld().getTime());
+//			} catch (InvalidDurationException ex) {
+//				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+//			}
+//			cec.addCreatedEmergencyToTheWorld(emergency);
+//		}
+	}
+
+	public void setExternalSystem(IExternalSystem externalSystem) {
+		this.externalSystem = externalSystem;
 	}
 }
