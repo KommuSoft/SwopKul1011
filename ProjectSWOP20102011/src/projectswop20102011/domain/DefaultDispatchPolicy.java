@@ -23,6 +23,18 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
     }
 
     /**
+     * Create a new instance of an DefaultDispatchPolicy with a given UnitsNeeded object of the emergency it will handle and a successor policy.
+     * @param unitsNeeded The given unitsNeeded object of the emergency.
+     * @param successor The given successor policy
+     * @effect super(unitsNeeded,successor)
+     * @throws InvalidUnitsNeededException If the given UnitsNeeded object is not effective.
+     * @throws InvalidDispatchPolicyException If the given successor in not a valid successor.
+     */
+    DefaultDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+        super(unitsNeeded, successor);
+    }
+
+    /**
      * Compares two different units by the distance to the location of the emergency.
      * @param unit1
      *      The first unit to compare.

@@ -259,7 +259,7 @@ public class Fire extends Emergency {
             DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured() + this.getTrappedPeople());
             DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
             UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
-            un.pushPolicy(new ASAPDispatchPolicy(un)); //TODO: additional arguments to the ASAPDispatchPolicy
+            un.pushPolicy(new FireSizeDispatchPolicy(un,new ASAPDispatchPolicy(un)));
             return un;
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen

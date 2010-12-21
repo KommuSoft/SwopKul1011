@@ -23,6 +23,18 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
     }
 
     /**
+     * Create a new instance of an ASAPDispatchPolicy with a given UnitsNeeded object of the emergency it will handle and a successor policy.
+     * @param unitsNeeded The given unitsNeeded object of the emergency.
+     * @param successor The given successor policy
+     * @effect super(unitsNeeded,successor)
+     * @throws InvalidUnitsNeededException If the given UnitsNeeded object is not effective.
+     * @throws InvalidDispatchPolicyException If the given successor in not a valid successor.
+     */
+    ASAPDispatchPolicy (UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+        super(unitsNeeded,successor);
+    }
+
+    /**
      * Compares two different units by there expected time of arrival (ETA).
      * @param unit1
      *      The first unit to compare.
