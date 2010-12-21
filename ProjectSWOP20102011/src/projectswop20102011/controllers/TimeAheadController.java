@@ -58,7 +58,7 @@ public class TimeAheadController extends Controller {
 			} catch (ExternalSystemException ex) {
 				Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (IllegalArgumentException ex) {
-				Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
+				//Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 		getWorld().setTime(getWorld().getTime() + seconds);
