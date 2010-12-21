@@ -31,11 +31,11 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
      * @param unit2
      *      The second unit to compare.
      * @return a negative integer, zero, or a positive integer if the first unit is more,
-     *          equal or less interesting than the unit according to this Policy. This means
-     *          that the unit with the lowest distance to the emergency will be more interesting.
+     *          equal or less intresting than the unit according to this Policy. This means
+     *          that the unit with the lowest distance to the emergency will be more intresting.
      */
     @Override
-    public int compare(Unit unit1, Unit unit2) {
+    public int internalCompare(Unit unit1, Unit unit2) {
         GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation();
         return ((Double) unit1.getDistanceTo(emergencyLocation)).compareTo(unit2.getDistanceTo(emergencyLocation));
     }
