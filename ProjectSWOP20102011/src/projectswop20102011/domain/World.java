@@ -69,7 +69,7 @@ public class World {
 
 	/**
 	 * Sets the MapItemList of this world.
-	 * @param MapItemList
+	 * @param mapItemList
 	 *		The new MapItemList of this world.
 	 * @post The mapItemList of this World is set according to the given mapItemList.
 	 *		|new.getMapItemList() == mapItemList

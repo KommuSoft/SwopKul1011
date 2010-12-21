@@ -52,7 +52,8 @@ public class TextScanner {
 
     /**
      * Set the remaining text of the TextScanner to the given remaining text.
-     * @param The given remaining text.
+     * @param remainingText
+	 *		The given remaining text.
      */
     private void setRemainingText(String remainingText) {
         this.remainingText = remainingText;

@@ -71,7 +71,7 @@ public class Ambulance extends Unit {
 
     /**
      * Sets the current hospital chosen by this ambulance.
-     * @param hospital
+     * @param currentHospital
      *		The hospital chosen by this ambulance.
      */
     private void setCurrentHospital(Hospital currentHospital) {

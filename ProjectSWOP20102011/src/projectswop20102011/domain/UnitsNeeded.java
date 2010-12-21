@@ -9,7 +9,6 @@ import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * A class that records which units are working on an emergency and does
@@ -223,7 +222,7 @@ class UnitsNeeded {
 	 *		|	u.getEmergency().equals(this.getEmergency())
      * @throws InvalidEmergencyException
      *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
-     * @see #canAssignUnitsToEmergency()
+     * @see #canAssignUnitsToEmergency(List)
      */
     public synchronized void assignUnitsToEmergency(List<Unit> units) throws InvalidEmergencyException {
         if (!canAssignUnitsToEmergency(units)) {

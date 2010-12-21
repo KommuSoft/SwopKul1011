@@ -77,7 +77,7 @@ public class MapItemList implements Iterable<MapItem> {
     /**
      * Adds the given MapItem to this list if the given MapItem
      * is not already in this list of mapitems.
-     * @param ub
+     * @param mi
      *		The MapItem to be appended to this list of mapitems.
      * @post This MapItemList contains the given MapItem.
      */

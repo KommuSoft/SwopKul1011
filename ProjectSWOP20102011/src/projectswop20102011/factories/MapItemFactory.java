@@ -17,7 +17,7 @@ public abstract class MapItemFactory {
 
     /**
      * Creates a new MapItemFactory with a given emergency type name.
-     * @param MapItemTypeName
+     * @param mapItemTypeName
      *		The name of the type of MapItem the factory will create.
      * @throws InvalidMapItemTypeNameException
      *		If the name of the emergency type is invalid.
