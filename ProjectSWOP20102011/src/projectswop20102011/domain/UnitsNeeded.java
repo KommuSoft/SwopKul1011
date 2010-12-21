@@ -312,7 +312,7 @@ class UnitsNeeded {
      * Generates a proposal for unit allocation based on the policy of the emergency.
      * @return A list of units proposed by the policy of this Emergency.
      */
-    public ArrayList<Unit> getPolicyProposal () {
+    public ArrayList<Unit> getPolicyProposal (List<? extends Unit> availableUnits) {
         //TODO: implement
         throw new NotImplementedException();
     }
