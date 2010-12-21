@@ -44,14 +44,14 @@ public class Robbery extends Emergency {
      *		An indicator that indicates if this robbery is still in progress.
      * @effect The new Robbery is a new emergency with the given location and severity.
      *		| super(location,severity)
+	 * @effect The is armed parameter of the robery is equal to the given parameter.
+     *		| setArmed(armed)
+     * @effect the in progress parameter of this robbery is equal to the given parameter.
+     *		| setInProgress(inProgress)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException
      *		If the given severity is an invalid severity for an emergency.
-     * @post The is armed parameter of the robery is equal to the given parameter.
-     *		| armed.equals(isArmed())
-     * @post the in progress parameter of this robbery is equal to the given parameter.
-     *		| inProgress.equals(isInProgress())
      */
     public Robbery(GPSCoordinate location, EmergencySeverity severity, String description,
             boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
@@ -120,11 +120,11 @@ public class Robbery extends Emergency {
      * @return The units needed for this robbery.
      */
     @Override
-    protected UnitsNeeded calculateUnitsNeeded() {
+    protected UnitsNeeded calculateUnitsNeeded() { //TODO zie TrafficAccident
         int nPolice = ((isArmed() && isInProgress()) ? 3 : 1);
         try {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice));
-            new ASAPDispatchPolicy(un);
+            new ASAPDispatchPolicy(un); //TODO zie TrafficAccident
             return un;
 
         } catch (InvalidEmergencyException ex) {

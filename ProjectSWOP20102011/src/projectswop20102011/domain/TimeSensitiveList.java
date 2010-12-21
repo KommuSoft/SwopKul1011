@@ -23,7 +23,7 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	 *		|new.getTimeSensitives().size() == 0
 	 */
 	public TimeSensitiveList() {
-		this.timeSensitives = new HashSet<TimeSensitive>();
+		this.timeSensitives = new HashSet<TimeSensitive>(0);
 	}
 
 	/**
@@ -37,14 +37,14 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	/**
 	 * Adds the given TimeSensitive to this list of time sensitive objects.
 	 * If the given TimeSensitive object is already in the list, nothing happens.
-	 * @param ub
+	 * @param timeSensitive
 	 *		The TimeSensitive to be appended to this list of time sensitive objects.
 	 * @post This TimeSensitiveList contains the given TimeSensitive.
 	 *		|new.getTimeSensitives().contains(ub)
 	 */
-	public void addTimeSensitive(TimeSensitive ub) {
-		if (!getTimeSensitives().contains(ub)) {
-			timeSensitives.add(ub);
+	public void addTimeSensitive(TimeSensitive timeSensitive) {
+		if (!getTimeSensitives().contains(timeSensitive)) {
+			timeSensitives.add(timeSensitive);
 		}
 	}
 

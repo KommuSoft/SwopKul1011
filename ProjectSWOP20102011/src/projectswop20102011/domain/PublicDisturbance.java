@@ -41,14 +41,14 @@ public class PublicDisturbance extends Emergency {
      *		The number of people that are involved in this public disturbance.
      * @effect The new public disturbance is an emergency with the given location and severity.
      *		| super(location,severity)
+	 * @effect the number of involved people of this public disturbance is equal to the given number of people.
+     *		| setNumberOfPeople(numberOfPeople)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an emergency.
      * @throws InvalidEmergencySeverityException
      *		If the given severity is an invalid severity for an emergency.
      * @throws NumberOutOfBoundsException
      *		If the given number of people involved is invalid.
-     * @post the number of involved people of this public disturbance is equal to the given number of people.
-     *		| getNumberOfPeople().equal(numberOfPeople)
      */
     public PublicDisturbance(GPSCoordinate location, EmergencySeverity severity, String description,
             long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
@@ -110,10 +110,10 @@ public class PublicDisturbance extends Emergency {
      * @return The units needed for this public disturbance.
      */
     @Override
-    protected UnitsNeeded calculateUnitsNeeded() {
+    protected UnitsNeeded calculateUnitsNeeded() { //TODO zie TrafficAccident
         try {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
-            new DefaultDispatchPolicy(un);
+            new DefaultDispatchPolicy(un); //TODO zie TrafficAccident
             return un;
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
