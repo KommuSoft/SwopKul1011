@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
@@ -335,7 +336,7 @@ public abstract class Emergency {
      *      A list of units that are available for the proposal.
      * @return A list of units proposed by the policy of this constraint.
      */
-    public ArrayList<Unit> getPolicyProposal (List<? extends Unit> availableUnits) {
+    public Collection<Unit> getPolicyProposal (List<? extends Unit> availableUnits) {
         return this.getStatus().getPolicyProposal(this,availableUnits);
     }
 

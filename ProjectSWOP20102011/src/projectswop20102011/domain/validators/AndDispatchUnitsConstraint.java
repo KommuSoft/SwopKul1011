@@ -1,6 +1,7 @@
 package projectswop20102011.domain.validators;
 
 import java.util.List;
+import java.util.Set;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 
@@ -52,14 +53,15 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
      * @param units An iterable object containing only unique and only effective units.
+     * @param relevant A set of units where units who are relevant to this constraint will be added to.
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return If all the constraints below this constraint pass, otherwise false.
      */
     @Override
-    public boolean areValidDispatchUnits(List<Unit> units, boolean[] used) {
+    public boolean areValidDispatchUnits(List<Unit> units, Set<Unit> relevant) {
         boolean result = true;
         for (DispatchUnitsConstraint duc : getConstraints()) {
-            result &= duc.areValidDispatchUnits(units,used);
+            result &= duc.areValidDispatchUnits(units,relevant);
         }
         return result;
     }

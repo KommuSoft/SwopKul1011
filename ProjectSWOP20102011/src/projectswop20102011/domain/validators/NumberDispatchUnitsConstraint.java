@@ -1,6 +1,7 @@
 package projectswop20102011.domain.validators;
 
 import java.util.List;
+import java.util.Set;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -81,24 +82,31 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Tests if at least a specified number of units are validated by the specified validator.
      * @param units An iterable object containing only unique and only effective units.
+     * @param relevant A set where all the units in units that are relevant for this constraint.
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
      */
     @Override
-    public boolean areValidDispatchUnits (List<Unit> units, boolean[] used) {
-        long n = 0;
+    public boolean areValidDispatchUnits (List<Unit> units, Set<Unit> relevant) {
         long needed = this.getNumber();
+        if(needed <= 0) {
+            return true;
+        }
+        
+        long n = 0;
         UnitValidator uv = this.getValidator();
-        for(int i = 0; i < units.size(); i++) {
-            if(uv.isValid(units.get(i))) {
-                used[i] = true;
-                n++;
-                if(n >= needed) {
+
+        for(Unit u : units) {
+            if(uv.isValid(u)) {
+                relevant.add(u);
+                if(++n >= needed) {
                     return true;
                 }
             }
         }
-        return n >= needed;
+
+        return false;
+        
     }
 
     /**

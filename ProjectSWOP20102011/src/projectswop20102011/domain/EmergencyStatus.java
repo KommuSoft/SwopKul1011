@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,7 +93,7 @@ public enum EmergencyStatus {
          * @return A list of units proposed by the policy of this constraint.
          */
         @Override
-        ArrayList<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits) {
+        Collection<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits) {
             return emergency.getUnitsNeeded().getPolicyProposal(availableUnits);
         }
     },
@@ -177,7 +178,7 @@ public enum EmergencyStatus {
          * @return A list of units proposed by the policy of this constraint.
          */
         @Override
-        ArrayList<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits) {
+        Collection<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits) {
             return emergency.getUnitsNeeded().getPolicyProposal(availableUnits);
         }
     },
@@ -252,7 +253,7 @@ public enum EmergencyStatus {
          * @return An empty list of units.
          */
         @Override
-        ArrayList<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits) {
+        Collection<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits) {
             return new ArrayList<Unit>();//a proposal containing no units
         }
     };
@@ -377,5 +378,5 @@ public enum EmergencyStatus {
      *      A list of available units that can be selected.
      * @return A list of units that represents the proposal of the policy.
      */
-    abstract ArrayList<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits);
+    abstract Collection<Unit> getPolicyProposal(Emergency emergency, List<? extends Unit> availableUnits);
 }

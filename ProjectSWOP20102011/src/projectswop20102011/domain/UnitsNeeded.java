@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import java.util.logging.Level;
@@ -306,7 +307,7 @@ class UnitsNeeded {
      * @return A subset of the given list containing units proposed for allocation.
      * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
      */
-    ArrayList<Unit> generateProposal(List<Unit> options) {
+    Collection<Unit> generateProposal(List<Unit> options) {
         List<Unit> fixedPart = this.getWorkingUnits();
         fixedPart.addAll(this.takeWorkingUnits());
         return this.getConstraint().generateProposal(fixedPart, options);
@@ -316,7 +317,7 @@ class UnitsNeeded {
      * Generates a proposal for unit allocation based on the policy of the emergency.
      * @return A list of units proposed by the policy of this Emergency.
      */
-    public ArrayList<Unit> getPolicyProposal (List<? extends Unit> availableUnits) {
-        return this.getPolicy().filterAvailableUnits(availableUnits);
+    public Collection<Unit> getPolicyProposal (List<? extends Unit> availableUnits) {
+        return this.getPolicy().generateProposal(availableUnits);
     }
 }
