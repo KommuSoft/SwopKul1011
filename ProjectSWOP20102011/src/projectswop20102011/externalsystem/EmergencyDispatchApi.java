@@ -7,11 +7,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
+import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.World;
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
@@ -44,7 +46,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		Emergency emergency;
+		Emergency emergency = null;
 		EmergencyFactory factory = null;
 		Map<String, String> properties;
 		properties = event.getEventProperties();
@@ -80,9 +82,24 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 
 
+		if (event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 <= getWorld().getTime()) {
+			//TODO deze methode heb ik ff public gezet
+			cec.addCreatedEmergencyToTheWorld(emergency);
+		} else {
+			TimeAheadController tac = null;
+			try {
+				tac = new TimeAheadController(world);
+			} catch (InvalidWorldException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			try {
+				tac.doTimeAheadAction((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) - getWorld().getTime());
+			} catch (InvalidDurationException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			cec.addCreatedEmergencyToTheWorld(emergency);
+		}
 
 
-		//TODO deze methode heb ik ff public gezet
-		//cec.addCreatedEmergencyToTheWorld(emergency);
 	}
 }

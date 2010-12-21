@@ -65,7 +65,7 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	 * @throws InvalidDurationException
 	 *		If the given duration is invalid. I.e. the duration is negative.
 	 */
-	public void timeAhead(int seconds) throws InvalidDurationException {
+	public void timeAhead(long seconds) throws InvalidDurationException {
 		for (TimeSensitive ts : this) {
 			ts.timeAhead(seconds);
 		}

@@ -23,6 +23,10 @@ public class World {
 	 * A variable that registers the timeSensitiveList of this world.
 	 */
 	private TimeSensitiveList timeSensitiveList;
+	/**
+	 * A variable registering the time of the world.
+	 */
+	private long time;
 
 	/**
 	 * Creates a new world.
@@ -33,11 +37,14 @@ public class World {
 	 *			|setmapItemList(new MapItemList())
 	 * @effect Initializes the timeSensitiveList.
 	 *			|setTimeSensitiveList(new TimeSensitiveList())
+	 * @effect Initializes the time.
+	 *			|setTime(0)
 	 */
 	public World() {
 		setEmergencyList(new EmergencyList());
 		setMapItemList(new MapItemList());
 		setTimeSensitiveList(new TimeSensitiveList());
+		setTime(0);
 	}
 
 	/**
@@ -96,5 +103,22 @@ public class World {
 	 */
 	public TimeSensitiveList getTimeSensitiveList() {
 		return this.timeSensitiveList;
+	}
+
+	/**
+	 * Returns the time of the world.
+	 * @return The time of the world.
+	 */
+	public long getTime() {
+		return time;
+	}
+
+	/**
+	 * Sets the time of the world to the given value.
+	 * @param time
+	 *		The new time of the world.
+	 */
+	public final void setTime(long time) {
+		this.time = time;
 	}
 }
