@@ -90,10 +90,12 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
     }
 
     /**
-     * Compares two units to find the most intresting one (according to the policy).
-     * @param unit1 The first unit to compare
-     * @param unit2 The second unit to compare
-     * @return A negative integer, zero, or a positive integer as the first unit is more, equal or less intresting than the unit according to this Policy.
+     * Compares two units to find the most interesting one (according to the policy).
+     * @param unit1
+     *      The first unit to compare
+     * @param unit2
+     *      The second unit to compare
+     * @return A negative integer, zero, or a positive integer as the first unit is more, equal or less interesting than the unit according to this Policy.
      * @note If two objects are assumed to be equivalent, the comparison passes to the successor until one succesor finds a difference, or no successors are available anyomore.
      */
     @Override
