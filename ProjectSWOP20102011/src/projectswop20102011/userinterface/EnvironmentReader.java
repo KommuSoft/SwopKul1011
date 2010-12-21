@@ -6,7 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.domain.FireSize;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.userinterface.parsers.FireSizeParser;
 import projectswop20102011.userinterface.parsers.GPSCoordinateParser;
 import projectswop20102011.userinterface.parsers.LongParser;
 
@@ -38,6 +40,7 @@ public class EnvironmentReader {
         Scanner scanner = new Scanner(inputStream);
         GPSCoordinateParser gpsCoordinateParser = new GPSCoordinateParser();
         LongParser longParser = new LongParser();
+		FireSizeParser fireSizeParser = new FireSizeParser();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Matcher M = REGEX_BUILDING.matcher(line);
@@ -58,6 +61,7 @@ public class EnvironmentReader {
                     if (type.equals("Policecar")) {
                         this.controller.addPolicecar(name, location, speed);
                     } else if(type.equals("Firetruck")) {
+						FireSize fireSize = fireSizeParser.parseInput(M.group(5));
                         this.controller.addFiretruck(name, location, speed,fireSize);
                     } else if(type.equals("Ambulance")) {
                         this.controller.addAmbulance(name, location, speed);

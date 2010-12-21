@@ -19,6 +19,7 @@ public class Firetruck extends Unit {
      */
     private FireSize maxSize;
 
+	//TODO: Deze constructor wordt (voorlopig) enkel gebruikt in de testklassen, mag deze weg?
     /**
      * Initialize a new firetruck with given parameters.
      *
