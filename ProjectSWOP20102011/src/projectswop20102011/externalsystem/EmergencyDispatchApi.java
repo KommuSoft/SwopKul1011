@@ -100,7 +100,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			} catch (Exception ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
-		} else if (event.getType().equals("TrafficAccident")) {try {
+		} else if (event.getType().equals("TrafficAccident")) {
+            try {
 				factory = new TrafficAccidentFactory();
 			} catch (InvalidEmergencyTypeNameException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
