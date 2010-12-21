@@ -10,22 +10,29 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 public class ASAPDispatchPolicy extends DispatchPolicy {
 
     /**
-     * Creates a new insatance with a given UnitsNeeded object of the emergency that will be handled.
-     * @param unitsNeeded The unitsNeeded object of the emergency this
-     * @throws InvalidUnitsNeededException If the given UnitsNeeded object is not effective.
-     * @throws InvalidDispatchPolicyException If the given UnitsNeeded object has already a Policy.
+     * Creates a new instance with a given UnitsNeeded object of the emergency that will be handled.
+     * @param unitsNeeded
+     *      The unitsNeeded object of the emergency.
+     * @effect The new ASAPDispatchPolicy is a DispatchPolicy with the UnitsNeeded object.
+     *		| super(unitsNeeded)
+     * @throws InvalidUnitsNeededException
+     *      If the given UnitsNeeded object is not effective.
+     * @throws InvalidDispatchPolicyException
+     *      If the given UnitsNeeded object has already a Policy.
      */
     public ASAPDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded);
     }
 
     /**
-     * Compares two different units by there expected time of arrival (ETA)
-     * @param unit1 The first unit to compare.
-     * @param unit2 The second unit to compare.
-     * @return a negative integer, zero, or a positive integer as the first unit is more,
-     *          equal or less intresting than the unit according to this Policy. This means
-     *          that the unit with the lowest Expected Time of Arrival will be more intresting.
+     * Compares two different units by there expected time of arrival (ETA).
+     * @param unit1
+     *      The first unit to compare.
+     * @param unit2
+     *      The second unit to compare.
+     * @return a negative integer, zero, or a positive integer if the first unit is more,
+     *          equal or less interesting than the unit according to this Policy. This means
+     *          that the unit with the lowest Expected Time of Arrival will be more interesting.
      */
     @Override
     public int compare(Unit unit1, Unit unit2) {

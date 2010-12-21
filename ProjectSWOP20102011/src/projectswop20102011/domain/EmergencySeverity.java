@@ -13,6 +13,7 @@ public enum EmergencySeverity {
 	NORMAL("normal"),
 	SERIOUS("serious"),
 	URGENT("urgent");
+    
 	/**
 	 * The textual representation of the emergency severity.
 	 */

@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
- * A class representing a default policy used by the dispatch center (for example: defaut policy, ASAP policy,...)
+ * A class representing a policy used by the dispatch center (for example: defaut policy, ASAP policy,...)
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class DispatchPolicy implements Comparator<Unit> {
@@ -20,9 +20,15 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 
     /**
      * Creates a new instance of a DispatchPolicy class with a given UnitsNeeded object of the emergency it will handle.
-     * @param unitsNeeded The unitsNeeded object of the emergency this policy will handle.
-     * @throws InvalidUnitsNeededException If the given UnitsNeeded is not effective.
-     * @throws InvalidDispatchPolicyException If the given UnitsNeeded has already a policy object.
+     * @param unitsNeeded 
+     *      The unitsNeeded object of the emergency this policy will handle.
+     * @effect The policy of the unitsNeed object is set to this policy.
+     *      | unitsNeeded.setPolicy(this);
+     * @post The unitsNeeded object is set to the given unitsNeeded object.
+     * @throws InvalidUnitsNeededException
+     *      If the given UnitsNeeded is not effective.
+     * @throws InvalidDispatchPolicyException
+     *      If the given UnitsNeeded has already a policy object.
      */
     protected DispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         if (!isValidUnitsNeeded(unitsNeeded)) {
@@ -41,10 +47,11 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
     }
 
     /**
-     * Fiters the selected units (by the policy) out of a number of available units
-     * @param availableUnits A list of units that are available to handle an emergency (not necessarily this emergency in particular).
-     * @return A list of units that would be allocated to the emergency if the policy would be applied.
+     * Filters the selected units (by the policy) out of a number of available units.
      * @pre The list of available units is effective and contains unique (no duplicates) units that are available for an emergency.
+     * @param availableUnits
+     *      A list of units that are available to handle an emergency (not necessarily this emergency in particular).
+     * @return A list of units that would be allocated to the emergency if the policy would be applied.
      */
     public List<Unit> filterAvailableUnits(List<Unit> availableUnits) {
         ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
@@ -54,7 +61,8 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 
     /**
      * Tests if the given UnitsNeeded object is a valid UnitsNeeded parameter.
-     * @param unitsNeeded The UnitsNeeded object to test.
+     * @param unitsNeeded
+     *      The UnitsNeeded object to test.
      * @return True if the UnitsNeeded object is effective, otherwise false.
      */
     public static boolean isValidUnitsNeeded(UnitsNeeded unitsNeeded) {

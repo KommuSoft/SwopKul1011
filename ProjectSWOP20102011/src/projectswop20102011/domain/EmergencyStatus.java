@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * An enumeration that represents the status of an emergency.
@@ -19,6 +18,9 @@ public enum EmergencyStatus {
      */
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
+        /**
+         *
+         */
         @Override
         void assignUnits(Emergency emergency, List<Unit> units) throws InvalidEmergencyException {
             emergency.getUnitsNeeded().assignUnitsToEmergency(units);
@@ -30,6 +32,9 @@ public enum EmergencyStatus {
             }
         }
 
+        /**
+         *
+         */
         @Override
         void finishUnit(Emergency emergency, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
@@ -75,7 +80,7 @@ public enum EmergencyStatus {
 
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) {
-            emergency.getUnitsNeeded().WithdrawUnit(unit);
+            emergency.getUnitsNeeded().withdrawUnit(unit);
         }
 
         @Override

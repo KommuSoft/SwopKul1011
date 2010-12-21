@@ -15,7 +15,7 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 public class Ambulance extends Unit {
 
     /**
-     * The selected hospital of the ambulance.
+     * A variable registering the selected hospital of the ambulance.
      */
     private Hospital currentHospital;
 
@@ -30,8 +30,10 @@ public class Ambulance extends Unit {
      *		The speed of the new ambulance.
      * @effect The new ambulance is a unit with given name, home location, speed.
      *		|super(name,homeLocation,speed);
-     * @effect The new ambulance has as current hospital the value null.
+     * @effect The new ambulance has no current hospital. Its value is null.
      *		|getCurrentHospital.equals(null)
+     * @effect The withdrawBehavior of this new ambulance is set to the given normalwithdraw behavior.
+     *      |setWithdrawBehavior(new NormalWithdraw())
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an ambulance.
      * @throws InvalidMapItemNameException
@@ -55,7 +57,8 @@ public class Ambulance extends Unit {
 
     /**
      * Returns the destination of this Ambulance.
-     * @return The location of the assigned hospital if the ambulance has a hospital as destination, otherwise the homelocation or the location of the emergency..
+     * @return The location of the assigned hospital if the ambulance has a hospital as destination,
+     *         otherwise the homelocation or the location of the emergency.
      */
     @Override
     public GPSCoordinate getDestination() {
@@ -79,7 +82,7 @@ public class Ambulance extends Unit {
      * Select a hospital where the ambulance will drive the injured patients to.
      * @param hospital
      *		The hospital to assign to the ambulance.
-     * @effect The selected hopsital of this ambulance is equal to the given hospital
+     * @effect The selected hopsital of this ambulance is equal to the given hospital.
      *		| this.getCurrentHospital().equals(hospital)
      * @throws InvalidAmbulanceException
      *		If this ambulance is not assigned to an emergency or is not at the location of the emergency.
@@ -98,7 +101,6 @@ public class Ambulance extends Unit {
 
     /**
      * Finishes the job of the ambulance.
-     * @effect super.finishedJob()
      * @post the selected hospital of this ambulance is null
      *		| this.getHospital().equals(null)
      * @throws InvalidEmergencyException

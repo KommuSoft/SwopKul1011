@@ -39,7 +39,7 @@ public class EmergencyList implements Iterable<Emergency> {
 	 * Adds the given emergency to this list of emergencies if the given emergency
 	 * is not already in this list of emergencies.
 	 * @param e
-	 *		Emergency to be appended to this list of emergencies.
+	 *		The emergency to be appended to this list of emergencies.
 	 * @post This EmergencyList contains the given Emergency.
 	 *		| getEmergencies().contains(e)
 	 */
