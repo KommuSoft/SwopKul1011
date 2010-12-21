@@ -105,35 +105,19 @@ public class EnumParserTest {
      */
     @Test
     public void testCanParse() throws Exception {
-        fail("The test case is a prototype.");
-    }
+        assertTrue(fireSizeParser.canParse("local"));
+        assertTrue(fireSizeParser.canParse("_facility"));
+        assertTrue(fireSizeParser.canParse("house_"));
+        assertTrue(fireSizeParser.canParse("+->local<-+"));
+        assertFalse(fireSizeParser.canParse("h1o2u3s4e5"));
+        assertFalse(fireSizeParser.canParse("loc al"));
+        assertFalse(fireSizeParser.canParse("fa-cil-ity"));
+        assertFalse(fireSizeParser.canParse("@jkofsdnfjdsfk"));
 
-    /**
-     * Test of getEnumerationDictionary method, of class EnumParser.
-     */
-    @Test
-    public void testGetEnumerationDictionary() {
-        System.out.println("getEnumerationDictionary");
-        EnumParser instance = null;
-        Map expResult = null;
-        Map result = instance.getEnumerationDictionary();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSearchPattern method, of class EnumParser.
-     */
-    @Test
-    public void testGetSearchPattern() {
-        System.out.println("getSearchPattern");
-        EnumParser instance = null;
-        Pattern expResult = null;
-        Pattern result = instance.getSearchPattern();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(emergencySeverityParser.canParse("benign"));
+        assertTrue(emergencySeverityParser.canParse("Beninormal"));
+        assertFalse(emergencySeverityParser.canParse("Serieus"));
+        assertFalse(emergencySeverityParser.canParse("Kritiek"));
     }
     
 
