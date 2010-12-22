@@ -297,7 +297,7 @@ public abstract class Emergency {
         information.put("type", this.getClass().getSimpleName());
         information.put("location", getLocation().toString());
         information.put("severity", getSeverity().getTextual());
-        information.put("status", getStatus().getTextual());
+        information.put("status", getStatus().toString());
         ArrayList<Unit> units = this.getWorkingUnits();
         int number = units.size();
         String workingUnits = "[ ";

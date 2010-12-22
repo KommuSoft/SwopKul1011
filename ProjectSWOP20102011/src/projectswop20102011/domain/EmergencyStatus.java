@@ -267,28 +267,19 @@ public enum EmergencyStatus {
      * @param textual
      *		The textual representation of the EmergencyStatus, used for parsing and user interaction.
      * @post The textual representation is set to the given textual representation.
-     *		| new.getTextual().equals(textual)
+     *		| new.toString().equals(textual)
      */
     private EmergencyStatus(String textual) {
         this.textual = textual;
     }
 
-    //TODO: DEZE TWEE ONDERSTAANDE METHODES DOEN NOGAL GELIJKAARDIGE DINGEN...
     /**
      * Returns the textual representation of the EmergencyStatus.
      * @return A textual representation of the EmergencyStatus.
      */
-    public String getTextual() {
-        return textual;
-    }
-
-    /**
-     * Returns a textual representation of the EmergencyStatus.
-     * @return A textual representation of the EmergencyStatus.
-     */
-    @Override
+	@Override
     public String toString() {
-        return getTextual();
+        return textual;
     }
 
     /**
@@ -298,7 +289,7 @@ public enum EmergencyStatus {
      * @return True if the textual representation matches, otherwise false.
      */
     public boolean matches(String textualRepresentation) {
-        return this.getTextual().equals(textualRepresentation.toLowerCase());
+        return this.toString().equals(textualRepresentation.toLowerCase());
     }
 
     /**
