@@ -301,22 +301,18 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *			If the unit is already at site of the emergency.
      * @throws InvalidEmergencyException
      *			If the unit isn't assigned to an emergency.
+     * @throws InvalidEmergencyStatusException
+     *                  If the emergency of this unit is in a state where the unit cannot withdraw.
      */
-    public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyException {
+    public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyException, InvalidEmergencyStatusException {
         if (!this.isAssigned()) {
             throw new InvalidEmergencyException("The unit is not assigned to an emergency, so it can't be withdrawn.");
         }
         if (this.wasAlreadyAtSite()) {
             throw new InvalidWithdrawalException("The unit was already at site of the emergency, so it can't be withdrawn.");
         }
-            try { // TODO mss moet deze try-catch nog weg
-                unit.getEmergency().withdrawUnit(unit);
-            } catch (InvalidEmergencyStatusException ex) {
-                Logger.getLogger(NormalWithdraw.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(NormalWithdraw.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            unit.setEmergency(null);
+        this.getEmergency().withdrawUnit(this);
+        this.setEmergency(null);
     }
 
     /**

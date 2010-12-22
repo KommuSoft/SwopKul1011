@@ -212,7 +212,7 @@ public enum EmergencyStatus {
      *      If another exception is thrown.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException, Exception;
+    abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
 
     /**
      * A method that handles a situation where a given unit withdraws from a given emergency.
@@ -226,7 +226,7 @@ public enum EmergencyStatus {
      *      If another exception is thrown.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException, Exception;
+    abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
 
     /**
      * A method that checks if the given units can be assigned to the given emergency.

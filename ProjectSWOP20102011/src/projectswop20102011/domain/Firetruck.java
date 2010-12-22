@@ -6,6 +6,7 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 
 /**
  * A class that represents a firetruck.
@@ -48,7 +49,6 @@ public class Firetruck extends Unit {
     public Firetruck(String name, GPSCoordinate homeLocation, long speed, FireSize maxSize) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
         super(name, homeLocation, speed);
         setMaxSize(maxSize);
-		setWithdrawBehavior(new NotWithdraw());
     }
 
     /**
@@ -93,6 +93,14 @@ public class Firetruck extends Unit {
      */
     public boolean canHandleFireSize (FireSize fireSize) {
         return (this.getMaxSize().compareTo(fireSize) >= 0);
+    }
+
+    /**
+     * A method to withdraw this unit from the current Emergency.
+     * @throws InvalidWithdrawalException Always: A Firetruck can't be withdrawn from an Emergency.
+     */
+    public void Withdraw () throws InvalidWithdrawalException {
+        throw new InvalidWithdrawalException("This unit can't be withdrawn");
     }
 
 }

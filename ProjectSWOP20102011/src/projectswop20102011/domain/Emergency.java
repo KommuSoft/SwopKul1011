@@ -248,11 +248,9 @@ public abstract class Emergency {
 	 *      The unit that wants to finish this emergency.
 	 * @throws InvalidEmergencyStatusException
 	 *      If the status of this emergency does not allow this action.
-	 * @throws Exception
-	 *      If another exception is thrown by performing this operation.
 	 * @note this method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
 	 */
-	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException, Exception {
+	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
 		this.getStatus().finishUnit(this.getUnitsNeeded(), unitToFinish);
 	}
 
@@ -262,11 +260,9 @@ public abstract class Emergency {
 	 *      The unit that wants to withdraw from this emergency.
 	 * @throws InvalidEmergencyStatusException
 	 *      If the status of this emergency does not allow this action.
-	 * @throws Exception
-	 *      If another exception is thrown by performing this operation.
 	 * @note this method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
 	 */
-	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException, Exception {
+	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
 		this.getStatus().withdrawUnit(this.getUnitsNeeded(), unitToWithdraw);
 	}
 
