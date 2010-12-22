@@ -238,7 +238,7 @@ public abstract class Emergency {
 	 *      If another exception is thrown by performing this operation (for instance those units are already assigned).
 	 */
 	public void assignUnits(List<Unit> units) throws InvalidEmergencyStatusException, Exception {
-		this.getStatus().assignUnits(this, units);
+		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
 	}
 
 	/**
@@ -252,7 +252,7 @@ public abstract class Emergency {
 	 * @note this method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
 	 */
 	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException, Exception {
-		this.getStatus().finishUnit(this, unitToFinish);
+		this.getStatus().finishUnit(this.getUnitsNeeded(), unitToFinish);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public abstract class Emergency {
 	 * @note this method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
 	 */
 	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException, Exception {
-		this.getStatus().withdrawUnit(this, unitToWithdraw);
+		this.getStatus().withdrawUnit(this.getUnitsNeeded(), unitToWithdraw);
 	}
 
 	/**
@@ -328,7 +328,7 @@ public abstract class Emergency {
 	 * @return True if the given list of units can be assigned, otherwise false.
 	 */
 	public boolean canAssignUnits(ArrayList<Unit> units) {
-		return this.getStatus().canAssignUnits(this, units);
+		return this.getStatus().canAssignUnits(this.getUnitsNeeded(), units);
 	}
 
 	/**
@@ -338,7 +338,7 @@ public abstract class Emergency {
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
 	public Collection<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
-		return this.getStatus().getPolicyProposal(this, availableUnits);
+		return this.getStatus().getPolicyProposal(this.getUnitsNeeded(), availableUnits);
 	}
 
 	/**
@@ -363,6 +363,6 @@ public abstract class Emergency {
          * @return True if the given emergency can be resolved, otherwise false.
          */
         public boolean canBeResolved (Collection<Unit> availableUnits) {
-            return this.getStatus().canBeResolved(this, availableUnits);
+            return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
         }
 }

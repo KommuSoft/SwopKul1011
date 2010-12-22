@@ -18,7 +18,7 @@ public class PartiallyAssignedEmergencyComparator implements Comparator<Emergenc
      *                              Otherwise zero.
      */
     @Override
-    public int Compare (Emergency emergency1, Emergency emergency2) {
+    public int compare (Emergency emergency1, Emergency emergency2) {
         boolean partial1 = (emergency1.getWorkingUnits().size()==0);
         boolean partial2 = (emergency2.getWorkingUnits().size()==0);
         return -((Boolean) partial1).compareTo(partial2);
