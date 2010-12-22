@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
@@ -59,7 +60,7 @@ public class FiretruckFireSizeTest {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(brandweerwagen);
 		f1.assignUnits(units);
 
@@ -77,7 +78,7 @@ public class FiretruckFireSizeTest {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(brandweerwagen);
 		f1.assignUnits(units);
 		brandweerwagen.timeAhead(-23);
