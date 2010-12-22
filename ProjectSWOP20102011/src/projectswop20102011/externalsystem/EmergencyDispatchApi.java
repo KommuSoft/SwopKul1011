@@ -12,10 +12,13 @@ import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.World;
+import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
+import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.factories.EmergencyFactory;
 import projectswop20102011.factories.FireFactory;
 import projectswop20102011.factories.PublicDisturbanceFactory;
@@ -56,78 +59,143 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 *		if an exception occurs in the emergency dispatch system.
 	 */
 	@Override
-	public void registerNewEvent(IEvent event) throws EmergencyDispatchException { //TODO dit MOET korter
-		CreateEmergencyController cec = null;
+	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
 		try {
-			cec = new CreateEmergencyController(getWorld());
-		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		Emergency emergency = null;
-		EmergencyFactory factory = null;
-		Map<String, String> properties;
-		properties = event.getEventProperties();
-		GPSCoordinate gps = new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY());
-		EmergencySeverity es = null;
-		try {
-			es = EmergencySeverity.parse(event.getSeverity());
+			CreateEmergencyController cec = new CreateEmergencyController(getWorld());
+			GPSCoordinate gps = new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY());
+			EmergencySeverity emergencySeverity = EmergencySeverity.parse(event.getSeverity());
+			Emergency emergency = null;
+			if (event.getType().equals("Fire")) {
+				emergency = createFire(gps, emergencySeverity, event.getEventProperties());
+			} else if (event.getType().equals("PublicDisturbance")) {
+				emergency = createPublicDisturbance(gps, emergencySeverity, event.getEventProperties());
+			} else if (event.getType().equals("Robbery")) {
+				emergency = createRobbery(gps, emergencySeverity, event.getEventProperties());
+			} else if (event.getType().equals("TrafficAccident")) {
+				emergency = createTrafficAccident(gps, emergencySeverity, event.getEventProperties());
+			}
+			cec.addCreatedEmergencyToTheWorld(emergency);
 		} catch (InvalidEmergencySeverityException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException("The emergency severity is invalid");
+		} catch (InvalidWorldException ex) {
+			throw new EmergencyDispatchException("The world is invalid");
 		}
 
-		if (event.getType().equals("Fire")) {
-			try {
-				factory = new FireFactory();
-			} catch (InvalidEmergencyTypeNameException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			FireSize fs = null;
-			try {
-				fs = FireSize.parse(properties.get("size"));
-			} catch (InvalidFireSizeException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			try {
-				emergency = factory.createEmergency(new Object[]{gps, es, "", fs, properties.get("chemical").equals("true") ? true : false, properties.get("trappedPeople").equals("true") ? 1L : 0L, Long.parseLong(properties.get("numberOfInjured"))});
-			} catch (Exception ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		} else if (event.getType().equals("PublicDisturbance")) {
-			try {
-				factory = new PublicDisturbanceFactory();
-			} catch (InvalidEmergencyTypeNameException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			try {
-				emergency = factory.createEmergency(new Object[]{gps, es, "", Long.parseLong(properties.get("numberOfPeople"))});
-			} catch (Exception ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		} else if (event.getType().equals("Robbery")) {
-			try {
-				factory = new RobberyFactory();
-			} catch (InvalidEmergencyTypeNameException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			try {
-				emergency = factory.createEmergency(new Object[]{gps, es, "", properties.get("armed").equals("true") ? true : false, properties.get("inProgress").equals("true") ? true : false});
-			} catch (Exception ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		} else if (event.getType().equals("TrafficAccident")) {
-			try {
-				factory = new TrafficAccidentFactory();
-			} catch (InvalidEmergencyTypeNameException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			try {
-				emergency = factory.createEmergency(new Object[]{gps, es, "", Long.parseLong(properties.get("numberOfCars")), Long.parseLong(properties.get("numberOfInjured"))});
-			} catch (Exception ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
+	}
 
-		cec.addCreatedEmergencyToTheWorld(emergency);
+	/**
+	 * Creates a fire with the given parameters.
+	 * @param gps
+	 *		The location of the fire.
+	 * @param emergencySeverity
+	 *		The severity of the fire.
+	 * @param properties
+	 *		The other properties of the fire.
+	 * @return A fire with the given parameters.
+	 * @throws EmergencyDispatchException
+	 *		If an error occurs while the fire is created.
+	 */
+	private Emergency createFire(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
+		try {
+			FireFactory factory = new FireFactory();
+			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", FireSize.parse(properties.get("size")), properties.get("chemical").equals("true") ? true : false, properties.get("trappedPeople").equals("true") ? 1L : 0L, Long.parseLong(properties.get("numberOfInjured"))});
+		} catch (InvalidLocationException ex) {
+			throw new EmergencyDispatchException("The location is invalid.");
+		} catch (InvalidEmergencySeverityException ex) {
+			throw new EmergencyDispatchException("The emergency severity is invalid");
+		} catch (NumberOutOfBoundsException ex) {
+			throw new EmergencyDispatchException("The number of trapped people or the number of injured people is invalid.");
+		} catch (InvalidAmountOfParametersException ex) {
+			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidFireSizeException ex) {
+			throw new EmergencyDispatchException("The fire size is invalid.");
+		} catch (InvalidEmergencyTypeNameException ex) {
+			throw new EmergencyDispatchException("The emergency type name is invalid.");
+		}
+	}
+
+	/**
+	 * Creates a public disturbance with the given parameters.
+	 * @param gps
+	 *		The location of the public disturbance.
+	 * @param emergencySeverity
+	 *		The severity of the public disturbance.
+	 * @param properties
+	 *		The other properties of the public disturbance.
+	 * @return A public disturbance with the given parameters.
+	 * @throws EmergencyDispatchException
+	 *		If an error occurs while the public disturbance is created.
+	 */
+	private Emergency createPublicDisturbance(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
+		try {
+			PublicDisturbanceFactory factory = new PublicDisturbanceFactory();
+			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfPeople"))});
+		} catch (InvalidAmountOfParametersException ex) {
+			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidLocationException ex) {
+			throw new EmergencyDispatchException("The location is invalid.");
+		} catch (InvalidEmergencySeverityException ex) {
+			throw new EmergencyDispatchException("The emergency severity is invalid.");
+		} catch (NumberOutOfBoundsException ex) {
+			throw new EmergencyDispatchException("The number of involved people is invalid.");
+		} catch (InvalidEmergencyTypeNameException ex) {
+			throw new EmergencyDispatchException("The emergency type name is invalid.");
+		}
+	}
+
+	/**
+	 * Creates a robbery with the given parameters.
+	 * @param gps
+	 *		The location of the robbery.
+	 * @param emergencySeverity
+	 *		The severity of the robbery.
+	 * @param properties
+	 *		The other properties of the robbery.
+	 * @return A robbery with the given parameters.
+	 * @throws EmergencyDispatchException
+	 *		If an error occurs while the robbery is created.
+	 */
+	private Emergency createRobbery(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
+		try {
+			RobberyFactory factory = new RobberyFactory();
+			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", properties.get("armed").equals("true") ? true : false, properties.get("inProgress").equals("true") ? true : false});
+		} catch (InvalidLocationException ex) {
+			throw new EmergencyDispatchException("The location is invalid.");
+		} catch (InvalidEmergencySeverityException ex) {
+			throw new EmergencyDispatchException("The emergency severity is invalid.");
+		} catch (InvalidAmountOfParametersException ex) {
+			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidEmergencyTypeNameException ex) {
+			throw new EmergencyDispatchException("The emergency type name is invalid.");
+		}
+	}
+
+	/**
+	 * Creates a traffic accident with the given parameters.
+	 * @param gps
+	 *		The location of the traffic accident.
+	 * @param emergencySeverity
+	 *		The severity of the traffic accident.
+	 * @param properties
+	 *		The other properties of the traffic accident.
+	 * @return A traffic accident with the given parameters.
+	 * @throws EmergencyDispatchException
+	 *		If an error occurs while the traffic accident is created.
+	 */
+	private Emergency createTrafficAccident(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
+		try {
+			TrafficAccidentFactory factory = new TrafficAccidentFactory();
+			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfCars")), Long.parseLong(properties.get("numberOfInjured"))});
+		} catch (InvalidLocationException ex) {
+			throw new EmergencyDispatchException("The location is invalid.");
+		} catch (InvalidEmergencySeverityException ex) {
+			throw new EmergencyDispatchException("The emergency severity is invalid.");
+		} catch (NumberOutOfBoundsException ex) {
+			throw new EmergencyDispatchException("The number of involved cars or the number of injured pople is invalid.");
+		} catch (InvalidAmountOfParametersException ex) {
+			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidEmergencyTypeNameException ex) {
+			throw new EmergencyDispatchException("The emergency type name is invalid.");
+		}
 	}
 }

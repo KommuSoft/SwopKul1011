@@ -34,6 +34,8 @@ public class Firetruck extends Unit {
      *         |super(name,homeLocation,speed)
      * @effect The new firetruck can handle the given fire size.
      *		|this.maxSize.equals(maxSize)
+	 * @effect The withdrawBehaviour of this firetruck is initialised.
+	 *		|setWithdrawBehavior(new NotWithdraw())
      * @throws InvalidLocationException
      *		If the given location is an invalid location for a firetruck.
      * @throws InvalidMapItemNameException
