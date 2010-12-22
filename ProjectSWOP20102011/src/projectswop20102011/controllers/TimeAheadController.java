@@ -78,7 +78,7 @@ public class TimeAheadController extends Controller {
 			int minutes = (int) ((s - (3600 * hours)) / 60);
 			ITime time = new Time(hours, minutes);
 			try {
-				externalSystem.notifyTimeChanged(time);
+				getExternalSystem().notifyTimeChanged(time);
 			} catch (ExternalSystemException ex) {
 				Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (IllegalArgumentException ex) {
