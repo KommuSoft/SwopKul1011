@@ -53,7 +53,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                 if (emergencyType.equals("fire")) {
                     FireSize fireSize = this.parseInputToType(new FireSizeParser(), "size of the fire");
                     boolean chemical = this.parseInputToType(new BooleanParser(), "is the fire chemical");
-                    long trappedPeople = this.parseInputToType(new LongParser(), "are there trapped people");
+                    long trappedPeople = this.parseInputToType(new LongParser(), "number of trapped people");
                     long numberOfInjured = this.parseInputToType(new LongParser(), "number of injured people");
                     try {
                         this.controller.createFireEmergency(location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured);

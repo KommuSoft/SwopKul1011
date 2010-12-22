@@ -81,7 +81,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 							if (!expression.equals("stop")) {
 								try {
 									int id = Integer.parseInt(expression);
-									assignedUnits.add(suggestedUnits.get(id));
+									assignedUnits.add(availableUnits.get(id));
 									this.writeOutput("Unit added.");
 								} catch (Exception ex) {
 									this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
@@ -92,7 +92,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 						this.writeOutput("The chosen units are assigned");
 					} else {
 						this.getController().dispatchToEmergency(selectedEmergency, suggestedUnits);
-						this.writeOutput("The chosen units are assigned");
+						this.writeOutput("The suggested units are assigned");
 					}
 				} catch (Exception ex) {
 					this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
