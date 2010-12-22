@@ -1,6 +1,6 @@
 package projectswop20102011.domain.lists;
 
-import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemValidator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,16 +10,16 @@ import projectswop20102011.domain.MapItem;
 
 /**
  * A list of mapitems where every mapitem is unique.
- *
+ * @param <T> The type of MapItems the MapItemList is holding.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every MapItem in this MapItemList is unique.
  */
-public class MapItemList implements Iterable<MapItem> {
+public class MapItemList<T extends MapItem> implements Iterable<T> {
 
     /**
      * The inner list to manage the mapitems
      */
-    private final HashSet<MapItem> mapItems;
+    private final HashSet<T> mapItems;
 
     /**
      * Creating a new instance of an MapItemList. At this moment this list
@@ -28,15 +28,15 @@ public class MapItemList implements Iterable<MapItem> {
      * @effect The new MapItemList is a list with no elements in it.
      */
     public MapItemList() {
-        this.mapItems = new HashSet<MapItem>();
+        this.mapItems = new HashSet<T>();
     }
 
     /**
      * Returns the list of mapitems.
      * @return The list of mapitems.
      */
-    public HashSet<MapItem> getMapItems() {
-        return (HashSet<MapItem>) mapItems.clone();
+    public HashSet<T> getMapItems() {
+        return (HashSet<T>) mapItems.clone();
     }
 
     /**
@@ -56,17 +56,17 @@ public class MapItemList implements Iterable<MapItem> {
     }
 
     /**
-     * Returns all the Mapitems in this MapItemList that are valid to a certain MapItemCriterium.
-     * @param criterium
-     *		The criterium to validate potential solution on.
-     * @return a list with all the MapItems in this MapItemList who are
-     * validated by the MapItemCriterium.
+     * Returns all the Mapitems in this MapItemList that are valid to a certain MapItemValidator
+     * @param <Q> The type of new MapItemList that will be generated. This type is relevant to the MapItemCriterium.
+     * @param validator
+     *		A validator to validate an item in this MapItemList.
+     * @return a list with all the MapItems in this MapItemList who are validated by the MapItemValidator
      */
-    public MapItemList getMapItemsByCriterium(MapItemEvaluationCriterium criterium) {
-        MapItemList list = new MapItemList();
+    public<Q extends MapItem> MapItemList<Q> getSubMapItemListByValidator(MapItemValidator<Q> validator) {
+        MapItemList<Q> list = new MapItemList<Q>();
         for (MapItem u : this) {
-            if (criterium.isValidMapItem(u)) {
-                list.addMapItem(u);
+            if (validator.isValid(u)) {
+                list.addMapItem((Q) u);
             }
         }
         return list;
@@ -75,14 +75,12 @@ public class MapItemList implements Iterable<MapItem> {
     /**
      * Adds the given MapItem to this list if the given MapItem
      * is not already in this list of mapitems.
-     * @param mi
+     * @param mapItem
      *		The MapItem to be appended to this list of mapitems.
      * @post This MapItemList contains the given MapItem.
      */
-    public void addMapItem(MapItem mi) {
-        if (!this.mapItems.contains(mi)) {
-            this.mapItems.add(mi);
-        }
+    public void addMapItem(T mapItem) {
+        this.takeMapItems().add(mapItem);
     }
 
     /**
@@ -90,7 +88,7 @@ public class MapItemList implements Iterable<MapItem> {
      * @return An iterator to iterate of the list of mapitems.
      */
     @Override
-    public Iterator<MapItem> iterator() {
+    public Iterator<T> iterator() {
         return mapItems.iterator();
     }
 
@@ -102,21 +100,27 @@ public class MapItemList implements Iterable<MapItem> {
      *		The given comparator.
      * @return A list of MapItem correctly sorted.
      */
-    public <T extends MapItem> ArrayList<T> sort(Comparator<T> comparator) {
-        ArrayList<T> result = new ArrayList<T>();
-
-        for (MapItem mi : getMapItems()) {
-            try {
-                T a = (T) mi;
-                result.add(a);
-            } catch (ClassCastException ex) {
-            }
-        }
+    public ArrayList<T> getSortedCopy (Comparator<? super T> comparator) {
+        ArrayList<T> result = this.toArrayList();
 
         Collections.sort(result, comparator);
+
         return result;
     }
-    public MapItem[] toArray () {
-        return this.mapItems.toArray(new MapItem[0]);
+    /**
+     * Returns an ArrayList<T> containing all the items in the MapItemList.
+     * @return
+     */
+    public ArrayList<T> toArrayList () {
+        return new ArrayList<T>(this.takeMapItems());
+    }
+
+    /**
+     * Returns the real HashSet of items in this list. This method is private.
+     * @return The real HashSet of items in this list (not a clone).
+     * @see MapItemList<T>.getMapItems
+     */
+    private HashSet<T> takeMapItems () {
+        return this.mapItems;
     }
 }

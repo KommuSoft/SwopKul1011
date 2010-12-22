@@ -1,5 +1,6 @@
 package projectswop20102011.userinterface;
 
+import java.util.ArrayList;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.controllers.SelectHospitalController;
@@ -42,21 +43,21 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                 } else if (!amb.isAtDestination()) {
                     this.writeOutput("Ambulance is not at the location of the emergency");
                 } else {
-                    Hospital[] hospitals;
+                    ArrayList<Hospital> hospitals;
                     try {
                         hospitals = this.getController().getHospitalList(amb);
-                        if (hospitals.length > 0) {
-                            for(int i = 0; i < hospitals.length; i++) {
-                                Hospital h = hospitals[i];
+                        if (hospitals.size() > 0) {
+                            for(int i = 0; i < hospitals.size(); i++) {
+                                Hospital h = hospitals.get(i);
                                 double distance = h.getHomeLocation().getDistanceTo(amb.getEmergency().getLocation());
                                 this.writeOutput(String.format("%s\t|\t%s\t|\t%s",i,h.getName(),distance));
                             }
                             int selected = this.parseInputToType(new IntegerParser(), "selected hospital id");
-                            if (selected < 0 || selected >= hospitals.length) {
+                            if (selected < 0 || selected >= hospitals.size()) {
                                 this.writeOutput("Couldn't find hospital id.");
                             } else {
                                 try {
-                                    this.getController().SelectHospital(amb, hospitals[selected]);
+                                    this.getController().SelectHospital(amb, hospitals.get(selected));
                                     this.writeOutput("Select Hosital Done!");
                                 } catch (Exception ex) {
                                     this.writeOutput(String.format("ERROR: %s", ex.getMessage()));

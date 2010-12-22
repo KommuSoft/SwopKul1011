@@ -3,11 +3,11 @@ package projectswop20102011.controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import projectswop20102011.domain.validators.AvailableUnitsMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -29,10 +29,8 @@ public class DispatchUnitsController extends Controller {
 	}
 
 	public List<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
-		MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
-		for(MapItem u : getWorld().getMapItemList().getMapItems()){
-		}
-		HashSet<MapItem> mapItems = getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItems();
+		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
+		HashSet<MapItem> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
 		ArrayList<Unit> availableUnits = new ArrayList<Unit>();
 		for (MapItem u : mapItems) {
 			availableUnits.add((Unit) u);
@@ -45,8 +43,8 @@ public class DispatchUnitsController extends Controller {
 	}
 
 	public List<Unit> getAvailableUnitsSorted(Emergency emergency) throws InvalidEmergencyException {
-		MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
-		return this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency));
+		MapItemValidator criterium = new AvailableUnitsMapItemValidator();
+		return this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToEmergencyDistanceComparator(emergency));
 	}
 
 	public String getRequiredUnits(Emergency emergency){

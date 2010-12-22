@@ -1,8 +1,8 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.validators.TypeMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -20,8 +20,8 @@ public class EndOfEmergencyController extends Controller {
     }
 
     public Unit findUnit (String unitName) {
-        MapItemEvaluationCriterium criterium = new TypeMapItemEvaluationCriterium(Unit.class);
-        return (Unit) this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItemFromName(unitName);
+        MapItemValidator criterium = new TypeMapItemValidator(Unit.class);
+        return (Unit) this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItemFromName(unitName);
     }
 
     public void indicateEndOfEmergency (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException {

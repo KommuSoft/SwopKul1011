@@ -1,10 +1,11 @@
 package projectswop20102011.controllers;
 
+import java.util.ArrayList;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.validators.HospitalToEmergencyDistanceComparator;
-import projectswop20102011.domain.validators.TypeMapItemEvaluationCriterium;
-import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.TypeMapItemValidator;
+import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -32,8 +33,8 @@ public class SelectHospitalController extends Controller {
      * @return An ambulance from the world with a name equal to the given name, or null if no ambulance is found.
      */
     public Ambulance findAmbulance (String name) {
-        MapItemEvaluationCriterium criterium = new TypeMapItemEvaluationCriterium(Ambulance.class);
-        return (Ambulance) this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItemFromName(name);
+        MapItemValidator criterium = new TypeMapItemValidator(Ambulance.class);
+        return (Ambulance) this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItemFromName(name);
     }
 
     /**
@@ -41,10 +42,10 @@ public class SelectHospitalController extends Controller {
      * @param ambulance The ambulance to generate the list from.
      * @return A list of the hospitals sorted on the distance to the location of the assigned emergency of the ambulance.
      */
-    public Hospital[] getHospitalList (Ambulance ambulance) throws InvalidEmergencyException {
-        TypeMapItemEvaluationCriterium tubec = new TypeMapItemEvaluationCriterium(Hospital.class);
+    public ArrayList<Hospital> getHospitalList (Ambulance ambulance) throws InvalidEmergencyException {
+        TypeMapItemValidator tubec = new TypeMapItemValidator(Hospital.class);
         HospitalToEmergencyDistanceComparator comparator = new HospitalToEmergencyDistanceComparator(ambulance.getEmergency());
-        return this.getWorld().getMapItemList().getMapItemsByCriterium(tubec).sort(comparator).toArray(new Hospital[0]);
+        return this.getWorld().getMapItemList().getSubMapItemListByValidator(tubec).getSortedCopy(comparator);
     }
 
     /**

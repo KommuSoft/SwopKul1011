@@ -1,7 +1,7 @@
 package projectswop20102011.domain;
 
 import projectswop20102011.domain.lists.MapItemList;
-import projectswop20102011.domain.validators.TypeMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.validators.HospitalToEmergencyDistanceComparator;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -114,8 +114,8 @@ public class MapItemListTest {
         ubl1.addMapItem(a1);
         ubl1.addMapItem(h1);
 
-        TypeMapItemEvaluationCriterium tubec = new TypeMapItemEvaluationCriterium(Hospital.class);
-        ubl2 = ubl1.getMapItemsByCriterium(tubec);
+        TypeMapItemValidator tubec = new TypeMapItemValidator(Hospital.class);
+        ubl2 = ubl1.getSubMapItemListByValidator(tubec);
 
         assertEquals(2, ubl2.getMapItems().size());
         assertTrue(ubl2.getMapItems().contains(h1));
@@ -130,7 +130,7 @@ public class MapItemListTest {
         ubl1.addMapItem(h2);
         ubl1.addMapItem(h1);
 
-        ArrayList<Hospital> h = ubl1.sort(hdc);
+        ArrayList<Hospital> h = ubl1.getSortedCopy(hdc);
         assertEquals(2, h.size());
         assertEquals(h1, h.get(0));
         assertEquals(h2, h.get(1));

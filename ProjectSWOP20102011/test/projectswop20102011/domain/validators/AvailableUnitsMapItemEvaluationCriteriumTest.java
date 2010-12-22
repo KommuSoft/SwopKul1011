@@ -11,7 +11,7 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 
 public class AvailableUnitsMapItemEvaluationCriteriumTest {
-	private AvailableUnitsMapItemEvaluationCriterium aumiec;
+	private AvailableUnitsMapItemValidator aumiec;
 	private MapItem mi1, mi2;
 	private String name1;
 	private GPSCoordinate homeLocation1;
@@ -26,12 +26,12 @@ public class AvailableUnitsMapItemEvaluationCriteriumTest {
 
 		mi1 = new Firetruck(name1, homeLocation1, speed1);
 		mi2 =  null;
-		aumiec = new AvailableUnitsMapItemEvaluationCriterium();
+		aumiec = new AvailableUnitsMapItemValidator();
 	}
 
 	@Test
 	public void testIsValidMapItem(){
-		assertTrue(aumiec.isValidMapItem(mi1));
-		assertFalse((aumiec.isValidMapItem(mi2)));
+		assertTrue(aumiec.isValid(mi1));
+		assertFalse((aumiec.isValid(mi2)));
 	}
 }

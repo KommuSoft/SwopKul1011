@@ -3,14 +3,14 @@ package projectswop20102011.controllers;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
-import projectswop20102011.domain.validators.AvailableUnitsMapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCriterium;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItem;
-import projectswop20102011.domain.validators.MapItemEvaluationCriterium;
+import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -57,14 +57,9 @@ public class InspectEmergenciesController extends Controller {
         return e.getShortInformation().entrySet();
     }
     public boolean canBeAssigned (Emergency e) {
-        MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
-        MapItemList availableUnitsList = this.getWorld().getMapItemList().getMapItemsByCriterium(criterium);
-        MapItem[] mis = availableUnitsList.toArray();
-        ArrayList<Unit> units = new ArrayList<Unit>(mis.length);
-        for(MapItem mi : mis) {
-            units.add((Unit) mi);
-        }
-        return e.canAssignUnits(units);
+        MapItemValidator criterium = new AvailableUnitsMapItemValidator();
+        ArrayList<Unit> availableUnitsList = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).toArrayList();
+        return e.canAssignUnits(availableUnitsList);
     }
 
     public Set<Entry<String, String>> getEmergencyLongInformation(Emergency emergency) {

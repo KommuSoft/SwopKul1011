@@ -3,10 +3,11 @@ package projectswop20102011.domain.validators;
 import projectswop20102011.domain.MapItem;
 
 /**
- * An implementation for a MapItemEvaluationCriterium that checks if the object is equal to a given type.
+ * An implementation for a MapItemValidator that checks if the object is an instance of a given type.
+ * @param <T> The type of MapItems this validator will validate.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class TypeMapItemEvaluationCriterium implements MapItemEvaluationCriterium {
+public class TypeMapItemValidator<T extends MapItem> implements MapItemValidator<T> {
 
 	/**
 	 * The class of mapitems that will be accepted
@@ -14,13 +15,13 @@ public class TypeMapItemEvaluationCriterium implements MapItemEvaluationCriteriu
 	private final Class type;
 
 	/**
-	 * Creates a new instance of a TypeMapItemEvaluationCriterium with a given type to check on.
+	 * Creates a new instance of a TypeMapItemValidator with a given type to check on.
 	 * @param type
 	 *		The type that must be equal to the validating MapItem.
 	 * @post This type is equal to the parameter type
 	 *		| type == getType()
 	 */
-	public TypeMapItemEvaluationCriterium(Class type) {
+	public TypeMapItemValidator(Class<T> type) {
 		this.type = type;
 	}
 
@@ -31,7 +32,7 @@ public class TypeMapItemEvaluationCriterium implements MapItemEvaluationCriteriu
 	 * @return True if the status of the MapItem equals this type, otherwise false.
 	 */
 	@Override
-	public boolean isValidMapItem(MapItem mapItem) {
+	public boolean isValid(MapItem mapItem) {
 		return getType().isAssignableFrom(mapItem.getClass());
 	}
 
