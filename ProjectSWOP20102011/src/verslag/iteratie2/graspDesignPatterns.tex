@@ -57,13 +57,6 @@ Omdat units en emergencies vaak aangemaakt worden met behulp van een tekstbestan
 \caption{UML diagram van de implementatie van het \textit{Factory Method}-pattern in het project.}
 \label{fig:factoryMethodPattern}
 \end{figure}
-\subsubsection{Strategy}
-Om units terug te trekken van een emergency hebben we het \textit{Strategy} pattern toegepast. In de opgave zijn er twee mogelijke manieren. Ofwel mag een unit zich terugtrekken, mits hij aan bepaalde voorwaarden voldoet. Ofwel mag deze zich nooit terugtrekken. Het voordeel van het \textit{Strategy} pattern is dat we eenvoudig nieuwe manieren van terugtrekken kunnen toevoegen door een nieuwe subklasse van \texttt{WithdrawBehavior} toe te voegen. Ook als er nieuwe soorten units toegevoegd worden, hoeven we niet steeds de hele withdraw methode te kopi\"eren.
-\begin{figure}[h!]
-\includegraphics[width=1.0\textwidth]{WithdrawStrategyPattern.pdf}
-\caption{UML diagram van de implementatie van het \textit{Strategy} pattern bij het terugtrekken van units.}
-\label{fig:withdrawStrategyPattern}
-\end{figure}
 \subsection{Uitgewerkte alternatieven}
 Naast dit model werden verschillende andere modellen bestudeerd. Bovendien kwam dit model ook met een zekere evolutie tot stand. Modellen werden ge\"implementeerd met een kritische blik op het ontstaan van problemen. Frequent werd dan ook het model herbekeken en aangepast. In deze sectie geven we een bondig overzicht van de belangrijkste overwogen alternatieven.
 \paragraph{Domeinmodel versus klassendiagram}
