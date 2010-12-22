@@ -2,6 +2,7 @@ package projectswop20102011.domain;
 
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemException;
@@ -335,7 +336,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @return The number of seconds this unit would use to reach the given location.
 	 */
 	public long getETA(GPSCoordinate location) {
-		return Math.round(3600*this.getDistanceTo(location) / this.getSpeed());
+		return Math.round(3600 * this.getDistanceTo(location) / this.getSpeed());
 	}
 
 	/**
@@ -348,7 +349,28 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		return this.getCurrentLocation().getDistanceTo(location);
 	}
 
-	public boolean canFinish(){
-		return isAssigned() && isAtDestination();
+	/**
+	 * Finishes the job of this Unit.
+	 * @effect The emergency of this unit is null
+	 *              | this.getEmergency().equals(null)
+	 * @effect The unit is not assigned
+	 *              | !this.isAssigned()
+	 * @throws InvalidEmergencyException
+	 *              If the unit is not assigned to an emergency.
+	 * @throws InvalidLocationException
+	 *              If the unit is not at the location of the emergency.
+	 */
+	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException, Exception {
+		if (isAssigned()) {
+			if (isAtDestination()) {
+				getEmergency().finishUnit(this);
+				setEmergency(null);
+				setWasAlreadyAtSite(false);
+			} else {
+				throw new InvalidLocationException("The unit is not at it's destination.");
+			}
+		} else {
+			throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
+		}
 	}
 }

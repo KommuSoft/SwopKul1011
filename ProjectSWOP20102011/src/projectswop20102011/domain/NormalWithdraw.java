@@ -1,6 +1,9 @@
 package projectswop20102011.domain;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 
 /**
@@ -27,7 +30,13 @@ public class NormalWithdraw implements WithdrawBehavior {
 	public void withdraw(Unit unit) throws InvalidEmergencyException, InvalidWithdrawalException {
 		if (unit.isAssigned()) {
 			if (!unit.wasAlreadyAtSite()) {
-				unit.getEmergency().withdrawUnit(unit);
+				try { // TODO mss moet deze try-catch nog weg
+					unit.getEmergency().withdrawUnit(unit);
+				} catch (InvalidEmergencyStatusException ex) {
+					Logger.getLogger(NormalWithdraw.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (Exception ex) {
+					Logger.getLogger(NormalWithdraw.class.getName()).log(Level.SEVERE, null, ex);
+				}
 				unit.setEmergency(null);
 			} else {
 				throw new InvalidWithdrawalException("The unit was already at site of the emergency, so it can't be withdrawn.");

@@ -257,13 +257,9 @@ class UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 */
-	void unitFinishedJob(Unit unit) throws InvalidFinishException{
-		if (unit.canFinish()) {
-			removeFromWorkingUnits(unit);
-			addFinishedUnits(unit);
-		} else {
-			throw new InvalidFinishException("The unit can't be finished.");
-		}
+	void unitFinishedJob(Unit unit) throws InvalidFinishException {
+		removeFromWorkingUnits(unit);
+		addFinishedUnits(unit);
 	}
 
 	/**
@@ -348,11 +344,10 @@ class UnitsNeeded {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 
-    public boolean CanBeResolved (Collection<? extends Unit> availableUnits) {
-        Collection<Unit> completeCollection = this.getFinishedUnits();
-        completeCollection.addAll(this.takeFinishedUnits());
-        completeCollection.addAll(availableUnits);
-        return this.getConstraint().areValidDispatchUnits(completeCollection);
-    }
-
+	public boolean CanBeResolved(Collection<? extends Unit> availableUnits) {
+		Collection<Unit> completeCollection = this.getFinishedUnits();
+		completeCollection.addAll(this.takeFinishedUnits());
+		completeCollection.addAll(availableUnits);
+		return this.getConstraint().areValidDispatchUnits(completeCollection);
+	}
 }

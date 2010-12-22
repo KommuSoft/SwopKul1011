@@ -29,7 +29,7 @@ public class EndOfEmergencyController extends Controller {
         if(unit == null) {
             throw new InvalidUnitException("The given unit must be effective.");
         }
-		unit.getEmergency().finishUnit(unit);
+		unit.finishedJob();
     }
 
 }

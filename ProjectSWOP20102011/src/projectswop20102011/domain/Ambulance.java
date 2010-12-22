@@ -2,6 +2,7 @@ package projectswop20102011.domain;
 
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -99,8 +100,28 @@ public class Ambulance extends Unit {
         setCurrentHospital(hospital);
     }
 
-	@Override
-	public boolean canFinish(){
-		return super.canFinish() && getCurrentHospital() != null;
-	}
+	/**
+     * Finishes the job of the ambulance.
+     * @post the selected hospital of this ambulance is null
+     *          | this.getHospital().equals(null)
+     * @throws InvalidEmergencyException
+     *          If the unit is not assigned to an emergency.
+     * @throws InvalidLocationException
+     *          If the unit is not at the location of the emergency.
+     */
+    @Override
+    public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException, Exception {
+        if (isAssigned()) {
+            if (getCurrentHospital() != null && this.isAtDestination()) {
+				getEmergency().finishUnit(this);
+                setEmergency(null);
+                                setWasAlreadyAtSite(false);
+            } else {
+                throw new InvalidLocationException("The unit is not at its destination.");
+            }
+        } else {
+            throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
+        }
+    }
+
 }
