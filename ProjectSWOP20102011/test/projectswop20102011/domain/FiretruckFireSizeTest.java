@@ -22,10 +22,10 @@ public class FiretruckFireSizeTest {
 	private GPSCoordinate homeLocation, emergencyLocation;
 	private Firetruck brandweerwagen;
 	private Emergency f1;
+	private FireSize fs1, fs2, fs3;
 
 	@Before
 	public void setUp() {
-		x1 = -21;
 		y1 = 120;
 		x2 = 19;
 		y2 = 90;
@@ -34,12 +34,15 @@ public class FiretruckFireSizeTest {
 		name = "Brandweerwagen";
 		emergencyLocation = new GPSCoordinate(x1, y1);
 		homeLocation = new GPSCoordinate(x2, y2);
-
+		fs1 = FireSize.FACILITY;
+		fs2 = FireSize.HOUSE;
+		fs3 = FireSize.LOCAL;
+		x1 = -21;
 	}
 
 	@Test
-	public void testValidConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-		brandweerwagen = new Firetruck(name, homeLocation, speed1);
+	public void testValidConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 		assertEquals(name, brandweerwagen.getName());
 		assertEquals(x2, brandweerwagen.getHomeLocation().getX());
 		assertEquals(y2, brandweerwagen.getHomeLocation().getY());
@@ -54,7 +57,7 @@ public class FiretruckFireSizeTest {
 			InvalidSpeedException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
-		brandweerwagen = new Firetruck(name, homeLocation, speed1);
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(brandweerwagen);
@@ -72,7 +75,7 @@ public class FiretruckFireSizeTest {
 			InvalidFireSizeException, InvalidMapItemNameException, InvalidSpeedException,
 			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
-		brandweerwagen = new Firetruck(name, homeLocation, speed1);
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(brandweerwagen);
@@ -91,7 +94,11 @@ public class FiretruckFireSizeTest {
 
 	@Test
 	public void testValidMaxSize() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, FireSize.HOUSE);
-		assertEquals(FireSize.HOUSE, brandweerwagen.getMaxSize());
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
+		assertEquals(fs1, brandweerwagen.getMaxSize());
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs2);
+		assertEquals(fs2, brandweerwagen.getMaxSize());
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs3);
+		assertEquals(fs3, brandweerwagen.getMaxSize());
 	}
 }

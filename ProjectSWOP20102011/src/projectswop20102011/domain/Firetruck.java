@@ -19,41 +19,6 @@ public class Firetruck extends Unit {
      */
     private FireSize maxSize;
 
-	//TODO: Deze constructor wordt (voorlopig) enkel gebruikt in de testklassen, mag deze weg?
-    /**
-     * Initialize a new firetruck with given parameters.
-     *
-     * @param name
-     *		The name of the new firetruck.
-     * @param homeLocation
-     *		The home location of the new firetruck.
-     * @param speed
-     *		The speed of the new firetruck.
-     * @effect The new firetruck is a firetruck with given name, home location, speed,
-     *			current location, destination and assigned indicator.
-     *         |super(name,homeLocation,speed)
-     * @effect The new firetruck can handle a house-fire size.
-     *		|this.maxSize.equals(FireSize.HOUSE)
-     * @effect The withdrawBehavior of this new firetruck is set to the given notwithdraw behavior.
-     *      |setWithdrawBehavior(new NotWithdraw())
-     * @throws InvalidLocationException
-     *		If the given location is an invalid location for a firetruck.
-     * @throws InvalidMapItemNameException
-     *		If the given name is an invalid name for a firetruck.
-     * @throws InvalidSpeedException
-     *		If the given speed is an invalid speed for a firetruck.
-     */
-    public Firetruck(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-        super(name, homeLocation, speed);
-        try {
-            setMaxSize(FireSize.HOUSE);
-        } catch (InvalidFireSizeException ex) {
-            //we assume this can never happen
-            Logger.getLogger(Firetruck.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        setWithdrawBehavior(new NotWithdraw());
-    }
-
     /**
      * Initialize a new firetruck with given parameters.
      *
@@ -81,6 +46,7 @@ public class Firetruck extends Unit {
     public Firetruck(String name, GPSCoordinate homeLocation, long speed, FireSize maxSize) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
         super(name, homeLocation, speed);
         setMaxSize(maxSize);
+		setWithdrawBehavior(new NotWithdraw());
     }
 
     /**
