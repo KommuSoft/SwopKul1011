@@ -285,7 +285,7 @@ public class Global1Test {
 		String[] unitNames = {brandweerwagen1.getName()};
 
 		for (int i = 0; i < unitNames.length; i++) {
-			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
+			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw();
 		}
 	}
 
@@ -318,7 +318,7 @@ public class Global1Test {
 
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
 		for (int i = 0; i < unitNames.length; i++) {
-			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
+			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw();
 		}
 	}
 
