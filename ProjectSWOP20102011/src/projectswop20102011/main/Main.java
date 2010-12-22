@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.controllers.DispatchUnitsController;
-import projectswop20102011.controllers.EndOfEmergencyController;
+import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
@@ -22,7 +22,7 @@ import projectswop20102011.userinterface.ActorUserInterface;
 import projectswop20102011.userinterface.CommandUserInterface;
 import projectswop20102011.userinterface.CreateEmergencyUserInterface;
 import projectswop20102011.userinterface.DispatchUnitsUserInterface;
-import projectswop20102011.userinterface.EndOfEmergencyUserInterface;
+import projectswop20102011.userinterface.EndOfTaskUserInterface;
 import projectswop20102011.userinterface.EnvironmentReader;
 import projectswop20102011.userinterface.InspectEmergenciesUserInterface;
 import projectswop20102011.userinterface.MainUserInterface;
@@ -63,7 +63,7 @@ public class Main {
             CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world));
             CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsUserInterface(new DispatchUnitsController(world));
             CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
-            CommandUserInterface endOfEmergencyUserInterface = new EndOfEmergencyUserInterface(new EndOfEmergencyController(world));
+            CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
             CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world));
             CommandUserInterface removeUnitAssignmentInterface = new RemoveUnitAssignmentInterface(new RemoveUnitAssignmentController(world));
 
