@@ -31,19 +31,15 @@ public class DispatchUnitsController extends Controller {
 	public List<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
 		MapItemEvaluationCriterium criterium = new AvailableUnitsMapItemEvaluationCriterium();
 		for(MapItem u : getWorld().getMapItemList().getMapItems()){
-			System.out.println( u +" oké");
 		}
 		HashSet<MapItem> mapItems = getWorld().getMapItemList().getMapItemsByCriterium(criterium).getMapItems();
 		ArrayList<Unit> availableUnits = new ArrayList<Unit>();
 		for (MapItem u : mapItems) {
 			availableUnits.add((Unit) u);
-			System.out.println(u.toString());
 		}
-		System.out.println("----------------------------------------------");
 		ArrayList<Unit> unitsByPolicy = new ArrayList<Unit>();
 		for (Unit u : emergency.getPolicyProposal(availableUnits)) {
 			unitsByPolicy.add(u);
-			System.out.println(u.toString());
 		}
 		return unitsByPolicy;
 	}
