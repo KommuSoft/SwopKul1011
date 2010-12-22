@@ -221,7 +221,7 @@ public abstract class Emergency {
 	 * @note Handling dispatching and updating the status of the emergency is also done by this object.
 	 * @note The visibility of this method is package. No classes outside the domain have access to the UnitsNeeded object.
 	 */
-	synchronized UnitsNeeded getUnitsNeeded() {
+	private synchronized UnitsNeeded getUnitsNeeded() {
 		if (this.unitsNeeded == null) {
 			this.unitsNeeded = calculateUnitsNeeded();
 		}
