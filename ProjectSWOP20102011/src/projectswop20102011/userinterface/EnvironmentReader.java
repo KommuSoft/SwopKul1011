@@ -22,9 +22,7 @@ public class EnvironmentReader {
 	 * A controller to manipulate the world.
 	 */
 	private final ReadEnvironmentDataController controller;
-	//TODO: Een spatie in deze regex mag niet? zie lendelede city. Of leggen we dit op als constraint?
 	private final Pattern REGEX_BUILDING = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\))$");
-	//TODO: Update 1u01m: werkt nu normaal: Deze regex moet aangepast worden aan de firesize die toegevoegd wordt,
 	private final Pattern REGEX_UNIT = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\)),([0-9]+)(,(local|house|facility))?$");
 
 	/**

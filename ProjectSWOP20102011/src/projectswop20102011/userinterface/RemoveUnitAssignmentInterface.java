@@ -52,7 +52,6 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 		if (selectedEmergency == null) {
 			this.writeOutput("Emergency not found.");
 		} else {
-			//TODO: Hier komt dan het echte werk
 			this.writeOutput("WORKING UNITS:");
 			//TODO: Komt niet goed overeen met de lijst van units die eronder staan:  this.writeOutput(String.format("\t%s\t%s\t%s", "id", "Unit type", "Unit name"));
 			ArrayList<Unit> workingUnits = this.getController().getWorkingUnits(selectedEmergency);
