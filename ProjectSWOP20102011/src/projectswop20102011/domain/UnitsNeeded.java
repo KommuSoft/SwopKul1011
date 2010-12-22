@@ -183,7 +183,7 @@ class UnitsNeeded {
      * Returns the constraint of this UnitsNeeded.
      * @return The constraint used by this UnitsNeeded.
      */
-    private DispatchUnitsConstraint getConstraint() {
+    DispatchUnitsConstraint getConstraint() {
         return constraint;
     }
 

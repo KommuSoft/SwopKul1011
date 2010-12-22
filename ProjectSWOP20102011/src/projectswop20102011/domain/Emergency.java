@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -346,6 +347,14 @@ public abstract class Emergency {
      */
     public DispatchPolicy getDispatchPolicy () {
         return this.getUnitsNeeded().getPolicy();
+    }
+
+    /**
+     * Returns the constraint representing what conditions need to be met before the emergency can be finished.
+     * @return A DispatchUnitsConstraint representing the constraints to finish an emergency.
+     */
+    public DispatchUnitsConstraint getDispatchConstraint () {
+        return this.getUnitsNeeded().getConstraint();
     }
 
 }
