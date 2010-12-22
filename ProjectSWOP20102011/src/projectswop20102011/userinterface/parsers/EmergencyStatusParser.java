@@ -14,7 +14,7 @@ public class EmergencyStatusParser extends Parser<EmergencyStatus> {
      * Creates a new instance of an EmergencyStatusParser
      */
     public EmergencyStatusParser() {
-        super("recorded but unhandled/response in progress/finished",EmergencyStatus.class);
+        super("recorded but unhandled/response in progress/completed",EmergencyStatus.class);
     }
 
     /**
