@@ -102,9 +102,4 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
             }
         } while (retry);
     }
-
-    @Override
-    public Controller getController() {
-        return this.controller;
-    }
 }

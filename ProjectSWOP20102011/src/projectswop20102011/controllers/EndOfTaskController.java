@@ -25,7 +25,7 @@ public class EndOfTaskController extends Controller {
         return (Unit) this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItemFromName(unitName);
     }
 
-    public void indicateEndOfEmergency (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException, InvalidEmergencyStatusException, Exception {
+    public void indicateEndOfTask (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException, InvalidEmergencyStatusException, Exception {
         if(unit == null) {
             throw new InvalidUnitException("The given unit must be effective.");
         }

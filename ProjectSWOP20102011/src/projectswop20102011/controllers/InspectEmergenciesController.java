@@ -1,6 +1,5 @@
 package projectswop20102011.controllers;
 
-import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
@@ -18,8 +17,6 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class InspectEmergenciesController extends Controller {
-
-
     /**
      * Creates a new instance of the CreateEmergenciesController with a given world to be modified.
      * @param world The world to be modified.

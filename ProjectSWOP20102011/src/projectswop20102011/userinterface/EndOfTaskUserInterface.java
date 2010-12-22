@@ -31,7 +31,7 @@ public class EndOfTaskUserInterface extends CommandUserInterface {
             if (unit != null) {
                 this.writeOutput(String.format("login %s.", unit));
                 try {
-                    this.getController().indicateEndOfEmergency(unit);
+                    this.getController().indicateEndOfTask(unit);
                 } catch (Exception ex) {
                     this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                 }
