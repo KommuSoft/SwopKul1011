@@ -53,7 +53,7 @@ public class EmergencyList implements Iterable<Emergency> {
 	/**
 	 * Returns all the emergencies in this EmergencyList that are valid to a certain EmergencyCriterium.
 	 * @param criterium
-	 *		The criterium to validate potential solution on.
+	 *		The criterium to validate a potential solution on.
 	 * @return A list with all the emergencies in this EmergencyList who are validated by the EmergencyCriterium.
 	 */
 	public EmergencyList getEmergenciesByCriterium(EmergencyEvaluationCriterium criterium) {
@@ -70,7 +70,7 @@ public class EmergencyList implements Iterable<Emergency> {
 	 * Returns the emergency in the EmergencyList with an id equal to the given id.
 	 * @param id
 	 *		The given id to check.
-	 * @return The emergency with an id equal to the given id, if no emergency is founds, this method returns null.
+	 * @return The emergency with an id equal to the given id. If no emergency is found, this method returns null.
 	 */
 	public Emergency getEmergencyFromId(long id) {
 		for (Emergency e : this) {
