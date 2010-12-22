@@ -95,7 +95,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 								this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
 							} catch (Exception ex) {
 								this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
-								this.writeOutput("Please try again");
+								this.writeOutput("Please give a new selection of units.");
 								retry = true;
 							}
 						}
