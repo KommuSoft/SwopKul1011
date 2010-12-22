@@ -1,4 +1,4 @@
-package projectswop20102011.externalsystem;
+package projectswop20102011.externalsystem.main;
 
 import be.kuleuven.cs.swop.external.ExternalSystem;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
@@ -20,6 +20,7 @@ import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.externalsystem.EmergencyDispatchApi;
 import projectswop20102011.userinterface.ActorUserInterface;
 import projectswop20102011.userinterface.CommandUserInterface;
 import projectswop20102011.userinterface.CreateEmergencyUserInterface;
@@ -32,7 +33,7 @@ import projectswop20102011.userinterface.RemoveUnitAssignmentInterface;
 import projectswop20102011.userinterface.SelectHospitalUserInterface;
 import projectswop20102011.userinterface.TimeAheadUserInterface;
 
-public class NewMain {
+public class Main {
 
 	public static void main(String[] args) throws ExternalSystemException, InvalidWorldException, InvalidControllerException, InvalidCommandNameException {
 		World world = new World();
@@ -71,13 +72,13 @@ public class NewMain {
 			mainUserInterface.HandleUserInterface();
 		} catch (InvalidCommandNameException ex) {
 			//can't be thrown, ensured by the our implementation
-			Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidControllerException ex) {
 			//can't be thrown, ensured by the our implementation
-			Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidWorldException ex) {
 			//can't be thrown, ensured by the our implementation
-			Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 }
