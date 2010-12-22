@@ -63,9 +63,10 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 					}
 					boolean acceptSuggestion = this.parseInputToType(new BooleanParser(), "Do you accept the suggestion");
 					if (!acceptSuggestion) {
-						HashSet<Unit> assignedUnits = new HashSet<Unit>();
+						HashSet<Unit> assignedUnits;
 						boolean retry = true;
 						while(retry){
+							assignedUnits = new HashSet<Unit>();
 							retry = false;
 							this.writeOutput("REQUIRED UNITS:");
 							this.writeOutput(getController().getRequiredUnits(selectedEmergency));
