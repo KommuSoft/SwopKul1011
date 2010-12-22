@@ -59,6 +59,6 @@ public class TypeUnitValidator implements UnitValidator {
      */
     @Override
     public String toString() {
-        return this.getUnitClass().getSimpleName();
+        return String.format("%ss",this.getUnitClass().getSimpleName());
     }
 }

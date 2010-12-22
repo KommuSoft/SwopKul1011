@@ -58,4 +58,13 @@ public class FiretruckFireSizeValidator extends TypeUnitValidator {
     public boolean isValid(Unit unit) {
         return (super.isValid(unit) && ((Firetruck) unit).canHandleFireSize(this.getFireSize()));
     }
+
+    /**
+     * Returns a textual representation of the FiretruckFireSizeValidator.
+     * @return a textual representation of the FiretruckFireSizeValidator.
+     */
+    @Override
+    public String toString () {
+        return String.format("Firetrucks who can handle a {0} fire",this.getFireSize());
+    }
 }
