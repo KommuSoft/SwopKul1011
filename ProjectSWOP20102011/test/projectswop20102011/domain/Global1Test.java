@@ -206,7 +206,7 @@ public class Global1Test {
 
 		//We trekken nu twee units terug
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
-		for(int i=0;i<unitNames.length;i++){
+		for (int i = 0; i < unitNames.length; i++) {
 			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
 		}
 
@@ -284,7 +284,7 @@ public class Global1Test {
 
 		String[] unitNames = {brandweerwagen1.getName()};
 
-		for(int i=0;i<unitNames.length;i++){
+		for (int i = 0; i < unitNames.length; i++) {
 			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
 		}
 	}
@@ -317,7 +317,7 @@ public class Global1Test {
 		assertTrue(brandweerwagen1.isAtDestination());
 
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
-		for(int i=0;i<unitNames.length;i++){
+		for (int i = 0; i < unitNames.length; i++) {
 			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
 		}
 	}
@@ -367,7 +367,7 @@ public class Global1Test {
 			e1.finishUnit(unitsIterator.next());
 		}
 		unitsIterator = units.iterator();
-		
+
 		while (unitsIterator.hasNext()) {
 			assertFalse(unitsIterator.next().isAssigned());
 		}
