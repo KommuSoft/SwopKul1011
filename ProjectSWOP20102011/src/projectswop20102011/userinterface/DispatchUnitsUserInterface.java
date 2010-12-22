@@ -21,20 +21,20 @@ import projectswop20102011.userinterface.parsers.StringParser;
  */
 public class DispatchUnitsUserInterface extends CommandUserInterface {
 
-    private final DispatchUnitsController controller;
+	private final DispatchUnitsController controller;
 
-    public DispatchUnitsUserInterface(DispatchUnitsController controller) throws InvalidControllerException, InvalidCommandNameException {
-        super("dispatch units");
-        if (controller == null) {
-            throw new InvalidControllerException("Controller must be effective.");
-        }
-        this.controller = controller;
-    }
+	public DispatchUnitsUserInterface(DispatchUnitsController controller) throws InvalidControllerException, InvalidCommandNameException {
+		super("dispatch units");
+		if (controller == null) {
+			throw new InvalidControllerException("Controller must be effective.");
+		}
+		this.controller = controller;
+	}
 
-    @Override
-    public DispatchUnitsController getController() {
-        return this.controller;
-    }
+	@Override
+	public DispatchUnitsController getController() {
+		return this.controller;
+	}
 
 	@Override
 	public void HandleUserInterface() {
@@ -55,7 +55,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 				this.writeOutput("SUGGESTED UNITS:");
 				try {
 					Set<Unit> suggestedUnits = suggestedUnits = this.getController().getUnitsByPolicy(selectedEmergency);
-                                        ArrayList<Unit> suggestedUnitsL = new ArrayList<Unit>(suggestedUnits);
+					ArrayList<Unit> suggestedUnitsL = new ArrayList<Unit>(suggestedUnits);
 					for (int i = 0; i < suggestedUnitsL.size(); i++) {
 						Unit u = suggestedUnitsL.get(i);
 						double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
@@ -66,7 +66,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 					if (!acceptSuggestion) {
 						HashSet<Unit> assignedUnits;
 						boolean retry = true;
-						while(retry){
+						while (retry) {
 							assignedUnits = new HashSet<Unit>();
 							retry = false;
 							this.writeOutput("REQUIRED UNITS:");
@@ -94,7 +94,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 								}
 							} while (!expression.equals("stop"));
 							try {
-								this.getController().dispatchToEmergency(selectedEmergency,assignedUnits);
+								this.getController().dispatchToEmergency(selectedEmergency, assignedUnits);
 								this.writeOutput("The chosen units are assigned");
 							} catch (Exception ex) {
 								this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
@@ -114,5 +114,5 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 			this.writeOutput("Command aborted.");
 		}
 
-    }
+	}
 }

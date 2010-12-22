@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
@@ -33,6 +32,9 @@ public class DispatchUnitsController extends Controller {
 		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
 		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
 		ArrayList<Unit> availableUnits = new ArrayList<Unit>();
+		for(Unit u: mapItems){
+			availableUnits.add(u);
+		}
 		return emergency.getPolicyProposal(availableUnits);
 	}
 
