@@ -65,13 +65,13 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 					HashSet<Unit> assignedUnits = new HashSet<Unit>();
 					if (!acceptSuggestion) {
 						this.writeOutput("REQUIRED UNITS:");
-						//TODO: DIT MOET NOG GEDAAN WORDEN
+						this.writeOutput(getController().getRequiredUnits(selectedEmergency));
 						this.writeOutput("AVAILABLE UNITS:");
 						ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedEmergency);
 						for (int i = 0; i < availableUnits.size(); i++) {
 							Unit u = availableUnits.get(i);
 							double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
-							double eta = u.getETA(selectedEmergency.getLocation());
+							long eta = u.getETA(selectedEmergency.getLocation());
 							this.writeOutput(String.format("\t%s\t%s\t%s\t%s\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 						}
 						String expression;

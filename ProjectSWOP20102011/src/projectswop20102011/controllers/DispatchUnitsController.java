@@ -49,6 +49,10 @@ public class DispatchUnitsController extends Controller {
 		return this.getWorld().getMapItemList().getMapItemsByCriterium(criterium).sort(new UnitToEmergencyDistanceComparator(emergency));
 	}
 
+	public String getRequiredUnits(Emergency emergency){
+		return emergency.getDispatchConstraint().toString();
+	}
+
 	public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyStatusException, Exception {
 		selectedEmergency.assignUnits(units);
 	}
