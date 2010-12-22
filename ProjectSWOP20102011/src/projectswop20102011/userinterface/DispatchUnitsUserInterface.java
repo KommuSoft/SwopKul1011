@@ -63,32 +63,42 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 					}
 					boolean acceptSuggestion = this.parseInputToType(new BooleanParser(), "Do you accept the suggestion");
 					HashSet<Unit> assignedUnits = new HashSet<Unit>();
+					boolean retry = true;
 					if (!acceptSuggestion) {
-						this.writeOutput("REQUIRED UNITS:");
-						this.writeOutput(getController().getRequiredUnits(selectedEmergency));
-						this.writeOutput("AVAILABLE UNITS:");
-						ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedEmergency);
-						for (int i = 0; i < availableUnits.size(); i++) {
-							Unit u = availableUnits.get(i);
-							double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
-							long eta = u.getETA(selectedEmergency.getLocation());
-							this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
-						}
-						String expression;
-						do {
-							this.writeOutput("Type in a unit id, or type \"stop\" to finish the list.");
-							expression = this.parseInputToType(new StringParser(), "id");
-							if (!expression.equals("stop")) {
-								try {
-									int id = Integer.parseInt(expression);
-									assignedUnits.add(availableUnits.get(id));
-									this.writeOutput("Unit added.");
-								} catch (Exception ex) {
-									this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
-								}
+						while(retry){
+							retry = false;
+							this.writeOutput("REQUIRED UNITS:");
+							this.writeOutput(getController().getRequiredUnits(selectedEmergency));
+							this.writeOutput("AVAILABLE UNITS:");
+							ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedEmergency);
+							for (int i = 0; i < availableUnits.size(); i++) {
+								Unit u = availableUnits.get(i);
+								double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
+								long eta = u.getETA(selectedEmergency.getLocation());
+								this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 							}
-						} while (!expression.equals("stop"));
-						this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
+							String expression;
+							do {
+								this.writeOutput("Type in a unit id, or type \"stop\" to finish the list.");
+								expression = this.parseInputToType(new StringParser(), "id");
+								if (!expression.equals("stop")) {
+									try {
+										int id = Integer.parseInt(expression);
+										assignedUnits.add(availableUnits.get(id));
+										this.writeOutput("Unit added.");
+									} catch (Exception ex) {
+										this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+									}
+								}
+							} while (!expression.equals("stop"));
+							try {
+								this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
+							} catch (Exception ex) {
+								this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
+								this.writeOutput("Please try again");
+								retry = true;
+							}
+						}
 						this.writeOutput("The chosen units are assigned");
 					} else {
 						this.getController().dispatchToEmergency(selectedEmergency, suggestedUnits);
