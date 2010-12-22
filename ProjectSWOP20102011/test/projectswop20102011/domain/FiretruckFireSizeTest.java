@@ -55,13 +55,13 @@ public class FiretruckFireSizeTest {
 	@Test
 	public void testTimeAhead() throws InvalidLocationException, InvalidMapItemNameException,
 			InvalidSpeedException, InvalidEmergencySeverityException,
-			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException {
+			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, Exception {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(brandweerwagen);
-                f1.assignUnits(units);
+		f1.assignUnits(units);
 
 		brandweerwagen.timeAhead(duration);
 		assertEquals(x1, brandweerwagen.getCurrentLocation().getX());
@@ -73,7 +73,7 @@ public class FiretruckFireSizeTest {
 	@Test(expected = InvalidDurationException.class)
 	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, InvalidMapItemNameException, InvalidSpeedException,
-			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException {
+			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException, Exception {
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
 
