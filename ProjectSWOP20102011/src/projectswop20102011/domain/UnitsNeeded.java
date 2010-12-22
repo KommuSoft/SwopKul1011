@@ -10,7 +10,6 @@ import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidFinishException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
@@ -257,7 +256,7 @@ class UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 */
-	void unitFinishedJob(Unit unit) throws InvalidFinishException {
+	void unitFinishedJob(Unit unit){
 		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
 	}
