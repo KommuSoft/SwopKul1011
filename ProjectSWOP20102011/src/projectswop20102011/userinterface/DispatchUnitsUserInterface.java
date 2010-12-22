@@ -62,9 +62,10 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 						this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 					}
 					boolean acceptSuggestion = this.parseInputToType(new BooleanParser(), "Do you accept the suggestion");
-					HashSet<Unit> assignedUnits = new HashSet<Unit>();
+					HashSet<Unit> assignedUnits;
 					boolean retry = true;
 					if (!acceptSuggestion) {
+						assignedUnits = new HashSet<Unit>();
 						while(retry){
 							retry = false;
 							this.writeOutput("REQUIRED UNITS:");
@@ -93,13 +94,13 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 							} while (!expression.equals("stop"));
 							try {
 								this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
+								this.writeOutput("The chosen units are assigned");
 							} catch (Exception ex) {
 								this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
 								this.writeOutput("Please give a new selection of units.");
 								retry = true;
 							}
 						}
-						this.writeOutput("The chosen units are assigned");
 					} else {
 						this.getController().dispatchToEmergency(selectedEmergency, suggestedUnits);
 						this.writeOutput("The suggested units are assigned");
