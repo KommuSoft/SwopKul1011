@@ -1,7 +1,9 @@
 package projectswop20102011.domain;
 
 import projectswop20102011.domain.lists.MapItemList;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -106,7 +108,7 @@ public class Global1Test {
 		ziekenwagen5 = new Ambulance(name5, homeLocation5, speed5);
 
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
@@ -138,7 +140,7 @@ public class Global1Test {
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
 		ziekenwagen3 = new Ambulance(name3, homeLocation3, speed3);
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
@@ -176,12 +178,12 @@ public class Global1Test {
 		mapitemList.addMapItem(brandweerwagen1);
 
 		//We wijzen de units toe aan een emergency
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
 		units.add(brandweerwagen1);
-		e1.assignUnits(units);
+		e1.assignUnits((Set<Unit>) units);
 
 		//We spoelen de tijd door
 		ziekenwagen1.timeAhead(duration3);
@@ -262,11 +264,11 @@ public class Global1Test {
 		mapitemList.addMapItem(ziekenwagen2);
 		mapitemList.addMapItem(brandweerwagen1);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
-		e1.assignUnits(units);
+		e1.assignUnits((Set<Unit>) units);
 		ziekenwagen1.timeAhead(duration3);
 		ziekenwagen2.timeAhead(duration3);
 		brandweerwagen1.timeAhead(duration3);
@@ -297,7 +299,7 @@ public class Global1Test {
 		mapitemList.addMapItem(ziekenwagen2);
 		mapitemList.addMapItem(brandweerwagen1);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
@@ -323,35 +325,47 @@ public class Global1Test {
 			InvalidAmbulanceException, InvalidHospitalException, Exception {
 		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
 
-		ArrayList<Unit> units = new ArrayList<Unit>(1338);
+		Set<Unit> units = new LinkedHashSet<Unit>(1338);
 		int aantal = 1338;
-		units.add(0, new Firetruck("Naam", homeLocation1, 100, fs1));
+		units.add(new Firetruck("Naam", homeLocation1, 100, fs1));
 		for (int i = 1; i < aantal; i++) {
-			units.add(i, new Ambulance("Naam", homeLocation2, 100));
+			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
 
+		Iterator<Unit> unitsIterator;
+
+		unitsIterator = units.iterator();
 		e1.assignUnits(units);
 		assertEquals(1338, e1.getWorkingUnits().size());
 
-		for (int i = 0; i < aantal; i++) {
-			units.get(i).timeAhead(1000000000);
+		while (unitsIterator.hasNext()) {
+			unitsIterator.next().timeAhead(1000000000);
 		}
+		unitsIterator = units.iterator();
 
-		for (int i = 1; i < aantal; i++) {
-			((Ambulance) units.get(i)).selectHospital(hospital1);
+
+		unitsIterator.next();
+		while (unitsIterator.hasNext()) {
+			((Ambulance) unitsIterator.next()).selectHospital(hospital1);
 		}
+		unitsIterator = units.iterator();
 
-		for (int i = 0; i < aantal; i++) {
-			units.get(i).timeAhead(1000000000);
+
+		while (unitsIterator.hasNext()) {
+			unitsIterator.next().timeAhead(1000000000);
 		}
+		unitsIterator = units.iterator();
 
-		for (int i = 0; i < aantal; i++) {
-			//units.get(i).finishedJob();
+
+		while (unitsIterator.hasNext()) {
+			//u.finishedJob();
 			//TODO hier nog test schrijven
-			e1.finishUnit(units.get(i));
+			e1.finishUnit(unitsIterator.next());
 		}
-		for (int i = 0; i < aantal; i++) {
-			assertFalse(units.get(i).isAssigned());
+		unitsIterator = units.iterator();
+		
+		while (unitsIterator.hasNext()) {
+			assertFalse(unitsIterator.next().isAssigned());
 		}
 	}
 
@@ -367,7 +381,7 @@ public class Global1Test {
 
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
@@ -393,7 +407,7 @@ public class Global1Test {
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
 		politiewagen1 = new Policecar(name8, homeLocation3, speed3);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
@@ -413,7 +427,7 @@ public class Global1Test {
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
 		politiewagen1 = new Policecar(name8, homeLocation3, speed3);
 
-		ArrayList<Unit> units = new ArrayList<Unit>();
+		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
