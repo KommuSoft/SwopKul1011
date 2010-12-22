@@ -62,10 +62,9 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 						this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 					}
 					boolean acceptSuggestion = this.parseInputToType(new BooleanParser(), "Do you accept the suggestion");
-					HashSet<Unit> assignedUnits;
-					boolean retry = true;
 					if (!acceptSuggestion) {
-						assignedUnits = new HashSet<Unit>();
+						HashSet<Unit> assignedUnits = new HashSet<Unit>();
+						boolean retry = true;
 						while(retry){
 							retry = false;
 							this.writeOutput("REQUIRED UNITS:");
