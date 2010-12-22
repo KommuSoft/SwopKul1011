@@ -58,7 +58,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 					for (int i = 0; i < suggestedUnits.size(); i++) {
 						Unit u = suggestedUnits.get(i);
 						double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
-						double eta = u.getETA(selectedEmergency.getLocation());
+						long eta = u.getETA(selectedEmergency.getLocation());
 						this.writeOutput(String.format("\t%s\t%s\t%s\t%s\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 					}
 					boolean acceptSuggestion = this.parseInputToType(new BooleanParser(), "Do you accept the suggestion");
