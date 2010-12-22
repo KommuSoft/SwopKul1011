@@ -74,8 +74,8 @@ public class TimeAheadController extends Controller {
 		getWorld().getTimeSensitiveList().timeAhead(seconds);
 		if (getExternalSystem() != null) {
 			int s = (int) (seconds + getWorld().getTime());
-			int hours = (int) (s / 3600);
-			int minutes = (int) ((s - (3600 * hours)) / 60);
+			int hours = (s / 3600);
+			int minutes = ((s - (3600 * hours)) / 60);
 			ITime time = new Time(hours, minutes);
 			try {
 				getExternalSystem().notifyTimeChanged(time);
