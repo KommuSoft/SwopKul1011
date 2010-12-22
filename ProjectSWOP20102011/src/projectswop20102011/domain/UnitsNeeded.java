@@ -347,4 +347,12 @@ class UnitsNeeded {
 	public Collection<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
+
+    public boolean CanBeResolved (Collection<? extends Unit> availableUnits) {
+        Collection<Unit> completeCollection = this.getFinishedUnits();
+        completeCollection.addAll(this.takeFinishedUnits());
+        completeCollection.addAll(availableUnits);
+        return this.getConstraint().areValidDispatchUnits(completeCollection);
+    }
+
 }

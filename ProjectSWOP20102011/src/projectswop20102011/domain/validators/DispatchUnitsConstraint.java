@@ -66,7 +66,6 @@ public abstract class DispatchUnitsConstraint {
      * @return If the fixed part is completly used a subset of the varialbePart containing a selection of units that are relevant fo the constraint. Although a combination of this selection and the fixed part doesn't need to pass the constraint. Otherwise an empty list.
      */
     public Collection<Unit> generateProposal(List<Unit> fixedPart, List<Unit> variablePart) {
-		System.out.println("Fixed part size: " + fixedPart.size());
         ArrayList<Unit> combinedParts = new ArrayList<Unit>(fixedPart);
         combinedParts.addAll(variablePart);
         HashSet<Unit> proposal = new HashSet<Unit>();

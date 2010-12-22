@@ -251,7 +251,7 @@ public abstract class Emergency {
 	 *      If another exception is thrown by performing this operation.
 	 * @note this method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
 	 */
-	public void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException, Exception {
+	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException, Exception {
 		this.getStatus().finishUnit(this, unitToFinish);
 	}
 
