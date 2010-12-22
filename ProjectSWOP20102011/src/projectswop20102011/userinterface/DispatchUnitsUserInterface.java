@@ -20,20 +20,20 @@ import projectswop20102011.userinterface.parsers.StringParser;
  */
 public class DispatchUnitsUserInterface extends CommandUserInterface {
 
-	private final DispatchUnitsController controller;
+    private final DispatchUnitsController controller;
 
-	public DispatchUnitsUserInterface(DispatchUnitsController controller) throws InvalidControllerException, InvalidCommandNameException {
-		super("dispatch units");
-		if (controller == null) {
-			throw new InvalidControllerException("Controller must be effective.");
-		}
-		this.controller = controller;
-	}
+    public DispatchUnitsUserInterface(DispatchUnitsController controller) throws InvalidControllerException, InvalidCommandNameException {
+        super("dispatch units");
+        if (controller == null) {
+            throw new InvalidControllerException("Controller must be effective.");
+        }
+        this.controller = controller;
+    }
 
-	@Override
-	public DispatchUnitsController getController() {
-		return this.controller;
-	}
+    @Override
+    public DispatchUnitsController getController() {
+        return this.controller;
+    }
 
 	@Override
 	public void HandleUserInterface() {
@@ -102,5 +102,5 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 			this.writeOutput("Command aborted.");
 		}
 
-	}
+    }
 }

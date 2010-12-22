@@ -110,7 +110,7 @@ public class PublicDisturbance extends Emergency {
      * @return The units needed for this public disturbance.
      */
     @Override
-    protected UnitsNeeded calculateUnitsNeeded() { //TODO zie TrafficAccident
+    protected UnitsNeeded calculateUnitsNeeded() {
         try {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
             return un;

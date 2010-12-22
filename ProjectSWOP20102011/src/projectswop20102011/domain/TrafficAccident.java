@@ -159,7 +159,7 @@ public class TrafficAccident extends Emergency {
 	 * @return The units needed for this traffic accident.
 	 */
 	@Override
-	protected UnitsNeeded calculateUnitsNeeded() { //TODO hier gebeurt iets nutteloos (zie hint)
+	protected UnitsNeeded calculateUnitsNeeded() {
 		try {
 			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured());

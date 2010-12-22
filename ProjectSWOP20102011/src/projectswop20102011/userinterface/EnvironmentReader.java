@@ -23,9 +23,9 @@ public class EnvironmentReader {
 	 */
 	private final ReadEnvironmentDataController controller;
 	//TODO: Een spatie in deze regex mag niet? zie lendelede city. Of leggen we dit op als constraint?
-	private final Pattern REGEX_BUILDING = Pattern.compile("^([A-Za-z0-9]+),([A-Za-z0-9]+),(\\([^(,)]+,[^(,)]+\\))$");
+	private final Pattern REGEX_BUILDING = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\))$");
 	//TODO: Update 1u01m: werkt nu normaal: Deze regex moet aangepast worden aan de firesize die toegevoegd wordt,
-	private final Pattern REGEX_UNIT = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\)),([0-9]+),?((local|house|facility))?$");
+	private final Pattern REGEX_UNIT = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\)),([0-9]+)(,(local|house|facility))?$");
 
 	/**
 	 * Creates a new instance of an EnvironmentReader with a given ReadEnvironmentDataController to manipulate the environment of the world.
@@ -63,7 +63,7 @@ public class EnvironmentReader {
 					if (type.equals("Policecar")) {
 						this.controller.addPolicecar(name, location, speed);
 					} else if (type.equals("Firetruck")) {
-						FireSize fireSize = fireSizeParser.parseInput(M.group(5));
+						FireSize fireSize = fireSizeParser.parseInput(M.group(6));
 						this.controller.addFiretruck(name, location, speed, fireSize);
 					} else if (type.equals("Ambulance")) {
 						this.controller.addAmbulance(name, location, speed);

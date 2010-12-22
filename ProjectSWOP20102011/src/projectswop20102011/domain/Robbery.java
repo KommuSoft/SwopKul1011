@@ -120,7 +120,7 @@ public class Robbery extends Emergency {
      * @return The units needed for this robbery.
      */
     @Override
-    protected UnitsNeeded calculateUnitsNeeded() { //TODO zie TrafficAccident
+    protected UnitsNeeded calculateUnitsNeeded() {
         int nPolice = ((isArmed() && isInProgress()) ? 3 : 1);
         try {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice));
