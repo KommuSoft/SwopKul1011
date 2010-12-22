@@ -55,7 +55,7 @@ public class SelectHospitalController extends Controller {
      * @throws InvalidAmbulanceException If the given ambulance is not assigned to an emergency or is not at it's destination.
      * @throws InvalidHospitalException If the given hospital is not effective.
      */
-    public void SelectHospital (Ambulance ambulance, Hospital hospital) throws InvalidAmbulanceException, InvalidHospitalException {
+    public void selectHospital (Ambulance ambulance, Hospital hospital) throws InvalidAmbulanceException, InvalidHospitalException {
         ambulance.selectHospital(hospital);
     }
 

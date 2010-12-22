@@ -9,9 +9,7 @@ import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCriterium;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.validators.MapItemValidator;
-import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 

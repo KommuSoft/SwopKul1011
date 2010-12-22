@@ -57,7 +57,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
                                 this.writeOutput("Couldn't find hospital id.");
                             } else {
                                 try {
-                                    this.getController().SelectHospital(amb, hospitals.get(selected));
+                                    this.getController().selectHospital(amb, hospitals.get(selected));
                                     this.writeOutput("Select Hosital Done!");
                                 } catch (Exception ex) {
                                     this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
