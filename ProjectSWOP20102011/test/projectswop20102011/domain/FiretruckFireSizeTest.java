@@ -26,6 +26,7 @@ public class FiretruckFireSizeTest {
 
 	@Before
 	public void setUp() {
+		x1 = -21;
 		y1 = 120;
 		x2 = 19;
 		y2 = 90;
@@ -37,7 +38,6 @@ public class FiretruckFireSizeTest {
 		fs1 = FireSize.FACILITY;
 		fs2 = FireSize.HOUSE;
 		fs3 = FireSize.LOCAL;
-		x1 = -21;
 	}
 
 	@Test
