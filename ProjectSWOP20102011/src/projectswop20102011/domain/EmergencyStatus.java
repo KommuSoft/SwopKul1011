@@ -1,7 +1,7 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -47,7 +47,7 @@ public enum EmergencyStatus {
         }
 
         @Override
-        Collection<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+        Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
             return unitsNeeded.getPolicyProposal(availableUnits);
         }
 
@@ -90,7 +90,7 @@ public enum EmergencyStatus {
         }
 
         @Override
-        Collection<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+        Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
             return unitsNeeded.getPolicyProposal(availableUnits);
         }
 
@@ -125,8 +125,8 @@ public enum EmergencyStatus {
         }
 
         @Override
-        Collection<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
-            return new ArrayList<Unit>();//a proposal containing no units
+        Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+            return new HashSet<Unit>();//a proposal containing no units
         }
 
         @Override
