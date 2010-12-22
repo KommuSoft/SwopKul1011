@@ -1,7 +1,6 @@
 package projectswop20102011.domain;
 
 import projectswop20102011.domain.lists.MapItemList;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.junit.Before;
@@ -207,7 +206,7 @@ public class Global1Test {
 		//We trekken nu twee units terug
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
 		for (int i = 0; i < unitNames.length; i++) {
-			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
+			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw();
 		}
 
 		//Nog steeds is geen enkele unit op de plaats van het ongeval geweest
@@ -336,40 +335,27 @@ public class Global1Test {
 			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
 
-		Iterator<Unit> unitsIterator;
-
-		unitsIterator = units.iterator();
 		e1.assignUnits(units);
 		assertEquals(1338, e1.getWorkingUnits().size());
 
-		while (unitsIterator.hasNext()) {
-			unitsIterator.next().timeAhead(1000000000);
+		for(Unit u : units) {
+			u.timeAhead(1000000000);
 		}
-		unitsIterator = units.iterator();
-
-
-		unitsIterator.next();
-		while (unitsIterator.hasNext()) {
-			((Ambulance) unitsIterator.next()).selectHospital(hospital1);
+		for(Unit u : units) {
+			((Ambulance) u).selectHospital(hospital1);
 		}
-		unitsIterator = units.iterator();
-
-
-		while (unitsIterator.hasNext()) {
-			unitsIterator.next().timeAhead(1000000000);
+		for(Unit u : units) {
+			u.timeAhead(1000000000);
 		}
-		unitsIterator = units.iterator();
 
-
-		while (unitsIterator.hasNext()) {
+		for(Unit u : units) {
 			//u.finishedJob();
 			//TODO hier nog test schrijven
-			e1.finishUnit(unitsIterator.next());
+			u.finishedJob();
 		}
-		unitsIterator = units.iterator();
 
-		while (unitsIterator.hasNext()) {
-			assertFalse(unitsIterator.next().isAssigned());
+		for(Unit u : units) {
+			assertFalse(u.isAssigned());
 		}
 	}
 
