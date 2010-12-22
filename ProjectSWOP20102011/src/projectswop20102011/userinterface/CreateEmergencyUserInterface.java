@@ -56,7 +56,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                     long trappedPeople = this.parseInputToType(new LongParser(), "number of trapped people");
                     long numberOfInjured = this.parseInputToType(new LongParser(), "number of injured people");
                     try {
-                        this.controller.createFireEmergency(location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured);
+                        this.getController().createFireEmergency(location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured);
                     } catch (Exception ex) {
                         this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                         this.writeOutput("write \"retry\" to retry to input the emergency, otherwise write anything else");
@@ -66,7 +66,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                     boolean armed = this.parseInputToType(new BooleanParser(), "is the robbery armed");
                     boolean inprogress = this.parseInputToType(new BooleanParser(), "is the robbery still in progress");
                     try {
-                        this.controller.createRobberyEmergency(location, severity, description, armed, inprogress);
+                        this.getController().createRobberyEmergency(location, severity, description, armed, inprogress);
                     } catch (Exception ex) {
                         this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                         this.writeOutput("write \"retry\" to retry to input the emergency, otherwise write anything else");
@@ -75,7 +75,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                 } else if (emergencyType.equals("public disturbance")) {
                     long numberOfPeople = this.parseInputToType(new LongParser(), "number of people involved in the public disturbance");
                     try {
-                        this.controller.createPublicDisturbanceEmergency(location, severity, description, numberOfPeople);
+                        this.getController().createPublicDisturbanceEmergency(location, severity, description, numberOfPeople);
                     } catch (Exception ex) {
                         this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                         this.writeOutput("write \"retry\" to retry to input the emergency, otherwise write anything else");
@@ -85,7 +85,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                     long numberOfCars = this.parseInputToType(new LongParser(), "number of cars involved in the traffic accident");
                     long numberOfPeople = this.parseInputToType(new LongParser(), "number of people involved in the traffic accident");
                     try {
-                        this.controller.createTrafficAccidentEmergency(location, severity, description, numberOfCars, numberOfPeople);
+                        this.getController().createTrafficAccidentEmergency(location, severity, description, numberOfCars, numberOfPeople);
                     } catch (Exception ex) {
                         this.writeOutput(String.format("ERROR: %s", ex.getMessage()));
                         this.writeOutput("write \"retry\" to retry to input the emergency, otherwise write anything else");
@@ -101,5 +101,10 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                 this.writeOutput("command aborted.");
             }
         } while (retry);
+    }
+
+    @Override
+    public CreateEmergencyController getController() {
+        return this.controller;
     }
 }
