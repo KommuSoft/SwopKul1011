@@ -356,4 +356,13 @@ public abstract class Emergency {
 	public DispatchUnitsConstraint getDispatchConstraint() {
 		return this.getUnitsNeeded().getConstraint();
 	}
+
+        /**
+         * Cecks if this emergency can be resolved with a given collection of all available units.
+         * @param availableUnits All the available units in the world.
+         * @return True if the given emergency can be resolved, otherwise false.
+         */
+        public boolean canBeResolved (Collection<Unit> availableUnits) {
+            return this.getStatus().canBeResolved(this, availableUnits);
+        }
 }
