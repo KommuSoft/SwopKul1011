@@ -96,7 +96,7 @@ public class Global1Test {
 	@Test(expected = InvalidEmergencyException.class)
 	public void testInvalidAssignToFire() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException {
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidEmergencyStatusException {
 		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
@@ -112,7 +112,7 @@ public class Global1Test {
 		units.add(ziekenwagen3);
 		units.add(ziekenwagen4);
 		units.add(ziekenwagen5);
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
+		e1.assignUnits(units);
 
 		assertFalse(ziekenwagen1.isAtDestination());
 
@@ -142,7 +142,7 @@ public class Global1Test {
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
+		e1.assignUnits(units);
 
 		assertFalse(ziekenwagen1.isAtDestination());
 
@@ -161,7 +161,7 @@ public class Global1Test {
 	@Test
 	public void testNormalWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException {
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidEmergencyStatusException {
 		//Brand aanmaken + alle units
 		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
@@ -181,7 +181,7 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
 		units.add(brandweerwagen1);
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
+		e1.assignUnits(units);
 
 		//We spoelen de tijd door
 		ziekenwagen1.timeAhead(duration3);
@@ -266,7 +266,7 @@ public class Global1Test {
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
+		e1.assignUnits(units);
 		ziekenwagen1.timeAhead(duration3);
 		ziekenwagen2.timeAhead(duration3);
 		brandweerwagen1.timeAhead(duration3);
@@ -302,7 +302,7 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
 
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
+		e1.assignUnits(units);
 		ziekenwagen1.timeAhead(duration2);
 		ziekenwagen2.timeAhead(duration2);
 		brandweerwagen1.timeAhead(duration2);
@@ -372,7 +372,7 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
 		units.add(brandweerwagen1);
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
+		e1.assignUnits(units);
 
 		assertFalse(ziekenwagen1.isAtDestination());
 
@@ -398,10 +398,10 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
 
-		assertFalse(e1.getUnitsNeeded().canAssignUnitsToEmergency(units));
+		assertFalse(e1.canAssignUnits(units));
 
 		units.add(politiewagen1);
-		assertFalse(e1.getUnitsNeeded().canAssignUnitsToEmergency(units));
+		assertFalse(e1.canAssignUnits(units));
 	}
 
 	@Test
@@ -418,9 +418,9 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
 
-		assertFalse(e1.getUnitsNeeded().canAssignUnitsToEmergency(units));
+		assertFalse(e1.canAssignUnits(units));
 
 		units.add(politiewagen1);
-		assertFalse(e1.getUnitsNeeded().canAssignUnitsToEmergency(units));
+		assertFalse(e1.canAssignUnits(units));
 	}
 }

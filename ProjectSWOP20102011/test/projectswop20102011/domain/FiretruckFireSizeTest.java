@@ -61,7 +61,7 @@ public class FiretruckFireSizeTest {
 
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(brandweerwagen);
-		f1.getUnitsNeeded().assignUnitsToEmergency(units);
+                f1.assignUnits(units);
 
 		brandweerwagen.timeAhead(duration);
 		assertEquals(x1, brandweerwagen.getCurrentLocation().getX());
@@ -79,7 +79,7 @@ public class FiretruckFireSizeTest {
 
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(brandweerwagen);
-		f1.getUnitsNeeded().assignUnitsToEmergency(units);
+		f1.assignUnits(units);
 		brandweerwagen.timeAhead(-23);
 		assertEquals(x2, brandweerwagen.getCurrentLocation().getX());
 		assertEquals(y2, brandweerwagen.getCurrentLocation().getY());
