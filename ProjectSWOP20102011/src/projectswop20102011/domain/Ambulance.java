@@ -98,4 +98,9 @@ public class Ambulance extends Unit {
         }
         setCurrentHospital(hospital);
     }
+
+	@Override
+	public boolean canFinish(){
+		return super.canFinish() && getCurrentHospital() != null;
+	}
 }

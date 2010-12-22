@@ -58,14 +58,16 @@ public abstract class DispatchUnitsConstraint {
 
     /**
      * Generates a proposal where all the elements of the fixed part are used, and where some of the variableParts are used. The proposal tries to pass the constraint, if that's impossible all Units that
-     * @param fixedPart A list of units, where all the elements need to be used.
-     * @param variablePart A list of units where some (or even all/none) units are selected.
+     * @param fixedPart
+	 *		A list of units, where all the elements need to be used.
+     * @param variablePart
+	 *		A list of units where some (or even all/none) units are selected.
      * @pre Both the fixed and the variable part don't contain ineffective elements.
      * @return If the fixed part is completly used a subset of the varialbePart containing a selection of units that are relevant fo the constraint. Although a combination of this selection and the fixed part doesn't need to pass the constraint. Otherwise an empty list.
      */
     public Collection<Unit> generateProposal(List<Unit> fixedPart, List<Unit> variablePart) {
+		System.out.println("Fixed part size: " + fixedPart.size());
         ArrayList<Unit> combinedParts = new ArrayList<Unit>(fixedPart);
-        int n = fixedPart.size();
         combinedParts.addAll(variablePart);
         HashSet<Unit> proposal = new HashSet<Unit>();
 

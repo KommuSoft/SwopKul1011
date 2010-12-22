@@ -347,4 +347,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	public double getDistanceTo(GPSCoordinate location) {
 		return this.getCurrentLocation().getDistanceTo(location);
 	}
+
+	public boolean canFinish(){
+		return isAssigned() && isAtDestination();
+	}
 }
