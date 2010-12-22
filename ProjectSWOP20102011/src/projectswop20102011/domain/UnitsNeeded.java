@@ -3,6 +3,7 @@ package projectswop20102011.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -206,14 +207,13 @@ class UnitsNeeded {
 	 *          can be assigned and the constraint for allocation is passed;
 	 *          otherwise false.
 	 */
-	public boolean canAssignUnitsToEmergency(List<Unit> units) {
-		//TODO: remove duplicates and null pointers out of <units>
+	public boolean canAssignUnitsToEmergency(Set<Unit> units) {
 		for (Unit u : units) {
-			if (!u.canBeAssigned()) {
+			if (u == null || !u.canBeAssigned()) {
 				return false;
 			}
 		}
-		ArrayList<Unit> totalUnits = (ArrayList<Unit>) getWorkingUnits();
+		ArrayList<Unit> totalUnits = getWorkingUnits();
 		totalUnits.addAll(units);
 		return getConstraint().areAllUnitsRelevant(units);
 	}
@@ -232,7 +232,7 @@ class UnitsNeeded {
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
 	 * @see #canAssignUnitsToEmergency(List)
 	 */
-	public synchronized void assignUnitsToEmergency(List<Unit> units) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToEmergency(Set<Unit> units) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
 		}
@@ -243,9 +243,7 @@ class UnitsNeeded {
 				//We assume this can't be true (checked by the canAssigUnitsToEmergency method)
 				Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}
-		}
-		for (int i = 0; i < units.size(); i++) {
-			addWorkingUnits(units.get(i));
+                        addWorkingUnits(u);
 		}
 	}
 
@@ -329,7 +327,7 @@ class UnitsNeeded {
 	 * @return A subset of the given list containing units proposed for allocation.
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
-	Collection<Unit> generateProposal(List<Unit> options) {
+	Set<Unit> generateProposal(List<Unit> options) {
 		List<Unit> fixedPart = this.getWorkingUnits();
 		fixedPart.addAll(this.takeWorkingUnits());
 		return this.getConstraint().generateProposal(fixedPart, options);
@@ -339,7 +337,7 @@ class UnitsNeeded {
 	 * Generates a proposal for unit allocation based on the policy of the emergency.
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
-	public Collection<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 

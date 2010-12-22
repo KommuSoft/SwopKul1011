@@ -77,7 +77,7 @@ public abstract class DispatchUnitsConstraint {
      * @pre Both the fixed and the variable part don't contain ineffective elements.
      * @return If the fixed part is completly used a subset of the varialbePart containing a selection of units that are relevant fo the constraint. Although a combination of this selection and the fixed part doesn't need to pass the constraint. Otherwise an empty list.
      */
-    public Collection<Unit> generateProposal(List<Unit> fixedPart, List<Unit> variablePart) {
+    public Set<Unit> generateProposal(List<Unit> fixedPart, List<Unit> variablePart) {
         int n = fixedPart.size();
         ArrayList<Unit> combinedParts = new ArrayList<Unit>(fixedPart);
         combinedParts.addAll(variablePart);
@@ -91,7 +91,7 @@ public abstract class DispatchUnitsConstraint {
             }
         }
 
-        List<Unit> proposal = new ArrayList<Unit>();
+        Set<Unit> proposal = new HashSet<Unit>();
 
         for(Integer i : proposalIndices) {
             proposal.add(combinedParts.get(i));
