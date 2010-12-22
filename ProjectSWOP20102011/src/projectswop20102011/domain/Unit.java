@@ -360,7 +360,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @return The number of seconds this unit would use to reach the given location.
 	 */
 	public long getETA(GPSCoordinate location) {
-		return Math.round(this.getDistanceTo(location) / this.getSpeed());
+		return Math.round(3600*this.getDistanceTo(location) / this.getSpeed());
 	}
 
 	/**
