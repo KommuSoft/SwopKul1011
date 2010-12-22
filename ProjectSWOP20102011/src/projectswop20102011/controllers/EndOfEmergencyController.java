@@ -5,6 +5,7 @@ import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -24,11 +25,11 @@ public class EndOfEmergencyController extends Controller {
         return (Unit) this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItemFromName(unitName);
     }
 
-    public void indicateEndOfEmergency (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException {
+    public void indicateEndOfEmergency (Unit unit) throws InvalidEmergencyException, InvalidLocationException, InvalidUnitException, InvalidEmergencyStatusException, Exception {
         if(unit == null) {
             throw new InvalidUnitException("The given unit must be effective.");
         }
-        unit.finishedJob();
+		unit.getEmergency().finishUnit(unit);
     }
 
 }

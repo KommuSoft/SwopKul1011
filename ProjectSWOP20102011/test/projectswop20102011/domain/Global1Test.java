@@ -320,7 +320,7 @@ public class Global1Test {
 	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
 			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
-			InvalidAmbulanceException, InvalidHospitalException {
+			InvalidAmbulanceException, InvalidHospitalException, Exception {
 		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
 
 		ArrayList<Unit> units = new ArrayList<Unit>(1338);
@@ -329,8 +329,8 @@ public class Global1Test {
 		for (int i = 1; i < aantal; i++) {
 			units.add(i, new Ambulance("Naam", homeLocation2, 100));
 		}
-		e1.getUnitsNeeded().assignUnitsToEmergency(units);
 
+		e1.assignUnits(units);
 		assertEquals(1338, e1.getUnitsNeeded().getWorkingUnits().size());
 
 		for (int i = 0; i < aantal; i++) {
@@ -346,7 +346,9 @@ public class Global1Test {
 		}
 
 		for (int i = 0; i < aantal; i++) {
-			units.get(i).finishedJob();
+			//units.get(i).finishedJob();
+			//TODO hier nog test schrijven
+			e1.finishUnit(units.get(i));
 		}
 		for (int i = 0; i < aantal; i++) {
 			assertFalse(units.get(i).isAssigned());

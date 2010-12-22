@@ -148,12 +148,12 @@ public enum EmergencyStatus {
          * @param unit
          *      The unit that must be withdrawn.
          * @effect The given unit is withdrawn from the given emergency.
-         *      | emergency.getUnitsNeeded().withdrawUnit(unit);
+         *      | emergency.getUnitsNeeded().removeFromWorkingUnits(unit);
          *
          */
         @Override
         void withdrawUnit(Emergency emergency, Unit unit) {
-            emergency.getUnitsNeeded().withdrawUnit(unit);
+            emergency.getUnitsNeeded().removeFromWorkingUnits(unit);
         }
 
         /**

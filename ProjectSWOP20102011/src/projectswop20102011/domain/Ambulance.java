@@ -98,28 +98,4 @@ public class Ambulance extends Unit {
         }
         setCurrentHospital(hospital);
     }
-
-    /**
-     * Finishes the job of the ambulance.
-     * @post the selected hospital of this ambulance is null
-     *		| this.getHospital().equals(null)
-     * @throws InvalidEmergencyException
-     *		If the unit is not assigned to an emergency.
-     * @throws InvalidLocationException
-     *		If the unit is not at the location of the emergency.
-     */
-    @Override
-    public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
-        if (isAssigned()) {
-            if (getCurrentHospital() != null && this.isAtDestination()) {
-                getEmergency().getUnitsNeeded().unitFinishedJob(this);
-                setEmergency(null);
-				setWasAlreadyAtSite(false);
-            } else {
-                throw new InvalidLocationException("The unit is not at it's destination.");
-            }
-        } else {
-            throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
-        }
-    }
 }

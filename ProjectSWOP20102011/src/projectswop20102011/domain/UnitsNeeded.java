@@ -257,7 +257,7 @@ class UnitsNeeded {
      *		|takeWorkingUnit().remove(unit)
      */
     void unitFinishedJob(Unit unit) {
-        withdrawUnit(unit);
+        removeFromWorkingUnits(unit);
         addFinishedUnits(unit);
     }
 
@@ -317,8 +317,9 @@ class UnitsNeeded {
      * @post The unit is removed from the workingUnits list.
      *		|takeWorkingUnit().remove(unit)
      */
-    void withdrawUnit(Unit unit) {
+    void removeFromWorkingUnits(Unit unit) {
         takeWorkingUnits().remove(unit);
+		unit.setEmergency(null);
     }
 
     /**

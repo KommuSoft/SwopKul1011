@@ -15,7 +15,7 @@ public class NormalWithdraw implements WithdrawBehavior {
 	 * @param unit
 	 *		The unit that must be withdrawn.
 	 * @effect The given unit is withdrawn from his emergency.
-	 *		|unit.getEmergency().getUnitsNeeded().withdrawUnit(unit)
+	 *		|unit.getEmergency().getUnitsNeeded().removeFromWorkingUnits(unit)
 	 * @effect The emergency of the given unit is set to null.
 	 *		|unit.setEmergency(null)
 	 * @throws InvalidEmergencyException
@@ -27,7 +27,7 @@ public class NormalWithdraw implements WithdrawBehavior {
 	public void withdraw(Unit unit) throws InvalidEmergencyException, InvalidWithdrawalException {
 		if (unit.isAssigned()) {
 			if (!unit.wasAlreadyAtSite()) {
-				unit.getEmergency().getUnitsNeeded().withdrawUnit(unit);
+				unit.getEmergency().getUnitsNeeded().removeFromWorkingUnits(unit);
 				unit.setEmergency(null);
 			} else {
 				throw new InvalidWithdrawalException("The unit was already at site of the emergency, so it can't be withdrawn.");

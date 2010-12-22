@@ -310,31 +310,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	}
 
 	/**
-	 * Finishes the job of this Unit.
-	 * @effect The emergency of this unit is null
-	 *		| this.getEmergency().equals(null)
-	 * @effect The unit is not assigned
-	 *		| !this.isAssigned()
-	 * @throws InvalidEmergencyException
-	 *		If the unit is not assigned to an emergency.
-	 * @throws InvalidLocationException
-	 *		If the unit is not at the location of the emergency.
-	 */
-	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException {
-		if (isAssigned()) {
-			if (this.isAtDestination()) {
-				getEmergency().getUnitsNeeded().unitFinishedJob(this);
-				setEmergency(null);
-				setWasAlreadyAtSite(false);
-			} else {
-				throw new InvalidLocationException("The unit is not at it's destination.");
-			}
-		} else {
-			throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
-		}
-	}
-
-	/**
 	 * Checks if this unit can be assigned.
 	 * @return True if this unit can be assigned, otherwise false.
 	 */
