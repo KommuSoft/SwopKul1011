@@ -59,7 +59,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 						Unit u = suggestedUnits.get(i);
 						double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
 						long eta = u.getETA(selectedEmergency.getLocation());
-						this.writeOutput(String.format("\t%s\t%s\t%s\t%s\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
+						this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 					}
 					boolean acceptSuggestion = this.parseInputToType(new BooleanParser(), "Do you accept the suggestion");
 					HashSet<Unit> assignedUnits = new HashSet<Unit>();
@@ -72,7 +72,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 							Unit u = availableUnits.get(i);
 							double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
 							long eta = u.getETA(selectedEmergency.getLocation());
-							this.writeOutput(String.format("\t%s\t%s\t%s\t%s\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
+							this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
 						}
 						String expression;
 						do {
