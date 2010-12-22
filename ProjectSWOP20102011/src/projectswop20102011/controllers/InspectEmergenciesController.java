@@ -56,7 +56,7 @@ public class InspectEmergenciesController extends Controller {
     }
     public boolean canBeAssigned (Emergency e) {
         MapItemValidator criterium = new AvailableUnitsMapItemValidator();
-        ArrayList<Unit> availableUnitsList = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).toArrayList();
+        Set<Unit> availableUnitsList = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
         return e.canAssignUnits(availableUnitsList);
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
@@ -237,7 +238,7 @@ public abstract class Emergency {
 	 * @throws Exception
 	 *      If another exception is thrown by performing this operation (for instance those units are already assigned).
 	 */
-	public void assignUnits(List<Unit> units) throws InvalidEmergencyStatusException, Exception {
+	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, Exception {
 		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
 	}
 
@@ -327,7 +328,7 @@ public abstract class Emergency {
 	 *      A list of units to check.
 	 * @return True if the given list of units can be assigned, otherwise false.
 	 */
-	public boolean canAssignUnits(ArrayList<Unit> units) {
+	public boolean canAssignUnits(Set<Unit> units) {
 		return this.getStatus().canAssignUnits(this.getUnitsNeeded(), units);
 	}
 
@@ -337,7 +338,7 @@ public abstract class Emergency {
 	 *      A list of units that are available for the proposal.
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
-	public Collection<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		return this.getStatus().getPolicyProposal(this.getUnitsNeeded(), availableUnits);
 	}
 

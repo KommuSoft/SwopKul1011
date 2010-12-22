@@ -1,10 +1,10 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
@@ -74,7 +74,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      *      A list of units that are available to handle an emergency (not necessarily this emergency in particular).
      * @return A list of units that would be allocated to the emergency if the policy would be applied.
      */
-    public Setn<Unit> generateProposal(List<? extends Unit> availableUnits) {
+    public Set<Unit> generateProposal(List<? extends Unit> availableUnits) {
         ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
         Collections.sort(clonedList, this);
         return this.getUnitsNeeded().generateProposal(clonedList);

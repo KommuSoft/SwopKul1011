@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map.Entry;
+import java.util.Set;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.DispatchUnitsController;
@@ -52,11 +53,11 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 				//TODO: alternatief voor constraint zoeken
 				//UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
 				this.writeOutput("SUGGESTED UNITS:");
-				ArrayList<Unit> suggestedUnits;
 				try {
-					suggestedUnits = (ArrayList<Unit>) this.getController().getUnitsByPolicy(selectedEmergency);
-					for (int i = 0; i < suggestedUnits.size(); i++) {
-						Unit u = suggestedUnits.get(i);
+					Set<Unit> suggestedUnits = suggestedUnits = this.getController().getUnitsByPolicy(selectedEmergency);
+                                        ArrayList<Unit> suggestedUnitsL = new ArrayList<Unit>(suggestedUnits);
+					for (int i = 0; i < suggestedUnitsL.size(); i++) {
+						Unit u = suggestedUnitsL.get(i);
 						double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
 						long eta = u.getETA(selectedEmergency.getLocation());
 						this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
@@ -93,7 +94,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 								}
 							} while (!expression.equals("stop"));
 							try {
-								this.getController().dispatchToEmergency(selectedEmergency, new ArrayList<Unit>(assignedUnits));
+								this.getController().dispatchToEmergency(selectedEmergency,assignedUnits);
 								this.writeOutput("The chosen units are assigned");
 							} catch (Exception ex) {
 								this.writeOutput(String.format("ERROR: %s", ex.getMessage()));

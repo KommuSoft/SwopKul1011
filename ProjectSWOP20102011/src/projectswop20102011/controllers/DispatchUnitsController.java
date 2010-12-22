@@ -3,6 +3,7 @@ package projectswop20102011.controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.MapItem;
@@ -28,18 +29,11 @@ public class DispatchUnitsController extends Controller {
 		return this.getWorld().getEmergencyList().getEmergencyFromId(id);
 	}
 
-	public List<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
+	public Set<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
 		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
-		HashSet<MapItem> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
+		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
 		ArrayList<Unit> availableUnits = new ArrayList<Unit>();
-		for (MapItem u : mapItems) {
-			availableUnits.add((Unit) u);
-		}
-		ArrayList<Unit> unitsByPolicy = new ArrayList<Unit>();
-		for (Unit u : emergency.getPolicyProposal(availableUnits)) {
-			unitsByPolicy.add(u);
-		}
-		return unitsByPolicy;
+		return emergency.getPolicyProposal(availableUnits);
 	}
 
 	public List<Unit> getAvailableUnitsSorted(Emergency emergency) throws InvalidEmergencyException {
@@ -51,7 +45,7 @@ public class DispatchUnitsController extends Controller {
 		return emergency.getDispatchConstraint().toString();
 	}
 
-	public void dispatchToEmergency(Emergency selectedEmergency, List<Unit> units) throws InvalidEmergencyStatusException, Exception {
+	public void dispatchToEmergency(Emergency selectedEmergency, Set<Unit> units) throws InvalidEmergencyStatusException, Exception {
 		selectedEmergency.assignUnits(units);
 	}
 }
