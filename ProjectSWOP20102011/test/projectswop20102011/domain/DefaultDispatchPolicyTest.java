@@ -49,8 +49,8 @@ public class DefaultDispatchPolicyTest {
 
 	@Test
 	public void testCompare() {
-		assertTrue(e1.getUnitsNeeded().getPolicy().compare(u1, u2) < 0);
-		assertTrue(e1.getUnitsNeeded().getPolicy().compare(u1, u1) == 0);
-		assertTrue(e1.getUnitsNeeded().getPolicy().compare(u2, u1) > 0);
+		assertTrue(e1.getDispatchPolicy().compare(u1, u2) < 0);
+		assertTrue(e1.getDispatchPolicy().compare(u1, u1) == 0);
+		assertTrue(e1.getDispatchPolicy().compare(u2, u1) > 0);
 	}
 }

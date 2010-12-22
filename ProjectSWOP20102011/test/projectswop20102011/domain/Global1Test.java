@@ -220,7 +220,7 @@ public class Global1Test {
 		assertFalse(brandweerwagen1.canBeAssigned());
 
 		//we veronderstellen dat er nog 4 units zijn toegewezen
-		assertEquals(2, e1.getUnitsNeeded().getWorkingUnits().size());
+		assertEquals(2, e1.getWorkingUnits().size());
 
 		//
 		ziekenwagen1.timeAhead(duration2);
@@ -331,7 +331,7 @@ public class Global1Test {
 		}
 
 		e1.assignUnits(units);
-		assertEquals(1338, e1.getUnitsNeeded().getWorkingUnits().size());
+		assertEquals(1338, e1.getWorkingUnits().size());
 
 		for (int i = 0; i < aantal; i++) {
 			units.get(i).timeAhead(1000000000);
