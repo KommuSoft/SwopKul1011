@@ -82,12 +82,12 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Tests if at least a specified number of units are validated by the specified validator.
      * @param units An iterable object containing only unique and only effective units.
-     * @param relevant A set where all the units in units that are relevant for this constraint.
+     * @param relevantIndices A set where all the indices  of units that are relevant for this constraint are added to.
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
      */
     @Override
-    public boolean areValidDispatchUnits (List<Unit> units, Set<Unit> relevant) {
+    public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {
         long needed = this.getNumber();
         if(needed <= 0) {
             return true;
@@ -95,10 +95,11 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
         
         long n = 0;
         UnitValidator uv = this.getValidator();
-
-        for(Unit u : units) {
+        Unit u;
+        for(int i = 0; i < units.size(); i++) {
+            u = units.get(i);
             if(uv.isValid(u)) {
-                relevant.add(u);
+                relevantIndices.add(i);
                 if(++n >= needed) {
                     return true;
                 }

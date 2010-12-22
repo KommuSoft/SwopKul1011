@@ -20,8 +20,15 @@ public abstract class DispatchUnitsConstraint {
      * @return True if the given list passes the constraints and all the units are used, otherwise false.
      */
     public boolean areAllUnitsReleventAndConstraintPassed(Collection<Unit> units) {
-        HashSet<Unit> relevant = new HashSet<Unit>();
-        return (areValidDispatchUnits(new ArrayList<Unit>(units), relevant) && relevant.containsAll(units));
+        HashSet<Integer> relevantIndices = new HashSet<Integer>();
+        if(areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices))
+            return false;
+        for(int i = 0; i < units.size(); i++) {
+            if(!relevantIndices.remove(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -31,9 +38,14 @@ public abstract class DispatchUnitsConstraint {
      * @return True if all units are relevant for the constraint, otherwise false.
      */
     public boolean areAllUnitsRelevant(Collection<Unit> units) {
-        HashSet<Unit> relevant = new HashSet<Unit>();
-        areValidDispatchUnits(new ArrayList<Unit>(units), relevant);
-        return relevant.containsAll(units);
+        HashSet<Integer> relevantIndices = new HashSet<Integer>();
+        areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices);
+        for(int i = 0; i < units.size(); i++) {
+            if(!relevantIndices.remove(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -43,18 +55,18 @@ public abstract class DispatchUnitsConstraint {
      * @return True if this constraint passes by the given units.
      */
     public boolean areValidDispatchUnits(Collection<Unit> units) {
-        return areValidDispatchUnits(new ArrayList<Unit>(units), new HashSet<Unit>());
+        return areValidDispatchUnits(new ArrayList<Unit>(units), new HashSet<Integer>());
     }
 
     /**
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
      * @param units An iterable object containing only unique and only effective units.
-     * @param relevantUnits A list where Units out of units are added to if they are relevant to met the contstraint.
+     * @param relevantUnitIndices A list of indices where the indices of the units are added to if they are relevant to met the contstraint.
      * @pre The given units parameter contains only effective units (duplicates are allowed).
      * @return True if this constraint passes with the given iterable of units, otherwise false.
      * @note The implementation of this method needs to be designed that the units in front of the units list will be added first to the relevantUnits.
      */
-    public abstract boolean areValidDispatchUnits(List<Unit> units, Set<Unit> relevantUnits);
+    public abstract boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantUnitIndices);
 
     /**
      * Generates a proposal where all the elements of the fixed part are used, and where some of the variableParts are used. The proposal tries to pass the constraint, if that's impossible all Units that
@@ -66,16 +78,23 @@ public abstract class DispatchUnitsConstraint {
      * @return If the fixed part is completly used a subset of the varialbePart containing a selection of units that are relevant fo the constraint. Although a combination of this selection and the fixed part doesn't need to pass the constraint. Otherwise an empty list.
      */
     public Collection<Unit> generateProposal(List<Unit> fixedPart, List<Unit> variablePart) {
+        int n = fixedPart.size();
         ArrayList<Unit> combinedParts = new ArrayList<Unit>(fixedPart);
         combinedParts.addAll(variablePart);
-        HashSet<Unit> proposal = new HashSet<Unit>();
+        HashSet<Integer> proposalIndices = new HashSet<Integer>();
 
-        this.areValidDispatchUnits(combinedParts, proposal);
+        this.areValidDispatchUnits(combinedParts, proposalIndices);
 
-        for (Unit u : fixedPart) {
-            if (proposal.remove(u)) {
+        for(int i = 0; i < n; i++) {
+            if (proposalIndices.remove(i)) {
                 return new HashSet<Unit>();
             }
+        }
+
+        List<Unit> proposal = new ArrayList<Unit>();
+
+        for(Integer i : proposalIndices) {
+            proposal.add(combinedParts.get(i));
         }
 
         return proposal;
