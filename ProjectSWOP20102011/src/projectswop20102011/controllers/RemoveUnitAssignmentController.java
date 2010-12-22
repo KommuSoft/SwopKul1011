@@ -3,9 +3,10 @@ package projectswop20102011.controllers;
 import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.WithdrawUnits;
 import projectswop20102011.domain.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
@@ -29,12 +30,15 @@ public class RemoveUnitAssignmentController extends Controller {
         return this.getWorld().getEmergencyList().getEmergencyFromId(id);
     }
 
-    public ArrayList<Unit> getWorkingUnits(Emergency selectedEmergency){
+    public ArrayList<Unit> getWorkingUnits(Emergency selectedEmergency) {
         return selectedEmergency.getWorkingUnits();
     }
 
-    public void withdrawUnits(String[] names) throws InvalidWithdrawalException, InvalidEmergencyException{
-        WithdrawUnits wu = new WithdrawUnits(getWorld().getMapItemList());
-        wu.withdraw(names);
+    public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidEmergencyException, InvalidEmergencyStatusException, InvalidMapItemException {
+        if (unit != null) {
+            unit.withdraw();
+        } else {
+            throw new InvalidMapItemException("MapItem must be a Unit and exist in the World!");
+        }
     }
 }
