@@ -10,7 +10,8 @@ import projectswop20102011.domain.MapItem;
 
 /**
  * A list of mapitems where every mapitem is unique.
- * @param <T> The type of MapItems the MapItemList is holding.
+ * @param <T>
+ *		The type of MapItems the MapItemList is holding.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every MapItem in this MapItemList is unique.
  */

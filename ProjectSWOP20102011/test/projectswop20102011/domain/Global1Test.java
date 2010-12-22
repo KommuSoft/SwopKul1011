@@ -206,8 +206,9 @@ public class Global1Test {
 
 		//We trekken nu twee units terug
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
-		WithdrawUnits wu = new WithdrawUnits(mapitemList);
-		wu.withdraw(unitNames);
+		for(int i=0;i<unitNames.length;i++){
+			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
+		}
 
 		//Nog steeds is geen enkele unit op de plaats van het ongeval geweest
 		assertFalse(ziekenwagen1.wasAlreadyAtSite());
@@ -282,8 +283,10 @@ public class Global1Test {
 		assertFalse(brandweerwagen1.wasAlreadyAtSite());
 
 		String[] unitNames = {brandweerwagen1.getName()};
-		WithdrawUnits wu = new WithdrawUnits(mapitemList);
-		wu.withdraw(unitNames);
+
+		for(int i=0;i<unitNames.length;i++){
+			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
+		}
 	}
 
 	@Test(expected = InvalidWithdrawalException.class)
@@ -314,8 +317,9 @@ public class Global1Test {
 		assertTrue(brandweerwagen1.isAtDestination());
 
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
-		WithdrawUnits wu = new WithdrawUnits(mapitemList);
-		wu.withdraw(unitNames);
+		for(int i=0;i<unitNames.length;i++){
+			e1.withdrawUnit((Unit) mapitemList.getMapItemFromName(unitNames[i]));
+		}
 	}
 
 	@Test
