@@ -22,6 +22,11 @@ import projectswop20102011.factories.PublicDisturbanceFactory;
 import projectswop20102011.factories.RobberyFactory;
 import projectswop20102011.factories.TrafficAccidentFactory;
 
+/**
+ * A class that represents the EmergencyDispatchApi
+ * 
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ */
 public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	/**
@@ -53,7 +58,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 * @param event
 	 *		The event that must be registered.
 	 * @throws EmergencyDispatchException
-	 *		if an exception occurs in the emergency dispatch system.
+	 *		If an exception occurs in the emergency dispatch system.
 	 */
 	@Override
 	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
