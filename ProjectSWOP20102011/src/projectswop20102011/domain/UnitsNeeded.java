@@ -309,15 +309,25 @@ class UnitsNeeded {
 	}
 
 	/**
-	 * Handles operations needed when a unit withdraws from it's emergency.
+	 * Remove unit from the working units and set its emergency to null.
 	 * @param unit
-	 *		The unit that want's to withdraw.
+	 *		The unit that wants to withdraw.
 	 * @post The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 */
-	void removeFromWorkingUnits(Unit unit) {
+	private void removeFromWorkingUnits(Unit unit) {
 		takeWorkingUnits().remove(unit);
 		unit.setEmergency(null);
+	}
+
+	/**
+	 * Withdraw a unit from it's emergency.
+	 * @param unit
+	 *		The unit that wants to withdraw.
+	 * @effect The unit is removed from the workingUnits list.
+	 */
+	void withdrawUnit(Unit unit){
+		removeFromWorkingUnits(unit);
 	}
 
 	/**
