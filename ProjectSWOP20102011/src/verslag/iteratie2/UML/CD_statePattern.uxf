@@ -20,20 +20,26 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>10</zoom_level><element><type>com.umlet.element.base.Class</type><coordinates><x>390</x><y>140</y><w>400</w><h>150</h></coordinates><panel_attributes>&lt;&lt;enum&gt;&gt;
+// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>10</zoom_level><element><type>com.umlet.element.base.Class</type><coordinates><x>650</x><y>120</y><w>610</w><h>200</h></coordinates><panel_attributes>&lt;&lt;enum&gt;&gt;
 EmergencyStatus
 --
 _+RECORDED_BUT_UNHANDLED_
 _+RESPONSE_IN_PROGRESS_
 _+COMPLETED_
 --
-/#assignUnits(Emergency:Emergency,units:List&lt;Unit&gt;)/
-/#finishUnit(Emergency:Emergency,unit:Unit)/
-/#withdrawUnit(Emergency:Emergency,unit:Unit)/</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>140</y><w>290</w><h>100</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+/#assignUnits(unitsNeeded:UnitsNeeded,units:Set&lt;Unit&gt;): void/
+/#finishUnit(unitsNeeded:UnitsNeeded,unit:Unit) : void/
+/#withdrawUnit(unitsNeeded:UnitsNeeded,unit:Unit): void/
+/#canAssignUnits(unitsNeeded:UnitsNeeded,units:Set&lt;Unit&gt;): boolean/
+/#getPolicyProposal(unitsNeeded:UnitsNeeded, availableUnits: List&lt;? extends Unit&gt;): Set&lt;Unit&gt;/
+/#canBeResolved(unitsNeeded:UnitsNeeded,availableUnits:Collection&lt;Unit&gt;): boolean/</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>120</y><w>550</w><h>150</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
 Emergency
 --
 --
-+assignUnits(units:List&lt;Unit&gt;)
-~finishUnit(unitToFinish:Unit)
-~withdrawUnit(unitToWithdraw:Unit)</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>260</x><y>110</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=-&gt;
++assignUnits(units:Set&lt;Unit&gt;): void
+~finishUnit(unitToFinish:Unit): void
+~withdrawUnit(unitToWithdraw:Unit): void
++canAssignUnits(units:Set&lt;Unit&gt;): boolean
++getPolicyProposal(availableUnits: List&lt;? extends Unit&gt;): Set&lt;Unit&gt;
++canBeResolved(unitsNeeded:UnitsNeeded,availableUnits:Collection&lt;Unit&gt;): boolean</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>520</x><y>90</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=-&gt;
 status</panel_attributes><additional_attributes>30;50;130;50</additional_attributes></element></umlet_diagram>
