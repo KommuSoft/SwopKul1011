@@ -1,6 +1,7 @@
 package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.events.SimpleScenario;
+import be.kuleuven.cs.swop.events.Time;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
 import org.junit.Before;
 import org.junit.Test;
