@@ -16,7 +16,7 @@ import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
-import projectswop20102011.domain.World;
+import projectswop20102011.domain.lists.World;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidWorldException;

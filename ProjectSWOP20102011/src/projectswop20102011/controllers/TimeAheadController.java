@@ -6,7 +6,7 @@ import be.kuleuven.cs.swop.external.ExternalSystemException;
 import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.domain.World;
+import projectswop20102011.domain.lists.World;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 

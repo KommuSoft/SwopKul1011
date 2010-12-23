@@ -1,4 +1,4 @@
-package projectswop20102011.domain;
+package projectswop20102011.domain.lists;
 
 import projectswop20102011.domain.lists.EmergencyList;
 import projectswop20102011.domain.lists.MapItemList;

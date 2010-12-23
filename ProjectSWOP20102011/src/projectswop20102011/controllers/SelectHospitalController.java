@@ -6,7 +6,7 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.validators.HospitalToEmergencyDistanceComparator;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.validators.MapItemValidator;
-import projectswop20102011.domain.World;
+import projectswop20102011.domain.lists.World;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidHospitalException;

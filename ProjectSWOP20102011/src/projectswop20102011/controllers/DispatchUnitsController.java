@@ -9,7 +9,7 @@ import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
-import projectswop20102011.domain.World;
+import projectswop20102011.domain.lists.World;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidWorldException;

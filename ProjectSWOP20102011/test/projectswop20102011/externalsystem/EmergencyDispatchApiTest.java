@@ -5,7 +5,7 @@ import be.kuleuven.cs.swop.external.ExternalSystemException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.domain.World;
+import projectswop20102011.domain.lists.World;
 
 public class EmergencyDispatchApiTest {
 
