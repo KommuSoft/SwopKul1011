@@ -54,7 +54,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 				//UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
 				this.writeOutput("SUGGESTED UNITS:");
 				try {
-					Set<Unit> suggestedUnits = suggestedUnits = this.getController().getUnitsByPolicy(selectedEmergency);
+					Set<Unit> suggestedUnits = this.getController().getUnitsByPolicy(selectedEmergency);
 					ArrayList<Unit> suggestedUnitsL = new ArrayList<Unit>(suggestedUnits);
 					for (int i = 0; i < suggestedUnitsL.size(); i++) {
 						Unit u = suggestedUnitsL.get(i);
