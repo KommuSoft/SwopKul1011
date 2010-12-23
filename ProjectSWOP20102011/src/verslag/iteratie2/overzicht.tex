@@ -1,5 +1,5 @@
 \label{overzicht}
-\paragraph{Algemeen}
+\subsection{Algemeen}
 We deelden het project op in 11 verschillende packages:
 \begin{itemize}
   \item de controller package (\texttt{projectswop20102011.controllers})
@@ -17,17 +17,17 @@ We deelden het project op in 11 verschillende packages:
 Deze opdeling gebeurde om de verschillende lagen van elkaar te onderscheiden. Zo kunnen we bepaalde zichtbaarheidsrechten afdwingen. Waarbij de domeinlaag package enkel afhankelijk is van de exceptions.
 Dit betekent dat het bestaan van klassen in de domeinlaag niet afhangt van het bestaan van klassen in de controller, domein validators, external system, factories, main, userinterface of utils laag.
 We zullen nu de verschillende lagen meer in detail bespreken.
-\paragraph{Domeinlaag}
+\subsection{Domeinlaag}
  Het klassendiagram van de domeinlaag bevindt zich op figuur \ref{fig:DomeinlaagBeknopt} op pagina \pageref{fig:DomeinlaagBeknopt}. Centraal hierin bevindt zich uiteraard de klasse \texttt{Emergency}. Onder deze klasse komen dan de verschillende types emergencies. Namelijk de klassen \texttt{Fire}, \texttt{PublicDisturbance}, \texttt{Robbery} en \texttt{TrafficAccident}. Ze vormen elk een subklasse met hun specifieke attributen. Een andere belangrijke klasse is de \texttt{Unit} klasse. Deze bevat de specifieke data over een eenheid. Omdat een \texttt{Unit} en gebouwen zoals een \texttt{Hospital} enkele eigenschappen gemeen hebben (zoals een naam en een locatie), bestaat er een superklasse die ze generaliseert. Namelijk de klasse \texttt{MapItem}. Een klasse \texttt{Building} werd overwogen, maar levert hier nog geen toegevoegde waarde. De klasse \texttt{Unit} wordt verder gespecifieerd in verschillende typen eenheden, namelijk een \texttt{Firetruck}, \texttt{Ambulance} of \texttt{Policecar}. Het is uiteraard de bedoeling dat deze units toegewezen kunnen worden aan een bepaalde \texttt{Emergency}. Deze verantwoordelijkheid wordt vervuld door de klasse \texttt{UnitsNeeded}. Deze klasse houdt bij welke \texttt{Unit}s  er aan het werken zijn voor een specifieke \texttt{Emergency} en welke al klaar zijn. Verder bevat deze klasse ook een \texttt{Constraint} en een \texttt{Policy}. Deze zorgen voor een juiste assignatie van de \texttt{Unit}s. Ook bestaat er een interface \texttt{TimeSensitive}. Deze duidt aan dat een klasse die deze interface implementeert, afhankelijk is van de tijd. Een ander belangrijk aspect aan de domeinlaag is dat er geen klassen zoals \texttt{Caller} of \texttt{Call} of \texttt{Operator} bestaan. Deze bestaan alleen in het domeinmodel. Maar aangezien er nergens een use case bestaat die hiervan gebruik maakt, zijn ze overbodig.
-\paragraph{Domein listlaag}
+\subsection{Domein listlaag}
 Deze laag bevat vier klassen namelijk \texttt{EmergencyList}, \texttt{MapItemList}, \texttt{TimeSensitiveList} en \texttt{World}. De klasse \texttt{World} bevat de eerste drie klassen.
-\paragraph{Domein validatorslaag}
+\subsection{Domein validatorslaag}
 In deze laag hebben we een aantal klassen die checks uitvoeren. Het eerste onderdeel dat we zullen bespreken is de \texttt{DispatchUnitsConstraint}. Dit is de basisklasse van het \textit{composite} pattern dat we gebruiken. De klasse \texttt{UnitToEmergencyDistanceComparator} vergelijkt de afstand die twee units moeten afleggen om tot hun emergency te geraken. De \texttt{HospitalToEmergencyDistanceComparator} doet iets gelijkaardigs met twee hospitals. De interface \texttt{MapItemEvaluationCriterium} specifieert een criterium om te controleren of \texttt{MapItem}s valide zijn.
-\paragraph{External systemlaag}
+\subsection{External systemlaag}
 De external systemlaag legt de link tussen ons programma en een specifieke interface. Deze laag bevat \'e\'en klasse namelijk \texttt{EmergencyDispatchApi}.
-\paragraph{Factorieslaag}
+\subsection{Factorieslaag}
 Om het model makkelijk uitbreidbaar te maken, waarbij zelfs bijvoorbeeld geen rekening met de user interface moet worden gehouden, hebben we een \texttt{EmergencyFactory} ge\"implementeerd. Vervolgens konden de controllers een factory aanmaken en met behulp van een array van objecten de \texttt{Emergency} aanmaken. Analoog werden ook factories voor MapItems voorzien. Deze heeft nog twee subklassen, \'e\'en abstracte namelijk de \texttt{UnitFactory}, de andere is dan de \texttt{HopitalFactory}. 
-\paragraph{Controllerlaag}
+\subsection{Controllerlaag}
 Vervolgens bevat de controller package alle controllers die de domeinlaag aansturen. Hierbij beschouwen we een abstracte klasse \texttt{Controller}. Waardoor alle controllers een link naar het \texttt{World} object bevatten. Deze wereld kunnen ze dan vervolgens manipuleren. De controllers zijn behoorlijk gelijklopend met de use cases. Voor de initialisatie van de omgeving werd een aparte controller \texttt{ReadEnvironmentDataController} geschreven. Deze is in staat om \texttt{Unit}s en \texttt{Hospital}s aan de wereld toe te voegen.
-\paragraph{Exceptions, Main, Userinterface en Utils}
+\subsection{Exceptions, Main, Userinterface en Utils}
 Om de code overzichtelijk te houden, werd geopteerd voor een aparte package \texttt{projectswop20102011.exceptions}. Deze omvat alle exceptions in het volledige project. Aangezien deze dus op alle lagen kunnen voorkomen, blijft dit de afscherming van de domeinlaag garanderen. We hebben ook een package die enkel de \texttt{Main} bevat. Vervolgens bevat de userinterface laag verschillende klassen die de communicatie met de gebruiker mogelijk maken. Deze klassen staan in een gelaagde structuur, om makkelijk nieuwe use cases te implementeren. Ten slotte hebben we nog een utilslaag die hulpmethoden voorziet.
