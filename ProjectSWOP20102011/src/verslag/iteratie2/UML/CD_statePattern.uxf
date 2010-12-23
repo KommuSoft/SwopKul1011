@@ -41,5 +41,5 @@ Emergency
 ~withdrawUnit(unitToWithdraw:Unit): void
 +canAssignUnits(units:Set&lt;Unit&gt;): boolean
 +getPolicyProposal(availableUnits: List&lt;? extends Unit&gt;): Set&lt;Unit&gt;
-+canBeResolved(unitsNeeded:UnitsNeeded,availableUnits:Collection&lt;Unit&gt;): boolean</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>520</x><y>90</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=-&gt;
++canBeResolved(availableUnits:Collection&lt;Unit&gt;): boolean</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>520</x><y>90</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=-&gt;
 status</panel_attributes><additional_attributes>30;50;130;50</additional_attributes></element></umlet_diagram>
