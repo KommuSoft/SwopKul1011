@@ -58,6 +58,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *		|homeLocation.equals(getCurrentLocation())
      * @effect This emergency is equal to null.
      *		|getEmergency().equals(null)
+	 * @effect The unit wasn't already at the site of emergency.
+	 *		|setWasAlreadyAtSite(false)
      * @throws InvalidMapItemNameException
      *		If the given name is an invalid name for a unit.
      * @throws InvalidLocationException
@@ -134,7 +136,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @param speed
      *		The new speed of this unit.
      * @throws InvalidSpeedException
-     *		If the given speed isn't a valid speed for a timesensitive unit or building.
+     *		If the given speed isn't a valid speed for a timesensitive mapitem.
      * @post The speed of this unit or building is set according to the given speed.
      *		|new.getSpeed() == speed
      */
@@ -190,7 +192,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     /**
      * Checks if the given speed is a valid speed for a timesensitive unit or building.
      * @param speed
-     *		The speed of a timesensitive unit or building to test.
+     *		The speed of a timesensitive mapitem to test.
      * @return True if the speed is valid; false otherwise.
      */
     public boolean isValidSpeed(long speed) {
@@ -269,8 +271,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     /**
      * Assign the unit to a given emergency.
      * @param emergency
-     *		The emergency where this units have to respond to.
-     * @effect The unit's emergency is equal to the given emergency
+     *		The emergency where this unit has to respond to.
+     * @effect The units emergency is equal to the given emergency
      *		| this.getEmergency().equals(emergency)
      * @effect The unit is assigned.
      * @throws InvalidMapItemException
@@ -295,8 +297,13 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return !isAssigned();
     }
 
+	//TODO: mogen deze @effect hier staan.
     /**
      * Withdraw this unit from the emergency he is currently assigned to
+	 * @effect The unit is withdrawn from its emergency.
+	 *		|this.getEmergency().withdrawUnit(this)
+	 * @effect The emergency of this unit is set to null.
+	 *		|this.setEmergency(null)
      * @throws InvalidWithdrawalException
      *			If the unit is already at site of the emergency.
      * @throws InvalidEmergencyException
@@ -335,6 +342,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return this.getCurrentLocation().getDistanceTo(location);
     }
 
+	//TODO: moeten er hier @effects bijkomen?
     /**
      * Finishes the job of this Unit.
      * @effect The emergency of this unit is null
