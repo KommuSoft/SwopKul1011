@@ -69,7 +69,7 @@ public enum EmergencyStatus {
 		@Override
 		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) {
 			unitsNeeded.unitFinishedJob(unit);
-			if (unitsNeeded.canFinish()) {
+			if (unitsNeeded.canCompleteEmergency()) {
 				try {
 					unitsNeeded.getEmergency().setStatus(COMPLETED);
 				} catch (InvalidEmergencyStatusException ex) {
