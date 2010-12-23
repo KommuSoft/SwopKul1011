@@ -3,7 +3,6 @@ verbatimtex
 \documentclass [10pt]{article}
 \begin {document}
 etex;
-input metauml;
 verbatimtex
 \end{document}
 etex;
