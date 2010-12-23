@@ -4,7 +4,7 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 
 /**
- * A class that represents a mapitem.
+ * A class that represents a map item.
  * @invar This mapItem always has a valid name.
  *		|isValidName(getName())
  * @invar This mapItem always has a valid home location.
@@ -24,7 +24,7 @@ public abstract class MapItem {
 	private final GPSCoordinate homeLocation;
 
 	/**
-	 * Initialize a new mapitem with given parameters.
+	 * Initialize a new map item with given parameters.
 	 * 
 	 * @param name
 	 *		The name of the new mapitem.
@@ -67,10 +67,10 @@ public abstract class MapItem {
 	 * Sets the name of this mapitem to the given value.
 	 * @param name
 	 *		The new name of this mapitem.
-	 * @throws InvalidMapItemNameException
-	 *		If the given name isn't a valid name for a mapitem.
 	 * @post The name of this mapitem is set according to the given name.
 	 *		|new.getName() == name
+	 * @throws InvalidMapItemNameException
+	 *		If the given name isn't a valid name for a mapitem.
 	 */
 	private void setName(String name) throws InvalidMapItemNameException {
 		if (!isValidName(name)) {

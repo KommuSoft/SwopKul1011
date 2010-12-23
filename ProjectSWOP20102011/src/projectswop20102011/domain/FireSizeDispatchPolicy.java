@@ -14,7 +14,7 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 	 * @param unitsNeeded
 	 *      The UnitsNeeded object of the emergency this policy will handle.
 	 * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the UnitsNeeded object.
-	 *          |super(unitsNeeded)
+	 *		|super(unitsNeeded)
 	 * @throws InvalidUnitsNeededException
 	 *      If the given UnitsNeeded policy is ineffective.
 	 */
@@ -38,6 +38,16 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 		super(unitsNeeded, successor);
 	}
 
+	/**
+	 * Compares two different units by the fireSize of the emergency.
+	 * @param unit1
+	 *      The first unit to compare.
+	 * @param unit2
+	 *      The second unit to compare.
+	 * @return A negative integer, zero, or a positive integer if the first unit is more,
+	 *          equal or less interesting than the unit according to this Policy. This means
+	 *          that the unit with the lowest return value will be more interesting.
+	 */
 	@Override
 	protected int internalCompare(Unit unit1, Unit unit2) {
 		Emergency emergency = getUnitsNeeded().getEmergency();
