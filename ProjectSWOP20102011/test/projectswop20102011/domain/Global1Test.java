@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.util.Iterator;
 import projectswop20102011.domain.lists.MapItemList;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -341,9 +342,13 @@ public class Global1Test {
 		for(Unit u : units) {
 			u.timeAhead(1000000000);
 		}
-		for(Unit u : units) {
-			((Ambulance) u).selectHospital(hospital1);
+		
+		Iterator<Unit> unitsIterator = units.iterator();
+		unitsIterator.next();
+		while(unitsIterator.hasNext()){
+			((Ambulance) unitsIterator.next()).selectHospital(hospital1);
 		}
+
 		for(Unit u : units) {
 			u.timeAhead(1000000000);
 		}
