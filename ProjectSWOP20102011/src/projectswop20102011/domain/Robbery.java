@@ -42,8 +42,8 @@ public class Robbery extends Emergency {
      *		An indicator that indicates if this robbery is an armed robbery.
      * @param inProgress
      *		An indicator that indicates if this robbery is still in progress.
-     * @effect The new Robbery is a new emergency with the given location and severity.
-     *		| super(location,severity)
+     * @effect The new Robbery is a new emergency with the given location, severity and description.
+     *		| super(location,severity, description)
 	 * @effect The is armed parameter of the robery is equal to the given parameter.
      *		| setArmed(armed)
      * @effect the in progress parameter of this robbery is equal to the given parameter.

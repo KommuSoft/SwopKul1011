@@ -37,8 +37,8 @@ public class PublicDisturbance extends Emergency {
      *		The description of this public disturbance emergency.
      * @param numberOfPeople
      *		The number of people that are involved in this public disturbance.
-     * @effect The new public disturbance is an emergency with the given location and severity.
-     *		| super(location,severity)
+     * @effect The new public disturbance is an emergency with the given location, severity and discription.
+     *		| super(location,severity, description)
 	 * @effect the number of involved people of this public disturbance is equal to the given number of people.
      *		| setNumberOfPeople(numberOfPeople)
      * @throws InvalidLocationException
@@ -66,10 +66,10 @@ public class PublicDisturbance extends Emergency {
      * Sets the number of people that are involved in this public disturbance to the given value.
      * @param numberOfPeople
      *		The new number of people that are involved in this public disturbance.
-     * @throws NumberOutOfBoundsException
-     *		If the given number of people invlolved is invalid.
      * @post The number of involved people of this public disturbance is equal to the given number of people.
      *		| new.getNumberOfPeople() == numberOfPeople
+	 * @throws NumberOutOfBoundsException
+     *		If the given number of people involved is invalid.
      */
     private void setNumberOfPeople(long numberOfPeople) throws NumberOutOfBoundsException {
         if (!isValidNumberOfPeople(numberOfPeople)) {
