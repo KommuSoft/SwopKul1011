@@ -13,7 +13,6 @@ public enum EmergencySeverity {
 	NORMAL("normal"),
 	SERIOUS("serious"),
 	URGENT("urgent");
-    
 	/**
 	 * The textual representation of the emergency severity.
 	 */
@@ -24,27 +23,19 @@ public enum EmergencySeverity {
 	 * @param textual
 	 *		The textual representation of the EmergencySeverity, used for parsing and user interaction.
 	 * @post The textual representation is set to the given textual representation.
-	 *		| new.getTextual().equals(textual)
+	 *		| new.toString().equals(textual)
 	 */
 	private EmergencySeverity(String textual) {
 		this.textual = textual;
 	}
 
 	/**
-	 * Gets the textual representation of the EmergencyStatus.
-	 * @return A textual representation of the EmergencyStatus.
-	 */
-	public String getTextual() {
-		return textual;
-	}
-
-	/**
-	 * Returns a textual representation of the EmergencyStatus.
+	 * Returns the textual representation of the EmergencyStatus.
 	 * @return A textual representation of the EmergencyStatus.
 	 */
 	@Override
 	public String toString() {
-		return getTextual();
+		return textual;
 	}
 
 	/**
@@ -54,7 +45,7 @@ public enum EmergencySeverity {
 	 * @return True if the textual representation matches, otherwise false.
 	 */
 	public boolean matches(String textualRepresentation) {
-		return getTextual().equals(textualRepresentation.toLowerCase());
+		return toString().equals(textualRepresentation.toLowerCase());
 	}
 
 	/**

@@ -14,8 +14,6 @@ import projectswop20102011.exceptions.InvalidLocationException;
 
 /**
  * A class that represents an emergency.
- *
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  * @invar The location of an emergency is always valid.
  *		| isValidLocation(getLocation())
  * @invar The severity of an emergency is always valid.
@@ -23,11 +21,12 @@ import projectswop20102011.exceptions.InvalidLocationException;
  * @invar The status of an emergency is always valid.
  *		| isValidStatus(getStatus())
  * @invar Every emergency has a unique id.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class Emergency {
 
 	/**
-	 * A static field that generates id's for the constructed emergencies,
+	 * A static field that generates ids for the constructed emergencies,
 	 * and ensures that every emergency has a different id.
 	 */
 	private static long idDispatcher = 0;
@@ -66,18 +65,20 @@ public abstract class Emergency {
 	 *		The severity of this emergency.
 	 * @param description
 	 *		The description of this emergency.
-	 * @throws InvalidLocationException
-	 *		If the given location is an invalid location for an emergency.
-	 * @throws InvalidEmergencySeverityException
-	 *		If the given severity is an invalid severity for an emergency.
 	 * @effect This location is equal to the parameter location.
 	 *		|location.equals(this.getLocation())
 	 * @effect This severity is equal to the parameter severity.
 	 *		|severity.equals(this.getSeverity())
 	 * @effect This status is equal to the EmergencyStatus RECORDED_BUT_UNHANDLED.
 	 *		|getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)
+	 * @post This id is set to the idDispathcer
+	 *		|new.getId().equals(idDispatcher)
 	 * @post This description is equal to the given description.
 	 *		|new.getDescription().equals(description)
+	 * @throws InvalidLocationException
+	 *		If the given location is an invalid location for an emergency.
+	 * @throws InvalidEmergencySeverityException
+	 *		If the given severity is an invalid severity for an emergency.
 	 */
 	protected Emergency(GPSCoordinate location, EmergencySeverity severity, String description) throws InvalidLocationException, InvalidEmergencySeverityException {
 		this.id = idDispatcher++;
@@ -96,10 +97,10 @@ public abstract class Emergency {
 	 * Sets the location of this emergency.
 	 * @param location
 	 *		The location of this emergency.
-	 * @throws InvalidLocationException
-	 *		If the given location isn't valid for an emergency.
 	 * @post This location is equal to the given location.
 	 *		| location.equals(getLocation())
+	 * @throws InvalidLocationException
+	 *		If the given location isn't valid for an emergency.
 	 */
 	private void setLocation(GPSCoordinate location) throws InvalidLocationException {
 		if (!isValidLocation(location)) {
@@ -112,10 +113,10 @@ public abstract class Emergency {
 	 * Sets the severity of this emergency.
 	 * @param severity
 	 *		The severity of this emergency.
-	 * @throws InvalidEmergencySeverityException
-	 *		If the given severity level is invalid for an emergency.
 	 * @post This severity level is equal to the given severity level.
 	 *		| severity.equals(getSeverity())
+	 * @throws InvalidEmergencySeverityException
+	 *		If the given severity level is invalid for an emergency.
 	 */
 	private void setSeverity(EmergencySeverity severity) throws InvalidEmergencySeverityException {
 		if (!isValidSeverity(severity)) {
@@ -128,10 +129,10 @@ public abstract class Emergency {
 	 * Sets the status of this emergency.
 	 * @param status
 	 *		The status of this emergency.
-	 * @throws InvalidEmergencyStatusException
-	 *		If the given status is invalid for an emergency.
 	 * @post This status is equal to the given status.
 	 *		| status.equals(getStatus())
+	 * @throws InvalidEmergencyStatusException
+	 *		If the given status is invalid for an emergency.
 	 */
 	void setStatus(EmergencyStatus status) throws InvalidEmergencyStatusException {
 		if (!isValidStatus(status)) {
@@ -248,7 +249,7 @@ public abstract class Emergency {
 	 *      The unit that wants to finish this emergency.
 	 * @throws InvalidEmergencyStatusException
 	 *      If the status of this emergency does not allow this action.
-	 * @note this method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
+	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
 	 */
 	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
 		this.getStatus().finishUnit(this.getUnitsNeeded(), unitToFinish);
@@ -260,7 +261,7 @@ public abstract class Emergency {
 	 *      The unit that wants to withdraw from this emergency.
 	 * @throws InvalidEmergencyStatusException
 	 *      If the status of this emergency does not allow this action.
-	 * @note this method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
+	 * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
 	 */
 	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
 		this.getStatus().withdrawUnit(this.getUnitsNeeded(), unitToWithdraw);
@@ -293,7 +294,7 @@ public abstract class Emergency {
 		information.put("id", "" + getId());
 		information.put("type", this.getClass().getSimpleName());
 		information.put("location", getLocation().toString());
-		information.put("severity", getSeverity().getTextual());
+		information.put("severity", getSeverity().toString());
 		information.put("status", getStatus().toString());
 		ArrayList<Unit> units = this.getWorkingUnits();
 		int number = units.size();
@@ -354,21 +355,21 @@ public abstract class Emergency {
 		return this.getUnitsNeeded().getConstraint();
 	}
 
-        /**
-         * Cecks if this emergency can be resolved with a given collection of all available units.
-         * @param availableUnits All the available units in the world.
-         * @return True if the given emergency can be resolved, otherwise false.
-         */
-        public boolean canBeResolved (Collection<Unit> availableUnits) {
-            return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
-        }
+	/**
+	 * Cecks if this emergency can be resolved with a given collection of all available units.
+	 * @param availableUnits
+	 *		All the available units in the world.
+	 * @return True if the given emergency can be resolved, otherwise false.
+	 */
+	public boolean canBeResolved(Collection<Unit> availableUnits) {
+		return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
+	}
 
-        /**
-         * Tests if the this emergency is partially assigned.
-         * @return True if this emergency is partially assigned, otherwise false.
-         */
-        public boolean isPartiallyAssigned () {
-            return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
-        }
-
+	/**
+	 * Tests if the this emergency is partially assigned.
+	 * @return True if this emergency is partially assigned, otherwise false.
+	 */
+	public boolean isPartiallyAssigned() {
+		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
+	}
 }
