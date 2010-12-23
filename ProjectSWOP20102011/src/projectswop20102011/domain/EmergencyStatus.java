@@ -53,7 +53,7 @@ public enum EmergencyStatus {
 
         @Override
         boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
-            return unitsNeeded.CanBeResolved(availableUnits);
+            return unitsNeeded.canBeResolved(availableUnits);
         }
     },
     /**
@@ -96,7 +96,7 @@ public enum EmergencyStatus {
 
         @Override
         boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
-            return unitsNeeded.CanBeResolved(availableUnits);
+            return unitsNeeded.canBeResolved(availableUnits);
         }
     },
     /**

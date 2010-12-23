@@ -341,7 +341,7 @@ class UnitsNeeded {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 
-	public boolean CanBeResolved(Collection<? extends Unit> availableUnits) {
+	public boolean canBeResolved(Collection<? extends Unit> availableUnits) {
 		Collection<Unit> completeCollection = this.getFinishedUnits();
 		completeCollection.addAll(this.takeWorkingUnits());
 		completeCollection.addAll(availableUnits);
