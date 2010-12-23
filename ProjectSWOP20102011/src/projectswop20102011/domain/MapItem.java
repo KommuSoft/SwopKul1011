@@ -39,7 +39,7 @@ public abstract class MapItem {
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a mapitem.
 	 */
-	MapItem(String name, GPSCoordinate homeLocation) throws InvalidMapItemNameException, InvalidLocationException {
+	protected MapItem(String name, GPSCoordinate homeLocation) throws InvalidMapItemNameException, InvalidLocationException {
 		setName(name);
 		if (!isValidHomeLocation(homeLocation)) {
 			throw new InvalidLocationException(String.format("\"%s\" is an invalid home location for a mapitem.", homeLocation));
