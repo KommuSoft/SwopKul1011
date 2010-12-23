@@ -64,7 +64,7 @@ public class Fire extends Emergency {
 	 *		The number of trapped people in the fire.
 	 * @param numberOfInjured
 	 *		The number of injured people of this fire emergency.
-	 * @effect The new fire is an emergencys with the given location, severity and description.
+	 * @effect The new fire is an emergency with the given location, severity and description.
 	 *		| super(location,severity,description)
 	 * @post The number of injured people of the fire emergency is equal to the given number.
 	 *		| numberOfInjured.equals(getNumberOfInjured())
