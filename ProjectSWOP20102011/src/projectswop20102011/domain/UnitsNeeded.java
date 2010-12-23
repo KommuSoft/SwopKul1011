@@ -343,7 +343,7 @@ class UnitsNeeded {
 
 	public boolean CanBeResolved(Collection<? extends Unit> availableUnits) {
 		Collection<Unit> completeCollection = this.getFinishedUnits();
-		completeCollection.addAll(this.takeFinishedUnits());
+		completeCollection.addAll(this.takeWorkingUnits());
 		completeCollection.addAll(availableUnits);
 		return this.getConstraint().areValidDispatchUnits(completeCollection);
 	}

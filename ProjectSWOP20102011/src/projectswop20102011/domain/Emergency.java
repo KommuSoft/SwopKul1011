@@ -362,4 +362,13 @@ public abstract class Emergency {
         public boolean canBeResolved (Collection<Unit> availableUnits) {
             return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
         }
+
+        /**
+         * Tests if the this emergency is partially assigned.
+         * @return True if this emergency is partially assigned, otherwise false.
+         */
+        public boolean isPartiallyAssigned () {
+            return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
+        }
+
 }

@@ -30,7 +30,7 @@ public class Global1Test {
 	private Policecar politiewagen1;
 	private Emergency e1;
 	private Hospital hospital1;
-	private MapItemList mapitemList;
+	private MapItemList<Unit> mapitemList;
 	private boolean armed1, armed2;
 	private boolean inProgress1, inProgress2;
 	private long numberOfPeople1;
@@ -83,7 +83,7 @@ public class Global1Test {
 
 		hospital1 = new Hospital(name7, homeLocation6);
 
-		mapitemList = new MapItemList();
+		mapitemList = new MapItemList<Unit>();
 
 		armed1 = false;
 		armed2 = true;
