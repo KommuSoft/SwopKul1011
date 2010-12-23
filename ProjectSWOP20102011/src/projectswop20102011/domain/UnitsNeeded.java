@@ -341,8 +341,7 @@ class UnitsNeeded {
 	/**
 	 * Generates a proposal based on a list of available units to allocate to the emergency.
 	 * @param options
-	 *		//TODO: moet nog veranderd worden
-	 *		A list of units that are available for this allocation.
+	 *		A list of units where the proposal must be created from.
 	 * @return A subset of the given list containing units proposed for allocation.
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
@@ -360,13 +359,11 @@ class UnitsNeeded {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 
-	//TODO: moet nog vervolledigd worden
 	/**
-	 * Decides whether
+	 * Decides whether the emergency can be handled by the given units.
 	 * @param availableUnits
-	 *		
-	 * @return
-	 *
+	 *		The units to check if they can handle the emergency.
+	 * @return True if the given units can handle the emrgency; false otherwise.
 	 */
 	public boolean canBeResolved(Collection<? extends Unit> availableUnits) {
 		Collection<Unit> completeCollection = this.getFinishedUnits();

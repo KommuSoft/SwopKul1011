@@ -297,7 +297,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return !isAssigned();
     }
 
-	//TODO: mogen deze @effect hier staan.
     /**
      * Withdraw this unit from the emergency he is currently assigned to
 	 * @effect The unit is withdrawn from its emergency.
@@ -342,17 +341,16 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return this.getCurrentLocation().getDistanceTo(location);
     }
 
-	//TODO: moeten er hier @effects bijkomen?
     /**
      * Finishes the job of this Unit.
      * @effect The emergency of this unit is null
-     *              | this.getEmergency().equals(null)
-     * @effect The unit is not assigned
-     *              | !this.isAssigned()
+     *		| this.getEmergency().equals(null)
+     * @effect The flag wasAlreadyAtSite is set to false.
+	 *		|this.getWasAlreadyAtSite().equals(false)
      * @throws InvalidEmergencyException
-     *              If the unit is not assigned to an emergency.
+     *		If the unit is not assigned to an emergency.
      * @throws InvalidLocationException
-     *              If the unit is not at the location of the emergency.
+     *		If the unit is not at the location of the emergency.
      */
     public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException, Exception {
         if (isAssigned()) {
