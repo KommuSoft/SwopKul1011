@@ -31,7 +31,7 @@ class UnitsNeeded {
 	 */
 	private DispatchPolicy policy;
 	/**
-	 * The emergency that is been handled by this UnitsNeeded.
+	 * The emergency that is handled by this UnitsNeeded.
 	 */
 	private final Emergency emergency;
 	/**
@@ -57,6 +57,8 @@ class UnitsNeeded {
 	 *		| new.getEmergency() == emergency
 	 * @post This constraint is set to the given constraint.
 	 *		| new.getConstraint() == constraint
+	 * @effect Sets the policy of this unitsNeeded to the given policy, that is the DefaultDispatchPolicy.
+	 *		|this.setPolicy(new DefaultDispatchPolicy(this))
 	 * @effect Initialize the Units.
 	 *		| initUnits()
 	 * @throws InvalidEmergencyException
@@ -84,7 +86,7 @@ class UnitsNeeded {
 	}
 
 	/**
-	 * Sets the working units of the emergency to zero.
+	 * Sets the working and finished units of the emergency to zero.
 	 * @post This workingUnits is equal to zero.
 	 *		| new.getWorkingUnits().size() == 0
 	 * @post This finishedUnits is equal to zero.
@@ -98,8 +100,9 @@ class UnitsNeeded {
 	/**
 	 * Checks if the units needed for the emergency are all finished.
 	 * @return True if all units needed for the emergency are finished; otherwise false.
+	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
 	 */
-	public boolean canFinish() {
+	public boolean canCompleteEmergency() {
 		return getConstraint().areValidDispatchUnits(takeFinishedUnits());
 	}
 
@@ -119,6 +122,7 @@ class UnitsNeeded {
 	 * @param unit
 	 *      The unit that must be added to the finished units.
 	 * @effect The given unit is added to the finished units.
+	 *		|takeFinishedUnits().add(unit)
 	 */
 	private void addFinishedUnits(Unit unit) {
 		takeFinishedUnits().add(unit);
@@ -243,7 +247,7 @@ class UnitsNeeded {
 				//We assume this can't be true (checked by the canAssigUnitsToEmergency method)
 				Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}
-                        addWorkingUnits(u);
+			addWorkingUnits(u);
 		}
 	}
 
@@ -254,7 +258,7 @@ class UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 */
-	void unitFinishedJob(Unit unit){
+	void unitFinishedJob(Unit unit) {
 		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
 	}
@@ -289,8 +293,10 @@ class UnitsNeeded {
 
 	/**
 	 * Pushes the given policy on the current policy, and sets this as the current policy.
-	 * @param policy The policy to push on the current policy.
-	 * @throws InvalidDispatchPolicyException If the given policy does not handle this UnitsNeeded.
+	 * @param policy
+	 *		The policy to push on the current policy.
+	 * @throws InvalidDispatchPolicyException
+	 *		If the given policy does not handle this UnitsNeeded.
 	 */
 	void pushPolicy(DispatchPolicy policy) throws InvalidDispatchPolicyException {
 		policy.getDeepSuccessor().setSuccessor(this.getPolicy());
@@ -312,8 +318,10 @@ class UnitsNeeded {
 	 * Remove unit from the working units and set its emergency to null.
 	 * @param unit
 	 *		The unit that wants to withdraw.
-	 * @post The unit is removed from the workingUnits list.
+	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
+	 * @effect The emergency of the given unit is set to null
+	 *		|unit.setEmergency(null)
 	 */
 	private void removeFromWorkingUnits(Unit unit) {
 		takeWorkingUnits().remove(unit);
@@ -321,7 +329,7 @@ class UnitsNeeded {
 	}
 
 	/**
-	 * Withdraw a unit from it's emergency.
+	 * Withdraw a unit from its emergency.
 	 * @param unit
 	 *		The unit that wants to withdraw.
 	 * @effect The unit is removed from the workingUnits list.
@@ -333,6 +341,7 @@ class UnitsNeeded {
 	/**
 	 * Generates a proposal based on a list of available units to allocate to the emergency.
 	 * @param options
+	 *		//TODO: moet nog veranderd worden
 	 *		A list of units that are available for this allocation.
 	 * @return A subset of the given list containing units proposed for allocation.
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
@@ -351,6 +360,14 @@ class UnitsNeeded {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 
+	//TODO: moet nog vervolledigd worden
+	/**
+	 * Decides whether
+	 * @param availableUnits
+	 *		
+	 * @return
+	 *
+	 */
 	public boolean canBeResolved(Collection<? extends Unit> availableUnits) {
 		Collection<Unit> completeCollection = this.getFinishedUnits();
 		completeCollection.addAll(this.takeWorkingUnits());
