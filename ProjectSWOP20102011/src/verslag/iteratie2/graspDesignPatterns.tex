@@ -1,7 +1,6 @@
 \label{patterns}
 \subsection{Invloed van GRASP patterns}
 \label{grasppatterns}
-\subsubsection{Bespreking van het systeem}
 \paragraph{Algemeen}
 In onze implementatie proberen we in de meeste gevallen zo generisch mogelijk te werken. Dit heeft als indirect gevolg dat de koppeling in ons domeinmodel zeer laag is. Immers dient bij een generische implementatie abstractie gemaakt te worden van de details in de ongekende subklassen. Bijgevolg zijn enkel koppelingen zoals deze tussen \texttt{Emergency} en \texttt{Unit}, of naar de klassen van hun attributen van belang.
 \paragraph{Polymorphism}
@@ -27,7 +26,7 @@ We stellen onze constraints op onze emergency voor als een boom. Deze implementa
 \end{figure}
 Tot slot kan opgemerkt worden dat in het boek er operaties in de Composite-participant gedefinieerd worden. In deze implementatie voegen we eenvoudigweg geen operaties toe. Het kennen van de parent levert voor \verb+AndDispatchUnitsConstraint+ geen meerwaarde op. Verder kan geargumenteerd worden dat de opbouw van de boom hiermee vastligt: bottom-up, er kan dus bijgevolg geen boom met een tak naar zichzelf bestaan. Tot slot zou het ook kunnen betekenen dat een component op veschillende plaatsen in de boom voorkomt, wat de structuur dus meer dynamiek geeft.
 \subsubsection{State}
-Hoewel we geen \verb+cancel+-emergency use case moesten implementeren, anticipeerden we toch op de creatie van nieuwe staten waarin een emergency zich kan bevinden. We modelleerden dan ook een toestandsdiagram zoals op figuur \ref{fig:stateDiagramEmergency}.
+Hoewel we geen \verb+cancel+-emergency use case moesten implementeren, anticipeerden we toch op de creatie van nieuwe toestanden waarin een emergency zich kan bevinden. We modelleerden dan ook een toestandsdiagram zoals op figuur \ref{fig:stateDiagramEmergency}.
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -44,7 +43,7 @@ Hoewel we geen \verb+cancel+-emergency use case moesten implementeren, anticipee
 \caption{Beschrijving van de toestanden en overgangen van Emergency}
 \label{fig:stateDiagramEmergency}
 \end{figure}
-Anderzijds willen we de voordelen die een \verb+enum+ ons biedt niet verliezen\footnote{Zoals bijvoorbeeld een opsomming van de verschillende toestanden.}. Daarom opteerden we voor een hybride structuur. Deze structuur behoudt in zekere zin de geest van het \textit{State}-pattern beschreven in het boek \cite{book:designpatterns}. In \verb#C++# zijn \verb+enum+s echter niet polymorf: het is een lijst van sleutels die met een binaire waarde geassocieerd worden. In java kunnen elementen in een enumeratie in zekere zin als een singleton-subklasse van de enumeratie beschouwd worden\footnote{Uiteraard gaat die vergelijking niet volledig op.}. Het gevolg is dat we ook methodes aan deze elementen kunnen toewijzen en dus individueel anders kunnen implementeren.
+Anderzijds willen we de voordelen die een \verb+enum+ ons biedt niet verliezen\footnote{Zoals bijvoorbeeld een opsomming van de verschillende toestanden.}. Daarom opteerden we voor een hybride structuur. Deze structuur behoudt in zekere zin de geest van het \textit{State}-pattern beschreven in het boek \cite{book:designpatterns}. In C++ zijn \verb+enum+s echter niet polymorf: het is een lijst van sleutels die met een binaire waarde geassocieerd worden. In Java kunnen elementen in een enumeratie in zekere zin als een singleton-subklasse van de enumeratie beschouwd worden\footnote{Uiteraard gaat die vergelijking niet volledig op.}. Het gevolg is dat we ook methodes aan deze elementen kunnen toewijzen en dus individueel anders kunnen implementeren.
 \begin{figure}[h!]
 \includegraphics[width=1.0\textwidth]{CD_statePattern.pdf}
 \caption{UML diagram van de implementatie van het \textit{State}-pattern in het project.}
@@ -52,12 +51,16 @@ Anderzijds willen we de voordelen die een \verb+enum+ ons biedt niet verliezen\f
 \end{figure}
 Het grote nadeel van deze methode is dat alle toestanden zichtbaar zijn. Indien we dus later in het project juist een toestand willen implementeren waarover we niet kunnen filteren zal deze implementatie grondig bekeken moeten worden. Verder biedt deze implementatie alle voordelen van het \textit{State}-pattern en een \verb+enum+.
 \subsubsection{Factory Method}
-Omdat units en emergencies vaak aangemaakt worden met behulp van een tekstbestand, leek het ons nuttig om hiervoor een \textit{Factory Method}-pattern te gebruiken. Op die manier kunnen we dan een set van factories bijhouden, waarbij iedere factorie een bepaald directief bijhoudt. Indien bij het inlezen van het tekstbestand een directief wordt ingelezen, zal de bijbehorende factory uit de set gehaald worden, die dan vervolgens een unit of emergency aanmaakt. Hierbij werden we echter geconfronteerd met een belangrijk probleem: de parameters van de verschillende units of emergencies zijn niet uniform. We kunnen dus bijgevolg geen abstracte factorylaag bouwen waarbij de parameters gespecifieerd zijn. Dit losten we echter op door een lijst van objecten als parameter mee te geven. Parameters die wel bekend waren\footnote{Omdat ze in de constructor van bijvoorbeeld \texttt{Emergency} reeds gedefinieerd zijn.} werden uiteraard wel in de methode signatuur opgenomen. Dit probleem werd op verschillende constructie patterns bestudeerd, maar werd nergens concreet opgelost\footnote{Een prototype kan dit misschien wel oplossen, maar ons domein zou hierop fout kunnen reageren, vanwege finale velden. Bovendien gaan sommige methodes uit van deze finale velden}. De implementatie is beschreven op figuur \ref{fig:factoryMethodPattern}.
+Omdat units en emergencies vaak aangemaakt worden met behulp van een tekstbestand, leek het ons nuttig om hiervoor een \textit{Factory Method}-pattern te gebruiken. Op die manier kunnen we dan een set van factories bijhouden, waarbij iedere factory een bepaald directief bijhoudt. Indien bij het inlezen van het tekstbestand een directief wordt ingelezen, zal de bijbehorende factory uit de set gehaald worden, die dan vervolgens een unit of emergency aanmaakt. Hierbij werden we echter geconfronteerd met een belangrijk probleem: de parameters van de verschillende units of emergencies zijn niet uniform. We kunnen dus bijgevolg geen abstracte factorylaag bouwen waarbij de parameters gespecifieerd zijn. Dit losten we echter op door een lijst van objecten als parameter mee te geven. De implementatie is beschreven op figuur \ref{fig:factoryMethodPattern}.
 \begin{figure}[h!]
 \includegraphics[width=1.0\textwidth]{CD_factoryMethodPattern.pdf}
 \caption{UML diagram van de implementatie van het \textit{Factory Method}-pattern in het project.}
 \label{fig:factoryMethodPattern}
 \end{figure}
+\subsubsection{Chain of Responsibility}
+Een voorbeeld van het \textit{Chain of Responsibility} pattern vinden we in de policies. Elke policy probeert het probleem op te lossen maar als dit niet lukt, wordt het doorgegeven aan zijn opvolger. Meer concreet hebben we in de klasse \texttt{DispatchPolicy} de methode \texttt{compare}. Deze roept de onderliggende policy op en als deze policy niet tot een gewenst resultaat komt, wordt de opvolger opgeroepen waar het scenario zich herhaalt. Pas als het probleem opgelost is of als er geen opvolgers meer zijn, wordt het resultaat teruggegeven.
+\subsubsection{Strategy}
+Het \textit{Strategy} pattern vinden we terug in de policies. Elke policy is een concrete implementatie van \texttt{DispatchPolicy}. De context is hier de klasse \texttt{UnitsNeeded}. De concrete strategie\"en zijn \texttt{DefaultDispatchPolicy}, \texttt{ASAPDispatchPolicy} en \texttt{FireSizeDispatchPolicy}.
 \subsection{Uitgewerkte alternatieven}
 Naast dit model werden verschillende andere modellen bestudeerd. Bovendien kwam dit model ook met een zekere evolutie tot stand. Modellen werden ge\"implementeerd met een kritische blik op het ontstaan van problemen. Frequent werd dan ook het model herbekeken en aangepast. In deze sectie geven we een bondig overzicht van de belangrijkste overwogen alternatieven.
 \paragraph{Domeinmodel versus klassendiagram}
