@@ -50,8 +50,6 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 				for (Entry<String, String> entry : information.entrySet()) {
 					this.writeOutput(String.format("\t%s: %s", entry.getKey(), entry.getValue()));
 				}
-				//TODO: alternatief voor constraint zoeken
-				//UnitsNeeded unitsNeeded = this.getController().getUnitsNeeded(selectedEmergency);
 				this.writeOutput("SUGGESTED UNITS:");
 				try {
 					Set<Unit> suggestedUnits = this.getController().getUnitsByPolicy(selectedEmergency);

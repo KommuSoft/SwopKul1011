@@ -19,7 +19,6 @@ public class EnumParserTest {
 
     @Test
     public void testConstructor() {
-        //TODO: test post-condities
         new EnumParser(FireSize.class);
         new EnumParser(EmergencyStatus.class);
         new EnumParser(EmergencySeverity.class);
