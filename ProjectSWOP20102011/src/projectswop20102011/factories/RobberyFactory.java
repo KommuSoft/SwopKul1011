@@ -19,23 +19,14 @@ public class RobberyFactory extends EmergencyFactory {
 
 	/**
 	 * Creates a new RobberyFactory.
-	 *
+	 * @effect The new RobberyFactory is a new EmergencyFactory with a given type name.
+	 *		|super("robbery")
 	 * @throws InvalidEmergencyTypeNameException
 	 *      If the type name of the new Robbery is invalid.
 	 */
 	public RobberyFactory() throws InvalidEmergencyTypeNameException {
 		super("robbery");
 	}
-
-	/**
-	 * Creates a new Robbery with the given parameters.
-	 * @param parameters
-	 *		The parameters of the new robbery.
-	 * @return The created robbery.
-	 * @throws InvalidParameterException
-	 *		Thrown when the number of parameters doesn't match the desired number of parameters.
-	 */
-
 
 	/**
 	 * Creates a new Robbery with the given parameters.

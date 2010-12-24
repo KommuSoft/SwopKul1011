@@ -16,7 +16,8 @@ public class HospitalFactory extends MapItemFactory {
 
 	/**
 	 * Creates a new HospitalFactory.
-	 *
+	 * @effect The new HospitalFactory is a new MapItemFactory with a given type name.
+	 *		|super("hospital")
 	 * @throws InvalidMapItemTypeNameException
 	 *		If the type name of the new HospitalFactory is invalid.
 	 */

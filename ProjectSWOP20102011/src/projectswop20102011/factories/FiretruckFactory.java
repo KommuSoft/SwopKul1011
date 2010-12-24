@@ -19,7 +19,8 @@ public class FiretruckFactory extends UnitFactory {
 
 	/**
 	 * Creates a new FiretruckFactory.
-	 *
+	 * @effect The new FiretruckFactory is a new UnitFactory with a given type name.
+	 *		|super("firetruck")
 	 * @throws InvalidMapItemTypeNameException
 	 *      If the type name of the new firetruck is invalid.
 	 */
@@ -40,6 +41,8 @@ public class FiretruckFactory extends UnitFactory {
 	 *		If the given speed is invalid.
 	 * @throws InvalidAmountOfParametersException
 	 *		If the amount of given parameters is invalid.
+	 * @throws InvalidFireSizeException
+	 *		If the given maxSize is invalid.
 	 */
 	@Override
 	public Firetruck createMapItem(Object[] parameters) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidFireSizeException {

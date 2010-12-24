@@ -13,6 +13,8 @@ public abstract class UnitFactory extends MapItemFactory {
      * Creates a new UnitFactory with a given unit type name.
      * @param unitTypeName
      *		The name of the type of unit the factory will create.
+	 * @effect The new UnitFactory is a new MapItemFactory with a given type name.
+	 *		|super(unitTypeName)
      * @throws InvalidMapItemTypeNameException
      *		If the name of the unit type is invalid.
      */

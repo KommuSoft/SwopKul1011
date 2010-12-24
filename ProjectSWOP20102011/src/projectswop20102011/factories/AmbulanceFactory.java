@@ -17,7 +17,8 @@ public class AmbulanceFactory extends UnitFactory {
 
 	/**
 	 * Creates a new AmbulanceFactory.
-	 *
+	 * @effect The new AmbulanceFactory is a new UnitFactory with a given type name.
+	 *		|super("ambulance")
 	 * @throws InvalidMapItemTypeNameException
 	 *		If the type name of the new AmbulanceFactory is invalid.
 	 */

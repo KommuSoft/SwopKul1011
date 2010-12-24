@@ -38,7 +38,7 @@ public abstract class EmergencyFactory {
 	}
 
     /**
-     * Creates a new specific emergency with the given parameters
+     * Creates a new specific emergency with the given parameters.
      * @param parameters
      *		The parameters of the constructor.
      * @return The emergency created by the factory.

@@ -19,7 +19,8 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
 
 	/**
 	 * Creates a new PublicDisturbance.
-	 *
+	 * @effect The new PublicDisturbanceFactory is a new EmergencyFactory with a given type name.
+	 *		|super("public disturbance")
 	 * @throws InvalidEmergencyTypeNameException
 	 *      If the type name of the new PublicDisturbance is invalid.
 	 */

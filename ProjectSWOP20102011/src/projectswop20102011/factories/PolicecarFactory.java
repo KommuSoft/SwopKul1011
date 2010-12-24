@@ -17,7 +17,8 @@ public class PolicecarFactory extends UnitFactory {
 
 	/**
 	 * Creates a new PolicecarFactory.
-	 *
+	 * @effect The new PolicecarFactory is a new UnitFactory with a given type name.
+	 *		|super("policecar")
 	 * @throws InvalidMapItemTypeNameException
 	 *		If the type name of the new PolicecarFactory is invalid.
 	 */

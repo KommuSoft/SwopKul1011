@@ -41,7 +41,10 @@ public abstract class MapItemFactory {
      * Creates a new specific MapItem with the given parameters
      * @param parameters
      *		The parameters of the constructor.
-     * @return The MapItem created by the factory.
+	 * @return The MapItem created by the factory.
+     * @throws Exception
+     *		If an error occurs.
+	 *
 
      */
     public abstract MapItem createMapItem(Object[] parameters) throws Exception;
@@ -49,7 +52,7 @@ public abstract class MapItemFactory {
     /**
      * Tests if the given emergency type name is valid for an MapItemFactory object.
      * @param mapItemTypeName
-     *		The given unit building type name to test.
+     *		The given mapitem type name to test.
      * @return True if the given name is effective and not empty, otherwise false.
      */
     public static boolean isValidMapItemTypeName(String mapItemTypeName) {
