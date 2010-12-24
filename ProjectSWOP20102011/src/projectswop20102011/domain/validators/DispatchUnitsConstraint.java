@@ -91,7 +91,7 @@ public abstract class DispatchUnitsConstraint {
         this.areValidDispatchUnits(combinedParts, proposalIndices);
 
         for(int i = 0; i < n; i++) {
-            if (proposalIndices.remove(i)) {
+            if (!proposalIndices.remove(i)) {
                 return new HashSet<Unit>();
             }
         }
