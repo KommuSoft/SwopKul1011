@@ -11,8 +11,10 @@ public class PartiallyAssignedEmergencyComparator implements Comparator<Emergenc
 
     /**
      * Compares the two given emergencies.
-     * @param emergency1 The first emergency to compare.
-     * @param emergency2 The second emergency to compare.
+     * @param emergency1
+	 *		The first emergency to compare.
+     * @param emergency2
+	 *		The second emergency to compare.
      * @return An integer where:    If smaller than zero the first emergency is partially allocated and the second not
      *                              If larger than zero the second emergency is partially allocated and the second not
      *                              Otherwise zero.

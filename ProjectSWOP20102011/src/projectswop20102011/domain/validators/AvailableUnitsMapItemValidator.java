@@ -11,7 +11,8 @@ public class AvailableUnitsMapItemValidator implements MapItemValidator<Unit> {
 
 	/**
 	 * Validates a given mapitem if the given MapItem is an available unit.
-	 * @param mapItem The given MapItem to validate.
+	 * @param mapItem
+	 *		The given MapItem to validate.
 	 * @return True if the MapItem is a unit and can be assigned to an emergency, otherwise false.
 	 */
 	@Override

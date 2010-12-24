@@ -27,12 +27,14 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
      *		The validator that specifies what will be counted.
      * @param number
      *		The desired number of units.
-     * @throws NumberOutOfBoundsException If the given number is invalid.
-     * @throws InvalidUnitValidatorException If the given UnitValidator is invalid.
      * @post This number is equal to the given number.
      *		|this.number.equals(number)
      * @post This validator is equal to the given validator.
      *		|this.validator.equals(validator)
+     * @throws NumberOutOfBoundsException
+	 *		If the given number is invalid.
+     * @throws InvalidUnitValidatorException
+	 *		If the given UnitValidator is invalid.
      */
     public NumberDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
         if (!isValidNumber(number)) {
@@ -63,7 +65,8 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
     /**
      * Tests if the given validator is a valid validator for a CountDispatchUnitsConstraint.
-     * @param validator The validator to validate.
+     * @param validator
+	 *		The validator to validate.
      * @return True if the given validator is effective.
      */
     public static boolean isValidValidator(UnitValidator validator) {
@@ -72,7 +75,8 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
     /**
      * Tests if the given number is a valid number for a CountDispatchUnitsConstraint.
-     * @param number The number to validate.
+     * @param number
+	 *		The number to validate.
      * @return True if the given number is larger or equal to zero, false otherwise.
      */
     public static boolean isValidNumber(long number) {
@@ -81,8 +85,10 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
     /**
      * Tests if at least a specified number of units are validated by the specified validator.
-     * @param units An iterable object containing only unique and only effective units.
-     * @param relevantIndices A set where all the indices  of units that are relevant for this constraint are added to.
+     * @param units
+	 *		An iterable object containing only unique and only effective units.
+     * @param relevantIndices
+	 *		A set where all the indices  of units that are relevant for this constraint are added to.
      * @pre The given units parameter contains only unique (no duplicates) effective units.
      * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
      */

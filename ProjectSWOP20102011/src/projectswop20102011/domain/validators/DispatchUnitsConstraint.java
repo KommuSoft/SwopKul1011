@@ -15,14 +15,16 @@ public abstract class DispatchUnitsConstraint {
 
     /**
      * Checks if the given list of units passes this constraint and all units are relevant to this constraint.
-     * @param units The list of units to check.
+     * @param units
+	 *		The list of units to check.
      * @pre All the elements in units are effective.
      * @return True if the given list passes the constraints and all the units are used, otherwise false.
      */
     public boolean areAllUnitsReleventAndConstraintPassed(Collection<Unit> units) {
         HashSet<Integer> relevantIndices = new HashSet<Integer>();
-        if(areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices))
-            return false;
+        if(areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices)) {
+			return false;
+		}
         for(int i = 0; i < units.size(); i++) {
             if(!relevantIndices.remove(i)) {
                 return false;
@@ -33,7 +35,8 @@ public abstract class DispatchUnitsConstraint {
 
     /**
      * Tests if all the given units in the list are relevant for the constraint.
-     * @param units The list of units to check.
+     * @param units
+	 *		The list of units to check.
      * @pre All the elements in units are effective.
      * @return True if all units are relevant for the constraint, otherwise false.
      */
@@ -50,7 +53,8 @@ public abstract class DispatchUnitsConstraint {
 
     /**
      * Checks if this constraint passes by the given units (not all the units need te be relevant however).
-     * @param units The list of units to check.
+     * @param units
+	 *		The list of units to check.
      * @pre All the units are effective.
      * @return True if this constraint passes by the given units.
      */
@@ -60,8 +64,10 @@ public abstract class DispatchUnitsConstraint {
 
     /**
      * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
-     * @param units An iterable object containing only unique and only effective units.
-     * @param relevantUnitIndices A list of indices where the indices of the units are added to if they are relevant to met the contstraint.
+     * @param units
+	 *		An iterable object containing only unique and only effective units.
+     * @param relevantUnitIndices
+	 *		A list of indices where the indices of the units are added to if they are relevant to met the contstraint.
      * @pre The given units parameter contains only effective units (duplicates are allowed).
      * @return True if this constraint passes with the given iterable of units, otherwise false.
      * @note The implementation of this method needs to be designed that the units in front of the units list will be added first to the relevantUnits.
@@ -82,7 +88,6 @@ public abstract class DispatchUnitsConstraint {
         ArrayList<Unit> combinedParts = new ArrayList<Unit>(fixedPart);
         combinedParts.addAll(variablePart);
         HashSet<Integer> proposalIndices = new HashSet<Integer>();
-
         this.areValidDispatchUnits(combinedParts, proposalIndices);
 
         for(int i = 0; i < n; i++) {
@@ -92,7 +97,6 @@ public abstract class DispatchUnitsConstraint {
         }
 
         Set<Unit> proposal = new HashSet<Unit>();
-
         for(Integer i : proposalIndices) {
             proposal.add(combinedParts.get(i));
         }

@@ -20,10 +20,10 @@ public class HospitalToEmergencyDistanceComparator implements Comparator<Hospita
 	 * Creates a new HospitalToEmergencyDistanceComparator with the given emergency.
 	 * @param emergency
 	 *		The emergency of the new HospitalToEmergencyDistanceComparator.
-	 * @throws InvalidEmergencyException
-	 *		If the given emergency is an invalid Emergency.
 	 * @post This emergency is equal to the given emergency.
 	 *		| new.getEmergency()==emergency
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is an invalid Emergency.
 	 */
 	public HospitalToEmergencyDistanceComparator(Emergency emergency) throws InvalidEmergencyException {
 		if (!isValidEmergency(emergency)) {
