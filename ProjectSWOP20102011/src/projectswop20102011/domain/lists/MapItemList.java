@@ -12,8 +12,8 @@ import projectswop20102011.domain.MapItem;
  * A list of mapitems where every mapitem is unique.
  * @param <T>
  *		The type of MapItems the MapItemList is holding.
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every MapItem in this MapItemList is unique.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class MapItemList<T extends MapItem> implements Iterable<T> {
 
@@ -27,6 +27,7 @@ public class MapItemList<T extends MapItem> implements Iterable<T> {
 	 * doesn't contain any object.
 	 *
 	 * @effect The new MapItemList is a list with no elements in it.
+	 *		|mapItems = new HashSet<T>()
 	 */
 	public MapItemList() {
 		this.mapItems = new HashSet<T>();
@@ -44,8 +45,7 @@ public class MapItemList<T extends MapItem> implements Iterable<T> {
 	 * Search for and return the MapItem in the MapItemList with a name equal to the given name.
 	 * @param name
 	 *		The name to compare with.
-	 * @return The MapItem in this list with a name equal to the name,
-	 * or null if no such MapItem can be found.
+	 * @return The MapItem in this list with a name equal to the name, or null if no such MapItem can be found.
 	 */
 	public MapItem getMapItemFromName(String name) {
 		for (MapItem mi : this) {
@@ -58,7 +58,8 @@ public class MapItemList<T extends MapItem> implements Iterable<T> {
 
 	/**
 	 * Returns all the Mapitems in this MapItemList that are valid to a certain MapItemValidator
-	 * @param <Q> The type of new MapItemList that will be generated. This type is relevant to the MapItemCriterium.
+	 * @param <Q>
+	 *		The type of new MapItemList that will be generated. This type is relevant to the MapItemCriterium.
 	 * @param validator
 	 *		A validator to validate an item in this MapItemList.
 	 * @return a list with all the MapItems in this MapItemList who are validated by the MapItemValidator
@@ -95,23 +96,19 @@ public class MapItemList<T extends MapItem> implements Iterable<T> {
 
 	/**
 	 * Sorts the MapItems to a given comparator.
-	 * @param <T>
-	 *		The class of the MapItem that must be sorted.
 	 * @param comparator
 	 *		The given comparator.
 	 * @return A list of MapItem correctly sorted.
 	 */
 	public ArrayList<T> getSortedCopy(Comparator<? super T> comparator) {
 		ArrayList<T> result = this.toArrayList();
-
 		Collections.sort(result, comparator);
-
 		return result;
 	}
 
 	/**
 	 * Returns an ArrayList<T> containing all the items in the MapItemList.
-	 * @return
+	 * @return An ArrayList containing all the items in the MapItemList.
 	 */
 	public ArrayList<T> toArrayList() {
 		return new ArrayList<T>(this.takeMapItems());
@@ -120,7 +117,7 @@ public class MapItemList<T extends MapItem> implements Iterable<T> {
 	/**
 	 * Returns the real HashSet of items in this list. This method is private.
 	 * @return The real HashSet of items in this list (not a clone).
-	 * @see MapItemList<T>.getMapItems
+	 * @see #getMapItems
 	 */
 	private HashSet<T> takeMapItems() {
 		return this.mapItems;

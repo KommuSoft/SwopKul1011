@@ -234,7 +234,7 @@ class UnitsNeeded {
 	 *		|	u.getEmergency().equals(this.getEmergency())
 	 * @throws InvalidEmergencyException
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
-	 * @see #canAssignUnitsToEmergency(List)
+	 * @see #canAssignUnitsToEmergency(Set)
 	 */
 	public synchronized void assignUnitsToEmergency(Set<Unit> units) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
@@ -334,7 +334,7 @@ class UnitsNeeded {
 	 *		The unit that wants to withdraw.
 	 * @effect The unit is removed from the workingUnits list.
 	 */
-	void withdrawUnit(Unit unit){
+	void withdrawUnit(Unit unit) {
 		removeFromWorkingUnits(unit);
 	}
 

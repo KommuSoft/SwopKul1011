@@ -354,8 +354,6 @@ public class Global1Test {
 		}
 
 		for(Unit u : units) {
-			//u.finishedJob();
-			//TODO hier nog test schrijven
 			u.finishedJob();
 		}
 

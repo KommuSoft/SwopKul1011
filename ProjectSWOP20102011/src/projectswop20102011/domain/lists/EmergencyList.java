@@ -7,9 +7,9 @@ import projectswop20102011.domain.Emergency;
 
 /**
  * A list of emergencies where every emergency is unique.
- * 
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every Emergency in this EmergencyList is unique.
+ *
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class EmergencyList implements Iterable<Emergency> {
 
@@ -19,7 +19,7 @@ public class EmergencyList implements Iterable<Emergency> {
 	private final HashSet<Emergency> emergencies;
 
 	/**
-	 * Creating a new instance of an EmergencyList. At this moment this list
+	 * Creates a new instance of an EmergencyList. At this moment this list
 	 * doesn't contain any emergency.
 	 * @post The inner list that manages the emergencies is initialized.
 	 *		| emergencies = new HashSet<Emergency>()
@@ -39,14 +39,14 @@ public class EmergencyList implements Iterable<Emergency> {
 	/**
 	 * Adds the given emergency to this list of emergencies if the given emergency
 	 * is not already in this list of emergencies.
-	 * @param e
+	 * @param emergency
 	 *		Emergency to be appended to this list of emergencies.
 	 * @post This EmergencyList contains the given Emergency.
 	 *		| getEmergencies().contains(e)
 	 */
-	public void addEmergency(Emergency e) {
-		if (!getEmergencies().contains(e)) {
-			emergencies.add(e);
+	public void addEmergency(Emergency emergency) {
+		if (!getEmergencies().contains(emergency)) {
+			emergencies.add(emergency);
 		}
 	}
 

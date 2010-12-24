@@ -1,9 +1,5 @@
 package projectswop20102011.domain.lists;
 
-import projectswop20102011.domain.lists.EmergencyList;
-import projectswop20102011.domain.lists.MapItemList;
-import projectswop20102011.domain.lists.TimeSensitiveList;
-
 /**
  * A class that represents a world.
  *

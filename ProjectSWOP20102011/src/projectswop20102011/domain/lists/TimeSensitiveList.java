@@ -7,8 +7,9 @@ import projectswop20102011.exceptions.InvalidDurationException;
 
 /**
  * A list of objects that are time sensitive where every object is unique.
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  * @invar Every TimeSensitive in this TimeSensitiveList is unique.
+ *
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class TimeSensitiveList implements Iterable<TimeSensitive> {
 
@@ -18,13 +19,13 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	private final HashSet<TimeSensitive> timeSensitives;
 
 	/**
-	 * Creating a new instance of an TimeSensitiveList. At this moment this list
+	 * Creates a new instance of an TimeSensitiveList. At this moment this list
 	 * doesn't contain any object.
 	 * @post The new TimeSensitiveList is a list with no elements in it.
 	 *		|new.getTimeSensitives().size() == 0
 	 */
 	public TimeSensitiveList() {
-		this.timeSensitives = new HashSet<TimeSensitive>();
+		this.timeSensitives = new HashSet<TimeSensitive>(0);
 	}
 
 	/**
@@ -38,14 +39,14 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	/**
 	 * Adds the given TimeSensitive to this list of time sensitive objects.
 	 * If the given TimeSensitive object is already in the list, nothing happens.
-	 * @param ub
+	 * @param timeSensitive
 	 *		The TimeSensitive to be appended to this list of time sensitive objects.
 	 * @post This TimeSensitiveList contains the given TimeSensitive.
-	 *		|new.getTimeSensitives().contains(ub)
+	 *		|new.getTimeSensitives().contains(timeSensitive)
 	 */
-	public void addTimeSensitive(TimeSensitive ub) {
-		if (!getTimeSensitives().contains(ub)) {
-			timeSensitives.add(ub);
+	public void addTimeSensitive(TimeSensitive timeSensitive) {
+		if (!getTimeSensitives().contains(timeSensitive)) {
+			timeSensitives.add(timeSensitive);
 		}
 	}
 
