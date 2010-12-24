@@ -23,7 +23,7 @@ public class MainUserInterface extends UserInterface {
     @Override
     public void HandleUserInterface() {
         //writing project header
-        writeOutput("Project SWOP v. 1.618034\n");
+        writeOutput("Project SWOP v. 2.718281\n");
         String actor;
         while (true) {
             writeOutput("Type in the actor's name?");
@@ -45,6 +45,6 @@ public class MainUserInterface extends UserInterface {
                 writeOutput(String.format("I can't find actor \"%s\", please try again.",actor));
             }
         }
-        writeOutput("\nEnd of the demonstration of project SWOP v. 1.618034");
+        writeOutput("\nEnd of the demonstration of project SWOP v. 2.718281");
     }
 }
