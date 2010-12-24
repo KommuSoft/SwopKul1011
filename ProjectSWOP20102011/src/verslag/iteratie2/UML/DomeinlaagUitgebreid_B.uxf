@@ -47,7 +47,7 @@ UnitsNeeded
 --
 --
 +compare(unit1:Unit,unit2:Unit):int
-/#internaCompare(unit1:Unit,unit2:Unit):int/
+/#internalCompare(unit1:Unit,unit2:Unit):int/
 #DispatchPolicy(unitsNeeded:UnitsNeeded)
 #DispatchPolicy(unitsNeeded:UnitsNeeded,successor:DispatchPolicy)
 +getDeepSuccessor():DispatchPolicy
