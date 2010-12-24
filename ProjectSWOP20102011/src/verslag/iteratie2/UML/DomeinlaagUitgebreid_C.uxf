@@ -29,7 +29,7 @@
 --
 #Unit(name:String,homeLocation:GPSCoordinate,speed:long)
 ~assignTo(Emergency emergency)
-canBeAssigned():boolean
+canBeAssigned():Boolean
 -changeLocation(duration:Long)
 +finishedJob()
 +getDestination():GPSCoordinate
@@ -65,16 +65,16 @@ MapItem
 --
 -name:String
 --
-#MapItem(name:String,homeLocation:GPSCoordinate)</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>520</x><y>20</y><w>410</w><h>120</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+#MapItem(name:String,homeLocation:GPSCoordinate)</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>520</x><y>30</y><w>410</w><h>120</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
 GPSCoordinate
 --
 -x:Long
 -y:Long
 --
 +getDistanceTo(gpsCoordinate:GPSCoordinate):Double
-+equals(gps2:GPSCoordinate)</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>370</x><y>20</y><w>170</w><h>70</h></coordinates><panel_attributes>lt=&lt;-
-homeLocation</panel_attributes><additional_attributes>150;50;30;50</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>200</x><y>80</y><w>50</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>30;30;30;150</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>90</x><y>80</y><w>50</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>30;30;30;150</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>540</x><y>110</y><w>168</w><h>140</h></coordinates><panel_attributes>lt=&lt;-
-currentLocation</panel_attributes><additional_attributes>90;30;90;120</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>270</x><y>120</y><w>200</w><h>70</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
++equals(gps2:GPSCoordinate):Boolean</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>370</x><y>30</y><w>170</w><h>70</h></coordinates><panel_attributes>lt=&lt;-
+homeLocation</panel_attributes><additional_attributes>150;50;30;50</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>200</x><y>80</y><w>50</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>30;30;30;150</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>90</x><y>80</y><w>50</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>30;30;30;150</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>540</x><y>120</y><w>168</w><h>130</h></coordinates><panel_attributes>lt=&lt;-
+currentLocation</panel_attributes><additional_attributes>90;30;90;110</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>270</x><y>120</y><w>200</w><h>70</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 /TimeSensitive/
 --
 --
