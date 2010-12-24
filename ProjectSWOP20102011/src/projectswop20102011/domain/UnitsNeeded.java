@@ -218,8 +218,9 @@ class UnitsNeeded {
 			}
 		}
 		ArrayList<Unit> totalUnits = getWorkingUnits();
+		totalUnits.addAll(this.takeFinishedUnits());
 		totalUnits.addAll(units);
-		return getConstraint().areAllUnitsRelevant(units);
+		return getConstraint().areAllUnitsRelevant(totalUnits);
 	}
 
 	/**
