@@ -347,7 +347,7 @@ class UnitsNeeded {
 	 */
 	Set<Unit> generateProposal(List<Unit> options) {
 		List<Unit> fixedPart = this.getWorkingUnits();
-		fixedPart.addAll(this.takeWorkingUnits());
+		fixedPart.addAll(this.takeFinishedUnits());
 		return this.getConstraint().generateProposal(fixedPart, options);
 	}
 
