@@ -5,7 +5,7 @@ package projectswop20102011.exceptions;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class InvalidMapItemNameException extends Exception {
+public class InvalidMapItemNameException extends InvalidNameException {
 
 	/**
 	 * Variable registering the serivalVersionUID of this InvalidMapItemNameException.
