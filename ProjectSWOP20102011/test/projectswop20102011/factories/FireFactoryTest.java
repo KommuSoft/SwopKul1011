@@ -12,6 +12,7 @@ import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidParametersException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class FireFactoryTest {
@@ -53,7 +54,7 @@ public class FireFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidAmountOfParametersException{
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidParametersException{
 		ff = new FireFactory();
 		Fire f = (Fire) ff.createEmergency(new Object[] {gps1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1});
 
@@ -66,22 +67,10 @@ public class FireFactoryTest {
 		assertEquals(numberOfInjured1, f.getNumberOfInjured());
 	}
 
-	@Test(expected = InvalidAmountOfParametersException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidAmountOfParametersException, NumberOutOfBoundsException{
+	@Test(expected = InvalidParametersException.class)
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidAmountOfParametersException, NumberOutOfBoundsException, InvalidParametersException{
 		ff = new FireFactory();
 		ff.createEmergency(new Object[] {});
-	}
-
-	@Test
-	public void testGetParameterClasses() throws InvalidEmergencyTypeNameException{
-		ff = new FireFactory();
-		Class[] c1 = {GPSCoordinate.class, EmergencySeverity.class, String.class, FireSize.class, Boolean.class, Long.class, Long.class};
-
-		assertEquals(c1.length, ff.getParameterClasses().length);
-
-		for(int i=0; i<c1.length; ++i){
-			assertEquals(c1[i], ff.getParameterClasses()[i]);
-		}
 	}
 
 	@Test

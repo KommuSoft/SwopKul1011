@@ -49,7 +49,7 @@ public class TrafficAccidentFactory extends EmergencyFactory {
      */
     @Override
     public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
-        if (this.areValidParameters(parameters)) {
+        if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
             return new TrafficAccident((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);

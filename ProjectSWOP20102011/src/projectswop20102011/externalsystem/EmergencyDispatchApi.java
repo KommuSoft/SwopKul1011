@@ -15,6 +15,7 @@ import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidParametersException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.factories.FireFactory;
@@ -107,8 +108,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			throw new EmergencyDispatchException("The emergency severity is invalid");
 		} catch (NumberOutOfBoundsException ex) {
 			throw new EmergencyDispatchException("The number of trapped people or the number of injured people is invalid.");
-		} catch (InvalidAmountOfParametersException ex) {
-			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidParametersException ex) {
+			throw new EmergencyDispatchException("The parameters are invalid.");
 		} catch (InvalidFireSizeException ex) {
 			throw new EmergencyDispatchException("The fire size is invalid.");
 		} catch (InvalidEmergencyTypeNameException ex) {
@@ -132,8 +133,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			PublicDisturbanceFactory factory = new PublicDisturbanceFactory();
 			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfPeople"))});
-		} catch (InvalidAmountOfParametersException ex) {
-			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidParametersException ex) {
+			throw new EmergencyDispatchException("The parameters are invalid.");
 		} catch (InvalidLocationException ex) {
 			throw new EmergencyDispatchException("The location is invalid.");
 		} catch (InvalidEmergencySeverityException ex) {
@@ -165,8 +166,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			throw new EmergencyDispatchException("The location is invalid.");
 		} catch (InvalidEmergencySeverityException ex) {
 			throw new EmergencyDispatchException("The emergency severity is invalid.");
-		} catch (InvalidAmountOfParametersException ex) {
-			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidParametersException ex) {
+			throw new EmergencyDispatchException("The parameters are invalid.");
 		} catch (InvalidEmergencyTypeNameException ex) {
 			throw new EmergencyDispatchException("The emergency type name is invalid.");
 		}
@@ -194,8 +195,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			throw new EmergencyDispatchException("The emergency severity is invalid.");
 		} catch (NumberOutOfBoundsException ex) {
 			throw new EmergencyDispatchException("The number of involved cars or the number of injured pople is invalid.");
-		} catch (InvalidAmountOfParametersException ex) {
-			throw new EmergencyDispatchException("The number of parameters is invalid.");
+		} catch (InvalidParametersException ex) {
+			throw new EmergencyDispatchException("The parameters are invalid.");
 		} catch (InvalidEmergencyTypeNameException ex) {
 			throw new EmergencyDispatchException("The emergency type name is invalid.");
 		}

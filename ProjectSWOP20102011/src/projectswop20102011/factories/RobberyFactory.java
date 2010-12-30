@@ -46,7 +46,7 @@ public class RobberyFactory extends EmergencyFactory {
      */
     @Override
     public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
-        if (this.areValidParameters(parameters)) {
+        if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
             return new Robbery((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);

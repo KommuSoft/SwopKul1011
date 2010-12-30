@@ -10,6 +10,7 @@ import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidParametersException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class PublicDisturbanceFactoryTest {
@@ -43,7 +44,7 @@ public class PublicDisturbanceFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidAmountOfParametersException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		pdf = new PublicDisturbanceFactory();
 		PublicDisturbance pd  = (PublicDisturbance) pdf.createEmergency(new Object[]{gps1, severity1, description1, numberOfPeople1});
 
@@ -53,22 +54,10 @@ public class PublicDisturbanceFactoryTest {
 		assertEquals(numberOfPeople1, pd.getNumberOfPeople());
 	}
 
-	@Test(expected = InvalidAmountOfParametersException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidAmountOfParametersException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+	@Test(expected = InvalidParametersException.class)
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		pdf = new PublicDisturbanceFactory();
 		pdf.createEmergency(new Object[]{});
-	}
-
-	@Test
-	public void testGetParameterClasses() throws InvalidEmergencyTypeNameException {
-		pdf = new PublicDisturbanceFactory();
-		Class[] c1 = {GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class};
-
-		assertEquals(c1.length, pdf.getParameterClasses().length);
-
-		for (int i = 0; i < c1.length; ++i) {
-			assertEquals(c1[i], pdf.getParameterClasses()[i]);
-		}
 	}
 
 	@Test

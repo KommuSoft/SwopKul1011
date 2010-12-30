@@ -10,6 +10,7 @@ import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidParametersException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class TrafficAccidentFactoryTest {
@@ -44,7 +45,7 @@ public class TrafficAccidentFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidAmountOfParametersException {
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException{
 		taf = new TrafficAccidentFactory();
 		TrafficAccident ta = (TrafficAccident) taf.createEmergency(new Object[]{gps1, severity1, description1, numberOfCars1, numberOfInjured1});
 
@@ -55,22 +56,10 @@ public class TrafficAccidentFactoryTest {
 		assertEquals(numberOfInjured1, ta.getNumberOfInjured());
 	}
 
-	@Test(expected = InvalidAmountOfParametersException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidAmountOfParametersException {
+	@Test(expected = InvalidParametersException.class)
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		taf = new TrafficAccidentFactory();
 		taf.createEmergency(new Object[]{});
-	}
-
-	@Test
-	public void testGetParameterClasses() throws InvalidEmergencyTypeNameException {
-		taf = new TrafficAccidentFactory();
-		Class[] c1 = {GPSCoordinate.class, EmergencySeverity.class, String.class, Long.class, Long.class};
-
-		assertEquals(c1.length, taf.getParameterClasses().length);
-
-		for (int i = 0; i < c1.length; ++i) {
-			assertEquals(c1[i], taf.getParameterClasses()[i]);
-		}
 	}
 
 	@Test

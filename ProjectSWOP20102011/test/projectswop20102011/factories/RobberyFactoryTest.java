@@ -6,10 +6,10 @@ import static org.junit.Assert.*;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Robbery;
-import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidParametersException;
 
 public class RobberyFactoryTest {
 
@@ -44,7 +44,7 @@ public class RobberyFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidAmountOfParametersException {
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
 		rf = new RobberyFactory();
 		Robbery r  = (Robbery) rf.createEmergency(new Object[]{gps1, severity1, description1, armed1, inProgress1});
 
@@ -55,22 +55,10 @@ public class RobberyFactoryTest {
 		assertEquals(inProgress1, r.isInProgress());
 	}
 
-	@Test(expected = InvalidAmountOfParametersException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidAmountOfParametersException {
+	@Test(expected = InvalidParametersException.class)
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
 		rf = new RobberyFactory();
 		rf.createEmergency(new Object[]{});
-	}
-
-	@Test
-	public void testGetParameterClasses() throws InvalidEmergencyTypeNameException {
-		rf = new RobberyFactory();
-		Class[] c1 = {GPSCoordinate.class, EmergencySeverity.class, String.class, Boolean.class, Boolean.class};
-
-		assertEquals(c1.length, rf.getParameterClasses().length);
-
-		for (int i = 0; i < c1.length; ++i) {
-			assertEquals(c1[i], rf.getParameterClasses()[i]);
-		}
 	}
 
 	@Test

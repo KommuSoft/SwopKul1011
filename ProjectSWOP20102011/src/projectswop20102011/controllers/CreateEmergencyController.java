@@ -7,11 +7,11 @@ import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.lists.World;
-import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidParametersException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.factories.FireFactory;
@@ -77,7 +77,7 @@ public class CreateEmergencyController extends Controller {
 		}
 		try {
 			addCreatedEmergencyToTheWorld(ff.createEmergency(new Object[]{location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured}));
-		} catch (InvalidAmountOfParametersException ex) {
+		} catch (InvalidParametersException ex) {
 			//This can never happen.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -103,7 +103,7 @@ public class CreateEmergencyController extends Controller {
 		}
 		try {
 			addCreatedEmergencyToTheWorld(rf.createEmergency(new Object[]{location, severity, description, armed, inProgress}));
-		} catch (InvalidAmountOfParametersException ex) {
+		} catch (InvalidParametersException ex) {
 			//This can not happen.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -129,7 +129,7 @@ public class CreateEmergencyController extends Controller {
 		}
 		try {
 			addCreatedEmergencyToTheWorld(pdf.createEmergency(new Object[]{location, severity, description, numberOfPeople}));
-		} catch (InvalidAmountOfParametersException ex) {
+		} catch (InvalidParametersException ex) {
 			//This can't happen.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -156,7 +156,7 @@ public class CreateEmergencyController extends Controller {
 		}
 		try {
 			addCreatedEmergencyToTheWorld(taf.createEmergency(new Object[]{location, severity, description, numberOfCars, numberOfInjured}));
-		} catch (InvalidAmountOfParametersException ex) {
+		} catch (InvalidParametersException ex) {
 			//All hell breakes loose.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
