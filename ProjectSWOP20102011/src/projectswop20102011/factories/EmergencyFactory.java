@@ -14,6 +14,10 @@ public abstract class EmergencyFactory {
      * The name of the emergency the factory will create.
      */
     private final String emergencyTypeName;
+    /**
+     * An object containing information about the factory.
+     */
+    private EmergencyFactoryInformation information;
 
     /**
      * Creates a new EmergencyFactory with a given emergency type name.
@@ -29,13 +33,13 @@ public abstract class EmergencyFactory {
         this.emergencyTypeName = emergencyTypeName;
     }
 
-	/**
-	 * Returns the name of the emergency this factory will create.
-	 * @return The name of the emergency this factory will create.
-	 */
-	public String getEmergencyTypeName(){
-		return emergencyTypeName;
-	}
+    /**
+     * Returns the name of the emergency this factory will create.
+     * @return The name of the emergency this factory will create.
+     */
+    public String getEmergencyTypeName() {
+        return emergencyTypeName;
+    }
 
     /**
      * Creates a new specific emergency with the given parameters.
@@ -46,13 +50,6 @@ public abstract class EmergencyFactory {
      *		If an error occurs.
      */
     public abstract Emergency createEmergency(Object[] parameters) throws Exception;
-
-    
-    /**
-     * Returns a list of the types of parameters to construct that special type of emergency.
-     * @return A list of the types of parameters to construct that special type of emergency.
-     */
-    public abstract Class[] getParameterClasses ();
 
     /**
      * Tests if the given emergency type name is valid for an EmergencyFactory object.
@@ -65,21 +62,25 @@ public abstract class EmergencyFactory {
     }
 
     /**
-     * Checks if the given parameters can be used to construct the specific emergency.
-     * @return True if the given parameters can be used to initialize the specific emergency constructor, otherwise false.
-	 * @note Only the instance is checked. E.g. if we expect a positive Integer and we give a negative Integer as parameter then this method returns true.
+     * An abstract method to given the children a way to generate information about the specific factory.
+     * @return An EmergencyFactoryInformation object containing information about the Factory.
      */
-    public boolean areValidParameters (Object[] parameters) {
-		Class[] parameterClasses = getParameterClasses();
+    protected abstract EmergencyFactoryInformation generateInformation();
 
-        if(parameterClasses.length != parameters.length) {
-            return false;
+    public synchronized EmergencyFactoryInformation getInformation() {
+        if (this.information == null) {
+            this.information = this.generateInformation();
         }
-        for(int i = 0; i < parameterClasses.length; i++) {
-            if(!parameterClasses[i].isInstance(parameters[i])) {
-                return false;
-            }
-        }
-        return true;
+        return this.information;
+    }
+
+    /**
+     * Checks if the given parameters can be used to construct the specific emergency.
+     * @param parameters The parameters to check.
+     * @return True if the given parameters can be used to initialize the specific emergency constructor, otherwise false.
+     * @note Only the instance is checked. E.g. if we expect a positive Integer and we give a negative Integer as parameter then this method returns true.
+     */
+    public boolean areValidParameters(Object... parameters) {
+        return this.getInformation().areValidParameterInstances(parameters);
     }
 }

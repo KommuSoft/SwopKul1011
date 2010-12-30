@@ -48,5 +48,22 @@ public class EmergencyFactoryInformation {
         }
         return false;
     }
+    /**
+     * Checks if the Factory it describes can be called with the given set of parameters.
+     * @param objects The instances of parameters to check.
+     * @return True if the length of the given parameters is equal to the number of parameters and every parameter is a valid instance, otherwise false.
+     */
+    public boolean areValidParameterInstances (Object... objects) {
+        EmergencyFactoryInformationParameter[] parameters = this.getParameters();
+        if(objects.length == parameters.length) {
+            for(int i = 0; i < parameters.length; i++) {
+                if(!parameters[i].canBeAParameter(objects[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
 }

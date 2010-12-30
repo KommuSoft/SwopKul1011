@@ -1,14 +1,18 @@
 package projectswop20102011.factories;
 
-import java.security.InvalidParameterException;
+import java.io.InvalidClassException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Robbery;
-import projectswop20102011.exceptions.InvalidAmountOfParametersException;
+import projectswop20102011.exceptions.InvalidDescriptionException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidNameException;
+import projectswop20102011.exceptions.InvalidParametersException;
 
 /**
  * A class that represents an RobberyFactory.
@@ -17,45 +21,66 @@ import projectswop20102011.exceptions.InvalidLocationException;
  */
 public class RobberyFactory extends EmergencyFactory {
 
-	/**
-	 * Creates a new RobberyFactory.
-	 * @effect The new RobberyFactory is a new EmergencyFactory with a given type name.
-	 *		|super("robbery")
-	 * @throws InvalidEmergencyTypeNameException
-	 *      If the type name of the new Robbery is invalid.
-	 */
-	public RobberyFactory() throws InvalidEmergencyTypeNameException {
-		super("robbery");
-	}
+    /**
+     * Creates a new RobberyFactory.
+     * @effect The new RobberyFactory is a new EmergencyFactory with a given type name.
+     *		|super("robbery")
+     * @throws InvalidEmergencyTypeNameException
+     *      If the type name of the new Robbery is invalid.
+     */
+    public RobberyFactory() throws InvalidEmergencyTypeNameException {
+        super("robbery");
+    }
 
-	/**
-	 * Creates a new Robbery with the given parameters.
-	 * @param parameters
-	 *		The parameters of the new robbery.
-	 * @return The created robbery.
-	 * @throws InvalidLocationException
-	 *		If the given location is invalid.
-	 * @throws InvalidEmergencySeverityException
-	 *		If the given emergency severity is invalid.
-	 * @throws InvalidAmountOfParametersException
-	 *		If the amount of given parameters is invalid.
-	 */
-	@Override
-	public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidAmountOfParametersException {
-		if (parameters.length != 5) {
-			throw new InvalidAmountOfParametersException("The number of parameters doesn't match the desired number of parameters.");
-		} else {
-			return new Robbery((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);
+    /**
+     * Creates a new Robbery with the given parameters.
+     * @param parameters
+     *		The parameters of the new robbery.
+     * @return The created robbery.
+     * @throws InvalidLocationException
+     *		If the given location is invalid.
+     * @throws InvalidEmergencySeverityException
+     *		If the given emergency severity is invalid.
+     * @throws InvalidParametersException
+     *          If the given parameters are invalid.
+     */
+    @Override
+    public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
+        if (this.areValidParameters(parameters)) {
+            throw new InvalidParametersException("The parameters are invalid.");
+        } else {
+            return new Robbery((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * Returns a list of the types of parameters to construct a robbery emergency.
-	 * @return A list of the types of parameters to construct a robbery emergency.
-	 */
-	@Override
-	public Class[] getParameterClasses() {
-		return new Class[]{GPSCoordinate.class, EmergencySeverity.class, String.class, Boolean.class, Boolean.class};
-	}
+    /**
+     * Generates an information object for the Factory.
+     * @return an information object for the Factory.
+     */
+    @Override
+    protected EmergencyFactoryInformation generateInformation() {
+        try {
+            return new EmergencyFactoryInformation(
+                    new EmergencyFactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
+                    new EmergencyFactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
+                    new EmergencyFactoryInformationParameter("description", String.class, "The description of the emergency."),
+                    new EmergencyFactoryInformationParameter("armed", Boolean.class, "Indicates if the robber is armed."),
+                    new EmergencyFactoryInformationParameter("inProgress", Boolean.class, "Indicates if the robbery is still in progress."));
+        } catch (InvalidNameException ex) {
+            //we assume this can never happen.
+            Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidClassException ex) {
+            //we assume this can never happen.
+            Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidDescriptionException ex) {
+            //we assume this can never happen.
+            Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParametersException ex) {
+            //we assume this can never happen.
+            Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //will never be returned.
+        return null;
+    }
 }
