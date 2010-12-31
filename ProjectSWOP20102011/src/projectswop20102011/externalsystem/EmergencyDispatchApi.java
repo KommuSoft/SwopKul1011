@@ -61,8 +61,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
             parameters.put("location", new GPSCoordinate(event.getLocation().getX(),event.getLocation().getY()).toString());
             parameters.put("severity", event.getSeverity());
             parameters.put("description", "");
-            GPSCoordinate gps = new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY());
-            EmergencySeverity emergencySeverity = EmergencySeverity.parse(event.getSeverity());
             Emergency emergency = null;
             EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getType());
             try {
@@ -71,8 +69,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
             } catch (Exception ex) {
                 Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (InvalidEmergencySeverityException ex) {
-            throw new EmergencyDispatchException("The emergency severity is invalid");
         } catch (InvalidWorldException ex) {
             throw new EmergencyDispatchException("The world is invalid");
         }

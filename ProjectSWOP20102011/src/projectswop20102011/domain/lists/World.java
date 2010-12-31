@@ -23,15 +23,14 @@ public class World {
 	 * A variable registering the time of the world.
 	 */
 	private long time;
-
-        /**
-         * A list of EmergencyFactory objects
-         */
-        private EmergencyFactoryList emergencyFactoryList;
-        /**
-         * A list that contains a collection of parsers used to parse data.
-         */
-        private ParserList parserList;
+	/**
+	 * A list of EmergencyFactory objects
+	 */
+	private EmergencyFactoryList emergencyFactoryList;
+	/**
+	 * A list that contains a collection of parsers used to parse data.
+	 */
+	private ParserList parserList;
 
 	/**
 	 * Creates a new world.
@@ -48,9 +47,9 @@ public class World {
 	public World() {
 		setEmergencyList(new EmergencyList());
 		setMapItemList(new MapItemList());
-                setParserList(new ParserList());
+		setParserList(new ParserList());
 		setTimeSensitiveList(new TimeSensitiveList());
-                setEmergencyFactoryList(new EmergencyFactoryList());
+		setEmergencyFactoryList(new EmergencyFactoryList());
 		setTime(0);
 	}
 
@@ -129,36 +128,36 @@ public class World {
 		this.time = time;
 	}
 
-        /**
-         * Gets the EmergencyFactoryList
-         * @return The EmergencyFactoryList.
-         */
-        public EmergencyFactoryList getEmergencyFactoryList () {
-            return this.emergencyFactoryList;
-        }
+	/**
+	 * Gets the EmergencyFactoryList
+	 * @return The EmergencyFactoryList.
+	 */
+	public EmergencyFactoryList getEmergencyFactoryList() {
+		return this.emergencyFactoryList;
+	}
 
-        /**
-         * Sets the emergencyFactoryList to the given emergencyFactoryList
-         * @param emergencyFactoryList
-         *          the given emergencyFactoryList.
-         */
-        private void setEmergencyFactoryList (EmergencyFactoryList emergencyFactoryList) {
-            this.emergencyFactoryList = emergencyFactoryList;
-        }
+	/**
+	 * Sets the emergencyFactoryList to the given emergencyFactoryList
+	 * @param emergencyFactoryList
+	 *          the given emergencyFactoryList.
+	 */
+	private void setEmergencyFactoryList(EmergencyFactoryList emergencyFactoryList) {
+		this.emergencyFactoryList = emergencyFactoryList;
+	}
 
-        /**
-         * Sets the ParserList of this world to the given ParserList.
-         * @param parserList The given ParserList.
-         */
-        private void setParserList (ParserList parserList) {
-            this.parserList = parserList;
-        }
+	/**
+	 * Sets the ParserList of this world to the given ParserList.
+	 * @param parserList The given ParserList.
+	 */
+	private void setParserList(ParserList parserList) {
+		this.parserList = parserList;
+	}
 
-        /**
-         * Gets the list of Parsers in the World.
-         * @return the list of parsers in the World.
-         */
-        public ParserList getParserList () {
-            return this.parserList;
-        }
+	/**
+	 * Gets the list of Parsers in the World.
+	 * @return the list of parsers in the World.
+	 */
+	public ParserList getParserList() {
+		return this.parserList;
+	}
 }
