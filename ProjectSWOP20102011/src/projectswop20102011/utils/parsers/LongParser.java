@@ -13,7 +13,7 @@ public class LongParser extends RegexParser<Long> {
      * Creates a new instance of a LongParser.
      */
     public LongParser() {
-        super(Long.class, "(-?[0-9]+)");
+        super(Long.class, "((-?[0-9]+)|true|false)");
     }
 
     /**
@@ -24,6 +24,13 @@ public class LongParser extends RegexParser<Long> {
      */
     @Override
     protected Long parseFromMatcher(Matcher matcher) throws ParsingException {
+        String input = matcher.group(1);
+        if(input.equals("true")) {
+            return 1L;
+        }
+        else if(input.equals("false")) {
+            return 0L;
+        }
         try {
             return Long.parseLong(matcher.group(1));
         } catch (Exception e) {

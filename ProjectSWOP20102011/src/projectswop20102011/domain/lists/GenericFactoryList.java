@@ -20,7 +20,7 @@ public abstract class GenericFactoryList {
      * @return A factory with the same name if this list contains one, otherwise null.
      */
     public GenericFactory getGenericFactoryFromName (String name) {
-        return this.getFactoryList().get(name);
+        return this.getFactoryList().get(name.toLowerCase());
     }
 
     /**
@@ -36,14 +36,14 @@ public abstract class GenericFactoryList {
      * @param factory The factory to add to the list.
      */
     protected void AddGenericFactory (GenericFactory factory) {
-        this.getFactoryList().put(factory.getName(),factory);
+        this.getFactoryList().put(factory.getName().toLowerCase(),factory);
     }
     /**
      * Removes a factory from the list.
      * @param factory The factory to remove from the list.
      */
     protected void RemoveGenericFactory (GenericFactory factory) {
-        this.getFactoryList().remove(factory.getName());
+        this.getFactoryList().remove(factory.getName().toLowerCase());
     }
 
 }

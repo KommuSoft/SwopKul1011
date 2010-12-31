@@ -48,6 +48,7 @@ public class World {
 	public World() {
 		setEmergencyList(new EmergencyList());
 		setMapItemList(new MapItemList());
+                setParserList(new ParserList());
 		setTimeSensitiveList(new TimeSensitiveList());
                 setEmergencyFactoryList(new EmergencyFactoryList());
 		setTime(0);

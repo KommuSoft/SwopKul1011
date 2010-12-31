@@ -86,7 +86,7 @@ public class FactoryInformation {
                 parameterInstances[i] = fip.parseParameter(value, parserList);
             }
             else {
-                throw new ParsingException("Parameter not found!");
+                throw new ParsingException(String.format("Parameter \"%s\" not found!",fip.getName()));
             }
         }
         return parameterInstances;

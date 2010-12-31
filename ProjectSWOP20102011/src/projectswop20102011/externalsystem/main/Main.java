@@ -14,6 +14,7 @@ import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
+import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.domain.lists.World;
 import projectswop20102011.externalsystem.EmergencyDispatchApi;
 import projectswop20102011.factories.FireFactory;
@@ -31,6 +32,13 @@ import projectswop20102011.userinterface.MainUserInterface;
 import projectswop20102011.userinterface.RemoveUnitAssignmentInterface;
 import projectswop20102011.userinterface.SelectHospitalUserInterface;
 import projectswop20102011.userinterface.TimeAheadUserInterface;
+import projectswop20102011.utils.parsers.BooleanParser;
+import projectswop20102011.utils.parsers.EmergencySeverityParser;
+import projectswop20102011.utils.parsers.FireSizeParser;
+import projectswop20102011.utils.parsers.GPSCoordinateParser;
+import projectswop20102011.utils.parsers.IntegerParser;
+import projectswop20102011.utils.parsers.LongParser;
+import projectswop20102011.utils.parsers.StringParser;
 
 public class Main {
 
@@ -49,6 +57,14 @@ public class Main {
         efl.addEmergencyFactory(new TrafficAccidentFactory());
         efl.addEmergencyFactory(new RobberyFactory());
         efl.addEmergencyFactory(new PublicDisturbanceFactory());
+        ParserList pl = world.getParserList();
+        pl.addParser(new BooleanParser());
+        pl.addParser(new EmergencySeverityParser());
+        pl.addParser(new FireSizeParser());
+        pl.addParser(new GPSCoordinateParser());
+        pl.addParser(new IntegerParser());
+        pl.addParser(new LongParser());
+        pl.addParser(new StringParser());
         return world;
     }
 

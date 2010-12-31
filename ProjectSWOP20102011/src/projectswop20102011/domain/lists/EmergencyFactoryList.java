@@ -15,7 +15,7 @@ public class EmergencyFactoryList extends GenericFactoryList {
      */
     @Override
     public EmergencyFactory getGenericFactoryFromName(String name) {
-        return (EmergencyFactory) this.getGenericFactoryFromName(name);
+        return (EmergencyFactory) super.getGenericFactoryFromName(name);
     }
 
     /**
@@ -31,6 +31,6 @@ public class EmergencyFactoryList extends GenericFactoryList {
      * @param factory The factory to remove.
      */
     public void removeEmergencyFactory(EmergencyFactory factory) {
-        this.removeEmergencyFactory(factory);
+        this.RemoveGenericFactory(factory);
     }
 }
