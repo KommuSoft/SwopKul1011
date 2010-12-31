@@ -76,7 +76,7 @@ public class CreateEmergencyController extends Controller {
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		try {
-			addCreatedEmergencyToTheWorld(ff.createEmergency(new Object[]{location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured}));
+			addCreatedEmergencyToTheWorld(ff.createInstance(new Object[]{location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured}));
 		} catch (InvalidParametersException ex) {
 			//This can never happen.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +102,7 @@ public class CreateEmergencyController extends Controller {
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		try {
-			addCreatedEmergencyToTheWorld(rf.createEmergency(new Object[]{location, severity, description, armed, inProgress}));
+			addCreatedEmergencyToTheWorld(rf.createInstance(new Object[]{location, severity, description, armed, inProgress}));
 		} catch (InvalidParametersException ex) {
 			//This can not happen.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,7 +128,7 @@ public class CreateEmergencyController extends Controller {
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		try {
-			addCreatedEmergencyToTheWorld(pdf.createEmergency(new Object[]{location, severity, description, numberOfPeople}));
+			addCreatedEmergencyToTheWorld(pdf.createInstance(new Object[]{location, severity, description, numberOfPeople}));
 		} catch (InvalidParametersException ex) {
 			//This can't happen.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,7 +155,7 @@ public class CreateEmergencyController extends Controller {
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		try {
-			addCreatedEmergencyToTheWorld(taf.createEmergency(new Object[]{location, severity, description, numberOfCars, numberOfInjured}));
+			addCreatedEmergencyToTheWorld(taf.createInstance(new Object[]{location, severity, description, numberOfCars, numberOfInjured}));
 		} catch (InvalidParametersException ex) {
 			//All hell breakes loose.
 			Logger.getLogger(CreateEmergencyController.class.getName()).log(Level.SEVERE, null, ex);

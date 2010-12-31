@@ -46,7 +46,7 @@ public class RobberyFactoryTest {
 	@Test
 	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
 		rf = new RobberyFactory();
-		Robbery r  = (Robbery) rf.createEmergency(new Object[]{gps1, severity1, description1, armed1, inProgress1});
+		Robbery r  = (Robbery) rf.createInstance(new Object[]{gps1, severity1, description1, armed1, inProgress1});
 
 		assertEquals(gps1, r.getLocation());
 		assertEquals(severity1, r.getSeverity());
@@ -58,7 +58,7 @@ public class RobberyFactoryTest {
 	@Test(expected = InvalidParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
 		rf = new RobberyFactory();
-		rf.createEmergency(new Object[]{});
+		rf.createInstance(new Object[]{});
 	}
 
 	@Test
@@ -74,6 +74,6 @@ public class RobberyFactoryTest {
 	public void testGetEmergencyTypeName() throws InvalidEmergencyTypeNameException {
 		rf = new RobberyFactory();
 
-		assertEquals("robbery", rf.getEmergencyTypeName());
+		assertEquals("robbery", rf.getName());
 	}
 }

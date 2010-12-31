@@ -101,7 +101,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	private Emergency createFire(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
 		try {
 			FireFactory factory = new FireFactory();
-			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", FireSize.parse(properties.get("size")), properties.get("chemical").equals("true") ? true : false, properties.get("trappedPeople").equals("true") ? 1L : 0L, Long.parseLong(properties.get("numberOfInjured"))});
+			return factory.createInstance(new Object[]{gps, emergencySeverity, "", FireSize.parse(properties.get("size")), properties.get("chemical").equals("true") ? true : false, properties.get("trappedPeople").equals("true") ? 1L : 0L, Long.parseLong(properties.get("numberOfInjured"))});
 		} catch (InvalidLocationException ex) {
 			throw new EmergencyDispatchException("The location is invalid.");
 		} catch (InvalidEmergencySeverityException ex) {
@@ -132,7 +132,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	private Emergency createPublicDisturbance(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
 		try {
 			PublicDisturbanceFactory factory = new PublicDisturbanceFactory();
-			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfPeople"))});
+			return factory.createInstance(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfPeople"))});
 		} catch (InvalidParametersException ex) {
 			throw new EmergencyDispatchException("The parameters are invalid.");
 		} catch (InvalidLocationException ex) {
@@ -161,7 +161,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	private Emergency createRobbery(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
 		try {
 			RobberyFactory factory = new RobberyFactory();
-			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", properties.get("armed").equals("true") ? true : false, properties.get("inProgress").equals("true") ? true : false});
+			return factory.createInstance(new Object[]{gps, emergencySeverity, "", properties.get("armed").equals("true") ? true : false, properties.get("inProgress").equals("true") ? true : false});
 		} catch (InvalidLocationException ex) {
 			throw new EmergencyDispatchException("The location is invalid.");
 		} catch (InvalidEmergencySeverityException ex) {
@@ -188,7 +188,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	private Emergency createTrafficAccident(GPSCoordinate gps, EmergencySeverity emergencySeverity, Map<String, String> properties) throws EmergencyDispatchException {
 		try {
 			TrafficAccidentFactory factory = new TrafficAccidentFactory();
-			return factory.createEmergency(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfCars")), Long.parseLong(properties.get("numberOfInjured"))});
+			return factory.createInstance(new Object[]{gps, emergencySeverity, "", Long.parseLong(properties.get("numberOfCars")), Long.parseLong(properties.get("numberOfInjured"))});
 		} catch (InvalidLocationException ex) {
 			throw new EmergencyDispatchException("The location is invalid.");
 		} catch (InvalidEmergencySeverityException ex) {

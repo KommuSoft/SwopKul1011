@@ -45,7 +45,7 @@ public class RobberyFactory extends EmergencyFactory {
      *          If the given parameters are invalid.
      */
     @Override
-    public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
+    public Emergency createInstance(Object... parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
         if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
@@ -59,14 +59,14 @@ public class RobberyFactory extends EmergencyFactory {
      * @return an information object for the Factory.
      */
     @Override
-    protected EmergencyFactoryInformation generateInformation() {
+    protected FactoryInformation generateInformation() {
         try {
-            return new EmergencyFactoryInformation(
-                    new EmergencyFactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
-                    new EmergencyFactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
-                    new EmergencyFactoryInformationParameter("description", String.class, "The description of the emergency."),
-                    new EmergencyFactoryInformationParameter("armed", Boolean.class, "Indicates if the robber is armed."),
-                    new EmergencyFactoryInformationParameter("inProgress", Boolean.class, "Indicates if the robbery is still in progress."));
+            return new FactoryInformation(
+                    new FactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
+                    new FactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
+                    new FactoryInformationParameter("description", String.class, "The description of the emergency."),
+                    new FactoryInformationParameter("armed", Boolean.class, "Indicates if the robber is armed."),
+                    new FactoryInformationParameter("inProgress", Boolean.class, "Indicates if the robbery is still in progress."));
         } catch (InvalidNameException ex) {
             //we assume this can never happen.
             Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);

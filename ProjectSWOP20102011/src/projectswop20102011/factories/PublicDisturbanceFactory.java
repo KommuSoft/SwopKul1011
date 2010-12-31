@@ -47,7 +47,7 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
      * @throws NumberOutOfBoundsException If the number of people involved in the public disturbance is invalid.
      */
     @Override
-    public Emergency createEmergency(Object[] parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException, NumberOutOfBoundsException {
+    public Emergency createInstance(Object... parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException, NumberOutOfBoundsException {
         if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
         } else {
@@ -60,13 +60,13 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
      * @return an information object for the Factory.
      */
     @Override
-    protected EmergencyFactoryInformation generateInformation() {
+    protected FactoryInformation generateInformation() {
         try {
-            return new EmergencyFactoryInformation(
-                    new EmergencyFactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
-                    new EmergencyFactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
-                    new EmergencyFactoryInformationParameter("description", String.class, "The description of the emergency."),
-                    new EmergencyFactoryInformationParameter("numberOfPeople", Long.class, "The number of people involved by the public disturbance."));
+            return new FactoryInformation(
+                    new FactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
+                    new FactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
+                    new FactoryInformationParameter("description", String.class, "The description of the emergency."),
+                    new FactoryInformationParameter("numberOfPeople", Long.class, "The number of people involved by the public disturbance."));
         } catch (InvalidNameException ex) {
             //we assume this can never happen.
             Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);

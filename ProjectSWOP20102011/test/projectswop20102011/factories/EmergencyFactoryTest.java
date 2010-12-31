@@ -7,17 +7,17 @@ public class EmergencyFactoryTest {
 
 	@Test
 	public void testIsValidEmergencyTypeName(){
-		assertTrue(EmergencyFactory.isValidEmergencyTypeName("hoipipeloi"));
+		assertTrue(EmergencyFactory.name("hoipipeloi"));
 	}
 
 	@Test
 	public void testIsValidEmergencyTypeNameInvalid1(){
-		assertFalse(EmergencyFactory.isValidEmergencyTypeName(null));
+		assertFalse(EmergencyFactory.name(null));
 	}
 
 	@Test
 	public void testIsValidEmergencyTypeNameInvalid2(){
-		assertFalse(EmergencyFactory.isValidEmergencyTypeName(""));
+		assertFalse(EmergencyFactory.name(""));
 	}
 
 }

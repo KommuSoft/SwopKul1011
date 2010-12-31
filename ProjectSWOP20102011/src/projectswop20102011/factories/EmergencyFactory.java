@@ -8,37 +8,38 @@ import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public abstract class EmergencyFactory {
+public abstract class EmergencyFactory implements GenericFactory {
 
     /**
      * The name of the emergency the factory will create.
      */
-    private final String emergencyTypeName;
+    private final String name;
     /**
      * An object containing information about the factory.
      */
-    private EmergencyFactoryInformation information;
+    private FactoryInformation information;
 
     /**
      * Creates a new EmergencyFactory with a given emergency type name.
-     * @param emergencyTypeName
+     * @param name
      *		The name of the type of emergency the factory will create.
      * @throws InvalidEmergencyTypeNameException
      *		If the name of the emergency type is invalid.
      */
-    protected EmergencyFactory(String emergencyTypeName) throws InvalidEmergencyTypeNameException {
-        if (!isValidEmergencyTypeName(emergencyTypeName)) {
+    protected EmergencyFactory(String name) throws InvalidEmergencyTypeNameException {
+        if (!name(name)) {
             throw new InvalidEmergencyTypeNameException("emergencyTypeName must be effective and not empty");
         }
-        this.emergencyTypeName = emergencyTypeName;
+        this.name = name;
     }
 
     /**
      * Returns the name of the emergency this factory will create.
      * @return The name of the emergency this factory will create.
      */
-    public String getEmergencyTypeName() {
-        return emergencyTypeName;
+    @Override
+    public String getName() {
+        return name;
     }
 
     /**
@@ -49,7 +50,8 @@ public abstract class EmergencyFactory {
      * @throws Exception
      *		If an error occurs.
      */
-    public abstract Emergency createEmergency(Object[] parameters) throws Exception;
+    @Override
+    public abstract Emergency createInstance(Object... parameters) throws Exception;
 
     /**
      * Tests if the given emergency type name is valid for an EmergencyFactory object.
@@ -57,17 +59,17 @@ public abstract class EmergencyFactory {
      *		The given emergency type name to test.
      * @return True if the given name is effective and not empty, otherwise false.
      */
-    public static boolean isValidEmergencyTypeName(String emergencyTypeName) {
+    public static boolean name(String emergencyTypeName) {
         return (emergencyTypeName != null && emergencyTypeName.length() > 0);
     }
 
     /**
      * An abstract method to given the children a way to generate information about the specific factory.
-     * @return An EmergencyFactoryInformation object containing information about the Factory.
+     * @return An FactoryInformation object containing information about the Factory.
      */
-    protected abstract EmergencyFactoryInformation generateInformation();
+    protected abstract FactoryInformation generateInformation();
 
-    public synchronized EmergencyFactoryInformation getInformation() {
+    public synchronized FactoryInformation getInformation() {
         if (this.information == null) {
             this.information = this.generateInformation();
         }
@@ -80,6 +82,7 @@ public abstract class EmergencyFactory {
      * @return True if the given parameters can be used to initialize the specific emergency constructor, otherwise false.
      * @note Only the instance is checked. E.g. if we expect a positive Integer and we give a negative Integer as parameter then this method returns true.
      */
+    @Override
     public boolean areValidParameters(Object... parameters) {
         return this.getInformation().areValidParameterInstances(parameters);
     }

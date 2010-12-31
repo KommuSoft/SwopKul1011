@@ -47,7 +47,7 @@ public class TrafficAccidentFactoryTest {
 	@Test
 	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException{
 		taf = new TrafficAccidentFactory();
-		TrafficAccident ta = (TrafficAccident) taf.createEmergency(new Object[]{gps1, severity1, description1, numberOfCars1, numberOfInjured1});
+		TrafficAccident ta = (TrafficAccident) taf.createInstance(new Object[]{gps1, severity1, description1, numberOfCars1, numberOfInjured1});
 
 		assertEquals(gps1, ta.getLocation());
 		assertEquals(severity1, ta.getSeverity());
@@ -59,7 +59,7 @@ public class TrafficAccidentFactoryTest {
 	@Test(expected = InvalidParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		taf = new TrafficAccidentFactory();
-		taf.createEmergency(new Object[]{});
+		taf.createInstance(new Object[]{});
 	}
 
 	@Test
@@ -75,6 +75,6 @@ public class TrafficAccidentFactoryTest {
 	public void testGetEmergencyTypeName() throws InvalidEmergencyTypeNameException {
 		taf = new TrafficAccidentFactory();
 
-		assertEquals("traffic accident", taf.getEmergencyTypeName());
+		assertEquals("traffic accident", taf.getName());
 	}
 }

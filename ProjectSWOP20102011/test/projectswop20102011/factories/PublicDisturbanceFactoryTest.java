@@ -46,7 +46,7 @@ public class PublicDisturbanceFactoryTest {
 	@Test
 	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		pdf = new PublicDisturbanceFactory();
-		PublicDisturbance pd  = (PublicDisturbance) pdf.createEmergency(new Object[]{gps1, severity1, description1, numberOfPeople1});
+		PublicDisturbance pd  = (PublicDisturbance) pdf.createInstance(new Object[]{gps1, severity1, description1, numberOfPeople1});
 
 		assertEquals(gps1, pd.getLocation());
 		assertEquals(severity1, pd.getSeverity());
@@ -57,7 +57,7 @@ public class PublicDisturbanceFactoryTest {
 	@Test(expected = InvalidParametersException.class)
 	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		pdf = new PublicDisturbanceFactory();
-		pdf.createEmergency(new Object[]{});
+		pdf.createInstance(new Object[]{});
 	}
 
 	@Test
@@ -74,6 +74,6 @@ public class PublicDisturbanceFactoryTest {
 	public void testGetEmergencyTypeName() throws InvalidEmergencyTypeNameException {
 		pdf = new PublicDisturbanceFactory();
 
-		assertEquals("public disturbance", pdf.getEmergencyTypeName());
+		assertEquals("public disturbance", pdf.getName());
 	}
 }

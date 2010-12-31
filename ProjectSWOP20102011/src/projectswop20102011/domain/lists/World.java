@@ -24,6 +24,8 @@ public class World {
 	 */
 	private long time;
 
+        private EmergencyFactoryList emergencyFactoryList;
+
 	/**
 	 * Creates a new world.
 	 *
@@ -117,4 +119,13 @@ public class World {
 	public final void setTime(long time) {
 		this.time = time;
 	}
+
+        /**
+         * Sets the emergencyFactoryList to the given emergencyFactoryList
+         * @param emergencyFactoryList
+         *          the given emergencyFactoryList
+         */
+        private void setEmergencyFactoryList (EmergencyFactoryList emergencyFactoryList) {
+            this.emergencyFactoryList = emergencyFactoryList;
+        }
 }

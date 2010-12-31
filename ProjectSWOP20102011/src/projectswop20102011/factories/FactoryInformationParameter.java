@@ -5,7 +5,7 @@ import projectswop20102011.exceptions.InvalidDescriptionException;
 import projectswop20102011.exceptions.InvalidNameException;
 
 /**
- * A class containing information about an parameter of an EmergencyFactory. Used by the EmergencyFactoryInformation.
+ * A class containing information about an parameter of a GenericFactory. Used by the FactoryInformation.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  * @invar The name of this class is always valid.
  *          |isValidName(getName())
@@ -14,14 +14,14 @@ import projectswop20102011.exceptions.InvalidNameException;
  * @invar The description of this class is always valid.
  *          |isValidDescription(getDescription())
  */
-public class EmergencyFactoryInformationParameter {
+public class FactoryInformationParameter {
 
     private final String name;
     private final Class parameterType;
     private final String description;
 
     /**
-     * Creating a new EmergencyFactoryInformationParameter with a given name, type and description.
+     * Creating a new FactoryInformationParameter with a given name, type and description.
      * @param name The name of the parameter.
      * @param parameterType The type of the parameter.
      * @param description A description about the parameter.
@@ -35,7 +35,7 @@ public class EmergencyFactoryInformationParameter {
      * @post The description of this object is equal to the given description.
      *          |new.getDescription().equals(description)
      */
-    public EmergencyFactoryInformationParameter (String name, Class parameterType, String description) throws InvalidNameException, InvalidClassException, InvalidDescriptionException {
+    public FactoryInformationParameter (String name, Class parameterType, String description) throws InvalidNameException, InvalidClassException, InvalidDescriptionException {
         if(!isValidName(name))
             throw new InvalidNameException("The name of the parameter must be effective.");
         if(!isValidParameterType(parameterType))
@@ -70,7 +70,7 @@ public class EmergencyFactoryInformationParameter {
     }
 
     /**
-     * Tests if the given name is a valid name for a EmergencyFactoryInformationParameter.
+     * Tests if the given name is a valid name for a FactoryInformationParameter.
      * @param name The name to test.
      * @return True if the name is effective, otherwise false.
      */
@@ -78,7 +78,7 @@ public class EmergencyFactoryInformationParameter {
         return (name != null);
     }
     /**
-     * Tests if the given parameter type is a valid parameter type for a EmergencyFactoryInformationParameter.
+     * Tests if the given parameter type is a valid parameter type for a FactoryInformationParameter.
      * @param parameterType The parameter type to test.
      * @return True if the given parameter is effective, otherwise false.
      */
@@ -87,7 +87,7 @@ public class EmergencyFactoryInformationParameter {
     }
 
     /**
-     * Tests if the given description is valid for a EmergencyFactoryInformationParameter.
+     * Tests if the given description is valid for a FactoryInformationParameter.
      * @param description The description to test.
      * @return True if the given description is effective, otherwise false.
      */
