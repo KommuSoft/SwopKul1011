@@ -1,5 +1,7 @@
 package projectswop20102011.utils.parsers;
 
+import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.utils.ObjectHolder;
 import projectswop20102011.utils.Parser;
 
 /**
@@ -21,6 +23,18 @@ public abstract class BasicParser<T> implements Parser<T> {
         this.parsingType = parsingType;
     }
 
+    /**
+     * Parses the given textual representation to it's object equivalent.
+     * @param textualRepresentation The textual representation to parse.
+     * @return The object that is the equivalent of the given textual representation.
+     * @throws ParsingException If the given textual representation can't be parsed.
+     */
+    @Override
+    public T parse (String textualRepresentation) throws ParsingException {
+        ObjectHolder<T> holder = new ObjectHolder<T>();
+        this.parse(textualRepresentation, holder);
+        return holder.getObject();
+    }
     /**
      * Gets the type of objects that will be parsed by the parser.
      * @return The type of objects that will be parsed by the parser.

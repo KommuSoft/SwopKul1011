@@ -6,7 +6,7 @@ import projectswop20102011.exceptions.ParsingException;
  * A parser that can parse integers.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class IntegerParser extends Parser<Integer> {
+public class IntegerParser extends UserInterfaceParser<Integer> {
 
     /**
      * Creates a new instance of an IntegerParser.
@@ -22,7 +22,7 @@ public class IntegerParser extends Parser<Integer> {
      * @throws ParsingException If the input can't be converted to an Integer.
      */
     @Override
-    public Integer parseInput(String input) throws ParsingException {
+    public Integer parse(String input) throws ParsingException {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {

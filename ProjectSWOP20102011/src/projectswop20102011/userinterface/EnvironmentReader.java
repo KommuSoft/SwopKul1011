@@ -47,7 +47,7 @@ public class EnvironmentReader {
 			if (M.find()) {
 				String type = M.group(1);
 				String name = M.group(2);
-				GPSCoordinate location = gpsCoordinateParser.parseInput(M.group(3));
+				GPSCoordinate location = gpsCoordinateParser.parse(M.group(3));
 				if (type.equals("Hospital")) {
 					this.controller.addHospital(name, location);
 				}
@@ -56,12 +56,12 @@ public class EnvironmentReader {
 				if (M.find()) {
 					String type = M.group(1);
 					String name = M.group(2);
-					GPSCoordinate location = gpsCoordinateParser.parseInput(M.group(3));
-					long speed = longParser.parseInput(M.group(4));
+					GPSCoordinate location = gpsCoordinateParser.parse(M.group(3));
+					long speed = longParser.parse(M.group(4));
 					if (type.equals("Policecar")) {
 						this.controller.addPolicecar(name, location, speed);
 					} else if (type.equals("Firetruck")) {
-						FireSize fireSize = fireSizeParser.parseInput(M.group(6));
+						FireSize fireSize = fireSizeParser.parse(M.group(6));
 						this.controller.addFiretruck(name, location, speed, fireSize);
 					} else if (type.equals("Ambulance")) {
 						this.controller.addAmbulance(name, location, speed);

@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.exceptions.ParsingException;
-import projectswop20102011.userinterface.parsers.Parser;
+import projectswop20102011.userinterface.parsers.UserInterfaceParser;
 
 /**
  * An abstract class, that represents all textual user interfaces used in this project.
@@ -97,7 +97,7 @@ public abstract class UserInterface {
         return bufferedWriter;
     }
 
-    public <T> T parseInputToType(Parser<T> parser, String parameterName) throws ParsingAbortedException {
+    public <T> T parseInputToType(UserInterfaceParser<T> parser, String parameterName) throws ParsingAbortedException {
         while (true) {
             this.writeOutput(String.format("%s=? (%s)", parameterName, parser.getParserFormatInformation()));
             String input = this.readInput();
@@ -105,7 +105,7 @@ public abstract class UserInterface {
                 throw new ParsingAbortedException("Parsing aborted by user.");
             }
             try {
-                return parser.parseInput(input);
+                return parser.parse(input);
             } catch (ParsingException ex) {
                 this.writeOutput(String.format("Unable to parse: %s\nplease try again, or typ \"abort\".", ex.getMessage()));
             }

@@ -23,6 +23,13 @@ public interface Parser<T> {
     public abstract boolean canParse(String textualRepresentation);
 
     /**
+     * Parses the given textual representation to an object.
+     * @param textualRepresentation The textual representation to parse.
+     * @return The object that is the equivalent of the given textual representation.
+     * @throws ParsingException If the given textual representation can't be parsed.
+     */
+    public abstract T parse (String textualRepresentation) throws ParsingException;
+    /**
      * Parses the given textual representation to an object (placed in the objectHolder) and returns the amount of characters that are consumed.
      * @param textualRepresentation The textual representation that needs to be parsed.
      * @param objectHolder The object holder that will store the parsed object.

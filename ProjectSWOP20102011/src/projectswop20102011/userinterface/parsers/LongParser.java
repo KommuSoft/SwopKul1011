@@ -6,7 +6,7 @@ import projectswop20102011.exceptions.ParsingException;
  * A parser that can parse longs.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class LongParser extends Parser<Long> {
+public class LongParser extends UserInterfaceParser<Long> {
 
     /**
      * Creates a new instance of a LongParser.
@@ -22,7 +22,7 @@ public class LongParser extends Parser<Long> {
      * @throws ParsingException If the input can't be converted to an Long.
      */
     @Override
-    public Long parseInput(String input) throws ParsingException {
+    public Long parse(String input) throws ParsingException {
         try {
             return Long.parseLong(input);
         } catch (NumberFormatException e) {

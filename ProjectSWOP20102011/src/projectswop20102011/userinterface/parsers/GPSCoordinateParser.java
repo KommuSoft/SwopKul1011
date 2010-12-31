@@ -9,7 +9,7 @@ import projectswop20102011.exceptions.ParsingException;
  * A parser class to parse a GPSCoodinateParsers
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class GPSCoordinateParser extends Parser<GPSCoordinate> {
+public class GPSCoordinateParser extends UserInterfaceParser<GPSCoordinate> {
 
     private static Pattern GPS_COORDINATE_PATTERN = Pattern.compile("\\(([^(,)]+),([^(,)]+)\\)");
 
@@ -27,7 +27,7 @@ public class GPSCoordinateParser extends Parser<GPSCoordinate> {
      * @throws ParsingException If the given input can't be parsed.
      */
     @Override
-    public GPSCoordinate parseInput(String input) throws ParsingException {
+    public GPSCoordinate parse(String input) throws ParsingException {
         Matcher matcher = GPS_COORDINATE_PATTERN.matcher(input);
         if (matcher.find()) {
             try {

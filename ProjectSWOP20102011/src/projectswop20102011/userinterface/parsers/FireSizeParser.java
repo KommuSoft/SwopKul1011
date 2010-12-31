@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.ParsingException;
  * A parsers that can parse a textual representation to it's equivalent
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class FireSizeParser extends Parser<FireSize> {
+public class FireSizeParser extends UserInterfaceParser<FireSize> {
 
     /**
      * Creates a new fire size parser.
@@ -24,7 +24,7 @@ public class FireSizeParser extends Parser<FireSize> {
      * @throws ParsingException If the input can not be parsed.
      */
     @Override
-    public FireSize parseInput(String input) throws ParsingException {
+    public FireSize parse(String input) throws ParsingException {
         try {
             return FireSize.parse(input);
         } catch (InvalidFireSizeException ex) {

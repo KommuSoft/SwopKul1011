@@ -4,7 +4,7 @@ package projectswop20102011.userinterface.parsers;
  * A parser to parse String expressions (including aborting condition)
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class StringParser extends Parser<String> {
+public class StringParser extends UserInterfaceParser<String> {
 
     /**
      * Creates a new instance of a StringParser.
@@ -19,7 +19,7 @@ public class StringParser extends Parser<String> {
      * @return The given input.
      */
     @Override
-    public String parseInput(String input) {
+    public String parse(String input) {
         return input;
     }
 

@@ -6,7 +6,7 @@ import projectswop20102011.exceptions.ParsingException;
  * A parser for the Boolean type.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class BooleanParser extends Parser<Boolean> {
+public class BooleanParser extends UserInterfaceParser<Boolean> {
 
     /**
      * Creates a new instance of a boolean parser.
@@ -22,7 +22,7 @@ public class BooleanParser extends Parser<Boolean> {
      * @throws ParsingException When the input can not be parsed to a boolean.
      */
     @Override
-    public Boolean parseInput(String input) throws ParsingException {
+    public Boolean parse(String input) throws ParsingException {
         String inputL = input.toLowerCase();
         if (inputL.equals("yes") || inputL.equals("true")) {
             return true;
