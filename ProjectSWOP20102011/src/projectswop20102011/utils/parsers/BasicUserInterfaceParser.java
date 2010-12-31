@@ -13,6 +13,13 @@ public abstract class BasicUserInterfaceParser<T> extends BasicParser<T> impleme
     private final String formatInformation;
 
     /**
+     * Create a new instance of a BasicUserInterfaceParser with a given type of objects that will be parsed. The FormatInfromation will be an empty String.
+     * @param parsingType The given type of objects that will be parsed.
+     */
+    protected BasicUserInterfaceParser (Class<T> parsingType) {
+        this(parsingType,"");
+    }
+    /**
      * Creates a new instance of a BasicUserInterfaceParser with a given type of objects that will be parsed and a String containing information about the format.
      * @param parsingType The given type of objects that will be parsed.
      * @param formatInformation A string explaining the format of the parser.

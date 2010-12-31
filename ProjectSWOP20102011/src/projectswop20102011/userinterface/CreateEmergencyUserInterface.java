@@ -3,17 +3,16 @@ package projectswop20102011.userinterface;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
-import projectswop20102011.controllers.Controller;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
-import projectswop20102011.userinterface.parsers.BooleanParser;
-import projectswop20102011.userinterface.parsers.EmergencySeverityParser;
-import projectswop20102011.userinterface.parsers.FireSizeParser;
-import projectswop20102011.userinterface.parsers.GPSCoordinateParser;
-import projectswop20102011.userinterface.parsers.LongParser;
-import projectswop20102011.userinterface.parsers.StringParser;
+import projectswop20102011.utils.parsers.EmergencySeverityParser;
+import projectswop20102011.utils.parsers.FireSizeParser;
+import projectswop20102011.utils.parsers.GPSCoordinateParser;
+import projectswop20102011.utils.parsers.LongParser;
+import projectswop20102011.utils.parsers.BooleanParser;
+import projectswop20102011.utils.parsers.StringParser;
 
 /**
  * A user interface specialized in creating a new emergency.

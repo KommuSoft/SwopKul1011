@@ -5,7 +5,7 @@ import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
-import projectswop20102011.userinterface.parsers.StringParser;
+import projectswop20102011.utils.parsers.StringParser;
 
 /**
  * A user interface that handles the indicate end of emergency use case (#6)

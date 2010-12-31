@@ -11,9 +11,9 @@ import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
-import projectswop20102011.userinterface.parsers.BooleanParser;
-import projectswop20102011.userinterface.parsers.LongParser;
-import projectswop20102011.userinterface.parsers.StringParser;
+import projectswop20102011.utils.parsers.BooleanParser;
+import projectswop20102011.utils.parsers.LongParser;
+import projectswop20102011.utils.parsers.StringParser;
 
 /**
  *

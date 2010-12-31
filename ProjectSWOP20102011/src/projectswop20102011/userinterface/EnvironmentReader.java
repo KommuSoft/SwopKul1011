@@ -8,9 +8,9 @@ import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.exceptions.InvalidControllerException;
-import projectswop20102011.userinterface.parsers.FireSizeParser;
-import projectswop20102011.userinterface.parsers.GPSCoordinateParser;
-import projectswop20102011.userinterface.parsers.LongParser;
+import projectswop20102011.utils.parsers.FireSizeParser;
+import projectswop20102011.utils.parsers.GPSCoordinateParser;
+import projectswop20102011.utils.parsers.LongParser;
 
 /**
  * A text stream that reads in the environment, and maps its meaning to the ReadEnviromentDataController.

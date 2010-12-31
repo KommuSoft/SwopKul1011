@@ -8,7 +8,7 @@ import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
-import projectswop20102011.userinterface.parsers.EmergencyStatusParser;
+import projectswop20102011.utils.parsers.EmergencyStatusParser;
 
 /**
  * A command user interface to inspect the emergencies (use case #3)

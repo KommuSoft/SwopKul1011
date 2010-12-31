@@ -7,8 +7,8 @@ import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
-import projectswop20102011.userinterface.parsers.IntegerParser;
-import projectswop20102011.userinterface.parsers.StringParser;
+import projectswop20102011.utils.parsers.IntegerParser;
+import projectswop20102011.utils.parsers.StringParser;
 
 /**
  *

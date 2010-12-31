@@ -12,14 +12,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.utils.ObjectHolder;
-import projectswop20102011.utils.Parser;
 
 /**
  * A parser that can parse enumeration values with a given enumeration.
  * @param <T> The type of enumeration that will be parsed by this parser.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class EnumParser<T extends Enum> extends BasicParser<T> {
+public class EnumParser<T extends Enum> extends BasicUserInterfaceParser<T> {
 
     private final Hashtable<String,T> enumerationDictionary;
     private final Pattern searchPattern;
@@ -30,6 +29,16 @@ public class EnumParser<T extends Enum> extends BasicParser<T> {
      */
     public EnumParser(Class<T> enumClass) {
         super(enumClass);
+        this.enumerationDictionary = buildEnumerationDictionary(enumClass);
+        this.searchPattern = generatePattern();
+    }
+    /**
+     * Creates a new instance of an enum parser with the given class object of the enumeration and a String that explains the format.
+     * @param enumClass The class of the enumeration.
+     * @param format A String explaining the format of the parser.
+     */
+    public EnumParser(Class<T> enumClass, String format) {
+        super(enumClass,format);
         this.enumerationDictionary = buildEnumerationDictionary(enumClass);
         this.searchPattern = generatePattern();
     }

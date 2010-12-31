@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.exceptions.ParsingException;
-import projectswop20102011.userinterface.parsers.UserInterfaceParser;
+import projectswop20102011.utils.parsers.UserInterfaceParser;
 
 /**
  * An abstract class, that represents all textual user interfaces used in this project.

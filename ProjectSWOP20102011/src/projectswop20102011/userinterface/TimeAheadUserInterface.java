@@ -7,7 +7,7 @@ import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.ParsingAbortedException;
-import projectswop20102011.userinterface.parsers.IntegerParser;
+import projectswop20102011.utils.parsers.IntegerParser;
 
 /**
  * A user interface to handle the time ahead use case.
