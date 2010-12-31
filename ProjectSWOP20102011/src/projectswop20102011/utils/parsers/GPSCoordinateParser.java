@@ -14,7 +14,7 @@ public class GPSCoordinateParser extends RegexParser<GPSCoordinate> {
      * Creates a new instance of a GPSCoordinateParser.
      */
     public GPSCoordinateParser () {
-        super("\\((-?[0-9]+),(-?[0-9]+)\\)");
+        super(GPSCoordinate.class,"\\((-?[0-9]+),(-?[0-9]+)\\)");
     }
 
     /**

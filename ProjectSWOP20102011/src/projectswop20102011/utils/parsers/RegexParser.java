@@ -11,7 +11,7 @@ import projectswop20102011.utils.Parser;
  * An abstract class providing the structure for a generic regex parser.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public abstract class RegexParser<T> implements Parser<T> {
+public abstract class RegexParser<T> extends BasicParser<T> {
 
     /**
      * Regex for pattern matching.
@@ -20,10 +20,12 @@ public abstract class RegexParser<T> implements Parser<T> {
 
     /**
      * Creates a new RegexParser with a given regex structure.
+     * @param parsingType The type of objects that will be parsed.
      * @param parserRegex A regex that can validate on a given string if parsing is possible.
      * @throws PatternSyntaxException If the given Regex has an invalid format.
      */
-    protected RegexParser(String parserRegex) throws PatternSyntaxException {
+    protected RegexParser(Class<T> parsingType, String parserRegex) throws PatternSyntaxException {
+        super(parsingType);
         this.parserPattern = Pattern.compile(parserRegex);
     }
 

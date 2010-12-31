@@ -24,7 +24,14 @@ public class World {
 	 */
 	private long time;
 
+        /**
+         * A list of EmergencyFactory objects
+         */
         private EmergencyFactoryList emergencyFactoryList;
+        /**
+         * A list that contains a collection of parsers used to parse data.
+         */
+        private ParserList parserList;
 
 	/**
 	 * Creates a new world.
@@ -136,5 +143,21 @@ public class World {
          */
         private void setEmergencyFactoryList (EmergencyFactoryList emergencyFactoryList) {
             this.emergencyFactoryList = emergencyFactoryList;
+        }
+
+        /**
+         * Sets the ParserList of this world to the given ParserList.
+         * @param parserList The given ParserList.
+         */
+        private void setParserList (ParserList parserList) {
+            this.parserList = parserList;
+        }
+
+        /**
+         * Gets the list of Parsers in the World.
+         * @return the list of parsers in the World.
+         */
+        public ParserList getParserList () {
+            return this.parserList;
         }
 }

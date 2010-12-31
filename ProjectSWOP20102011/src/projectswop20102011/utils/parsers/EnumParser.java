@@ -19,7 +19,7 @@ import projectswop20102011.utils.Parser;
  * @param <T> The type of enumeration that will be parsed by this parser.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class EnumParser<T extends Enum> implements Parser<T> {
+public class EnumParser<T extends Enum> extends BasicParser<T> {
 
     private final Hashtable<String,T> enumerationDictionary;
     private final Pattern searchPattern;
@@ -29,6 +29,7 @@ public class EnumParser<T extends Enum> implements Parser<T> {
      * @param enumClass The class of the enumeration.
      */
     public EnumParser(Class<T> enumClass) {
+        super(enumClass);
         this.enumerationDictionary = buildEnumerationDictionary(enumClass);
         this.searchPattern = generatePattern();
     }

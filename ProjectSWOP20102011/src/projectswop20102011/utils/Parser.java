@@ -10,6 +10,12 @@ import projectswop20102011.exceptions.ParsingException;
 public interface Parser<T> {
 
     /**
+     * Gets the type of object the parser will parse.
+     * @return The type of object the parser will parse.
+     */
+    public abstract Class<T> getParsingType ();
+
+    /**
      * A method that tests if the given textual representation contains any substring that can be parsed.
      * @param textualRepresentation The text to check.
      * @return True if the given textual representation can be parsed, otherwise false.
