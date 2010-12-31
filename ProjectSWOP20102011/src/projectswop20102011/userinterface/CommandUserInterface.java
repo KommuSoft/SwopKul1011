@@ -5,7 +5,7 @@ import projectswop20102011.exceptions.InvalidCommandNameException;
 
 /**
  * An abstract class where all User Interfaces that handle a specific command are a subclass off.
- * @author Willem Van Onsem, Jonas Vanthornhout
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class CommandUserInterface extends UserInterface {
 

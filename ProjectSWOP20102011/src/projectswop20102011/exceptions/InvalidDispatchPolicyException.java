@@ -2,7 +2,7 @@ package projectswop20102011.exceptions;
 
 /**
  * An exception clas used when a DispatchPolicy object is invalid.
- * @author janvanonsem
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class InvalidDispatchPolicyException extends Exception {
 

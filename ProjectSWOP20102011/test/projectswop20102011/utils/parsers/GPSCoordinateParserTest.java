@@ -17,7 +17,7 @@ import projectswop20102011.exceptions.ParsingException;
 
 /**
  *
- * @author willem
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class GPSCoordinateParserTest {
     
