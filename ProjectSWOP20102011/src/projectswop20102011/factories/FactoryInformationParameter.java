@@ -1,8 +1,11 @@
 package projectswop20102011.factories;
 
 import java.io.InvalidClassException;
+import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.exceptions.InvalidDescriptionException;
 import projectswop20102011.exceptions.InvalidNameException;
+import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.utils.Parser;
 
 /**
  * A class containing information about an parameter of a GenericFactory. Used by the FactoryInformation.
@@ -102,6 +105,21 @@ public class FactoryInformationParameter {
      */
     public boolean canBeAParameter (Object obj) {
         return this.getParameterType().isInstance(obj);
+    }
+
+    /**
+     * Parses a textual representation of a parameter by making use of a ParserList.
+     * @param textualRepresentation The textual representation to parse for the object.
+     * @param parserList A list of parser that are available.
+     * @return An object that is that can be used as a parameter.
+     * @throws ParsingException If the parser can't parse or no parser has been found.
+     */
+    public Object parseParameter (String textualRepresentation, ParserList parserList) throws ParsingException {
+        Parser parser = parserList.findParserFromParsingType(this.getParameterType());
+        if(parser == null) {
+            throw new ParsingException("Unable to parser: parser not available.");
+        }
+        return parser.parse(textualRepresentation);
     }
 
 }

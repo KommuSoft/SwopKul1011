@@ -1,6 +1,9 @@
 package projectswop20102011.factories;
 
+import java.util.Map;
+import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.exceptions.InvalidParametersException;
+import projectswop20102011.exceptions.ParsingException;
 
 /**
  * A class that contains information about how the parameters a Factory expects.
@@ -64,6 +67,29 @@ public class FactoryInformation {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Generates parameters instances based on a list of parser (to parse fundamental objects) and a Map that maps parameters to their textual values.
+     * @param parserList A list of parsers that are available for parsing.
+     * @param parameters A map that contains the parameters and their textual values.
+     * @return A list of objects representing the parameters.
+     * @throws ParsingException If the parameters can't be parsed.
+     */
+    public Object[] generateParametersFromMap (ParserList parserList, Map<String,String> parameters) throws ParsingException {
+        FactoryInformationParameter[] fips = this.getParameters();
+        Object[] parameterInstances = new Object[fips.length];
+        for(int i = 0; i < fips.length; i++) {
+            FactoryInformationParameter fip = fips[i];
+            String value = parameters.get(fip.getName());
+            if(value != null) {
+                parameterInstances[i] = fip.parseParameter(value, parserList);
+            }
+            else {
+                throw new ParsingException("Parameter not found!");
+            }
+        }
+        return parameterInstances;
     }
 
 }
