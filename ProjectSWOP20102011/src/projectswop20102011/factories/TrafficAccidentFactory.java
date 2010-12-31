@@ -30,7 +30,7 @@ public class TrafficAccidentFactory extends EmergencyFactory {
      *      If the type isValidName of the new TrafficAccident is invalid.
      */
     public TrafficAccidentFactory() throws InvalidEmergencyTypeNameException {
-        super("traffic accident");
+        super("trafficAccident");
     }
 
     /**

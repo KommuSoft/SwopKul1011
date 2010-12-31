@@ -30,7 +30,7 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
      *      If the type isValidName of the new PublicDisturbance is invalid.
      */
     public PublicDisturbanceFactory() throws InvalidEmergencyTypeNameException {
-        super("public disturbance");
+        super("publicDisturbance");
     }
 
     /**
