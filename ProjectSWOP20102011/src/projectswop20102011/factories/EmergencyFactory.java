@@ -69,6 +69,11 @@ public abstract class EmergencyFactory implements GenericFactory {
      */
     protected abstract FactoryInformation generateInformation();
 
+    /**
+     * Returns a Factory Information object containing information about the factory.
+     * @return a Factory Information object containing information about the factory.
+     */
+    @Override
     public synchronized FactoryInformation getInformation() {
         if (this.information == null) {
             this.information = this.generateInformation();
