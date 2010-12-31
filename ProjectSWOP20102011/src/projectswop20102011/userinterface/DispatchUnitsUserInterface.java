@@ -37,7 +37,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 	}
 
 	@Override
-	public void HandleUserInterface() {
+	public void handleUserInterface() {
 		try {
 			long emergencyId = this.parseInputToType(new LongParser(), "The id of the emergency");
 			Emergency selectedEmergency = this.getController().getEmergencyFromId(emergencyId);

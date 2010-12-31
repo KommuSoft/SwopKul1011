@@ -24,7 +24,7 @@ public class EndOfTaskUserInterface extends CommandUserInterface {
     }
 
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         try {
             String name = this.parseInputToType(new StringParser(), "name of the unit");
             Unit unit = this.getController().findUnit(name);

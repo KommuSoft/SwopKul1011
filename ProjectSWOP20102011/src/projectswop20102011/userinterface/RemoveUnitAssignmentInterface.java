@@ -39,7 +39,7 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 	}
 
 	@Override
-	public void HandleUserInterface() {
+	public void handleUserInterface() {
 		long emergencyId = 0;
 		try {
 			emergencyId = this.parseInputToType(new LongParser(), "The id of the emergency");

@@ -32,7 +32,7 @@ public abstract class UserInterface {
         this.setWriterStream(System.out);
     }
 
-    public abstract void HandleUserInterface();
+    public abstract void handleUserInterface();
 
     /**
      * @return the indentation

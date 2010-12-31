@@ -41,7 +41,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
      * Handels the user interface to create an emergency.
      */
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         boolean retry;
         do {
             retry = false;

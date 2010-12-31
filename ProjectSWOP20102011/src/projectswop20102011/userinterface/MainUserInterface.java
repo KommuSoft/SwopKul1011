@@ -21,7 +21,7 @@ public class MainUserInterface extends UserInterface {
     }
 
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         //writing project header
         writeOutput("Project SWOP v. 2.718281\n");
         String actor;
@@ -40,7 +40,7 @@ public class MainUserInterface extends UserInterface {
             else if(this.actorUserInterfaces.containsKey(actor.toLowerCase())) {
                 UserInterface ui = this.actorUserInterfaces.get(actor.toLowerCase());
                 ui.setIndentation(this.getIndentation()+1);
-                ui.HandleUserInterface();
+                ui.handleUserInterface();
             } else {
                 writeOutput(String.format("I can't find actor \"%s\", please try again.",actor));
             }

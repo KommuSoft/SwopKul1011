@@ -42,6 +42,7 @@ public class World {
 		setEmergencyList(new EmergencyList());
 		setMapItemList(new MapItemList());
 		setTimeSensitiveList(new TimeSensitiveList());
+                setEmergencyFactoryList(new EmergencyFactoryList());
 		setTime(0);
 	}
 
@@ -121,9 +122,17 @@ public class World {
 	}
 
         /**
+         * Gets the EmergencyFactoryList
+         * @return The EmergencyFactoryList.
+         */
+        public EmergencyFactoryList getEmergencyFactoryList () {
+            return this.emergencyFactoryList;
+        }
+
+        /**
          * Sets the emergencyFactoryList to the given emergencyFactoryList
          * @param emergencyFactoryList
-         *          the given emergencyFactoryList
+         *          the given emergencyFactoryList.
          */
         private void setEmergencyFactoryList (EmergencyFactoryList emergencyFactoryList) {
             this.emergencyFactoryList = emergencyFactoryList;

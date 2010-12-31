@@ -35,7 +35,7 @@ public class TimeAheadUserInterface extends CommandUserInterface {
     }
 
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         try {
             int seconds = this.parseInputToType(new IntegerParser(), "time expired in seconds");
             try {

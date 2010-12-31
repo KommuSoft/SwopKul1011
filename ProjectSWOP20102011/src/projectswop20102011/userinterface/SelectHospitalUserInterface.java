@@ -32,7 +32,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
     }
 
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         try {
             String name = this.parseInputToType(new StringParser(), "name of the unit");
             Ambulance amb = this.getController().findAmbulance(name);

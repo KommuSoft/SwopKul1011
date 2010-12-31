@@ -44,7 +44,7 @@ public class ActorUserInterface extends UserInterface {
      * Handles the actor user interface.
      */
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         boolean nextRun;
         do {
             nextRun = false;
@@ -59,7 +59,7 @@ public class ActorUserInterface extends UserInterface {
             } else if (this.commandUserInterfaces.containsKey(command.toLowerCase())) {
                 UserInterface ui = this.commandUserInterfaces.get(command.toLowerCase());
                 ui.setIndentation(this.getIndentation()+1);
-                ui.HandleUserInterface();
+                ui.handleUserInterface();
             }
         } while (nextRun);
     }

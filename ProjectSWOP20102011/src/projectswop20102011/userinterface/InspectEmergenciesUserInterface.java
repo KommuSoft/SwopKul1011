@@ -66,7 +66,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
     }
 
     @Override
-    public void HandleUserInterface() {
+    public void handleUserInterface() {
         boolean viewOtherList, viewEmergencyDetail;
         do {
             viewOtherList = false;
