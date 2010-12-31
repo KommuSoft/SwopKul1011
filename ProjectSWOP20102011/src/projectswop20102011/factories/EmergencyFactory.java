@@ -11,7 +11,7 @@ import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 public abstract class EmergencyFactory implements GenericFactory {
 
     /**
-     * The name of the emergency the factory will create.
+     * The isValidName of the emergency the factory will create.
      */
     private final String name;
     /**
@@ -20,22 +20,22 @@ public abstract class EmergencyFactory implements GenericFactory {
     private FactoryInformation information;
 
     /**
-     * Creates a new EmergencyFactory with a given emergency type name.
+     * Creates a new EmergencyFactory with a given emergency type isValidName.
      * @param name
      *		The name of the type of emergency the factory will create.
      * @throws InvalidEmergencyTypeNameException
      *		If the name of the emergency type is invalid.
      */
     protected EmergencyFactory(String name) throws InvalidEmergencyTypeNameException {
-        if (!name(name)) {
+        if (!isValidName(name)) {
             throw new InvalidEmergencyTypeNameException("emergencyTypeName must be effective and not empty");
         }
         this.name = name;
     }
 
     /**
-     * Returns the name of the emergency this factory will create.
-     * @return The name of the emergency this factory will create.
+     * Returns the isValidName of the emergency this factory will create.
+     * @return The isValidName of the emergency this factory will create.
      */
     @Override
     public String getName() {
@@ -59,7 +59,7 @@ public abstract class EmergencyFactory implements GenericFactory {
      *		The given emergency type name to test.
      * @return True if the given name is effective and not empty, otherwise false.
      */
-    public static boolean name(String emergencyTypeName) {
+    public static boolean isValidName(String emergencyTypeName) {
         return (emergencyTypeName != null && emergencyTypeName.length() > 0);
     }
 

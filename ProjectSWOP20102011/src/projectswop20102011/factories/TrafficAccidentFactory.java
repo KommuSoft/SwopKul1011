@@ -24,10 +24,10 @@ public class TrafficAccidentFactory extends EmergencyFactory {
 
     /**
      * Creates a new TrafficAccidentFactory.
-     * @effect The new TrafficAccidentFactory is a new EmergencyFactory with a given type name.
+     * @effect The new TrafficAccidentFactory is a new EmergencyFactory with a given type isValidName.
      *		|super("traffic accident")
      * @throws InvalidEmergencyTypeNameException
-     *      If the type name of the new TrafficAccident is invalid.
+     *      If the type isValidName of the new TrafficAccident is invalid.
      */
     public TrafficAccidentFactory() throws InvalidEmergencyTypeNameException {
         super("traffic accident");

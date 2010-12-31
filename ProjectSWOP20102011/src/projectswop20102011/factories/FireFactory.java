@@ -27,10 +27,10 @@ public class FireFactory extends EmergencyFactory {
 
     /**
      * Creates a new FireFactory.
-     * @effect The new FireFactory is a new EmergencyFactory with a given type name.
+     * @effect The new FireFactory is a new EmergencyFactory with a given type isValidName.
      *		|super("fire")
      * @throws InvalidEmergencyTypeNameException
-     *      If the type name of the new FireFactory is invalid.
+     *      If the type isValidName of the new FireFactory is invalid.
      */
     public FireFactory() throws InvalidEmergencyTypeNameException {
         super("fire");

@@ -23,10 +23,10 @@ public class RobberyFactory extends EmergencyFactory {
 
     /**
      * Creates a new RobberyFactory.
-     * @effect The new RobberyFactory is a new EmergencyFactory with a given type name.
+     * @effect The new RobberyFactory is a new EmergencyFactory with a given type isValidName.
      *		|super("robbery")
      * @throws InvalidEmergencyTypeNameException
-     *      If the type name of the new Robbery is invalid.
+     *      If the type isValidName of the new Robbery is invalid.
      */
     public RobberyFactory() throws InvalidEmergencyTypeNameException {
         super("robbery");
