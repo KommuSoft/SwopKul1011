@@ -223,6 +223,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     private void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
             if (getDestination() != null) {
+				//TODO: Kunnen we hier iets doen met de refactoringsstap "Replace Temp with Query" (120)?
                 long startX = getCurrentLocation().getX();
                 long startY = getCurrentLocation().getY();
                 long goalX = getDestination().getX();
