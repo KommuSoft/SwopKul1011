@@ -241,6 +241,7 @@ public class Fire extends Emergency {
 	protected UnitsNeeded calculateUnitsNeeded() {
 		long firetrucks = 0;
 		long policecars = 0;
+		//TODO: Dat stukje code hieronder met de switch-constructie -> Bad Smell..?
 		switch (this.getSize()) {
 			case LOCAL:
 				firetrucks = 1;
