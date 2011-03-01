@@ -24,10 +24,6 @@ public class DispatchUnitsController extends Controller {
 		super(world);
 	}
 
-	public Emergency getEmergencyFromId(long id) {
-		return this.getWorld().getEmergencyList().getEmergencyFromId(id);
-	}
-
 	public Set<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
 		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
 		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();

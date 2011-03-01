@@ -1,6 +1,7 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
+import projectswop20102011.controllers.EmergencyController;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
@@ -17,25 +18,38 @@ import projectswop20102011.utils.parsers.StringParser;
  */
 public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 
-	private final RemoveUnitAssignmentController controller;
+	private final RemoveUnitAssignmentController removeUnitAssignmentController;
+	private final EmergencyController emergencyController;
 
 	/**
 	 *
-	 * @param controller
+	 * @param removeUnitAssignmentController
+	 * @param emergencyController
 	 * @throws InvalidCommandNameException
 	 * @throws InvalidControllerException
 	 */
-	public RemoveUnitAssignmentInterface(RemoveUnitAssignmentController controller) throws InvalidCommandNameException, InvalidControllerException {
+	public RemoveUnitAssignmentInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyController emergencyController) throws InvalidCommandNameException, InvalidControllerException {
 		super("remove unit assignment");
-		if (controller == null) {
+		//TODO duplicated code
+		if (removeUnitAssignmentController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}
-		this.controller = controller;
+		this.removeUnitAssignmentController = removeUnitAssignmentController;
+
+		if (emergencyController == null) {
+			throw new InvalidControllerException("Controller must be effective.");
+		}
+		this.emergencyController = emergencyController;
 	}
 
+	//TODO rare naam
 	@Override
 	public RemoveUnitAssignmentController getController() {
-		return this.controller;
+		return this.removeUnitAssignmentController;
+	}
+
+	private EmergencyController getEmergencyController() {
+		return emergencyController;
 	}
 
 	@Override
@@ -46,7 +60,7 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 		} catch (ParsingAbortedException ex) {
 			writeOutput(String.format("ERROR: %s", ex.getMessage()));
 		}
-		Emergency selectedEmergency = this.getController().getEmergencyFromId(emergencyId);
+		Emergency selectedEmergency = getEmergencyController().getEmergencyFromId(emergencyId);
 		if (selectedEmergency == null) {
 			this.writeOutput("Emergency not found.");
 		} else {

@@ -67,21 +67,6 @@ public class EmergencyList implements Iterable<Emergency> {
 	}
 
 	/**
-	 * Returns the emergency in the EmergencyList with an id equal to the given id.
-	 * @param id
-	 *		The given id to check.
-	 * @return The emergency with an id equal to the given id. If no emergency is found, this method returns null.
-	 */
-	public Emergency getEmergencyFromId(long id) {
-		for (Emergency e : this) {
-			if (e.getId() == id) {
-				return e;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Generates an iterator to iterate over the list of emergencies.
 	 * @return An iterator to iterate of the list of emergencies.
 	 */

@@ -8,6 +8,7 @@ import java.util.Set;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.EmergencyController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
@@ -21,26 +22,38 @@ import projectswop20102011.utils.parsers.StringParser;
  */
 public class DispatchUnitsUserInterface extends CommandUserInterface {
 
-	private final DispatchUnitsController controller;
+	private final DispatchUnitsController dispatchUnitsController;
+	private final EmergencyController emergencyController;
 
-	public DispatchUnitsUserInterface(DispatchUnitsController controller) throws InvalidControllerException, InvalidCommandNameException {
+	public DispatchUnitsUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyController emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("dispatch units");
-		if (controller == null) {
+
+		//TODO: bad smell duplicated code
+		if (dispatchUnitsController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}
-		this.controller = controller;
+		this.dispatchUnitsController = dispatchUnitsController;
+		if (emergencyController == null) {
+			throw new InvalidControllerException("Controller must be effective.");
+		}
+		this.emergencyController = emergencyController;
 	}
 
+	//TODO: rare naam :s
 	@Override
 	public DispatchUnitsController getController() {
-		return this.controller;
+		return this.dispatchUnitsController;
+	}
+
+	private EmergencyController getEmergencyController(){
+		return emergencyController;
 	}
 
 	@Override
 	public void handleUserInterface() {
 		try {
 			long emergencyId = this.parseInputToType(new LongParser(), "The id of the emergency");
-			Emergency selectedEmergency = this.getController().getEmergencyFromId(emergencyId);
+			Emergency selectedEmergency = getEmergencyController().getEmergencyFromId(emergencyId);
 			if (selectedEmergency == null) {
 				this.writeOutput("Emergency not found.");
 			} else {

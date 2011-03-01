@@ -62,10 +62,4 @@ public class PublicDisturbanceTest {
 		pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
 		pd1.setStatus(es);
 	}
-	
-	@Test
-	public void testGetId() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException{
-		pd1 = new PublicDisturbance(gp1, es1, "", nmbOfPeople1);
-		assertTrue(pd1.getId()>=0);
-	}
 }

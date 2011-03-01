@@ -26,10 +26,6 @@ public class RemoveUnitAssignmentController extends Controller {
         super(world);
     }
 
-    public Emergency getEmergencyFromId(long id) {
-        return this.getWorld().getEmergencyList().getEmergencyFromId(id);
-    }
-
     public ArrayList<Unit> getWorkingUnits(Emergency selectedEmergency) {
         return selectedEmergency.getWorkingUnits();
     }

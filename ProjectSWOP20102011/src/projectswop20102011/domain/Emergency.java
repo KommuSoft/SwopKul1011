@@ -20,20 +20,10 @@ import projectswop20102011.exceptions.InvalidLocationException;
  *		| isValidSeverity(getSeverity())
  * @invar The status of an emergency is always valid.
  *		| isValidStatus(getStatus())
- * @invar Every emergency has a unique id.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class Emergency {
 
-	/**
-	 * A static field that generates ids for the constructed emergencies,
-	 * and ensures that every emergency has a different id.
-	 */
-	private static long idDispatcher = 0;
-	/**
-	 * A variable registering the id of this emergency.
-	 */
-	private final long id;
 	/**
 	 * A variable registering the location of this emergency.
 	 */
@@ -71,8 +61,6 @@ public abstract class Emergency {
 	 *		|severity.equals(this.getSeverity())
 	 * @effect This status is equal to the EmergencyStatus RECORDED_BUT_UNHANDLED.
 	 *		|getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)
-	 * @post This id is set to the idDispathcer
-	 *		|new.getId().equals(idDispatcher)
 	 * @post This description is equal to the given description.
 	 *		|new.getDescription().equals(description)
 	 * @throws InvalidLocationException
@@ -81,7 +69,6 @@ public abstract class Emergency {
 	 *		If the given severity is an invalid severity for an emergency.
 	 */
 	protected Emergency(GPSCoordinate location, EmergencySeverity severity, String description) throws InvalidLocationException, InvalidEmergencySeverityException {
-		this.id = idDispatcher++;
 		setLocation(location);
 		setSeverity(severity);
 		this.description = description;
@@ -163,14 +150,6 @@ public abstract class Emergency {
 	 */
 	public EmergencyStatus getStatus() {
 		return status;
-	}
-
-	/**
-	 * Returns the id of this emergency.
-	 * @return The id of this emergency.
-	 */
-	public long getId() {
-		return id;
 	}
 
 	/**
@@ -291,7 +270,6 @@ public abstract class Emergency {
 	protected Hashtable<String, String> getInformation() {
 		Hashtable<String, String> information = new Hashtable<String, String>();
 
-		information.put("id", "" + getId());
 		information.put("type", this.getClass().getSimpleName());
 		information.put("location", getLocation().toString());
 		information.put("severity", getSeverity().toString());

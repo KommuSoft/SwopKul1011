@@ -1,5 +1,6 @@
 package projectswop20102011.controllers;
 
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
@@ -41,11 +42,11 @@ public class InspectEmergenciesController extends Controller {
      * Inspect all the emergencies in the world on a certain status, and searches for an emergency with that status who has also the given id.
      * @param status The status of emergencies to search for.
      * @param id The id number to search for.
-     * @return The emergency who mets the conditions, if no condition succeeds, null is returned.
+	 * @return The emergency who mets the conditions, if no condition succeeds, null is returned.
+	 * @throws InvalidWorldException
      */
-    public Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) {
-        EmergencyEvaluationCriterium criterium = new StatusEqualityEmergencyEvaluationCriterium(status);
-        return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).getEmergencyFromId(id);
+    private Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) throws InvalidWorldException {
+		return new EmergencyController(getWorld()).getEmergencyFromId(id);
     }
 
     public Set<Entry<String, String>> getEmergencyShortInformation(Emergency e) {

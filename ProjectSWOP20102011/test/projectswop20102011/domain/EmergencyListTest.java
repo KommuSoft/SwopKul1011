@@ -52,24 +52,6 @@ public class EmergencyListTest {
         assertTrue(el1.getEmergencies().contains(e2));
     }
 
-    @Test
-    public void testGetEmergencyFromId () {
-        assertEquals(null,el3.getEmergencyFromId(e1.getId()));
-        assertEquals(null,el3.getEmergencyFromId(e2.getId()));
-        assertEquals(null,el3.getEmergencyFromId(-1302));
-        assertEquals(null,el3.getEmergencyFromId(-1425));
-        el3.addEmergency(e1);
-        assertEquals(e1,el3.getEmergencyFromId(e1.getId()));
-        assertEquals(null,el3.getEmergencyFromId(e2.getId()));
-        assertEquals(null,el3.getEmergencyFromId(-1302));
-        assertEquals(null,el3.getEmergencyFromId(-1425));
-        el3.addEmergency(e2);
-        assertEquals(e1,el3.getEmergencyFromId(e1.getId()));
-        assertEquals(e2,el3.getEmergencyFromId(e2.getId()));
-        assertEquals(null,el3.getEmergencyFromId(-1302));
-        assertEquals(null,el3.getEmergencyFromId(-1425));
-    }
-
 	@Test
 	public void testGetEmergenciesByCriterium(){
 		EmergencyEvaluationCriterium evc = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RECORDED_BUT_UNHANDLED);
