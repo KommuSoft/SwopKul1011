@@ -18,7 +18,6 @@
 \date{24 december 2010}
 
 \begin{document}
-\begin{empfile}
 \begin{titlepage}
 \begin{center}
 \HRule \\[0.4cm]
@@ -49,16 +48,7 @@ Pieter-Jan \textsc{Vuylsteke}
 \end{center}
 \end{titlepage}
 \newpage
-\section{Domain model}
-\section{Terminology}
-
-\begin{description}
-  \item[FireTruck:] A fire truck is a normal unit, except that there is a maximum size of fire it is capable of dealing with. The capacitiy of a fire truck is expressed in liters of water.
-  \item[Disaster:] A disaster consists of multiple emergencies regarding the same event.
-  \item[Ambulance:] An ambulance responds to emergencies with victims. When an ambulance arrives at the location of an emergency, it picks up a victim and transports him/her to a hospital. An ambulance can carry two victims at once if needed, but can also transport a single victim. An ambulance has finished its task if the victim is delivered at the hospital. 
-  \item[Dispatcher:] A person working at the dispatch center, handling emergencies or disasters by assigning units to respond to the emergency or disaster. Dispatchers are identified by their name. \textbf{(Moet er nog iets over gezegd worden dat hij disasters kan cre\"eren? Maar dat klinkt dan ook weer zo raar.)}
-  \item[Unit:] A unit can be an Ambulance, PoliceCar or FireTruck, which are identified by a name, have a home location (its station) and a current location. Units can be assigned to an emergency or disaster by a dispatcher, which means they will respond to the emergency or disaster by going to its location and executing their task (e.g. putting out a fire). A unit can only be assigned to one emergency or disaster at once. The unit commander notifies the system when a unit has finished its current assignment, after which it can be reassigned to another emergency or disaster. When a unit is not assigned to an emergency or disaster, it returns to its home location.
-\end{description}
-\section{Refactorings}
-\end{empfile}
+\input{domainModel}
+\input{terminology}
+\input{refactorings}
 \end{document}
