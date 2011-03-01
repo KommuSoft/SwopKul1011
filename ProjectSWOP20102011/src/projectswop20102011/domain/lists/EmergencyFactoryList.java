@@ -23,7 +23,7 @@ public class EmergencyFactoryList extends GenericFactoryList {
      * @param factory The factory to add.
      */
     public void addEmergencyFactory(EmergencyFactory factory) {
-        this.AddGenericFactory(factory);
+        this.addGenericFactory(factory);
     }
 
     /**
@@ -31,6 +31,6 @@ public class EmergencyFactoryList extends GenericFactoryList {
      * @param factory The factory to remove.
      */
     public void removeEmergencyFactory(EmergencyFactory factory) {
-        this.RemoveGenericFactory(factory);
+        this.removeGenericFactory(factory);
     }
 }

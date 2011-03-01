@@ -75,7 +75,6 @@ public class Main {
 
     private static boolean readEnvironment(World world, String[] args) throws Exception {
         EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             FileInputStream fis = new FileInputStream(args[0]);
             er.readEnvironmentData(fis);

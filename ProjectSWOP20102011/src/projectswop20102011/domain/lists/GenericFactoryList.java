@@ -35,14 +35,14 @@ public abstract class GenericFactoryList {
      * Adds a GenericFactory to the list.
      * @param factory The factory to add to the list.
      */
-    protected void AddGenericFactory (GenericFactory factory) {
+    protected void addGenericFactory (GenericFactory factory) {
         this.getFactoryList().put(factory.getName().toLowerCase(),factory);
     }
     /**
      * Removes a factory from the list.
      * @param factory The factory to remove from the list.
      */
-    protected void RemoveGenericFactory (GenericFactory factory) {
+    protected void removeGenericFactory (GenericFactory factory) {
         this.getFactoryList().remove(factory.getName().toLowerCase());
     }
 

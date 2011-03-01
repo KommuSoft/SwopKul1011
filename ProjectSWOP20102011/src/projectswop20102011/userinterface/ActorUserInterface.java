@@ -19,14 +19,14 @@ public class ActorUserInterface extends UserInterface {
     public ActorUserInterface(String actorName, CommandUserInterface... commands) {
         this.actorName = actorName;
         this.commandUserInterfaces = new Hashtable<String, CommandUserInterface>();
-        this.AddCommands(commands);
+        this.addCommands(commands);
     }
 
     /**
      * Add the given commands to the ActorUserInterface.
      * @param commands The given commands to addd.
      */
-    public void AddCommands(CommandUserInterface... commands) {
+    public void addCommands(CommandUserInterface... commands) {
         for (CommandUserInterface command : commands) {
             this.commandUserInterfaces.put(command.getCommandName(), command);
         }
