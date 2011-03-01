@@ -172,8 +172,10 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 		if (successor.getUnitsNeeded() != this.getUnitsNeeded()) {
 			return false;
 		}
-		//TODO: Commentaar
-		//loop detection
+		return doesNotDetectLoop(successor);
+	}
+
+	private boolean doesNotDetectLoop(DispatchPolicy successor) {
 		DispatchPolicy deepSuccessor = successor;
 		while (deepSuccessor != null && deepSuccessor != this) {
 			deepSuccessor = deepSuccessor.getSuccessor();
