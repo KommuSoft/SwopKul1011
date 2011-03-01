@@ -262,7 +262,6 @@ public class Fire extends Emergency {
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
 			return un;
 		} catch (InvalidEmergencyException ex) {
-			//TODO: Commentaren
 			//we assume this can't happen
 			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidDispatchUnitsConstraintException ex) {

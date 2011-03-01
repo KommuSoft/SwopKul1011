@@ -68,7 +68,6 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
                     new FactoryInformationParameter("description", String.class, "The description of the emergency."),
                     new FactoryInformationParameter("numberOfPeople", Long.class, "The number of people involved by the public disturbance."));
         } catch (InvalidNameException ex) {
-			//TODO: Commentaren
             //we assume this can never happen.
             Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidClassException ex) {

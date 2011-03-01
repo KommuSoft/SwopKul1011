@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
  *  @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum FireSize {
-
+	//TODO: Hier moet dan de benodigde capaciteit waarschijnlijk ingevuld worden?
 	LOCAL("local"),
 	HOUSE("house"),
 	FACILITY("facility");

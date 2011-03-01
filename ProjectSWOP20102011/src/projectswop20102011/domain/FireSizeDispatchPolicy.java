@@ -51,6 +51,7 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 	@Override
 	protected int internalCompare(Unit unit1, Unit unit2) {
 		Emergency emergency = getUnitsNeeded().getEmergency();
+		//TODO: Vraagje van PJ, kan er iemand zeggen waarom deze instanceofs niet slecht zijn
 		if (emergency instanceof Fire && unit1 instanceof Firetruck && unit2 instanceof Firetruck) {
 			Firetruck firetruck1 = (Firetruck) unit1;
 			Firetruck firetruck2 = (Firetruck) unit2;
