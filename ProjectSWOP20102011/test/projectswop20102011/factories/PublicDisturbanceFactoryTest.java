@@ -74,6 +74,6 @@ public class PublicDisturbanceFactoryTest {
 	public void testGetEmergencyTypeName() throws InvalidEmergencyTypeNameException {
 		pdf = new PublicDisturbanceFactory();
 
-		assertEquals("public disturbance", pdf.getName());
+		assertEquals("publicDisturbance", pdf.getName());
 	}
 }

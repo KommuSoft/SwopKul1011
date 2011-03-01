@@ -75,6 +75,6 @@ public class TrafficAccidentFactoryTest {
 	public void testGetEmergencyTypeName() throws InvalidEmergencyTypeNameException {
 		taf = new TrafficAccidentFactory();
 
-		assertEquals("traffic accident", taf.getName());
+		assertEquals("trafficAccident", taf.getName());
 	}
 }
