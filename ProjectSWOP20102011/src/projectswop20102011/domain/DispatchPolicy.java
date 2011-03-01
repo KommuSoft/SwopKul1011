@@ -14,7 +14,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
  *		|isValidUnitsNeeded(getUnitsNeeded())
  * @invar The succesor of this DispatchPolicy is always valid.
  *		|isValidSuccessor(getSuccesor())
- * @note Policies are basically sorters who define which units are the most intresting. Based on their criteria they filter the most intresting allocatable units out of a list of units.
+ * @note Policies are basically sorters who define which units are the most interesting. Based on their criteria they filter the most intresting allocatable units out of a list of units.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class DispatchPolicy implements Comparator<Unit> {
