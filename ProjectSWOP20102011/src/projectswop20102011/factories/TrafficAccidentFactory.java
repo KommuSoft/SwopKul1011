@@ -70,6 +70,7 @@ public class TrafficAccidentFactory extends EmergencyFactory {
                     new FactoryInformationParameter("numberOfCars", Long.class, "The number of cars envolved in the traffic accident."),
                     new FactoryInformationParameter("numberOfInjured", Long.class, "The number of injured people."));
         } catch (InvalidNameException ex) {
+			//TODO: Commentaren
             //we assume this can never happen.
             Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidClassException ex) {

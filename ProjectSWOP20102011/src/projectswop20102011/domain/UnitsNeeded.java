@@ -79,6 +79,7 @@ class UnitsNeeded {
 		try {
 			this.setPolicy(new DefaultDispatchPolicy(this));
 		} catch (InvalidUnitsNeededException ex) {
+			//TODO: Commentaar
 			//We assume this can't happen
 			Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -245,6 +246,7 @@ class UnitsNeeded {
 			try {
 				u.assignTo(this.getEmergency());
 			} catch (InvalidMapItemException ex) {
+				//TODO: Commentaar
 				//We assume this can't be true (checked by the canAssigUnitsToEmergency method)
 				Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -284,6 +286,7 @@ class UnitsNeeded {
 			try {
 				this.policy = new DefaultDispatchPolicy(this);
 			} catch (InvalidUnitsNeededException ex) {
+				//TODO: Commentaar
 				//We assume this can't happen
 				Logger.getLogger(UnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}

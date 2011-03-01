@@ -68,6 +68,7 @@ public class RobberyFactory extends EmergencyFactory {
                     new FactoryInformationParameter("armed", Boolean.class, "Indicates if the robber is armed."),
                     new FactoryInformationParameter("inProgress", Boolean.class, "Indicates if the robbery is still in progress."));
         } catch (InvalidNameException ex) {
+			//TODO: Commentaren
             //we assume this can never happen.
             Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidClassException ex) {

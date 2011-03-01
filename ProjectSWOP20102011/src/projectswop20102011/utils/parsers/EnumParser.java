@@ -59,6 +59,7 @@ public class EnumParser<T extends Enum> extends BasicUserInterfaceParser<T> {
             }
             return dictionary;
         } catch (NoSuchMethodException ex) {
+			//TODO: Commentaar
             //We assume this can't happen
             Logger.getLogger(EnumParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {

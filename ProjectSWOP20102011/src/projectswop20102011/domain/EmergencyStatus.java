@@ -26,6 +26,7 @@ public enum EmergencyStatus {
 			try {
 				unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
 			} catch (InvalidEmergencyStatusException ex) {
+				//TODO: Commentaar
 				//We assume this can't happen.
 				Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -73,6 +74,7 @@ public enum EmergencyStatus {
 				try {
 					unitsNeeded.getEmergency().setStatus(COMPLETED);
 				} catch (InvalidEmergencyStatusException ex) {
+					//TODO: Commentaar
 					//We assume this can't happen
 					Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
 				}
@@ -126,6 +128,7 @@ public enum EmergencyStatus {
 
 		@Override
 		Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+			//TODO: Commentaar
 			return new HashSet<Unit>();//a proposal containing no units
 		}
 

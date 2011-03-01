@@ -88,6 +88,7 @@ public abstract class Emergency {
 		try {
 			setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
 		} catch (InvalidEmergencyStatusException ex) {
+			//TODO: Commentaar
 			//Can't be thrown: We ensure that the status is valid.
 			Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
 		}

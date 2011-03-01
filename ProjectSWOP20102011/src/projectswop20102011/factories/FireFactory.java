@@ -76,6 +76,7 @@ public class FireFactory extends EmergencyFactory {
                     new FactoryInformationParameter("trappedPeople", Long.class, "The number of trapped people in the fire."),
                     new FactoryInformationParameter("numberOfInjured", Long.class, "The number of injured people by the fire."));
         } catch (InvalidNameException ex) {
+			//TODO: Commentaren
             //we assume this can never happen.
             Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidClassException ex) {

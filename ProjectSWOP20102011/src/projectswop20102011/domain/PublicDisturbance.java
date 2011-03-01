@@ -113,6 +113,7 @@ public class PublicDisturbance extends Emergency {
             UnitsNeeded un = new UnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
             return un;
         } catch (InvalidEmergencyException ex) {
+			//TODO: Commentaren
             //we assume this can't happen
             Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberOutOfBoundsException ex) {
