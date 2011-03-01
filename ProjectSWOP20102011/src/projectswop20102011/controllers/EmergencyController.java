@@ -27,16 +27,8 @@ public class EmergencyController extends Controller {
 		return ids;
 	}
 
-	private void setIds(ArrayList<Long> ids) {
-		EmergencyController.ids = ids;
-	}
-
 	private ArrayList<Emergency> getEmergencies() {
 		return emergencies;
-	}
-
-	private void setEmergencies(ArrayList<Emergency> emergencies) {
-		EmergencyController.emergencies = emergencies;
 	}
 
 	private void updateEmergencies() {
