@@ -93,4 +93,14 @@ public class GPSCoordinate {
 	public boolean equals(GPSCoordinate gps2) {
 		return (getX() == gps2.getX() && getY() == gps2.getY());
 	}
+
+        /**
+         * Returns the hascode of the current GPSCoordinate. An integer representing the coordinate.
+         * @return the hascode of the current GPSCoordinate.
+         */
+        @Override
+        public int hashCode () {
+            return ((Long) getX()).hashCode()^((Long) getY()).hashCode();
+        }
+
 }
