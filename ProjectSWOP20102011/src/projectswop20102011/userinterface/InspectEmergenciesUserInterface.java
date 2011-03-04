@@ -22,14 +22,11 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
 
 	public InspectEmergenciesUserInterface(InspectEmergenciesController inspectEmergenciesController, EmergencyController emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("inspect emergencies");
-		//TODO duplicated code
-		if (inspectEmergenciesController == null) {
+		//TODO duplicated code -> Opgelost?
+		if (inspectEmergenciesController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}
 		this.inspectEmergenciesController = inspectEmergenciesController;
-		if (emergencyController == null) {
-			throw new InvalidControllerException("Controller must be effective.");
-		}
 		this.emergencyController = emergencyController;
 	}
 
