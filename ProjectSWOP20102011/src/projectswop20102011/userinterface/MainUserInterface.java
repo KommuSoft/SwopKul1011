@@ -20,11 +20,14 @@ public class MainUserInterface extends UserInterface {
         }
     }
 
+
+	private void writeProjectHeader(String s){
+		writeOutput(s);
+	}
+	
     @Override
     public void handleUserInterface() {
-		//TODO: Commentaar
-        //writing project header
-        writeOutput("Project SWOP v. 2.718281\n");
+		writeProjectHeader("Project SWOP v. 3.141592\n");
         String actor;
         while (true) {
             writeOutput("Type in the actor's name?");
