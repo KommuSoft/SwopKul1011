@@ -38,8 +38,6 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 		super(unitsNeeded, successor);
 	}
 
-
-	//TODO: TEST SCHRIJVEN VOOR DEZE METHODE
 	/**
 	 * Compares two different units by the fireSize of the emergency.
 	 * @param unit1
