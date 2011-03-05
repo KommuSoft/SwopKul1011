@@ -49,6 +49,6 @@ public class MainUserInterface extends UserInterface {
                 writeOutput(String.format("I can't find actor \"%s\", please try again.",actor));
             }
         }
-        writeOutput("\nEnd of the demonstration of project SWOP v. 2.718281");
+        writeOutput("\nEnd of the demonstration of project SWOP v. 3.141592");
     }
 }

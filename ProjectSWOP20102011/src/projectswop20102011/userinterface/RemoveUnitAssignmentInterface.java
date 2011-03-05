@@ -30,7 +30,6 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 	 */
 	public RemoveUnitAssignmentInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyController emergencyController) throws InvalidCommandNameException, InvalidControllerException {
 		super("remove unit assignment");
-		//TODO duplicated code -> Opgelost?
 		if (removeUnitAssignmentController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}

@@ -75,7 +75,6 @@ public class GPSCoordinate {
 	 *		The object to check whether this GPSCoordinate is equal to it.
 	 * @return True if the given object is equal to this GPSCoordinate; false otherwise.
 	 */
-	//TODO: Moet deze methode blijven blijven staan of mag ze weg?
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof GPSCoordinate) {

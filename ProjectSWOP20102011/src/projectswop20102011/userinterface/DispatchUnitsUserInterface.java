@@ -28,7 +28,6 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 	public DispatchUnitsUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyController emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("dispatch units");
 
-		//TODO: bad smell duplicated code, opgelost?
 		if (dispatchUnitsController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}
