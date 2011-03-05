@@ -1,14 +1,10 @@
 package projectswop20102011.controllers;
 
-import be.kuleuven.cs.swop.api.ITime;
-import be.kuleuven.cs.swop.events.Time;
-import be.kuleuven.cs.swop.external.ExternalSystemException;
 import be.kuleuven.cs.swop.external.IExternalSystem;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.domain.lists.World;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.externalsystem.TimeAheadAdapter;
 
 /**
  * A controller used to go forward in time (use case #7).
@@ -17,9 +13,9 @@ import projectswop20102011.exceptions.InvalidWorldException;
 public class TimeAheadController extends Controller {
 
 	/**
-	 * A variabele registering the externalSystem of this timeAheadController.
+	 * A variable registering the TimeAheadAdapter of this controller.
 	 */
-	private final IExternalSystem externalSystem;
+	private final TimeAheadAdapter taa;
 
 	/**
 	 * Creates a new instance of a TimeAhead controller with a given world.
@@ -29,14 +25,14 @@ public class TimeAheadController extends Controller {
 	 *		The externalSystem that is connected with this TimeAheadController.
 	 * @effect The world of this controller is set to the given world.
 	 *		| super(world)
-	 * @post The externalSystem of this controller is set to the given externalSystem.
-	 *		| externalSystem.equals(getExternalSystem)
+	 * @post The TimeAheadAdapter of this controller constructed.
+	 *		|new TimeAheadAdapter(getWorld().getIEmergencyDispatchApi())
 	 * @throws InvalidWorldException
 	 *		If the world is not effective.
 	 */
 	public TimeAheadController(World world, IExternalSystem externalSystem) throws InvalidWorldException {
 		super(world);
-		this.externalSystem = externalSystem;
+		taa = new TimeAheadAdapter(getWorld().getIEmergencyDispatchApi(), externalSystem);
 	}
 
 	/**
@@ -45,22 +41,23 @@ public class TimeAheadController extends Controller {
 	 *		The world that will be modified by the controller.
 	 * @effect The world of this controller is set to the given world.
 	 *		|super(world)
-	 * @post The externalSystem of this controller is set to null.
-	 *		|getExternalSystem() == null
+	 * @post The TimeAheadAdapter of this controller constructed.
+	 *		|new TimeAheadAdapter(getWorld().getIEmergencyDispatchApi())
 	 * @throws InvalidWorldException
 	 *		If the world is not effective.
 	 */
 	public TimeAheadController(World world) throws InvalidWorldException {
 		super(world);
-		this.externalSystem = null;
+		//TODO vraag Jonas: kan deze situatie eigenlijk voorkomen, aangezien ons vorig programma crasht wanneer ik geen externalSystem.jar meegeef
+		taa = new TimeAheadAdapter(getWorld().getIEmergencyDispatchApi());
 	}
 
 	/**
-	 * Returns the externalSystem of this TimeAheadController.
-	 * @return The externalSystem of this TimeAheadContrller.
+	 * Gets the TimeAheadAdapter of this TimeAheadController.
+	 * @return The TimaAheadAdapter ot this TimeAheadController.
 	 */
-	private IExternalSystem getExternalSystem(){
-		return externalSystem;
+	private TimeAheadAdapter getTimeAheadAdapter() {
+		return taa;
 	}
 
 	/**
@@ -72,20 +69,7 @@ public class TimeAheadController extends Controller {
 	 */
 	public void doTimeAheadAction(long seconds) throws InvalidDurationException {
 		getWorld().getTimeSensitiveList().timeAhead(seconds);
-		if (getExternalSystem() != null) {
-			int s = (int) (seconds + getWorld().getTime());
-			int hours = (s / 3600);
-			int minutes = ((s - (3600 * hours)) / 60);
-			ITime time = new Time(hours, minutes);
-			try {
-				getExternalSystem().notifyTimeChanged(time);
-			} catch (ExternalSystemException ex) {
-				Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (IllegalArgumentException ex) {
-				//TODO: Commentaar
-				//Logger.getLogger(TimeAheadController.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
+		getTimeAheadAdapter().timeChange(getWorld().getTime(), seconds);
 		getWorld().setTime(getWorld().getTime() + seconds);
 	}
 }

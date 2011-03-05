@@ -1,5 +1,6 @@
 package projectswop20102011.main;
 
+import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.external.ExternalSystem;
 import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.io.FileInputStream;
@@ -41,65 +42,66 @@ import projectswop20102011.utils.parsers.StringParser;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        World world = initWorld();
-        IExternalSystem es = initExternalSystem(world);
-        if (readEnvironment(world, args)) {
-            initUserInterface(world,es).handleUserInterface();
-        }
-    }
+	public static void main(String[] args) throws Exception {
+		World world = initWorld();
+		IExternalSystem es = initExternalSystem(world);
+		if (readEnvironment(world, args)) {
+			initUserInterface(world, es).handleUserInterface();
+		}
+	}
 
-    private static World initWorld() throws Exception {
-        World world = new World();
-        EmergencyFactoryList efl = world.getEmergencyFactoryList();
-        efl.addEmergencyFactory(new FireFactory());
-        efl.addEmergencyFactory(new TrafficAccidentFactory());
-        efl.addEmergencyFactory(new RobberyFactory());
-        efl.addEmergencyFactory(new PublicDisturbanceFactory());
-        ParserList pl = world.getParserList();
-        pl.addParser(new BooleanParser());
-        pl.addParser(new EmergencySeverityParser());
-        pl.addParser(new FireSizeParser());
-        pl.addParser(new GPSCoordinateParser());
-        pl.addParser(new IntegerParser());
-        pl.addParser(new LongParser());
-        pl.addParser(new StringParser());
-        return world;
-    }
+	private static World initWorld() throws Exception {
+		World world = new World();
+		EmergencyFactoryList efl = world.getEmergencyFactoryList();
+		efl.addEmergencyFactory(new FireFactory());
+		efl.addEmergencyFactory(new TrafficAccidentFactory());
+		efl.addEmergencyFactory(new RobberyFactory());
+		efl.addEmergencyFactory(new PublicDisturbanceFactory());
+		ParserList pl = world.getParserList();
+		pl.addParser(new BooleanParser());
+		pl.addParser(new EmergencySeverityParser());
+		pl.addParser(new FireSizeParser());
+		pl.addParser(new GPSCoordinateParser());
+		pl.addParser(new IntegerParser());
+		pl.addParser(new LongParser());
+		pl.addParser(new StringParser());
+		return world;
+	}
 
-    private static IExternalSystem initExternalSystem(World world) {
-        EmergencyDispatchApi api = new EmergencyDispatchApi(world);
-        return ExternalSystem.bootstrap(api);
-    }
+	private static IExternalSystem initExternalSystem(World world) {
+		IEmergencyDispatchApi api = new EmergencyDispatchApi(world);
+		world.setIEmergencyDispatchApi(api);
+		return ExternalSystem.bootstrap(api);
+	}
 
-    private static boolean readEnvironment(World world, String[] args) throws Exception {
-        EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
-        try {
-            FileInputStream fis = new FileInputStream(args[0]);
-            er.readEnvironmentData(fis);
-            fis.close();
-        } catch (Exception ex) {
-            System.out.println(String.format("ERROR: %s", ex.getMessage()));
-            System.out.println("program will now stop.");
-            return false;
-        }
-        return true;
-    }
+	private static boolean readEnvironment(World world, String[] args) throws Exception {
+		EnvironmentReader er = new EnvironmentReader(new ReadEnvironmentDataController(world));
+		try {
+			FileInputStream fis = new FileInputStream(args[0]);
+			er.readEnvironmentData(fis);
+			fis.close();
+		} catch (Exception ex) {
+			System.out.println(String.format("ERROR: %s", ex.getMessage()));
+			System.out.println("program will now stop.");
+			return false;
+		}
+		return true;
+	}
 
-    private static MainUserInterface initUserInterface(World world, IExternalSystem es) throws Exception {
-        MainUserInterface mainUserInterface = new MainUserInterface();
-        CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
-        CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world), new EmergencyController(world));
-        CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsUserInterface(new DispatchUnitsController(world), new EmergencyController(world));
-        CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
-        CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
-        CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));
-        CommandUserInterface removeUnitAssignmentInterface = new RemoveUnitAssignmentInterface(new RemoveUnitAssignmentController(world), new EmergencyController(world));
-        ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
-        ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentInterface);
-        ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
-        ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
-        mainUserInterface.addActorUserInterfaces(operatorUserInterface, dispatcherUserInterface, demonstratorUserInterface, unitCommanderUserInterface);
-        return mainUserInterface;
-    }
+	private static MainUserInterface initUserInterface(World world, IExternalSystem es) throws Exception {
+		MainUserInterface mainUserInterface = new MainUserInterface();
+		CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
+		CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world), new EmergencyController(world));
+		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsUserInterface(new DispatchUnitsController(world), new EmergencyController(world));
+		CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
+		CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
+		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));
+		CommandUserInterface removeUnitAssignmentInterface = new RemoveUnitAssignmentInterface(new RemoveUnitAssignmentController(world), new EmergencyController(world));
+		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
+		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentInterface);
+		ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
+		ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
+		mainUserInterface.addActorUserInterfaces(operatorUserInterface, dispatcherUserInterface, demonstratorUserInterface, unitCommanderUserInterface);
+		return mainUserInterface;
+	}
 }

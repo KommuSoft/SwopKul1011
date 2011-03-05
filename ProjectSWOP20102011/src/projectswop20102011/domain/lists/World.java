@@ -1,5 +1,7 @@
 package projectswop20102011.domain.lists;
 
+import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
+
 /**
  * A class that represents a world.
  *
@@ -31,6 +33,10 @@ public class World {
 	 * A list that contains a collection of parsers used to parse data.
 	 */
 	private ParserList parserList;
+	/**
+	 * A variable that makes the connection to the EmergencyDispatchApi.
+	 */
+	private IEmergencyDispatchApi emergencyDispatchApi;
 
 	/**
 	 * Creates a new world.
@@ -159,5 +165,22 @@ public class World {
 	 */
 	public ParserList getParserList() {
 		return this.parserList;
+	}
+
+	/**
+	 * Sets the IEmergencyDispatchApi to the given IEmergencyDispatchApi.
+	 * @param emergencyDispatchApi
+	 *		The new IEmergencyDispatchApi.
+	 */
+	public void setIEmergencyDispatchApi(IEmergencyDispatchApi emergencyDispatchApi) {
+		this.emergencyDispatchApi = emergencyDispatchApi;
+	}
+
+	/**
+	 * Gets the IEmergencyDispatchApi of the world.
+	 * @return The IEmergencyDispatchApi of the world.
+	 */
+	public IEmergencyDispatchApi getIEmergencyDispatchApi() {
+		return emergencyDispatchApi;
 	}
 }
