@@ -38,6 +38,8 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 		super(unitsNeeded, successor);
 	}
 
+
+	//TODO: TEST SCHRIJVEN VOOR DEZE METHODE
 	/**
 	 * Compares two different units by the fireSize of the emergency.
 	 * @param unit1
@@ -68,7 +70,7 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 		// k.getClass() == Dier.class
 		//Heeft als resultaat true en false, terwijl instanceof tweemaal true zou zijn.
 		//Hier toegepast: We hebben enkel het laagste niveau nodig dus zou ik voor getClass() gaan
-		if (emergency instanceof Fire && unit1 instanceof Firetruck && unit2 instanceof Firetruck) {
+		if (emergency.getClass() == Fire.class && unit1.getClass() == Firetruck.class && unit2.getClass() == Firetruck.class) {
 			Firetruck firetruck1 = (Firetruck) unit1;
 			Firetruck firetruck2 = (Firetruck) unit2;
 			Fire fire = (Fire) emergency;
