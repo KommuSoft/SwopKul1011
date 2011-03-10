@@ -36,23 +36,6 @@ public class TimeAheadController extends Controller {
 	}
 
 	/**
-	 * Creates a new instance of a TimeAhead controller with a given world.
-	 * @param world
-	 *		The world that will be modified by the controller.
-	 * @effect The world of this controller is set to the given world.
-	 *		|super(world)
-	 * @post The TimeAheadAdapter of this controller constructed.
-	 *		|new TimeAheadAdapter(getWorld().getIEmergencyDispatchApi())
-	 * @throws InvalidWorldException
-	 *		If the world is not effective.
-	 */
-	public TimeAheadController(World world) throws InvalidWorldException {
-		super(world);
-		//TODO vraag Jonas: kan deze situatie eigenlijk voorkomen, aangezien ons vorig programma crasht wanneer ik geen externalSystem.jar meegeef
-		taa = new TimeAheadAdapter(getWorld().getIEmergencyDispatchApi());
-	}
-
-	/**
 	 * Gets the TimeAheadAdapter of this TimeAheadController.
 	 * @return The TimaAheadAdapter ot this TimeAheadController.
 	 */
