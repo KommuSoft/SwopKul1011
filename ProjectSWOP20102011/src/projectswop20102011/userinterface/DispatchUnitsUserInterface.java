@@ -35,7 +35,6 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 		this.emergencyController = emergencyController;
 	}
 
-	//TODO: rare naam :s
 	@Override
 	public DispatchUnitsController getController() {
 		return this.dispatchUnitsController;

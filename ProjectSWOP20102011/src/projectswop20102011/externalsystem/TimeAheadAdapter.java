@@ -22,21 +22,6 @@ public class TimeAheadAdapter extends AbstractEventGenerator {
 	 *		The IEmergencyDispatchApi of the TimeAheadAdapter
 	 * @effect The IEmergencyDispatchApi of this TimeAheadAdapter is set to the given IEmergencyDispatchApi.
 	 *		|super(api)
-	 * @post The IExternalSystem of this TimeAheadAdapter is set to null
-	 *		|this.externalSystem == null
-	 */
-	public TimeAheadAdapter(IEmergencyDispatchApi api) {
-		super(api);
-		//TODO vraag Jonas: kan deze situatie eigenlijk voorkomen, aangezien ons vorig programma crasht wanneer ik geen externalSystem.jar meegeef
-		externalSystem = null;
-	}
-
-	/**
-	 * Creates a new instance of a TimeAheadAdapter with the given parameter.
-	 * @param api
-	 *		The IEmergencyDispatchApi of the TimeAheadAdapter
-	 * @effect The IEmergencyDispatchApi of this TimeAheadAdapter is set to the given IEmergencyDispatchApi.
-	 *		|super(api)
 	 * @post The IExternalSystem of this TimeAheadAdapter is set to the given IExternalSystem
 	 *		|this.externalSystem == externalSystem
 	 */

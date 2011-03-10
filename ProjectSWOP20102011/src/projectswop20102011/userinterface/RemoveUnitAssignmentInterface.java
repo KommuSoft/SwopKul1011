@@ -37,7 +37,6 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 		this.emergencyController = emergencyController;
 	}
 
-	//TODO rare naam
 	@Override
 	public RemoveUnitAssignmentController getController() {
 		return this.removeUnitAssignmentController;

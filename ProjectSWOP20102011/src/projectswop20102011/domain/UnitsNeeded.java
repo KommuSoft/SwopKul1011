@@ -219,6 +219,7 @@ class UnitsNeeded {
 		}
 		final ArrayList<Unit> totalUnits = getWorkingUnits();
 		totalUnits.addAll(this.takeFinishedUnits()); //TODO als deze regel in commentaar staat slagen de testen nog
+                //TODO antwoord: deze method-call is wel nodig, wordt alleen nog niet getest, we hebben een test nodig waarbij er al units gefinished werden alvorens nieuwe toe te wijzen
 		totalUnits.addAll(units);
 		return getConstraint().areAllUnitsRelevant(totalUnits);
 	}

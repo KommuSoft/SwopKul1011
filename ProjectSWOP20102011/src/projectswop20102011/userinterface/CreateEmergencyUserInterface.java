@@ -48,7 +48,6 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
                 GPSCoordinate location = this.parseInputToType(new GPSCoordinateParser(), "location of the emergency");
                 EmergencySeverity severity = this.parseInputToType(new EmergencySeverityParser(), "severity level of the emergency");
                 String description = this.parseInputToType(new StringParser(), "description of the emergency");
-				//TODO: Commentaar
                 String emergencyType = this.parseInputToType(new StringParser(), "type of the emergency");//, "fire", "robbery", "public disturbance", "traffic accident"
                 if (emergencyType.equals("fire")) {
                     FireSize fireSize = this.parseInputToType(new FireSizeParser(), "size of the fire");

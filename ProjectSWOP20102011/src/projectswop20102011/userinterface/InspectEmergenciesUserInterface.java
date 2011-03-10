@@ -29,7 +29,6 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
 		this.emergencyController = emergencyController;
 	}
 
-	//TODO rare naam
 	/**
 	 * Returns the InspectEmergenciesController used by this command user interface.
 	 * @return The inspectEmergenciesController used by this command user interface.
