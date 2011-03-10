@@ -51,7 +51,9 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
 	 */
 	@Override
 	public int internalCompare(Unit unit1, Unit unit2) {
-		GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation();
-		return ((Long) unit1.getETA(emergencyLocation)).compareTo(unit2.getETA(emergencyLocation));
+		final GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation();
+		final Long etaOfUnit1 = unit1.getETA(emergencyLocation);
+		final Long etaOfUnit2 = unit2.getETA(emergencyLocation);
+		return etaOfUnit1.compareTo(etaOfUnit2);
 	}
 }

@@ -80,6 +80,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @return A list of units that would be allocated to the emergency if the policy would be applied.
 	 */
 	public Set<Unit> generateProposal(List<? extends Unit> availableUnits) {
+		//TODO test schrijven
 		ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
 		Collections.sort(clonedList, this);
 		return this.getUnitsNeeded().generateProposal(clonedList);
@@ -116,11 +117,22 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 */
 	@Override
 	public final int compare(Unit unit1, Unit unit2) {
-		int ic = this.internalCompare(unit1, unit2);
-		if (ic == 0 && this.getSuccessor() != null) {
-			return this.getSuccessor().compare(unit1, unit2);
+		final int firstResult = internalCompare(unit1, unit2);
+		if (cantSolveAndHasSuccessor(firstResult)) {
+			return getSuccessor().compare(unit1, unit2);
 		}
-		return ic;
+		return firstResult;
+	}
+
+	/**
+	 * Checks if the given parameter is a result that can't solve the policy and that this policy has a successor.
+	 * @param firstResult
+	 *		The result of the comparison.
+	 * @see #compare
+	 * @return True if the parameter is zero and there is a successor. False otherwise.
+	 */
+	private boolean cantSolveAndHasSuccessor(int firstResult){
+		return firstResult == 0 && getSuccessor() != null;
 	}
 
 	/**
@@ -167,10 +179,10 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 */
 	public boolean isValidSuccessor(DispatchPolicy successor) {
 		if (successor == null) {
-			return true;
+			return true; //todo test hiervoor schrijven
 		}
 		if (successor.getUnitsNeeded() != this.getUnitsNeeded()) {
-			return false;
+			return false; //todo test hiervoor schrijven
 		}
 		return doesNotDetectLoop(successor);
 	}
@@ -180,6 +192,6 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 		while (deepSuccessor != null && deepSuccessor != this) {
 			deepSuccessor = deepSuccessor.getSuccessor();
 		}
-		return (deepSuccessor == null);
+		return (deepSuccessor == null); //todo test hiervoor schrijven (deel 2)
 	}
 }

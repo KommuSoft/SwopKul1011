@@ -35,6 +35,8 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 	 *		If the given successor in not a valid successor.
 	 */
 	FireSizeDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+		//todo deze constructor wordt niet getest
+		//todo deze constructor wordt niet gebruikt
 		super(unitsNeeded, successor);
 	}
 
@@ -53,29 +55,12 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 	 */
 	@Override
 	protected int internalCompare(Unit unit1, Unit unit2) {
-		Emergency emergency = getUnitsNeeded().getEmergency();
-		//TODO: Vraagje van PJ, kan er iemand zeggen waarom deze instanceofs niet slecht zijn
-		//TODO Antwoord van Jonas (eigenlijk antwooord van Venners & Blewitt):
-		//[...]The process of converting the Liquid reference into a Tea reference is called "downcasting" because you are casting the reference "down" the inheritance hierarchy, from Liquid to Tea.
-		//This illustrates the kind of situation in which you should use instanceof.
-		//You have a base type reference, and if the object referred to by the base type reference really is a certain subclass, you want to invoke a method that only exists in that subclass.
-		//Link: http://www.artima.com/objectsandjava/webuscript/PolymorphismInterfaces1.html (sectie When to use instanceof)
-		//Hier toegepast: we weten niet of unit1 of unit2 een Firetruck zijn => we mogen geen instanceof gebruiken
-		//
-		//Als ik dan Blewitt erop na sla (http://www.javaworld.com/javaworld/jw-06-2004/jw-0614-equals.html) lees ik dat instanceof niet aan te raden is omdat het symmetrie breekt (belangrijk in equals(o) en hashcode).
-		//De suggestie die daar gegeven wordt is gebruik een getClass() omdat deze wel symmetrisch is.
-		//Het bijkomende voordeel van een getClass() is dat ze enkel werkt op het laagste niveau van de Object-tree.
-		//vb.: Kat implements Dier.
-		// Kat k = new Kat();
-		// k.getClass() == Kat.class
-		// k.getClass() == Dier.class
-		//Heeft als resultaat true en false, terwijl instanceof tweemaal true zou zijn.
-		//Hier toegepast: We hebben enkel het laagste niveau nodig dus zou ik voor getClass() gaan
-			Firetruck firetruck1 = (Firetruck) unit1;
-			Firetruck firetruck2 = (Firetruck) unit2;
-			Fire fire = (Fire) emergency;
+		final Emergency emergency = getUnitsNeeded().getEmergency();
+		final Firetruck firetruck1 = (Firetruck) unit1;
+		final Firetruck firetruck2 = (Firetruck) unit2;
+		final Fire fire = (Fire) emergency;
 
-			return (firetruck1.getMaxSize().ordinal() - fire.getSize().ordinal()) - (firetruck2.getMaxSize().ordinal() - fire.getSize().ordinal());
-		
+		return (firetruck1.getMaxSize().ordinal() - fire.getSize().ordinal()) - (firetruck2.getMaxSize().ordinal() - fire.getSize().ordinal());
+
 	}
 }

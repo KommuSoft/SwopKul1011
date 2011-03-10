@@ -36,6 +36,8 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	 *		If the given successor in not a valid successor.
 	 */
 	DefaultDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+		//TODO deze constructor wordt niet getest
+		//TODO deze constructor wordt zelfs niet gebruikt, mag ze weg?
 		super(unitsNeeded, successor);
 	}
 
@@ -51,7 +53,9 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	 */
 	@Override
 	public int internalCompare(Unit unit1, Unit unit2) {
-		GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation();
-		return ((Double) unit1.getDistanceTo(emergencyLocation)).compareTo(unit2.getDistanceTo(emergencyLocation));
+		final GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation(); //Todo hide delegate hier toepassen? (ASAPDispatchPolicy eigenlijk ook)
+		final Double distanceOfUnit1 = unit1.getDistanceTo(emergencyLocation);
+		final Double distanceOfUnit2 = unit2.getDistanceTo(emergencyLocation);
+		return distanceOfUnit1.compareTo(distanceOfUnit2);
 	}
 }

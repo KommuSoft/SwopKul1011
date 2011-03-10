@@ -217,8 +217,8 @@ class UnitsNeeded {
 				return false;
 			}
 		}
-		ArrayList<Unit> totalUnits = getWorkingUnits();
-		totalUnits.addAll(this.takeFinishedUnits());
+		final ArrayList<Unit> totalUnits = getWorkingUnits();
+		totalUnits.addAll(this.takeFinishedUnits()); //TODO als deze regel in commentaar staat slagen de testen nog
 		totalUnits.addAll(units);
 		return getConstraint().areAllUnitsRelevant(totalUnits);
 	}
@@ -340,6 +340,16 @@ class UnitsNeeded {
 	}
 
 	/**
+	 * Calculates the fixed part of this UnitsNeeded. I.e. The working and finished units.
+	 * @return The fixed part of this UnitsNeeded.
+	 */
+	private List<Unit> calculateFixedPart(){
+		final List<Unit> fixedPart = this.getWorkingUnits();
+		fixedPart.addAll(this.takeFinishedUnits());
+		return fixedPart;
+	}
+
+	/**
 	 * Generates a proposal based on a list of available units to allocate to the emergency.
 	 * @param options
 	 *		A list of units where the proposal must be created from.
@@ -347,9 +357,8 @@ class UnitsNeeded {
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
 	Set<Unit> generateProposal(List<Unit> options) {
-		List<Unit> fixedPart = this.getWorkingUnits();
-		fixedPart.addAll(this.takeFinishedUnits());
-		return this.getConstraint().generateProposal(fixedPart, options);
+		//TODO test schrijven
+		return this.getConstraint().generateProposal(calculateFixedPart(), options);
 	}
 
 	/**
@@ -357,6 +366,7 @@ class UnitsNeeded {
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
 	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+		//TODO test schrijven
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 
@@ -367,7 +377,7 @@ class UnitsNeeded {
 	 * @return True if the given units can handle the emrgency; false otherwise.
 	 */
 	public boolean canBeResolved(Collection<? extends Unit> availableUnits) {
-		Collection<Unit> completeCollection = this.getFinishedUnits();
+		final Collection<Unit> completeCollection = this.getFinishedUnits();
 		completeCollection.addAll(this.takeWorkingUnits());
 		completeCollection.addAll(availableUnits);
 		return this.getConstraint().areValidDispatchUnits(completeCollection);
