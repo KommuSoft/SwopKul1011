@@ -14,7 +14,7 @@ public class FireSizeDispatchPolicyTest {
 
 	private Emergency e1;
 	private long xEmergency, yEmergency, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9;
-	private GPSCoordinate locationEmergency, location1, location2, location3, location4, location5, location6, location7, location8, location9;
+	private GPSCoordinate locationEmergency, location1, location2, location3, location4, location5, location6, location7, location8, location9, location10;
 	private EmergencySeverity severity;
 	private String description;
 	private FireSize firesize, firetrucksize1, firetrucksize2, firetrucksize3, firetrucksize4, firetrucksize5, firetrucksize6, firetrucksize7, firetrucksize8, firetrucksize9;
@@ -165,7 +165,7 @@ public class FireSizeDispatchPolicyTest {
 	@Test
 	//u8 en u9 hebben dezelfde snelheid en bevinden zich evenver van de emergency,
 	//maar de capaciteit van u8 benadert beter
-	public void compareTest6(){
+	public void compareTest6() {
 		assertTrue(e1.getDispatchPolicy().compare(u8, u9) < 0);
 		assertTrue(e1.getDispatchPolicy().compare(u8, u8) == 0);
 		assertTrue(e1.getDispatchPolicy().compare(u9, u8) > 0);

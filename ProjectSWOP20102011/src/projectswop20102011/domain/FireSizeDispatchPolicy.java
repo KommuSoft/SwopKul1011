@@ -47,6 +47,9 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 	 * @return A negative integer, zero, or a positive integer if the first unit is more,
 	 *          equal or less interesting than the unit according to this Policy. This means
 	 *          that the unit with the lowest return value will be more interesting.
+	 * @pre unit1 is a firetruck.
+	 * @pre unit2 is a firetruck.
+	 * @pre The emergency is a fire.
 	 */
 	@Override
 	protected int internalCompare(Unit unit1, Unit unit2) {
@@ -68,13 +71,11 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 		// k.getClass() == Dier.class
 		//Heeft als resultaat true en false, terwijl instanceof tweemaal true zou zijn.
 		//Hier toegepast: We hebben enkel het laagste niveau nodig dus zou ik voor getClass() gaan
-		if (emergency.getClass() == Fire.class && unit1.getClass() == Firetruck.class && unit2.getClass() == Firetruck.class) {
 			Firetruck firetruck1 = (Firetruck) unit1;
 			Firetruck firetruck2 = (Firetruck) unit2;
 			Fire fire = (Fire) emergency;
+
 			return (firetruck1.getMaxSize().ordinal() - fire.getSize().ordinal()) - (firetruck2.getMaxSize().ordinal() - fire.getSize().ordinal());
-		} else {
-			return 0;
-		}
+		
 	}
 }

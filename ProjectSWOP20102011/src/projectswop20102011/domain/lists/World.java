@@ -173,6 +173,7 @@ public class World {
 	 *		The new IEmergencyDispatchApi.
 	 */
 	public void setIEmergencyDispatchApi(IEmergencyDispatchApi emergencyDispatchApi) {
+		//TODO mag deze methode public?
 		this.emergencyDispatchApi = emergencyDispatchApi;
 	}
 

@@ -61,13 +61,11 @@ public class TimeAheadAdapter extends AbstractEventGenerator {
 	 *		The amount of time that has elapsed.
 	 */
 	public void timeChange(long worldTime, long seconds) {
-		if (getExternalSystem() != null) {
-			int s = (int) (seconds + worldTime);
-			int hours = (s / 3600);
-			int minutes = ((s - (3600 * hours)) / 60);
-			ITime time = new Time(hours, minutes);
-			executeEventsUntil(time);
-		}
+		int s = (int) (seconds + worldTime);
+		int hours = (s / 3600);
+		int minutes = ((s - (3600 * hours)) / 60);
+		ITime time = new Time(hours, minutes);
+		executeEventsUntil(time);
 	}
 
 	/**
