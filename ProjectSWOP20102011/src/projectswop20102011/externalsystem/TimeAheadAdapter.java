@@ -49,8 +49,10 @@ public class TimeAheadAdapter extends AbstractEventGenerator {
 		int s = (int) (seconds + worldTime);
 		int hours = (s / 3600);
 		int minutes = ((s - (3600 * hours)) / 60);
-		ITime time = new Time(hours, minutes);
-		executeEventsUntil(time);
+		if (hours != 0 || minutes != 0) {
+			ITime time = new Time(hours, minutes);
+			executeEventsUntil(time);
+		}
 	}
 
 	/**

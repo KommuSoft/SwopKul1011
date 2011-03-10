@@ -64,9 +64,7 @@ public class GPSCoordinate {
 	 * @return The distance to the given gpsCoordinate.
 	 */
 	public double getDistanceTo(GPSCoordinate gpsCoordinate) {
-		double distance;
-		distance = Math.sqrt(Math.pow(getX() - gpsCoordinate.getX(), 2) + Math.pow(getY() - gpsCoordinate.getY(), 2));
-		return distance;
+		return Math.sqrt(Math.pow(getX() - gpsCoordinate.getX(), 2) + Math.pow(getY() - gpsCoordinate.getY(), 2));
 	}
 
 	/**
