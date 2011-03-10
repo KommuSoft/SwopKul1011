@@ -87,7 +87,7 @@ public abstract class MapItem {
 	 * @return True if the name is valid; false otherwise.
 	 */
 	public static boolean isValidName(String name) {
-		return ((name != null) && (!name.equals("")));
+		return ((name != null) && (!name.isEmpty()));
 	}
 
 	/**
