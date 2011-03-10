@@ -86,12 +86,12 @@ public enum EmergencyStatus {
 
 		@Override
 		boolean canAssignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) {
-			return unitsNeeded.canAssignUnitsToEmergency(units);
+			return unitsNeeded.canAssignUnitsToEmergency(units); //TODO test schrijven
 		}
 
 		@Override
 		Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
-			return unitsNeeded.getPolicyProposal(availableUnits);
+			return unitsNeeded.getPolicyProposal(availableUnits); //TODO test schrijven
 		}
 
 		@Override

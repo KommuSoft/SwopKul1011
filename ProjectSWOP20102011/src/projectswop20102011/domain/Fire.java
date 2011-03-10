@@ -154,7 +154,7 @@ public class Fire extends Emergency {
 	 */
 	private void setSize(FireSize size) throws InvalidFireSizeException {
 		if (!isValidFireSize(size)) {
-			throw new InvalidFireSizeException(String.format("\"%s\" isn't a valid fire size for a fire emergency.", size));
+			throw new InvalidFireSizeException(String.format("\"%s\" isn't a valid fire size for a fire.", size));
 		}
 		this.size = size;
 	}
@@ -242,7 +242,7 @@ public class Fire extends Emergency {
 		long firetrucks = 0;
 		long policecars = 0;
 		//TODO: Dat stukje code hieronder met de switch-constructie -> Bad Smell..?
-		switch (this.getSize()) {
+		switch (getSize()) {
 			case LOCAL:
 				firetrucks = 1;
 				break;
@@ -255,8 +255,8 @@ public class Fire extends Emergency {
 				policecars = 3;
 		}
 		try {
-			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(this.getSize()), firetrucks);
-			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured() + this.getTrappedPeople());
+			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), firetrucks);
+			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
 			UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));

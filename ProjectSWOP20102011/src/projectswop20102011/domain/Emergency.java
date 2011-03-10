@@ -334,7 +334,7 @@ public abstract class Emergency {
 	}
 
 	/**
-	 * Cecks if this emergency can be resolved with a given collection of all available units.
+	 * Checks if this emergency can be resolved with a given collection of all available units.
 	 * @param availableUnits
 	 *		All the available units in the world.
 	 * @return True if the given emergency can be resolved, otherwise false.
@@ -344,7 +344,7 @@ public abstract class Emergency {
 	}
 
 	/**
-	 * Tests if the this emergency is partially assigned.
+	 * Tests if this emergency is partially assigned.
 	 * @return True if this emergency is partially assigned, otherwise false.
 	 */
 	public boolean isPartiallyAssigned() {
