@@ -1,5 +1,7 @@
 package projectswop20102011.scenarios;
 
+import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
+import be.kuleuven.cs.swop.external.ExternalSystem;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,8 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.EmergencyStatus;
@@ -29,6 +33,7 @@ import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
+import projectswop20102011.externalsystem.EmergencyDispatchApi;
 
 /**
  *
@@ -40,14 +45,21 @@ public class Scenario1Test {
     private InspectEmergenciesController iec;
     private ReadEnvironmentDataController redc;
     private DispatchUnitsController duc;
+    private EndOfTaskController eotc;
+    private TimeAheadController tac;
 
     @Before
     public void setUp() throws InvalidWorldException {
         World world = new World();
+        IEmergencyDispatchApi api = new EmergencyDispatchApi(world);
+	world.setIEmergencyDispatchApi(api);
         cec = new CreateEmergencyController(world);
         iec = new InspectEmergenciesController(world);
         redc = new ReadEnvironmentDataController(world);
         duc = new DispatchUnitsController(world);
+        eotc = new EndOfTaskController(world);
+        tac = new TimeAheadController(world,ExternalSystem.bootstrap(api));
+        System.out.println();
     }
 
     
@@ -77,6 +89,19 @@ public class Scenario1Test {
         assertEquals(0,iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(1,iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(0,iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+        try {
+            eotc.indicateEndOfTask(engine1);
+            fail("engine1 cant end of task");
+        }
+        catch (Exception e) {}
+        tac.doTimeAheadAction(18);
+        try {
+            eotc.indicateEndOfTask(engine1);
+            fail("engine1 cant end of task");
+        }
+        catch (Exception e) {}
+        tac.doTimeAheadAction(14400);
+        eotc.indicateEndOfTask(engine1);
     }
 
 }
