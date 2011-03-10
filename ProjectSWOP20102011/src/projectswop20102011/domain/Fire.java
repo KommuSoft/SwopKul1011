@@ -228,7 +228,6 @@ public class Fire extends Emergency {
 		information.put("chemical", "" + isChemical());
 		information.put("trapped people", "" + getTrappedPeople());
 		information.put("number of injured", "" + getNumberOfInjured());
-		information.put("description", "" + getDescription());
 
 		return information;
 	}
@@ -237,56 +236,9 @@ public class Fire extends Emergency {
 	 * Calculates the units needed for this fire.
 	 * @return The units needed for this fire.
 	 */
-	@Override
 	protected UnitsNeeded calculateUnitsNeeded() {
-		long firetrucks = 0;
-		long policecars = 0;
-		//TODO: Dat stukje code hieronder met de switch-constructie -> Bad Smell..?
-		switch (getSize()) {
-			case LOCAL:
-				firetrucks = 1;
-				break;
-			case HOUSE:
-				firetrucks = 2;
-				policecars = 1;
-				break;
-			case FACILITY:
-				firetrucks = 4;
-				policecars = 3;
-		}
-		try {
-			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), firetrucks);
-			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
-			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
-			UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
-			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
-			return un;
-		} catch (InvalidEmergencyException ex) {
-			//we assume this can't happen
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidDispatchUnitsConstraintException ex) {
-			//we assume this can't happen
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (NumberOutOfBoundsException ex) {
-			//we assume this can't happen
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitValidatorException ex) {
-			//we assume this can't happen
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidClassException ex) {
-			//we assume this can't happen
-			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidConstraintListException ex) {
-			//we assume this can't happen
-			Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidDispatchPolicyException ex) {
-			//We assume this can't happen
-			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitsNeededException ex) {
-			//We assume this can't happen
-			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		//should never be returned.
-		return null;
+		return FireUnitsNeededCalculator.calculateUnitsNeeded(this);
 	}
+
 }
+

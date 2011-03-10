@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Set;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.lists.World;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.controllers.DispatchUnitsController;
@@ -37,23 +34,12 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class Scenario1 {
+public class Scenario1Test {
 
     private CreateEmergencyController cec;
     private InspectEmergenciesController iec;
     private ReadEnvironmentDataController redc;
     private DispatchUnitsController duc;
-
-    public Scenario1() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     @Before
     public void setUp() throws InvalidWorldException {
@@ -62,10 +48,6 @@ public class Scenario1 {
         iec = new InspectEmergenciesController(world);
         redc = new ReadEnvironmentDataController(world);
         duc = new DispatchUnitsController(world);
-    }
-
-    @After
-    public void tearDown() {
     }
 
     

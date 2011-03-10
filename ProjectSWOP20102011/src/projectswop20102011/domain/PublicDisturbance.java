@@ -98,7 +98,6 @@ public class PublicDisturbance extends Emergency {
         Hashtable<String, String> information = getInformation();
 
         information.put("number of people", "" + getNumberOfPeople());
-        information.put("description", "" + getDescription());
 
         return information;
     }
