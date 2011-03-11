@@ -232,6 +232,10 @@ public class Scenario1Test {
         tac.doTimeAheadAction(25000);
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(unit1);
+        //inspect emergencies
+        assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
+        assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
+        assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
         shc.selectHospital(ambulance1, hospital1);
         assign_units.clear();
         assign_units.add(engine2);
@@ -244,5 +248,9 @@ public class Scenario1Test {
         tac.doTimeAheadAction(18000);
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(ambulance1);
+        //inspect emergencies
+        assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
+        assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
+        assertEquals(2, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
     }
 }
