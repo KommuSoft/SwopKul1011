@@ -60,12 +60,12 @@ import projectswop20102011.utils.parsers.StringParser;
  */
 public class Scenario1Test {
 
-    private CreateEmergencyController cec;
-    private InspectEmergenciesController iec;
-    private ReadEnvironmentDataController redc;
-    private DispatchUnitsController duc;
-    private EndOfTaskController eotc;
-    private TimeAheadController tac;
+	private CreateEmergencyController cec;
+	private InspectEmergenciesController iec;
+	private ReadEnvironmentDataController redc;
+	private DispatchUnitsController duc;
+	private EndOfTaskController eotc;
+	private TimeAheadController tac;
     private SelectHospitalController shc;
 
     @Before
@@ -157,7 +157,7 @@ public class Scenario1Test {
             eotc.indicateEndOfTask(engine1);
             fail("engine1 cant end of task");
         } catch (Exception e) {
-        }
+	}
         //ADDING EMERGENCIES BY EXTERNAL SYSTEM:
         //[type=Robbery; assignable=true; status=recorded but unhandled; location=(35,80); working units=[  ]; severity=urgent; type=Robbery; description=]
         //[type=TrafficAccident; assignable=true; status=recorded but unhandled; location=(-90,5); working units=[  ]; severity=serious; type=TrafficAccident; description=]

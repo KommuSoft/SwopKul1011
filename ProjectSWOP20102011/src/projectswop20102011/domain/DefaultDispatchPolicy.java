@@ -36,9 +36,6 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	 *		If the given successor in not a valid successor.
 	 */
 	DefaultDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
-		//TODO deze constructor wordt niet getest
-		//TODO deze constructor wordt zelfs niet gebruikt, mag ze weg?
-                //TODO antwoord: wordt niet gebruikt, maar dient om de uniformiteit tussen de verschillende subklassen van DispatchPolicy te behouden, andere worden wel gebruikt
 		super(unitsNeeded, successor);
 	}
 
