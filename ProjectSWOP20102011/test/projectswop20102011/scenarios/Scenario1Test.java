@@ -14,13 +14,18 @@ import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
+import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.Hospital;
+import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
@@ -61,6 +66,7 @@ public class Scenario1Test {
     private DispatchUnitsController duc;
     private EndOfTaskController eotc;
     private TimeAheadController tac;
+    private SelectHospitalController shc;
 
     @Before
     public void setUp() throws InvalidWorldException, InvalidEmergencyTypeNameException {
@@ -86,15 +92,29 @@ public class Scenario1Test {
         duc = new DispatchUnitsController(world);
         eotc = new EndOfTaskController(world);
         tac = new TimeAheadController(world, ExternalSystem.bootstrap(api));
-        System.out.println();
+        shc = new SelectHospitalController(world);
     }
 
     @Test
     public void testScenario1() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemTypeNameException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidEmergencyException, InvalidEmergencyStatusException, Exception {
         //initialize world
         redc.addFiretruck("engine1", new GPSCoordinate(0, 20), 5, FireSize.HOUSE);
-        redc.addFiretruck("engine2", new GPSCoordinate(0, 100), 5, FireSize.HOUSE);
-        redc.addPolicecar("unit1", new GPSCoordinate(0, 200), 5);
+        redc.addFiretruck("engine2", new GPSCoordinate(0, 21), 5, FireSize.HOUSE);
+        redc.addFiretruck("engine3", new GPSCoordinate(0, 22), 5, FireSize.LOCAL);
+        redc.addPolicecar("unit1", new GPSCoordinate(0, 23), 5);
+        redc.addAmbulance("ambulance1", new GPSCoordinate(0, 24), 5);
+        redc.addAmbulance("ambulance2", new GPSCoordinate(0, 25), 5);
+        redc.addHospital("hospital1", new GPSCoordinate(2, 0));
+        try {
+            redc.addPolicecar("unit2", null, 5);
+            fail("creation of invalid policecar must fail");
+        } catch (Exception e) {
+        }
+        try {
+            redc.addPolicecar("unit2", new GPSCoordinate(0, 0), -5);
+            fail("creation of invalid policecar must fail");
+        } catch (Exception e) {
+        }
         //inspecting emergencies
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
@@ -109,10 +129,20 @@ public class Scenario1Test {
         //assign engine1 to the fire
         List<Unit> units = duc.getAvailableUnitsSorted(rbu_em[0]);
         Firetruck engine1 = (Firetruck) units.get(0);
+        Firetruck engine2 = (Firetruck) units.get(1);
+        Firetruck engine3 = (Firetruck) units.get(2);
+        Policecar unit1 = (Policecar) units.get(3);
+        Ambulance ambulance1 = (Ambulance) units.get(4);
+        Ambulance ambulance2 = (Ambulance) units.get(5);
         assertEquals("engine1", engine1.getName());
         Set<Unit> assign_units = new HashSet<Unit>();
         assign_units.add(engine1);
         duc.dispatchToEmergency(rbu_em[0], assign_units);
+        try {
+            duc.dispatchToEmergency(rbu_em[0], assign_units);
+            fail("can not assign a working unit");
+        } catch (Exception e) {
+        }
         //inspecting emergencies
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
@@ -136,8 +166,83 @@ public class Scenario1Test {
         //[type=TrafficAccident; assignable=true; status=recorded but unhandled; location=(100,0); working units=[  ]; severity=serious; type=TrafficAccident; description=]
         tac.doTimeAheadAction(14400);
         eotc.indicateEndOfTask(engine1);
+        //inspect emergencies
         assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+        //adding fire
+        cec.createFireEmergency(new GPSCoordinate(0, 0), EmergencySeverity.BENIGN, "terrorist maakt METH", FireSize.HOUSE, false, 0, 1);
+        //inspect emergencies
+        rbu_em = iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+        assertEquals(6, rbu_em.length);
+        Fire fire = null;
+        for (int i = 0; i < rbu_em.length; i++) {
+            if (rbu_em[i].getDescription().equals("terrorist maakt METH")) {
+                fire = (Fire) rbu_em[i];
+                break;
+            }
+        }
+        try {
+            assign_units.clear();
+            assign_units.add(engine3);
+            duc.dispatchToEmergency(fire, assign_units);
+            fail("can not assign a firetruck who can't handle the fire");
+        } catch (Exception e) {
+        }
+        try {
+            assign_units.clear();
+            assign_units.add(ambulance1);
+            assign_units.add(engine1);
+            assign_units.add(ambulance2);
+            duc.dispatchToEmergency(fire, assign_units);
+            fail("can not assign too much units to an emergency");
+        } catch (Exception e) {
+        }
+        assign_units.clear();
+        assign_units.add(engine2);
+        assign_units.add(ambulance1);
+        assign_units.add(unit1);
+        duc.dispatchToEmergency(fire, assign_units);
+        Hospital hospital1 = shc.getHospitalList(ambulance1).get(0);
+        try {
+            shc.selectHospital(ambulance2, hospital1);
+            fail("ambulances can't select a hospital when they aren't assigned.");
+        }
+        catch(Exception e) {}
+        try {
+            shc.selectHospital(ambulance2, null);
+            fail("ambulances can't select a hospital when they aren't assigned.");
+        }
+        catch(Exception e) {}
+        try {
+            shc.selectHospital(ambulance1, hospital1);
+            fail("ambulances can't select a hospital when they aren't at the location of the emergency.");
+        }
+        catch(Exception e) {}
+        try {
+            eotc.indicateEndOfTask(ambulance2);
+            fail("units who don't have jobs can't finish work.");
+        }
+        catch(Exception e) {}
+        try {
+            eotc.indicateEndOfTask(ambulance1);
+            fail("units who aren't at the emergency can't finish their job.");
+        }
+        catch(Exception e) {}
+        tac.doTimeAheadAction(25000);
+        eotc.indicateEndOfTask(engine2);
+        eotc.indicateEndOfTask(unit1);
+        shc.selectHospital(ambulance1, hospital1);
+        assign_units.clear();
+        assign_units.add(engine2);
+        duc.dispatchToEmergency(fire, assign_units);
+        try {
+            eotc.indicateEndOfTask(ambulance1);
+            fail("ambulance must be at hospital.");
+        }
+        catch(Exception e) {}
+        tac.doTimeAheadAction(18000);
+        eotc.indicateEndOfTask(engine2);
+        eotc.indicateEndOfTask(ambulance1);
     }
 }
