@@ -237,9 +237,10 @@ public class Scenario1Test {
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
         shc.selectHospital(ambulance1, hospital1);
-        assign_units.clear();
-        assign_units.add(engine2);
-        duc.dispatchToEmergency(fire, assign_units);
+        Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
+        assertEquals(1, policy_units.size());
+        assertEquals(engine2,policy_units.toArray()[0]);
+        duc.dispatchToEmergency(fire, policy_units);
         try {
             eotc.indicateEndOfTask(ambulance1);
             fail("ambulance must be at hospital.");
