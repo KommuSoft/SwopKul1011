@@ -184,14 +184,20 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 		if (successor.getUnitsNeeded() != this.getUnitsNeeded()) {
 			return false; //todo test hiervoor schrijven
 		}
-		return doesNotDetectLoop(successor);
+		return !detectLoop(successor);
 	}
 
-	private boolean doesNotDetectLoop(DispatchPolicy successor) {
+	/**
+         * Checks if taking the given successor as the successor of this DispatchPolicy, there would become a loop in the chain of responsibilities.
+         * @param successor The successor to test for.
+         * @return True if we create a loop in the system, otherwise false.
+         * @note This condition always needs to fail for the current successor.
+         */
+        private boolean detectLoop(DispatchPolicy successor) {
 		DispatchPolicy deepSuccessor = successor;
 		while (deepSuccessor != null && deepSuccessor != this) {
 			deepSuccessor = deepSuccessor.getSuccessor();
 		}
-		return (deepSuccessor == null); //todo test hiervoor schrijven (deel 2)
+		return (deepSuccessor != null); //todo test hiervoor schrijven (deel 2)
 	}
 }

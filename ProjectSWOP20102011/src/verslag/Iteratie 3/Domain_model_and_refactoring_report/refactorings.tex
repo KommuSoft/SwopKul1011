@@ -12,7 +12,7 @@ Only 6 of them were real issues and have been fixed.
 \subsection{Refactoring}
 Taking a break in coding gives the opportunity to look again at your code through new eyes. By reviewing our code we found some minor issues that could have been done better. We've done seven refactorings.
 \begin{itemize}
-	\item In the class \texttt{DispatchPolicy} we've done an extract method refactoring. The method \textit{doesNotDetectLoop} is extracted from \textit{isValidSuccessor}.
+	\item In the class \texttt{DispatchPolicy} we've done an extract method refactoring. The method \textit{detectLoop} is extracted from \textit{isValidSuccessor}.
 	\item We did the same refactoring in the class \texttt{MainUserInterface}. The method \textit{writeProjectHeader} is extracted from the method \textit{handleUserInterface}.
 	\item We used an ``Introduce explaining variable'' in the class \texttt{ASAPDispatchPolicy} on the method \textit{internalCompare}. The purpose of this refactoring was better code readability.
 	\item In the class \texttt{UnitsNeeded} we've applied the ``Replace Temp with Query'' refactoring because it makes the code more readable.
