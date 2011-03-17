@@ -12,10 +12,10 @@ Only 6 of them were real issues and have been fixed.
 \subsection{Refactoring}
 Taking a break in coding gives the opportunity to look again at your code through new eyes. By reviewing our code we found some minor issues that could have been done better. We've done seven refactorings.
 \begin{itemize}
-	\item In the class \texttt{DispatchPolicy} we've done an extract method refactoring. The method \textit{detectLoop} is extracted from \textit{isValidSuccessor}.
-	\item We did the same refactoring in the class \texttt{MainUserInterface}. The method \textit{writeProjectHeader} is extracted from the method \textit{handleUserInterface}.
-	\item We used an ``Introduce explaining variable'' in the class \texttt{ASAPDispatchPolicy} on the method \textit{internalCompare}. The purpose of this refactoring was better code readability.
-	\item In the class \texttt{UnitsNeeded} we've applied the ``Replace Temp with Query'' refactoring because it makes the code more readable.
+	\item In the class \texttt{DispatchPolicy} we've done an extract method refactoring. The method \textit{detectLoop} is extracted from \textit{isValidSuccessor}. We did this because there was a comment and that's a bad smell. The comment said ''loop detection'', so we made the method with the identical name.
+	\item We did the same refactoring in the class \texttt{MainUserInterface}. The method \textit{writeProjectHeader} is extracted from the method \textit{handleUserInterface}. The bad smell this time was ``Comments''.
+	\item We used an ``Introduce explaining variable'' in the class \texttt{ASAPDispatchPolicy} on the method \textit{internalCompare}. The purpose of this refactoring was better code readability. The previous code was too complicated to understand instantly, so we added two temporary explaining variables.
+	\item In the class \texttt{UnitsNeeded} in the method generateProposal we've done a combination of the ``Replace Temp with Query'' and ``Extract Method'' refactoring, because it makes the code more readable. We've extracted the method calculateFixedPart. 
 	\item We've found the refactoring ``Consolidate conditional expression'' in the class \texttt{DispatchPolicy}. We've made a method \textit{cantSolveAndHasSuccessor}. The purpose was to improve the readability.
 	\item If we want to change/delete the description of an emergency, we must change it in every subclass. So this were the bad smells ``Shotgun Surgery'' and ``Duplicated Code''. This has been solved by the ``Pull up'' refactoring. This was done to improve the changeability.
 	\item In the class \texttt{GPSCoordinate} we've removed the temporary variable in the method \textit{getDistanceTo}. We did this to improve the readability.
