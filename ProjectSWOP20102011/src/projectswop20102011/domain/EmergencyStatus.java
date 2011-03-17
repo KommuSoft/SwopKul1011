@@ -198,7 +198,7 @@ public enum EmergencyStatus {
 	 *      If another exception is thrown.
 	 * @note This method has a package visibility: Only the emergency class can call this method.
 	 */
-	abstract void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, Exception;
+	abstract void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException,InvalidEmergencyException;
 
 	/**
 	 * A method representing a transition where a unit signals it has finished it's job.
