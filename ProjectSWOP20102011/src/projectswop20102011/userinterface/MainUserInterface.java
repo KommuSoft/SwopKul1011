@@ -20,33 +20,30 @@ public class MainUserInterface extends UserInterface {
         }
     }
 
+    private void writeProjectHeader(String s) {
+        writeOutput(s);
+    }
 
-	private void writeProjectHeader(String s){
-		writeOutput(s);
-	}
-	
     @Override
     public void handleUserInterface() {
-		writeProjectHeader("Project SWOP v. 3.141592\n");
+        writeProjectHeader("Project SWOP v. 3.141592\n");
         String actor;
         while (true) {
             writeOutput("Type in the actor's name?");
             actor = readInput();
             if (actor.toLowerCase().equals("quit")) {
                 break;
-            }
-            else if(actor.toLowerCase().equals("help")) {
+            } else if (actor.toLowerCase().equals("help")) {
                 writeOutput("You can choose one of the following actors:");
-                for(String s : this.actorUserInterfaces.keySet()) {
-                    writeOutput(String.format("\t%s",s));
+                for (String s : this.actorUserInterfaces.keySet()) {
+                    writeOutput(String.format("\t%s", s));
                 }
-            }
-            else if(this.actorUserInterfaces.containsKey(actor.toLowerCase())) {
+            } else if (this.actorUserInterfaces.containsKey(actor.toLowerCase())) {
                 UserInterface ui = this.actorUserInterfaces.get(actor.toLowerCase());
-                ui.setIndentation(this.getIndentation()+1);
+                ui.setIndentation(this.getIndentation() + 1);
                 ui.handleUserInterface();
             } else {
-                writeOutput(String.format("I can't find actor \"%s\", please try again.",actor));
+                writeOutput(String.format("I can't find actor \"%s\", please try again.", actor));
             }
         }
         writeOutput("\nEnd of the demonstration of project SWOP v. 3.141592");

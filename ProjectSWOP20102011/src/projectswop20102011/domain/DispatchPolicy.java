@@ -132,6 +132,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @return True if the parameter is zero and there is a successor. False otherwise.
 	 */
 	private boolean cantSolveAndHasSuccessor(int firstResult){
+            //TODO: is dit geen overkill?
 		return firstResult == 0 && getSuccessor() != null;
 	}
 
