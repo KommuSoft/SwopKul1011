@@ -124,8 +124,10 @@ public class Scenario1Test {
         //inspecting emergencies
         Emergency[] rbu_em = iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
         assertEquals(1, rbu_em.length);
+        Emergency emergency = rbu_em[0];
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+        assertFalse(emergency.isPartiallyAssigned());
         //assign engine1 to the fire
         List<Unit> units = duc.getAvailableUnitsSorted(rbu_em[0]);
         Firetruck engine1 = (Firetruck) units.get(0);
@@ -137,13 +139,14 @@ public class Scenario1Test {
         assertEquals("engine1", engine1.getName());
         Set<Unit> assign_units = new HashSet<Unit>();
         assign_units.add(engine1);
-        duc.dispatchToEmergency(rbu_em[0], assign_units);
+        duc.dispatchToEmergency(emergency, assign_units);
         try {
             duc.dispatchToEmergency(rbu_em[0], assign_units);
             fail("can not assign a working unit");
         } catch (Exception e) {
         }
         //inspecting emergencies
+        assertFalse(emergency.isPartiallyAssigned());
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
@@ -167,6 +170,7 @@ public class Scenario1Test {
         tac.doTimeAheadAction(14400);
         eotc.indicateEndOfTask(engine1);
         //inspect emergencies
+        assertFalse(emergency.isPartiallyAssigned());
         assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
@@ -182,6 +186,7 @@ public class Scenario1Test {
                 break;
             }
         }
+        assertFalse(fire.isPartiallyAssigned());
         try {
             assign_units.clear();
             assign_units.add(engine3);
@@ -203,6 +208,7 @@ public class Scenario1Test {
         assign_units.add(ambulance1);
         assign_units.add(unit1);
         duc.dispatchToEmergency(fire, assign_units);
+        assertTrue(fire.isPartiallyAssigned());
         Hospital hospital1 = shc.getHospitalList(ambulance1).get(0);
         try {
             shc.selectHospital(ambulance2, hospital1);
@@ -232,6 +238,7 @@ public class Scenario1Test {
         tac.doTimeAheadAction(25000);
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(unit1);
+        assertTrue(fire.isPartiallyAssigned());
         //inspect emergencies
         assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
@@ -241,6 +248,7 @@ public class Scenario1Test {
         assertEquals(1, policy_units.size());
         assertEquals(engine2,policy_units.toArray()[0]);
         duc.dispatchToEmergency(fire, policy_units);
+        assertFalse(fire.isPartiallyAssigned());
         try {
             eotc.indicateEndOfTask(ambulance1);
             fail("ambulance must be at hospital.");
@@ -250,6 +258,7 @@ public class Scenario1Test {
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(ambulance1);
         //inspect emergencies
+        assertFalse(fire.isPartiallyAssigned());
         assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(2, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);

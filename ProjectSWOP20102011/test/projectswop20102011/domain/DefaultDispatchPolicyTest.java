@@ -3,15 +3,17 @@ package projectswop20102011.domain;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
+import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class DefaultDispatchPolicyTest {
 
-	private Emergency e1;
+	private Emergency e1, e2;
 	private long x1, y1, x2, y2, x3, y3;
 	private GPSCoordinate location1, location2, location3;
 	private EmergencySeverity severity1;
@@ -43,6 +45,7 @@ public class DefaultDispatchPolicyTest {
 		speed2 = 10;
 
 		e1 = new PublicDisturbance(location1, severity1, "", numberOfPeople1);
+                e2 = new PublicDisturbance(location2, severity1, "", numberOfPeople1);
 		u1 = new Policecar(name1, location2, speed1);
 		u2 = new Policecar(name2, location3, speed2);
 	}
@@ -53,4 +56,24 @@ public class DefaultDispatchPolicyTest {
 		assertTrue(e1.getDispatchPolicy().compare(u1, u1) == 0);
 		assertTrue(e1.getDispatchPolicy().compare(u2, u1) > 0);
 	}
+
+        @Test
+        public void testIsValidSuccessor () {
+            assertTrue(e1.getDispatchPolicy().isValidSuccessor(null));
+            assertFalse(e1.getDispatchPolicy().isValidSuccessor(e1.getDispatchPolicy()));
+            assertFalse(e1.getDispatchPolicy().isValidSuccessor(e2.getDispatchPolicy()));
+        }
+        @Test(expected=InvalidUnitsNeededException.class)
+        public void testConstructor () throws InvalidUnitsNeededException {
+            new DefaultDispatchPolicy(null);
+        }
+        @Test(expected=InvalidDispatchPolicyException.class)
+        public void testSetSuccessor1 () throws InvalidDispatchPolicyException {
+            e1.getDispatchPolicy().setSuccessor(e1.getDispatchPolicy());
+        }
+        @Test(expected=InvalidDispatchPolicyException.class)
+        public void testSetSuccessor2 () throws InvalidDispatchPolicyException {
+            e1.getDispatchPolicy().setSuccessor(e2.getDispatchPolicy());
+        }
+
 }

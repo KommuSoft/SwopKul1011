@@ -277,15 +277,15 @@ public abstract class Emergency {
 		information.put("description", getDescription().toString());
 		ArrayList<Unit> units = this.getWorkingUnits();
 		int number = units.size();
-		String workingUnits = "[ ";
+                StringBuilder sbWorkingUnits = new StringBuilder("[ ");
 		if (number > 0) {
 			for (int i = 0; i < number - 1; i++) {
-				workingUnits += units.get(i).getName() + ", ";
+				sbWorkingUnits.append(units.get(i).getName() + ", ");
 			}
-			workingUnits += units.get(number - 1).getName();
+			sbWorkingUnits.append(units.get(number - 1).getName());
 		}
-		workingUnits += " ]";
-		information.put("working units", workingUnits);
+		sbWorkingUnits.append(" ]");
+		information.put("working units", sbWorkingUnits.toString());
 
 		return information;
 	}

@@ -25,9 +25,10 @@ public class FireUnitsNeededCalculator {
 	 * @return The units needed for a fire.
 	 */
 	protected static UnitsNeeded calculateUnitsNeeded(Fire fire) {
+            //TODO: de volledige berekening van de UnitsNeeded moet niet verhuizen naar de calculator. Waarom niet enkel de informatie afhankelijk van de size berekenen (switch-blok dus)
 		long firetrucks = 0;
 		long policecars = 0;
-		//TODO: Dat stukje code hieronder met de switch-constructie -> Bad Smell..?
+		
 		switch (fire.getSize()) {
 			case LOCAL:
 				firetrucks = 1;
