@@ -81,6 +81,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 */
 	public Set<Unit> generateProposal(List<? extends Unit> availableUnits) {
 		//TODO test schrijven
+		//Is blijkbaar al gedaan volgens Emma.
 		ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
 		Collections.sort(clonedList, this);
 		return this.getUnitsNeeded().generateProposal(clonedList);
@@ -133,6 +134,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 */
 	private boolean cantSolveAndHasSuccessor(int firstResult){
             //TODO: is dit geen overkill?
+			//Jonas: ik vind van niet omdat het de code leesbaarder maakt. Nu zie je in de code effectief dat het niet kan opgelost worden en dat er een opvolger is. Dus je moet niet meer nadenken. :)
 		return firstResult == 0 && getSuccessor() != null;
 	}
 
