@@ -20,13 +20,17 @@ public class MainUserInterface extends UserInterface {
         }
     }
 
-    private void writeProjectHeader(String s) {
-        writeOutput(s);
+    private void writeProjectHeader() {
+        writeOutput("Project SWOP v. 3.141592\n");
     }
+
+	private void writeProjectTailer(){
+		writeOutput("\nEnd of the demonstration of project SWOP v. 3.141592");
+	}
 
     @Override
     public void handleUserInterface() {
-        writeProjectHeader("Project SWOP v. 3.141592\n");
+        writeProjectHeader();
         String actor;
         while (true) {
             writeOutput("Type in the actor's name?");
@@ -46,6 +50,6 @@ public class MainUserInterface extends UserInterface {
                 writeOutput(String.format("I can't find actor \"%s\", please try again.", actor));
             }
         }
-        writeOutput("\nEnd of the demonstration of project SWOP v. 3.141592");
+        writeProjectTailer();
     }
 }
