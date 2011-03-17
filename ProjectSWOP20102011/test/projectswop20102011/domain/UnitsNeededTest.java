@@ -1,6 +1,8 @@
 package projectswop20102011.domain;
 
 import java.io.InvalidClassException;
+import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -30,13 +32,13 @@ public class UnitsNeededTest {
     }
 
     @Test
-    public void testValidEmergency() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+    public void testValidEmergency () throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
         f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
         assertTrue(UnitsNeeded.isValidEmergency(f1));
     }
 
     @Test
-    public void testInvalidEmergency(){
+    public void testInvalidEmergency () {
         assertFalse(UnitsNeeded.isValidEmergency(null));
     }
 
@@ -50,6 +52,11 @@ public class UnitsNeededTest {
     @Test
     public void testInvalidConstraint(){
         assertFalse(UnitsNeeded.isValidConstraint(null));
+    }
+
+    @Test(expected=InvalidEmergencyException.class)
+    public void testIsConstructorEmergency1 () throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
+        new UnitsNeeded(null,null);
     }
 
 

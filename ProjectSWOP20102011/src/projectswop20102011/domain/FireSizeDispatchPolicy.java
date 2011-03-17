@@ -35,8 +35,6 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
      *		If the given successor in not a valid successor.
      */
     FireSizeDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
-        //todo deze constructor wordt niet getest
-        //todo deze constructor wordt niet gebruikt
         super(unitsNeeded, successor);
     }
 

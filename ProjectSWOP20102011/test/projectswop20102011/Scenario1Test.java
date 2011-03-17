@@ -1,4 +1,4 @@
-package projectswop20102011.scenarios;
+package projectswop20102011;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.external.ExternalSystem;

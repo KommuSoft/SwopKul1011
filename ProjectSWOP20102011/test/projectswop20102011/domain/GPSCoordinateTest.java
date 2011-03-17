@@ -68,4 +68,17 @@ public class GPSCoordinateTest{
 		assertEquals("(10,15)", g2.toString());
 		assertEquals("(6548,3)", g3.toString());
 	}
+
+        @Test
+        public void testGetHashCode () {
+            int x = 0x4b61536f;
+            int y1 = ~x;
+            int y2 = 0x74726f65;
+            GPSCoordinate gpsCoordinate1 = new GPSCoordinate(x,y1);
+            GPSCoordinate gpsCoordinate2 = new GPSCoordinate(x,y1);
+            GPSCoordinate gpsCoordinate3 = new GPSCoordinate(x,y2);
+            assertEquals(0,gpsCoordinate1.hashCode());
+            assertEquals(gpsCoordinate2.hashCode(),gpsCoordinate1.hashCode());
+            assertNotSame(gpsCoordinate2.hashCode(),gpsCoordinate3.hashCode());
+        }
 }
