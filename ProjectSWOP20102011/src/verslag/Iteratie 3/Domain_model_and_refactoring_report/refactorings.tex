@@ -16,7 +16,7 @@ Taking a break in coding gives the opportunity to look again at your code throug
 	\item We did the same refactoring in the class \texttt{MainUserInterface}. The method \textit{writeProjectHeader} is extracted from the method \textit{handleUserInterface}.
 	\item We used an ``Introduce explaining variable'' in the class \texttt{ASAPDispatchPolicy} on the method \textit{internalCompare}. The purpose of this refactoring was better code readability.
 	\item In the class \texttt{UnitsNeeded} we've applied the ``Replace Temp with Query'' refactoring because it makes the code more readable.
-	\item We've found the refactoring ``Consolidate conditional expression'' in the class \texttt{DispatchPolicy}. We've made a method \textit{cantSolveAndHasSuccessor}.
-	\item If we want to change/delete the description of an emergency, we must change it in every subclass. So this were the bad smells ``Shotgun Surgery'' and ``Duplicated Code''. This has been solved by the ``Pull up'' refactoring.
-	\item In the class \texttt{GPSCoordinate} we've removed the temporary variable in the method \textit{getDistanceTo}.
+	\item We've found the refactoring ``Consolidate conditional expression'' in the class \texttt{DispatchPolicy}. We've made a method \textit{cantSolveAndHasSuccessor}. The purpose was to improve the readability.
+	\item If we want to change/delete the description of an emergency, we must change it in every subclass. So this were the bad smells ``Shotgun Surgery'' and ``Duplicated Code''. This has been solved by the ``Pull up'' refactoring. This was done to improve the changeability.
+	\item In the class \texttt{GPSCoordinate} we've removed the temporary variable in the method \textit{getDistanceTo}. We did this to improve the readability.
 \end{itemize}
