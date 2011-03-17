@@ -8,7 +8,7 @@ import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;

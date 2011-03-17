@@ -358,7 +358,6 @@ class UnitsNeeded {
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
 	Set<Unit> generateProposal(List<Unit> options) {
-		//TODO test schrijven
 		return this.getConstraint().generateProposal(calculateFixedPart(), options);
 	}
 
@@ -367,7 +366,6 @@ class UnitsNeeded {
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
 	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
-		//TODO test schrijven
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 

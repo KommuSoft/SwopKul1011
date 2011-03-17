@@ -5,7 +5,7 @@ import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItem;
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;

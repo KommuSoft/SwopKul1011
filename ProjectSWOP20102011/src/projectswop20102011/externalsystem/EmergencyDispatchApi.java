@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.factories.EmergencyFactory;
 

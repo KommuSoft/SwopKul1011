@@ -1,6 +1,6 @@
 package projectswop20102011.domain;
 
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

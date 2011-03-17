@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.factories.FireFactory;
 import projectswop20102011.factories.PublicDisturbanceFactory;

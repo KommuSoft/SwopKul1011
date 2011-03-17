@@ -1,6 +1,11 @@
-package projectswop20102011.domain.lists;
+package projectswop20102011;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
+import projectswop20102011.domain.lists.EmergencyFactoryList;
+import projectswop20102011.domain.lists.EmergencyList;
+import projectswop20102011.domain.lists.MapItemList;
+import projectswop20102011.domain.lists.ParserList;
+import projectswop20102011.domain.lists.TimeSensitiveList;
 
 /**
  * A class that represents a world.
@@ -172,8 +177,7 @@ public class World {
 	 * @param emergencyDispatchApi
 	 *		The new IEmergencyDispatchApi.
 	 */
-	public void setIEmergencyDispatchApi(IEmergencyDispatchApi emergencyDispatchApi) {
-		//TODO mag deze methode public?
+	void setIEmergencyDispatchApi(IEmergencyDispatchApi emergencyDispatchApi) {
 		this.emergencyDispatchApi = emergencyDispatchApi;
 	}
 

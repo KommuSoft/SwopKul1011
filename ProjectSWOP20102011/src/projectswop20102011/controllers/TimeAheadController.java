@@ -1,7 +1,7 @@
 package projectswop20102011.controllers;
 
 import be.kuleuven.cs.swop.external.IExternalSystem;
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.externalsystem.TimeAheadAdapter;

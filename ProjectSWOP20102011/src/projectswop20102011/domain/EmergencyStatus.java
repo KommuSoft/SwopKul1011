@@ -91,7 +91,7 @@ public enum EmergencyStatus {
 
 		@Override
 		Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
-			return unitsNeeded.getPolicyProposal(availableUnits); //TODO test schrijven
+			return unitsNeeded.getPolicyProposal(availableUnits);
 		}
 
 		@Override

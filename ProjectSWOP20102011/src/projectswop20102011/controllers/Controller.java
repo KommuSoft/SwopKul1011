@@ -1,6 +1,6 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**

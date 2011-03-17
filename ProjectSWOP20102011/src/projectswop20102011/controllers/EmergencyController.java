@@ -2,7 +2,7 @@ package projectswop20102011.controllers;
 
 import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.lists.World;
+import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 public class EmergencyController extends Controller {

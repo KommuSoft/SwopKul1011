@@ -1,4 +1,4 @@
-package projectswop20102011.main;
+package projectswop20102011;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.external.ExternalSystem;
@@ -15,7 +15,6 @@ import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
-import projectswop20102011.domain.lists.World;
 import projectswop20102011.externalsystem.EmergencyDispatchApi;
 import projectswop20102011.factories.FireFactory;
 import projectswop20102011.factories.PublicDisturbanceFactory;

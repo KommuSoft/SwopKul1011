@@ -80,8 +80,6 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @return A list of units that would be allocated to the emergency if the policy would be applied.
 	 */
 	public Set<Unit> generateProposal(List<? extends Unit> availableUnits) {
-		//TODO test schrijven
-		//Is blijkbaar al gedaan volgens Emma.
 		ArrayList<Unit> clonedList = new ArrayList<Unit>(availableUnits);
 		Collections.sort(clonedList, this);
 		return this.getUnitsNeeded().generateProposal(clonedList);
