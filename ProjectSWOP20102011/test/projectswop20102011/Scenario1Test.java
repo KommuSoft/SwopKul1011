@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import projectswop20102011.controllers.CreateEmergencyController;
-import projectswop20102011.World;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -14,6 +13,7 @@ import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.Ambulance;
@@ -60,13 +60,14 @@ import projectswop20102011.utils.parsers.StringParser;
  */
 public class Scenario1Test {
 
-	private CreateEmergencyController cec;
-	private InspectEmergenciesController iec;
-	private ReadEnvironmentDataController redc;
-	private DispatchUnitsController duc;
-	private EndOfTaskController eotc;
-	private TimeAheadController tac;
+    private CreateEmergencyController cec;
+    private InspectEmergenciesController iec;
+    private ReadEnvironmentDataController redc;
+    private DispatchUnitsController duc;
+    private EndOfTaskController eotc;
+    private TimeAheadController tac;
     private SelectHospitalController shc;
+    private RemoveUnitAssignmentController ruac;
 
     @Before
     public void setUp() throws InvalidWorldException, InvalidEmergencyTypeNameException {
@@ -93,6 +94,7 @@ public class Scenario1Test {
         eotc = new EndOfTaskController(world);
         tac = new TimeAheadController(world, ExternalSystem.bootstrap(api));
         shc = new SelectHospitalController(world);
+        ruac = new RemoveUnitAssignmentController(world);
     }
 
     @Test
@@ -131,6 +133,14 @@ public class Scenario1Test {
         //assign engine1 to the fire
         List<Unit> units = duc.getAvailableUnitsSorted(rbu_em[0]);
         Firetruck engine1 = (Firetruck) units.get(0);
+        try {
+            eotc.indicateEndOfTask(engine1);
+            fail("Engine can't end a task if he hasn't any!");
+        } catch (Exception e) {}
+        try {
+            ruac.withdrawUnit(engine1);
+            fail("Engine can't withdraw from a task if he hasn't any!");
+        } catch (Exception e) {}
         Firetruck engine2 = (Firetruck) units.get(1);
         Firetruck engine3 = (Firetruck) units.get(2);
         Policecar unit1 = (Policecar) units.get(3);
@@ -160,7 +170,7 @@ public class Scenario1Test {
             eotc.indicateEndOfTask(engine1);
             fail("engine1 cant end of task");
         } catch (Exception e) {
-	}
+        }
         //ADDING EMERGENCIES BY EXTERNAL SYSTEM:
         //[type=Robbery; assignable=true; status=recorded but unhandled; location=(35,80); working units=[  ]; severity=urgent; type=Robbery; description=]
         //[type=TrafficAccident; assignable=true; status=recorded but unhandled; location=(-90,5); working units=[  ]; severity=serious; type=TrafficAccident; description=]
@@ -208,33 +218,39 @@ public class Scenario1Test {
         assign_units.add(ambulance1);
         assign_units.add(unit1);
         duc.dispatchToEmergency(fire, assign_units);
+        try {
+            assign_units.clear();
+            assign_units.add(engine2);
+            duc.dispatchToEmergency(fire, assign_units);
+            fail("Engine can't be assigned if he is already working.");
+        } catch (Exception e) {}
         assertTrue(fire.isPartiallyAssigned());
         Hospital hospital1 = shc.getHospitalList(ambulance1).get(0);
         try {
             shc.selectHospital(ambulance2, hospital1);
             fail("ambulances can't select a hospital when they aren't assigned.");
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
         try {
             shc.selectHospital(ambulance2, null);
             fail("ambulances can't select a hospital when they aren't assigned.");
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
         try {
             shc.selectHospital(ambulance1, hospital1);
             fail("ambulances can't select a hospital when they aren't at the location of the emergency.");
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
         try {
             eotc.indicateEndOfTask(ambulance2);
             fail("units who don't have jobs can't finish work.");
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
         try {
             eotc.indicateEndOfTask(ambulance1);
             fail("units who aren't at the emergency can't finish their job.");
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
         tac.doTimeAheadAction(25000);
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(unit1);
@@ -246,14 +262,14 @@ public class Scenario1Test {
         shc.selectHospital(ambulance1, hospital1);
         Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
         assertEquals(1, policy_units.size());
-        assertEquals(engine2,policy_units.toArray()[0]);
+        assertEquals(engine2, policy_units.toArray()[0]);
         duc.dispatchToEmergency(fire, policy_units);
         assertFalse(fire.isPartiallyAssigned());
         try {
             eotc.indicateEndOfTask(ambulance1);
             fail("ambulance must be at hospital.");
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
         tac.doTimeAheadAction(18000);
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(ambulance1);

@@ -62,6 +62,11 @@ public class FireTest {
 
     @Test(expected = NumberOutOfBoundsException.class)
     public void testConstructorException4() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+        f1 = new Fire(gp1, es1, "", fs1, chemical1, -42, nmbOfInjured1);
+    }
+
+    @Test(expected = NumberOutOfBoundsException.class)
+    public void testConstructorException5() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         f1 = new Fire(gp1, es1, "", fs1, chemical1, trappedPeople1, -42);
     }
 }
