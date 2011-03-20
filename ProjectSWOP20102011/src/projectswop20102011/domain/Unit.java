@@ -221,6 +221,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *		If the given duration is invalid.
 	 */
 	private void changeLocation(long duration) throws InvalidDurationException {
+            //TODO: hoort dit allemaal thuis in Unit, moet een deel niet verhuizen naar GPSCoordinate?
 		if (duration > 0) {
 			if (getDestination() != null) {
 				final long startX = getCurrentLocation().getX();
