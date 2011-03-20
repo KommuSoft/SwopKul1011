@@ -21,8 +21,7 @@ public enum EmergencyStatus {
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
         @Override
-        void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyException {
-            unitsNeeded.assignUnitsToEmergency(units);
+        protected void afterUnitsAssignment (UnitsNeeded unitsNeeded, Set<Unit> units) {
             try {
                 unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
             } catch (InvalidEmergencyStatusException ex) {
@@ -57,11 +56,6 @@ public enum EmergencyStatus {
     RESPONSE_IN_PROGRESS("response in progress") {
 
         @Override
-        void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyException {
-            unitsNeeded.assignUnitsToEmergency(units);
-        }
-
-        @Override
         void finishUnit(UnitsNeeded unitsNeeded, Unit unit) {
             unitsNeeded.unitFinishedJob(unit);
             if (unitsNeeded.canCompleteEmergency()) {
@@ -93,11 +87,6 @@ public enum EmergencyStatus {
      * A state of an emergency where the emergency has been completly handled. All the units needed for this emergency have finished.
      */
     COMPLETED("completed") {
-
-        @Override
-        void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException {
-            throw new InvalidEmergencyStatusException("Unable to assign units to a completed emergency.");
-        }
 
         @Override
         void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
@@ -184,11 +173,15 @@ public enum EmergencyStatus {
      *      The units to allocate to the emergency.
      * @throws InvalidEmergencyStatusException
      *      If the status of the emergency is invalid.
-     * @throws Exception
-     *      If another exception is thrown.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException;
+    void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+        if(!canAssignUnitsFromState()) {
+            throw new InvalidEmergencyStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
+        }
+        unitsNeeded.assignUnitsToEmergency(units);
+        afterUnitsAssignment(unitsNeeded,units);
+    }
 
     /**
      * A method representing a transition where a unit signals it has finished it's job.
@@ -254,4 +247,12 @@ public enum EmergencyStatus {
     protected boolean canAssignUnitsFromState() {
         return true;
     }
+
+    /**
+     * A virtual method that needs to be overridden by an EmergencyStatus where something has to be done after Units are assigned to the Emergency.
+     * @param unitsNeeded The UnitsNeeded object of the Emergency.
+     * @param units The Set of assigned Units.
+     */
+    protected void afterUnitsAssignment (UnitsNeeded unitsNeeded, Set<Unit> units) {}
+
 }
