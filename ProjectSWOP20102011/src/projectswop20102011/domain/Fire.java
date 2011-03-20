@@ -1,9 +1,23 @@
 package projectswop20102011.domain;
 
+import java.io.InvalidClassException;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import projectswop20102011.domain.validators.FiretruckFireSizeValidator;
+import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.TypeUnitValidator;
+import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
+import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -219,12 +233,41 @@ public class Fire extends Emergency {
 	}
 
 	/**
-	 * Calculates the units needed for this fire.
-	 * @return The units needed for this fire.
+	 * Calculates the units needed for a fire.
+	 * @return The units needed for a fire.
 	 */
-	protected UnitsNeeded calculateUnitsNeeded() {
-		return FireUnitsNeededCalculator.calculateUnitsNeeded(this);
+	@Override
+	protected UnitsNeeded calculateUnitsNeeded()  {
+		try {
+			//TODO: de volledige berekening van de UnitsNeeded moet niet verhuizen naar de calculator. Waarom niet enkel de informatie afhankelijk van de size berekenen (switch-blok dus)
+			long[] units = FireUnitsNeededCalculator.calculate(getSize());
+			long firetrucks = units[0];
+			long policecars = units[1];
+			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), firetrucks);
+			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
+			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
+			UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
+			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
+			return un;
+		} catch (InvalidEmergencyException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidDispatchUnitsConstraintException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidDispatchPolicyException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidUnitsNeededException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidConstraintListException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidClassException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (NumberOutOfBoundsException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidUnitValidatorException ex) {
+			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		//this should never happen
+		return null;
 	}
-
 }
-
