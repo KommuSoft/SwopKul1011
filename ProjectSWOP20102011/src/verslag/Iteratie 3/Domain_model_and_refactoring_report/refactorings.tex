@@ -19,4 +19,5 @@ Taking a break in coding gives the opportunity to look again at your code throug
 	\item We've found the refactoring ``Consolidate conditional expression'' in the class \texttt{DispatchPolicy}. We've made a method \textit{cantSolveAndHasSuccessor}. The purpose was to improve the readability.
 	\item If we want to change/delete the description of an emergency, we must change it in every subclass. So this were the bad smells ``Shotgun Surgery'' and ``Duplicated Code''. This has been solved by the ``Pull up'' refactoring. This was done to improve the changeability.
 	\item In the class \texttt{GPSCoordinate} we've removed the temporary variable in the method \textit{getDistanceTo}. We did this to improve the readability.
+	\item In the class \texttt{Unit} we've extracted the part of calculating the new \textttt{GPSCoordinate} to \texttt{GPSCoordinate}.
 \end{itemize}
