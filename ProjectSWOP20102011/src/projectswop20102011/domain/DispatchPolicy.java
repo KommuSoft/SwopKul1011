@@ -131,8 +131,6 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @return True if the parameter is zero and there is a successor. False otherwise.
 	 */
 	private boolean cantSolveAndHasSuccessor(int firstResult){
-            //TODO: is dit geen overkill?
-			//Jonas: ik vind van niet omdat het de code leesbaarder maakt. Nu zie je in de code effectief dat het niet kan opgelost worden en dat er een opvolger is. Dus je moet niet meer nadenken. :)
 		return firstResult == 0 && getSuccessor() != null;
 	}
 
