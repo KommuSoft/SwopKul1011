@@ -115,7 +115,7 @@ public class Ambulance extends Unit {
 	 *		If an error occured.
 	 */
 	@Override
-	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException, Exception {
+	public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException {
 		if (isAssigned()) {
 			if (getCurrentHospital() != null && this.isAtDestination()) {
 				getEmergency().finishUnit(this);
