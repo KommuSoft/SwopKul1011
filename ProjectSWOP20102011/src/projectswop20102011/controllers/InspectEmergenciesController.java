@@ -46,7 +46,7 @@ public class InspectEmergenciesController extends Controller {
 	 * @throws InvalidWorldException
      */
     private Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) throws InvalidWorldException {
-		return new EmergencyController(getWorld()).getEmergencyFromId(id);
+		return new EmergencyMapper(getWorld()).getEmergencyFromId(id);
     }
 
     public Set<Entry<String, String>> getEmergencyShortInformation(Emergency e) {

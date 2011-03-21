@@ -1,7 +1,7 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
-import projectswop20102011.controllers.EmergencyController;
+import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
@@ -19,7 +19,7 @@ import projectswop20102011.utils.parsers.StringParser;
 public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 
 	private final RemoveUnitAssignmentController removeUnitAssignmentController;
-	private final EmergencyController emergencyController;
+	private final EmergencyMapper emergencyController;
 
 	/**
 	 *
@@ -28,7 +28,7 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 	 * @throws InvalidCommandNameException
 	 * @throws InvalidControllerException
 	 */
-	public RemoveUnitAssignmentInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyController emergencyController) throws InvalidCommandNameException, InvalidControllerException {
+	public RemoveUnitAssignmentInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyMapper emergencyController) throws InvalidCommandNameException, InvalidControllerException {
 		super("remove unit assignment");
 		if (removeUnitAssignmentController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
@@ -42,7 +42,7 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 		return this.removeUnitAssignmentController;
 	}
 
-	private EmergencyController getEmergencyController() {
+	private EmergencyMapper getEmergencyController() {
 		return emergencyController;
 	}
 

@@ -2,7 +2,7 @@ package projectswop20102011.userinterface;
 
 import java.util.Map.Entry;
 import java.util.Set;
-import projectswop20102011.controllers.EmergencyController;
+import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.controllers.InspectEmergenciesController;
@@ -18,9 +18,9 @@ import projectswop20102011.utils.parsers.EmergencyStatusParser;
 public class InspectEmergenciesUserInterface extends CommandUserInterface {
 
 	private final InspectEmergenciesController inspectEmergenciesController;
-	private final EmergencyController emergencyController;
+	private final EmergencyMapper emergencyController;
 
-	public InspectEmergenciesUserInterface(InspectEmergenciesController inspectEmergenciesController, EmergencyController emergencyController) throws InvalidControllerException, InvalidCommandNameException {
+	public InspectEmergenciesUserInterface(InspectEmergenciesController inspectEmergenciesController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("inspect emergencies");
 		if (inspectEmergenciesController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
@@ -38,7 +38,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
 		return this.inspectEmergenciesController;
 	}
 
-	private EmergencyController getEmergencyController() {
+	private EmergencyMapper getEmergencyController() {
 		return emergencyController;
 	}
 

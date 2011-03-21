@@ -239,7 +239,6 @@ public class Fire extends Emergency {
 	@Override
 	protected UnitsNeeded calculateUnitsNeeded()  {
 		try {
-			//TODO: de volledige berekening van de UnitsNeeded moet niet verhuizen naar de calculator. Waarom niet enkel de informatie afhankelijk van de size berekenen (switch-blok dus)
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
 			long firetrucks = units[0];
 			long policecars = units[1];

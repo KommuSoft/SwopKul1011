@@ -8,7 +8,7 @@ import java.util.Set;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.DispatchUnitsController;
-import projectswop20102011.controllers.EmergencyController;
+import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
@@ -23,9 +23,9 @@ import projectswop20102011.utils.parsers.StringParser;
 public class DispatchUnitsUserInterface extends CommandUserInterface {
 
 	private final DispatchUnitsController dispatchUnitsController;
-	private final EmergencyController emergencyController;
+	private final EmergencyMapper emergencyController;
 
-	public DispatchUnitsUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyController emergencyController) throws InvalidControllerException, InvalidCommandNameException {
+	public DispatchUnitsUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("dispatch units");
 
 		if (dispatchUnitsController == null || emergencyController == null) {
@@ -40,7 +40,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 		return this.dispatchUnitsController;
 	}
 
-	private EmergencyController getEmergencyController(){
+	private EmergencyMapper getEmergencyController(){
 		return emergencyController;
 	}
 

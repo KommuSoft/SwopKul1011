@@ -5,13 +5,13 @@ import projectswop20102011.domain.Emergency;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
-public class EmergencyController extends Controller {
+public class EmergencyMapper extends Controller {
 
 	private static ArrayList<Long> ids = new ArrayList<Long>();
 	private static ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 	private static long id = 0;
 
-	public EmergencyController(World world) throws InvalidWorldException {
+	public EmergencyMapper(World world) throws InvalidWorldException {
 		super(world);
 	}
 
@@ -20,7 +20,7 @@ public class EmergencyController extends Controller {
 	}
 
 	private void setId(long id) {
-		EmergencyController.id = id;
+		EmergencyMapper.id = id;
 	}
 
 	private ArrayList<Long> getIds() {
