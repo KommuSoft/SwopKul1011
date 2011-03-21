@@ -21,7 +21,7 @@ public enum EmergencyStatus {
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
         @Override
-        protected void afterUnitsAssignment (UnitsNeeded unitsNeeded, Set<Unit> units) {
+        protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
             try {
                 unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
             } catch (InvalidEmergencyStatusException ex) {
@@ -176,11 +176,11 @@ public enum EmergencyStatus {
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
     void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
-        if(!canAssignUnitsFromState()) {
+        if (!canAssignUnitsFromState()) {
             throw new InvalidEmergencyStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
         }
         unitsNeeded.assignUnitsToEmergency(units);
-        afterUnitsAssignment(unitsNeeded,units);
+        afterUnitsAssignment(unitsNeeded, units);
     }
 
     /**
@@ -253,6 +253,6 @@ public enum EmergencyStatus {
      * @param unitsNeeded The UnitsNeeded object of the Emergency.
      * @param units The Set of assigned Units.
      */
-    protected void afterUnitsAssignment (UnitsNeeded unitsNeeded, Set<Unit> units) {}
-
+    protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
+    }
 }
