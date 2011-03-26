@@ -1,0 +1,40 @@
+DispatchCenter,DC Leuven,(0,0)
+
+Hospital,Gasthuisberg,(-30,0)
+Hospital,UZGent,(100,9)
+Hospital,LendeledeCity,(0,0)
+
+Firetruck,Engine 1,(100,0),600,local
+Firetruck,Engine 11,(100,0),600,facility
+Firetruck,Engine 12,(100,0),600,facility
+Firetruck,Engine 2,(100,0),600,house
+Firetruck,Engine 3,(40,-20),574,facility
+Firetruck,Engine 4,(60,30),865,local
+Firetruck,Engine 5,(80,-40),12,house
+Firetruck,Engine 6,(100,50),457,facility
+Firetruck,Engine 7,(120,-60),1221,local
+Firetruck,Engine 8,(140,70),631,house
+Firetruck,Engine 9,(160,-80),758,facility
+Firetruck,Engine 10,(180,90),69,local
+
+Policecar,Unit 1,(50,150),100
+Policecar,Unit 2,(100,300),100
+Policecar,Unit 3,(-37,700),100
+Policecar,Unit 4,(48,-321),100
+Policecar,Unit 5,(69,69),100
+Policecar,Unit 6,(21,54),100
+Policecar,Unit 7,(36,11),100
+Policecar,Unit 8,(12,4),100
+Policecar,Unit 9,(63,7),100
+Policecar,Unit 10,(-123,-13),100
+
+Ambulance,Medic 1,(1,2),100
+Ambulance,Medic 2,(11,22),200
+Ambulance,Medic 3,(-111,222),300
+Ambulance,Medic 4,(64,0),400
+Ambulance,Medic 5,(100,30),500
+Ambulance,Medic 6,(-60,42),600
+Ambulance,Medic 7,(78,41),700
+Ambulance,Medic 8,(32,35),800
+Ambulance,Medic 9,(45,62),900
+Ambulance,Medic 10,(36,74),100
