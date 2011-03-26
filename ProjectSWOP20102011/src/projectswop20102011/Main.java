@@ -44,7 +44,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		World world = initWorld();
 		IExternalSystem es = initExternalSystem(world);
-		if (readEnvironment(world, args)) {
+		if (args.length == 0 || readEnvironment(world, args)) {
 			initUserInterface(world, es).handleUserInterface();
 		}
 	}
