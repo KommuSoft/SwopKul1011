@@ -49,6 +49,11 @@ public enum EmergencyStatus {
         boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
             return unitsNeeded.canBeResolved(availableUnits);
         }
+
+        @Override
+        protected EmergencyStatus combineWithLower (EmergencyStatus otherStatus) {
+            return null;//This method can't be called because RECORDED_BUT UNHANDLED has the lowest ordinal.
+        }
     },
     /**
      * A state of an emergency where the dispatcher has already sent units (this does not mean there are still units working or already finished).
@@ -82,6 +87,16 @@ public enum EmergencyStatus {
         boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
             return unitsNeeded.canBeResolved(availableUnits);
         }
+
+        @Override
+        protected EmergencyStatus combineWithLower (EmergencyStatus otherStatus) {
+            switch(otherStatus) {
+                case RECORDED_BUT_UNHANDLED:
+                    return RESPONSE_IN_PROGRESS;
+                default:
+                    return null;
+            }
+        }
     },
     /**
      * A state of an emergency where the emergency has been completly handled. All the units needed for this emergency have finished.
@@ -112,6 +127,19 @@ public enum EmergencyStatus {
         boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
             return true;
         }
+
+        @Override
+        protected EmergencyStatus combineWithLower (EmergencyStatus otherStatus) {
+            switch(otherStatus) {
+                case RECORDED_BUT_UNHANDLED:
+                    return RESPONSE_IN_PROGRESS;
+                case RESPONSE_IN_PROGRESS:
+                    return RESPONSE_IN_PROGRESS;
+                default:
+                    return null;
+            }
+        }
+
     };
     /**
      * The textual representation of an EmergencyStatus.
@@ -255,4 +283,39 @@ public enum EmergencyStatus {
      */
     protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
     }
+
+    /**
+     * Combining two EmergencyStatuses (this and otherStatus) intro a new EmergencyStatus. The transmission-table of the method is defined by the following transmission table:
+     * <table>
+     *  <tr><td>Combine</td><td>RBU</td><td>RIP</td><td>CPT</td></tr>
+     *  <tr><td>RBU</td><td>RBU</td><td>RIP</td><td>RIP</td></tr>
+     *  <tr><td>RIP</td><td>RIP</td><td>RIP</td><td>RIP</td></tr>
+     *  <tr><td>CPT</td><td>RIP</td><td>RIP</td><td>CPT</td></tr>
+     * </table>
+     * @param otherStatus The other status to combine with.
+     * @return The combination of the two EmergencyStatuses.
+     * @note This method is used to calculate the derived status of the disaster from it's emergency.
+     * @note This method is commutitive, this is forced: this.combine(otherStatus) == otherStatus.combine(this).
+     * @note Another property is that a status combined with the same status always results in that status: this.combine(this) == this.
+     * @note This method uses the combineWithLower method.
+     * @see Disaster#getStatus()
+     * @see #combineWithLower(projectswop20102011.domain.EmergencyStatus)
+     */
+    public EmergencyStatus combine(EmergencyStatus otherStatus) {
+        if(this == otherStatus) {
+            return this;
+        }
+        else if(this.ordinal() < otherStatus.ordinal()) {
+            return otherStatus.combine(this);
+        } else {
+            return this.combineWithLower(otherStatus);
+        }
+    }
+
+    /**
+     * Combines this EmergencyStatus with a status that has a lower ordinal.
+     * @param otherStatus The other status to combine with.
+     * @return The combination of the two EmergencyStatuses.
+     */
+    protected abstract EmergencyStatus combineWithLower(EmergencyStatus otherStatus);
 }

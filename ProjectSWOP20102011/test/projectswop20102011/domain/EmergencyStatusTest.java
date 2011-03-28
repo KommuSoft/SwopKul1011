@@ -50,10 +50,26 @@ public class EmergencyStatusTest {
         EmergencyStatus.parse("finem");
     }
 
-	@Test
-	public void testToString(){
-		assertEquals("completed", EmergencyStatus.COMPLETED.toString());
-		assertEquals("recorded but unhandled", EmergencyStatus.RECORDED_BUT_UNHANDLED.toString());
-		assertEquals("response in progress", EmergencyStatus.RESPONSE_IN_PROGRESS.toString());
-	}
+    @Test
+    public void testToString() {
+        assertEquals("completed", EmergencyStatus.COMPLETED.toString());
+        assertEquals("recorded but unhandled", EmergencyStatus.RECORDED_BUT_UNHANDLED.toString());
+        assertEquals("response in progress", EmergencyStatus.RESPONSE_IN_PROGRESS.toString());
+    }
+
+    @Test
+    public void testCombine () {
+        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,EmergencyStatus.RECORDED_BUT_UNHANDLED.combine(EmergencyStatus.RECORDED_BUT_UNHANDLED));
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.RECORDED_BUT_UNHANDLED.combine(EmergencyStatus.RESPONSE_IN_PROGRESS));
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.RECORDED_BUT_UNHANDLED.combine(EmergencyStatus.COMPLETED));
+
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.RESPONSE_IN_PROGRESS.combine(EmergencyStatus.RECORDED_BUT_UNHANDLED));
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.RESPONSE_IN_PROGRESS.combine(EmergencyStatus.RESPONSE_IN_PROGRESS));
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.RESPONSE_IN_PROGRESS.combine(EmergencyStatus.COMPLETED));
+
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.COMPLETED.combine(EmergencyStatus.RECORDED_BUT_UNHANDLED));
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,EmergencyStatus.COMPLETED.combine(EmergencyStatus.RESPONSE_IN_PROGRESS));
+        assertEquals(EmergencyStatus.COMPLETED,EmergencyStatus.COMPLETED.combine(EmergencyStatus.COMPLETED));
+    }
+
 }
