@@ -40,7 +40,7 @@ public class EnvironmentReader {
 		Scanner scanner = new Scanner(inputStream);
 		GPSCoordinateParser gpsCoordinateParser = new GPSCoordinateParser();
 		LongParser longParser = new LongParser();
-		FireSizeParser fireSizeParser = new FireSizeParser();
+		LongParser capacityParser = new LongParser();
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
 			Matcher M = REGEX_BUILDING.matcher(line);
@@ -61,8 +61,8 @@ public class EnvironmentReader {
 					if (type.equals("Policecar")) {
 						this.controller.addPolicecar(name, location, speed);
 					} else if (type.equals("Firetruck")) {
-						FireSize fireSize = fireSizeParser.parse(M.group(6));
-						this.controller.addFiretruck(name, location, speed, fireSize);
+						long capacity = capacityParser.parse(M.group(6));
+						this.controller.addFiretruck(name, location, speed, capacity);
 					} else if (type.equals("Ambulance")) {
 						this.controller.addAmbulance(name, location, speed);
 					}

@@ -1,13 +1,12 @@
 package projectswop20102011.controllers;
 
-import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
-import projectswop20102011.exceptions.InvalidFireSizeException;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemTypeNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -38,9 +37,9 @@ public class ReadEnvironmentDataController extends Controller {
         this.addMapItemToMapItemList(new Hospital(name, coordinate));
     }
 
-    public void addFiretruck(String name, GPSCoordinate coordinate, long speed, FireSize fireSize) throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidFireSizeException {
+    public void addFiretruck(String name, GPSCoordinate coordinate, long speed, long capacity) throws InvalidMapItemTypeNameException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidCapacityException {
 		FiretruckFactory ff = new FiretruckFactory();
-        Unit u = ff.createMapItem(new Object[] {name, coordinate, speed, fireSize});
+        Unit u = ff.createMapItem(new Object[] {name, coordinate, speed, capacity});
         this.addMapItemToMapItemList(u);
         this.addUnitToTimeSensitiveList(u);
     }

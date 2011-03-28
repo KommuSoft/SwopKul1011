@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -34,7 +35,7 @@ public class Global1Test {
 	private boolean armed1, armed2;
 	private boolean inProgress1, inProgress2;
 	private long numberOfPeople1;
-	private FireSize fs1;
+	private long capacity;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException {
@@ -92,7 +93,7 @@ public class Global1Test {
 
 		numberOfPeople1 = 2;
 
-		fs1 = FireSize.FACILITY;
+		capacity = 999;
 	}
 
 	@Test(expected = InvalidEmergencyException.class)
@@ -107,7 +108,7 @@ public class Global1Test {
 		ziekenwagen4 = new Ambulance(name4, homeLocation4, speed4);
 		ziekenwagen5 = new Ambulance(name5, homeLocation5, speed5);
 
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
@@ -139,7 +140,7 @@ public class Global1Test {
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
 		ziekenwagen3 = new Ambulance(name3, homeLocation3, speed3);
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
@@ -169,7 +170,7 @@ public class Global1Test {
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
 		ziekenwagen3 = new Ambulance(name3, homeLocation3, speed3);
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 
 		//units toevoegen aan de mapitemlist
 		mapitemList.addMapItem(ziekenwagen1);
@@ -259,7 +260,7 @@ public class Global1Test {
 		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 2);
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 
 		mapitemList.addMapItem(ziekenwagen1);
 		mapitemList.addMapItem(ziekenwagen2);
@@ -296,7 +297,7 @@ public class Global1Test {
 		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 
 		mapitemList.addMapItem(ziekenwagen1);
 		mapitemList.addMapItem(ziekenwagen2);
@@ -331,7 +332,7 @@ public class Global1Test {
 
 		Set<Unit> units = new LinkedHashSet<Unit>(1338);
 		int aantal = 1338;
-		units.add(new Firetruck("Naam", homeLocation1, 100, fs1));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacity));
 		for (int i = 1; i < aantal; i++) {
 			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
@@ -372,7 +373,7 @@ public class Global1Test {
 		ziekenwagen4 = new Ambulance(name4, homeLocation4, speed4);
 		ziekenwagen5 = new Ambulance(name5, homeLocation5, speed5);
 
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 
 		Set<Unit> units = new LinkedHashSet<Unit>();
 		units.add(ziekenwagen1);
@@ -392,12 +393,12 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testRobberyUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+	public void testRobberyUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
 		e1 = new Robbery(emergencyLocation, EmergencySeverity.URGENT, "", armed1, inProgress1);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 		politiewagen1 = new Policecar(name8, homeLocation3, speed3);
 
 		Set<Unit> units = new LinkedHashSet<Unit>();
@@ -412,12 +413,12 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testPublicDisturbanceUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+	public void testPublicDisturbanceUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
 		e1 = new PublicDisturbance(emergencyLocation, EmergencySeverity.URGENT, "", numberOfPeople1);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
-		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, fs1);
+		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
 		politiewagen1 = new Policecar(name8, homeLocation3, speed3);
 
 		Set<Unit> units = new LinkedHashSet<Unit>();

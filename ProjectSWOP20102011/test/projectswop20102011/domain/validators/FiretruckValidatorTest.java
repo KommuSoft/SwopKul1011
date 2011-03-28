@@ -8,6 +8,7 @@ import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -16,7 +17,7 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 public class FiretruckValidatorTest {
 
 	private FireSize fs1, fs2, fs3;
-	private FireSize fts1, fts2, fts3;
+	private long fts1, fts2, fts3;
 	private Firetruck ft1, ft2, ft3;
 	private String name1, name2, name3;
 	private GPSCoordinate gps1, gps2, gps3;
@@ -25,14 +26,14 @@ public class FiretruckValidatorTest {
 	private FiretruckFireSizeValidator ftv1, ftv2, ftv3;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
                 fs1 = FireSize.LOCAL;
 		fs2 = FireSize.HOUSE;
 		fs3 = FireSize.FACILITY;
 
-		fts1 = FireSize.LOCAL;
-		fts2 = FireSize.HOUSE;
-		fts3 = FireSize.FACILITY;
+		fts1 = 1000;
+		fts2 = 100000;
+		fts3 = 500000;
 
 		name1 = "Mini-Vuurwagen";
 		name2 = "Vuurwagen";
@@ -79,6 +80,7 @@ public class FiretruckValidatorTest {
 		assertTrue(ftv1.isValid(ft2));
 		assertTrue(ftv1.isValid(ft3));
 
+		//TODO: hier faalt de test
 		assertFalse(ftv2.isValid(ft1));
 		assertTrue(ftv2.isValid(ft2));
 		assertTrue(ftv2.isValid(ft3));

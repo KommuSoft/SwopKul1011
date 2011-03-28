@@ -1,11 +1,11 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -23,7 +23,7 @@ public class FiretruckFireSizeTest {
 	private GPSCoordinate homeLocation, emergencyLocation;
 	private Firetruck brandweerwagen;
 	private Emergency f1;
-	private FireSize fs1, fs2, fs3;
+	private long capacity1,capacity2,capacity3,capacity4;
 
 	@Before
 	public void setUp() {
@@ -36,14 +36,15 @@ public class FiretruckFireSizeTest {
 		name = "Brandweerwagen";
 		emergencyLocation = new GPSCoordinate(x1, y1);
 		homeLocation = new GPSCoordinate(x2, y2);
-		fs1 = FireSize.FACILITY;
-		fs2 = FireSize.HOUSE;
-		fs3 = FireSize.LOCAL;
+		capacity1 = 100;
+		capacity2 = 0;
+		capacity3 = 1000;
+		capacity4 = -10;
 	}
 
 	@Test
-	public void testValidConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
+	public void testValidConstructor() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity1);
 		assertEquals(name, brandweerwagen.getName());
 		assertEquals(x2, brandweerwagen.getHomeLocation().getX());
 		assertEquals(y2, brandweerwagen.getHomeLocation().getY());
@@ -56,9 +57,9 @@ public class FiretruckFireSizeTest {
 	@Test
 	public void testTimeAhead() throws InvalidLocationException, InvalidMapItemNameException,
 			InvalidSpeedException, InvalidEmergencySeverityException,
-			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, Exception {
+			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidCapacityException{
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity1);
 
 		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(brandweerwagen);
@@ -73,10 +74,10 @@ public class FiretruckFireSizeTest {
 
 	@Test(expected = InvalidDurationException.class)
 	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
-			InvalidFireSizeException, InvalidMapItemNameException, InvalidSpeedException,
-			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException, Exception {
+			InvalidMapItemNameException, InvalidSpeedException,
+			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException, InvalidFireSizeException, InvalidCapacityException{
 		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity1);
 
 		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(brandweerwagen);
@@ -88,18 +89,18 @@ public class FiretruckFireSizeTest {
 		assertEquals(y1, brandweerwagen.getDestination().getY());
 	}
 
-	@Test(expected = InvalidFireSizeException.class)
-	public void testInvalidMaxSize() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, null);
+	@Test(expected = InvalidCapacityException.class)
+	public void testInvalidCapacity() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity4);
 	}
 
 	@Test
-	public void testValidMaxSize() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs1);
-		assertEquals(fs1, brandweerwagen.getMaxSize());
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs2);
-		assertEquals(fs2, brandweerwagen.getMaxSize());
-		brandweerwagen = new Firetruck(name, homeLocation, speed1, fs3);
-		assertEquals(fs3, brandweerwagen.getMaxSize());
+	public void testValidCapacity() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity1);
+		assertEquals(capacity1, brandweerwagen.getCapacity());
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity2);
+		assertEquals(capacity2, brandweerwagen.getCapacity());
+		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity3);
+		assertEquals(capacity3, brandweerwagen.getCapacity());
 	}
 }

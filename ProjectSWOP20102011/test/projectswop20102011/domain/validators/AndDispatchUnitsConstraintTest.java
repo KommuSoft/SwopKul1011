@@ -16,6 +16,7 @@ import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -35,11 +36,12 @@ public class AndDispatchUnitsConstraintTest {
     private String name1, name2, name3, name4;
     private GPSCoordinate gps1, gps2, gps3, gps4;
     private long speed1, speed2, speed3, speed4;
-    private FireSize fs1;
+    private long capacity;
+	private FireSize fs1;
     private long x1, y1, x2, y2, x3, y3, x4, y4;
 
     @Before
-    public void setUp() throws NumberOutOfBoundsException, InvalidUnitValidatorException, InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+    public void setUp() throws NumberOutOfBoundsException, InvalidUnitValidatorException, InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidCapacityException {
         x1 = 10;
         y1 = 10;
         x2 = 20;
@@ -64,12 +66,13 @@ public class AndDispatchUnitsConstraintTest {
         speed3 = 3 * 3600;
         speed4 = 2 * 3600;
 
-        fs1 = FireSize.HOUSE;
-
+        capacity = 1000;
+		fs1 = FireSize.LOCAL;
+		
         u1 = new Ambulance(name1, gps1, speed1);
         u2 = new Policecar(name2, gps2, speed2);
         u3 = new Ambulance(name3, gps3, speed3);
-        u4 = new Firetruck(name4, gps4, speed4, fs1);
+        u4 = new Firetruck(name4, gps4, speed4, capacity);
 
         uv1 = new TypeUnitValidator(Ambulance.class);
         uv2 = new TypeUnitValidator(Policecar.class);

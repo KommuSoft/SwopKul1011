@@ -11,6 +11,7 @@ import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.FireSize;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -24,10 +25,10 @@ public class TypeUnitValidatorTest {
 	private GPSCoordinate gps1, gps2, gps3, gps4;
 	private long speed1, speed2, speed3, speed4;
 	private long x1, y1, x2, y2, x3, y3, x4, y4;
-	private FireSize fs1;
+	private long capacity;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
 		x1 = 10;
 		y1 = 10;
 		x2 = 20;
@@ -52,12 +53,12 @@ public class TypeUnitValidatorTest {
 		speed3 = 3 * 3600;
 		speed4 = 2 * 3600;
 
-		fs1 = FireSize.FACILITY;
+		capacity = 100000;
 
 		u1 = new Ambulance(name1, gps1, speed1);
 		u2 = new Policecar(name2, gps2, speed2);
 		u3 = new Ambulance(name3, gps3, speed3);
-		u4 = new Firetruck(name4, gps4, speed4, fs1);
+		u4 = new Firetruck(name4, gps4, speed4, capacity);
 	}
 
 	@Test

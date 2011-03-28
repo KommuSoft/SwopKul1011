@@ -67,6 +67,7 @@ public class FiretruckFireSizeValidator extends TypeUnitValidator {
 	 */
 	@Override
 	public String toString() {
+		//TODO: klopt ook niet meer
 		return String.format("Firetrucks who can handle a %s fire", this.getFireSize());
 	}
 }

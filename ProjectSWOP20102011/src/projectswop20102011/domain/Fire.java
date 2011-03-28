@@ -193,6 +193,18 @@ public class Fire extends Emergency {
 		return (fireSize != null);
 	}
 
+	public long getNumberOfLitersRequired(){
+		if(getSize().equals(FireSize.LOCAL)){
+			return 1000;
+		}else if(getSize().equals(FireSize.HOUSE)){
+			return 100000;
+		}else if(getSize().equals(FireSize.FACILITY)){
+			return 500000;
+		}else{
+			//Normaal kan dit niet gebeuren
+			return -1;
+		}
+	}
 	/**
 	 * Checks if the given number of injured people is a valid number for a fire emergency.
 	 * @param numberOfInjured

@@ -100,9 +100,9 @@ public class Scenario1Test {
     @Test
     public void testScenario1() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemTypeNameException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidEmergencyException, InvalidEmergencyStatusException, Exception {
         //initialize world
-        redc.addFiretruck("engine1", new GPSCoordinate(0, 20), 5, FireSize.HOUSE);
-        redc.addFiretruck("engine2", new GPSCoordinate(0, 21), 5, FireSize.HOUSE);
-        redc.addFiretruck("engine3", new GPSCoordinate(0, 22), 5, FireSize.LOCAL);
+        redc.addFiretruck("engine1", new GPSCoordinate(0, 20), 5, 100000);
+        redc.addFiretruck("engine2", new GPSCoordinate(0, 21), 5, 100000);
+        redc.addFiretruck("engine3", new GPSCoordinate(0, 22), 5, 1000);
         redc.addPolicecar("unit1", new GPSCoordinate(0, 23), 5);
         redc.addAmbulance("ambulance1", new GPSCoordinate(0, 24), 5);
         redc.addAmbulance("ambulance2", new GPSCoordinate(0, 25), 5);

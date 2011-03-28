@@ -55,7 +55,8 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
             Firetruck firetruck1 = (Firetruck) unit1;
             Firetruck firetruck2 = (Firetruck) unit2;
             Fire fire = (Fire) emergency;
-            return (firetruck1.getMaxSize().ordinal() - fire.getSize().ordinal()) - (firetruck2.getMaxSize().ordinal() - fire.getSize().ordinal());
+			//TODO: De firesizedispatchpolicy gewijzigd en heb moeten casten naar een int
+            return (int) ((Math.abs(firetruck1.getCapacity() - fire.getNumberOfLitersRequired())) - (Math.abs(firetruck2.getCapacity() - fire.getNumberOfLitersRequired())));
         } else {
             return 0;
         }

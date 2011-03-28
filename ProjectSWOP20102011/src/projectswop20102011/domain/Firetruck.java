@@ -1,10 +1,10 @@
 package projectswop20102011.domain;
 
-import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
+import projectswop20102011.exceptions.InvalidCapacityException;
 
 /**
  * A class that represents a firetruck.
@@ -14,9 +14,9 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
 public class Firetruck extends Unit {
 
 	/**
-	 * The maximal firesize the firetruck can handle.
+	 * The capacity of the firetruck.
 	 */
-	private FireSize maxSize;
+	private long capacity;
 
 	/**
 	 * Initialize a new firetruck with given parameters.
@@ -27,70 +27,69 @@ public class Firetruck extends Unit {
 	 *		The home location of the new firetruck.
 	 * @param speed
 	 *		The speed of the new firetruck.
-	 * @param maxSize
-	 *		The maximum size that this firetruck can handle.
-	 * @effect The new firetruck is a unit with given name, home location, speed and maxSize.
+	 * @param capacity
+	 *		The capacity of this firetruck.
+	 * @effect The new firetruck is a unit with given name, home location, speed and capacity.
 	 *		|super(name,homeLocation,speed)
-	 * @effect The new firetruck can handle the given fire size.
-	 *		|this.maxSize.equals(maxSize)
-	 * @effect The withdrawBehaviour of this firetruck is initialised.
-	 *		|setWithdrawBehavior(new NotWithdraw())
+	 * @effect The capacity of this fire truck is set to the given capacity
+	 *		|this.capacity.equals(capacity)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a firetruck.
 	 * @throws InvalidMapItemNameException
 	 *		If the given name is an invalid name for a firetruck.
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a firetruck.
-	 * @throws InvalidFireSizeException
-	 *          If the given maximum fire size is not effective.
+	 * @throws InvalidCapacityException
+	 *          If the given capacity is not effective.
 	 */
-	public Firetruck(String name, GPSCoordinate homeLocation, long speed, FireSize maxSize) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException {
+	public Firetruck(String name, GPSCoordinate homeLocation, long speed, long capacity) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
 		super(name, homeLocation, speed);
-		setMaxSize(maxSize);
+		setCapacity(capacity);
 	}
 
 	/**
-	 * Returns the maximum fire size the firetruck can handle.
-	 * @return the maximum fire size the firetruck can handle.
+	 * Returns the capacity of the firetruck.
+	 * @return the capacity of the firetruck.
 	 */
-	public FireSize getMaxSize() {
-		return maxSize;
+	public long getCapacity() {
+		return capacity;
 	}
 
 	/**
-	 * Sets the maximum fire size to the given value.
-	 * @param maxSize
-	 *		The new maximum fire size of this firetruck.
-	 * @post This maximum fire size is equal to the given maximum size.
-	 *		|new.maxSize.equals(maxSize)
-	 * @throws InvalidFireSizeException
-	 *          If the given maximum fire size is not effective.
+	 * Sets the capacity to the given value.
+	 * @param capacity
+	 *		The new capacity of this firetruck.
+	 * @post This capacity is equal to the given capacity
+	 *		|new.capacity.equals(capacity)
+	 * @throws InvalidCapacityException
+	 *          If the given capacity is not effective.
 	 */
-	private void setMaxSize(FireSize maxSize) throws InvalidFireSizeException {
-		if (!isValidMaxFireSize(maxSize)) {
-			throw new InvalidFireSizeException("The given maximum fire size must be effective.");
+	private void setCapacity(long capacity) throws InvalidCapacityException {
+		if (!isValidCapacity(capacity)) {
+			throw new InvalidCapacityException("The given capacity must be effective.");
 		}
-		this.maxSize = maxSize;
+		this.capacity = capacity;
 	}
 
 	/**
-	 * Tests if the given maximum fire size is a valid maximum fire size for a firetruck.
-	 * @param maxFireSize
-	 *      The given maximum fire size.
-	 * @return True if the given maximum fire size is effective, otherwise false.
+	 * Tests if the given capacity is a valid capacity for a firetruck.
+	 * @param capacity
+	 *      The given capacity.
+	 * @return True if the given capacity is effective, otherwise false.
 	 */
-	public static boolean isValidMaxFireSize(FireSize maxFireSize) {
-		return (maxFireSize != null);
+	public static boolean isValidCapacity(long capacity) {
+		return (capacity >= 0);
 	}
 
 	/**
 	 * Tests if this firetruck can handle a fire with a given fire size
 	 * @param fireSize
 	 *      The fire size of the fire to test.
-	 * @return True if the maximum fire size of this firetruck is larger or equal to the given fire size, otherwise false.
+	 * @return True
 	 */
 	public boolean canHandleFireSize(FireSize fireSize) {
-		return (this.getMaxSize().compareTo(fireSize) >= 0);
+		//Dit zou nu altijd true moeten teruggeven, aangezien iedere firetruck dienst kan doen (onafhankelijk van het aantal liters.
+		return true;
 	}
 
 	/**

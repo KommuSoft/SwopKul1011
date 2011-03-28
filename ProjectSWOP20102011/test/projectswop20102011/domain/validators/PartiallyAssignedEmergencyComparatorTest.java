@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package projectswop20102011.domain.validators;
 
 import java.util.HashSet;
@@ -64,7 +59,7 @@ public class PartiallyAssignedEmergencyComparatorTest {
         Emergency e2 = new TrafficAccident(new GPSCoordinate(0,0),EmergencySeverity.URGENT,"",3,0);
         assertEquals(0,paect.compare(e1, e2));
 
-        Firetruck ft1 = new Firetruck("engine1",new GPSCoordinate(5,0),180,FireSize.FACILITY);
+        Firetruck ft1 = new Firetruck("engine1",new GPSCoordinate(5,0),180,500000);
 
         HashSet<Unit> alloc1 = new HashSet<Unit>();
         alloc1.add(ft1);
