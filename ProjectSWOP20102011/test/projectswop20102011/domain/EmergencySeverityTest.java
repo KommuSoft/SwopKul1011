@@ -62,11 +62,34 @@ public class EmergencySeverityTest {
         EmergencySeverity.parse("UGent");
     }
 
-	@Test
-	public void testToString(){
-		assertEquals("benign", EmergencySeverity.BENIGN.toString());
-		assertEquals("normal", EmergencySeverity.NORMAL.toString());
-		assertEquals("serious", EmergencySeverity.SERIOUS.toString());
-		assertEquals("urgent", EmergencySeverity.URGENT.toString());
-	}
+    @Test
+    public void testToString() {
+        assertEquals("benign", EmergencySeverity.BENIGN.toString());
+        assertEquals("normal", EmergencySeverity.NORMAL.toString());
+        assertEquals("serious", EmergencySeverity.SERIOUS.toString());
+        assertEquals("urgent", EmergencySeverity.URGENT.toString());
+    }
+
+    @Test
+    public void testGetMaximum () {
+        assertEquals(EmergencySeverity.BENIGN,EmergencySeverity.BENIGN.getMaximum(EmergencySeverity.BENIGN));
+        assertEquals(EmergencySeverity.NORMAL,EmergencySeverity.BENIGN.getMaximum(EmergencySeverity.NORMAL));
+        assertEquals(EmergencySeverity.SERIOUS,EmergencySeverity.BENIGN.getMaximum(EmergencySeverity.SERIOUS));
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.BENIGN.getMaximum(EmergencySeverity.URGENT));
+
+        assertEquals(EmergencySeverity.NORMAL,EmergencySeverity.NORMAL.getMaximum(EmergencySeverity.BENIGN));
+        assertEquals(EmergencySeverity.NORMAL,EmergencySeverity.NORMAL.getMaximum(EmergencySeverity.NORMAL));
+        assertEquals(EmergencySeverity.SERIOUS,EmergencySeverity.NORMAL.getMaximum(EmergencySeverity.SERIOUS));
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.NORMAL.getMaximum(EmergencySeverity.URGENT));
+
+        assertEquals(EmergencySeverity.SERIOUS,EmergencySeverity.SERIOUS.getMaximum(EmergencySeverity.BENIGN));
+        assertEquals(EmergencySeverity.SERIOUS,EmergencySeverity.SERIOUS.getMaximum(EmergencySeverity.NORMAL));
+        assertEquals(EmergencySeverity.SERIOUS,EmergencySeverity.SERIOUS.getMaximum(EmergencySeverity.SERIOUS));
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.SERIOUS.getMaximum(EmergencySeverity.URGENT));
+
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.URGENT.getMaximum(EmergencySeverity.BENIGN));
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.URGENT.getMaximum(EmergencySeverity.NORMAL));
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.URGENT.getMaximum(EmergencySeverity.SERIOUS));
+        assertEquals(EmergencySeverity.URGENT,EmergencySeverity.URGENT.getMaximum(EmergencySeverity.URGENT));
+    }
 }
