@@ -93,12 +93,6 @@ public abstract class Sendable {
 	public abstract Hashtable<String, String> getLongInformation();
 
 	/**
-	 * Returns a list of units currently working at this emergency.
-	 * @return a list of units currently working at this emergency.
-	 */
-	public abstract ArrayList<Unit> getWorkingUnits();
-
-	/**
 	 * Checks if the given unit can assign the given list of units to the emergency.
 	 * @param units
 	 *      A list of units to check.
@@ -115,18 +109,6 @@ public abstract class Sendable {
 	public abstract Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits);
 
 	/**
-	 * Returns the policy for allocation used by this emergency.
-	 * @return The policy for allocation used by this emergency.
-	 */
-	public abstract DispatchPolicy getDispatchPolicy();
-
-	/**
-	 * Returns the constraint representing what conditions need to be met before the emergency can be finished.
-	 * @return A DispatchUnitsConstraint representing the constraints to finish an emergency.
-	 */
-	public abstract DispatchUnitsConstraint getDispatchConstraint();
-
-	/**
 	 * Checks if this emergency can be resolved with a given collection of all available units.
 	 * @param availableUnits
 	 *		All the available units in the world.
@@ -141,6 +123,12 @@ public abstract class Sendable {
 	public boolean isPartiallyAssigned(){
 		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
 	}
+
+	/**
+	 * Returns a list of units currently working at this emergency.
+	 * @return a list of units currently working at this emergency.
+	 */
+	public abstract ArrayList<Unit> getWorkingUnits();
 
 	/**
 	 * Enable a unit to finish his job for this emergency.
