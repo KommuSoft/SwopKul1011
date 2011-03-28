@@ -54,7 +54,7 @@ public class FireSizeDispatchPolicyTest {
 		y2 = 10;
 		location2 = new GPSCoordinate(x2, y2);
 		speed2 = 10;
-		capacity2 = 500;
+		capacity2 = 100000;
 		u2 = new Firetruck(name2, location2, speed2, capacity2);
 
 		name3 = "FT3";
@@ -62,7 +62,7 @@ public class FireSizeDispatchPolicyTest {
 		y3 = 20;
 		location3 = new GPSCoordinate(x3, y3);
 		speed3 = 50;
-		capacity3 = 999;
+		capacity3 = 500000;
 		u3 = new Firetruck(name3, location3, speed3, capacity3);
 
 		name4 = "FT4";
@@ -78,7 +78,7 @@ public class FireSizeDispatchPolicyTest {
 		y5 = 100;
 		location5 = new GPSCoordinate(x5, y5);
 		speed4 = 10;
-		capacity5 = 999;
+		capacity5 = 500000;
 		u5 = new Firetruck(name5, location5, speed5, capacity5);
 
 		name6 = "FT6";
@@ -86,7 +86,7 @@ public class FireSizeDispatchPolicyTest {
 		y6 = 100;
 		location6 = new GPSCoordinate(x6, y6);
 		speed6 = 100;
-		capacity6 = 999;
+		capacity6 = 500000;
 		u6 = new Firetruck(name6, location6, speed6, capacity6);
 
 		name7 = "FT7";
@@ -94,7 +94,7 @@ public class FireSizeDispatchPolicyTest {
 		y7 = 1;
 		location7 = new GPSCoordinate(x7, y7);
 		speed7 = 200;
-		capacity7 = 500;
+		capacity7 = 100000;
 		u7 = new Firetruck(name7, location7, speed7, capacity7);
 
 		name8 = "FT8";
@@ -110,7 +110,7 @@ public class FireSizeDispatchPolicyTest {
 		y9 = -20;
 		location9 = new GPSCoordinate(x9, y9);
 		speed9 = 200;
-		capacity9 = 500;
+		capacity9 = 100000;
 		u9 = new Firetruck(name9, location9, speed9, capacity9);
 
 
