@@ -66,17 +66,11 @@ public class Disaster extends Sendable {
 	 */
 	@Override
 	public EmergencyStatus getStatus() {
-		boolean completed = true;
-		for (int i = 0; i < getEmergencies().size() - 1; ++i) {
-			if (!(getEmergencies().get(i).getStatus().equals(getEmergencies().get(i + 1).getStatus()) && getEmergencies().get(i).getStatus().equals(EmergencyStatus.COMPLETED))) {
-				completed = false;
-			}
-		}
-		if (completed) {
-			return EmergencyStatus.COMPLETED;
-		} else {
-			return EmergencyStatus.RESPONSE_IN_PROGRESS;
-		}
+            EmergencyStatus status = this.getEmergencies().get(0).getStatus();//TODO: wat indien Disaster geen Emergencies bevat?
+            for(int i = 1; i < this.getEmergencies().size(); i++) {
+                status = status.combine(this.getEmergencies().get(i).getStatus());
+            }
+            return status;
 	}
 
 	/**
