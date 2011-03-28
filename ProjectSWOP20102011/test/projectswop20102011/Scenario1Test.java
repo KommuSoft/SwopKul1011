@@ -201,7 +201,8 @@ public class Scenario1Test {
             assign_units.clear();
             assign_units.add(engine3);
             duc.dispatchToEmergency(fire, assign_units);
-            fail("can not assign a firetruck who can't handle the fire");
+            //TODO: Een firetruck kan nu altijd toegekend worden.
+			fail("can not assign a firetruck who can't handle the fire");
         } catch (Exception e) {
         }
         try {
@@ -224,6 +225,7 @@ public class Scenario1Test {
             duc.dispatchToEmergency(fire, assign_units);
             fail("Engine can't be assigned if he is already working.");
         } catch (Exception e) {}
+		//TODO: Dit is een reden voor het falen van de test
         assertTrue(fire.isPartiallyAssigned());
         Hospital hospital1 = shc.getHospitalList(ambulance1).get(0);
         try {
@@ -254,6 +256,7 @@ public class Scenario1Test {
         tac.doTimeAheadAction(25000);
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(unit1);
+		//TODO: Dit is een reden voor het falen van de test
         assertTrue(fire.isPartiallyAssigned());
         //inspect emergencies
         assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
@@ -261,6 +264,7 @@ public class Scenario1Test {
         assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
         shc.selectHospital(ambulance1, hospital1);
         Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
+		//TODO: deze zorgen voor het falen van de test
         assertEquals(1, policy_units.size());
         assertEquals(engine2, policy_units.toArray()[0]);
         duc.dispatchToEmergency(fire, policy_units);
@@ -271,11 +275,13 @@ public class Scenario1Test {
         } catch (Exception e) {
         }
         tac.doTimeAheadAction(18000);
+		//TODO: dit zorgt voor het falen van de test
         eotc.indicateEndOfTask(engine2);
         eotc.indicateEndOfTask(ambulance1);
         //inspect emergencies
         assertFalse(fire.isPartiallyAssigned());
         assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
+		//TODO: deze zorgen voor het falen van de test
         assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
         assertEquals(2, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
     }
