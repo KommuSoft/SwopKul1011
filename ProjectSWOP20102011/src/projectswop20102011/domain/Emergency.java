@@ -242,15 +242,6 @@ public abstract class Emergency extends Sendable {
 	}
 
 	/**
-	 * Returns a list of units currently working at this emergency.
-	 * @return a list of units currently working at this emergency.
-	 */
-	@Override
-	public ArrayList<Unit> getWorkingUnits() {
-		return this.getUnitsNeeded().getWorkingUnits();
-	}
-
-	/**
 	 * Checks if the given unit can assign the given list of units to the emergency.
 	 * @param units
 	 *      A list of units to check.
@@ -276,7 +267,6 @@ public abstract class Emergency extends Sendable {
 	 * Returns the policy for allocation used by this emergency.
 	 * @return The policy for allocation used by this emergency.
 	 */
-	@Override
 	public DispatchPolicy getDispatchPolicy() {
 		return this.getUnitsNeeded().getPolicy();
 	}
@@ -285,7 +275,6 @@ public abstract class Emergency extends Sendable {
 	 * Returns the constraint representing what conditions need to be met before the emergency can be finished.
 	 * @return A DispatchUnitsConstraint representing the constraints to finish an emergency.
 	 */
-	@Override
 	public DispatchUnitsConstraint getDispatchConstraint() {
 		return this.getUnitsNeeded().getConstraint();
 	}
@@ -299,5 +288,13 @@ public abstract class Emergency extends Sendable {
 	@Override
 	public boolean canBeResolved(Collection<Unit> availableUnits) {
 		return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
+	}
+
+	/**
+	 * Returns a list of units currently working at this emergency.
+	 * @return a list of units currently working at this emergency.
+	 */
+	public ArrayList<Unit> getWorkingUnits(){
+		return this.getUnitsNeeded().getWorkingUnits();
 	}
 }

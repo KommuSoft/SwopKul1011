@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
-import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
@@ -21,6 +20,10 @@ public class Disaster extends Sendable {
 
 	public List<Emergency> getEmergencies() {
 		return emergencies;
+	}
+
+	private DerivedUnitsNeeded getUnitsNeeded() {
+		return unitsNeeded;
 	}
 
 	/**
@@ -74,17 +77,6 @@ public class Disaster extends Sendable {
 	}
 
 	/**
-	 * Returns a ConcreteUnitsNeeded structure that contains the units needed for this emergency.
-	 * @return A ConcreteUnitsNeeded structure that contains the units needed for this emergency.
-	 * @note Handling dispatching and updating the status of the emergency is also done by this object.
-	 * @note The visibility of this method is package. No classes outside the domain have access to the ConcreteUnitsNeeded object.
-	 */
-	private synchronized List<ConcreteUnitsNeeded> getUnitsNeeded() {
-		//TODO implementatie
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	/**
 	 * Returns a hashtable that contains the information of this emergency.
 	 * This hashtable contains the id, location, severity, status and the working units.
 	 * @return A hashtable that contains the information of this emergency.
@@ -113,46 +105,60 @@ public class Disaster extends Sendable {
 
 	@Override
 	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		for(Emergency e: getEmergencies()) {
+			getStatus().assignUnits(e.calculateUnitsNeeded(), units);
+		}
 	}
 
 	@Override
 	public ArrayList<Unit> getWorkingUnits() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return getUnitsNeeded().getWorkingUnits();
 	}
 
 	@Override
 	public boolean canAssignUnits(Set<Unit> units) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public DispatchPolicy getDispatchPolicy() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public DispatchUnitsConstraint getDispatchConstraint() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		for(Emergency e : getEmergencies()){
+			if(!getStatus().canAssignUnits(e.calculateUnitsNeeded(), units)){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
 	public boolean canBeResolved(Collection<Unit> availableUnits) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		for(Emergency e : getEmergencies()){
+			if(!getStatus().canBeResolved(e.calculateUnitsNeeded(), availableUnits)){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
 	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		for(Emergency e: getEmergencies()) {
+			getStatus().finishUnit(e.calculateUnitsNeeded(), unitToFinish);
+		}
 	}
 
 	@Override
 	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		for(Emergency e: getEmergencies()) {
+			getStatus().withdrawUnit(e.calculateUnitsNeeded(), unitToWithdraw);
+		}
+	}
+
+	@Override
+	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+		Set<Unit> units = null;
+		if (getEmergencies().size() > 0) {
+			units = getStatus().getPolicyProposal(getEmergencies().get(0).calculateUnitsNeeded(), availableUnits);
+			for (int i = 1; i < getEmergencies().size(); ++i) {
+				units.addAll(getStatus().getPolicyProposal(getEmergencies().get(0).calculateUnitsNeeded(), availableUnits));
+			}
+		}
+
+		return units;
 	}
 }

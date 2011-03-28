@@ -102,6 +102,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @return True if all units needed for the emergency are finished; otherwise false.
 	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
 	 */
+	@Override
 	public boolean canCompleteEmergency() {
 		return getConstraint().areValidDispatchUnits(takeFinishedUnits());
 	}
@@ -144,6 +145,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		visible at private level and returns the real list.
 	 * @see #takeWorkingUnits()
 	 */
+	@Override
 	public ArrayList<Unit> getWorkingUnits() {
 		return (ArrayList<Unit>) workingUnits.clone();
 	}
@@ -180,6 +182,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		only visible at private level and returns the real list.
 	 * @see #takeFinishedUnits()
 	 */
+	@Override
 	public ArrayList<Unit> getFinishedUnits() {
 		return (ArrayList<Unit>) this.finishedUnits.clone();
 	}
@@ -259,6 +262,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 */
+	@Override
 	void unitFinishedJob(Unit unit) {
 		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
@@ -356,6 +360,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @return A subset of the given list containing units proposed for allocation.
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
+	@Override
 	Set<Unit> generateProposal(List<Unit> options) {
 		return this.getConstraint().generateProposal(calculateFixedPart(), options);
 	}
