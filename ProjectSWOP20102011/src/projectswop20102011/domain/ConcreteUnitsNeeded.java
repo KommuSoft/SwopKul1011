@@ -364,6 +364,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Generates a proposal for unit allocation based on the policy of the emergency.
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
+	@Override
 	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
@@ -374,6 +375,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		The units to check if they can handle the emergency.
 	 * @return True if the given units can handle the emrgency; false otherwise.
 	 */
+	@Override
 	public boolean canBeResolved(Collection<? extends Unit> availableUnits) {
 		final Collection<Unit> completeCollection = this.getFinishedUnits();
 		completeCollection.addAll(this.takeWorkingUnits());
