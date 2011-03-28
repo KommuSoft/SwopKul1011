@@ -12,7 +12,7 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public abstract class MapItem {
+public abstract class MapItem implements Targetable {
 
 	/**
 	 * A variable registering the name of this mapitem.
@@ -99,4 +99,13 @@ public abstract class MapItem {
 	public static boolean isValidHomeLocation(GPSCoordinate homeLocation) {
 		return (homeLocation != null);
 	}
+
+        /**
+         * Returns te home location of the MapItem (in case of a unit the place where to go to after it's task is completed).
+         * @return the home location of the MapItem.
+         */
+        public GPSCoordinate getTargetLocation () {
+            return this.getHomeLocation();
+        }
+
 }

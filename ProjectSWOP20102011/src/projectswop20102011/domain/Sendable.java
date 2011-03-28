@@ -9,7 +9,7 @@ import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
-public abstract class Sendable {
+public abstract class Sendable implements Targetable {
 
 	private String description;
 
@@ -18,6 +18,14 @@ public abstract class Sendable {
 	 * @return The location of this emergency.
 	 */
 	public abstract GPSCoordinate getLocation();
+
+        /**
+         * Return the location of the Sendable.
+         * @return the location of the Sendable.
+         */
+        public GPSCoordinate getTargetLocation () {
+            return this.getLocation();
+        }
 
 	/**
 	 * Returns the severity of this emergency.
