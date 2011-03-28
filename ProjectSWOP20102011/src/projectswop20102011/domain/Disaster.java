@@ -32,6 +32,7 @@ public class Disaster extends Sendable {
      */
     @Override
     public GPSCoordinate getLocation() {
+        //TODO: moet dit niet berekend worden in GPSCoordinate?
         long x = 0;
         long y = 0;
 
