@@ -1,10 +1,89 @@
 package projectswop20102011.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidDispatchPolicyException;
+import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
+import projectswop20102011.exceptions.InvalidMapItemException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
-public abstract class UnitsNeeded {
+/**
+ * A class that records which units are working on an emergency and does
+ *		the accounting which units are working on the emergency.
+ * @invar The emergency is valid.
+ *		| isValidEmergency(getEmergency())
+ * @invar The constraint is valid.
+ *		| isValidConstraint(getConstraint())
+ * @note This class has a package visibility and is a pure fabrication object.
+ *
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ */
+class ConcreteUnitsNeeded extends UnitsNeeded {
+
+	/**
+	 * A policy for allocating units to this ConcreteUnitsNeeded.
+	 */
+	private DispatchPolicy policy;
+	/**
+	 * The emergency that is handled by this ConcreteUnitsNeeded.
+	 */
+	private final Emergency emergency;
+	/**
+	 * A DispatchUnitsConstraint object specifying which units can be allocated to the emergency.
+	 */
+	private final DispatchUnitsConstraint constraint;
+	/**
+	 * A variable registering the units that are currently working at the emergency.
+	 */
+	private ArrayList<Unit> workingUnits;
+	/**
+	 * A variable registering the units of this emergency that have finished their job.
+	 */
+	private ArrayList<Unit> finishedUnits;
+
+	/**
+	 * Creates a new object that calculates the units needed for an emergency.
+	 * @param emergency
+	 *		The emergency that will be handled by this ConcreteUnitsNeeded.
+	 * @param constraint
+	 *		A constraint used to determine when units can be assigned to the emergency.
+	 * @post This emergency is set to the given emergency.
+	 *		| new.getEmergency() == emergency
+	 * @post This constraint is set to the given constraint.
+	 *		| new.getConstraint() == constraint
+	 * @effect Sets the policy of this unitsNeeded to the given policy, that is the DefaultDispatchPolicy.
+	 *		|this.setPolicy(new DefaultDispatchPolicy(this))
+	 * @effect Initialize the Units.
+	 *		| initUnits()
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is not effective.
+	 * @throws InvalidDispatchUnitsConstraintException
+	 *          If the given constraint is invalid.
+	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
+	 */
+	ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
+		if (!isValidEmergency(emergency)) {
+			throw new InvalidEmergencyException("Emergency must be effective.");
+		}
+		if (!isValidConstraint(constraint)) {
+			throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
+		}
+		this.emergency = emergency;
+		this.constraint = constraint;
+		try {
+			this.setPolicy(new DefaultDispatchPolicy(this));
+		} catch (InvalidUnitsNeededException ex) {
+			//We assume this can't happen
+			Logger.getLogger(ConcreteUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		initUnits();
+	}
 
 	/**
 	 * Sets the working and finished units of the emergency to zero.
@@ -251,6 +330,16 @@ public abstract class UnitsNeeded {
 	}
 
 	/**
+	 * Withdraw a unit from its emergency.
+	 * @param unit
+	 *		The unit that wants to withdraw.
+	 * @effect The unit is removed from the workingUnits list.
+	 */
+	void withdrawUnit(Unit unit) {
+		removeFromWorkingUnits(unit);
+	}
+
+	/**
 	 * Calculates the fixed part of this ConcreteUnitsNeeded. I.e. The working and finished units.
 	 * @return The fixed part of this ConcreteUnitsNeeded.
 	 */
@@ -273,11 +362,22 @@ public abstract class UnitsNeeded {
 
 	/**
 	 * Generates a proposal for unit allocation based on the policy of the emergency.
-	 * @param availableUnits
-	 *		A list of available units.
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
-	public abstract Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits);
+	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+		return this.getPolicy().generateProposal(availableUnits);
+	}
 
-	public abstract boolean canBeResolved(Collection<? extends Unit> availableUnits);
+	/**
+	 * Decides whether the emergency can be handled by the given units.
+	 * @param availableUnits
+	 *		The units to check if they can handle the emergency.
+	 * @return True if the given units can handle the emrgency; false otherwise.
+	 */
+	public boolean canBeResolved(Collection<? extends Unit> availableUnits) {
+		final Collection<Unit> completeCollection = this.getFinishedUnits();
+		completeCollection.addAll(this.takeWorkingUnits());
+		completeCollection.addAll(availableUnits);
+		return this.getConstraint().areValidDispatchUnits(completeCollection);
+	}
 }

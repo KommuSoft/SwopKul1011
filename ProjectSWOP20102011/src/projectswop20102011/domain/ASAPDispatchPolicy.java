@@ -10,32 +10,32 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 public class ASAPDispatchPolicy extends DispatchPolicy {
 
 	/**
-	 * Creates a new instance with a given UnitsNeeded object of the emergency that will be handled.
+	 * Creates a new instance with a given ConcreteUnitsNeeded object of the emergency that will be handled.
 	 * @param unitsNeeded
 	 *      The unitsNeeded object of the emergency.
-	 * @effect The new ASAPDispatchPolicy is a DispatchPolicy with the given UnitsNeeded object.
+	 * @effect The new ASAPDispatchPolicy is a DispatchPolicy with the given ConcreteUnitsNeeded object.
 	 *		| super(unitsNeeded)
 	 * @throws InvalidUnitsNeededException
-	 *      If the given UnitsNeeded object is not effective.
+	 *      If the given ConcreteUnitsNeeded object is not effective.
 	 */
-	ASAPDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
+	ASAPDispatchPolicy(ConcreteUnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
 		super(unitsNeeded);
 	}
 
 	/**
-	 * Create a new instance of an ASAPDispatchPolicy with a given UnitsNeeded object of the emergency it will handle and a successor policy.
+	 * Create a new instance of an ASAPDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
 	 * @param unitsNeeded
 	 *		The given unitsNeeded object of the emergency.
 	 * @param successor
 	 *		The given successor policy
-	 * @effect The new ASAPDispatchPolicy is a DispatchPolicy with the given UnitsNeeded object and the given DispatchPolicy.
+	 * @effect The new ASAPDispatchPolicy is a DispatchPolicy with the given ConcreteUnitsNeeded object and the given DispatchPolicy.
 	 *		|super(unitsNeeded,successor)
 	 * @throws InvalidUnitsNeededException
-	 *		If the given UnitsNeeded object is not effective.
+	 *		If the given ConcreteUnitsNeeded object is not effective.
 	 * @throws InvalidDispatchPolicyException
 	 *		If the given successor in not a valid successor.
 	 */
-	ASAPDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+	ASAPDispatchPolicy(ConcreteUnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
 		super(unitsNeeded, successor);
 	}
 

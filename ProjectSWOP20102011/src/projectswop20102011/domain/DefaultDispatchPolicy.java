@@ -10,32 +10,32 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 public class DefaultDispatchPolicy extends DispatchPolicy {
 
 	/**
-	 * Creates a new instance of a DefaultDispatchPolicy with a given UnitsNeeded object of the emergency to handle.
+	 * Creates a new instance of a DefaultDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency to handle.
 	 * @param unitsNeeded
-	 *      The UnitsNeeded object of the emergency this policy will handle.
+	 *      The ConcreteUnitsNeeded object of the emergency this policy will handle.
 	 * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the givenUnitsNeeded object.
 	 *		|super(unitsNeeded)
 	 * @throws InvalidUnitsNeededException
-	 *      If the given UnitsNeeded policy is ineffective.
+	 *      If the given ConcreteUnitsNeeded policy is ineffective.
 	 */
-	DefaultDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
+	DefaultDispatchPolicy(ConcreteUnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
 		super(unitsNeeded);
 	}
 
 	/**
-	 * Create a new instance of an DefaultDispatchPolicy with a given UnitsNeeded object of the emergency it will handle and a successor policy.
+	 * Create a new instance of an DefaultDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
 	 * @param unitsNeeded
 	 *		The given unitsNeeded object of the emergency.
 	 * @param successor
 	 *		The given successor policy
-	 * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the given UnitsNeeded object and the given DispatchPolicy.
+	 * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the given ConcreteUnitsNeeded object and the given DispatchPolicy.
 	 *		|super(unitsNeeded,successor)
 	 * @throws InvalidUnitsNeededException
-	 *		If the given UnitsNeeded object is not effective.
+	 *		If the given ConcreteUnitsNeeded object is not effective.
 	 * @throws InvalidDispatchPolicyException
 	 *		If the given successor in not a valid successor.
 	 */
-	DefaultDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+	DefaultDispatchPolicy(ConcreteUnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
 		super(unitsNeeded, successor);
 	}
 

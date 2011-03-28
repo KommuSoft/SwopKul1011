@@ -10,7 +10,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
  * A class representing a policy used by the dispatch center (for example: default policy, ASAP policy,...)
- * @invar The UnitsNeeded object of this policy is always valid.
+ * @invar The ConcreteUnitsNeeded object of this policy is always valid.
  *		|isValidUnitsNeeded(getUnitsNeeded())
  * @invar The succesor of this DispatchPolicy is always valid.
  *		|isValidSuccessor(getSuccesor())
@@ -20,9 +20,9 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 public abstract class DispatchPolicy implements Comparator<Unit> {
 
 	/**
-	 * An object that points to the UnitsNeeded object of the emergency this policy will handle.
+	 * An object that points to the ConcreteUnitsNeeded object of the emergency this policy will handle.
 	 */
-	private final UnitsNeeded unitsNeeded;
+	private final ConcreteUnitsNeeded unitsNeeded;
 	/**
 	 * The succesor of this DispatchPolicy.
 	 */
@@ -35,9 +35,9 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @post The unitsNeeded object is equal to the given unitsNeeded object.
 	 *		|this.getUnitsNeeded() == unitsNeeded
 	 * @throws InvalidUnitsNeededException
-	 *		If the given UnitsNeeded is not effective.
+	 *		If the given ConcreteUnitsNeeded is not effective.
 	 */
-	protected DispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
+	protected DispatchPolicy(ConcreteUnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
 		if (!isValidUnitsNeeded(unitsNeeded)) {
 			throw new InvalidUnitsNeededException("UnitsNeeded must be effective.");
 		}
@@ -45,7 +45,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	}
 
 	/**
-	 * Creates a new instance of a DispatchPolicy class with a given UnitsNeeded object of the emergency it will handle and a successor to determine an order if this emergency doesn't find any.
+	 * Creates a new instance of a DispatchPolicy class with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor to determine an order if this emergency doesn't find any.
 	 * @param unitsNeeded
 	 *      The unitsNeeded object of the emergency this policy will handle.
 	 * @param successor
@@ -55,20 +55,20 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @effect The successor object is equal to the given successor object.
 	 *		|setSuccessor(succesor)
 	 * @throws InvalidUnitsNeededException
-	 *      If the given UnitsNeeded is not effective.
+	 *      If the given ConcreteUnitsNeeded is not effective.
 	 * @throws InvalidDispatchPolicyException
 	 *		If the given successor is invalid.
 	 */
-	protected DispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+	protected DispatchPolicy(ConcreteUnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
 		this(unitsNeeded);
 		this.setSuccessor(successor);
 	}
 
 	/**
-	 * Returns the UnitsNeeded object of the emergency this policy will handle.
-	 * @return The UnitsNeeded object of the emergency this policy will handle.
+	 * Returns the ConcreteUnitsNeeded object of the emergency this policy will handle.
+	 * @return The ConcreteUnitsNeeded object of the emergency this policy will handle.
 	 */
-	protected UnitsNeeded getUnitsNeeded() {
+	protected ConcreteUnitsNeeded getUnitsNeeded() {
 		return this.unitsNeeded;
 	}
 
@@ -86,12 +86,12 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	}
 
 	/**
-	 * Tests if the given UnitsNeeded object is a valid UnitsNeeded parameter.
+	 * Tests if the given ConcreteUnitsNeeded object is a valid ConcreteUnitsNeeded parameter.
 	 * @param unitsNeeded
-	 *      The UnitsNeeded object to test.
-	 * @return True if the UnitsNeeded object is effective, otherwise false.
+	 *      The ConcreteUnitsNeeded object to test.
+	 * @return True if the ConcreteUnitsNeeded object is effective, otherwise false.
 	 */
-	public static boolean isValidUnitsNeeded(UnitsNeeded unitsNeeded) {
+	public static boolean isValidUnitsNeeded(ConcreteUnitsNeeded unitsNeeded) {
 		return (unitsNeeded != null);
 	}
 
@@ -161,7 +161,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * @post The succesor of this policy is equal to the given policy.
 	 *		|new.getSuccessor() == successor
 	 * @throws InvalidDispatchPolicyException
-	 *		If the given succesor is effective and doesn't handle the same UnitsNeeded or creates a loop.
+	 *		If the given succesor is effective and doesn't handle the same ConcreteUnitsNeeded or creates a loop.
 	 */
 	public void setSuccessor(DispatchPolicy successor) throws InvalidDispatchPolicyException {
 		if (!isValidSuccessor(successor)) {
@@ -174,7 +174,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 	 * Checks if the given successor is a valid successor for this DispatchPolicy.
 	 * @param successor
 	 *		The successor to check for.
-	 * @return True if the given successor is ineffective or handles the same UnitsNeeded and does not create a loop.
+	 * @return True if the given successor is ineffective or handles the same ConcreteUnitsNeeded and does not create a loop.
 	 */
 	public boolean isValidSuccessor(DispatchPolicy successor) {
 		if (successor == null) {

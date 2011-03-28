@@ -156,12 +156,12 @@ public class TrafficAccident extends Emergency {
 	 * @return The units needed for this traffic accident.
 	 */
 	@Override
-	protected UnitsNeeded calculateUnitsNeeded() {
+	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
 			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
-			UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
+			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			return un;
 		} catch (InvalidEmergencyException ex) {
 			//we assume this can't happen

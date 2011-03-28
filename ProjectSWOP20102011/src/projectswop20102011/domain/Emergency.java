@@ -23,7 +23,7 @@ import projectswop20102011.exceptions.InvalidLocationException;
  *		| isValidStatus(getStatus())
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public abstract class Emergency implements Sendable{
+public abstract class Emergency extends Sendable {
 
 	/**
 	 * A variable registering the location of this emergency.
@@ -41,11 +41,7 @@ public abstract class Emergency implements Sendable{
 	 * A variable registering the units needed to handle the emergency
 	 * and does the management of dispatching units and setting the status of this emergency.
 	 */
-	private UnitsNeeded unitsNeeded;
-	/**
-	 * A variable registering the description of the emergency.
-	 */
-	private final String description;
+	private ConcreteUnitsNeeded unitsNeeded;
 
 	/**
 	 * Make a new emergency with the given location, severity and description.
@@ -72,7 +68,7 @@ public abstract class Emergency implements Sendable{
 	protected Emergency(GPSCoordinate location, EmergencySeverity severity, String description) throws InvalidLocationException, InvalidEmergencySeverityException {
 		setLocation(location);
 		setSeverity(severity);
-		this.description = description;
+		setDescription(description);
 		try {
 			setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
 		} catch (InvalidEmergencyStatusException ex) {
@@ -133,6 +129,7 @@ public abstract class Emergency implements Sendable{
 	 * Returns the location of this emergency.
 	 * @return The location of this emergency.
 	 */
+	@Override
 	public GPSCoordinate getLocation() {
 		return location;
 	}
@@ -141,6 +138,7 @@ public abstract class Emergency implements Sendable{
 	 * Returns the severity of this emergency.
 	 * @return The severity of this emergency.
 	 */
+	@Override
 	public EmergencySeverity getSeverity() {
 		return severity;
 	}
@@ -149,16 +147,9 @@ public abstract class Emergency implements Sendable{
 	 * Returns the status of this emergency.
 	 * @return The status of this emergency.
 	 */
+	@Override
 	public EmergencyStatus getStatus() {
 		return status;
-	}
-
-	/**
-	 * Returns the description of this emergency.
-	 * @return The description of this emergency.
-	 */
-	public String getDescription() {
-		return description;
 	}
 
 	/**
@@ -195,15 +186,15 @@ public abstract class Emergency implements Sendable{
 	 * Calculates the units needed for this Emergency.
 	 * @return The units needed for this Emergency.
 	 */
-	protected abstract UnitsNeeded calculateUnitsNeeded();
+	protected abstract ConcreteUnitsNeeded calculateUnitsNeeded();
 
 	/**
-	 * Returns a UnitsNeeded structure that contains the units needed for this emergency.
-	 * @return A UnitsNeeded structure that contains the units needed for this emergency.
+	 * Returns a ConcreteUnitsNeeded structure that contains the units needed for this emergency.
+	 * @return A ConcreteUnitsNeeded structure that contains the units needed for this emergency.
 	 * @note Handling dispatching and updating the status of the emergency is also done by this object.
-	 * @note The visibility of this method is package. No classes outside the domain have access to the UnitsNeeded object.
+	 * @note The visibility of this method is package. No classes outside the domain have access to the ConcreteUnitsNeeded object.
 	 */
-	private synchronized UnitsNeeded getUnitsNeeded() {
+	private synchronized ConcreteUnitsNeeded getUnitsNeeded() {
 		if (this.unitsNeeded == null) {
 			this.unitsNeeded = calculateUnitsNeeded();
 		}
@@ -216,9 +207,10 @@ public abstract class Emergency implements Sendable{
 	 *      A list of units to assign.
 	 * @throws InvalidEmergencyStatusException
 	 *      If the status of this emergency does not allow this action.
-	 * @throws Exception
-	 *      If another exception is thrown by performing this operation (for instance those units are already assigned).
+	 * @throws  InvalidEmergencyException
+	 *		If the emergency is invalid.
 	 */
+	@Override
 	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
 		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
 	}
@@ -231,6 +223,7 @@ public abstract class Emergency implements Sendable{
 	 *      If the status of this emergency does not allow this action.
 	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
 	 */
+	@Override
 	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
 		this.getStatus().finishUnit(this.getUnitsNeeded(), unitToFinish);
 	}
@@ -243,51 +236,16 @@ public abstract class Emergency implements Sendable{
 	 *      If the status of this emergency does not allow this action.
 	 * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
 	 */
+	@Override
 	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
 		this.getStatus().withdrawUnit(this.getUnitsNeeded(), unitToWithdraw);
-	}
-
-	/**
-	 * Returns a hashtable that contains the information of this emergency.
-	 * This hashtable contains the id, location, severity, status and the working units.
-	 * @return A hashtable that contains the information of this emergency.
-	 */
-	public Hashtable<String, String> getShortInformation() {
-		return getInformation();
-	}
-
-	/**
-	 * Returns a hashtable that contains the information of this emergency.
-	 * This hashtable contains the id, location, severity, status and the working units.
-	 * @return A hashtable that contains the information of this emergency.
-	 */
-	protected Hashtable<String, String> getInformation() {
-		Hashtable<String, String> information = new Hashtable<String, String>();
-
-		information.put("type", this.getClass().getSimpleName());
-		information.put("location", getLocation().toString());
-		information.put("severity", getSeverity().toString());
-		information.put("status", getStatus().toString());
-		information.put("description", getDescription().toString());
-		ArrayList<Unit> units = this.getWorkingUnits();
-		int number = units.size();
-                StringBuilder sbWorkingUnits = new StringBuilder("[ ");
-		if (number > 0) {
-			for (int i = 0; i < number - 1; i++) {
-				sbWorkingUnits.append(units.get(i).getName() + ", ");
-			}
-			sbWorkingUnits.append(units.get(number - 1).getName());
-		}
-		sbWorkingUnits.append(" ]");
-		information.put("working units", sbWorkingUnits.toString());
-
-		return information;
 	}
 
 	/**
 	 * Returns a list of units currently working at this emergency.
 	 * @return a list of units currently working at this emergency.
 	 */
+	@Override
 	public ArrayList<Unit> getWorkingUnits() {
 		return this.getUnitsNeeded().getWorkingUnits();
 	}
@@ -298,6 +256,7 @@ public abstract class Emergency implements Sendable{
 	 *      A list of units to check.
 	 * @return True if the given list of units can be assigned, otherwise false.
 	 */
+	@Override
 	public boolean canAssignUnits(Set<Unit> units) {
 		return this.getStatus().canAssignUnits(this.getUnitsNeeded(), units);
 	}
@@ -308,6 +267,7 @@ public abstract class Emergency implements Sendable{
 	 *      A list of units that are available for the proposal.
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
+	@Override
 	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		return this.getStatus().getPolicyProposal(this.getUnitsNeeded(), availableUnits);
 	}
@@ -316,6 +276,7 @@ public abstract class Emergency implements Sendable{
 	 * Returns the policy for allocation used by this emergency.
 	 * @return The policy for allocation used by this emergency.
 	 */
+	@Override
 	public DispatchPolicy getDispatchPolicy() {
 		return this.getUnitsNeeded().getPolicy();
 	}
@@ -324,6 +285,7 @@ public abstract class Emergency implements Sendable{
 	 * Returns the constraint representing what conditions need to be met before the emergency can be finished.
 	 * @return A DispatchUnitsConstraint representing the constraints to finish an emergency.
 	 */
+	@Override
 	public DispatchUnitsConstraint getDispatchConstraint() {
 		return this.getUnitsNeeded().getConstraint();
 	}
@@ -334,15 +296,8 @@ public abstract class Emergency implements Sendable{
 	 *		All the available units in the world.
 	 * @return True if the given emergency can be resolved, otherwise false.
 	 */
+	@Override
 	public boolean canBeResolved(Collection<Unit> availableUnits) {
 		return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
-	}
-
-	/**
-	 * Tests if this emergency is partially assigned.
-	 * @return True if this emergency is partially assigned, otherwise false.
-	 */
-	public boolean isPartiallyAssigned() {
-		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
 	}
 }

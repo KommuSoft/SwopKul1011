@@ -237,7 +237,7 @@ public class Fire extends Emergency {
 	 * @return The units needed for a fire.
 	 */
 	@Override
-	protected UnitsNeeded calculateUnitsNeeded()  {
+	protected ConcreteUnitsNeeded calculateUnitsNeeded()  {
 		try {
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
 			long firetrucks = units[0];
@@ -245,7 +245,7 @@ public class Fire extends Emergency {
 			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), firetrucks);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
-			UnitsNeeded un = new UnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
+			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
 			return un;
 		} catch (InvalidEmergencyException ex) {

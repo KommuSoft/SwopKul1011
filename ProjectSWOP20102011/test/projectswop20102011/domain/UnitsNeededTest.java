@@ -34,29 +34,29 @@ public class UnitsNeededTest {
     @Test
     public void testValidEmergency () throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
         f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
-        assertTrue(UnitsNeeded.isValidEmergency(f1));
+        assertTrue(ConcreteUnitsNeeded.isValidEmergency(f1));
     }
 
     @Test
     public void testInvalidEmergency () {
-        assertFalse(UnitsNeeded.isValidEmergency(null));
+        assertFalse(ConcreteUnitsNeeded.isValidEmergency(null));
     }
 
     @Test
     public void testValidConstraint() throws InvalidClassException, NumberOutOfBoundsException, InvalidUnitValidatorException{
         tuv = new TypeUnitValidator(Firetruck.class);
         nduc = new NumberDispatchUnitsConstraint(tuv, number);
-        assertTrue(UnitsNeeded.isValidConstraint(nduc));
+        assertTrue(ConcreteUnitsNeeded.isValidConstraint(nduc));
 
     }
     @Test
     public void testInvalidConstraint(){
-        assertFalse(UnitsNeeded.isValidConstraint(null));
+        assertFalse(ConcreteUnitsNeeded.isValidConstraint(null));
     }
 
     @Test(expected=InvalidEmergencyException.class)
     public void testIsConstructorEmergency1 () throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
-        new UnitsNeeded(null,null);
+        new ConcreteUnitsNeeded(null,null);
     }
 
 

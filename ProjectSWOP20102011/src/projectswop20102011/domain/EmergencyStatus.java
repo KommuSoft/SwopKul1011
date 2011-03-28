@@ -21,7 +21,7 @@ public enum EmergencyStatus {
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
         @Override
-        protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
+        protected void afterUnitsAssignment(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) {
             try {
                 unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
             } catch (InvalidEmergencyStatusException ex) {
@@ -31,22 +31,22 @@ public enum EmergencyStatus {
         }
 
         @Override
-        void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
         }
 
         @Override
-        void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't withdraw units from an unhandled emergency.");
         }
 
         @Override
-        Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+        Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
             return unitsNeeded.getPolicyProposal(availableUnits);
         }
 
         @Override
-        boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
+        boolean canBeResolved(ConcreteUnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
             return unitsNeeded.canBeResolved(availableUnits);
         }
 
@@ -61,7 +61,7 @@ public enum EmergencyStatus {
     RESPONSE_IN_PROGRESS("response in progress") {
 
         @Override
-        void finishUnit(UnitsNeeded unitsNeeded, Unit unit) {
+        void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) {
             unitsNeeded.unitFinishedJob(unit);
             if (unitsNeeded.canCompleteEmergency()) {
                 try {
@@ -74,17 +74,17 @@ public enum EmergencyStatus {
         }
 
         @Override
-        void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) {
+        void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) {
             unitsNeeded.withdrawUnit(unit);
         }
 
         @Override
-        Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+        Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
             return unitsNeeded.getPolicyProposal(availableUnits);
         }
 
         @Override
-        boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
+        boolean canBeResolved(ConcreteUnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
             return unitsNeeded.canBeResolved(availableUnits);
         }
 
@@ -104,12 +104,12 @@ public enum EmergencyStatus {
     COMPLETED("completed") {
 
         @Override
-        void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Unable to finish units from a completed emergency.");
         }
 
         @Override
-        void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Unable to withdraw units from a competed emergency.");
         }
 
@@ -119,12 +119,12 @@ public enum EmergencyStatus {
         }
 
         @Override
-        Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+        Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
             return new HashSet<Unit>();//a proposal containing no units
         }
 
         @Override
-        boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
+        boolean canBeResolved(ConcreteUnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
             return true;
         }
 
@@ -201,9 +201,11 @@ public enum EmergencyStatus {
      *      The units to allocate to the emergency.
      * @throws InvalidEmergencyStatusException
      *      If the status of the emergency is invalid.
+	 * @throws  InvalidEmergencyException
+	 *		If the emergency is invalid.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+    void assignUnits(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
         if (!canAssignUnitsFromState()) {
             throw new InvalidEmergencyStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
         }
@@ -221,7 +223,7 @@ public enum EmergencyStatus {
      *      If the status of the emergency is invalid.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
+    abstract void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
 
     /**
      * A method that handles a situation where a given unit withdraws from a given emergency.
@@ -233,7 +235,7 @@ public enum EmergencyStatus {
      *      If the status of the emergency is invalid.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
+    abstract void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
 
     /**
      * A method that checks if the given units can be assigned to the given emergency.
@@ -243,7 +245,7 @@ public enum EmergencyStatus {
      *      A list of units to check for.
      * @return True if the given list of units can be assigned, otherwise false (this also includes states where no allocation can be done).
      */
-    boolean canAssignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) {
+    boolean canAssignUnits(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) {
         return (this.canAssignUnitsFromState() && unitsNeeded.canAssignUnitsToEmergency(units));
     }
 
@@ -255,7 +257,7 @@ public enum EmergencyStatus {
      *      A list of available units that can be selected.
      * @return A set of units that represents the proposal of the policy.
      */
-    abstract Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, List<? extends Unit> availableUnits);
+    abstract Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits);
 
     /**
      * Checks if the given emergency can be resolved with a given collection of all the available units.
@@ -265,7 +267,7 @@ public enum EmergencyStatus {
      *		A collection of all the available units.
      * @return True if the given emergency can be resolved, otherwise false.
      */
-    abstract boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits);
+    abstract boolean canBeResolved(ConcreteUnitsNeeded unitsNeeded, Collection<Unit> availableUnits);
 
     /**
      * Checks if units can be assgined with the current state.
@@ -278,10 +280,10 @@ public enum EmergencyStatus {
 
     /**
      * A virtual method that needs to be overridden by an EmergencyStatus where something has to be done after Units are assigned to the Emergency.
-     * @param unitsNeeded The UnitsNeeded object of the Emergency.
+     * @param unitsNeeded The ConcreteUnitsNeeded object of the Emergency.
      * @param units The Set of assigned Units.
      */
-    protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
+    protected void afterUnitsAssignment(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) {
     }
 
     /**

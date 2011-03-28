@@ -10,31 +10,31 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 public class FireSizeDispatchPolicy extends DispatchPolicy {
 
     /**
-     * Creates a new instance of a FireSizeDispatchPolicy with a given UnitsNeeded object of the emergency to handle.
+     * Creates a new instance of a FireSizeDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency to handle.
      * @param unitsNeeded
-     *      The UnitsNeeded object of the emergency this policy will handle.
-     * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the UnitsNeeded object.
+     *      The ConcreteUnitsNeeded object of the emergency this policy will handle.
+     * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the ConcreteUnitsNeeded object.
      *		|super(unitsNeeded)
      * @throws InvalidUnitsNeededException
-     *      If the given UnitsNeeded policy is ineffective.
+     *      If the given ConcreteUnitsNeeded policy is ineffective.
      */
-    FireSizeDispatchPolicy(UnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
+    FireSizeDispatchPolicy(ConcreteUnitsNeeded unitsNeeded) throws InvalidUnitsNeededException {
         super(unitsNeeded);
     }
 
     /**
-     * Create a new instance of an FireSizeDispatchPolicy with a given UnitsNeeded object of the emergency it will handle and a successor policy.
+     * Create a new instance of an FireSizeDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
      * @param unitsNeeded
      *		The given unitsNeeded object of the emergency.
      * @param successor
      *		The given successor policy
      * @effect super(unitsNeeded,successor)
      * @throws InvalidUnitsNeededException
-     *		If the given UnitsNeeded object is not effective.
+     *		If the given ConcreteUnitsNeeded object is not effective.
      * @throws InvalidDispatchPolicyException
      *		If the given successor in not a valid successor.
      */
-    FireSizeDispatchPolicy(UnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
+    FireSizeDispatchPolicy(ConcreteUnitsNeeded unitsNeeded, DispatchPolicy successor) throws InvalidUnitsNeededException, InvalidDispatchPolicyException {
         super(unitsNeeded, successor);
     }
 
