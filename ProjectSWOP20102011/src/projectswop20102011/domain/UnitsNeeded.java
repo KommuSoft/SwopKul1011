@@ -43,7 +43,7 @@ class UnitsNeeded {
 	 */
 	private ArrayList<Unit> workingUnits;
 	/**
-	 * A variable registering the units of this emergency that have finished their job
+	 * A variable registering the units of this emergency that have finished their job.
 	 */
 	private ArrayList<Unit> finishedUnits;
 
