@@ -67,7 +67,7 @@ public class Disaster extends Sendable {
      */
     @Override
     public EmergencyStatus getStatus() {
-        EmergencyStatus status = this.getEmergencies().get(0).getStatus();//TODO: wat indien Disaster geen Emergencies bevat?
+        EmergencyStatus status = this.getEmergencies().get(0).getStatus();//TODO: wat indien Disaster geen Emergencies bevat? Antwoord: Een disaster bevat per definitie altijd minstens 1 emergency denk ik. (Zie pagina 9, alternate flow van use case create dissaster).
         for (int i = 1; i < this.getEmergencies().size(); i++) {
             status = status.combine(this.getEmergencies().get(i).getStatus());
         }
