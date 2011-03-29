@@ -193,6 +193,7 @@ public class Fire extends Emergency {
 		return (fireSize != null);
 	}
 
+	//TODO: is dit goed?
 	public long getNumberOfLitersRequired(){
 		if(getSize().equals(FireSize.LOCAL)){
 			return 1000;
@@ -201,7 +202,7 @@ public class Fire extends Emergency {
 		}else if(getSize().equals(FireSize.FACILITY)){
 			return 500000;
 		}else{
-			//Normaal kan dit niet gebeuren
+			//We assume this can never happen
 			return -1;
 		}
 	}

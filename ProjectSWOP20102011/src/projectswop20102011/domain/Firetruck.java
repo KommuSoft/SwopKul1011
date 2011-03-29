@@ -88,7 +88,7 @@ public class Firetruck extends Unit {
 	 * @return True
 	 */
 	public boolean canHandleFireSize(FireSize fireSize) {
-		//Dit zou nu altijd true moeten teruggeven, aangezien iedere firetruck dienst kan doen (onafhankelijk van het aantal liters.
+		//TODO:Dit zou nu altijd true moeten teruggeven, aangezien iedere firetruck dienst kan doen (onafhankelijk van het aantal liters.
 		return true;
 	}
 

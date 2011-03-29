@@ -55,7 +55,6 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
             Firetruck firetruck1 = (Firetruck) unit1;
             Firetruck firetruck2 = (Firetruck) unit2;
             Fire fire = (Fire) emergency;
-			//TODO: De firesizedispatchpolicy gewijzigd en heb moeten casten naar een int
 			Long dif1 = Math.abs(firetruck1.getCapacity()-fire.getNumberOfLitersRequired());
 			Long dif2 = Math.abs(firetruck2.getCapacity()-fire.getNumberOfLitersRequired());
 			return dif1.compareTo(dif2);

@@ -12,7 +12,6 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class FireSizeDispatchPolicyTest {
-	//TODO: De compare zal nogal wat aangepast moeten worden
 	private Emergency e1;
 	private long xEmergency, yEmergency, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9;
 	private GPSCoordinate locationEmergency, location1, location2, location3, location4, location5, location6, location7, location8, location9, location10;
@@ -164,7 +163,6 @@ public class FireSizeDispatchPolicyTest {
 		assertTrue(e1.getDispatchPolicy().compare(u8, u8) == 0);
 	}
 
-	//TODO: deze test faalt
 	@Test
 	//u8 en u9 hebben dezelfde snelheid en bevinden zich evenver van de emergency,
 	//maar de capaciteit van u8 benadert beter
