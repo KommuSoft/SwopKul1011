@@ -76,6 +76,7 @@ public class DisasterTest {
 	public void testInValidEmergencies() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		d = new Disaster(emergencies, description1);
+		
 	}
 
 	@Test
@@ -196,24 +197,6 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
-		Set<Unit> units = new LinkedHashSet<Unit>(5);
-		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
-		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
-		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
-		units.add(politiewagen1);
-		units.add(politiewagen2);
-		units.add(politiewagen3);
-
-		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
-		emergencies.add(e1);
-		emergencies.add(e2);
-		d = new Disaster(emergencies, description1);
-		d.assignUnits(units);
-		assertEquals(3, d.getWorkingUnits().size());
-	}
-
-	@Test
 	public void testCanAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
@@ -229,7 +212,6 @@ public class DisasterTest {
 
 		units.add(politiewagen2);
 		units.add(politiewagen3);
-
 		d = new Disaster(emergencies, description1);
 		assertTrue(d.canAssignUnits(units));
 	}
@@ -293,7 +275,43 @@ public class DisasterTest {
 	}
 
 	@Test
+	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		d.assignUnits(units);
+		assertEquals(3, d.getWorkingUnits().size());
+	}
+
+	@Test
 	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException{
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+
+		assertFalse(true);
+	}
+
+	@Test
+	public void testWithdrawUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException{
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);

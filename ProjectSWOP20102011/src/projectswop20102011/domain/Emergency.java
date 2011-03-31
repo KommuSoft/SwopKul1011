@@ -295,6 +295,7 @@ public abstract class Emergency extends Sendable {
 	 * Returns a list of units currently working at this emergency.
 	 * @return a list of units currently working at this emergency.
 	 */
+	@Override
 	public ArrayList<Unit> getWorkingUnits(){
 		return this.getUnitsNeeded().getWorkingUnits();
 	}

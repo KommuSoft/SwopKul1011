@@ -258,7 +258,7 @@ public class Fire extends Emergency {
 			long policecars = units[1];
 			//TODO: getSize() mag hier waarschijnlijk nog weg en 
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
-			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), numberOfLitersRequired);
+			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), numberOfLitersRequired);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

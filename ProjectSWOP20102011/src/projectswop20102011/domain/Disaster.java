@@ -1,11 +1,8 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -18,178 +15,151 @@ import projectswop20102011.utils.MapFunction;
 
 public class Disaster extends Sendable {
 
-    private final List<Emergency> emergencies;
-    private final DerivedUnitsNeeded unitsNeeded;
+	private final List<Emergency> emergencies;
+	private final DerivedUnitsNeeded unitsNeeded;
 
-    public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException {
-        if (!areValidEmergencies(emergencies)) {
-            throw new InvalidEmergencyException("The number of emergencies must be higher than one.");
-        }
-        this.emergencies = emergencies;
-        unitsNeeded = new DerivedUnitsNeeded(this);
-        setDescription(description);
-    }
+	public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException {
+		if (!areValidEmergencies(emergencies)) {
+			throw new InvalidEmergencyException("The number of emergencies must be higher than one.");
+		}
+		this.emergencies = emergencies;
+		unitsNeeded = new DerivedUnitsNeeded(this);
+		setDescription(description);
+	}
 
-    private boolean areValidEmergencies(List<Emergency> emergencies) {
-        return !emergencies.isEmpty();
-    }
+	private boolean areValidEmergencies(List<Emergency> emergencies) {
+		return !emergencies.isEmpty();
+	}
 
-    public List<Emergency> getEmergencies() {
-        return emergencies;
-    }
+	public List<Emergency> getEmergencies() {
+		return emergencies;
+	}
 
-    /**
-     * Returns the location of this emergency.
-     * @return The location of this emergency.
-     */
-    @Override
-    public GPSCoordinate getLocation() {
-        try {
-            return GPSCoordinate.calculateAverage(MapFunction.mapCollection(this.getEmergencies(), new GetterMapFunction<Emergency, GPSCoordinate>(Emergency.class, GPSCoordinate.class, Emergency.class.getMethod("getLocation"))));
+	/**
+	 * Returns the location of this emergency.
+	 * @return The location of this emergency.
+	 */
+	@Override
+	public GPSCoordinate getLocation() {
+		try {
+			return GPSCoordinate.calculateAverage(MapFunction.mapCollection(this.getEmergencies(), new GetterMapFunction<Emergency, GPSCoordinate>(Emergency.class, GPSCoordinate.class, Emergency.class.getMethod("getLocation"))));
+		} catch (NoSuchMethodException ex) {
+			//We assume this can't happen
+			Logger.getLogger(Disaster.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (SecurityException ex) {
+			//We assume this can't happen
+			Logger.getLogger(Disaster.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (Throwable ex) {
+			//We assume this can't happen
+			Logger.getLogger(Disaster.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
 
-        } catch (NoSuchMethodException ex) {
-            //We assume this can't happen
-            Logger.getLogger(Disaster.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            //We assume this can't happen
-            Logger.getLogger(Disaster.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Throwable ex) {
-            //We assume this can't happen
-            Logger.getLogger(Disaster.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+	/**
+	 * Returns the severity level of the disaster.
+	 * @return The severity level of the disaster.
+	 * @note The severity level of the disaster is the maximum severity level of its emergencies.
+	 */
+	@Override
+	public EmergencySeverity getSeverity() {
+		EmergencySeverity max = this.getEmergencies().get(0).getSeverity();
+		for (Emergency e : getEmergencies()) {
+			max = max.getMaximum(e.getSeverity());
+		}
+		return max;
+	}
 
-    /**
-     * Returns the severity level of the disaster.
-     * @return The severity level of the disaster.
-     * @note The severity level of the disaster is the maximum severity level of its emergencies.
-     */
-    @Override
-    public EmergencySeverity getSeverity() {
-        EmergencySeverity max = this.getEmergencies().get(0).getSeverity();
-        for (Emergency e : getEmergencies()) {
-            max = max.getMaximum(e.getSeverity());
-        }
-        return max;
-    }
+	/**
+	 * Returns the status of this emergency.
+	 * @return The status of this emergency.
+	 */
+	@Override
+	public EmergencyStatus getStatus() {
+		EmergencyStatus status = this.getEmergencies().get(0).getStatus();
+		for (int i = 1; i < this.getEmergencies().size(); i++) {
+			status = status.combine(this.getEmergencies().get(i).getStatus());
+		}
+		return status;
+	}
 
-    /**
-     * Returns the status of this emergency.
-     * @return The status of this emergency.
-     */
-    @Override
-    public EmergencyStatus getStatus() {
-        EmergencyStatus status = this.getEmergencies().get(0).getStatus();//TODO: wat indien Disaster geen Emergencies bevat? Antwoord: Een disaster bevat per definitie altijd minstens 1 emergency denk ik. (Zie pagina 9, alternate flow van use case create dissaster).
-        for (int i = 1; i < this.getEmergencies().size(); i++) {
-            status = status.combine(this.getEmergencies().get(i).getStatus());
-        }
-        return status;
-    }
+	/**
+	 * Returns a hashtable that contains the information of this emergency.
+	 * This hashtable contains the id, location, severity, status and the working units.
+	 * @return A hashtable that contains the information of this emergency.
+	 */
+	@Override
+	protected Hashtable<String, String> getInformation() {
+		Hashtable<String, String> information = super.getInformation();
 
-    /**
-     * Returns a hashtable that contains the information of this emergency.
-     * This hashtable contains the id, location, severity, status and the working units.
-     * @return A hashtable that contains the information of this emergency.
-     */
-    @Override
-    protected Hashtable<String, String> getInformation() {
-        Hashtable<String, String> information = super.getInformation();
+		for (Emergency e : getEmergencies()) {
+			information.putAll(e.getShortInformation());
+		}
 
-        for (Emergency e : getEmergencies()) {
-            information.putAll(e.getShortInformation());
-        }
+		return information;
+	}
 
-        return information;
-    }
+	@Override
+	public Hashtable<String, String> getLongInformation() {
+		Hashtable<String, String> information = super.getInformation();
 
-    @Override
-    public Hashtable<String, String> getLongInformation() {
-        Hashtable<String, String> information = super.getInformation();
+		for (Emergency e : getEmergencies()) {
+			information.putAll(e.getLongInformation());
+		}
 
-        for (Emergency e : getEmergencies()) {
-            information.putAll(e.getLongInformation());
-        }
+		return information;
+	}
 
-        return information;
-    }
+	private DerivedUnitsNeeded getUnitsNeeded() {
+		return unitsNeeded;
+	}
 
-    private DerivedUnitsNeeded getUnitsNeeded() {
-        return unitsNeeded;
-    }
+	@Override
+	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+		this.getStatus().assignUnits(getUnitsNeeded(), units);
+	}
 
-    @Override
-    public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
-        ArrayList<Unit> options = new ArrayList<Unit>(units.size());
-        Iterator<Unit> it = units.iterator();
-        while (it.hasNext()) {
-            options.add(it.next());
-        }
+	@Override
+	public ArrayList<Unit> getWorkingUnits() {
+		return getUnitsNeeded().getWorkingUnits();
+	}
 
-        for (Emergency e : getEmergencies()) {
-            ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
-            Set<Unit> proposal = CUN.generateProposal(options);
-            getStatus().assignUnits(e.getUnitsNeeded(), proposal);
-            options.removeAll(proposal);
-        }
-    }
+	@Override
+	public boolean canAssignUnits(Set<Unit> units) {
+		return this.getStatus().canAssignUnits(getUnitsNeeded(), units);
+	}
 
-    @Override
-    public ArrayList<Unit> getWorkingUnits() {
-        ArrayList<Unit> workingUnits = new ArrayList<Unit>();
-        for (Emergency e : getEmergencies()) {
-            workingUnits.addAll(e.getWorkingUnits());
-        }
-        return workingUnits;
-    }
+	@Override
+	public boolean canBeResolved(Collection<Unit> availableUnits) {
+		return this.getStatus().canBeResolved(getUnitsNeeded(), availableUnits);
+	}
 
-    @Override
-    public boolean canAssignUnits(Set<Unit> units) {
-        for (Unit u : units) {
-            boolean used = false;
-            HashSet<Unit> unit = new HashSet<Unit>();
-            unit.add(u);
-            for (Emergency e : getEmergencies()) {
-                if (e.canAssignUnits(unit)) {
-                    used = true;
-                }
-            }
-            if (!used) {
-                return false;
-            }
-        }
-        return true;
-    }
+	@Override
+	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
+		//TODO implementeren
+		for (Emergency e : getEmergencies()) {
+			getStatus().finishUnit(e.getUnitsNeeded(), unitToFinish);
+		}
+	}
 
-    @Override
-    public boolean canBeResolved(Collection<Unit> availableUnits) {
-        return this.getStatus().canBeResolved(getUnitsNeeded(), availableUnits);
-    }
+	@Override
+	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
+		//TODO implementeren
+		for (Emergency e : getEmergencies()) {
+			getStatus().withdrawUnit(e.getUnitsNeeded(), unitToWithdraw);
+		}
+	}
 
-    @Override
-    void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
-        for (Emergency e : getEmergencies()) {
-            getStatus().finishUnit(e.getUnitsNeeded(), unitToFinish);
-        }
-    }
+	@Override
+	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+		Set<Unit> units = null;
+		if (getEmergencies().size() > 0) {
+			units = getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits);
+			for (int i = 1; i < getEmergencies().size(); ++i) {
+				units.addAll(getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits));
+			}
+		}
 
-    @Override
-    void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
-        for (Emergency e : getEmergencies()) {
-            getStatus().withdrawUnit(e.getUnitsNeeded(), unitToWithdraw);
-        }
-    }
-
-    @Override
-    public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
-        Set<Unit> units = null;
-        if (getEmergencies().size() > 0) {
-            units = getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits);
-            for (int i = 1; i < getEmergencies().size(); ++i) {
-                units.addAll(getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits));
-            }
-        }
-
-        return units;
-    }
+		return units;
+	}
 }

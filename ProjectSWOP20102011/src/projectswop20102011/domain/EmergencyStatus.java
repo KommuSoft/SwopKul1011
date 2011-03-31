@@ -21,9 +21,11 @@ public enum EmergencyStatus {
     RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
         @Override
-        protected void afterUnitsAssignment(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) {
+        protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
             try {
-                unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+				//TODO dit is hier een klein beetje aangepast om het gemakkelijker te maken, het origineel staat hier nog onder
+                //unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+				unitsNeeded.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
             } catch (InvalidEmergencyStatusException ex) {
                 //We assume this can't happen.
                 Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,7 +207,7 @@ public enum EmergencyStatus {
 	 *		If the emergency is invalid.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    void assignUnits(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+    void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
         if (!canAssignUnitsFromState()) {
             throw new InvalidEmergencyStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
         }
@@ -245,7 +247,7 @@ public enum EmergencyStatus {
      *      A list of units to check for.
      * @return True if the given list of units can be assigned, otherwise false (this also includes states where no allocation can be done).
      */
-    boolean canAssignUnits(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) {
+    boolean canAssignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) {
         return (this.canAssignUnitsFromState() && unitsNeeded.canAssignUnitsToEmergency(units));
     }
 
@@ -283,7 +285,7 @@ public enum EmergencyStatus {
      * @param unitsNeeded The ConcreteUnitsNeeded object of the Emergency.
      * @param units The Set of assigned Units.
      */
-    protected void afterUnitsAssignment(ConcreteUnitsNeeded unitsNeeded, Set<Unit> units) {
+    protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
     }
 
     /**

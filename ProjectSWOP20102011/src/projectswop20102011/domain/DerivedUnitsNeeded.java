@@ -2,11 +2,17 @@ package projectswop20102011.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidMapItemException;
 
 public class DerivedUnitsNeeded extends UnitsNeeded {
 
@@ -56,12 +62,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	@Override
 	public ArrayList<Unit> getWorkingUnits() {
-		ArrayList<Unit> units = new ArrayList<Unit>();
-		for (Emergency e : getDisaster().getEmergencies()) {
-			units.addAll(e.calculateUnitsNeeded().getWorkingUnits());
-		}
-
-		return units;
+		return (ArrayList<Unit>) workingUnits.clone();
 	}
 
 	/**
@@ -82,12 +83,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	@Override
 	public ArrayList<Unit> getFinishedUnits() {
-		ArrayList<Unit> units = new ArrayList<Unit>();
-		for (Emergency e : getDisaster().getEmergencies()) {
-			units.addAll(e.getUnitsNeeded().getFinishedUnits());
-		}
-
-		return units;
+		return (ArrayList<Unit>) finishedUnits.clone();
 	}
 
 	private AndDispatchUnitsConstraint getConstraint() {
@@ -107,7 +103,21 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 *          otherwise false.
 	 */
 	public boolean canAssignUnitsToEmergency(Set<Unit> units) {
-		throw new RuntimeException("Not yet implemented");
+		ArrayList<Unit> options = new ArrayList<Unit>(units.size());
+		Iterator<Unit> it = units.iterator();
+		while (it.hasNext()) {
+			options.add(it.next());
+		}
+		for (Emergency e : getDisaster().getEmergencies()) {
+			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
+			Set<Unit> unitsForEmergency = CUN.generateProposal(options);
+
+			if (unitsForEmergency.isEmpty() || !e.canAssignUnits(unitsForEmergency)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -124,8 +134,31 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
-	public synchronized void assignUnitsToEmergency(Set<Unit> units) {
-		throw new RuntimeException("Not yet implemented");
+	@Override
+	public synchronized void assignUnitsToEmergency(Set<Unit> units) throws InvalidEmergencyException {
+		ArrayList<Unit> options = new ArrayList<Unit>(units.size());
+		Iterator<Unit> it = units.iterator();
+		while (it.hasNext()) {
+			options.add(it.next());
+		}
+
+		if (!canAssignUnitsToEmergency(units)) {
+			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
+		}
+		for (Emergency e : getDisaster().getEmergencies()) {
+			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
+			Set<Unit> unitsForEmergency = CUN.generateProposal(options);
+			try {
+				e.assignUnits(unitsForEmergency);
+			} catch (InvalidEmergencyStatusException ex) {
+				//We assume this can't happen.
+				Logger.getLogger(DerivedUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			for (Unit u : unitsForEmergency) {
+				addWorkingUnits(u);
+			}
+			options.removeAll(unitsForEmergency);
+		}
 	}
 
 	@Override
@@ -163,7 +196,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		return getConstraint().generateProposal(calculateFixedPart(), options);
 	}
 
-
 	@Override
 	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		Set<Unit> units = null;
@@ -189,5 +221,12 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		completeCollection.addAll(takeWorkingUnits());
 		completeCollection.addAll(availableUnits);
 		return this.getConstraint().areValidDispatchUnits(completeCollection);
+	}
+
+	@Override
+	void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException {
+		for (Emergency e : getDisaster().getEmergencies()) {
+			e.setStatus(emergencyStatus);
+		}
 	}
 }

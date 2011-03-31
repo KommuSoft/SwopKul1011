@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
 public abstract class UnitsNeeded {
 
@@ -57,5 +58,11 @@ public abstract class UnitsNeeded {
 	 * @see #takeWorkingUnits()
 	 */
 	public abstract ArrayList<Unit> getWorkingUnits();
+
+	public abstract boolean canAssignUnitsToEmergency(Set<Unit> units);
+
+	abstract void assignUnitsToEmergency(Set<Unit> units) throws InvalidEmergencyException;
+
+	abstract void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException;
 
 }
