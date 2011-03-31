@@ -1,5 +1,7 @@
 package projectswop20102011.domain;
 
+import java.util.Collection;
+
 /**
  * A class that represents a GPSCoordinate.
  *
@@ -118,18 +120,18 @@ public class GPSCoordinate {
 
     /**
      * Calculates the average GPSCoordinate of a list of GPSCoordinates.
-     * @param coordinates An array of coordinates to calculate the average GPSCoordinate from.
+     * @param coordinates A collection of coordinates to calculate the average GPSCoordinate from.
      * @return The average GPSCoordinate, calculate by calculating the average of the x and y coordinates of the GPSCoordinates.
      */
-    public static GPSCoordinate calculateAverage (GPSCoordinate... coordinates) {
+    public static GPSCoordinate calculateAverage (Collection<GPSCoordinate> coordinates) {
         long xtot = 0;
         long ytot = 0;
         for(GPSCoordinate coor : coordinates) {
             xtot += coor.getX();
             ytot += coor.getY();
         }
-        xtot /= coordinates.length;
-        ytot /= coordinates.length;
+        xtot /= coordinates.size();
+        ytot /= coordinates.size();
         return new GPSCoordinate(xtot,ytot);
     }
 

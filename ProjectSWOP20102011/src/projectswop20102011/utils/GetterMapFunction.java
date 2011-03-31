@@ -45,7 +45,7 @@ public class GetterMapFunction<TSource, TDestination> extends MapFunction<TSourc
      * @return True if all the parameters are effective, the getterMethod is accessible, there are no parameters in the getterMethod, The method is part of the sourceClass and the return type is a subtype of or the destinationClass, otherwise false.
      */
     public static <TSource, TDestination> boolean isValidGetterMethod(Class<TSource> sourceClass, Class<TDestination> destinationClass, Method getterMethod) {
-        return (sourceClass != null && destinationClass != null && getterMethod != null && getterMethod.isAccessible() && getterMethod.getParameterTypes().length > 0 && getterMethod.getDeclaringClass().isAssignableFrom(sourceClass) && destinationClass.isAssignableFrom(getterMethod.getReturnType()));
+        return (sourceClass != null && destinationClass != null && getterMethod != null && getterMethod.getParameterTypes().length == 0 && getterMethod.getDeclaringClass().isAssignableFrom(sourceClass) && destinationClass.isAssignableFrom(getterMethod.getReturnType()));
     }
 
     /**
@@ -57,7 +57,7 @@ public class GetterMapFunction<TSource, TDestination> extends MapFunction<TSourc
     @Override
     public TDestination getFunctionResult(TSource source) throws Throwable {
         try {
-            return (TDestination) getterMethod.invoke(this);
+            return (TDestination) getterMethod.invoke(source);
         } catch (IllegalAccessException ex) {
             //We assume this can't happen
             Logger.getLogger(GetterMapFunction.class.getName()).log(Level.SEVERE, null, ex);
