@@ -131,12 +131,13 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        //Is vervangen naar de target ok?
-        if (getEmergency() == null) {
-            return getHomeLocation();
+        //TODO: Is vervangen naar de target ok? (nu geïmplementeerd, DELETE COMMENTED CODE)
+        return this.target.getTargetLocation();
+        /*if (getEmergency() == null) {
+        return getHomeLocation();
         } else {
-            return getEmergency().getLocation();
-        }
+        return getEmergency().getLocation();
+        }*/
     }
 
     /**
@@ -144,6 +145,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @return True if this unit was already at the site of emergency, false otherwise.
      */
     public boolean wasAlreadyAtSite() {
+        //TODO: waarom wordt deze boolean eigenlijk bijgehouden??
         return wasAlreadyAtSite;
     }
 
@@ -184,6 +186,16 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      */
     final void setEmergency(Emergency emergency) {
         this.emergency = emergency;
+        try {
+            if (emergency != null) {
+                this.setTarget(emergency);
+            } else {
+                this.setTarget(this);
+            }
+        } catch (InvalidTargetableException ex) {
+            //We assume this can't happen
+            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -387,7 +399,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * Sets the target where the Unit will drive to.
      * @param target The new target of the Unit.
      */
-    public void setTarget(Targetable target) throws InvalidTargetableException {
+    protected void setTarget(Targetable target) throws InvalidTargetableException {
         if (!isValidTarget(target)) {
             throw new InvalidTargetableException("The target must be effective.");
         }
