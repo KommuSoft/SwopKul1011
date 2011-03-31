@@ -3,6 +3,7 @@ package projectswop20102011.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -110,8 +111,17 @@ public class Disaster extends Sendable {
 
     @Override
     public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
-        for (Emergency e : getEmergencies()) {
-            getStatus().assignUnits(e.calculateUnitsNeeded(), units);
+		ArrayList<Unit> options = new ArrayList<Unit>(units.size());
+		Iterator<Unit> it = units.iterator();
+		while(it.hasNext()){
+			options.add(it.next());
+		}
+
+		for (Emergency e : getEmergencies()) {
+			ConcreteUnitsNeeded CUN = e.calculateUnitsNeeded();
+			Set<Unit> proposal = CUN.generateProposal(options);
+            getStatus().assignUnits(e.calculateUnitsNeeded(), proposal);
+			options.removeAll(proposal);
         }
     }
 

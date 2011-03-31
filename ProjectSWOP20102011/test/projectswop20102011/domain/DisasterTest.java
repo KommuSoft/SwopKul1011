@@ -6,6 +6,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -21,11 +22,14 @@ public class DisasterTest {
 	private Emergency e1, e2, e3, e4, e5, e6, e7, e8;
 	private GPSCoordinate l1, l2;
 	private long x1, y1, x2, y2;
+	private boolean armed1;
+	private boolean inProgress1;
 	private String description1;
 	private Disaster d;
 	private long speed1;
 	private GPSCoordinate homeLocation1;
 	private String name1;
+	private long capacity1;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
@@ -35,9 +39,11 @@ public class DisasterTest {
 		y2 = 65;
 		l1 = new GPSCoordinate(x1, y1);
 		l2 = new GPSCoordinate(x2, y2);
+		armed1 = true;
+		inProgress1 = false;
 
-		e1 = new Fire(l1, EmergencySeverity.BENIGN, "", FireSize.LOCAL, false, 0, 1337);
-		e2 = new PublicDisturbance(l2, EmergencySeverity.BENIGN, "", 1302);
+		e1 = new Robbery(l1, EmergencySeverity.BENIGN, "", armed1, inProgress1);
+		e2 = new PublicDisturbance(l2, EmergencySeverity.BENIGN, "", 6);
 		e3 = new Fire(l1, EmergencySeverity.NORMAL, "", FireSize.LOCAL, false, 0, 1337);
 		e4 = new PublicDisturbance(l2, EmergencySeverity.NORMAL, "", 1302);
 		e5 = new Fire(l1, EmergencySeverity.SERIOUS, "", FireSize.LOCAL, false, 0, 1337);
@@ -49,7 +55,8 @@ public class DisasterTest {
 
 		speed1 = 10;
 		homeLocation1 = new GPSCoordinate(10, 10);
-		name1 = "ziekenwagen1";
+		name1 = "Unit1";
+		capacity1 = 2000;
 	}
 
 	@Test
@@ -179,11 +186,28 @@ public class DisasterTest {
 		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, d.getStatus());
 
 		Set<Unit> units = new LinkedHashSet<Unit>();
-		Ambulance ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
-		units.add(ziekenwagen1);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
 
 		e1.assignUnits(units);
 		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		//TODO Testen op finished.
+	}
+
+	@Test
+	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException{
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		d.assignUnits(units);
 	}
 }
