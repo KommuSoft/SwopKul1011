@@ -117,6 +117,23 @@ public class GPSCoordinate {
     }
 
     /**
+     * Calculates the average GPSCoordinate of a list of GPSCoordinates.
+     * @param coordinates An array of coordinates to calculate the average GPSCoordinate from.
+     * @return The average GPSCoordinate, calculate by calculating the average of the x and y coordinates of the GPSCoordinates.
+     */
+    public static GPSCoordinate calculateAverage (GPSCoordinate... coordinates) {
+        long xtot = 0;
+        long ytot = 0;
+        for(GPSCoordinate coor : coordinates) {
+            xtot += coor.getX();
+            ytot += coor.getY();
+        }
+        xtot /= coordinates.length;
+        ytot /= coordinates.length;
+        return new GPSCoordinate(xtot,ytot);
+    }
+
+    /**
      * Returns the hascode of the current GPSCoordinate. An integer representing the coordinate.
      * @return the hascode of the current GPSCoordinate.
      */
