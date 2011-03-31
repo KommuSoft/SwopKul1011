@@ -40,6 +40,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * A variable registering whether a unit was already at the site of emergency.
      */
     private boolean wasAlreadyAtSite;
+    /**
+     * A variable registering the target where the Units will go to (for instance an emergency, a hospital or it's home location).
+     */
+    private Targetable target = this;
 
     /**
      * Initialize a new unit with given parameters.
@@ -222,7 +226,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      */
     private void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
-            this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(),(double) this.getSpeed()*duration/3600));
+            this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
         } else if (duration < 0) {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
         }

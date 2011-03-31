@@ -22,6 +22,7 @@ public abstract class Sendable implements Targetable {
          * Return the location of the Sendable.
          * @return the location of the Sendable.
          */
+    @Override
         public GPSCoordinate getTargetLocation () {
             return this.getLocation();
         }
