@@ -1,5 +1,8 @@
 package projectswop20102011.domain;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
@@ -21,6 +24,8 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
  *		|isValidHomeLocation(getHomeLocation())
  * @invar The speed of a unit is always valid.
  *		|isValidSpeed(getSpeed())
+ * @invar The target of the unit is always valid.
+ *              |isValidTarget(getTarget())
  */
 public abstract class Unit extends MapItem implements TimeSensitive {
 
@@ -43,7 +48,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     /**
      * A variable registering the target where the Units will go to (for instance an emergency, a hospital or it's home location).
      */
-    private Targetable target = this;
+    private Targetable target;
 
     /**
      * Initialize a new unit with given parameters.
@@ -77,6 +82,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         setCurrentLocation(homeLocation);
         setEmergency(null);
         setWasAlreadyAtSite(false);
+        try {
+            setTarget(this);
+        } catch (InvalidTargetableException ex) {
+            //We assume this can't happen.
+            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -227,6 +238,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     private void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
             this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
+            checkArrivedAtLocation();
         } else if (duration < 0) {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
         }
@@ -349,4 +361,47 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
         }
     }
+
+    /**
+     * A virtual method that will be called by the system when the unit is arrived at his location.
+     * @note This method can be called from two methods: changeLocation(long) and setTarget(Targetable).
+     * @see #setTarget(projectswop20102011.domain.Targetable)
+     * @see #changeLocation(long) 
+     */
+    protected void arrivedAtLocation () {}
+    /**
+     * Returns the target where the Unit is driving to.
+     * @return the target where the Unit is driving to.
+     */
+    public Targetable getTarget () {
+        return this.target;
+    }
+
+    /**
+     * Sets the target where the Unit will drive to.
+     * @param target The new target of the Unit.
+     */
+    public void setTarget (Targetable target) throws InvalidTargetableException {
+        if(!isValidTarget(target)) {
+            throw new InvalidTargetableException("The target must be effective.");
+        }
+        this.target = target;
+        checkArrivedAtLocation();
+    }
+
+    /**
+     * Checks if the given target is valid.
+     * @param target The target to check for.
+     * @return True if the target is effective, otherwise false.
+     */
+    public boolean isValidTarget(Targetable target) {
+        return (target != null);
+    }
+
+    private void checkArrivedAtLocation() {
+        if(this.getCurrentLocation().equals(this.getDestination())) {
+            this.arrivedAtLocation();
+        }
+    }
+
 }
