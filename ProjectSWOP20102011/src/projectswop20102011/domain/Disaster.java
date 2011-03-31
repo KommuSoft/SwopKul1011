@@ -13,10 +13,17 @@ public class Disaster extends Sendable {
     private final List<Emergency> emergencies;
     private DerivedUnitsNeeded unitsNeeded;
 
-    public Disaster(List<Emergency> emergencies, String description) {
+    public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException {
+		if(!areValidEmergencies(emergencies)){
+			throw new InvalidEmergencyException("The number of emergencies must be higher than one.");
+		}
         this.emergencies = emergencies;
         setDescription(description);
     }
+
+	private boolean areValidEmergencies(List<Emergency> emergencies) {
+		return !emergencies.isEmpty();
+	}
 
     public List<Emergency> getEmergencies() {
         return emergencies;
