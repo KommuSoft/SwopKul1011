@@ -8,6 +8,7 @@ import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.FiretruckFireSizeValidator;
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.NeededLitersDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
@@ -253,9 +254,11 @@ public class Fire extends Emergency {
 	protected ConcreteUnitsNeeded calculateUnitsNeeded()  {
 		try {
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
-			long firetrucks = units[0];
+			long numberOfLitersRequired = units[0];
 			long policecars = units[1];
-			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), firetrucks);
+			//TODO: getSize() mag hier waarschijnlijk nog weg en 
+			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
+			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new FiretruckFireSizeValidator(getSize()), numberOfLitersRequired);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

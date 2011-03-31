@@ -4,6 +4,7 @@ import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import projectswop20102011.domain.validators.NeededLitersDispatchUnitsConstraint;
 import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;
@@ -158,7 +159,7 @@ public class TrafficAccident extends Emergency {
 	@Override
 	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
-			DispatchUnitsConstraint fir = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1);
+			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1000);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured());
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
