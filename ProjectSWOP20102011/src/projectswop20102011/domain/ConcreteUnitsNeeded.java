@@ -102,7 +102,6 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @return True if all units needed for the emergency are finished; otherwise false.
 	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
 	 */
-	@Override
 	public boolean canCompleteEmergency() {
 		return getConstraint().areValidDispatchUnits(takeFinishedUnits());
 	}

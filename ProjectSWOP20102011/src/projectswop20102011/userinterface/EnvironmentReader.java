@@ -23,7 +23,7 @@ public class EnvironmentReader {
 	 */
 	private final ReadEnvironmentDataController controller;
 	private final Pattern REGEX_BUILDING = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\))$");
-	private final Pattern REGEX_UNIT = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\)),([0-9]+)(,(local|house|facility))?$");
+	private final Pattern REGEX_UNIT = Pattern.compile("^([A-Za-z0-9]+),([^,]+),(\\([^(,)]+,[^(,)]+\\)),([0-9]+)(,([0-9]+))?$");
 
 	/**
 	 * Creates a new instance of an EnvironmentReader with a given ReadEnvironmentDataController to manipulate the environment of the world.

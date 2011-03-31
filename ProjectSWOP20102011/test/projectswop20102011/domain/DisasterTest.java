@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidCapacityException;
+import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -60,7 +61,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testValidEmergencies() throws InvalidEmergencyException {
+	public void testValidEmergencies() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
 		d = new Disaster(emergencies, description1);
@@ -72,13 +73,13 @@ public class DisasterTest {
 	}
 
 	@Test(expected = InvalidEmergencyException.class)
-	public void testInValidEmergencies() throws InvalidEmergencyException {
+	public void testInValidEmergencies() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		d = new Disaster(emergencies, description1);
 	}
 
 	@Test
-	public void testLocation() throws InvalidEmergencyException {
+	public void testLocation() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
 		emergencies.add(e2);
@@ -87,7 +88,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testEmergencies() throws InvalidEmergencyException {
+	public void testEmergencies() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
 		emergencies.add(e2);
@@ -106,7 +107,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testSeverity() throws InvalidEmergencyException {
+	public void testSeverity() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
 		emergencies.add(e2);
@@ -177,7 +178,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testStatus() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void testStatus() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		//TODO Kan een disaster "recorded but unhandled" zijn?
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
@@ -195,7 +196,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -213,7 +214,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void testCanAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -234,7 +235,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanNotAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void testCanNotAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Ambulance ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		units.add(ziekenwagen1);
@@ -247,7 +248,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanBeResolved() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException {
+	public void testCanBeResolved() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -264,7 +265,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanNotBeResolved1() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException {
+	public void testCanNotBeResolved1() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Ambulance ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		units.add(ziekenwagen1);
@@ -277,7 +278,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanNotBeResolved2() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException {
+	public void testCanNotBeResolved2() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -288,6 +289,24 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		assertFalse(d.canBeResolved(units));
+		assertTrue(d.canBeResolved(units));
+	}
+
+	@Test
+	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException{
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+
+		assertFalse(true);
 	}
 }

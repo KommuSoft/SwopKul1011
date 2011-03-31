@@ -7,19 +7,21 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
 public class Disaster extends Sendable {
 
 	private final List<Emergency> emergencies;
-	private DerivedUnitsNeeded unitsNeeded;
+	private final DerivedUnitsNeeded unitsNeeded;
 
-	public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException {
+	public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException {
 		if (!areValidEmergencies(emergencies)) {
 			throw new InvalidEmergencyException("The number of emergencies must be higher than one.");
 		}
 		this.emergencies = emergencies;
+		unitsNeeded = new DerivedUnitsNeeded(this);
 		setDescription(description);
 	}
 
@@ -106,6 +108,10 @@ public class Disaster extends Sendable {
 		return information;
 	}
 
+	private DerivedUnitsNeeded getUnitsNeeded(){
+		return unitsNeeded;
+	}
+
 	@Override
 	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
 		ArrayList<Unit> options = new ArrayList<Unit>(units.size());
@@ -151,22 +157,7 @@ public class Disaster extends Sendable {
 
 	@Override
 	public boolean canBeResolved(Collection<Unit> availableUnits) {
-		ArrayList<Unit> options = new ArrayList<Unit>(availableUnits.size());
-		Iterator<Unit> it = availableUnits.iterator();
-		while (it.hasNext()) {
-			options.add(it.next());
-		}
-
-		for (Emergency e : getEmergencies()) {
-			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
-			Set<Unit> proposal = CUN.generateProposal(options);
-			if (!getStatus().canBeResolved(e.getUnitsNeeded(), proposal)) {
-				return false;
-			} else {
-				options.removeAll(proposal);
-			}
-		}
-		return true;
+		return this.getStatus().canBeResolved(getUnitsNeeded(), availableUnits);
 	}
 
 	@Override
@@ -179,7 +170,7 @@ public class Disaster extends Sendable {
 	@Override
 	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
 		for (Emergency e : getEmergencies()) {
-			getStatus().withdrawUnit(e.calculateUnitsNeeded(), unitToWithdraw);
+			getStatus().withdrawUnit(e.getUnitsNeeded(), unitToWithdraw);
 		}
 	}
 
@@ -187,9 +178,9 @@ public class Disaster extends Sendable {
 	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
 		Set<Unit> units = null;
 		if (getEmergencies().size() > 0) {
-			units = getStatus().getPolicyProposal(getEmergencies().get(0).calculateUnitsNeeded(), availableUnits);
+			units = getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits);
 			for (int i = 1; i < getEmergencies().size(); ++i) {
-				units.addAll(getStatus().getPolicyProposal(getEmergencies().get(0).calculateUnitsNeeded(), availableUnits));
+				units.addAll(getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits));
 			}
 		}
 

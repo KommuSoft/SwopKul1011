@@ -58,11 +58,4 @@ public abstract class UnitsNeeded {
 	 */
 	public abstract ArrayList<Unit> getWorkingUnits();
 
-	/**
-	 * Checks if the units needed for the emergency are all finished.
-	 * @return True if all units needed for the emergency are finished; otherwise false.
-	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
-	 */
-	public abstract boolean canCompleteEmergency();
-
 }
