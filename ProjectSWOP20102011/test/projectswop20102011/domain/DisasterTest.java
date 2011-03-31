@@ -195,7 +195,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException{
+	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -209,5 +209,85 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 		d.assignUnits(units);
+		assertEquals(3, d.getWorkingUnits().size());
+	}
+
+	@Test
+	public void testCanAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		assertTrue(d.canAssignUnits(units));
+
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+
+		d = new Disaster(emergencies, description1);
+		assertTrue(d.canAssignUnits(units));
+	}
+
+	@Test
+	public void testCanNotAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Ambulance ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
+		units.add(ziekenwagen1);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		assertFalse(d.canAssignUnits(units));
+	}
+
+	@Test
+	public void testCanBeResolved() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		assertTrue(d.canBeResolved(units));
+	}
+
+	@Test
+	public void testCanNotBeResolved1() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Ambulance ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
+		units.add(ziekenwagen1);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		assertFalse(d.canBeResolved(units));
+	}
+
+	@Test
+	public void testCanNotBeResolved2() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		assertFalse(d.canBeResolved(units));
 	}
 }

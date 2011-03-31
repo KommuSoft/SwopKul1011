@@ -194,7 +194,8 @@ public abstract class Emergency extends Sendable {
 	 * @note Handling dispatching and updating the status of the emergency is also done by this object.
 	 * @note The visibility of this method is package. No classes outside the domain have access to the ConcreteUnitsNeeded object.
 	 */
-	private synchronized ConcreteUnitsNeeded getUnitsNeeded() {
+	synchronized ConcreteUnitsNeeded getUnitsNeeded() {
+		//TODO deze methode staat nu package maar vroeger stond ze private, is dit een probleem?
 		if (this.unitsNeeded == null) {
 			this.unitsNeeded = calculateUnitsNeeded();
 		}
