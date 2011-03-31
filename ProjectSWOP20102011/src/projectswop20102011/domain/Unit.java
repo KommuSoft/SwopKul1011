@@ -106,7 +106,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         if (getEmergency() != null) {
             return getCurrentLocation().equals(getDestination());
         } else {
-            return false;
+            return false;//TODO: waarom wordt hier false teruggegeven? Wanneer hij geen opdracht heeft, test hij toch of de Unit terug op zijn HomeLocation staat?
         }
     }
 
@@ -131,6 +131,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
+        //Is vervangen naar de target ok?
         if (getEmergency() == null) {
             return getHomeLocation();
         } else {
@@ -237,8 +238,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      */
     private void changeLocation(long duration) throws InvalidDurationException {
         if (duration > 0) {
-            this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
-            checkArrivedAtLocation();
+            if (!this.isAtDestination()) {
+                this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
+                checkArrivedAtDestination();
+            }
         } else if (duration < 0) {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
         }
@@ -365,15 +368,18 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     /**
      * A virtual method that will be called by the system when the unit is arrived at his location.
      * @note This method can be called from two methods: changeLocation(long) and setTarget(Targetable).
+     * @note If this method is called from the changeLocation method, it will not call this method anymore unit it has a new target.
      * @see #setTarget(projectswop20102011.domain.Targetable)
      * @see #changeLocation(long) 
      */
-    protected void arrivedAtLocation () {}
+    protected void arrivedAtDestination() {
+    }
+
     /**
      * Returns the target where the Unit is driving to.
      * @return the target where the Unit is driving to.
      */
-    public Targetable getTarget () {
+    public Targetable getTarget() {
         return this.target;
     }
 
@@ -381,12 +387,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * Sets the target where the Unit will drive to.
      * @param target The new target of the Unit.
      */
-    public void setTarget (Targetable target) throws InvalidTargetableException {
-        if(!isValidTarget(target)) {
+    public void setTarget(Targetable target) throws InvalidTargetableException {
+        if (!isValidTarget(target)) {
             throw new InvalidTargetableException("The target must be effective.");
         }
         this.target = target;
-        checkArrivedAtLocation();
+        checkArrivedAtDestination();
     }
 
     /**
@@ -398,10 +404,13 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         return (target != null);
     }
 
-    private void checkArrivedAtLocation() {
-        if(this.getCurrentLocation().equals(this.getDestination())) {
-            this.arrivedAtLocation();
+    /**
+     * Checks if the Unit arrived at it's Destination and if so, calls the arrivedAtDestination method.
+     * @see #arrivedAtDestination() 
+     */
+    private void checkArrivedAtDestination() {
+        if (this.isAtDestination()) {
+            this.arrivedAtDestination();
         }
     }
-
 }
