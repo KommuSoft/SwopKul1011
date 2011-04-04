@@ -10,6 +10,10 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
 
+/**
+ * TODO: documentie-eren
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public class Disaster extends Sendable {
 
 	private final List<Emergency> emergencies;
