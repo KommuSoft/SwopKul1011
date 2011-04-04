@@ -3,8 +3,8 @@ package projectswop20102011.domain;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -115,27 +115,23 @@ public class Ambulance extends Unit {
      * Finishes the job of the ambulance.
      * @effect the selected hospital of this ambulance is null
      *		| this.getHospital().equals(null)
-     * @throws InvalidEmergencyException
-     *		If the unit is not assigned to an emergency.
-     * @throws InvalidLocationException
-     *		If the unit is not at the location of the emergency.
      * @throws InvalidEmergencyStatusException
      *		If the emergency status is invalid.
-     * @throws Exception
-     *		If an error occured.
      */
     @Override
-    public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException {
-        if (isAssigned()) {
-            if (getCurrentHospital() != null && this.isAtDestination()) {
-                getEmergency().finishUnit(this);
-                setEmergency(null);
-                setWasAlreadyAtSite(false);
-            } else {
-                throw new InvalidLocationException("The unit is not at its destination.");
-            }
-        } else {
-            throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
-        }
+    public void finishedJob() throws InvalidFinishJobException, InvalidEmergencyStatusException {
+        super.finishedJob();
+        getEmergency().finishUnit(this);
+        setEmergency(null);
+        setWasAlreadyAtSite(false);
+    }
+
+    /**
+     * Tests if the unit can finish it's job.
+     * @return True if the conditions for a unit are true and the unit current hospital is effective, otherwise false.
+     */
+    @Override
+    public boolean canFinishJob() {
+        return (super.canFinishJob() && getCurrentHospital() != null);
     }
 }
