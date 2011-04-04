@@ -1,7 +1,5 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -9,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
 
@@ -113,22 +110,6 @@ public class Disaster extends Sendable {
 	@Override
 	DerivedUnitsNeeded getUnitsNeeded() {
 		return unitsNeeded;
-	}
-
-	@Override
-	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
-		//TODO implementeren
-		for (Emergency e : getEmergencies()) {
-			getStatus().finishUnit(e.getUnitsNeeded(), unitToFinish);
-		}
-	}
-
-	@Override
-	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
-		//TODO implementeren
-		for (Emergency e : getEmergencies()) {
-			getStatus().withdrawUnit(e.getUnitsNeeded(), unitToWithdraw);
-		}
 	}
 
 	@Override

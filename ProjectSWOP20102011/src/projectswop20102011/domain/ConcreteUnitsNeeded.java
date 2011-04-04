@@ -99,15 +99,6 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Checks if the units needed for the emergency are all finished.
-	 * @return True if all units needed for the emergency are finished; otherwise false.
-	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
-	 */
-	public boolean canCompleteEmergency() {
-		return getConstraint().areValidDispatchUnits(takeFinishedUnits());
-	}
-
-	/**
 	 * Add a given unit to the working units.
 	 * @param unit
 	 *      The unit that must be added to the working units.
@@ -170,7 +161,8 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		only visible at private level and returns the real list.
 	 * @see #getFinishedUnits()
 	 */
-	private ArrayList<Unit> takeFinishedUnits() {
+	@Override
+	ArrayList<Unit> takeFinishedUnits() {
 		return finishedUnits;
 	}
 
@@ -191,6 +183,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Returns the constraint of this ConcreteUnitsNeeded.
 	 * @return The constraint used by this ConcreteUnitsNeeded.
 	 */
+	@Override
 	DispatchUnitsConstraint getConstraint() {
 		return constraint;
 	}
@@ -334,16 +327,6 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Withdraw a unit from its emergency.
-	 * @param unit
-	 *		The unit that wants to withdraw.
-	 * @effect The unit is removed from the workingUnits list.
-	 */
-	void withdrawUnit(Unit unit) {
-		removeFromWorkingUnits(unit);
-	}
-
-	/**
 	 * Calculates the fixed part of this ConcreteUnitsNeeded. I.e. The working and finished units.
 	 * @return The fixed part of this ConcreteUnitsNeeded.
 	 */
@@ -391,5 +374,16 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	@Override
 	void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException {
 		getEmergency().setStatus(emergencyStatus);
+	}
+
+	/**
+	 * Withdraw a unit from its emergency.
+	 * @param unit
+	 *		The unit that wants to withdraw.
+	 * @effect The unit is removed from the workingUnits list.
+	 */
+	@Override
+	void withdrawUnit(Unit unit) {
+		removeFromWorkingUnits(unit);
 	}
 }

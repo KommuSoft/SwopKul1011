@@ -1,14 +1,10 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -201,32 +197,6 @@ public abstract class Emergency extends Sendable {
 			this.unitsNeeded = calculateUnitsNeeded();
 		}
 		return this.unitsNeeded;
-	}
-
-	/**
-	 * Enable a unit to finish his job for this emergency.
-	 * @param unitToFinish
-	 *      The unit that wants to finish this emergency.
-	 * @throws InvalidEmergencyStatusException
-	 *      If the status of this emergency does not allow this action.
-	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
-	 */
-	@Override
-	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
-		this.getStatus().finishUnit(this.getUnitsNeeded(), unitToFinish);
-	}
-
-	/**
-	 * Withdraws a unit from this emergency.
-	 * @param unitToWithdraw
-	 *      The unit that wants to withdraw from this emergency.
-	 * @throws InvalidEmergencyStatusException
-	 *      If the status of this emergency does not allow this action.
-	 * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
-	 */
-	@Override
-	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
-		this.getStatus().withdrawUnit(this.getUnitsNeeded(), unitToWithdraw);
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 
@@ -65,4 +66,24 @@ public abstract class UnitsNeeded {
 
 	abstract void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException;
 
+	/**
+	 * Checks if the units needed for the emergency are all finished.
+	 * @return True if all units needed for the emergency are finished; otherwise false.
+	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
+	 */
+	public boolean canCompleteEmergency() {
+		return getConstraint().areValidDispatchUnits(takeFinishedUnits());
+	}
+
+	abstract DispatchUnitsConstraint getConstraint();
+
+	abstract ArrayList<Unit> takeFinishedUnits();
+
+	/**
+	 * Withdraw a unit from its emergency.
+	 * @param unit
+	 *		The unit that wants to withdraw.
+	 * @effect The unit is removed from the workingUnits list.
+	 */
+	abstract void withdrawUnit(Unit unit);
 }

@@ -12,7 +12,6 @@ import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
-import projectswop20102011.exceptions.InvalidMapItemException;
 
 public class DerivedUnitsNeeded extends UnitsNeeded {
 
@@ -77,7 +76,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		return workingUnits;
 	}
 
-	private ArrayList<Unit> takeFinishedUnits() {
+	ArrayList<Unit> takeFinishedUnits() {
 		return finishedUnits;
 	}
 
@@ -86,7 +85,8 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		return (ArrayList<Unit>) finishedUnits.clone();
 	}
 
-	private AndDispatchUnitsConstraint getConstraint() {
+	@Override
+	DispatchUnitsConstraint getConstraint() {
 		return constraint;
 	}
 
@@ -178,6 +178,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		takeWorkingUnits().remove(unit);
 	}
 
+	@Override
 	void withdrawUnit(Unit unit) {
 		for (Emergency e : getDisaster().getEmergencies()) {
 			e.calculateUnitsNeeded().withdrawUnit(unit);

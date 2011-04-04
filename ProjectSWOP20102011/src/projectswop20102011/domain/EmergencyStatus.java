@@ -33,12 +33,12 @@ public enum EmergencyStatus {
         }
 
         @Override
-        void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
         }
 
         @Override
-        void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Can't withdraw units from an unhandled emergency.");
         }
 
@@ -63,11 +63,11 @@ public enum EmergencyStatus {
     RESPONSE_IN_PROGRESS("response in progress") {
 
         @Override
-        void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) {
+        void finishUnit(UnitsNeeded unitsNeeded, Unit unit) {
             unitsNeeded.unitFinishedJob(unit);
             if (unitsNeeded.canCompleteEmergency()) {
                 try {
-                    unitsNeeded.getEmergency().setStatus(COMPLETED);
+                    unitsNeeded.setStatus(COMPLETED);
                 } catch (InvalidEmergencyStatusException ex) {
                     //We assume this can't happen
                     Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,7 +76,7 @@ public enum EmergencyStatus {
         }
 
         @Override
-        void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) {
+        void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) {
             unitsNeeded.withdrawUnit(unit);
         }
 
@@ -106,12 +106,12 @@ public enum EmergencyStatus {
     COMPLETED("completed") {
 
         @Override
-        void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Unable to finish units from a completed emergency.");
         }
 
         @Override
-        void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
+        void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
             throw new InvalidEmergencyStatusException("Unable to withdraw units from a competed emergency.");
         }
 
@@ -225,7 +225,7 @@ public enum EmergencyStatus {
      *      If the status of the emergency is invalid.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void finishUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
+    abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
 
     /**
      * A method that handles a situation where a given unit withdraws from a given emergency.
@@ -237,7 +237,7 @@ public enum EmergencyStatus {
      *      If the status of the emergency is invalid.
      * @note This method has a package visibility: Only the emergency class can call this method.
      */
-    abstract void withdrawUnit(ConcreteUnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
+    abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
 
     /**
      * A method that checks if the given units can be assigned to the given emergency.

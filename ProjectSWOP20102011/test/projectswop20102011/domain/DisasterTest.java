@@ -76,7 +76,7 @@ public class DisasterTest {
 	public void testInValidEmergencies() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		d = new Disaster(emergencies, description1);
-		
+
 	}
 
 	@Test
@@ -292,7 +292,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException{
+	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -310,7 +310,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testWithdrawUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException{
+	public void testWithdrawUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -325,5 +325,18 @@ public class DisasterTest {
 		d = new Disaster(emergencies, description1);
 
 		assertFalse(true);
+	}
+
+	@Test
+	public void testIsPartiallyAssigned() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+		d.assignUnits(units);
+		assertTrue(d.isPartiallyAssigned());
 	}
 }
