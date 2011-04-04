@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidDurationException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidLocationException;

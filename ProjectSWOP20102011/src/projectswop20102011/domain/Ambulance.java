@@ -3,8 +3,6 @@ package projectswop20102011.domain;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
-import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -13,7 +11,6 @@ import projectswop20102011.exceptions.InvalidTargetableException;
 
 /**
  * A class that represents an ambulance.
- *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Ambulance extends Unit {

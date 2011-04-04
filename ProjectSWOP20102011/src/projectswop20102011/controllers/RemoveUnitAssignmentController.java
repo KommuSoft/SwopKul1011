@@ -11,7 +11,7 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- *
+ * TODO: controller documentie-eren
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class RemoveUnitAssignmentController extends Controller {
@@ -30,7 +30,7 @@ public class RemoveUnitAssignmentController extends Controller {
         return selectedEmergency.getWorkingUnits();
     }
 
-    public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidEmergencyException, InvalidEmergencyStatusException, InvalidMapItemException {
+    public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidEmergencyStatusException, InvalidMapItemException {
         if (unit != null) {
             unit.withdraw();
         } else {
