@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -292,7 +293,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException, InvalidDurationException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -305,12 +306,30 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
+		System.out.println(d.getStatus());
+		d.assignUnits(units);
+		
+		politiewagen1.timeAhead(1000000000);
+		politiewagen2.timeAhead(1000000000);
+		politiewagen3.timeAhead(1000000000);
 
-		assertFalse(true);
+		System.out.println(d.getStatus());
+		d.finishUnit(politiewagen1);
+		System.out.println("1 " + d.getStatus());
+		System.out.println("\te1 " + e1.getStatus());
+		System.out.println("\te2 " + e2.getStatus());
+		d.finishUnit(politiewagen2);
+		System.out.println("2 " + d.getStatus());
+		System.out.println("\te1 " + e1.getStatus());
+		System.out.println("\te2 " + e2.getStatus());
+		d.finishUnit(politiewagen3);
+		System.out.println("3 " + d.getStatus());
+		System.out.println("\te1 " + e1.getStatus());
+		System.out.println("\te2 " + e2.getStatus());
 	}
 
 	@Test
-	public void testWithdrawUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testWithdrawUnit() throws InvalidMapItemNameException, InvalidLocationException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException, InvalidDurationException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -324,7 +343,16 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 
-		assertFalse(true);
+		d.assignUnits(units);
+
+		politiewagen1.timeAhead(1000000000);
+		politiewagen2.timeAhead(1000000000);
+		politiewagen3.timeAhead(1000000000);
+
+		d.withdrawUnit(politiewagen1);
+		d.withdrawUnit(politiewagen2);
+		d.withdrawUnit(politiewagen3);
+
 	}
 
 	@Test

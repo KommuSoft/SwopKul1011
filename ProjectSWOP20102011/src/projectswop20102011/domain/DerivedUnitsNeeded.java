@@ -163,9 +163,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	@Override
 	void unitFinishedJob(Unit unit) {
-		for (Emergency e : getDisaster().getEmergencies()) {
-			e.calculateUnitsNeeded().unitFinishedJob(unit);
-		}
 		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
 	}
@@ -175,6 +172,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	private void removeFromWorkingUnits(Unit unit) {
+		unit.setEmergency(null);
 		takeWorkingUnits().remove(unit);
 	}
 
