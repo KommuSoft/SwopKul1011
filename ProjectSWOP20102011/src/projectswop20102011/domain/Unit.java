@@ -6,6 +6,7 @@ import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemException;
@@ -131,13 +132,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        //TODO: Is vervangen naar de target ok? (nu geïmplementeerd, DELETE COMMENTED CODE)
         return this.target.getTargetLocation();
-        /*if (getEmergency() == null) {
-        return getHomeLocation();
-        } else {
-        return getEmergency().getLocation();
-        }*/
     }
 
     /**
@@ -316,20 +311,24 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *		|this.setEmergency(null)
      * @throws InvalidWithdrawalException
      *			If the unit is already at site of the emergency.
-     * @throws InvalidEmergencyException
-     *			If the unit isn't assigned to an emergency.
      * @throws InvalidEmergencyStatusException
      *                  If the emergency of this unit is in a state where the unit cannot withdraw.
      */
-    public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyException, InvalidEmergencyStatusException {
-        if (!this.isAssigned()) {
-            throw new InvalidEmergencyException("The unit is not assigned to an emergency, so it can't be withdrawn.");
+    public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyStatusException {
+        if (!canBeWithdrawn()) {
+            throw new InvalidWithdrawalException("Unit can't be withdrawn.");
+        } else {
+            this.getEmergency().withdrawUnit(this);
+            this.setEmergency(null);
         }
-        if (this.wasAlreadyAtSite()) {
-            throw new InvalidWithdrawalException("The unit was already at site of the emergency, so it can't be withdrawn.");
-        }
-        this.getEmergency().withdrawUnit(this);
-        this.setEmergency(null);
+    }
+
+    /**
+     * Checks if the unit can be withdrawn.
+     * @return True if the unit is assigned to an emergency and was alread at the site of the emergency, otherwise false.
+     */
+    public boolean canBeWithdrawn() {
+        return (this.isAssigned() && !this.wasAlreadyAtSite());
     }
 
     /**
@@ -358,23 +357,27 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *		| this.getEmergency().equals(null)
      * @effect The flag wasAlreadyAtSite is set to false.
      *		|this.getWasAlreadyAtSite().equals(false)
-     * @throws InvalidEmergencyException
-     *		If the unit is not assigned to an emergency.
-     * @throws InvalidLocationException
-     *		If the unit is not at the location of the emergency.
+     * @throws InvalidFinishJobException
+     *          If the unit can't finish his job (not assigned to an emergency, not at it's destination).
+     * @throws InvalidEmergencyStatusException
+     *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
      */
-    public void finishedJob() throws InvalidEmergencyException, InvalidLocationException, InvalidEmergencyStatusException {
-        if (isAssigned()) {
-            if (isAtDestination()) {
-                getEmergency().finishUnit(this);
-                setEmergency(null);
-                setWasAlreadyAtSite(false);
-            } else {
-                throw new InvalidLocationException("The unit is not at it's destination.");
-            }
+    public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {
+        if (!canBeWithdrawn()) {
+            throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
-            throw new InvalidEmergencyException("The unit is not assigned to an emergency so it can't finishes its job.");
+            getEmergency().finishUnit(this);
+            setEmergency(null);
+            setWasAlreadyAtSite(false);
         }
+    }
+
+    /**
+     * Checks if the unit can finish from it's job.
+     * @return True if the unit is assigned and is at it's destination, orherwise false.
+     */
+    public boolean canFinishJob() {
+        return (isAssigned() && isAtDestination());
     }
 
     /**
