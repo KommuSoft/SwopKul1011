@@ -110,28 +110,9 @@ public class Disaster extends Sendable {
 		return information;
 	}
 
-	private DerivedUnitsNeeded getUnitsNeeded() {
+	@Override
+	DerivedUnitsNeeded getUnitsNeeded() {
 		return unitsNeeded;
-	}
-
-	@Override
-	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
-		this.getStatus().assignUnits(getUnitsNeeded(), units);
-	}
-
-	@Override
-	public ArrayList<Unit> getWorkingUnits() {
-		return getUnitsNeeded().getWorkingUnits();
-	}
-
-	@Override
-	public boolean canAssignUnits(Set<Unit> units) {
-		return this.getStatus().canAssignUnits(getUnitsNeeded(), units);
-	}
-
-	@Override
-	public boolean canBeResolved(Collection<Unit> availableUnits) {
-		return this.getStatus().canBeResolved(getUnitsNeeded(), availableUnits);
 	}
 
 	@Override

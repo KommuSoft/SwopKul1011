@@ -180,7 +180,6 @@ public class DisasterTest {
 
 	@Test
 	public void testStatus() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
-		//TODO Kan een disaster "recorded but unhandled" zijn?
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
 		emergencies.add(e2);
