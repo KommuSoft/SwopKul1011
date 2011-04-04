@@ -112,21 +112,6 @@ public class Ambulance extends Unit {
     }
 
     /**
-     * Finishes the job of the ambulance.
-     * @effect the selected hospital of this ambulance is null
-     *		| this.getHospital().equals(null)
-     * @throws InvalidEmergencyStatusException
-     *		If the emergency status is invalid.
-     */
-    @Override
-    public void finishedJob() throws InvalidFinishJobException, InvalidEmergencyStatusException {
-        super.finishedJob();
-        getEmergency().finishUnit(this);
-        setEmergency(null);
-        setWasAlreadyAtSite(false);
-    }
-
-    /**
      * Tests if the unit can finish it's job.
      * @return True if the conditions for a unit are true and the unit current hospital is effective, otherwise false.
      */
