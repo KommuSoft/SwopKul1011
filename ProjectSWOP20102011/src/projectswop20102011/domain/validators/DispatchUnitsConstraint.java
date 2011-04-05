@@ -12,7 +12,7 @@ import projectswop20102011.domain.Unit;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class DispatchUnitsConstraint {
-
+//TODO: De commentaar in deze klasse die na 2 /'en staat is bedoeld voor het zelf beter te snappen, kan dan later nog verwijderd worden.
     /**
      * Checks if the given list of units passes this constraint and all units are relevant to this constraint.
      * @param units
@@ -22,6 +22,9 @@ public abstract class DispatchUnitsConstraint {
      */
     public boolean areAllUnitsRelevantAndConstraintPassed(Collection<Unit> units) {
         HashSet<Integer> relevantIndices = new HashSet<Integer>();
+		//in onderstaande methode-oproep wordt ook de hashset relevantIndices aangepast,
+		//met indexen die overeenkomen met de indexen van units (in de arraylist units) die relevant zijn.
+		//relevant zijn = units die nodig zijn voor de emergency, maar ook niet meer dan nodig (denk ik)
         if(areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices)) {
 			return false;
 		}
@@ -41,6 +44,8 @@ public abstract class DispatchUnitsConstraint {
      * @return True if all units are relevant for the constraint, otherwise false.
      */
     public boolean areAllUnitsRelevant(Collection<Unit> units) {
+		//Deze methode doet hetzelfde als bovenstaand, uitgezonderd dat er niet gecheckt wordt op validdispatchunits
+		//TODO: Waarom moet er niet gecheckt worden op areValidDispatchUnits (zoals in bovenstaande methode).
         HashSet<Integer> relevantIndices = new HashSet<Integer>();
         areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices);
         for(int i = 0; i < units.size(); i++) {
@@ -59,6 +64,7 @@ public abstract class DispatchUnitsConstraint {
      * @return True if this constraint passes by the given units.
      */
     public boolean areValidDispatchUnits(Collection<Unit> units) {
+		//TODO: Wat zou het verschil zijn als dit onderstaande lijntje code weg is?
         return areValidDispatchUnits(new ArrayList<Unit>(units), new HashSet<Integer>());
     }
 
@@ -88,8 +94,10 @@ public abstract class DispatchUnitsConstraint {
         ArrayList<Unit> combinedParts = new ArrayList<Unit>(fixedPart);
         combinedParts.addAll(variablePart);
         HashSet<Integer> proposalIndices = new HashSet<Integer>();
+		//TODO: De volgorde van units in combinedParts in de lijst is hier waarschijnlijk belangrijk?
         this.areValidDispatchUnits(combinedParts, proposalIndices);
 
+		//verwijder de indexen die overeenkomen met units die aan het werken zijn of al eens gefinished zijn
         for(int i = 0; i < n; i++) {
             if (!proposalIndices.remove(i)) {
                 return new HashSet<Unit>();

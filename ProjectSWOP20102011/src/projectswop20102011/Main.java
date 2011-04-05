@@ -51,11 +51,13 @@ public class Main {
 
 	private static World initWorld() throws Exception {
 		World world = new World();
+
 		EmergencyFactoryList efl = world.getEmergencyFactoryList();
 		efl.addEmergencyFactory(new FireFactory());
 		efl.addEmergencyFactory(new TrafficAccidentFactory());
 		efl.addEmergencyFactory(new RobberyFactory());
 		efl.addEmergencyFactory(new PublicDisturbanceFactory());
+
 		ParserList pl = world.getParserList();
 		pl.addParser(new BooleanParser());
 		pl.addParser(new EmergencySeverityParser());
@@ -64,6 +66,7 @@ public class Main {
 		pl.addParser(new IntegerParser());
 		pl.addParser(new LongParser());
 		pl.addParser(new StringParser());
+		
 		return world;
 	}
 

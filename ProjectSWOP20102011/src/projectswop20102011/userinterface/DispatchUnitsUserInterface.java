@@ -62,6 +62,7 @@ public class DispatchUnitsUserInterface extends CommandUserInterface {
 				try {
 					Set<Unit> suggestedUnits = this.getController().getUnitsByPolicy(selectedEmergency);
 					ArrayList<Unit> suggestedUnitsL = new ArrayList<Unit>(suggestedUnits);
+					//print information for the suggested units
 					for (int i = 0; i < suggestedUnitsL.size(); i++) {
 						Unit u = suggestedUnitsL.get(i);
 						double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
