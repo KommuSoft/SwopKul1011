@@ -20,7 +20,7 @@ public abstract class DispatchUnitsConstraint {
      * @pre All the elements in units are effective.
      * @return True if the given list passes the constraints and all the units are used, otherwise false.
      */
-    public boolean areAllUnitsReleventAndConstraintPassed(Collection<Unit> units) {
+    public boolean areAllUnitsRelevantAndConstraintPassed(Collection<Unit> units) {
         HashSet<Integer> relevantIndices = new HashSet<Integer>();
         if(areValidDispatchUnits(new ArrayList<Unit>(units), relevantIndices)) {
 			return false;

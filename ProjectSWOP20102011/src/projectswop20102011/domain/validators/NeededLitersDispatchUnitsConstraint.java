@@ -2,8 +2,6 @@ package projectswop20102011.domain.validators;
 
 import java.util.List;
 import java.util.Set;
-import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
@@ -110,7 +108,8 @@ public class NeededLitersDispatchUnitsConstraint extends DispatchUnitsConstraint
 	@Override
 	public boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantIndices) {
 		long needed = this.getNumberOfLitersRequired();
-		if (needed == 0) {
+		//TODO: Dit moet dan nog eens gecontroleerd worden
+		if (needed <= 0) {
 			return true;
 		}
 
