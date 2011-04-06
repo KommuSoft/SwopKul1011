@@ -223,21 +223,22 @@ public class NeededLitersDispatchUnitsConstraintTest {
 		assertTrue(c7.areValidDispatchUnits(units135));
 		
 		//500000 liters are required
-		assertFalse(c6.areValidDispatchUnits(units1));
-		assertFalse(c6.areValidDispatchUnits(units2));
-		assertFalse(c6.areValidDispatchUnits(units3));
-		assertTrue(c6.areValidDispatchUnits(units4));
-		assertFalse(c6.areValidDispatchUnits(units12));
-		assertFalse(c6.areValidDispatchUnits(units13));
-		assertTrue(c6.areValidDispatchUnits(units14));
-		assertFalse(c6.areValidDispatchUnits(units23));
-		assertTrue(c6.areValidDispatchUnits(units24));
-		assertTrue(c6.areValidDispatchUnits(units34));
-		assertFalse(c6.areValidDispatchUnits(units123));
-		assertTrue(c6.areValidDispatchUnits(units124));
-		assertTrue(c6.areValidDispatchUnits(units134));
-		assertTrue(c6.areValidDispatchUnits(units234));
-		assertTrue(c6.areValidDispatchUnits(units1234));
+		c7 = new AndDispatchUnitsConstraint(c6);
+		assertFalse(c7.areValidDispatchUnits(units1));
+		assertFalse(c7.areValidDispatchUnits(units2));
+		assertFalse(c7.areValidDispatchUnits(units3));
+		assertTrue(c7.areValidDispatchUnits(units4));
+		assertFalse(c7.areValidDispatchUnits(units12));
+		assertFalse(c7.areValidDispatchUnits(units13));
+		assertTrue(c7.areValidDispatchUnits(units14));
+		assertFalse(c7.areValidDispatchUnits(units23));
+		assertTrue(c7.areValidDispatchUnits(units24));
+		assertTrue(c7.areValidDispatchUnits(units34));
+		assertFalse(c7.areValidDispatchUnits(units123));
+		assertTrue(c7.areValidDispatchUnits(units124));
+		assertTrue(c7.areValidDispatchUnits(units134));
+		assertTrue(c7.areValidDispatchUnits(units234));
+		assertTrue(c7.areValidDispatchUnits(units1234));
 		
 	}
 }
