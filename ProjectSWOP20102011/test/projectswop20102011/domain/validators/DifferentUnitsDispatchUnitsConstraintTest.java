@@ -224,9 +224,4 @@ public class DifferentUnitsDispatchUnitsConstraintTest {
 		assertTrue(c9.areValidDispatchUnits(units111));
 		assertTrue(c9.areValidDispatchUnits(units1111));
 	}
-
-	@Test
-	public void testDuplicateInList(){
-
-	}
 }
