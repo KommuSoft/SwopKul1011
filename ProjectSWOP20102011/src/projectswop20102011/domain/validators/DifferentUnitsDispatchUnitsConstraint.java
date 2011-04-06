@@ -100,7 +100,7 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 		Unit u;
 		for (int i = 0; i < units.size(); i++) {
 			u = units.get(i);
-			if (uv.isValid(u) & !duplicateInList(units,u)) {
+			if (uv.isValid(u) && !duplicateInList(units,i)) {
 				relevantIndices.add(i);
 				if (++n >= needed) {
 					return true;
@@ -112,8 +112,8 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 
 	}
 
-	private boolean duplicateInList(List<Unit> units, Unit u){
-		int n = units.indexOf(u);
+	private boolean duplicateInList(List<Unit> units, int n){
+		Unit u = units.get(n);
 		for(int j=0;j<n;j++){
 			if(units.get(j).equals(u)){
 				return true;
