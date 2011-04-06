@@ -64,7 +64,6 @@ public abstract class DispatchUnitsConstraint {
      * @return True if this constraint passes by the given units.
      */
     public boolean areValidDispatchUnits(Collection<Unit> units) {
-		//TODO: Wat zou het verschil zijn als dit onderstaande lijntje code weg is?
         return areValidDispatchUnits(new ArrayList<Unit>(units), new HashSet<Integer>());
     }
 
