@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.DifferentUnitsDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.NeededLitersDispatchUnitsConstraint;
@@ -259,7 +260,7 @@ public class Fire extends Emergency {
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
 			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), numberOfLitersRequired);
 			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
-			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
+			DispatchUnitsConstraint pol = new DifferentUnitsDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
 			return un;
