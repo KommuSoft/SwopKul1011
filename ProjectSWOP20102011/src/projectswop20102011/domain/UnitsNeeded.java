@@ -77,8 +77,6 @@ public abstract class UnitsNeeded {
 
 	abstract DispatchUnitsConstraint getConstraint();
 
-	abstract ArrayList<Unit> takeFinishedUnits();
-
 	/**
 	 * Withdraw a unit from its emergency.
 	 * @param unit
@@ -86,4 +84,6 @@ public abstract class UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 */
 	abstract void withdrawUnit(Unit unit);
+
+	abstract ArrayList<Unit> takeFinishedUnits();
 }

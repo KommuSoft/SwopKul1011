@@ -142,17 +142,4 @@ public class Disaster extends Sendable {
 	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
 		this.getStatus().finishUnit(unitToFinish.getEmergency().getUnitsNeeded(), unitToFinish);
 	}
-
-//	/**
-//	 * Withdraws a unit from this emergency.
-//	 * @param unitToWithdraw
-//	 *      The unit that wants to withdraw from this emergency.
-//	 * @throws InvalidEmergencyStatusException
-//	 *      If the status of this emergency does not allow this action.
-//	 * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
-//	 */
-//	@Override
-//	void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
-//		this.getStatus().withdrawUnit(unitToWithdraw.getEmergency().getUnitsNeeded(), unitToWithdraw);
-//	}
 }

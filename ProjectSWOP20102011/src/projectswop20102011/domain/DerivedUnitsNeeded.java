@@ -17,8 +17,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	private final Disaster disaster;
 	private final AndDispatchUnitsConstraint constraint;
-	private ArrayList<Unit> workingUnits;
-	private ArrayList<Unit> finishedUnits;
 
 	DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException {
 		this.disaster = disaster;
@@ -27,14 +25,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		for (int i = 0; i < disaster.getEmergencies().size(); ++i) {
 			constraints[i] = disaster.getEmergencies().get(i).getDispatchConstraint();
 		}
-
 		constraint = new AndDispatchUnitsConstraint(constraints);
-		initUnits();
-	}
-
-	private void initUnits() {
-		workingUnits = new ArrayList<Unit>();
-		finishedUnits = new ArrayList<Unit>();
 	}
 
 	/**
@@ -61,28 +52,20 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	@Override
 	public ArrayList<Unit> getWorkingUnits() {
-		return (ArrayList<Unit>) workingUnits.clone();
-	}
-
-	/**
-	 * Returns the working units of the emergency.
-	 * @return The working units of the emergency.
-	 * @note The difference between takeWorkingUnits and getWorkingUnits is that
-	 *		getWorkingUnits first clones the list, takeWorkingUnits is only
-	 *		visible at private level and returns the real list.
-	 * @see #getWorkingUnits()
-	 */
-	private ArrayList<Unit> takeWorkingUnits() {
-		return workingUnits;
-	}
-
-	ArrayList<Unit> takeFinishedUnits() {
-		return finishedUnits;
+		ArrayList<Unit> result = new ArrayList<Unit>();
+		for(Emergency e: getDisaster().getEmergencies()){
+			result.addAll(e.getUnitsNeeded().getWorkingUnits());
+		}
+		return result;
 	}
 
 	@Override
 	public ArrayList<Unit> getFinishedUnits() {
-		return (ArrayList<Unit>) finishedUnits.clone();
+		ArrayList<Unit> result = new ArrayList<Unit>();
+		for(Emergency e: getDisaster().getEmergencies()){
+			result.addAll(e.getUnitsNeeded().getFinishedUnits());
+		}
+		return result;
 	}
 
 	@Override
@@ -163,6 +146,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	@Override
 	void unitFinishedJob(Unit unit) {
+		unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit);
 		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
 	}
@@ -172,14 +156,13 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	private void removeFromWorkingUnits(Unit unit) {
-		unit.setEmergency(null);
 		takeWorkingUnits().remove(unit);
 	}
 
 	@Override
 	void withdrawUnit(Unit unit) {
 		for (Emergency e : getDisaster().getEmergencies()) {
-			e.calculateUnitsNeeded().withdrawUnit(unit);
+			e.getUnitsNeeded().withdrawUnit(unit);
 		}
 		removeFromWorkingUnits(unit);
 	}
@@ -227,5 +210,14 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		for (Emergency e : getDisaster().getEmergencies()) {
 			e.setStatus(emergencyStatus);
 		}
+	}
+
+	@Override
+	ArrayList<Unit> takeFinishedUnits() {
+		return getFinishedUnits();
+	}
+
+	private ArrayList<Unit> takeWorkingUnits() {
+		return getWorkingUnits();
 	}
 }

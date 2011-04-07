@@ -1,8 +1,10 @@
 package projectswop20102011.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.LinkedHashSet;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,11 +22,11 @@ public class EmergencyTest {
 	private GPSCoordinate gp1, gp2, gp3;
 	private long x1, y1, x2, y2;
 	private EmergencyStatus es1, es2;
-	private String name1;
+	private String name1, name2, name3, name4;
 	private long speed1;
 	private EmergencySeverity severity;
 	private String description1, description2;
-	private long numberOfPeople;
+	private long numberOfPeople1, numberOfPeople2;
 	private boolean armed1;
 	private boolean inProgress1;
 
@@ -43,13 +45,17 @@ public class EmergencyTest {
 		es1 = EmergencyStatus.COMPLETED;
 		es2 = null;
 
-		name1 = "politiewagen";
+		name1 = "politiewagen1";
+		name2 = "politiewagen2";
+		name3 = "politiewagen3";
+		name4 = "politiewagen4";
 		speed1 = 100;
 
 		severity = EmergencySeverity.NORMAL;
 		description1 = "Volksopstand";
 		description2 = "Overvalletje";
-		numberOfPeople = 1000;
+		numberOfPeople1 = 1000;
+		numberOfPeople2 = 8;
 		armed1 = true;
 		inProgress1 = true;
 	}
@@ -72,9 +78,20 @@ public class EmergencyTest {
 		Policecar politiewagen1 = new Policecar(name1, gp1, speed1);
 		units.add(politiewagen1);
 
-		Emergency e = new PublicDisturbance(gp3, severity, description1, numberOfPeople);
-		e.assignUnits(units);
-		assertTrue(e.isPartiallyAssigned());
+		Emergency e1 = new PublicDisturbance(gp3, severity, description1, numberOfPeople1);
+		assertFalse(e1.isPartiallyAssigned());
+		e1.assignUnits(units);
+		assertTrue(e1.isPartiallyAssigned());
+		
+		units.clear();
+		Policecar politiewagen2 = new Policecar(name1, gp1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, gp1, speed1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+		Emergency e2 = new PublicDisturbance(gp3, severity, description1, numberOfPeople2);
+		assertFalse(e2.isPartiallyAssigned());
+		e2.assignUnits(units);
+		assertFalse(e2.isPartiallyAssigned());
 	}
 
 	@Test
@@ -96,5 +113,21 @@ public class EmergencyTest {
 		e.finishUnit(politiewagen1);
 		e.finishUnit(politiewagen2);
 		e.finishUnit(politiewagen3);
+		assertEquals(EmergencyStatus.COMPLETED, e.getStatus());
+	}
+
+	@Test
+	public void testProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencySeverityException{
+		List<Unit> units = new ArrayList<Unit>(3);
+		Policecar politiewagen1 = new Policecar(name1, gp1, speed1);
+		Policecar politiewagen2 = new Policecar(name2, gp1, speed1);
+		Policecar politiewagen3 = new Policecar(name3, gp1, speed1);
+		Policecar politiewagen4 = new Policecar(name4, gp1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+		units.add(politiewagen4);
+
+		Emergency e = new Robbery(gp1, severity, description2, armed1, inProgress1);
 	}
 }

@@ -383,7 +383,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 */
 	@Override
-	void withdrawUnit(Unit unit) {
+	void withdrawUnit(Unit unit){
 		removeFromWorkingUnits(unit);
 	}
 }
