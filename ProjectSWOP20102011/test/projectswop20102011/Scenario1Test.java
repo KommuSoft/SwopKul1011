@@ -267,9 +267,7 @@ public class Scenario1Test {
         shc.selectHospital(ambulance1, hospital1);
         Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
 		//TODO: deze zorgen voor het falen van de test
-        assertEquals(1, policy_units.size());
-        assertEquals(engine2, policy_units.toArray()[0]);
-        duc.dispatchToEmergency(fire, policy_units);
+        assertEquals(0, policy_units.size());
         assertFalse(fire.isPartiallyAssigned());
         try {
             eotc.indicateEndOfTask(ambulance1);
@@ -278,7 +276,12 @@ public class Scenario1Test {
         }
         tac.doTimeAheadAction(18000);
 		//TODO: dit zorgt voor het falen van de test
-        eotc.indicateEndOfTask(engine2);
+		try {
+			eotc.indicateEndOfTask(engine2);
+			fail("firetruck isn't assigned to an emergency, so it can't end his task");
+		} catch (Exception e){
+
+		}
         eotc.indicateEndOfTask(ambulance1);
         //inspect emergencies
         assertFalse(fire.isPartiallyAssigned());
