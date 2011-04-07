@@ -89,9 +89,7 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
 	 *		An iterable object containing only unique and only effective units.
      * @param relevantIndices
 	 *		A set where all the indices  of units that are relevant for this constraint are added to.
-     * @pre The given units parameter contains only unique (no duplicates) effective units.
-	 * //TODO: Klopt bovenstaande pre wel? Stel dat je een unit hebt die is toegekend geweest, dan gefinished
-	 * // en wil je hem opnieuw toevoegen, dan staat hij toch bij de finished units en available units van deze units?
+     * @pre The given units parameter contains only effective units, duplicates are allowed.
      * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
      */
     @Override

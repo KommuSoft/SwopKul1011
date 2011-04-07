@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.World;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * TODO: controller documentie-eren
+ * A controller class that handles a remove unit assignment use case.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class RemoveUnitAssignmentController extends Controller {
@@ -26,10 +25,22 @@ public class RemoveUnitAssignmentController extends Controller {
         super(world);
     }
 
+    /**
+     * Generates a list containing all the Units that are working on the given Emergency.
+     * @param selectedEmergency The emergency where we generate the working units list from.
+     * @return A list containing all the Units that working on the given Emergency.
+     */
     public ArrayList<Unit> getWorkingUnits(Emergency selectedEmergency) {
         return selectedEmergency.getWorkingUnits();
     }
 
+    /**
+     * Withdraws a Unit from its emergency.
+     * @param unit The unit to withdraw from it's emergency.
+     * @throws InvalidWithdrawalException If the unit cannot withdraw.
+     * @throws InvalidEmergencyStatusException If the status of the emergency does not allow units to withdraw.
+     * @throws InvalidMapItemException If the given unit is not effective.
+     */
     public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidEmergencyStatusException, InvalidMapItemException {
         if (unit != null) {
             unit.withdraw();
