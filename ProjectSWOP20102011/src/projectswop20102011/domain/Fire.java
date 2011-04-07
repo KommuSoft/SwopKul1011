@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DifferentUnitsDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.NeededLitersDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.TypeUnitValidator;
@@ -245,7 +246,16 @@ public class Fire extends Emergency {
 
 		return information;
 	}
-
+	//TODO: mag dit? Analoge methode in trafficaccident
+	private long[] calculateMinMaxNumberOfAmbulances(){
+		long maximum = getTrappedPeople()+getNumberOfInjured();
+		long minimum = maximum/2;
+		if(maximum % 2 != 0){
+			minimum +=1;
+		}
+		return new long[]{minimum , maximum};
+	}
+	
 	/**
 	 * Calculates the units needed for a fire.
 	 * @return The units needed for a fire.
@@ -256,10 +266,13 @@ public class Fire extends Emergency {
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
 			long numberOfLitersRequired = units[0];
 			long policecars = units[1];
+			long[] ambulances = calculateMinMaxNumberOfAmbulances();
+			long minimum = ambulances[0];
+			long maximum = ambulances[1];
 			//TODO: getSize() mag hier waarschijnlijk nog weg en 
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
 			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), numberOfLitersRequired);
-			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), getNumberOfInjured() + getTrappedPeople());
+			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new DifferentUnitsDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));

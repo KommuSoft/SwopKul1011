@@ -9,6 +9,7 @@ import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -152,6 +153,16 @@ public class TrafficAccident extends Emergency {
 		return information;
 	}
 
+	//TODO: mag dit? analoge methode in fire
+	private long[] calculateMinMaxNumberOfAmbulances() {
+		long maximum = getNumberOfInjured();
+		long minimum = maximum / 2;
+		if (maximum % 2 != 0) {
+			minimum += 1;
+		}
+		return new long[]{minimum, maximum};
+	}
+
 	/**
 	 * Calculates the units needed for this traffic accident.
 	 * @return The units needed for this traffic accident.
@@ -159,8 +170,11 @@ public class TrafficAccident extends Emergency {
 	@Override
 	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
+			long[] ambulances = calculateMinMaxNumberOfAmbulances();
+			long minimum = ambulances[0];
+			long maximum = ambulances[1];
 			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1000);
-			DispatchUnitsConstraint amb = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), this.getNumberOfInjured());
+			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			return un;
