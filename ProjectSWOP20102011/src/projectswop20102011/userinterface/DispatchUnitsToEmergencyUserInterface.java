@@ -20,13 +20,13 @@ import projectswop20102011.utils.parsers.StringParser;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class DispatchUnitsUserInterface extends CommandUserInterface {
+public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface {
 
 	private final DispatchUnitsController dispatchUnitsController;
 	private final EmergencyMapper emergencyController;
 
-	public DispatchUnitsUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
-		super("dispatch units");
+	public DispatchUnitsToEmergencyUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
+		super("dispatch units to emergency");
 
 		if (dispatchUnitsController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
