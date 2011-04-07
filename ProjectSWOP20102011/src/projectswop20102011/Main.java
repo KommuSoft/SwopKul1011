@@ -4,8 +4,11 @@ import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.external.ExternalSystem;
 import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.io.FileInputStream;
+import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.CreateEmergencyController;
+import projectswop20102011.controllers.DisasterMapper;
 import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToDisasterController;
 import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
@@ -22,7 +25,9 @@ import projectswop20102011.factories.RobberyFactory;
 import projectswop20102011.factories.TrafficAccidentFactory;
 import projectswop20102011.userinterface.ActorUserInterface;
 import projectswop20102011.userinterface.CommandUserInterface;
+import projectswop20102011.userinterface.CreateDisasterInterface;
 import projectswop20102011.userinterface.CreateEmergencyUserInterface;
+import projectswop20102011.userinterface.DispatchUnitsToDisasterInterface;
 import projectswop20102011.userinterface.DispatchUnitsUserInterface;
 import projectswop20102011.userinterface.EndOfTaskUserInterface;
 import projectswop20102011.userinterface.EnvironmentReader;
@@ -66,7 +71,7 @@ public class Main {
 		pl.addParser(new IntegerParser());
 		pl.addParser(new LongParser());
 		pl.addParser(new StringParser());
-		
+
 		return world;
 	}
 
@@ -99,8 +104,10 @@ public class Main {
 		CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
 		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));
 		CommandUserInterface removeUnitAssignmentInterface = new RemoveUnitAssignmentInterface(new RemoveUnitAssignmentController(world), new EmergencyMapper(world));
-		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
-		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentInterface);
+		CommandUserInterface dispatchUnitsToDisasterInterface = new DispatchUnitsToDisasterInterface(new DispatchUnitsToDisasterController(world), new DisasterMapper(world));
+		CommandUserInterface createDisasterInterface = new CreateDisasterInterface(new CreateDisasterController(world));
+		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface, createDisasterInterface);
+		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentInterface, dispatchUnitsToDisasterInterface);
 		ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
 		ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
 		mainUserInterface.addActorUserInterfaces(operatorUserInterface, dispatcherUserInterface, demonstratorUserInterface, unitCommanderUserInterface);
