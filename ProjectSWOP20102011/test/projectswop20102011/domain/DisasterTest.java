@@ -2,6 +2,7 @@ package projectswop20102011.domain;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -412,5 +413,47 @@ public class DisasterTest {
 		assertFalse(d.isPartiallyAssigned());
 		d.assignUnits(units);
 		assertFalse(d.isPartiallyAssigned());
+	}
+
+	@Test
+	public void testPartiallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException {
+		Set<Unit> units1 = new LinkedHashSet<Unit>(5);
+		Set<Unit> units2 = new LinkedHashSet<Unit>(5);
+
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units1.add(politiewagen1);
+		units2.add(politiewagen2);
+		units2.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
+		emergencies.add(e1);
+		emergencies.add(e2);
+		d = new Disaster(emergencies, description1);
+
+		assertEquals(0, d.getWorkingUnits().size());
+		d.assignUnits(units1);
+		assertEquals(1, d.getWorkingUnits().size());
+		d.assignUnits(units2);
+		assertEquals(3, d.getWorkingUnits().size());
+	}
+
+	@Test
+	public void testPolicyProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
+		List<Unit> units = new ArrayList<Unit>(3);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen4 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+		units.add(politiewagen4);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
+		emergencies.add(e2);
+		Disaster d = new Disaster(emergencies, description1);
+		assertEquals(2, d.getPolicyProposal(units).size());
 	}
 }

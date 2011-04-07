@@ -129,5 +129,6 @@ public class EmergencyTest {
 		units.add(politiewagen4);
 
 		Emergency e = new Robbery(gp1, severity, description2, armed1, inProgress1);
+		assertEquals(3, e.getPolicyProposal(units).size());
 	}
 }

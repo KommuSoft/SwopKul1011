@@ -53,7 +53,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	public ArrayList<Unit> getWorkingUnits() {
 		ArrayList<Unit> result = new ArrayList<Unit>();
-		for(Emergency e: getDisaster().getEmergencies()){
+		for (Emergency e : getDisaster().getEmergencies()) {
 			result.addAll(e.getUnitsNeeded().getWorkingUnits());
 		}
 		return result;
@@ -62,7 +62,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	public ArrayList<Unit> getFinishedUnits() {
 		ArrayList<Unit> result = new ArrayList<Unit>();
-		for(Emergency e: getDisaster().getEmergencies()){
+		for (Emergency e : getDisaster().getEmergencies()) {
 			result.addAll(e.getUnitsNeeded().getFinishedUnits());
 		}
 		return result;
@@ -95,12 +95,16 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
 			Set<Unit> unitsForEmergency = CUN.generateProposal(options);
 
-			if (unitsForEmergency.isEmpty() || !e.canAssignUnits(unitsForEmergency)) {
-				return false;
+			//TODO is dit juist?
+//			if (unitsForEmergency.isEmpty() || !e.canAssignUnits(unitsForEmergency)) {
+//				return false;
+//			}
+			if(!unitsForEmergency.isEmpty() && e.canAssignUnits(unitsForEmergency)){
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	/**
