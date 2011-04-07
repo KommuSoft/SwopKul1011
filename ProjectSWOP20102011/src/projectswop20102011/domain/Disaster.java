@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
 
@@ -127,5 +128,18 @@ public class Disaster extends Sendable {
 		}
 
 		return units;
+	}
+
+		/**
+	 * Enable a unit to finish his job for this emergency.
+	 * @param unitToFinish
+	 *      The unit that wants to finish this emergency.
+	 * @throws InvalidEmergencyStatusException
+	 *      If the status of this emergency does not allow this action.
+	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
+	 */
+	@Override
+	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
+		this.getStatus().finishUnit(unitToFinish.getEmergency().getUnitsNeeded(), unitToFinish);
 	}
 }

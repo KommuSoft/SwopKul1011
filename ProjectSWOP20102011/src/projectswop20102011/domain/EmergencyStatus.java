@@ -64,18 +64,20 @@ public enum EmergencyStatus {
 
 		@Override
 		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) {
+			Emergency e = unit.getEmergency();
 			unitsNeeded.unitFinishedJob(unit);
 			if (unitsNeeded.canCompleteEmergency()) {
 				try {
-					System.out.println("\t\t" + unit);
-					System.out.println("\t\t" + unit.getEmergency());
-					(unit.getEmergency()).setStatus(COMPLETED);
+					System.out.println("a) Unit: " + unit);
+					System.out.println("b) Emergency of unit: " + unit.getEmergency());
+					e.setStatus(COMPLETED);
 					//unitsNeeded.setStatus(COMPLETED);
 				} catch (InvalidEmergencyStatusException ex) {
 					//We assume this can't happen
 					Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
+
 		}
 
 		@Override
