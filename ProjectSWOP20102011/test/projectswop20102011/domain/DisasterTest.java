@@ -302,37 +302,19 @@ public class DisasterTest {
 		units.add(politiewagen2);
 		units.add(politiewagen3);
 
-		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		System.out.println(d.getStatus());
 		d.assignUnits(units);
 		
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 		politiewagen3.timeAhead(1000000000);
 
-		System.out.println("Politiewagen1: " + politiewagen1);
-		System.out.println("Politiewagen1.getEmergency: " + politiewagen1.getEmergency());
-		System.out.println("Politiewagen2: " + politiewagen2);
-		System.out.println("Politiewagen2.getEmergency: " + politiewagen2.getEmergency());
-		System.out.println("Politiewagen3: " + politiewagen3);
-		System.out.println("Politiewagen3.getEmergency: " + politiewagen3.getEmergency());
-
-		System.out.println(d.getStatus() + "\n");
 		d.finishUnit(politiewagen1);
-		System.out.println("1 " + d.getStatus());
-		System.out.println("\te1 " + e1.getStatus());
-		System.out.println("\te2 " + e2.getStatus());
 		d.finishUnit(politiewagen2);
-		System.out.println("2 " + d.getStatus());
-		System.out.println("\te1 " + e1.getStatus());
-		System.out.println("\te2 " + e2.getStatus());
 		d.finishUnit(politiewagen3);
-		System.out.println("3 " + d.getStatus());
-		System.out.println("\te1 " + e1.getStatus());
-		System.out.println("\te2 " + e2.getStatus());
 	}
 
 	@Test
@@ -356,9 +338,11 @@ public class DisasterTest {
 		politiewagen2.timeAhead(1000000000);
 		politiewagen3.timeAhead(1000000000);
 
-		d.withdrawUnit(politiewagen1);
-		d.withdrawUnit(politiewagen2);
-		d.withdrawUnit(politiewagen3);
+
+		e1.withdrawUnit(politiewagen3);
+//		d.withdrawUnit(politiewagen1);
+//		d.withdrawUnit(politiewagen2);
+//		d.withdrawUnit(politiewagen3);
 
 	}
 

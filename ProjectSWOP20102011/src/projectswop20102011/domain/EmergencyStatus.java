@@ -68,8 +68,6 @@ public enum EmergencyStatus {
 			unitsNeeded.unitFinishedJob(unit);
 			if (unitsNeeded.canCompleteEmergency()) {
 				try {
-					System.out.println("a) Unit: " + unit);
-					System.out.println("b) Emergency of unit: " + unit.getEmergency());
 					e.setStatus(COMPLETED);
 					//unitsNeeded.setStatus(COMPLETED);
 				} catch (InvalidEmergencyStatusException ex) {
