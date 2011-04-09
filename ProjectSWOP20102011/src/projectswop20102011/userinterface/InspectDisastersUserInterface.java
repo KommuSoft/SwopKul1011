@@ -10,12 +10,12 @@ import projectswop20102011.exceptions.InvalidControllerException;
  * A command user interface to inspect the disasters
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class InspectDisastersInterface extends CommandUserInterface{
+public class InspectDisastersUserInterface extends CommandUserInterface{
 
 	private final InspectDisastersController inspectDisastersController;
 	private final DisasterMapper disasterController;
 
-	public InspectDisastersInterface(InspectDisastersController inspectDisastersController, DisasterMapper disasterController) throws InvalidCommandNameException, InvalidControllerException {
+	public InspectDisastersUserInterface(InspectDisastersController inspectDisastersController, DisasterMapper disasterController) throws InvalidCommandNameException, InvalidControllerException {
 		super("inspect disasters");
 
 		if (inspectDisastersController == null || disasterController == null) {

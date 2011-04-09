@@ -6,12 +6,12 @@ import projectswop20102011.controllers.DispatchUnitsToDisasterController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 
-public class DispatchUnitsToDisasterInterface extends CommandUserInterface {
+public class DispatchUnitsToDisasterUserInterface extends CommandUserInterface {
 
 	private final DispatchUnitsToDisasterController dispatchUnitsToDisasterController;
 	private final DisasterMapper disasterController;
 
-	public DispatchUnitsToDisasterInterface(DispatchUnitsToDisasterController dispatchUnitsToDisasterController, DisasterMapper disasterController) throws InvalidCommandNameException, InvalidControllerException {
+	public DispatchUnitsToDisasterUserInterface(DispatchUnitsToDisasterController dispatchUnitsToDisasterController, DisasterMapper disasterController) throws InvalidCommandNameException, InvalidControllerException {
 		super("dispatch units to disaster");
 
 		if (dispatchUnitsToDisasterController == null || disasterController == null) {

@@ -16,7 +16,7 @@ import projectswop20102011.utils.parsers.StringParser;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public class RemoveUnitAssignmentInterface extends CommandUserInterface {
+public class RemoveUnitAssignmentUserInterface extends CommandUserInterface {
 
 	private final RemoveUnitAssignmentController removeUnitAssignmentController;
 	private final EmergencyMapper emergencyController;
@@ -28,7 +28,7 @@ public class RemoveUnitAssignmentInterface extends CommandUserInterface {
 	 * @throws InvalidCommandNameException
 	 * @throws InvalidControllerException
 	 */
-	public RemoveUnitAssignmentInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyMapper emergencyController) throws InvalidCommandNameException, InvalidControllerException {
+	public RemoveUnitAssignmentUserInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyMapper emergencyController) throws InvalidCommandNameException, InvalidControllerException {
 		super("remove unit assignment");
 		if (removeUnitAssignmentController == null || emergencyController == null) {
 			throw new InvalidControllerException("Controller must be effective.");

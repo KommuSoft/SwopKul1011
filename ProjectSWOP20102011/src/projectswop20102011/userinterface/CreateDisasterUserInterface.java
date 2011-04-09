@@ -5,11 +5,11 @@ import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 
-public class CreateDisasterInterface extends CommandUserInterface {
+public class CreateDisasterUserInterface extends CommandUserInterface {
 
 	private final CreateDisasterController createDisasterController;
 
-	public CreateDisasterInterface(CreateDisasterController createDisasterController) throws InvalidCommandNameException, InvalidControllerException {
+	public CreateDisasterUserInterface(CreateDisasterController createDisasterController) throws InvalidCommandNameException, InvalidControllerException {
 		super("create disaster");
 
 		if (createDisasterController == null) {
