@@ -32,7 +32,9 @@ public class FactoryInformation {
      * @return the parameters of this FactoryInformation.
      */
     public FactoryInformationParameter[] getParameters () {
-        return (FactoryInformationParameter[]) this.parameters.clone();
+		//TODO: mag deze (volgens netbeans) redundante cast hier weg?
+        //return (FactoryInformationParameter[]) this.parameters.clone();
+		return  this.parameters.clone();
     }
 
     /**
