@@ -51,6 +51,8 @@ public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface 
 			Emergency selectedEmergency = getEmergencyController().getEmergencyFromId(emergencyId);
 			if (selectedEmergency == null) {
 				this.writeOutput("Emergency not found.");
+			} else if (selectedEmergency.getStatus().matches("completed")) {
+				this.writeOutput("An emergency that is already completed, can't be chosen.");
 			} else {
 				Hashtable<String, String> information = selectedEmergency.getLongInformation();
 				this.writeOutput("EMERGENCY DETAILS:");
