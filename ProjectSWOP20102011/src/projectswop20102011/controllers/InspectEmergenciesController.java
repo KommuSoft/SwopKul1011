@@ -39,6 +39,7 @@ public class InspectEmergenciesController extends Controller {
         return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).toArray();
     }
 
+	//TODO: deze methode zeker weg?
     /**
      * Inspect all the emergencies in the world on a certain status, and searches for an emergency with that status who has also the given id.
      * @param status The status of emergencies to search for.
