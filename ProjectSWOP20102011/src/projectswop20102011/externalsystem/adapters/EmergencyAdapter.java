@@ -7,6 +7,7 @@ import be.kuleuven.cs.swop.api.ILocation;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.Severity;
+import be.kuleuven.cs.swop.events.Location;
 import java.util.List;
 import projectswop20102011.domain.Emergency;
 
@@ -44,7 +45,7 @@ public class EmergencyAdapter implements IEmergency{
 
 	@Override
 	public ILocation getLocation() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return new Location((int)getEmergency().getLocation().getX(), (int) getEmergency().getLocation().getY());
 	}
 
 	@Override

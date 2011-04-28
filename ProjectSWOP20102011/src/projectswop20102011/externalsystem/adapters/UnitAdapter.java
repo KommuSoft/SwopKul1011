@@ -3,6 +3,7 @@ package projectswop20102011.externalsystem.adapters;
 import be.kuleuven.cs.swop.api.ILocation;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.UnitState;
+import be.kuleuven.cs.swop.events.Location;
 import projectswop20102011.domain.Unit;
 
 public class UnitAdapter implements IUnit{
@@ -19,12 +20,12 @@ public class UnitAdapter implements IUnit{
 
 	@Override
 	public ILocation getLocation() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return new Location((int)getUnit().getCurrentLocation().getX(), (int)getUnit().getCurrentLocation().getY());
 	}
 
 	@Override
 	public ILocation getHomeLocation() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return new Location((int)getUnit().getHomeLocation().getX(), (int)getUnit().getHomeLocation().getY());
 	}
 
 	@Override
