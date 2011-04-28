@@ -79,6 +79,7 @@ public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface 
 							assignedUnits = new HashSet<Unit>();
 							retry = false;
 							this.writeOutput("REQUIRED UNITS:");
+							//TODO: Hier moet enkel het aantal units komen die vereist is, niet welke soorten
 							this.writeOutput(getController().getRequiredUnits(selectedEmergency));
 							this.writeOutput("AVAILABLE UNITS:");
 							ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedEmergency);
