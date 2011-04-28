@@ -2,14 +2,13 @@ package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.ITime;
-import be.kuleuven.cs.swop.events.AbstractEventGenerator;
 import be.kuleuven.cs.swop.events.Time;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
 import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TimeAheadAdapter extends AbstractEventGenerator {
+public class TimeAheadAdapter{
 
 	/**
 	 * A variabele registering the externalSystem of this timeAheadController.
@@ -60,7 +59,6 @@ public class TimeAheadAdapter extends AbstractEventGenerator {
 	 * @param itime
 	 *		The new time.
 	 */
-	@Override
 	protected void executeEventsUntil(ITime itime) {
 		try {
 			getExternalSystem().notifyTimeChanged(itime);

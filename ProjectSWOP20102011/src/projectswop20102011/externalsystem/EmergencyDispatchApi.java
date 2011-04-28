@@ -1,8 +1,18 @@
 package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
+import be.kuleuven.cs.swop.api.EmergencyState;
+import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.IEvent;
+import be.kuleuven.cs.swop.api.IHospital;
+import be.kuleuven.cs.swop.api.ITime;
+import be.kuleuven.cs.swop.api.IUnit;
+import be.kuleuven.cs.swop.api.IUnitConfiguration;
+import be.kuleuven.cs.swop.api.NotSupportedException;
+import be.kuleuven.cs.swop.api.UnitState;
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,6 +80,88 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
         } catch (InvalidWorldException ex) {
             throw new EmergencyDispatchException("The world is invalid");
         }
-
     }
+
+	@Override
+	public List<IEmergency> getListOfEmergencies(EmergencyState state) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public List<IEmergency> getListOfDisasters(EmergencyState state) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public List<IUnit> getListOfUnits(UnitState state) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public List<IHospital> getListOfHospitals() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void assignUnits(IUnitConfiguration configuration) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void createDisaster(String description, List<IEmergency> emergencies) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void selectHospital(IUnit unit, IHospital hospital) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void indicateEndOfTask(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void indicateProblem(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void indicateRepair(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void advanceTime(ITime time) throws EmergencyDispatchException {
+		long seconds = time.getHours()*3600 + time.getMinutes()*60;
+
+		
+
+	}
+
+	@Override
+	public void withdrawUnit(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void cancelEmergency(IEmergency emergency) throws NotSupportedException, EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void clearSystem() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void loadEnvironment(File file) throws EmergencyDispatchException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 }
