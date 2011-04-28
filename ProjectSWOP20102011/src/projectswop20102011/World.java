@@ -1,6 +1,7 @@
 package projectswop20102011;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
+import projectswop20102011.domain.lists.DisasterList;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.EmergencyList;
 import projectswop20102011.domain.lists.MapItemList;
@@ -18,6 +19,10 @@ public class World {
 	 * A variable that registers the emergencyList of this world.
 	 */
 	private EmergencyList emergencyList;
+	/**
+	 * A variable that registers the emergencyList of this world.
+	 */
+	private DisasterList disasterList;
 	/**
 	 * A variable that registers the mapItemList of this world.
 	 */
@@ -57,6 +62,7 @@ public class World {
 	 */
 	public World() {
 		setEmergencyList(new EmergencyList());
+		setDisasterList(new DisasterList());
 		setMapItemList(new MapItemList());
 		setParserList(new ParserList());
 		setTimeSensitiveList(new TimeSensitiveList());
@@ -77,11 +83,31 @@ public class World {
 	}
 
 	/**
+	 * Sets the disasterList of this world.
+	 *
+	 * @param disasterList
+	 *		The disasterList of this World.
+	 * @post The disasterList of this World is set according to the given disasterList.
+	 *		|new.getDisasterList() == disasterList
+	 */
+	private void setDisasterList(DisasterList disasterList) {
+		this.disasterList = disasterList;
+	}
+
+	/**
 	 * Returns the emergencyList of this world.
 	 * @return The emergencyList of this world.
 	 */
 	public EmergencyList getEmergencyList() {
 		return this.emergencyList;
+	}
+
+	/**
+	 * Returns the disasterList of this world.
+	 * @return The disasterList of this world.
+	 */
+	public DisasterList getDisasterList() {
+		return this.disasterList;
 	}
 
 	/**
