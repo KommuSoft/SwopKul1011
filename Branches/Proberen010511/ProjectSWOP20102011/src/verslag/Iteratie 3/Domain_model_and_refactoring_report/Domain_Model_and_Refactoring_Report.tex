@@ -1,0 +1,58 @@
+\documentclass[a4paper,titlepage]{article}
+\usepackage[english]{babel}
+%\usepackage{fullpage}
+\usepackage{emp}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{listings}
+\graphicspath{{./UML/}}
+\usetikzlibrary{shapes,snakes}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{float}
+\usepackage{subfigure}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\name}[1]{\textit{#1}}
+\newcommand{\thedate}{23 march 2011}
+
+\title{Software Ontwerp - Verslag Iteratie 2\\Prof. T. Holvoet\\Dhr. T. Heyman}
+\author{Team 08:\\Willem Van Onsem\\Jonas Vanthornhout\\Pieter-Jan Vuylsteke}
+\date{\thedate}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\HRule \\[0.4cm]
+{ \huge \bfseries Domain Model and Refactoring Report}\\[0.4cm]
+\HRule \\[1.5cm]
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Professor:}\\
+T. \textsc{Holvoet}\\
+\emph{Begeleider:}\\
+T. \textsc{Heyman}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Team 08:} \\
+Willem \textsc{Van Onsem}\\
+Jonas \textsc{Vanthornhout}\\
+Pieter-Jan \textsc{Vuylsteke}
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large \thedate }
+%\maketitle
+\end{center}
+\end{titlepage}
+\tableofcontents
+\newpage
+\input{domainModel}
+\input{terminology}
+\input{testing}
+\input{refactorings}
+\end{document}
