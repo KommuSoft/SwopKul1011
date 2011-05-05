@@ -14,18 +14,18 @@ public class UnitAdapter implements IUnit{
 		this.unit = unit;
 	}
 
-	private Unit getUnit(){
+	protected Unit getUnit(){
 		return unit;
 	}
 
 	@Override
 	public ILocation getLocation() {
-		return new Location((int)getUnit().getCurrentLocation().getX(), (int)getUnit().getCurrentLocation().getY());
+		return new LocationAdapter((int)getUnit().getCurrentLocation().getX(), (int)getUnit().getCurrentLocation().getY());
 	}
 
 	@Override
 	public ILocation getHomeLocation() {
-		return new Location((int)getUnit().getHomeLocation().getX(), (int)getUnit().getHomeLocation().getY());
+		return new LocationAdapter((int)getUnit().getHomeLocation().getX(), (int)getUnit().getHomeLocation().getY());
 	}
 
 	@Override
@@ -35,7 +35,8 @@ public class UnitAdapter implements IUnit{
 
 	@Override
 	public UnitState getState() {
-		return UnitState.valueOf(getUnit().getStatus())
+		throw new UnsupportedOperationException("Not supported yet.");
+		//return UnitState.valueOf(getUnit().getStatus());
 	}
 
 }

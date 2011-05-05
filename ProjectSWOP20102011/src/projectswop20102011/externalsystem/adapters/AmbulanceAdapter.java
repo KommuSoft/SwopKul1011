@@ -1,22 +1,17 @@
 package projectswop20102011.externalsystem.adapters;
 
 import be.kuleuven.cs.swop.api.IAmbulanceView;
+import be.kuleuven.cs.swop.api.UnitState;
 import projectswop20102011.domain.Ambulance;
 
-public class AmbulanceAdapter implements IAmbulanceView {
-
-	final private Ambulance ambulance;
+public class AmbulanceAdapter extends UnitAdapter implements IAmbulanceView{
 
 	public AmbulanceAdapter(Ambulance ambulance) {
-		this.ambulance = ambulance;
-	}
-
-	private Ambulance getAmbulance() {
-		return ambulance;
+		super(ambulance);
 	}
 
 	@Override
 	public boolean isOccupied() {
-		getAmbulance().isOccupied();
+		return getState().equals(UnitState.OCCUPIED);
 	}
 }
