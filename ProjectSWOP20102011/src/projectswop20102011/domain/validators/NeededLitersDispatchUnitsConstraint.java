@@ -2,6 +2,7 @@ package projectswop20102011.domain.validators;
 
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
@@ -139,4 +140,23 @@ public class NeededLitersDispatchUnitsConstraint extends DispatchUnitsConstraint
 		return String.format("The number of liters required of %s must be %s", this.getValidator()
 				.toString(), this.getNumberOfLitersRequired());
 	}
+
+        @Override
+    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean canFinish(List<Unit> finishedUnits) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

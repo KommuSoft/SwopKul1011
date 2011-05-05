@@ -2,6 +2,7 @@ package projectswop20102011.domain.validators;
 
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -130,6 +131,24 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean canFinish(List<Unit> finishedUnits) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     /*
     public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {
