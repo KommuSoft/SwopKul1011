@@ -1,5 +1,6 @@
 package projectswop20102011.domain.lists;
 
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Iterator;
 import projectswop20102011.domain.Sendable;
@@ -79,8 +80,8 @@ public class SendableList<T extends Sendable> implements Iterable<T> {
 	 * Returns an array of all the sendables in this SendableList.
 	 * @return An array of all the sendables in this SendableList.
 	 */
-	//TODO: oplossen met reflection
 	public T[] toArray() {
-		return this.sendables.toArray(new T[0]);
+		return (T[]) sendables.toArray();
+		//return this.sendables.toArray(new T[0]);
 	}
 }

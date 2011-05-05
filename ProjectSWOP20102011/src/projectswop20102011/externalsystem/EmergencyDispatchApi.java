@@ -12,8 +12,11 @@ import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import be.kuleuven.cs.swop.api.NotSupportedException;
 import be.kuleuven.cs.swop.api.UnitState;
 import java.io.File;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
@@ -65,12 +68,13 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
     public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
         try {
             CreateEmergencyController cec = new CreateEmergencyController(getWorld());
-            Map<String,String> parameters = event.getEventProperties();
+            //Map<String,String> parameters = event.getEventProperties();
+			Map<String, String> parameters = new HashMap<String, String>(3);
             parameters.put("location", new GPSCoordinate(event.getLocation().getX(),event.getLocation().getY()).toString());
-            parameters.put("severity", event.getSeverity());
+            parameters.put("severity", event.getSeverity().toString());
             parameters.put("description", "");
             Emergency emergency = null;
-            EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getType());
+            EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getClass().getSimpleName());
             try {
                 emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
                 cec.addCreatedEmergencyToTheWorld(emergency);

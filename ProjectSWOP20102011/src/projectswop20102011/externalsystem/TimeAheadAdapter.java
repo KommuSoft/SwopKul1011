@@ -25,7 +25,7 @@ public class TimeAheadAdapter{
 	 *		|this.externalSystem == externalSystem
 	 */
 	public TimeAheadAdapter(IEmergencyDispatchApi api, IExternalSystem externalSystem) {
-		super(api);
+		//super(api);
 		this.externalSystem = externalSystem;
 	}
 
