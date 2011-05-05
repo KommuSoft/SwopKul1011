@@ -2,11 +2,14 @@ package projectswop20102011.userinterface;
 
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectswop20102011.controllers.Controller;
 import projectswop20102011.controllers.DisasterMapper;
 import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
@@ -109,6 +112,8 @@ public class InspectDisastersUserInterface extends CommandUserInterface{
 						}
 					}
 				} while (viewEmergencyDetail);
+			} catch (InvalidAddedDisasterException ex) {
+				Logger.getLogger(InspectDisastersUserInterface.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (ParsingAbortedException ex) {
 				this.writeOutput("command aborted.");
 			}
