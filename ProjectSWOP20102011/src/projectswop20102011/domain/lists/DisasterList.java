@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.validators.DisasterEvaluationCriterium;
+import projectswop20102011.exceptions.InvalidAddedDisasterException;
 
 /**
  * A list of disasters where every disaster is unique.
@@ -41,12 +42,19 @@ public class DisasterList implements Iterable<Disaster> {
 	 * is not already in this list of disasters.
 	 * @param disaster
 	 *		Disaster to be appended to this list of disasters.
+	 * @throws InvalidAddedDisasterException
+	 *			If the given disaster contains no emergencies.
 	 * @post This DisasterList contains the given Disaster.
 	 *		| getDisasters().contains(disaster)
 	 */
-	public void addDisaster(Disaster disaster) {
-		if (!getDisasters().contains(disaster)) {
-			disasters.add(disaster);
+	//TODO: exception toegevoegd op deze plaats
+	public void addDisaster(Disaster disaster) throws InvalidAddedDisasterException {
+		if (!disaster.getEmergencies().isEmpty()) {
+			if (!getDisasters().contains(disaster)) {
+				disasters.add(disaster);
+			}
+		}else{
+			throw new InvalidAddedDisasterException("A disaster was involved that contains no emergencies!");
 		}
 	}
 
@@ -55,8 +63,10 @@ public class DisasterList implements Iterable<Disaster> {
 	 * @param criterium
 	 *		The criterium to validate a potential solution on.
 	 * @return A list with all the disasters in this DisasterList who are validated by the DisasterCriterium.
+	 * @throws InvalidAddedDisasterException
+	 *		If a disaster contains no emergencies.
 	 */
-	public DisasterList getDisastersByCriterium(DisasterEvaluationCriterium criterium) {
+	public DisasterList getDisastersByCriterium(DisasterEvaluationCriterium criterium) throws InvalidAddedDisasterException {
 		DisasterList list = new DisasterList();
 		for (Disaster d : this) {
 			if (criterium.isValidDisaster(d)) {
