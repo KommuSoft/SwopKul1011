@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.Set;
 import projectswop20102011.domain.Unit;
 
@@ -20,6 +21,7 @@ public abstract class DispatchUnitsConstraint {
      * @pre All the elements in units are effective.
      * @return True if the given list passes the constraints and all the units are used, otherwise false.
      */
+    //TODO: deze methode is obsolete
     public boolean areAllUnitsRelevantAndConstraintPassed(Collection<Unit> units) {
         HashSet<Integer> relevantIndices = new HashSet<Integer>();
 		//in onderstaande methode-oproep wordt ook de hashset relevantIndices aangepast,
@@ -43,6 +45,7 @@ public abstract class DispatchUnitsConstraint {
      * @pre All the elements in units are effective.
      * @return True if all units are relevant for the constraint, otherwise false.
      */
+    //TODO: deze methode is obsolete
     public boolean areAllUnitsRelevant(Collection<Unit> units) {
 		//Deze methode doet hetzelfde als bovenstaand, uitgezonderd dat er niet gecheckt wordt op validdispatchunits
 		//TODO: Waarom moet er niet gecheckt worden op areValidDispatchUnits (zoals in bovenstaande methode).
@@ -63,6 +66,7 @@ public abstract class DispatchUnitsConstraint {
      * @pre All the units are effective.
      * @return True if this constraint passes by the given units.
      */
+    //TODO: deze methode is obsolete
     public boolean areValidDispatchUnits(Collection<Unit> units) {
         return areValidDispatchUnits(new ArrayList<Unit>(units), new HashSet<Integer>());
     }
@@ -77,6 +81,7 @@ public abstract class DispatchUnitsConstraint {
      * @return True if this constraint passes with the given iterable of units, otherwise false.
      * @note The implementation of this method needs to be designed that the units in front of the units list will be added first to the relevantUnits.
      */
+    //TODO: deze methode is obsolete
     public abstract boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantUnitIndices);
 
     /**
@@ -110,4 +115,30 @@ public abstract class DispatchUnitsConstraint {
 
         return proposal;
     }
+
+    
+    /**
+     * Generates a proposal for units based on the set of available units, and adds them to the proposal.
+     * @param finishedOrAssignedUnits The list of units that are already finished or assigned.
+     * @param availableUnits The set of available units to assign.
+     * @param proposal A set where the units that will be proposed will be added to.
+     * @return True if this methods can generate a proposal without violating constraints (for example firetrucks can only added once, sometimes we can't generate a proposal).
+     */
+    public abstract boolean generateProposal (List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal);
+
+    /**
+     * Checks if the given set of units to assign to an emergency can be assigned.
+     * @param finishedOrAssignedUnits The list of Units that were already 
+     * @param toAssignUnits The list of units to check if they can be assigned.
+     * @return True if the given set of units can be assigned, otherwise false.
+     */
+    public abstract boolean canAssign (List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits);
+
+    /**
+     * Checks if the emergency can be finished if the given units have all done their job in the emergency.
+     * @param finishedUnits A list of finished Units.
+     * @return True if the given emergency can finish, otherwise false.
+     */
+    public abstract boolean canFinish (List<Unit> finishedUnits);
+
 }
