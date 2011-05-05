@@ -7,6 +7,7 @@ import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.validators.DisasterEvaluationCriterium;
 import projectswop20102011.domain.validators.StatusEqualityDisasterEvaluationCriterium;
+import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
@@ -30,7 +31,7 @@ public class InspectDisastersController extends Controller {
 	 * @param status The status of to check the disasters on.
 	 * @return A list with disasters with the given status.
 	 */
-	public Disaster[] inspectDisastersOnStatus(EmergencyStatus status) {
+	public Disaster[] inspectDisastersOnStatus(EmergencyStatus status) throws InvalidAddedDisasterException {
 		DisasterEvaluationCriterium criterium = new StatusEqualityDisasterEvaluationCriterium(status);
 		return this.getWorld().getDisasterList().getDisastersByCriterium(criterium).toArray();
 	}

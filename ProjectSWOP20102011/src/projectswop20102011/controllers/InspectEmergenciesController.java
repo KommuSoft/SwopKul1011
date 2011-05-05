@@ -47,6 +47,7 @@ public class InspectEmergenciesController extends Controller {
      * @return The emergency who mets the conditions, if no condition succeeds, null is returned.
      * @throws InvalidWorldException
      */
+	//TODO: deze methode wordt niet meer gebruikt
     private Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) throws InvalidWorldException {
         return new EmergencyMapper(getWorld()).getEmergencyFromId(id);
     }
