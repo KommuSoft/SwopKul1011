@@ -107,7 +107,7 @@ public class Main {
 		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));
 		CommandUserInterface removeUnitAssignmentInterface = new RemoveUnitAssignmentUserInterface(new RemoveUnitAssignmentController(world), new EmergencyMapper(world));
 		CommandUserInterface dispatchUnitsToDisasterInterface = new DispatchUnitsToDisasterUserInterface(new DispatchUnitsToDisasterController(world), new DisasterMapper(world));
-		CommandUserInterface createDisasterInterface = new CreateDisasterUserInterface(new CreateDisasterController(world));
+		CommandUserInterface createDisasterInterface = new CreateDisasterUserInterface(new CreateDisasterController(world), new InspectEmergenciesController(world), new EmergencyMapper(world)); //TODO: ik (jonas) heb hier de twee laatste parameters bijgezet om te kunnen compilen
 		CommandUserInterface inspectDisastersInterface = new InspectDisastersUserInterface(new InspectDisastersController(world), new DisasterMapper(world));
 		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface, createDisasterInterface);
 		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentInterface, dispatchUnitsToDisasterInterface,inspectDisastersInterface);

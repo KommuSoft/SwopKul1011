@@ -1,10 +1,10 @@
 package projectswop20102011.externalsystem;
 
-import be.kuleuven.cs.swop.events.SimpleScenario;
 import be.kuleuven.cs.swop.events.Time;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
+import be.kuleuven.cs.swop.external.logging.Logger;
+import be.kuleuven.cs.swop.scenarios.SimpleScenario;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -50,9 +50,9 @@ public class EmergencyDispatchApiTest {
             pl.addParser(new StringParser());
             time = new Time(1, 10);
             api = new EmergencyDispatchApi(world);
-            simpleScenario = new SimpleScenario(api);
+            simpleScenario = new SimpleScenario(api, new Logger());
         } catch (InvalidEmergencyTypeNameException ex) {
-            Logger.getLogger(EmergencyDispatchApiTest.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmergencyDispatchApiTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

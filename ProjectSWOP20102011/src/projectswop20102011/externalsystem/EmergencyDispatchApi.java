@@ -11,20 +11,34 @@ import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import be.kuleuven.cs.swop.api.NotSupportedException;
 import be.kuleuven.cs.swop.api.UnitState;
+import be.kuleuven.cs.swop.events.Fire;
+import be.kuleuven.cs.swop.events.PublicDisturbance;
+import be.kuleuven.cs.swop.events.Robbery;
+import be.kuleuven.cs.swop.events.TrafficAccident;
 import java.io.File;
-import java.util.AbstractMap;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.World;
+import projectswop20102011.controllers.InspectEmergenciesController;
+import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.externalsystem.adapters.EmergencyAdapter;
+import projectswop20102011.externalsystem.adapters.UnitConfiguration;
 import projectswop20102011.factories.EmergencyFactory;
+import projectswop20102011.userinterface.EnvironmentReader;
+import projectswop20102011.utils.parsers.EmergencyStatusParser;
+import projectswop20102011.utils.parsers.EnumParser;
 
 /**
  * A class that represents the EmergencyDispatchApi
@@ -33,139 +47,212 @@ import projectswop20102011.factories.EmergencyFactory;
  */
 public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
-    /**
-     * A variable registering the world that is connected with this EmergencyDispatchApi.
-     */
-    private final World world;
+	/**
+	 * A variable registering the world that is connected with this EmergencyDispatchApi.
+	 */
+	private final World world;
 
-    /**
-     * Creates a new EmergencyDispatchApi with the given world.
-     * @param world
-     *		The world that this EmergencyDispatchApi is connected with.
-     * @effect The world is set to the given world.
-     *		|world.equals(getWorld())
-     */
-    public EmergencyDispatchApi(World world) {
-        this.world = world;
-    }
+	/**
+	 * Creates a new EmergencyDispatchApi with the given world.
+	 * @param world
+	 *		The world that this EmergencyDispatchApi is connected with.
+	 * @effect The world is set to the given world.
+	 *		|world.equals(getWorld())
+	 */
+	public EmergencyDispatchApi(World world) {
+		this.world = world;
+	}
 
-    /**
-     * Returns the world of this EmergencyDispatchApi.
-     * @return The world of this EmergencyDispatchApi.
-     */
-    private World getWorld() {
-        return world;
-    }
+	/**
+	 * Returns the world of this EmergencyDispatchApi.
+	 * @return The world of this EmergencyDispatchApi.
+	 */
+	private World getWorld() {
+		return world;
+	}
 
-    /**
-     * Registers a new event.
-     * @param event
-     *		The event that must be registered.
-     * @throws EmergencyDispatchException
-     *		If an exception occurs in the emergency dispatch system.
-     */
-    @Override
-    public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
-        try {
-            CreateEmergencyController cec = new CreateEmergencyController(getWorld());
-            //Map<String,String> parameters = event.getEventProperties();
+	/**
+	 * Registers a new event.
+	 * @param event
+	 *		The event that must be registered.
+	 * @throws EmergencyDispatchException
+	 *		If an exception occurs in the emergency dispatch system.
+	 */
+	@Override
+	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
+		try {
+			CreateEmergencyController cec = new CreateEmergencyController(getWorld());
 			Map<String, String> parameters = new HashMap<String, String>(3);
-            parameters.put("location", new GPSCoordinate(event.getLocation().getX(),event.getLocation().getY()).toString());
-            parameters.put("severity", event.getSeverity().toString());
-            parameters.put("description", "");
-            Emergency emergency = null;
-            EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getClass().getSimpleName());
-            try {
-                emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
-                cec.addCreatedEmergencyToTheWorld(emergency);
-            } catch (Exception ex) {
-                Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (InvalidWorldException ex) {
-            throw new EmergencyDispatchException("The world is invalid");
-        }
-    }
+			parameters.put("location", new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY()).toString());
+			parameters.put("severity", event.getSeverity().toString().toLowerCase()); //TODO: lowercase moet nog weg wanneer de parser klaar is
+			parameters.put("description", "");
+
+			if (event.getClass().getSimpleName().equals("Fire")) {
+				Fire fire = (Fire) event;
+				parameters.put("size", fire.getSize());
+				parameters.put("chemical", Boolean.toString(fire.isChemical()));
+				parameters.put("trappedPeople", Integer.toString(fire.getNumberOfTrappedPeople()));
+				parameters.put("numberOfInjured", Integer.toString(fire.getNumberOfInjured()));
+			} else if (event.getClass().getSimpleName().equals("PublicDisturbance")) {
+				PublicDisturbance publicDisturbance = (PublicDisturbance) event;
+				parameters.put("numberOfPeople", Integer.toString(publicDisturbance.getNumberOfPeople()));
+			} else if (event.getClass().getSimpleName().equals("TrafficAccident")) {
+				TrafficAccident trafficAccident = (TrafficAccident) event;
+				parameters.put("numberOfCars", Integer.toString(trafficAccident.getNumberOfCars()));
+				parameters.put("numberOfInjured", Integer.toString(trafficAccident.getNumberOfInjured()));
+			} else if (event.getClass().getSimpleName().equals("Robbery")) {
+				Robbery robbery = (Robbery) event;
+				parameters.put("armed", Boolean.toString(robbery.isArmed()));
+				parameters.put("inProgress", Boolean.toString(robbery.isInProgress()));
+			}
+
+			Emergency emergency = null;
+			EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getClass().getSimpleName());
+			try {
+				emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
+				cec.addCreatedEmergencyToTheWorld(emergency);
+			} catch (Exception ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} catch (InvalidWorldException ex) {
+			throw new EmergencyDispatchException("The world is invalid");
+		}
+	}
 
 	@Override
 	public List<IEmergency> getListOfEmergencies(EmergencyState state) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		InspectEmergenciesController iec = null;
+		try {
+			iec = new InspectEmergenciesController(world);
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		EmergencyStatus status = null;
+		EmergencyStatusParser ep = new EmergencyStatusParser();
+		//TODO: onderstaande if-statements mogen weg wanneer de parser dit ondersteund
+		if (state.toString().equalsIgnoreCase("unhandled")) {
+			try {
+				status = ep.parse("recorded but unhandled");
+			} catch (ParsingException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else if (state.toString().equalsIgnoreCase("responded")) {
+			try {
+				status = ep.parse("response in progress");
+			} catch (ParsingException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else {
+			try {
+				status = ep.parse(state.toString());
+			} catch (ParsingException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+		Emergency[] emergencies = iec.inspectEmergenciesOnStatus(status);
+		List<IEmergency> iEmergencies = new ArrayList<IEmergency>();
+		for (int i = 0; i < emergencies.length; ++i) {
+			EmergencyAdapter ea = new EmergencyAdapter(emergencies[i]);
+			iEmergencies.add(ea);
+		}
+
+		return iEmergencies;
 	}
 
 	@Override
 	public List<IEmergency> getListOfDisasters(EmergencyState state) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet2.");
 	}
 
 	@Override
 	public List<IUnit> getListOfUnits(UnitState state) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet3.");
 	}
 
 	@Override
 	public List<IHospital> getListOfHospitals() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet4.");
 	}
 
 	@Override
 	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		UnitConfiguration unitConfiguration = new UnitConfiguration(emergency);
+
+
+		throw new UnsupportedOperationException("Not supported yet5.");
 	}
 
 	@Override
 	public void assignUnits(IUnitConfiguration configuration) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet6.");
 	}
 
 	@Override
 	public void createDisaster(String description, List<IEmergency> emergencies) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet7.");
 	}
 
 	@Override
 	public void selectHospital(IUnit unit, IHospital hospital) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet8.");
 	}
 
 	@Override
 	public void indicateEndOfTask(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet9.");
 	}
 
 	@Override
 	public void indicateProblem(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet10.");
 	}
 
 	@Override
 	public void indicateRepair(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet11.");
 	}
 
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
-		long seconds = time.getHours()*3600 + time.getMinutes()*60;
-
-		
-
+		long seconds = time.getHours() * 3600 + time.getMinutes() * 60;
 	}
 
 	@Override
 	public void withdrawUnit(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet12.");
 	}
 
 	@Override
 	public void cancelEmergency(IEmergency emergency) throws NotSupportedException, EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet13.");
 	}
 
 	@Override
 	public void clearSystem() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet14.");
 	}
 
 	@Override
 	public void loadEnvironment(File file) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		EnvironmentReader er = null;
+		try {
+			try {
+				er = new EnvironmentReader(new ReadEnvironmentDataController(world));
+			} catch (InvalidWorldException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} catch (InvalidControllerException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		try {
+			FileInputStream fis = new FileInputStream("thirditeration.dat"); //TODO: magic string
+			er.readEnvironmentData(fis);
+			fis.close();
+		} catch (Exception ex) {
+			System.out.println(String.format("ERROR: %s", ex.getMessage()));
+			System.out.println("program will now stop.");
+		}
 	}
 }
