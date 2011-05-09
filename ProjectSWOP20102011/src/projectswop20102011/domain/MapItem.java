@@ -104,6 +104,7 @@ public abstract class MapItem implements Targetable {
      * Returns te home location of the MapItem (in case of a unit the place where to go to after it's task is completed).
      * @return the home location of the MapItem.
      */
+	//TODO: een beetje raar dat ook een hospital een targetlocation kan hebben.
     @Override
     public GPSCoordinate getTargetLocation() {
         return this.getHomeLocation();
