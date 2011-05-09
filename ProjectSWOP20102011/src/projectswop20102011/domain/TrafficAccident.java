@@ -15,6 +15,7 @@ import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -175,7 +176,12 @@ public class TrafficAccident extends Emergency {
 			long maximum = ambulances[1];
 			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), 1000,Long.MAX_VALUE);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
-			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
+			DispatchUnitsConstraint pol = null;
+			try {
+				pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
+			} catch (InvalidUnitValidatorException ex) {
+				Logger.getLogger(TrafficAccident.class.getName()).log(Level.SEVERE, null, ex);
+			}
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			return un;
 		} catch (InvalidEmergencyException ex) {

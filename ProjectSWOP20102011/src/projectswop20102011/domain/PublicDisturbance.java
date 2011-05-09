@@ -10,6 +10,7 @@ import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -109,7 +110,12 @@ public class PublicDisturbance extends Emergency {
     @Override
     protected ConcreteUnitsNeeded calculateUnitsNeeded() {
         try {
-            ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
+            ConcreteUnitsNeeded un = null;
+			try {
+				un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
+			} catch (InvalidUnitValidatorException ex) {
+				Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
+			}
             return un;
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
