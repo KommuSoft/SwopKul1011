@@ -29,11 +29,11 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      *		The validator to validate.
      * @return True if the given validator is effective.
      */
-    private final UnitValidator validator;
+    private final ValidatorNumberator<? super Unit> validatornumberator;
 
     /**
      * Creates a MinMaxNumberDispatchUnitsConstraint with the given units and number.
-     * @param validator
+     * @param validatornumberator
      *		The validator that specifies what will be counted.
      * @param minimum
      *		The desired minimum number of units.
@@ -50,25 +50,25 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      * @throws InvalidValidatorException
      *		If the given UnitValidator is invalid.
      */
-    public MinMaxNumberDispatchUnitsConstraint(UnitValidator validator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
+    public MinMaxNumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatornumberator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
         if (!areValidMinimumMaximum(minimum, maximum)) {
             throw new NumberOutOfBoundsException("The numbers need to be larger or equal to zero, and the maximum must be larger or equal to the minumum.");
         }
-        if (!isValidValidator(validator)) {
+        if (!isValidValidator(validatornumberator)) {
             throw new InvalidValidatorException("UnitValidator must be effective.");
         }
         this.minimum = minimum;
         this.maximum = maximum;
 
-        this.validator = validator;
+        this.validatornumberator = validatornumberator;
     }
 
     /**
      * Returns the validator that specifies what will be counted.
      * @return the validator that specifies what will be counted.
      */
-    public UnitValidator getValidator() {
-        return validator;
+    public ValidatorNumberator<? super Unit> getValidator() {
+        return validatornumberator;
     }
 
     /**
@@ -89,12 +89,12 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 
     /**
      * Tests if the given validator is a valid validator for a MinMaxNumberDispatchUnitsConstraint.
-     * @param validator
+     * @param validatornumberator
      *		The validator to validate.
      * @return True if the given validator is effective.
      */
-    public static boolean isValidValidator(UnitValidator validator) {
-        return (validator != null);
+    public static boolean isValidValidator(ValidatorNumberator<? super Unit> validatornumberator) {
+        return (validatornumberator != null);
     }
 
     /**
@@ -125,7 +125,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         for (Unit u : source) {
             if (this.getValidator().isValid(u)) {
                 collected.add(u);
-                count++;
+                count += this.getValidator().getNumber(u);
             }
         }
         return count;
