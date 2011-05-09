@@ -4,7 +4,6 @@ import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
-import projectswop20102011.domain.validators.NeededLitersDispatchUnitsConstraint;
 import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;
@@ -173,7 +172,7 @@ public class TrafficAccident extends Emergency {
 			long[] ambulances = calculateMinMaxNumberOfAmbulances();
 			long minimum = ambulances[0];
 			long maximum = ambulances[1];
-			DispatchUnitsConstraint fir = new NeededLitersDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1000);
+			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class), 1000,Long.MAX_VALUE);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

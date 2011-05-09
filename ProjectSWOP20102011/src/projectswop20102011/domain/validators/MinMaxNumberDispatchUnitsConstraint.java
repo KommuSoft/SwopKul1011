@@ -145,16 +145,19 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      */
     @Override
     public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
-        long required = getMinimum() - countValidUnits(finishedOrAssignedUnits);
-        if (required <= 0) {
+        long value = countValidUnits(finishedOrAssignedUnits);
+        if (value >= this.getMinimum()) {
             return true;
         }
         for (Unit u : availableUnits) {
             if (this.getValidator().isValid(u)) {
-                proposal.add(u);
-                required--;
-                if (required <= 0) {
-                    return true;
+                long unumber = this.getValidator().getNumber(u);
+                if(value+unumber <= this.getMaximum()) {
+                    proposal.add(u);
+                    value += unumber;
+                    if (value >= this.getMinimum()) {
+                        return true;
+                    }
                 }
             }
         }
