@@ -176,18 +176,18 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 
     public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
         //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.MMNDUC1");
     }
 
     @Override
     public boolean canFinish(List<Unit> finishedUnits) {
         //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.MMNDUC2");
     }
 
 	@Override
 	public boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantUnitIndices) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.MMNDUC3");
 	}
     /*
     public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {

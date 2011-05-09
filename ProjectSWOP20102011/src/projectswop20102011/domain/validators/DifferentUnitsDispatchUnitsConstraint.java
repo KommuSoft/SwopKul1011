@@ -135,27 +135,27 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 
 	public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
 		//TODO: implement
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.DUDUC1");
 	}
 
 	public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
 		//TODO: implement
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.DUDUC2");
 	}
 
 	@Override
 	public boolean canFinish(List<Unit> finishedUnits) {
 		//TODO: implement
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.DUDUC3");
 	}
 
 	@Override
 	public boolean generateProposal(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> availableUnits, Set<Unit> proposal) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.DUDUC4");
 	}
 
 	@Override
 	protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.DUDUC5");
 	}
 }

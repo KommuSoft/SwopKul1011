@@ -32,6 +32,6 @@ public class DispatchUnitsToDisasterUserInterface extends CommandUserInterface {
 
 	@Override
 	public void handleUserInterface() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.DUTDUI1");
 	}
 }
