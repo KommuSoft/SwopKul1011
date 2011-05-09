@@ -7,7 +7,7 @@ import projectswop20102011.domain.Unit;
  * A class representing a UnitValidator that validates if a given Unit is from a given type (example: Ambulance, Firetruck,...)
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class TypeUnitValidator extends UnitValidator {
+public class TypeUnitValidator extends UnitValidator<Unit> {
 
     /**
      * A class where the units need to be an instance from.
@@ -65,4 +65,5 @@ public class TypeUnitValidator extends UnitValidator {
     public String toString() {
         return String.format("%ss",this.getUnitClass().getSimpleName());
     }
+
 }
