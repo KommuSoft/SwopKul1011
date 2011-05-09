@@ -1,6 +1,5 @@
 package projectswop20102011.domain.lists;
 
-import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Iterator;
 import projectswop20102011.domain.Sendable;
