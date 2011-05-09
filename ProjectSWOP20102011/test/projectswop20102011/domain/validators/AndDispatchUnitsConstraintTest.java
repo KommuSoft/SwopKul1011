@@ -22,7 +22,7 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class AndDispatchUnitsConstraintTest {
@@ -41,7 +41,7 @@ public class AndDispatchUnitsConstraintTest {
     private long x1, y1, x2, y2, x3, y3, x4, y4;
 
     @Before
-    public void setUp() throws NumberOutOfBoundsException, InvalidUnitValidatorException, InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidCapacityException {
+    public void setUp() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidCapacityException {
         x1 = 10;
         y1 = 10;
         x2 = 20;

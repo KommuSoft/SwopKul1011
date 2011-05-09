@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class NeededLitersDispatchUnitsConstraint extends DispatchUnitsConstraint{
@@ -32,16 +32,16 @@ public class NeededLitersDispatchUnitsConstraint extends DispatchUnitsConstraint
 	 *       |this.validator.equals(validator)
 	 * @throws NumberOutOfBoundsException
 	 *             If the given number is invalid.
-	 * @throws InvalidUnitValidatorException
+	 * @throws InvalidValidatorException
 	 *             If the given UnitValidator is invalid.
 	 */
-	public NeededLitersDispatchUnitsConstraint(UnitValidator validator, long numberOfLitersRequired) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+	public NeededLitersDispatchUnitsConstraint(UnitValidator validator, long numberOfLitersRequired) throws NumberOutOfBoundsException, InvalidValidatorException {
 		if (!isValidNumberOfLitersRequired(numberOfLitersRequired)) {
 			throw new NumberOutOfBoundsException(
 					"The number of liters required needs to be larger than zero.");
 		}
 		if (!isValidValidator(validator)) {
-			throw new InvalidUnitValidatorException(
+			throw new InvalidValidatorException(
 					"UnitValidator must be effective.");
 		}
 		this.numberOfLitersRequired = numberOfLitersRequired;

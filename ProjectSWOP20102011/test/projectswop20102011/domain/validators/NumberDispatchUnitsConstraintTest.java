@@ -17,7 +17,7 @@ import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class NumberDispatchUnitsConstraintTest {
@@ -79,7 +79,7 @@ public class NumberDispatchUnitsConstraintTest {
     }
 
     @Test
-    public void testConstructor() throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    public void testConstructor() throws NumberOutOfBoundsException, InvalidValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv1, number1);
         assertEquals(number1, nduc.getNumber());
 
@@ -94,17 +94,17 @@ public class NumberDispatchUnitsConstraintTest {
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
-    public void testIllegalConstructor1() throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    public void testIllegalConstructor1() throws NumberOutOfBoundsException, InvalidValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv1, number5);
     }
 
-    @Test(expected = InvalidUnitValidatorException.class)
-    public void testIllegalConstructor2() throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    @Test(expected = InvalidValidatorException.class)
+    public void testIllegalConstructor2() throws NumberOutOfBoundsException, InvalidValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv5, number1);
     }
 
     @Test
-    public void testAreValidDispatchUnits() throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    public void testAreValidDispatchUnits() throws NumberOutOfBoundsException, InvalidValidatorException {
 
         ArrayList<Unit> units1 = new ArrayList<Unit>(0);
         units1.add(u1);

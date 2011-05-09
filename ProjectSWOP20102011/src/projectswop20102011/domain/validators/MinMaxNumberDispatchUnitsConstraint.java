@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -47,15 +47,15 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      *		|this.validator.equals(validator)
      * @throws NumberOutOfBoundsException
      *		If the given number is invalid.
-     * @throws InvalidUnitValidatorException
+     * @throws InvalidValidatorException
      *		If the given UnitValidator is invalid.
      */
-    public MinMaxNumberDispatchUnitsConstraint(UnitValidator validator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    public MinMaxNumberDispatchUnitsConstraint(UnitValidator validator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
         if (!areValidMinimumMaximum(minimum, maximum)) {
             throw new NumberOutOfBoundsException("The numbers need to be larger or equal to zero, and the maximum must be larger or equal to the minumum.");
         }
         if (!isValidValidator(validator)) {
-            throw new InvalidUnitValidatorException("UnitValidator must be effective.");
+            throw new InvalidValidatorException("UnitValidator must be effective.");
         }
         this.minimum = minimum;
         this.maximum = maximum;

@@ -15,7 +15,7 @@ import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -187,7 +187,7 @@ public class TrafficAccident extends Emergency {
 		} catch (NumberOutOfBoundsException ex) {
 			//we assume this can't happen
 			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitValidatorException ex) {
+		} catch (InvalidValidatorException ex) {
 			//we assume this can't happen
 			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidClassException ex) {

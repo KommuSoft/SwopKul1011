@@ -18,7 +18,7 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -291,7 +291,7 @@ public class Fire extends Emergency {
 			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (NumberOutOfBoundsException ex) {
 			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidUnitValidatorException ex) {
+		} catch (InvalidValidatorException ex) {
 			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
 		}
 

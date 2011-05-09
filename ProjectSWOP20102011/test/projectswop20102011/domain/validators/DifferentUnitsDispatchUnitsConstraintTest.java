@@ -18,7 +18,7 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class DifferentUnitsDispatchUnitsConstraintTest {
@@ -38,7 +38,7 @@ public class DifferentUnitsDispatchUnitsConstraintTest {
 	private long x1, y1, x2, y2, x3, y3, x4, y4, x5, y5;
 
 	@Before
-	public void setUp() throws InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidUnitValidatorException {
+	public void setUp() throws InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidValidatorException {
 		x1 = 10;
 		y1 = 10;
 		x2 = 20;

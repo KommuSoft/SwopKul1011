@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstraint{
@@ -30,15 +30,15 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 	 *		|this.validator.equals(validator)
 	 * @throws NumberOutOfBoundsException
 	 *		If the given number is invalid.
-	 * @throws InvalidUnitValidatorException
+	 * @throws InvalidValidatorException
 	 *		If the given UnitValidator is invalid.
 	 */
-	public DifferentUnitsDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+	public DifferentUnitsDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidValidatorException {
 		if (!isValidNumber(number)) {
 			throw new NumberOutOfBoundsException("The number needs to be larger or equal to zero.");
 		}
 		if (!isValidValidator(validator)) {
-			throw new InvalidUnitValidatorException("UnitValidator must be effective.");
+			throw new InvalidValidatorException("UnitValidator must be effective.");
 		}
 		this.number = number;
 		this.validator = validator;

@@ -8,7 +8,7 @@ import projectswop20102011.domain.Unit;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  * @note If <T> has another type than Unit, the UnitValidator should fail on every instance that has another type than <T>.
  */
-public interface UnitValidator<T extends Unit> {
+public interface UnitValidator<T extends Unit> extends Validator<T> {
 
     /**
      * Validates the given unit.
@@ -17,6 +17,7 @@ public interface UnitValidator<T extends Unit> {
      * @return
      *		True if the given unit is valid; false otherwise.
      */
-    public abstract boolean isValid(Unit unit);
+    @Override
+    public abstract boolean isValid(T unit);
 
 }

@@ -20,7 +20,7 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class NeededLitersDispatchUnitsConstraintTest {
@@ -40,7 +40,7 @@ public class NeededLitersDispatchUnitsConstraintTest {
 
 	@Before
 	public void setUp() throws NumberOutOfBoundsException,
-			InvalidUnitValidatorException, InvalidClassException,
+			InvalidValidatorException, InvalidClassException,
 			InvalidLocationException, InvalidMapItemNameException,
 			InvalidSpeedException, InvalidFireSizeException,
 			InvalidCapacityException {

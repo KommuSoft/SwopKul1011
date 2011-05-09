@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
+import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -25,10 +25,10 @@ public class NumberDispatchUnitsConstraint extends MinMaxNumberDispatchUnitsCons
      *		|this.validator.equals(validator)
      * @throws NumberOutOfBoundsException
 	 *		If the given number is invalid.
-     * @throws InvalidUnitValidatorException
+     * @throws InvalidValidatorException
 	 *		If the given UnitValidator is invalid.
      */
-    public NumberDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
+    public NumberDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidValidatorException {
         super(validator,number,number);
     }
 
