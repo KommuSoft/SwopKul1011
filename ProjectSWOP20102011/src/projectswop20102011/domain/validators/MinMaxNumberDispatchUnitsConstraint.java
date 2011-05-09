@@ -1,5 +1,7 @@
 package projectswop20102011.domain.validators;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -49,7 +51,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      *		If the given UnitValidator is invalid.
      */
     public MinMaxNumberDispatchUnitsConstraint(UnitValidator validator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidUnitValidatorException {
-        if (!areValidMinimumMaximum(minimum,maximum)) {
+        if (!areValidMinimumMaximum(minimum, maximum)) {
             throw new NumberOutOfBoundsException("The numbers need to be larger or equal to zero, and the maximum must be larger or equal to the minumum.");
         }
         if (!isValidValidator(validator)) {
@@ -105,71 +107,103 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return (number >= 0);
     }
 
-    public static boolean areValidMinimumMaximum (long minimum, long maximum) {
+    /**
+     * Tests if the given minimum and maximum number are valid.
+     * @param minimum
+     *          The given minimum bound.
+     * @param maximum
+     *          The given maximum bound.
+     * @return True if the given minimum and maximum are valid number and the minimum is less or equal to the maximum.
+     */
+    public static boolean areValidMinimumMaximum(long minimum, long maximum) {
         return (isValidNumber(minimum) && isValidNumber(maximum) && (minimum <= maximum));
     }
 
-    @Override
-    public boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantUnitIndices) {
-        final long minimumNeeded = getMinimum();
-        final long maximumNeeded = getMaximum();
+    //TODO: beter verplaatsen naar een Util?
+    private int collectValidUnits(Collection<Unit> source, Collection<Unit> collected) {
+        int count = 0;
+        for (Unit u : source) {
+            if (this.getValidator().isValid(u)) {
+                collected.add(u);
+                count++;
+            }
+        }
+        return count;
+    }
 
-        if (minimumNeeded <= 0) {
+    //TODO: beter verplaatsen naar een Util?
+    private int countValidUnits(Collection<Unit> source) {
+        return collectValidUnits(source, new HashSet<Unit>());
+    }
+
+    /**
+     * Generates a proposal for units based on the set of available units, and adds them to the proposal.
+     * @param finishedOrAssignedUnits The list of units that are already finished or assigned.
+     * @param availableUnits The set of available units to assign.
+     * @param proposal A set where the units that will be proposed will be added to.
+     * @return True if this methods can generate a proposal without violating constraints (for example firetrucks can only added once, sometimes we can't generate a proposal).
+     */
+    @Override
+    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
+        long required = getMinimum() - countValidUnits(finishedOrAssignedUnits);
+        if (required <= 0) {
             return true;
         }
-
-        long n = 0;
-        UnitValidator uv = this.getValidator();
-        Unit u;
-        for (int i = 0; i < units.size(); i++) {
-            u = units.get(i);
-            if (uv.isValid(u)) {
-                relevantUnitIndices.add(i);
-                if (++n >= minimumNeeded) {
+        for (Unit u : availableUnits) {
+            if (this.getValidator().isValid(u)) {
+                proposal.add(u);
+                required--;
+                if (required <= 0) {
                     return true;
                 }
             }
         }
-        return false;
+        return true;
     }
 
+    /**
+     * Checks if the given set of units to assign to an emergency can be assigned.
+     * @param finishedOrAssignedUnits The list of Units that were already
+     * @param toAssignUnits The list of units to check if they can be assigned.
+     * @param relevantUnits A set of units containing after this method all the units from toAssignUnits that are relevant.
+     * @return True if the given set of units can be assigned, otherwise false.
+     * @note For a valid assignment, all the units from toAssign needs to be in the relevantUnits at the end of this method.
+     */
     @Override
-    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
+    protected boolean canAssign(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
+        long counter = countValidUnits(finishedOrAssignedUnits);
+        if (counter >= this.getMaximum()) {
+            return true;
+        }
+        for (Unit u : toAssignUnits) {
+            if (this.getValidator().isValid(u)) {
+                counter++;
+                relevantUnits.add(u);
+                if (counter >= this.getMaximum()) {
+                    return true;
+                }
+            }
+        }
+        return true;
     }
 
-    @Override
-    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    /**
+     * Checks if the emergency can be finished if the given units have all done their job in the emergency.
+     * @param finishedUnits A list of finished Units.
+     * @return True if the given emergency can finish, otherwise false.
+     */
     @Override
     public boolean canFinish(List<Unit> finishedUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    /*
-    public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {
-    long needed = this.getNumber();
-    if(needed <= 0) {
-    return true;
+        int valids = countValidUnits(finishedUnits);
+        return (valids >= this.getMinimum() && valids <= this.getMaximum());
     }
 
-    long n = 0;
-    UnitValidator uv = this.getValidator();
-    Unit u;
-    for(int i = 0; i < units.size(); i++) {
-    u = units.get(i);
-    if(uv.isValid(u)) {
-    relevantIndices.add(i);
-    if(++n >= needed) {
-    return true;
-    }
-    }
-    }
-    return false;
-    }
+    /**
+     * Returns a textual representation of the NumberDispatchUnitsConstraint.
+     * @return A textual representation of the NumberDispatchUnitsConstraint.
      */
+    @Override
+    public String toString() {
+        return String.format("number of %s must be between %s and %s", this.getValidator().toString(), this.getMinimum(), this.getMaximum());
+    }
 }
