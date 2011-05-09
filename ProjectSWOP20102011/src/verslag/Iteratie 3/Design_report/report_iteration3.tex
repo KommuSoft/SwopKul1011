@@ -1,0 +1,78 @@
+\documentclass[a4paper,titlepage]{article}
+\usepackage[dutch]{babel}
+\usepackage{fullpage}
+\usepackage{emp}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{listings}
+\graphicspath{{./UML/}}
+\usetikzlibrary{shapes,snakes}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{float}
+\usepackage{subfigure}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{Software Ontwerp - Verslag Iteratie 3\\Prof. T. Holvoet\\Dhr. T. Heyman}
+\author{Team 08:\\Willem Van Onsem\\Jonas Vanthornhout\\Pieter-Jan Vuylsteke}
+\date{20 mei 2010}
+
+\begin{document}
+\begin{empfile}
+\begin{titlepage}
+\begin{center}
+\HRule \\[0.4cm]
+{ \huge \bfseries Software Ontwerp - Verslag Iteratie 3}\\[0.4cm]
+\HRule \\[1.5cm]
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Professor:}\\
+T. \textsc{Holvoet}\\
+\emph{Begeleider:}\\
+T. \textsc{Heyman}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Team 08:} \\
+Willem \textsc{Van Onsem}\\
+Jonas \textsc{Vanthornhout}\\
+Pieter-Jan \textsc{Vuylsteke}
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large \today}
+%\maketitle
+\end{center}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section*{Inleiding}
+\input{inleiding}
+\newpage
+\section{Overzicht van het Systeem}
+\input{overzicht}
+%\newpage
+\section{GRASP en Design Patterns}
+\input{graspDesignPatterns}
+%\newpage
+\section{Potenti\"ele uitbreidingen}
+\input{uitbreidingen}
+%\newpage
+\section{Teststrategie}
+\input{teststrategie}
+%\newpage
+\section{Projectbeheer}
+\input{projectbeheer}
+%\newpage
+\section{Conclusie}
+\input{conclusies}
+\newpage
+\appendix
+\section{Bijlagen}
+\input{bijlagen}
+\end{empfile}
+\end{document}
