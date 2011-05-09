@@ -52,7 +52,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	/**
 	 * A variable registering the state of a unit
 	 */
-	private UnitState unitState;
+	private UnitStatus unitStatus;
 
     /**
      * Initialize a new unit with given parameters.
@@ -86,7 +86,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         setCurrentLocation(homeLocation);
         setEmergency(null);
         setWasAlreadyAtSite(false);
-		setUnitState(UnitState.IDLE);
+		setUnitStatus(UnitStatus.IDLE);
         try {
             setTarget(this);
         } catch (InvalidTargetableException ex) {
@@ -152,8 +152,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * Return the state of this unit
 	 * @return the state of this unit.
 	 */
-	public UnitState getUnitState(){
-		return unitState;
+	public UnitStatus getUnitStatus(){
+		return unitStatus;
 	}
 
 	/**
@@ -161,8 +161,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @param unitState
 	 *		The new state of this unit
 	 */
-	public void setUnitState(UnitState unitState){
-		this.unitState = unitState;
+	public void setUnitStatus(UnitStatus unitStatus){
+		this.unitStatus = unitStatus;
 	}
 
 
@@ -314,7 +314,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             if (getCurrentLocation().equals(emergency.getLocation())) {
                 setWasAlreadyAtSite(true);
             }
-			setUnitState(UnitState.ASSIGNED);
+			setUnitStatus(UnitStatus.ASSIGNED);
         }
     }
 
@@ -343,7 +343,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         } else {
             this.getEmergency().withdrawUnit(this);
             this.setEmergency(null);
-			setUnitState(UnitState.IDLE);
+			setUnitStatus(UnitStatus.IDLE);
         }
     }
 
@@ -393,7 +393,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             getEmergency().finishUnit(this);
             setEmergency(null);
             setWasAlreadyAtSite(false);
-			setUnitState(UnitState.IDLE);
+			setUnitStatus(UnitStatus.IDLE);
         }
     }
 

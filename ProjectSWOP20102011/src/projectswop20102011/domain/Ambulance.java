@@ -106,7 +106,7 @@ public class Ambulance extends Unit {
             throw new InvalidAmbulanceException("Ambulance must be assigned and at the emergency.");
         }
         setCurrentHospital(hospital);
-		setUnitState(UnitState.OCCUPIED);
+		setUnitStatus(UnitStatus.OCCUPIED);
     }
 
     /**

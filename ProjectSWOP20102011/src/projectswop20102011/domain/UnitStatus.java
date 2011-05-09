@@ -5,7 +5,7 @@ package projectswop20102011.domain;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 
-public enum UnitState {
+public enum UnitStatus {
 
 	ANY(),
 	ASSIGNED(),
