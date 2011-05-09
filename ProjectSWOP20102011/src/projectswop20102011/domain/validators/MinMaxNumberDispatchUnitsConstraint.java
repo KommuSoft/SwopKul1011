@@ -51,7 +51,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      *		If the given UnitValidator is invalid.
      */
     public MinMaxNumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatornumberator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
-        if (!areValidMinimumMaximum(minimum, maximum)) {
+        if (!areValidMinimumMaximum(minimum,maximum)) {
             throw new NumberOutOfBoundsException("The numbers need to be larger or equal to zero, and the maximum must be larger or equal to the minumum.");
         }
         if (!isValidValidator(validatornumberator)) {
@@ -107,15 +107,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return (number >= 0);
     }
 
-    /**
-     * Tests if the given minimum and maximum number are valid.
-     * @param minimum
-     *          The given minimum bound.
-     * @param maximum
-     *          The given maximum bound.
-     * @return True if the given minimum and maximum are valid number and the minimum is less or equal to the maximum.
-     */
-    public static boolean areValidMinimumMaximum(long minimum, long maximum) {
+    public static boolean areValidMinimumMaximum (long minimum, long maximum) {
         return (isValidNumber(minimum) && isValidNumber(maximum) && (minimum <= maximum));
     }
 
@@ -161,17 +153,9 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
                 }
             }
         }
-        return true;
+        return false;
     }
 
-    /**
-     * Checks if the given set of units to assign to an emergency can be assigned.
-     * @param finishedOrAssignedUnits The list of Units that were already
-     * @param toAssignUnits The list of units to check if they can be assigned.
-     * @param relevantUnits A set of units containing after this method all the units from toAssignUnits that are relevant.
-     * @return True if the given set of units can be assigned, otherwise false.
-     * @note For a valid assignment, all the units from toAssign needs to be in the relevantUnits at the end of this method.
-     */
     @Override
     protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
         long counter = countValidUnits(finishedOrAssignedUnits);
@@ -190,23 +174,41 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return true;
     }
 
-    /**
-     * Checks if the emergency can be finished if the given units have all done their job in the emergency.
-     * @param finishedUnits A list of finished Units.
-     * @return True if the given emergency can finish, otherwise false.
-     */
-    @Override
-    public boolean canFinish(List<Unit> finishedUnits) {
-        int valids = countValidUnits(finishedUnits);
-        return (valids >= this.getMinimum() && valids <= this.getMaximum());
+    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * Returns a textual representation of the NumberDispatchUnitsConstraint.
-     * @return A textual representation of the NumberDispatchUnitsConstraint.
-     */
     @Override
-    public String toString() {
-        return String.format("number of %s must be between %s and %s", this.getValidator().toString(), this.getMinimum(), this.getMaximum());
+    public boolean canFinish(List<Unit> finishedUnits) {
+        //TODO: implement
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+	@Override
+	public boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantUnitIndices) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+    /*
+    public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {
+    long needed = this.getNumber();
+    if(needed <= 0) {
+    return true;
+    }
+
+    long n = 0;
+    UnitValidator uv = this.getValidator();
+    Unit u;
+    for(int i = 0; i < units.size(); i++) {
+    u = units.get(i);
+    if(uv.isValid(u)) {
+    relevantIndices.add(i);
+    if(++n >= needed) {
+    return true;
+    }
+    }
+    }
+    return false;
+    }
+     */
 }

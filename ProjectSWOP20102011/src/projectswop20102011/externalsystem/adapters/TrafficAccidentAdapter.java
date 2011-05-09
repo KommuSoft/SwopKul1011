@@ -24,7 +24,7 @@ public class TrafficAccidentAdapter extends EmergencyAdapter implements ITraffic
 
 	@Override
 	public ITime getTime() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.TAA1");
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package projectswop20102011.externalsystem.adapters;
 import be.kuleuven.cs.swop.api.ILocation;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.UnitState;
-import be.kuleuven.cs.swop.events.Location;
 import projectswop20102011.domain.Unit;
 
 public class UnitAdapter implements IUnit{
@@ -14,7 +13,7 @@ public class UnitAdapter implements IUnit{
 		this.unit = unit;
 	}
 
-	protected Unit getUnit(){
+	public Unit getUnit(){
 		return unit;
 	}
 
@@ -35,7 +34,7 @@ public class UnitAdapter implements IUnit{
 
 	@Override
 	public UnitState getState() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.UA1");
 		//return UnitState.valueOf(getUnit().getStatus());
 	}
 

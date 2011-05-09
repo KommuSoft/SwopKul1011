@@ -10,17 +10,17 @@ public class LocationAdapter implements ILocation{
 
 	@Override
 	public int getX() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.LA1");
 	}
 
 	@Override
 	public int getY() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.LA2");
 	}
 
 	@Override
 	public double getDistanceTo(ILocation location) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.LA3");
 	}
 
 }

@@ -19,26 +19,32 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.Main;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.World;
+import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidControllerException;
+import projectswop20102011.exceptions.InvalidDurationException;
+import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.externalsystem.adapters.EmergencyAdapter;
+import projectswop20102011.externalsystem.adapters.UnitAdapter;
 import projectswop20102011.externalsystem.adapters.UnitConfiguration;
 import projectswop20102011.factories.EmergencyFactory;
 import projectswop20102011.userinterface.EnvironmentReader;
 import projectswop20102011.utils.parsers.EmergencyStatusParser;
-import projectswop20102011.utils.parsers.EnumParser;
 
 /**
  * A class that represents the EmergencyDispatchApi
@@ -50,7 +56,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	/**
 	 * A variable registering the world that is connected with this EmergencyDispatchApi.
 	 */
-	private final World world;
+	private World world;
 
 	/**
 	 * Creates a new EmergencyDispatchApi with the given world.
@@ -178,15 +184,35 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
-		UnitConfiguration unitConfiguration = new UnitConfiguration(emergency);
-
-
-		throw new UnsupportedOperationException("Not supported yet5.");
+		UnitConfiguration unitConfiguration = new UnitConfiguration(emergency, getWorld());
+		return unitConfiguration;
 	}
 
 	@Override
 	public void assignUnits(IUnitConfiguration configuration) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet6.");
+		//TODO: dit is lelijk (getEmergency en getUnit staan nu public)
+		DispatchUnitsController controller = null;
+		try {
+			controller = new DispatchUnitsController(getWorld());
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		EmergencyAdapter emergency = (EmergencyAdapter) configuration.getEmergency();
+		List<IUnit> iUnits = configuration.getAllUnits();
+		HashSet<Unit> units = new HashSet<Unit>();
+
+		for (IUnit u : iUnits) {
+			UnitAdapter unitAdapter = (UnitAdapter) u;
+			units.add(unitAdapter.getUnit());
+		}
+		try {
+			controller.dispatchToEmergency(emergency.getEmergency(), units);
+		} catch (InvalidEmergencyStatusException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (Exception ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -216,7 +242,12 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
-		long seconds = time.getHours() * 3600 + time.getMinutes() * 60;
+		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
+		try {
+			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
+		} catch (InvalidDurationException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -231,11 +262,16 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void clearSystem() {
-		throw new UnsupportedOperationException("Not supported yet14.");
+		try {
+			world = Main.initWorld();
+		} catch (Exception ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
 	public void loadEnvironment(File file) throws EmergencyDispatchException {
+		clearSystem();
 		EnvironmentReader er = null;
 		try {
 			try {

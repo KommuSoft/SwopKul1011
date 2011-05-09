@@ -56,7 +56,8 @@ public class Main {
 		}
 	}
 
-	private static World initWorld() throws Exception {
+	//TODO: deze methode heb ik (Jonas Vanthornhout) eventjus public gezet
+	public static World initWorld() throws Exception {
 		World world = new World();
 
 		EmergencyFactoryList efl = world.getEmergencyFactoryList();

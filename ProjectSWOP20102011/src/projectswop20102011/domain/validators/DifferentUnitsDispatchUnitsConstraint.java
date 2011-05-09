@@ -6,8 +6,9 @@ import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
+import projectswop20102011.utils.OrderedSet;
 
-public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstraint{
+public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
 	/**
 	 * A variable registering the desired number of units.
@@ -101,7 +102,7 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 		Unit u;
 		for (int i = 0; i < units.size(); i++) {
 			u = units.get(i);
-			if (uv.isValid(u) && !duplicateInList(units,i)) {
+			if (uv.isValid(u) && !duplicateInList(units, i)) {
 				relevantIndices.add(i);
 				if (++n >= needed) {
 					return true;
@@ -113,10 +114,10 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 
 	}
 
-	private boolean duplicateInList(List<Unit> units, int n){
+	private boolean duplicateInList(List<Unit> units, int n) {
 		Unit u = units.get(n);
-		for(int j=0;j<n;j++){
-			if(units.get(j).equals(u)){
+		for (int j = 0; j < n; j++) {
+			if (units.get(j).equals(u)) {
 				return true;
 			}
 		}
@@ -132,21 +133,29 @@ public class DifferentUnitsDispatchUnitsConstraint extends DispatchUnitsConstrai
 		return String.format("number of %s must be %s", this.getValidator().toString(), this.getNumber());
 	}
 
-        @Override
-    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
+		//TODO: implement
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-    @Override
-    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
+		//TODO: implement
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-    @Override
-    public boolean canFinish(List<Unit> finishedUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	@Override
+	public boolean canFinish(List<Unit> finishedUnits) {
+		//TODO: implement
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public boolean generateProposal(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> availableUnits, Set<Unit> proposal) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 }

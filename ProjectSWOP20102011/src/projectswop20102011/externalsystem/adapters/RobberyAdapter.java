@@ -24,7 +24,7 @@ public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 
 	@Override
 	public ITime getTime() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.RA1");
 	}
 
 	@Override

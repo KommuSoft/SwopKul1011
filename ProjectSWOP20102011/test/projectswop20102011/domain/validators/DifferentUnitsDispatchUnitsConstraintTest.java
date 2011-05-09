@@ -1,8 +1,5 @@
 package projectswop20102011.domain.validators;
 
-import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
-import projectswop20102011.domain.validators.UnitValidator;
-import projectswop20102011.domain.validators.TypeUnitValidator;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import org.junit.Before;

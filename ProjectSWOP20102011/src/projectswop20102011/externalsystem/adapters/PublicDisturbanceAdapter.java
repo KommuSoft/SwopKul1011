@@ -18,7 +18,7 @@ public class PublicDisturbanceAdapter extends EmergencyAdapter implements IPubli
 
 	@Override
 	public ITime getTime() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.PDA1");
 	}
 
 	@Override

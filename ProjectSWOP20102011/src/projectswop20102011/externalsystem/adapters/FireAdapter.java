@@ -34,7 +34,7 @@ public class FireAdapter extends EmergencyAdapter implements IFireView {
 
 	@Override
 	public ITime getTime() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		throw new UnsupportedOperationException("Not supported yet.FA1");
 	}
 
 	@Override

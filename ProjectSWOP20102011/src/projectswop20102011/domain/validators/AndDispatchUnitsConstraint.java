@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.utils.OrderedSet;
 
 /**
  * A constraint class checking if a collection of other constraints all pass.
@@ -55,6 +56,24 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     }
 
     /**
+     * Tests if the given Iterable object of units could be allocated to the emergency where this DispatchUnitsConstraint is part of.
+     * @param units
+	 *		An iterable object containing only unique and only effective units.
+     * @param relevantIndices
+	 *		A set of indices where units who are relevant to this constraint will be added to.
+     * @pre The given units parameter contains only unique (no duplicates) effective units.
+     * @return If all the constraints below this constraint pass, otherwise false.
+     */
+    @Override
+    public boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantIndices) {
+        boolean result = true;
+        for (DispatchUnitsConstraint duc : getConstraints()) {
+            result &= duc.areValidDispatchUnits(units,relevantIndices);
+        }
+        return result;
+    }
+
+    /**
      * Returns a textual representation of the AndDispatchUnitsConstraint.
      * @return A textual representation of the AndDispatchUnitsConstraint.
      */
@@ -82,10 +101,9 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * @return True if this methods can generate a proposal without violating constraints (for example firetrucks can only added once, sometimes we can't generate a proposal).
      * @note This constraint will ask all containing constraints to generate their proposal, the result is the union of all the proposed units, and the return value the and of all the return values.
      */
-    @Override
     public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
         for(DispatchUnitsConstraint duc : this.constraints) {
-            if(!duc.generateProposal(finishedOrAssignedUnits,availableUnits,proposal)) {
+            if(!duc.generateProposal(finishedOrAssignedUnits, (OrderedSet<Unit>) availableUnits,proposal)) {
                 return false;
             }
         }
@@ -96,15 +114,12 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * Checks if the given set of units to assign to an emergency can be assigned.
      * @param finishedOrAssignedUnits The list of Units that were already 
      * @param toAssignUnits The list of units to check if they can be assigned.
-     * @param relevantUnits A set of units containing after this method all the units from toAssignUnits that are relevant.
      * @return True if the given set of units can be assigned, otherwise false.
-     * @note For a valid assignment, all the units from toAssign needs to be in the relevantUnits at the end of this method.
      * @note The result of this method is the and of the results of the containing constraints.
      */
-    @Override
-    protected boolean canAssign(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
+    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
         for(DispatchUnitsConstraint duc : this.constraints) {
-            if(!duc.canAssign(finishedOrAssignedUnits,toAssignUnits,relevantUnits)) {
+            if(!duc.canAssign(finishedOrAssignedUnits, (OrderedSet<Unit>) toAssignUnits)) {
                 return false;
             }
         }
@@ -126,5 +141,15 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
         }
         return true;
     }
+
+	@Override
+	public boolean generateProposal(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> availableUnits, Set<Unit> proposal) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
 }
