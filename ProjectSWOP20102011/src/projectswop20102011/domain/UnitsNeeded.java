@@ -72,7 +72,7 @@ public abstract class UnitsNeeded {
 	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
 	 */
 	public boolean canCompleteEmergency() {
-		return getConstraint().areValidDispatchUnits(takeFinishedUnits());
+		return (this.getWorkingUnits().isEmpty() && getConstraint().canFinish(this.getFinishedUnits()));
 	}
 
 	abstract DispatchUnitsConstraint getConstraint();
