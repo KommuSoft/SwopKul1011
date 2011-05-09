@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
+import projectswop20102011.utils.OrderedSet;
 
 /**
  * A class that represents a constraint that checks the minimum and maximum number of units.
@@ -144,7 +144,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      * @return True if this methods can generate a proposal without violating constraints (for example firetrucks can only added once, sometimes we can't generate a proposal).
      */
     @Override
-    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
+    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> availableUnits, Set<Unit> proposal) {
         long value = countValidUnits(finishedOrAssignedUnits);
         if (value >= this.getMinimum()) {
             return true;
@@ -173,7 +173,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      * @note For a valid assignment, all the units from toAssign needs to be in the relevantUnits at the end of this method.
      */
     @Override
-    protected boolean canAssign(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
+    protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
         long counter = countValidUnits(finishedOrAssignedUnits);
         if (counter >= this.getMaximum()) {
             return true;
