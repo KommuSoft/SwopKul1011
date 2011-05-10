@@ -29,6 +29,7 @@ import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.World;
+import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
@@ -43,7 +44,9 @@ import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.exceptions.IndicateProblemNotSupportedException;
 import projectswop20102011.exceptions.IndicateRepairNotSupportedException;
+import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
+import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -274,8 +277,29 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	}
 
 	@Override
-	public void createDisaster(String description, List<IEmergency> emergencies) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet7.");
+	public void createDisaster(String description, List<IEmergency> iEmergencies) throws EmergencyDispatchException {
+		CreateDisasterController controller = null;
+		try {
+			controller = new CreateDisasterController(getWorld());
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		EmergencyAdapter emergencyAdapter;
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		for (IEmergency em : iEmergencies) {
+			emergencyAdapter = (EmergencyAdapter) em;
+			emergencies.add(emergencyAdapter.getEmergency());
+		}
+		try {
+			controller.createDisaster(emergencies, description);
+		} catch (InvalidAddedDisasterException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidEmergencyException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidConstraintListException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 	}
 
 	@Override
