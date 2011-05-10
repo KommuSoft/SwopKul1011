@@ -34,16 +34,20 @@ import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.controllers.SelectHospitalController;
+import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
+import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
+import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.ParsingException;
@@ -281,6 +285,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		AmbulanceAdapter ambulanceAdapter = (AmbulanceAdapter) unit;
+		Ambulance amb = (Ambulance) ambulanceAdapter.getUnit();
+
+		HospitalAdapter hospitalAdapter = (HospitalAdapter) hospital;
+		Hospital hosp = hospitalAdapter.getHospital();
+		try {
+			controller.selectHospital(amb, hosp);
+		} catch (InvalidAmbulanceException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidHospitalException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 
 	}
 
