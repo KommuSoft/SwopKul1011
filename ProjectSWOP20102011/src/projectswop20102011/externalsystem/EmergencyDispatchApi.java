@@ -41,6 +41,8 @@ import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
+import projectswop20102011.exceptions.IndicateProblemNotSupportedException;
+import projectswop20102011.exceptions.IndicateRepairNotSupportedException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
@@ -289,6 +291,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		HospitalAdapter hospitalAdapter = (HospitalAdapter) hospital;
 		Hospital hosp = hospitalAdapter.getHospital();
+
 		try {
 			controller.selectHospital(amb, hosp);
 		} catch (InvalidAmbulanceException ex) {
@@ -323,12 +326,12 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void indicateProblem(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet10.");
+		throw new IndicateProblemNotSupportedException("Units can't encounter a problem.");
 	}
 
 	@Override
 	public void indicateRepair(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet11.");
+		throw new IndicateRepairNotSupportedException("Units can't be repaired.");
 	}
 
 	@Override
