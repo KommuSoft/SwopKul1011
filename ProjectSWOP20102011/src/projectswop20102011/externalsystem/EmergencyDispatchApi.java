@@ -42,6 +42,7 @@ import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
+import projectswop20102011.exceptions.CancelEmergencyNotSupportedException;
 import projectswop20102011.exceptions.IndicateProblemNotSupportedException;
 import projectswop20102011.exceptions.IndicateRepairNotSupportedException;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
@@ -375,7 +376,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void cancelEmergency(IEmergency emergency) throws NotSupportedException, EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet13.");
+		throw new CancelEmergencyNotSupportedException("An emergency can't be cancelled.");
 	}
 
 	@Override
