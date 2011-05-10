@@ -47,5 +47,6 @@ public class EmergencyAdapter implements IEmergency {
 	@Override
 	public boolean isPartOfDisaster() {
 		throw new UnsupportedOperationException("Not supported yet.EA2");
+		//return getEmergency().isPartOfDisaster();
 	}
 }

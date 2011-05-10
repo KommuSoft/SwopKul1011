@@ -300,7 +300,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		} catch (InvalidConstraintListException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
 	}
 
 	@Override
@@ -324,8 +323,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		} catch (InvalidHospitalException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
-
 	}
 
 	@Override

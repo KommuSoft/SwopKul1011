@@ -5,15 +5,15 @@ import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.UnitState;
 import projectswop20102011.domain.Unit;
 
-public class UnitAdapter implements IUnit{
+public class UnitAdapter implements IUnit {
+
 	final private Unit unit;
 
-
-	public UnitAdapter(Unit unit){
+	public UnitAdapter(Unit unit) {
 		this.unit = unit;
 	}
 
-	public Unit getUnit(){
+	public Unit getUnit() {
 		return unit;
 	}
 
@@ -36,5 +36,4 @@ public class UnitAdapter implements IUnit{
 	public UnitState getState() {
 		return UnitState.valueOf(getUnit().getUnitStatus().toString());
 	}
-
 }

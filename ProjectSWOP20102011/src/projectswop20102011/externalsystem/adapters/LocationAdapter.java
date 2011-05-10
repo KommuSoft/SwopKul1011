@@ -27,7 +27,8 @@ public class LocationAdapter implements ILocation{
 
 	@Override
 	public double getDistanceTo(ILocation location) {
-		throw new UnsupportedOperationException("Not supported yet.LA3");
+		LocationAdapter to = (LocationAdapter) location;
+		return getGPSCoordinate().getDistanceTo(to.getGPSCoordinate());
 	}
 
 	@Override
