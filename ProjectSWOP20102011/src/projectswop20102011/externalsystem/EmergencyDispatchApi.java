@@ -30,15 +30,20 @@ import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.World;
 import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidFinishJobException;
+import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.ParsingException;
+import projectswop20102011.externalsystem.adapters.AmbulanceAdapter;
 import projectswop20102011.externalsystem.adapters.EmergencyAdapter;
 import projectswop20102011.externalsystem.adapters.UnitAdapter;
 import projectswop20102011.externalsystem.adapters.UnitConfiguration;
@@ -222,12 +227,35 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void selectHospital(IUnit unit, IHospital hospital) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet8.");
+		SelectHospitalController controller = null;
+		try {
+			controller = new SelectHospitalController(getWorld());
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		AmbulanceAdapter ambulanceAdapter = (AmbulanceAdapter) unit;
+
 	}
 
 	@Override
 	public void indicateEndOfTask(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet9.");
+		EndOfTaskController controller = null;
+		try {
+			controller = new EndOfTaskController(getWorld());
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		UnitAdapter unitAdapter = (UnitAdapter) unit;
+		Unit u = unitAdapter.getUnit();
+		try {
+			controller.indicateEndOfTask(u);
+		} catch (InvalidUnitException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidEmergencyStatusException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidFinishJobException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
