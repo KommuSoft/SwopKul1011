@@ -23,7 +23,7 @@ public class PublicDisturbanceAdapter extends EmergencyAdapter implements IPubli
 
 	@Override
 	public ILocation getLocation() {
-		return new LocationAdapter((int)getEmergency().getLocation().getX(), (int)getEmergency().getLocation().getY());
+		return new LocationAdapter(getEmergency().getLocation());
 	}
 
 	@Override

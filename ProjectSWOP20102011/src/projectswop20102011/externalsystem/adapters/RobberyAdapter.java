@@ -29,7 +29,7 @@ public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 
 	@Override
 	public ILocation getLocation() {
-		return new LocationAdapter((int)getEmergency().getLocation().getX(), (int)getEmergency().getLocation().getY());
+		return new LocationAdapter(getEmergency().getLocation());
 	}
 
 	@Override

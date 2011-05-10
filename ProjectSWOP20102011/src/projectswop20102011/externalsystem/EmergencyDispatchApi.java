@@ -35,7 +35,11 @@ import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.Hospital;
+import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
+import projectswop20102011.domain.lists.MapItemList;
+import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
@@ -45,6 +49,7 @@ import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.externalsystem.adapters.AmbulanceAdapter;
 import projectswop20102011.externalsystem.adapters.EmergencyAdapter;
+import projectswop20102011.externalsystem.adapters.HospitalAdapter;
 import projectswop20102011.externalsystem.adapters.UnitAdapter;
 import projectswop20102011.externalsystem.adapters.UnitConfiguration;
 import projectswop20102011.factories.EmergencyFactory;
@@ -179,12 +184,54 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public List<IUnit> getListOfUnits(UnitState state) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet3.");
+		MapItemList mil = world.getMapItemList();
+
+		//TODO: begin debug statement
+		ArrayList<MapItem> items = mil.toArrayList();
+		System.out.println("Number of mapItems (units)" + items.size());
+		for (int i = 0; i < items.size(); ++i) {
+			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
+		}
+		//TODO: end debug statement
+
+		TypeMapItemValidator<Unit> miv = new TypeMapItemValidator<Unit>(Unit.class);
+		ArrayList<Unit> units = mil.getSubMapItemListByValidator(miv).toArrayList();
+		ArrayList<IUnit> result = new ArrayList<IUnit>();
+
+		for (Unit u : units) {
+			UnitAdapter ua = new UnitAdapter(u);
+			if (ua.getState().equals(state)) {
+				result.add(ua);
+			} else if (state.equals(UnitState.ANY)) {
+				result.add(ua);
+			}
+		}
+
+		return result;
 	}
 
 	@Override
 	public List<IHospital> getListOfHospitals() {
-		throw new UnsupportedOperationException("Not supported yet4.");
+		MapItemList mil = world.getMapItemList();
+
+		//TODO: begin debug statement
+		ArrayList<MapItem> items = mil.toArrayList();
+		System.out.println("Number of mapItems (hospitals) " + items.size());
+		for (int i = 0; i < items.size(); ++i) {
+			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
+		}
+		//TODO: end debug statement
+
+		TypeMapItemValidator<Hospital> miv = new TypeMapItemValidator<Hospital>(Hospital.class);
+		ArrayList<Hospital> hospitals = mil.getSubMapItemListByValidator(miv).toArrayList();
+		ArrayList<IHospital> result = new ArrayList<IHospital>();
+
+		for (Hospital h : hospitals) {
+			HospitalAdapter ha = new HospitalAdapter(h);
+			result.add(ha);
+		}
+
+		return result;
 	}
 
 	@Override

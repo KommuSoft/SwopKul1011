@@ -19,12 +19,12 @@ public class UnitAdapter implements IUnit{
 
 	@Override
 	public ILocation getLocation() {
-		return new LocationAdapter((int)getUnit().getCurrentLocation().getX(), (int)getUnit().getCurrentLocation().getY());
+		return new LocationAdapter(unit.getCurrentLocation());
 	}
 
 	@Override
 	public ILocation getHomeLocation() {
-		return new LocationAdapter((int)getUnit().getHomeLocation().getX(), (int)getUnit().getHomeLocation().getY());
+		return new LocationAdapter(unit.getHomeLocation());
 	}
 
 	@Override
@@ -34,8 +34,7 @@ public class UnitAdapter implements IUnit{
 
 	@Override
 	public UnitState getState() {
-		throw new UnsupportedOperationException("Not supported yet.UA1");
-		//return UnitState.valueOf(getUnit().getStatus());
+		return UnitState.valueOf(getUnit().getUnitStatus().toString());
 	}
 
 }

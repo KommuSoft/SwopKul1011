@@ -39,7 +39,7 @@ public class FireAdapter extends EmergencyAdapter implements IFireView {
 
 	@Override
 	public ILocation getLocation() {
-		return new LocationAdapter((int)getEmergency().getLocation().getX(), (int)getEmergency().getLocation().getY());
+		return new LocationAdapter(getEmergency().getLocation());
 	}
 
 	@Override
