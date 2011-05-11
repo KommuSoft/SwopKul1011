@@ -32,10 +32,13 @@ import projectswop20102011.World;
 import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfTaskController;
+import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
+import projectswop20102011.controllers.RemoveUnitAssignmentController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.MapItem;
@@ -54,7 +57,9 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
+import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidUnitException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.externalsystem.adapters.AmbulanceAdapter;
@@ -106,43 +111,45 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	@Override
 	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
+		CreateEmergencyController cec = null;
 		try {
-			CreateEmergencyController cec = new CreateEmergencyController(getWorld());
-			Map<String, String> parameters = new HashMap<String, String>(3);
-			parameters.put("location", new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY()).toString());
-			parameters.put("severity", event.getSeverity().toString().toLowerCase()); //TODO: lowercase moet nog weg wanneer de parser klaar is
-			parameters.put("description", "");
-
-			if (event.getClass().getSimpleName().equals("Fire")) {
-				Fire fire = (Fire) event;
-				parameters.put("size", fire.getSize());
-				parameters.put("chemical", Boolean.toString(fire.isChemical()));
-				parameters.put("trappedPeople", Integer.toString(fire.getNumberOfTrappedPeople()));
-				parameters.put("numberOfInjured", Integer.toString(fire.getNumberOfInjured()));
-			} else if (event.getClass().getSimpleName().equals("PublicDisturbance")) {
-				PublicDisturbance publicDisturbance = (PublicDisturbance) event;
-				parameters.put("numberOfPeople", Integer.toString(publicDisturbance.getNumberOfPeople()));
-			} else if (event.getClass().getSimpleName().equals("TrafficAccident")) {
-				TrafficAccident trafficAccident = (TrafficAccident) event;
-				parameters.put("numberOfCars", Integer.toString(trafficAccident.getNumberOfCars()));
-				parameters.put("numberOfInjured", Integer.toString(trafficAccident.getNumberOfInjured()));
-			} else if (event.getClass().getSimpleName().equals("Robbery")) {
-				Robbery robbery = (Robbery) event;
-				parameters.put("armed", Boolean.toString(robbery.isArmed()));
-				parameters.put("inProgress", Boolean.toString(robbery.isInProgress()));
-			}
-
-			Emergency emergency = null;
-			EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getClass().getSimpleName());
-			try {
-				emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
-				cec.addCreatedEmergencyToTheWorld(emergency);
-			} catch (Exception ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
+			cec = new CreateEmergencyController(getWorld());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException("The world is invalid");
 		}
+
+		Map<String, String> parameters = new HashMap<String, String>(3);
+		parameters.put("location", new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY()).toString());
+		parameters.put("severity", event.getSeverity().toString().toLowerCase()); //TODO: lowercase moet nog weg wanneer de parser klaar is
+		parameters.put("description", "");
+
+		if (event.getClass().getSimpleName().equals("Fire")) {
+			Fire fire = (Fire) event;
+			parameters.put("size", fire.getSize());
+			parameters.put("chemical", Boolean.toString(fire.isChemical()));
+			parameters.put("trappedPeople", Integer.toString(fire.getNumberOfTrappedPeople()));
+			parameters.put("numberOfInjured", Integer.toString(fire.getNumberOfInjured()));
+		} else if (event.getClass().getSimpleName().equals("PublicDisturbance")) {
+			PublicDisturbance publicDisturbance = (PublicDisturbance) event;
+			parameters.put("numberOfPeople", Integer.toString(publicDisturbance.getNumberOfPeople()));
+		} else if (event.getClass().getSimpleName().equals("TrafficAccident")) {
+			TrafficAccident trafficAccident = (TrafficAccident) event;
+			parameters.put("numberOfCars", Integer.toString(trafficAccident.getNumberOfCars()));
+			parameters.put("numberOfInjured", Integer.toString(trafficAccident.getNumberOfInjured()));
+		} else if (event.getClass().getSimpleName().equals("Robbery")) {
+			Robbery robbery = (Robbery) event;
+			parameters.put("armed", Boolean.toString(robbery.isArmed()));
+			parameters.put("inProgress", Boolean.toString(robbery.isInProgress()));
+		}
+
+		Emergency emergency = null;
+		EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getClass().getSimpleName());
+		try {
+			emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
+		} catch (Exception ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		cec.addCreatedEmergencyToTheWorld(emergency);
 	}
 
 	@Override
@@ -169,12 +176,20 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
-		} else {
+		} else if (state.toString().equalsIgnoreCase("completed")) {
 			try {
 				status = ep.parse(state.toString());
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
+		} else {
+			HashSet<Emergency> emergencies = getWorld().getEmergencyList().getEmergencies();
+			ArrayList<IEmergency> iEmergencies = new ArrayList<IEmergency>();
+			for (Emergency e : emergencies) {
+				EmergencyAdapter ea = new EmergencyAdapter(e);
+				iEmergencies.add(ea);
+			}
+			return iEmergencies;
 		}
 
 		Emergency[] emergencies = iec.inspectEmergenciesOnStatus(status);
@@ -189,7 +204,61 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public List<IEmergency> getListOfDisasters(EmergencyState state) throws EmergencyDispatchException {
-		throw new UnsupportedOperationException("Not supported yet2.");
+		InspectDisastersController idc = null;
+		try {
+			idc = new InspectDisastersController(getWorld());
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		EmergencyStatus status = null;
+		EmergencyStatusParser ep = new EmergencyStatusParser();
+		//TODO: onderstaande if-statements mogen weg wanneer de parser dit ondersteund
+		if (state.toString().equalsIgnoreCase("unhandled")) {
+			try {
+				status = ep.parse("recorded but unhandled");
+			} catch (ParsingException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else if (state.toString().equalsIgnoreCase("responded")) {
+			try {
+				status = ep.parse("response in progress");
+			} catch (ParsingException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else if (state.toString().equalsIgnoreCase("completed")) {
+			try {
+				status = ep.parse(state.toString());
+			} catch (ParsingException ex) {
+				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else {
+			HashSet<Disaster> disasters = getWorld().getDisasterList().getDisasters();
+			ArrayList<IEmergency> iEmergencies = new ArrayList<IEmergency>();
+			for (Disaster d : disasters) {
+				for (Emergency e : d.getEmergencies()) {
+					EmergencyAdapter ea = new EmergencyAdapter(e);
+					iEmergencies.add(ea);
+				}
+			}
+			return iEmergencies;
+		}
+
+		Disaster[] disasters = null;
+		try {
+			disasters = idc.inspectDisastersOnStatus(status);
+		} catch (InvalidAddedDisasterException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		ArrayList<IEmergency> iEmergencies = new ArrayList<IEmergency>();
+		for (int i = 0; i < disasters.length; ++i) {
+			for (int j = 0; j < disasters[i].getEmergencies().size(); ++j) {
+				iEmergencies.add(new EmergencyAdapter(disasters[i].getEmergencies().get(j)));
+			}
+		}
+
+		return iEmergencies;
 	}
 
 	@Override
@@ -368,6 +437,24 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void withdrawUnit(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
+		RemoveUnitAssignmentController ruac = null;
+		try {
+			ruac = new RemoveUnitAssignmentController(getWorld());
+		} catch (InvalidWorldException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		Unit u = (Unit) unit;
+		try {
+			ruac.withdrawUnit(u);
+		} catch (InvalidWithdrawalException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidEmergencyStatusException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidMapItemException ex) {
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		throw new UnsupportedOperationException("Not supported yet12.");
 	}
 
