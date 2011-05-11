@@ -1,13 +1,14 @@
 package projectswop20102011.domain.validators;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
-import projectswop20102011.utils.OrderedSet;
 
 /**
  * A class that represents a constraint that checks the minimum and maximum number of units.
@@ -24,16 +25,19 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      */
     private long maximum;
     /**
-     * Tests if the given validator is a valid validator for a MinMaxNumberDispatchUnitsConstraint.
-     * @param validator
-     *		The validator to validate.
-     * @return True if the given validator is effective.
+     * A validator to validate Units and to return a number for each unit.
      */
     private final ValidatorNumberator<? super Unit> validatornumberator;
 
     /**
+     * An optional additional constraint to test a unit to be assigned againt the units that are already assigned (or proposed to).
+     */
+    private final QuadraticValidator<Unit,Unit> quadraticValidator;
+
+
+    /**
      * Creates a MinMaxNumberDispatchUnitsConstraint with the given units and number.
-     * @param validatornumberator
+     * @param validatorNumberator
      *		The validator that specifies what will be counted.
      * @param minimum
      *		The desired minimum number of units.
@@ -46,21 +50,47 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      * @post This validator is equal to the given validator.
      *		|this.validator.equals(validator)
      * @throws NumberOutOfBoundsException
-     *		If the given number is invalid.
+     *		If the given minimum and maxumum bounds are invalid.
      * @throws InvalidValidatorException
      *		If the given UnitValidator is invalid.
+     * @note The quadraticValidator will be set to a new DefaultQuadraticValidator where any item is valid.
      */
-    public MinMaxNumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatornumberator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
-        if (!areValidMinimumMaximum(minimum,maximum)) {
+    public MinMaxNumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatorNumberator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
+        this(validatorNumberator,minimum,maximum,new DefaultQuadraticValidator<Unit,Unit>());
+    }
+    /**
+     * Creates a MinMaxNumberDispatchUnitsConstraint with the given units and number.
+     * @param validatorNumberator
+     *		The validator that specifies what will be counted.
+     * @param minimum
+     *		The desired minimum number of units.
+     * @param maximum
+     *		The desired minimum number of units.
+     * @param quadraticValidator
+     *          An optional additional constraint to test a unit to be assigned againt the units that are already assigned (or proposed to).
+     * @post This minimum is equal to the given minimum.
+     *		|this.minimum.equals(minimum)
+     * @post This maximum is equal to the given maximum.
+     *		|this.maximum.equals(maximum)
+     * @post This validator is equal to the given validator.
+     *		|this.validator.equals(validator)
+     * @throws NumberOutOfBoundsException
+     *		If the given minimum and maxumum bounds are invalid.
+     * @throws InvalidValidatorException
+     *		If the given UnitValidator is invalid.
+     * @see MinMaxNumberDispatchUnitsConstraint#MinMaxNumberDispatchUnitsConstraint(projectswop20102011.domain.validators.ValidatorNumberator, long, long)
+     */
+    public MinMaxNumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatorNumberator, long minimum, long maximum, QuadraticValidator<Unit,Unit> quadraticValidator) throws NumberOutOfBoundsException, InvalidValidatorException {
+        if (!areValidMinimumMaximum(minimum, maximum)) {
             throw new NumberOutOfBoundsException("The numbers need to be larger or equal to zero, and the maximum must be larger or equal to the minumum.");
         }
-        if (!isValidValidator(validatornumberator)) {
+        if (!isValidValidator(validatorNumberator)) {
             throw new InvalidValidatorException("UnitValidator must be effective.");
         }
         this.minimum = minimum;
         this.maximum = maximum;
-
-        this.validatornumberator = validatornumberator;
+        this.validatornumberator = validatorNumberator;
+        this.quadraticValidator = quadraticValidator;
     }
 
     /**
@@ -69,6 +99,14 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      */
     public ValidatorNumberator<? super Unit> getValidator() {
         return validatornumberator;
+    }
+
+    /**
+     * Returns the quadratic validator of this Constraint.
+     * @return The quadratic validator of this Constraint.
+     */
+    public QuadraticValidator<Unit,Unit> getQuadraticValidator () {
+        return this.quadraticValidator;
     }
 
     /**
@@ -107,7 +145,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return (number >= 0);
     }
 
-    public static boolean areValidMinimumMaximum (long minimum, long maximum) {
+    public static boolean areValidMinimumMaximum(long minimum, long maximum) {
         return (isValidNumber(minimum) && isValidNumber(maximum) && (minimum <= maximum));
     }
 
@@ -136,15 +174,17 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      * @return True if this methods can generate a proposal without violating constraints (for example firetrucks can only added once, sometimes we can't generate a proposal).
      */
     @Override
-    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> availableUnits, Set<Unit> proposal) {
-        long value = countValidUnits(finishedOrAssignedUnits);
+    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
+        ArrayList<Unit> collect = new ArrayList<Unit>();
+        long value = collectValidUnits(finishedOrAssignedUnits,collect);
         if (value >= this.getMinimum()) {
             return true;
         }
         for (Unit u : availableUnits) {
-            if (this.getValidator().isValid(u)) {
+            if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collect, u)) {
                 long unumber = this.getValidator().getNumber(u);
-                if(value+unumber <= this.getMaximum()) {
+                if (value + unumber <= this.getMaximum()) {
+                    collect.add(u);
                     proposal.add(u);
                     value += unumber;
                     if (value >= this.getMinimum()) {
@@ -157,14 +197,16 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
     }
 
     @Override
-    protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
-        long counter = countValidUnits(finishedOrAssignedUnits);
+    protected boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits, Set<Unit> relevantUnits) {
+        ArrayList<Unit> collect = new ArrayList<Unit>();
+        long counter = collectValidUnits(finishedOrAssignedUnits,collect);
         if (counter >= this.getMaximum()) {
             return true;
         }
         for (Unit u : toAssignUnits) {
-            if (this.getValidator().isValid(u)) {
+            if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collect, u)) {
                 counter++;
+                collect.add(u);
                 relevantUnits.add(u);
                 if (counter >= this.getMaximum()) {
                     return true;
@@ -174,41 +216,8 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return true;
     }
 
-    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.MMNDUC1");
-    }
-
     @Override
     public boolean canFinish(List<Unit> finishedUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.MMNDUC2");
+        return (countValidUnits(finishedUnits) >= this.getMinimum());
     }
-
-	@Override
-	public boolean areValidDispatchUnits(List<Unit> units, Set<Integer> relevantUnitIndices) {
-		throw new UnsupportedOperationException("Not supported yet.MMNDUC3");
-	}
-    /*
-    public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {
-    long needed = this.getNumber();
-    if(needed <= 0) {
-    return true;
-    }
-
-    long n = 0;
-    UnitValidator uv = this.getValidator();
-    Unit u;
-    for(int i = 0; i < units.size(); i++) {
-    u = units.get(i);
-    if(uv.isValid(u)) {
-    relevantIndices.add(i);
-    if(++n >= needed) {
-    return true;
-    }
-    }
-    }
-    return false;
-    }
-     */
 }

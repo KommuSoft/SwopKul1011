@@ -48,7 +48,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
+		boolean canBeResolved(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return unitsNeeded.canBeResolved(availableUnits);
 		}
 
@@ -89,7 +89,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
+		boolean canBeResolved(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return unitsNeeded.canBeResolved(availableUnits);
 		}
 
@@ -129,7 +129,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits) {
+		boolean canBeResolved(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return true;
 		}
 
@@ -271,7 +271,7 @@ public enum EmergencyStatus {
 	 *		A collection of all the available units.
 	 * @return True if the given emergency can be resolved, otherwise false.
 	 */
-	abstract boolean canBeResolved(UnitsNeeded unitsNeeded, Collection<Unit> availableUnits);
+	abstract boolean canBeResolved(UnitsNeeded unitsNeeded, Set<Unit> availableUnits);
 
 	/**
 	 * Checks if units can be assgined with the current state.

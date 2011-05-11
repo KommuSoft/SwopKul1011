@@ -5,7 +5,9 @@ import java.io.InvalidClassException;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.domain.validators.DifferentUnitsDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.DifferentQuadraticValidator;
+import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -122,7 +124,7 @@ public class Robbery extends Emergency {
     protected ConcreteUnitsNeeded calculateUnitsNeeded() {
         int nPolice = ((isArmed() && isInProgress()) ? 3 : 1);
         try {
-            ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new DifferentUnitsDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice));
+            ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice,new DifferentQuadraticValidator<Unit,Unit>()));
             un.pushPolicy(new ASAPDispatchPolicy(un));
             return un;
 

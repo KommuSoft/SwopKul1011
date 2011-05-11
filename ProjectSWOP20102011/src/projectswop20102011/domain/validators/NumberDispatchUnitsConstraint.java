@@ -1,70 +1,61 @@
 package projectswop20102011.domain.validators;
 
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
-import projectswop20102011.utils.OrderedSet;
 
 /**
  * A class that represents a constraint that checks the number of units.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
-
-    /**
-     * A variable registering the desired number of units.
-     */
-    private final long number;
+public class NumberDispatchUnitsConstraint extends MinMaxNumberDispatchUnitsConstraint {
+    
     /**
      * A variable registering the validator that specifies what will be counted.
      */
-    private final UnitValidator validator;
 
     /**
-     * Creates a NumberConstraint with the given units and number.
-     * @param validator
+     * Creates a MinMaxNumberDispatchUnitsConstraint with the given units and number.
+     * @param validatornumberator
      *		The validator that specifies what will be counted.
      * @param number
-     *		The desired number of units.
-     * @post This number is equal to the given number.
-     *		|this.number.equals(number)
+     *          The desired number of units.
+     * @post This minimum is equal to the given minimum.
+     *		|this.minimum.equals(minimum)
+     * @post This maximum is equal to the given maximum.
+     *		|this.maximum.equals(maximum)
      * @post This validator is equal to the given validator.
      *		|this.validator.equals(validator)
      * @throws NumberOutOfBoundsException
-	 *		If the given number is invalid.
+     *		If the given number is invalid.
      * @throws InvalidValidatorException
-	 *		If the given UnitValidator is invalid.
+     *          If the given validatornumberator is invalid.
      */
-	//TODO: de InvalidValidatorException mag waarschijnlijk weg, kan toch nooit getrowed worden.
-    public NumberDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
-        if (!isValidNumber(number)) {
-            throw new NumberOutOfBoundsException("The number needs to be larger or equal to zero.");
-        }
-        if (!isValidValidator(validator)) {
-            throw new InvalidUnitValidatorException("UnitValidator must be effective.");
-        }
-        this.number = number;
-        this.validator = validator;
+    public NumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatornumberator, long number) throws NumberOutOfBoundsException, InvalidValidatorException {
+        super(validatornumberator,number,number);
     }
 
     /**
-     * Returns the desired number of units.
-     * @return The desired number of units.
+     * Creates a MinMaxNumberDispatchUnitsConstraint with the given units and number.
+     * @param validatornumberator
+     *		The validator that specifies what will be counted.
+     * @param number
+     *          The desired number of units.
+     * @param quadraticValidator
+     *          An optional additional constraint to test a unit to be assigned againt the units that are already assigned (or proposed to).
+     * @post This minimum is equal to the given minimum.
+     *		|this.minimum.equals(minimum)
+     * @post This maximum is equal to the given maximum.
+     *		|this.maximum.equals(maximum)
+     * @post This validator is equal to the given validator.
+     *		|this.validator.equals(validator)
+     * @throws NumberOutOfBoundsException
+     *		If the given number is invalid.
+     * @throws InvalidValidatorException
+     *          If the given validatornumberator is invalid.
      */
-    public long getNumber() {
-        return number;
-    }
-
-    /**
-     * Returns the validator that specifies what will be counted.
-     * @return the validator that specifies what will be counted.
-     */
-    private UnitValidator getValidator() {
-        return validator;
+    public NumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatornumberator, long number, QuadraticValidator<Unit,Unit> quadraticValidator) throws NumberOutOfBoundsException, InvalidValidatorException {
+        super(validatornumberator,number,number,quadraticValidator);
     }
 
     /**
@@ -88,36 +79,11 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
     }
 
     /**
-     * Tests if at least a specified number of units are validated by the specified validator.
-     * @param units
-	 *		An iterable object containing only unique and only effective units.
-     * @param relevantIndices
-	 *		A set where all the indices  of units that are relevant for this constraint are added to.
-     * @pre The given units parameter contains only effective units, duplicates are allowed.
-     * @return True if at least the specified number of units succeed on the specified validator, otherwise false.
+     * Returns the number of required units that hold to the constraint.
+     * @return The number of the required units that hold to the constraint.
      */
-    @Override
-    public boolean areValidDispatchUnits (List<Unit> units, Set<Integer> relevantIndices) {
-        long needed = this.getNumber();
-        if(needed <= 0) {
-            return true;
-        }
-        
-        long n = 0;
-        UnitValidator uv = this.getValidator();
-        Unit u;
-        for(int i = 0; i < units.size(); i++) {
-            u = units.get(i);
-            if(uv.isValid(u)) {
-                relevantIndices.add(i);
-                if(++n >= needed) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-        
+    public long getNumber () {
+        return this.getMinimum();
     }
 
     /**
@@ -128,31 +94,5 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
     public String toString() {
         return String.format("number of %s must be %s",this.getValidator().toString(),this.getNumber());
     }
-
-    public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.NDUC1");
-    }
-
-    public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.NDUC2");
-    }
-
-    @Override
-    public boolean canFinish(List<Unit> finishedUnits) {
-        //TODO: implement
-        throw new UnsupportedOperationException("Not supported yet.NDUC3");
-    }
-
-	@Override
-	public boolean generateProposal(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> availableUnits, Set<Unit> proposal) {
-		throw new UnsupportedOperationException("Not supported yet.NDUC4");
-	}
-
-	@Override
-	protected boolean canAssign(List<Unit> finishedOrAssignedUnits, OrderedSet<Unit> toAssignUnits, Set<Unit> relevantUnits) {
-		throw new UnsupportedOperationException("Not supported yet.NDUC5");
-	}
 
 }

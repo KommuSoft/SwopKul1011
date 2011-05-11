@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
@@ -19,7 +20,7 @@ public abstract class UnitsNeeded {
 	 */
 	public abstract Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits);
 
-	public abstract boolean canBeResolved(Collection<? extends Unit> availableUnits);
+	public abstract boolean canBeResolved(Set<Unit> availableUnits);
 
 	/**
 	 * A method called when a unit finishes his job to manage the emergency.
@@ -37,7 +38,7 @@ public abstract class UnitsNeeded {
 	 * @return A subset of the given list containing units proposed for allocation.
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
-	abstract Set<Unit> generateProposal(List<Unit> options);
+	abstract Set<Unit> generateProposal(SortedSet<Unit> options);
 
 	/**
 	 * Returns a list of units who have finished working on this emergency.
@@ -86,4 +87,15 @@ public abstract class UnitsNeeded {
 	abstract void withdrawUnit(Unit unit);
 
 	abstract ArrayList<Unit> takeFinishedUnits();
+        abstract ArrayList<Unit> takeWorkingUnits();
+
+    /**
+     * Generates an arraylist containing all the units that are working or have already finished the emergency.
+     * @return
+     */
+    public ArrayList<Unit> getAlreadyAssignedUnits() {
+        ArrayList<Unit> units = new ArrayList<Unit>(this.takeFinishedUnits());
+        units.addAll(this.takeWorkingUnits());
+        return units;
+    }
 }

@@ -5,10 +5,11 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
-import projectswop20102011.domain.validators.DifferentUnitsDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.DifferentQuadraticValidator;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.FiretruckWaterUnitValidator;
 import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint;
+import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
@@ -272,7 +273,7 @@ public class Fire extends Emergency {
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
 			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired,Long.MAX_VALUE);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
-			DispatchUnitsConstraint pol = new DifferentUnitsDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars);
+			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars,new DifferentQuadraticValidator<Unit,Unit>());
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this,new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
 			return un;

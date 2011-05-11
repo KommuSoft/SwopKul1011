@@ -1,7 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -102,7 +102,7 @@ public abstract class Sendable implements Targetable {
 	 * @return True if this emergency is partially assigned, otherwise false.
 	 */
 	public boolean isPartiallyAssigned() {
-		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
+		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new HashSet<Unit>()));
 	}
 
 	/**
@@ -134,7 +134,7 @@ public abstract class Sendable implements Targetable {
 	 *		All the available units in the world.
 	 * @return True if the given emergency can be resolved, otherwise false.
 	 */
-	public boolean canBeResolved(Collection<Unit> availableUnits) {
+	public boolean canBeResolved(Set<Unit> availableUnits) {
 		return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
 	}
 

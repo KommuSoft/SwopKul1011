@@ -110,13 +110,7 @@ public class PublicDisturbance extends Emergency {
     @Override
     protected ConcreteUnitsNeeded calculateUnitsNeeded() {
         try {
-            ConcreteUnitsNeeded un = null;
-			try {
-				un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
-			} catch (InvalidUnitValidatorException ex) {
-				Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
-			}
-            return un;
+            return new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfPeople() + 4) / 5));
         } catch (InvalidEmergencyException ex) {
             //we assume this can't happen
             Logger.getLogger(PublicDisturbance.class.getName()).log(Level.SEVERE, null, ex);
