@@ -33,7 +33,7 @@ public class FactoryInformation {
      */
     public FactoryInformationParameter[] getParameters () {
 		//TODO: mag deze (volgens netbeans) redundante cast hier weg?
-        //return (FactoryInformationParameter[]) this.parameters.clone();
+		//Ja want bij arrays is a.clone().getClass() gelijk aan a.getClass()(
 		return  this.parameters.clone();
     }
 

@@ -48,6 +48,7 @@ public class DisasterList implements Iterable<Disaster> {
 	 *		| getDisasters().contains(disaster)
 	 */
 	//TODO: exception toegevoegd op deze plaats
+	//Waarom wordt dit hier afgedwongen, kan dit niet beter gebeuren in Disaster zelf omdat de lijst van emergencies toch final staat.
 	public void addDisaster(Disaster disaster) throws InvalidAddedDisasterException {
 		if (!disaster.getEmergencies().isEmpty()) {
 			if (!getDisasters().contains(disaster)) {

@@ -111,7 +111,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         if (getEmergency() != null) {
             return getCurrentLocation().equals(getDestination());
         } else {
-            return false;//TODO: waarom wordt hier false teruggegeven? Wanneer hij geen opdracht heeft, test hij toch of de Unit terug op zijn HomeLocation staat?
+            return false;
+			//TODO: waarom wordt hier false teruggegeven? Wanneer hij geen opdracht heeft, test hij toch of de Unit terug op zijn HomeLocation staat?
+			//IMHO: Dit is iets dat public moet staan, dus moet er altijd een juist antwoord gegeven worden.
+			//Als je hier dus true teruggeeft dan is hij op de destination wanneer hij geen emergency geeft. Dit strookt niet met mijn gevoel :) -> false returnen
         }
     }
 
@@ -143,8 +146,9 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * Returns whether a unit was already at the site of emergency.
      * @return True if this unit was already at the site of emergency, false otherwise.
      */
-    public boolean wasAlreadyAtSite() {
+    private boolean wasAlreadyAtSite() {
         //TODO: waarom wordt deze boolean eigenlijk bijgehouden??
+		//Ik vraag mij dit ook af :), ik heb ze voorlopig private gezet
         return wasAlreadyAtSite;
     }
 

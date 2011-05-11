@@ -52,6 +52,6 @@ public class AmbulanceFactoryTest {
 	public void testGetMapItemTypeName() throws InvalidMapItemTypeNameException{
 		af = new AmbulanceFactory();
 
-		assertEquals("ambulance", af.getName());
+		assertEquals("ambulance", af.getMapItemTypeName());
 	}
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.TypeUnitValidator;
+import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -43,7 +44,7 @@ public class UnitsNeededTest {
     }
 
     @Test
-    public void testValidConstraint() throws InvalidClassException, NumberOutOfBoundsException, InvalidValidatorException{
+    public void testValidConstraint() throws InvalidClassException, NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException{
         tuv = new TypeUnitValidator(Firetruck.class);
         nduc = new NumberDispatchUnitsConstraint(tuv, number);
         assertTrue(ConcreteUnitsNeeded.isValidConstraint(nduc));

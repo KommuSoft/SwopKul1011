@@ -1,8 +1,5 @@
 package projectswop20102011.domain.validators;
 
-import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
-import projectswop20102011.domain.validators.UnitValidator;
-import projectswop20102011.domain.validators.TypeUnitValidator;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import org.junit.Before;
@@ -17,6 +14,7 @@ import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
+import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -79,7 +77,7 @@ public class NumberDispatchUnitsConstraintTest {
     }
 
     @Test
-    public void testConstructor() throws NumberOutOfBoundsException, InvalidValidatorException {
+    public void testConstructor() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv1, number1);
         assertEquals(number1, nduc.getNumber());
 
@@ -94,17 +92,19 @@ public class NumberDispatchUnitsConstraintTest {
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
-    public void testIllegalConstructor1() throws NumberOutOfBoundsException, InvalidValidatorException {
+	//TODO: feitelijk kan de InvalidValidatorException niet gethrowed worden maar toch staat deze bij de throws in NumberDispatchUnitsConstraint (er staat daar ook nog een todo)
+    public void testIllegalConstructor1() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv1, number5);
     }
 
-    @Test(expected = InvalidValidatorException.class)
-    public void testIllegalConstructor2() throws NumberOutOfBoundsException, InvalidValidatorException {
+    @Test(expected = InvalidUnitValidatorException.class)
+	//TODO: feitelijk kan de InvalidValidatorException niet gethrowed worden maar toch staat deze bij de throws in NumberDispatchUnitsConstraint (er staat daar ook nog een todo)
+    public void testIllegalConstructor2() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv5, number1);
     }
 
     @Test
-    public void testAreValidDispatchUnits() throws NumberOutOfBoundsException, InvalidValidatorException {
+    public void testAreValidDispatchUnits() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
 
         ArrayList<Unit> units1 = new ArrayList<Unit>(0);
         units1.add(u1);

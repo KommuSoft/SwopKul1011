@@ -39,6 +39,7 @@ public class NumberDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * @throws InvalidValidatorException
 	 *		If the given UnitValidator is invalid.
      */
+	//TODO: de InvalidValidatorException mag waarschijnlijk weg, kan toch nooit getrowed worden.
     public NumberDispatchUnitsConstraint(UnitValidator validator, long number) throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
         if (!isValidNumber(number)) {
             throw new NumberOutOfBoundsException("The number needs to be larger or equal to zero.");

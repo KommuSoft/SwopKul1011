@@ -1,10 +1,5 @@
 package projectswop20102011.domain.validators;
 
-import projectswop20102011.domain.validators.FiretruckFireSizeValidator;
-import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
-import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
-import projectswop20102011.domain.validators.UnitValidator;
-import projectswop20102011.domain.validators.TypeUnitValidator;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import org.junit.Before;
@@ -22,6 +17,7 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
+import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -41,7 +37,7 @@ public class AndDispatchUnitsConstraintTest {
     private long x1, y1, x2, y2, x3, y3, x4, y4;
 
     @Before
-    public void setUp() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidCapacityException {
+    public void setUp() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidClassException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidCapacityException, InvalidUnitValidatorException {
         x1 = 10;
         y1 = 10;
         x2 = 20;

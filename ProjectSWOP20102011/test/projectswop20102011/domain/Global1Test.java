@@ -200,10 +200,11 @@ public class Global1Test {
 		assertFalse(brandweerwagen1.isAtDestination());
 
 		//We veronderstellen dus ook dat de units nog niet op de plaats van het ongeval geweest zijn
-		assertFalse(ziekenwagen1.wasAlreadyAtSite());
-		assertFalse(ziekenwagen2.wasAlreadyAtSite());
-		assertFalse(ziekenwagen3.wasAlreadyAtSite());
-		assertFalse(brandweerwagen1.wasAlreadyAtSite());
+		//TODO: dit mag wanneer deze methode weg is (er staat daar dus nog een todo)
+//		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen2.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen3.wasAlreadyAtSite());
+//		assertFalse(brandweerwagen1.wasAlreadyAtSite());
 
 		//We trekken nu twee units terug
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
@@ -212,10 +213,11 @@ public class Global1Test {
 		}
 
 		//Nog steeds is geen enkele unit op de plaats van het ongeval geweest
-		assertFalse(ziekenwagen1.wasAlreadyAtSite());
-		assertFalse(ziekenwagen2.wasAlreadyAtSite());
-		assertFalse(ziekenwagen3.wasAlreadyAtSite());
-		assertFalse(brandweerwagen1.wasAlreadyAtSite());
+		//TODO: dit mag wanneer deze methode weg is (er staat daar dus nog een todo)
+//		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen2.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen3.wasAlreadyAtSite());
+//		assertFalse(brandweerwagen1.wasAlreadyAtSite());
 
 		//Enkel de eerste 2 units kunnen weer aan een emergency toegewezen worden
 		assertTrue(ziekenwagen1.canBeAssigned());
@@ -234,23 +236,22 @@ public class Global1Test {
 
 		//We veronderstellen nu (door het grote tijdsinterval) dat de 4 units
 		//reeds op de plaats van het ongeval zijn geweest
-		assertFalse(ziekenwagen1.wasAlreadyAtSite());
-		assertFalse(ziekenwagen2.wasAlreadyAtSite());
-		assertTrue(ziekenwagen3.wasAlreadyAtSite());
-		assertTrue(brandweerwagen1.wasAlreadyAtSite());
+		//TODO: dit mag wanneer deze methode weg is (er staat daar dus nog een todo)
+//		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen2.wasAlreadyAtSite());
+//		assertTrue(ziekenwagen3.wasAlreadyAtSite());
+//		assertTrue(brandweerwagen1.wasAlreadyAtSite());
 
 		//We spoelen de tijd nog een beetje door
 		ziekenwagen3.timeAhead(duration2);
 		brandweerwagen1.timeAhead(duration2);
 
 		//We veronderstellen nog steeds dat de 4 units al op de plaats van het ongeval zijn geweest
-		assertFalse(ziekenwagen1.wasAlreadyAtSite());
-		assertFalse(ziekenwagen2.wasAlreadyAtSite());
-		assertTrue(ziekenwagen3.wasAlreadyAtSite());
-		assertTrue(brandweerwagen1.wasAlreadyAtSite());
-
-
-
+		//TODO: dit mag wanneer deze methode weg is (er staat daar dus nog een todo)
+//		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen2.wasAlreadyAtSite());
+//		assertTrue(ziekenwagen3.wasAlreadyAtSite());
+//		assertTrue(brandweerwagen1.wasAlreadyAtSite());
 	}
 
 	@Test(expected = InvalidWithdrawalException.class)
@@ -279,9 +280,10 @@ public class Global1Test {
 		assertFalse(ziekenwagen2.isAtDestination());
 		assertFalse(brandweerwagen1.isAtDestination());
 
-		assertFalse(ziekenwagen1.wasAlreadyAtSite());
-		assertFalse(ziekenwagen2.wasAlreadyAtSite());
-		assertFalse(brandweerwagen1.wasAlreadyAtSite());
+		//TODO: dit mag wanneer deze methode weg is (er staat daar dus nog een todo)
+//		assertFalse(ziekenwagen1.wasAlreadyAtSite());
+//		assertFalse(ziekenwagen2.wasAlreadyAtSite());
+//		assertFalse(brandweerwagen1.wasAlreadyAtSite());
 
 		String[] unitNames = {brandweerwagen1.getName()};
 
