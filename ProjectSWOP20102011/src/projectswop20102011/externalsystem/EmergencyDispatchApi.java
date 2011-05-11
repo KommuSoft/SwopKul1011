@@ -454,8 +454,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		} catch (InvalidMapItemException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
-		throw new UnsupportedOperationException("Not supported yet12.");
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class DispatchUnitsController extends Controller {
      * @return A set of Units that represent the proposal for the emergency.
      * @throws InvalidEmergencyException If the given emergency is invalid.
      */
-    public Set<Unit> getUnitsByPolicy(Emergency emergency) throws InvalidEmergencyException {
+    public Set<Unit> getUnitsByPolicy(Emergency emergency){
         MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
         HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
         ArrayList<Unit> availableUnits = new ArrayList<Unit>();
@@ -52,7 +52,7 @@ public class DispatchUnitsController extends Controller {
      * @throws InvalidEmergencyException
      *          If the given emergency is invalid.
      */
-    public List<Unit> getAvailableUnitsSorted(Emergency emergency) throws InvalidEmergencyException {
+    public List<Unit> getAvailableUnitsSorted(Emergency emergency) throws InvalidEmergencyException{
         MapItemValidator criterium = new AvailableUnitsMapItemValidator();
         return this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToEmergencyDistanceComparator(emergency));
     }
@@ -75,7 +75,7 @@ public class DispatchUnitsController extends Controller {
      * @throws Exception
      *          If another reason disables dispatching the given units to the given emergency.
      */
-    public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidEmergencyStatusException, Exception {
+    public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
         emergency.assignUnits(units);
     }
 }
