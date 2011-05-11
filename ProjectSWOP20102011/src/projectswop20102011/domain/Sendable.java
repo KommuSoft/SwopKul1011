@@ -18,14 +18,14 @@ public abstract class Sendable implements Targetable {
 	 */
 	public abstract GPSCoordinate getLocation();
 
-        /**
-         * Return the location of the Sendable.
-         * @return the location of the Sendable.
-         */
-    @Override
-        public GPSCoordinate getTargetLocation () {
-            return this.getLocation();
-        }
+	/**
+	 * Return the location of the Sendable.
+	 * @return the location of the Sendable.
+	 */
+	@Override
+	public GPSCoordinate getTargetLocation() {
+		return this.getLocation();
+	}
 
 	/**
 	 * Returns the severity of this emergency.
@@ -101,7 +101,7 @@ public abstract class Sendable implements Targetable {
 	 * Tests if this emergency is partially assigned.
 	 * @return True if this emergency is partially assigned, otherwise false.
 	 */
-	public boolean isPartiallyAssigned(){
+	public boolean isPartiallyAssigned() {
 		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new ArrayList<Unit>()));
 	}
 
@@ -142,13 +142,13 @@ public abstract class Sendable implements Targetable {
 	 * Returns a list of units currently working at this emergency.
 	 * @return a list of units currently working at this emergency.
 	 */
-	public ArrayList<Unit> getWorkingUnits(){
+	public ArrayList<Unit> getWorkingUnits() {
 		return this.getUnitsNeeded().getWorkingUnits();
 	}
 
 	abstract UnitsNeeded getUnitsNeeded();
 
-		/**
+	/**
 	 * Enable a unit to finish his job for this emergency.
 	 * @param unitToFinish
 	 *      The unit that wants to finish this emergency.
