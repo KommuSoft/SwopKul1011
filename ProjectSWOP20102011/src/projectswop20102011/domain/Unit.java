@@ -139,7 +139,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
      */
     public GPSCoordinate getDestination() {
-        return this.target.getTargetLocation();
+        return this.getTarget().getTargetLocation();
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Sets the state of this unit to the given value
-	 * @param unitState
+	 * @param unitStatus
 	 *		The new state of this unit
 	 */
 	public void setUnitStatus(UnitStatus unitStatus){
@@ -423,7 +423,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * Returns the target where the Unit is driving to.
      * @return the target where the Unit is driving to.
      */
-    public Targetable getTarget() {
+    private Targetable getTarget() {
         return this.target;
     }
 
