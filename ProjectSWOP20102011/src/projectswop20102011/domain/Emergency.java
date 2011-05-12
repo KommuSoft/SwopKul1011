@@ -38,7 +38,12 @@ public abstract class Emergency extends Sendable {
 	 * and does the management of dispatching units and setting the status of this emergency.
 	 */
 	private ConcreteUnitsNeeded unitsNeeded;
-
+	
+	/**
+	 * A variable registering whether this emergency is part of a Disaster
+	 */
+	private boolean partOfDisaster;
+	
 	/**
 	 * Make a new emergency with the given location, severity and description.
 	 *
@@ -65,6 +70,7 @@ public abstract class Emergency extends Sendable {
 		setLocation(location);
 		setSeverity(severity);
 		setDescription(description);
+		setIsPartOfADisaster(false);
 		try {
 			setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
 		} catch (InvalidEmergencyStatusException ex) {
@@ -119,6 +125,25 @@ public abstract class Emergency extends Sendable {
 			throw new InvalidEmergencyStatusException(String.format("\"%s\" is an invalid status for an emergency.", status));
 		}
 		this.status = status;
+	}
+
+	/**
+	 * Sets whether this emergency is part of a disaster.
+	 * @param partOfADisaster
+	 *		The new value of the partOfDisaster indicator
+	 * @post This partOfDisaster indicator is equal to the given partOfADisaster indicator.
+	 *		| partOfDisaster.equals(partOfADisaster())
+	 */
+	void setIsPartOfADisaster(boolean partOfADisaster){
+		this.partOfDisaster = partOfADisaster;
+	}
+
+	/**
+	 * Returns the part of a disaster indicator of this emergency
+	 * @return The part of a disaster indicator of this emergency
+	 */
+	public boolean isPartOfADisaster(){
+		return partOfDisaster;
 	}
 
 	/**

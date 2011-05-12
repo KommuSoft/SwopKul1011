@@ -41,9 +41,21 @@ public class Disaster extends Sendable {
 		if (!areValidEmergencies(emergencies)) {
 			throw new InvalidEmergencyException("The number of emergencies must be higher than one.");
 		}
+		indicateEmergenciesAsPartOfDisaster(emergencies);
 		this.emergencies = emergencies;
 		unitsNeeded = new DerivedUnitsNeeded(this);
 		setDescription(description);
+	}
+
+	/**
+	 * Indicate that a list of emergencies are part of a disaster
+	 * @param emergencies
+	 *		The emergencies to indicate that they are part of a disaster
+	 */
+	private void indicateEmergenciesAsPartOfDisaster(List<Emergency> emergencies){
+		for (Emergency e: emergencies){
+			e.setIsPartOfADisaster(true);
+		}
 	}
 
 	/**
