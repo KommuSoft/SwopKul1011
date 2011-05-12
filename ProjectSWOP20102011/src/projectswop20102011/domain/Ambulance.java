@@ -144,10 +144,10 @@ public class Ambulance extends Unit {
 			setWasAlreadyAtSite(false);
 			setUnitStatus(UnitStatus.IDLE);
 			if (isRequired()) {
-				HashSet<Ambulance> ambulance = new HashSet<Ambulance>(0);
+				HashSet<Unit> ambulance = new HashSet<Unit>(0);
 				ambulance.add(this);
 				try {
-					e.getStatus().assignUnits(e.getUnitsNeeded(), null);
+					e.getStatus().assignUnits(e.getUnitsNeeded(), ambulance);
 				} catch (InvalidEmergencyException ex) {
 					Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
 				}
