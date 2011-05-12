@@ -116,7 +116,6 @@ public class UnitConfiguration implements IUnitConfiguration {
 	private <T extends Unit> Set<Unit> getProposal(Class<T> t){
 		TypeMapItemValidator<T> miv = new TypeMapItemValidator<T>(t);
 		MapItemList<T> mil = world.getMapItemList().getSubMapItemListByValidator(miv);
-		System.out.println("mil " + mil);
 		return getConcreteUnitsNeeded().getPolicyProposal(new HashSet<Unit>(mil.getMapItems()));
 	}
 

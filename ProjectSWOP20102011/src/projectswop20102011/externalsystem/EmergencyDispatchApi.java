@@ -177,7 +177,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			}
 		} else if (state.toString().equalsIgnoreCase("completed")) {
 			try {
-				status = ep.parse(state.toString());
+				status = ep.parse(state.toString().toLowerCase());
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -443,7 +443,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		Unit u = (Unit) unit;
+		Unit u = ((UnitAdapter)unit).getUnit();
 		try {
 			ruac.withdrawUnit(u);
 		} catch (InvalidWithdrawalException ex) {

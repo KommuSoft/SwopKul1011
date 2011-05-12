@@ -61,19 +61,15 @@ public class EnumParserTest {
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
         assertEquals(EmergencyStatus.COMPLETED,emergencyStatusHolder.getObject());
 
-		textualRepresentation = "unhandled";
-        emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
-        textualRepresentation = "responded";
-        emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
-
 		textualRepresentation = "UNHANDLED";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
         assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
         textualRepresentation = "RESPONDED";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
         assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
+		 textualRepresentation = "COMPLETED";
+        emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
+        assertEquals(EmergencyStatus.COMPLETED,emergencyStatusHolder.getObject());
 
         textualRepresentation = "42recorded but unhandled1425";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
@@ -125,6 +121,17 @@ public class EnumParserTest {
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
         assertEquals(EmergencySeverity.URGENT,emergencySeverityHolder.getObject());
     }
+
+	@Test
+	public void testExternalSystemEnum() throws ParsingException{
+		ObjectHolder<EmergencyStatus> emergencyStatusHolder = new ObjectHolder<EmergencyStatus>();
+		String textualRepresentation = "unhandled";
+        emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
+        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
+        textualRepresentation = "responded";
+        emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
+        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
+	}
 
     /**
      * Test of canParse method, of class EnumParser.
