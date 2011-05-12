@@ -45,13 +45,6 @@ public class TestScenario extends AbstractScenario {
 				1));
 		printDebugStatements();
 
-
-		//------------------------------------------------------------------------------------------------------
-		Fire f1 = new Fire(new Time(0, 10), new Location(30, 50), Severity.BENIGN, "local", false, 0, 1);
-		getLogger().info("Tijd " + f1.getTime());
-		//------------------------------------------------------------------------------------------------------
-
-
 		// Assign the unit suggestion to the emergency
 		List<IEmergency> ems1 = getApi().getListOfEmergencies(EmergencyState.UNHANDLED);
 		if (ems1.size() != 1) {
@@ -131,7 +124,6 @@ public class TestScenario extends AbstractScenario {
 			getLogger().info("DEBUG " + e + " " + e.getState());
 			getLogger().info("DEBUG assigned units" + e.getAssignedUnits().size());
 			for (IUnit u : e.getAssignedUnits()) {
-				getLogger().info("HOI");
 				getApi().indicateEndOfTask(u, e);
 			}
 		}
@@ -152,17 +144,17 @@ public class TestScenario extends AbstractScenario {
 	}
 
 	private void printDebugStatements() throws EmergencyDispatchException {
-		List<IUnit> units = getApi().getListOfUnits(UnitState.ANY);
-		getLogger().info("DEBUG " + (++counter) + " number of units=" + units.size());
-		for (int i = 0; i < units.size(); ++i) {
-			getLogger().info("\tDEBUG " + units.get(i) + "{naam=" + units.get(i).getName() + ", state=" + units.get(i).getState() + ", location=" + units.get(i).getLocation() + ", homeLocation=" + units.get(i).getHomeLocation() + "}");
-		}
-
-		List<IHospital> hospitals = getApi().getListOfHospitals();
-		getLogger().info("DEBUG " + (++counter) + " number of hospitals=" + hospitals.size());
-		for (int i = 0; i < hospitals.size(); ++i) {
-			getLogger().info("\tDEBUG " + hospitals.get(i) + "{naam=" + hospitals.get(i).getName() + ", location=" + hospitals.get(i).getLocation() + "}");
-		}
+//		List<IUnit> units = getApi().getListOfUnits(UnitState.ANY);
+//		getLogger().info("DEBUG " + (++counter) + " number of units=" + units.size());
+//		for (int i = 0; i < units.size(); ++i) {
+//			getLogger().info("\tDEBUG " + units.get(i) + "{naam=" + units.get(i).getName() + ", state=" + units.get(i).getState() + ", location=" + units.get(i).getLocation() + ", homeLocation=" + units.get(i).getHomeLocation() + "}");
+//		}
+//
+//		List<IHospital> hospitals = getApi().getListOfHospitals();
+//		getLogger().info("DEBUG " + counter + " number of hospitals=" + hospitals.size());
+//		for (int i = 0; i < hospitals.size(); ++i) {
+//			getLogger().info("\tDEBUG " + hospitals.get(i) + "{naam=" + hospitals.get(i).getName() + ", location=" + hospitals.get(i).getLocation() + "}");
+//		}
 	}
 
 	@Override

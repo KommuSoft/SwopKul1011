@@ -175,7 +175,7 @@ public class SuperScenario extends AbstractScenario {
 		}
 		// Check number of completed emergencies
 		count = getApi().getListOfEmergencies(EmergencyState.COMPLETED).size();
-		if (count > 0) {
+		if (count != 2) {
 			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 2");
 		}
 	}

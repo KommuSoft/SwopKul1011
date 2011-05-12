@@ -89,17 +89,17 @@ public class WithdrawScenario extends AbstractScenario {
 	}
 
 	private void printDebugStatements() throws EmergencyDispatchException {
-		List<IUnit> units = getApi().getListOfUnits(UnitState.ANY);
-		getLogger().info("DEBUG " + (++counter) + " number of units=" + units.size());
-		for (int i = 0; i < units.size(); ++i) {
-			getLogger().info("\tDEBUG " + units.get(i) + "{naam=" + units.get(i).getName() + ", state=" + units.get(i).getState() + ", location=" + units.get(i).getLocation() + ", homeLocation=" + units.get(i).getHomeLocation() + "}");
-		}
-
-		List<IHospital> hospitals = getApi().getListOfHospitals();
-		getLogger().info("DEBUG " + (++counter) + " number of hospitals=" + hospitals.size());
-		for (int i = 0; i < hospitals.size(); ++i) {
-			getLogger().info("\tDEBUG " + hospitals.get(i) + "{naam=" + hospitals.get(i).getName() + ", location=" + hospitals.get(i).getLocation() + "}");
-		}
+//		List<IUnit> units = getApi().getListOfUnits(UnitState.ANY);
+//		getLogger().info("DEBUG " + (++counter) + " number of units=" + units.size());
+//		for (int i = 0; i < units.size(); ++i) {
+//			getLogger().info("\tDEBUG " + units.get(i) + "{naam=" + units.get(i).getName() + ", state=" + units.get(i).getState() + ", location=" + units.get(i).getLocation() + ", homeLocation=" + units.get(i).getHomeLocation() + "}");
+//		}
+//
+//		List<IHospital> hospitals = getApi().getListOfHospitals();
+//		getLogger().info("DEBUG " + (++counter) + " number of hospitals=" + hospitals.size());
+//		for (int i = 0; i < hospitals.size(); ++i) {
+//			getLogger().info("\tDEBUG " + hospitals.get(i) + "{naam=" + hospitals.get(i).getName() + ", location=" + hospitals.get(i).getLocation() + "}");
+//		}
 	}
 
 	@Override

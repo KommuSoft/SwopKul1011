@@ -49,9 +49,9 @@ public class ExternalSystem implements IExternalSystem {
 		setScenarios(new ArrayList<AbstractScenario>());
 		getScenarios().add(new SimpleScenario(api, logger));
 		getScenarios().add(new ThirdIterationScenario(api, logger));
-		//getScenarios().add(new TestScenario(api, logger));
-		//getScenarios().add(new WithdrawScenario(api, logger));
-		//getScenarios().add(new SuperScenario(api, logger));
+		getScenarios().add(new TestScenario(api, logger));
+		getScenarios().add(new WithdrawScenario(api, logger));
+		getScenarios().add(new SuperScenario(api, logger));
 		getScenarios().add(new DisasterScenario(api, logger));
 		
 		new Thread(new Runnable() {

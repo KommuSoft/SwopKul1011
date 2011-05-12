@@ -4,15 +4,11 @@ import java.util.List;
 
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
 import be.kuleuven.cs.swop.api.EmergencyState;
-import be.kuleuven.cs.swop.api.IAmbulanceView;
 import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
-import be.kuleuven.cs.swop.api.IHospital;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.IUnit;
-import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import be.kuleuven.cs.swop.api.Severity;
-import be.kuleuven.cs.swop.api.UnitState;
 import be.kuleuven.cs.swop.events.Fire;
 import be.kuleuven.cs.swop.events.Location;
 import be.kuleuven.cs.swop.events.Robbery;
@@ -105,9 +101,5 @@ public class DisasterScenario extends AbstractScenario {
 		if(emergencies.size() != 2){
 			getLogger().error("The list of emergencies in the disasters is wrong! " +  emergencies.size() + " expected 2");
 		}
-
-		
-
-
 	}
 }
