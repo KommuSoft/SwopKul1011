@@ -163,7 +163,7 @@ public class Disaster extends Sendable {
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
 	@Override
-	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
 		Set<Unit> units = null;
 		if (getEmergencies().size() > 0) {
 			units = getStatus().getPolicyProposal(getEmergencies().get(0).getUnitsNeeded(), availableUnits);

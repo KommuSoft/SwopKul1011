@@ -7,6 +7,7 @@ import be.kuleuven.cs.swop.api.IPoliceCarView;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -67,7 +68,7 @@ public class UnitConfiguration implements IUnitConfiguration {
 	private <T extends Unit> Set<Unit> getProposal(Class<T> t){
 		TypeMapItemValidator<T> miv = new TypeMapItemValidator<T>(t);
 		MapItemList<T> mil = world.getMapItemList().getSubMapItemListByValidator(miv);
-		return getConcreteUnitsNeeded().getPolicyProposal(mil.toArrayList());
+		return getConcreteUnitsNeeded().getPolicyProposal(new HashSet<Unit>(mil.getMapItems()));
 	}
 
 	private List<IFireTruckView> takeListOfFireTrucks() {

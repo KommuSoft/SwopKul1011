@@ -1,9 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
@@ -351,7 +349,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
      * @return A list of units proposed by the policy of this Emergency.
      */
     @Override
-    public Set<Unit> getPolicyProposal(Set<? extends Unit> availableUnits) {
+    public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
         return this.getPolicy().generateProposal(availableUnits);
     }
 

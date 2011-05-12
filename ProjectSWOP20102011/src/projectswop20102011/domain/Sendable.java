@@ -95,7 +95,7 @@ public abstract class Sendable implements Targetable {
 	 *      A list of units that are available for the proposal.
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
-	public abstract Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits);
+	public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
 
 	/**
 	 * Tests if this emergency is partially assigned.

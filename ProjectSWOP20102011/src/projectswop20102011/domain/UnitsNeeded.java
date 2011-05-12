@@ -18,7 +18,7 @@ public abstract class UnitsNeeded {
 	 *		A list of available units.
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
-	public abstract Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits);
+	public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
 
 	public abstract boolean canBeResolved(Set<Unit> availableUnits);
 

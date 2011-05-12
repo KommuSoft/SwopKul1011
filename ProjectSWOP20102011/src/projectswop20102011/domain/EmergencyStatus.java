@@ -43,7 +43,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+		Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return unitsNeeded.getPolicyProposal(availableUnits);
 		}
 
@@ -84,7 +84,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+		Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return unitsNeeded.getPolicyProposal(availableUnits);
 		}
 
@@ -124,7 +124,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits) {
+		Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return new HashSet<Unit>();//a proposal containing no units
 		}
 
@@ -261,7 +261,7 @@ public enum EmergencyStatus {
 	 *      A list of available units that can be selected.
 	 * @return A set of units that represents the proposal of the policy.
 	 */
-	abstract Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, List<? extends Unit> availableUnits);
+	abstract Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, Set<Unit> availableUnits);
 
 	/**
 	 * Checks if the given emergency can be resolved with a given collection of all the available units.

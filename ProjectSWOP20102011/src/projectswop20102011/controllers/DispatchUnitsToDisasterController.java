@@ -28,11 +28,7 @@ public class DispatchUnitsToDisasterController extends Controller {
 	public Set<Unit> getUnitsByPolicy(Disaster disaster) {
 		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
 		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
-		ArrayList<Unit> availableUnits = new ArrayList<Unit>();
-		for (Unit u : mapItems) {
-			availableUnits.add(u);
-		}
-		return disaster.getPolicyProposal(availableUnits);
+		return disaster.getPolicyProposal(mapItems);
 	}
 
 	public List<Unit> getAvailableUnitsSorted(Disaster disaster) throws InvalidDisasterException {

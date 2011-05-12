@@ -174,7 +174,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
     }
 
     @Override
-    public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+    public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
         Set<Unit> units = null;
         if (getDisaster().getEmergencies().size() > 0) {
             units = getDisaster().getEmergencies().get(0).calculateUnitsNeeded().getPolicyProposal(availableUnits);

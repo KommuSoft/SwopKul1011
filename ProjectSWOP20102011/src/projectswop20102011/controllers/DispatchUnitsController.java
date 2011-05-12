@@ -38,11 +38,7 @@ public class DispatchUnitsController extends Controller {
     public Set<Unit> getUnitsByPolicy(Emergency emergency){
         MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
         HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
-        ArrayList<Unit> availableUnits = new ArrayList<Unit>();
-        for (Unit u : mapItems) {
-            availableUnits.add(u);
-        }
-        return emergency.getPolicyProposal(availableUnits);
+        return emergency.getPolicyProposal(mapItems);
     }
 
     /**

@@ -206,7 +206,7 @@ public abstract class Emergency extends Sendable {
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
 	@Override
-	public Set<Unit> getPolicyProposal(List<? extends Unit> availableUnits) {
+	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
 		return this.getStatus().getPolicyProposal(this.getUnitsNeeded(), availableUnits);
 	}
 
