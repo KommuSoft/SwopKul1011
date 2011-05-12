@@ -58,34 +58,12 @@ public class WithdrawScenario extends AbstractScenario {
 		advanceTime(new Time(0, 15));
 		printDebugStatements();
 
-		// Print info
+		// Withraw unit
 		List<IEmergency> emergencies = getApi().getListOfEmergencies(EmergencyState.ANY);
-		getLogger().info("List of emergencies (" + emergencies.size() + ")");
-		for (int i = 0; i < emergencies.size(); ++i) {
-			getLogger().info("\t" + i + ": " + emergencies.get(i));
-		}
-
 		IEmergency emergency = emergencies.get(0);
 		List<IUnit> units = emergency.getAssignedUnits();
-		getLogger().info("List of units (" + units.size() + ")");
-		for (int i = 0; i < units.size(); ++i) {
-			getLogger().info("\t" + i + ": " + units.get(i));
-		}
-
-		// Withraw unit
 		IUnit unit = units.get(0);
 		getApi().withdrawUnit(unit, emergency);
-
-		// Print info
-		getLogger().info("List of emergencies (" + emergencies.size() + ")");
-		for (int i = 0; i < emergencies.size(); ++i) {
-			getLogger().info("\t" + i + ": " + emergencies.get(i));
-		}
-
-		getLogger().info("List of units (" + units.size() + ")");
-		for (int i = 0; i < units.size(); ++i) {
-			getLogger().info("\t" + i + ": " + units.get(i));
-		}
 	}
 
 	private void printDebugStatements() throws EmergencyDispatchException {

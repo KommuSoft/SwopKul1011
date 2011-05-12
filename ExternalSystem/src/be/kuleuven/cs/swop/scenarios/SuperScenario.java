@@ -5,6 +5,8 @@ import be.kuleuven.cs.swop.api.EmergencyState;
 import be.kuleuven.cs.swop.api.IAmbulanceView;
 import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
+import be.kuleuven.cs.swop.api.IEvent;
+import be.kuleuven.cs.swop.api.IFireView;
 import be.kuleuven.cs.swop.api.IHospital;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.IUnit;
@@ -58,6 +60,9 @@ public class SuperScenario extends AbstractScenario {
 		IUnitConfiguration cfg1 = getApi().getUnitConfiguration(em1);
 		getApi().assignUnits(cfg1);
 
+		// Advance time with 15 minutes
+		advanceTime(new Time(0, 15));
+
 		// Check the unit state of all involved units
 		ems1 = getApi().getListOfEmergencies(EmergencyState.RESPONDED);
 		if (ems1.size() != 1) {
@@ -67,14 +72,14 @@ public class SuperScenario extends AbstractScenario {
 		if (ems1.size() != 1) {
 			getLogger().fatal("Unexpected number of emergencies (" + ems1.size() + ", expected 1)");
 		}
+		int ambulanceCounter = 0;
 		for (IUnit u : ems1.get(0).getAssignedUnits()) {
 			if (u.getState() != UnitState.ASSIGNED) {
 				getLogger().error("Unexpected unit state (" + u.getName() + "): " + u.getState() + " instead of ASSIGNED");
 			} else {
 				// Check if unit is an ambulance
-				int counter = 0;
 				if (u instanceof IAmbulanceView) {
-					++counter;
+					++ambulanceCounter;
 					List<IHospital> h = getApi().getListOfHospitals();
 					if (h.size() != 1) {
 						getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 1)");
@@ -83,12 +88,9 @@ public class SuperScenario extends AbstractScenario {
 					// Select hospital
 					getApi().selectHospital(u, h.get(0));
 				}
-				getLogger().info("Number of ambulances = " + counter);
 			}
 		}
-
-		// Advance time with 15 minutes
-		advanceTime(new Time(0, 15));
+		getLogger().info("a) Number of ambulances = " + ambulanceCounter);
 
 		// Register a new event
 		addEvent(new Robbery(
@@ -114,7 +116,6 @@ public class SuperScenario extends AbstractScenario {
 		//TODO custom
 		getApi().assignUnits(cfg2);
 
-
 		// Check the unit state of all involved units
 		ems1 = getApi().getListOfEmergencies(EmergencyState.RESPONDED);
 		if (ems1.size() != 2) {
@@ -124,86 +125,128 @@ public class SuperScenario extends AbstractScenario {
 		if (ems1.size() != 2) {
 			getLogger().fatal("Unexpected number of emergencies (" + ems1.size() + ", expected 2)");
 		}
-		for (IUnit u : ems1.get(1).getAssignedUnits()) {
-			if (u.getState() != UnitState.ASSIGNED) {
-				getLogger().error("Unexpected unit state (" + u.getName() + "): " + u.getState() + " instead of ASSIGNED");
-			} else {
-				// Check if unit is an ambulance
-				int counter = 0;
-				if (u instanceof IAmbulanceView) {
-					++counter;
-					List<IHospital> h = getApi().getListOfHospitals();
-					if (h.size() != 1) {
-						getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 1)");
-					}
-
-					// Select hospital
-					getApi().selectHospital(u, h.get(0));
+		ambulanceCounter = 0;
+		for (IUnit u : em2.getAssignedUnits()) {
+			if (u instanceof IAmbulanceView) {
+				if (u.getState() != UnitState.OCCUPIED) {
+					getLogger().error("Unexpected unit state (" + u.getName() + "): " + u.getState() + " instead of OCCUPIED");
 				}
-				getLogger().info("Number of ambulances = " + counter);
+				++ambulanceCounter;
+				List<IHospital> h = getApi().getListOfHospitals();
+				if (h.size() != 1) {
+					getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 1)");
+				}
+
+				// Select hospital
+				getApi().selectHospital(u, h.get(0));
+
+				getLogger().info("Location ambulance " + u.getLocation());
+				getLogger().info("Location emergency " + "(30,50)");
+				getLogger().info("Location hospital " + h.get(0).getLocation());
+			} else {
+				if (u.getState() != UnitState.ASSIGNED) {
+					getLogger().error("Unexpected unit state (" + u.getName() + "): " + u.getState() + " instead of ASSIGNED");
+				}
 			}
 		}
 
+		getLogger().info("b) Number of ambulances = " + ambulanceCounter);
+
 		// Advance time with 32 hours
-		advanceTime(new Time(32, 0));
+		advanceTime(
+				new Time(32, 0));
 
 		// Indicate end of task for all units
 		List<IEmergency> ems = getApi().getListOfEmergencies(EmergencyState.RESPONDED);
+
+
 		for (IEmergency e : ems) {
 			for (IUnit u : e.getAssignedUnits()) {
 				getApi().indicateEndOfTask(u, e);
+
+
 			}
 		}
 
 		// Check state units
 		List<IUnit> units = getApi().getListOfUnits(UnitState.ANY);
+
+
 		for (IUnit unit : units) {
 			if (!unit.getState().equals(UnitState.IDLE)) {
 				getLogger().error(unit + " has state " + unit.getState() + " this should be " + UnitState.IDLE);
+
+
 			}
 		}
 
 		// Check number of unhandled emergencies
 		int count = getApi().getListOfEmergencies(EmergencyState.UNHANDLED).size();
-		if (count > 0) {
+
+
+		if (count != 0) {
 			getLogger().error("Unexpected number of unhandled emergencies: " + count + ", expected 0");
-		}
-		// Check number of responded emergencies
+
+
+		} // Check number of responded emergencies
 		count = getApi().getListOfEmergencies(EmergencyState.RESPONDED).size();
-		if (count > 0) {
+
+
+		if (count != 0) {
 			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 0");
-		}
-		// Check number of completed emergencies
+
+
+		} // Check number of completed emergencies
 		count = getApi().getListOfEmergencies(EmergencyState.COMPLETED).size();
+
+
 		if (count != 2) {
 			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 2");
+
+
 		}
 	}
 
 	@Override
-	public void notifyTimeChanged(ITime time) throws ExternalSystemException, IllegalArgumentException {
+	public void notifyTimeChanged(ITime time) throws ExternalSystemException,
+			IllegalArgumentException {
 		if (this.getApi() == null) {
 			throw new ExternalSystemException("No API registered");
+
+
 		}
 
 		getLogger().info("Registering time change: " + time.toString());
+
+
 	}
 
 	@Override
-	public void notifyAssignment(IUnit unit, IEmergency event) throws ExternalSystemException, IllegalArgumentException {
+	public void notifyAssignment(IUnit unit, IEmergency event)
+			throws ExternalSystemException,
+			IllegalArgumentException {
 		if (this.getApi() == null) {
 			throw new ExternalSystemException("No API registered");
+
+
 		}
 
 		getLogger().info("Registering unit assignment: " + unit.toString() + " to " + event);
+
+
 	}
 
 	@Override
-	public void notifyRelease(IUnit unit, IEmergency event) throws ExternalSystemException, IllegalArgumentException {
+	public void notifyRelease(IUnit unit, IEmergency event)
+			throws ExternalSystemException,
+			IllegalArgumentException {
 		if (this.getApi() == null) {
 			throw new ExternalSystemException("No API registered");
+
+
 		}
 
 		getLogger().info("Registering unit release: " + unit.toString() + " from " + event);
+
 	}
 }

@@ -113,32 +113,47 @@ public class TestScenario extends AbstractScenario {
 		advanceTime(new Time(32, 0));
 		printDebugStatements();
 
+		// Check number of unhandled emergencies
+		int count = getApi().getListOfEmergencies(EmergencyState.UNHANDLED).size();
+		if (count != 0) {
+			getLogger().error("Unexpected number of unhandled emergencies: " + count + ", expected 0");
+		}
+		printDebugStatements();
+		// Check number of responded emergencies
+		count = getApi().getListOfEmergencies(EmergencyState.RESPONDED).size();
+		if (count != 2) {
+			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 2");
+		}
+		printDebugStatements();
+		
 		// Indicate end of task for all units
 		List<IEmergency> ems = getApi().getListOfEmergencies(EmergencyState.RESPONDED);
 		if (ems.size() != 2) {
 			getLogger().fatal("Unexpected number of emergencies (" + ems.size() + ", expected 2)");
 		}
-
-		getLogger().info("Number of emergencies " + ems.size());
-		for (IEmergency e : ems) {
-			getLogger().info("DEBUG " + e + " " + e.getState());
-			getLogger().info("DEBUG assigned units" + e.getAssignedUnits().size());
-			for (IUnit u : e.getAssignedUnits()) {
+		for(IEmergency e:ems){
+			for(IUnit u:e.getAssignedUnits()){
 				getApi().indicateEndOfTask(u, e);
 			}
 		}
 		printDebugStatements();
 
 		// Check number of unhandled emergencies
-		int count = getApi().getListOfEmergencies(EmergencyState.UNHANDLED).size();
-		if (count > 0) {
+		count = getApi().getListOfEmergencies(EmergencyState.UNHANDLED).size();
+		if (count != 0) {
 			getLogger().error("Unexpected number of unhandled emergencies: " + count + ", expected 0");
 		}
 		printDebugStatements();
 		// Check number of responded emergencies
 		count = getApi().getListOfEmergencies(EmergencyState.RESPONDED).size();
-		if (count > 0) {
+		if (count != 0) {
 			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 0");
+		}
+		printDebugStatements();
+		// Check number of completed emergencies
+		count = getApi().getListOfEmergencies(EmergencyState.COMPLETED).size();
+		if (count != 2) {
+			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 2");
 		}
 		printDebugStatements();
 	}
