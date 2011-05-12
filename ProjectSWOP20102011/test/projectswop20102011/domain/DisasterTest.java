@@ -1,8 +1,8 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -441,7 +441,7 @@ public class DisasterTest {
 
 	@Test
 	public void testPolicyProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
-		List<Unit> units = new ArrayList<Unit>(3);
+		HashSet<Unit> units = new HashSet<Unit>(3);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
