@@ -1,11 +1,8 @@
 package projectswop20102011.domain;
 
-import java.io.InvalidClassException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
