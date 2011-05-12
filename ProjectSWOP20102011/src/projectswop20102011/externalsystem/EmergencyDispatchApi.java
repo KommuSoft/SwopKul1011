@@ -266,11 +266,11 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		MapItemList mil = world.getMapItemList();
 
 		//TODO: begin debug statement
-		ArrayList<MapItem> items = mil.toArrayList();
-		System.out.println("Number of mapItems (units)" + items.size());
-		for (int i = 0; i < items.size(); ++i) {
-			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
-		}
+//		ArrayList<MapItem> items = mil.toArrayList();
+//		System.out.println("Number of mapItems (units)" + items.size());
+//		for (int i = 0; i < items.size(); ++i) {
+//			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
+//		}
 		//TODO: end debug statement
 
 		TypeMapItemValidator<Unit> miv = new TypeMapItemValidator<Unit>(Unit.class);
@@ -294,11 +294,11 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		MapItemList mil = world.getMapItemList();
 
 		//TODO: begin debug statement
-		ArrayList<MapItem> items = mil.toArrayList();
-		System.out.println("Number of mapItems (hospitals) " + items.size());
-		for (int i = 0; i < items.size(); ++i) {
-			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
-		}
+//		ArrayList<MapItem> items = mil.toArrayList();
+//		System.out.println("Number of mapItems (hospitals) " + items.size());
+//		for (int i = 0; i < items.size(); ++i) {
+//			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
+//		}
 		//TODO: end debug statement
 
 		TypeMapItemValidator<Hospital> miv = new TypeMapItemValidator<Hospital>(Hospital.class);
