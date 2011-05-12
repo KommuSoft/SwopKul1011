@@ -1,5 +1,7 @@
 package projectswop20102011.domain;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
@@ -115,6 +117,48 @@ public class Ambulance extends Unit {
      */
     @Override
     public boolean canFinishJob() {
-        return (super.canFinishJob() && getCurrentHospital() != null);
+		//TODO: mag dit op deze manier? standaard false kiezen o.a.?
+		boolean canFinish = false;
+		try {
+			canFinish =  super.canFinishJob() && getCurrentHospital() != null && !isRequired();
+		} catch (InvalidLocationException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidMapItemNameException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidSpeedException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return canFinish;
     }
+
+
+	/*
+	 * A method that checks if another ambulance is required to handle the emergency of this ambulance
+	 */
+	//TODO: vuile code
+	public boolean isRequired() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException{
+		Set<Unit> ambulances = new HashSet<Unit>(0);
+		ambulances.add(this.clone());
+		Set<Unit> proposal = this.getEmergency().getStatus().getPolicyProposal(this.getEmergency().getUnitsNeeded(),ambulances);
+		if(proposal.isEmpty()){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	@Override
+	public Ambulance clone(){
+		Ambulance amb = null;
+		try {
+			amb = new Ambulance(this.getName(), this.getHomeLocation(), this.getSpeed());
+		} catch (InvalidLocationException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidMapItemNameException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidSpeedException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return amb;
+	}
 }
