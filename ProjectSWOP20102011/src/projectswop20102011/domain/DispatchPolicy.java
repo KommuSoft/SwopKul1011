@@ -1,14 +1,12 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
+import projectswop20102011.utils.SortedListSet;
 
 /**
  * A class representing a policy used by the dispatch center (for example: default policy, ASAP policy,...)
@@ -82,8 +80,10 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @return A list of units that would be allocated to the emergency if the policy would be applied.
      */
     public Set<Unit> generateProposal(Set<? extends Unit> availableUnits) {
-        SortedSet<Unit> available = new TreeSet<Unit>(this);
+        System.out.println("hallo1"+Arrays.toString(availableUnits.toArray()));
+        SortedSet<Unit> available = new SortedListSet<Unit>(this);
         available.addAll(availableUnits);
+        System.out.println("hallo2"+Arrays.toString(available.toArray()));
         return this.getUnitsNeeded().generateProposal(available);
     }
 

@@ -103,47 +103,9 @@ public class NumberDispatchUnitsConstraintTest {
         nduc = new NumberDispatchUnitsConstraint(uv5, number1);
     }
 
-    @Test
-    public void testAreValidDispatchUnits() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
+    
+    public void test () {
 
-        ArrayList<Unit> units1 = new ArrayList<Unit>(0);
-        units1.add(u1);
-        ArrayList<Unit> units2 = new ArrayList<Unit>(0);
-        units2.add(u2);
-        ArrayList<Unit> units13 = new ArrayList<Unit>(0);
-        units13.add(u1);
-        units13.add(u3);
-        ArrayList<Unit> units4 = new ArrayList<Unit>(0);
-        units4.add(u4);
-        ArrayList<Unit> units12 = new ArrayList<Unit>(0);
-        units12.add(u1);
-        units12.add(u2);
-        ArrayList<Unit> units3 = new ArrayList<Unit>(0);
-        units3.add(u3);
-        ArrayList<Unit> unitsEmpty = new ArrayList<Unit>(0);
-
-        nduc = new NumberDispatchUnitsConstraint(uv1, number1);
-        assertTrue(nduc.areValidDispatchUnits(units1));
-        assertTrue(nduc.areValidDispatchUnits(units12));
-        assertFalse(nduc.areValidDispatchUnits(units4));
-
-        nduc = new NumberDispatchUnitsConstraint(uv1, number3);
-        assertTrue(nduc.areValidDispatchUnits(units13));
-        assertFalse(nduc.areValidDispatchUnits(units1));
-
-        nduc = new NumberDispatchUnitsConstraint(uv3, number1);
-        assertTrue(nduc.areValidDispatchUnits(units3));
-
-        nduc = new NumberDispatchUnitsConstraint(uv3, number3);
-        assertTrue(nduc.areValidDispatchUnits(units13));
-        assertFalse(nduc.areValidDispatchUnits(units3));
-
-        nduc = new NumberDispatchUnitsConstraint(uv2, number2);
-        assertTrue(nduc.areValidDispatchUnits(units2));
-        assertFalse(nduc.areValidDispatchUnits(unitsEmpty));
-
-        nduc = new NumberDispatchUnitsConstraint(uv4, number4);
-        assertTrue(nduc.areValidDispatchUnits(unitsEmpty));
-        assertTrue(nduc.areValidDispatchUnits(units4));
     }
+
 }

@@ -1,10 +1,9 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.LinkedHashSet;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -118,7 +117,7 @@ public class EmergencyTest {
 
 	@Test
 	public void testProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencySeverityException{
-		List<Unit> units = new ArrayList<Unit>(3);
+		Set<Unit> units = new HashSet<Unit>(3);
 		Policecar politiewagen1 = new Policecar(name1, gp1, speed1);
 		Policecar politiewagen2 = new Policecar(name2, gp1, speed1);
 		Policecar politiewagen3 = new Policecar(name3, gp1, speed1);
