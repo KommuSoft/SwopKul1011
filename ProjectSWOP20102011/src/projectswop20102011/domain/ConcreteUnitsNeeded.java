@@ -217,6 +217,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
                 return false;
             }
         }
+		boolean value =  getConstraint().canAssign(this.getAlreadyAssignedUnits(), units);
         return getConstraint().canAssign(this.getAlreadyAssignedUnits(), units);
     }
 

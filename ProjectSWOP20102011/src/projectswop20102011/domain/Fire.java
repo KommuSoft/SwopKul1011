@@ -271,7 +271,7 @@ public class Fire extends Emergency {
 			long maximum = ambulances[1];
 			//TODO: getSize() mag hier waarschijnlijk nog weg en 
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
-			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired,Long.MAX_VALUE);
+			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired,numberOfLitersRequired); //TODO: de min en max zijn hier gelijk aan elkaar (anders werkt het programma nie, dus wanneer max=Long.maxValue dan is er een probleem)
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars,new DifferentQuadraticValidator<Unit,Unit>());
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this,new AndDispatchUnitsConstraint(fir, amb, pol));

@@ -92,14 +92,12 @@ public class NumberDispatchUnitsConstraintTest {
     }
 
     @Test(expected = NumberOutOfBoundsException.class)
-	//TODO: feitelijk kan de InvalidValidatorException niet gethrowed worden maar toch staat deze bij de throws in NumberDispatchUnitsConstraint (er staat daar ook nog een todo)
-    public void testIllegalConstructor1() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
+    public void testIllegalConstructor1() throws NumberOutOfBoundsException, InvalidValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv1, number5);
     }
 
-    @Test(expected = InvalidUnitValidatorException.class)
-	//TODO: feitelijk kan de InvalidValidatorException niet gethrowed worden maar toch staat deze bij de throws in NumberDispatchUnitsConstraint (er staat daar ook nog een todo)
-    public void testIllegalConstructor2() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidUnitValidatorException {
+    @Test(expected = InvalidValidatorException.class)
+    public void testIllegalConstructor2() throws NumberOutOfBoundsException, InvalidValidatorException {
         nduc = new NumberDispatchUnitsConstraint(uv5, number1);
     }
 

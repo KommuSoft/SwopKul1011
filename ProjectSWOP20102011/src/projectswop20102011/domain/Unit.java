@@ -392,10 +392,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @throws InvalidEmergencyStatusException
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
-	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {
-		if (!canFinishJob() || (isRequired() && !arePresent())) {
+	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {//|| (isRequired() && !arePresent())
+		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else {
+		} else if(isRequired()){
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} else if(!arePresent() && !isRequired()){
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} 	else {
 			getEmergency().finishUnit(this);
 			setEmergency(null);
 			setWasAlreadyAtSite(false);
@@ -418,7 +422,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	public boolean isRequired() {
 		Set<Unit> unit = new HashSet<Unit>(0);
 		unit.add(this.clone());
-		ArrayList<Unit> workingUnits = this.getEmergency().getUnitsNeeded().getWorkingUnits();
+		ArrayList<Unit> workingUnits = this.getEmergency().getWorkingUnits();
 		ArrayList<Unit> finishedUnits = this.getEmergency().getUnitsNeeded().getFinishedUnits();
 		ArrayList<Unit> units = new ArrayList<Unit>(0);
 		units.addAll(workingUnits);
@@ -437,6 +441,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * Clone this unit
 	 * @return a clone of this unit
 	 */
+	@Override
 	public abstract Unit clone();
 
 	/**

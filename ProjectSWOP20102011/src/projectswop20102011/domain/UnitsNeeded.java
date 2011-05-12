@@ -1,8 +1,6 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;

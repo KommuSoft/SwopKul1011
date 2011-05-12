@@ -1,5 +1,7 @@
 package projectswop20102011.externalsystem;
 
+import be.kuleuven.cs.swop.api.EmergencyDispatchException;
+import be.kuleuven.cs.swop.api.EmergencyState;
 import be.kuleuven.cs.swop.events.Time;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
 import be.kuleuven.cs.swop.external.logging.Logger;
@@ -26,40 +28,40 @@ import projectswop20102011.utils.parsers.StringParser;
 
 public class EmergencyDispatchApiTest {
 
-    private World world;
-    private EmergencyDispatchApi api;
-    private Time time;
-    private SimpleScenario simpleScenario;
+	private World world;
+	private EmergencyDispatchApi api;
+	private Time time;
+	private SimpleScenario simpleScenario;
 
-    @Before
-    public void setUp() {
-        try {
-            world = new World();
-            EmergencyFactoryList efl = world.getEmergencyFactoryList();
-            efl.addEmergencyFactory(new FireFactory());
-            efl.addEmergencyFactory(new TrafficAccidentFactory());
-            efl.addEmergencyFactory(new RobberyFactory());
-            efl.addEmergencyFactory(new PublicDisturbanceFactory());
-            ParserList pl = world.getParserList();
-            pl.addParser(new BooleanParser());
-            pl.addParser(new EmergencySeverityParser());
-            pl.addParser(new FireSizeParser());
-            pl.addParser(new GPSCoordinateParser());
-            pl.addParser(new IntegerParser());
-            pl.addParser(new LongParser());
-            pl.addParser(new StringParser());
-            time = new Time(1, 10);
-            api = new EmergencyDispatchApi(world);
-            simpleScenario = new SimpleScenario(api, new Logger());
-        } catch (InvalidEmergencyTypeNameException ex) {
-            java.util.logging.Logger.getLogger(EmergencyDispatchApiTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	@Before
+	public void setUp() {
+		try {
+			world = new World();
+			EmergencyFactoryList efl = world.getEmergencyFactoryList();
+			efl.addEmergencyFactory(new FireFactory());
+			efl.addEmergencyFactory(new TrafficAccidentFactory());
+			efl.addEmergencyFactory(new RobberyFactory());
+			efl.addEmergencyFactory(new PublicDisturbanceFactory());
+			ParserList pl = world.getParserList();
+			pl.addParser(new BooleanParser());
+			pl.addParser(new EmergencySeverityParser());
+			pl.addParser(new FireSizeParser());
+			pl.addParser(new GPSCoordinateParser());
+			pl.addParser(new IntegerParser());
+			pl.addParser(new LongParser());
+			pl.addParser(new StringParser());
+			time = new Time(1, 10);
+			api = new EmergencyDispatchApi(world);
+			simpleScenario = new SimpleScenario(api, new Logger());
+		} catch (InvalidEmergencyTypeNameException ex) {
+			java.util.logging.Logger.getLogger(EmergencyDispatchApiTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    @Test
-    public void testNotifyTimeChanged() throws ExternalSystemException {
-        assertEquals(0, world.getEmergencyList().toArray().length);
-        simpleScenario.notifyTimeChanged(time);
-        assertEquals(2, world.getEmergencyList().toArray().length);
-    }
+	@Test
+	public void testNotifyTimeChanged() throws ExternalSystemException, EmergencyDispatchException {
+		assertEquals(0, world.getEmergencyList().toArray().length);
+		simpleScenario.run();
+		assertEquals(5, world.getEmergencyList().toArray().length);
+	}
 }

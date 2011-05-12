@@ -138,12 +138,15 @@ public class Ambulance extends Unit {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else {
-			getEmergency().finishUnit(this);
+			boolean isRequired = isRequired();
 			Emergency e = getEmergency();
-			setEmergency(null);
 			setWasAlreadyAtSite(false);
 			setUnitStatus(UnitStatus.IDLE);
-			if (isRequired()) {
+			getEmergency().finishUnit(this);
+			setEmergency(null);
+			setCurrentHospital(null);
+
+			if (isRequired) {
 				HashSet<Unit> ambulance = new HashSet<Unit>(0);
 				ambulance.add(this);
 				try {
@@ -152,7 +155,9 @@ public class Ambulance extends Unit {
 					Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
+
 		}
+
 	}
 
 	@Override
