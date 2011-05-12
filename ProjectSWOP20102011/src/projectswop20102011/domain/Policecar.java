@@ -1,5 +1,10 @@
 package projectswop20102011.domain;
 
+import java.io.InvalidClassException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -33,5 +38,37 @@ public class Policecar extends Unit {
 	 */
 	public Policecar(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
 		super(name, homeLocation, speed);
+	}
+
+	@Override
+	public Policecar clone() {
+		Policecar pol = null;
+		try {
+			pol = new Policecar(this.getName(), this.getHomeLocation(), this.getSpeed());
+		} catch (InvalidLocationException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidMapItemNameException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidSpeedException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return pol;
+	}
+
+	@Override
+	public boolean arePresent() {
+		ArrayList<Unit> workingUnits = getEmergency().getUnitsNeeded().getWorkingUnits();
+		TypeUnitValidator tuv = null;
+		try {
+			tuv = new TypeUnitValidator(Policecar.class);
+		} catch (InvalidClassException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		for (Unit u : workingUnits) {
+			if (tuv.isValid(u) && u.isAtDestination()) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
