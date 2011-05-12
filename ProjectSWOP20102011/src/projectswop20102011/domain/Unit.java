@@ -45,6 +45,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 */
 	private Emergency emergency;
 	/**
+	 * A variable registering the disaster of this unit
+	 */
+	private Disaster disaster;
+	/**
 	 * A variable registering whether a unit was already at the site of emergency.
 	 */
 	private boolean wasAlreadyAtSite;
@@ -88,6 +92,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		setSpeed(speed);
 		setCurrentLocation(homeLocation);
 		setEmergency(null);
+		setDisaster(null);
 		setWasAlreadyAtSite(false);
 		setUnitStatus(UnitStatus.IDLE);
 		try {
@@ -221,6 +226,18 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		}
 	}
 
+	/*
+	 * Sets the Disaster of this Unit.
+	 * @param disaster
+	 *		The new disaster of this unit.
+	 * @post The disaster of this unit is set to the given disaster.
+	 *		|new.getDisaster() == disaster
+	 * 
+	 */
+	final void setDisaster(Disaster disaster) {
+		this.disaster = disaster;
+	}
+
 	/**
 	 * Sets whether a unit was already at the site of emergency.
 	 * @param wasAlreadyAtSite
@@ -238,6 +255,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 */
 	public Emergency getEmergency() {
 		return emergency;
+	}
+
+	/**
+	 * Returns the disaster of this unit.
+	 * @return The disaster of this unit if the unit is assigned, otherwise null.
+	 */
+	public Disaster getDisaster() {
+		return disaster;
 	}
 
 	/**
@@ -393,18 +418,29 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
 	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {//|| (isRequired() && !arePresent())
+		if(getDisaster().equals(null)){
+			finishedJobForEmergencies();
+		}else{
+			finishedJobForDisasters();
+		}
+	}
+
+	private void finishedJobForEmergencies() throws InvalidFinishJobException, InvalidEmergencyStatusException {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else if(isRequired()){
+		} else if (isRequired()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else if(!arePresent() && !isRequired()){
+		} else if (!arePresent() && !isRequired()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} 	else {
+		} else {
 			getEmergency().finishUnit(this);
 			setEmergency(null);
 			setWasAlreadyAtSite(false);
 			setUnitStatus(UnitStatus.IDLE);
 		}
+	}
+
+	private void finishedJobForDisasters() {
 	}
 
 	/**
