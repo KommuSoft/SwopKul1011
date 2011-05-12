@@ -86,6 +86,11 @@ public class AndDispatchUnitsConstraintTest {
         c4 = new NumberDispatchUnitsConstraint(uv4, number4);
     }
 
+	@Test
+	public void testTest(){
+		//placeholder
+	}
+
     //TODO: write new tests (in comment to make tests run again)
     /*@Test
     public void testConstructor() throws InvalidConstraintListException {
