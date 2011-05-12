@@ -5,8 +5,11 @@ import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IUnit;
 import java.util.ArrayList;
 import java.util.List;
+import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.Firetruck;
+import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 
 /**
@@ -63,7 +66,16 @@ public class EmergencyAdapter implements IEmergency {
 		List<Unit> units = getEmergency().getWorkingUnits();
 		List<IUnit> iUnits = new ArrayList<IUnit>();
 		for (Unit u : units) {
-			iUnits.add(new UnitAdapter(u));
+			if(u instanceof Policecar){
+				iUnits.add(new PoliceCarAdapter((Policecar) u));
+			}else if(u instanceof Ambulance){
+				iUnits.add(new AmbulanceAdapter((Ambulance) u));
+			} else if(u instanceof Firetruck){
+				iUnits.add(new FireTruckAdapter((Firetruck) u));
+			}else {
+				//TODO mooie exception
+				throw new RuntimeException("Type of unit is wrong.");
+			}
 		}
 
 		return iUnits;

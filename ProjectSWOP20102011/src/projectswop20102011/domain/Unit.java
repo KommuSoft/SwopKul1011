@@ -392,6 +392,11 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      */
     public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {
         if (!canFinishJob()) {
+			System.out.println("\n!------!-----! " + this + " \tassigned " + isAssigned() + " atDestination " + isAtDestination());
+			if(this.getClass().getSimpleName().equals("Ambulance")){
+				Ambulance a = (Ambulance) this;
+				System.out.println("\tHospital " + a.getCurrentHospital());
+			}
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
             getEmergency().finishUnit(this);

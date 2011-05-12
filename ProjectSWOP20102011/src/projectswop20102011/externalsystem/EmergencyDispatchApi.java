@@ -41,7 +41,6 @@ import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.domain.Hospital;
-import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
