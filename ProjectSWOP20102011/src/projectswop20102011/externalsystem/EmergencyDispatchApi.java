@@ -396,6 +396,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		Unit u = unitAdapter.getUnit();
 		try {
 			controller.indicateEndOfTask(u);
+
 		} catch (InvalidUnitException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidEmergencyStatusException ex) {
@@ -434,7 +435,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		Unit u = ((UnitAdapter)unit).getUnit();
+		Unit u = ((UnitAdapter) unit).getUnit();
 		try {
 			ruac.withdrawUnit(u);
 		} catch (InvalidWithdrawalException ex) {

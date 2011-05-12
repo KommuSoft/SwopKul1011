@@ -35,7 +35,7 @@ public class Global1Test {
 	private boolean armed1, armed2;
 	private boolean inProgress1, inProgress2;
 	private long numberOfPeople1;
-	private long capacity, capacitySmall;
+	private long capacity, capacitySmall, capacityBig;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException {
@@ -95,6 +95,7 @@ public class Global1Test {
 
 		capacitySmall = 999;
 		capacity = 1001;
+		capacityBig = 50001;
 	}
 
 	@Test(expected = InvalidEmergencyException.class)
@@ -359,34 +360,6 @@ public class Global1Test {
 			u.finishedJob();
 		}
 
-		int counter = 0;
-		for (Unit u : units) {
-			if (u.getUnitStatus().equals(UnitStatus.ASSIGNED)) {
-				counter++;
-			}
-		}
-
-		assertEquals(3, counter);
-
-		for (Unit u : units) {
-			u.timeAhead(1000000000);
-		}
-
-		for (Unit u : units) {
-			if (!u.getUnitStatus().equals(UnitStatus.IDLE)) {
-				((Ambulance) u).selectHospital(hospital1);
-			}
-		}
-		for (Unit u : units) {
-			u.timeAhead(1000000000);
-		}
-
-		for (Unit u : units) {
-			if (!u.getUnitStatus().equals(UnitStatus.IDLE)) {
-				u.finishedJob();
-			}
-		}
-
 		for (Unit u : units) {
 			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
 		}
@@ -429,32 +402,112 @@ public class Global1Test {
 			u.finishedJob();
 		}
 
-		int counter = 0;
 		for (Unit u : units) {
-			if (u.getUnitStatus().equals(UnitStatus.ASSIGNED)) {
-				counter++;
-			}
+			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
 		}
 
-		assertEquals(4, counter);
+		assertEquals(EmergencyStatus.COMPLETED, e1.getStatus());
+	}
+
+	@Test
+	public void testFinishedJobPoliceCar() throws InvalidLocationException, InvalidEmergencySeverityException,
+			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
+			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+			InvalidAmbulanceException, InvalidHospitalException, Exception {
+		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.HOUSE, false, 0, 1337);
+
+		Set<Unit> units = new LinkedHashSet<Unit>(1338);
+		int aantal = 1335;
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Policecar("Naam", homeLocation1, 100));
+		for (int i = 3; i < aantal; i++) {
+			units.add(new Ambulance("Naam", homeLocation2, 100));
+		}
+
+		e1.assignUnits(units);
+
+		for (Unit u : units) {
+			u.timeAhead(1000000000);
+		}
+		Iterator<Unit> unitsIterator = units.iterator();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		while (unitsIterator.hasNext()) {
+			((Ambulance) unitsIterator.next()).selectHospital(hospital1);
+		}
 
 		for (Unit u : units) {
 			u.timeAhead(1000000000);
 		}
 
 		for (Unit u : units) {
-			if (!u.getUnitStatus().equals(UnitStatus.IDLE)) {
-				((Ambulance) u).selectHospital(hospital1);
-			}
+			u.finishedJob();
 		}
+
+		for (Unit u : units) {
+			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
+		}
+
+		assertEquals(EmergencyStatus.COMPLETED, e1.getStatus());
+	}
+
+	@Test
+	public void testFinishedJobPoliceCars() throws InvalidLocationException, InvalidEmergencySeverityException,
+			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
+			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+			InvalidAmbulanceException, InvalidHospitalException, Exception {
+		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.FACILITY, false, 0, 1337);
+
+		Set<Unit> units = new LinkedHashSet<Unit>(1338);
+		int aantal = 1335;
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Firetruck("Naam", homeLocation1, 100, capacityBig));
+		units.add(new Policecar("Naam", homeLocation1, 100));
+		units.add(new Policecar("Naam", homeLocation1, 100));
+		units.add(new Policecar("Naam", homeLocation1, 100));
+		for (int i = 13; i < aantal; i++) {
+			units.add(new Ambulance("Naam", homeLocation2, 100));
+		}
+
+		e1.assignUnits(units);
+
+		for (Unit u : units) {
+			u.timeAhead(1000000000);
+		}
+		Iterator<Unit> unitsIterator = units.iterator();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		unitsIterator.next();
+		while (unitsIterator.hasNext()) {
+			((Ambulance) unitsIterator.next()).selectHospital(hospital1);
+		}
+
 		for (Unit u : units) {
 			u.timeAhead(1000000000);
 		}
 
 		for (Unit u : units) {
-			if (!u.getUnitStatus().equals(UnitStatus.IDLE)) {
-				u.finishedJob();
-			}
+			u.finishedJob();
 		}
 
 		for (Unit u : units) {

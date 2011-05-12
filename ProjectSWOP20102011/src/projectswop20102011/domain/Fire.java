@@ -196,18 +196,19 @@ public class Fire extends Emergency {
 	}
 
 	//TODO: is dit goed?
-	public long getNumberOfLitersRequired(){
-		if(getSize().equals(FireSize.LOCAL)){
+	public long getNumberOfLitersRequired() {
+		if (getSize().equals(FireSize.LOCAL)) {
 			return 1000;
-		}else if(getSize().equals(FireSize.HOUSE)){
+		} else if (getSize().equals(FireSize.HOUSE)) {
 			return 100000;
-		}else if(getSize().equals(FireSize.FACILITY)){
+		} else if (getSize().equals(FireSize.FACILITY)) {
 			return 500000;
-		}else{
+		} else {
 			//We assume this can never happen
 			return -1;
 		}
 	}
+
 	/**
 	 * Checks if the given number of injured people is a valid number for a fire emergency.
 	 * @param numberOfInjured
@@ -247,21 +248,22 @@ public class Fire extends Emergency {
 		return information;
 	}
 	//TODO: mag dit? Analoge methode in trafficaccident
-	private long[] calculateMinMaxNumberOfAmbulances(){
-		long maximum = getTrappedPeople()+getNumberOfInjured();
-		long minimum = maximum/2;
-		if(maximum % 2 != 0){
-			minimum +=1;
+
+	private long[] calculateMinMaxNumberOfAmbulances() {
+		long maximum = getTrappedPeople() + getNumberOfInjured();
+		long minimum = maximum / 2;
+		if (maximum % 2 != 0) {
+			minimum += 1;
 		}
-		return new long[]{minimum , maximum};
+		return new long[]{minimum, maximum};
 	}
-	
+
 	/**
 	 * Calculates the units needed for a fire.
 	 * @return The units needed for a fire.
 	 */
 	@Override
-	protected ConcreteUnitsNeeded calculateUnitsNeeded()  {
+	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
 			long numberOfLitersRequired = units[0];
@@ -271,10 +273,12 @@ public class Fire extends Emergency {
 			long maximum = ambulances[1];
 			//TODO: getSize() mag hier waarschijnlijk nog weg en 
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
-			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired,numberOfLitersRequired); //TODO: de min en max zijn hier gelijk aan elkaar (anders werkt het programma nie, dus wanneer max=Long.maxValue dan is er een probleem)
+			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired, Long.MAX_VALUE); 
+			System.out.println("Minimum " + minimum);
+			System.out.println("Maximum " + maximum);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
-			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars,new DifferentQuadraticValidator<Unit,Unit>());
-			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this,new AndDispatchUnitsConstraint(fir, amb, pol));
+			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars, new DifferentQuadraticValidator<Unit, Unit>());
+			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
 			return un;
 		} catch (InvalidEmergencyException ex) {

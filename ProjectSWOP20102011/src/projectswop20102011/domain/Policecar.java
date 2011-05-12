@@ -57,7 +57,7 @@ public class Policecar extends Unit {
 
 	@Override
 	public boolean arePresent() {
-		ArrayList<Unit> workingUnits = getEmergency().getUnitsNeeded().getWorkingUnits();
+		ArrayList<Unit> workingUnits = getEmergency().getWorkingUnits();
 		TypeUnitValidator tuv = null;
 		try {
 			tuv = new TypeUnitValidator(Policecar.class);
@@ -65,7 +65,7 @@ public class Policecar extends Unit {
 			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		for (Unit u : workingUnits) {
-			if (tuv.isValid(u) && u.isAtDestination()) {
+			if (tuv.isValid(u) && !u.isAtDestination()) {
 				return false;
 			}
 		}

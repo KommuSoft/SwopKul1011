@@ -430,7 +430,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (isRequired()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else if (!arePresent() && !isRequired()) {
+		} else if (!arePresent()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else {
 			getEmergency().finishUnit(this);
@@ -458,13 +458,15 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	public boolean isRequired() {
 		Set<Unit> unit = new HashSet<Unit>(0);
 		unit.add(this.clone());
-		ArrayList<Unit> workingUnits = this.getEmergency().getWorkingUnits();
-		ArrayList<Unit> finishedUnits = this.getEmergency().getUnitsNeeded().getFinishedUnits();
-		ArrayList<Unit> units = new ArrayList<Unit>(0);
-		units.addAll(workingUnits);
-		units.addAll(finishedUnits);
+//		ArrayList<Unit> workingUnits = this.getEmergency().getWorkingUnits();
+//		ArrayList<Unit> finishedUnits = this.getEmergency().getUnitsNeeded().getFinishedUnits();
+//		ArrayList<Unit> units = new ArrayList<Unit>(0);
+//		units.addAll(workingUnits);
+//		units.addAll(finishedUnits);
 
-		return this.getEmergency().getDispatchConstraint().canAssign(units, unit);
+		return getEmergency().getPolicyProposal(unit).size() == 1;
+		//return getEmergency().canAssignUnits(unit);
+		//return this.getEmergency().getDispatchConstraint().canAssign(units, unit);
 	}
 
 	/**

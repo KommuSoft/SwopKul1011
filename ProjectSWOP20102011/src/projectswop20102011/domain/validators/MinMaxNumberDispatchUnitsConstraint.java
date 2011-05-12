@@ -220,6 +220,6 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 
 	@Override
 	public boolean canFinish(List<Unit> finishedUnits) {
-		return (countValidUnits(finishedUnits) >= this.getMinimum());
+		return (countValidUnits(finishedUnits) >= this.getMinimum()) && countValidUnits(finishedUnits) <= getMaximum();
 	}
 }
