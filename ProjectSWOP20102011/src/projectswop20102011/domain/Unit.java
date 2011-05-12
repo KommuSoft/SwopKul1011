@@ -418,7 +418,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
 	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {//|| (isRequired() && !arePresent())
-		if(getDisaster().equals(null)){
+		if(getDisaster() == null){
 			finishedJobForEmergencies();
 		}else{
 			finishedJobForDisasters();
