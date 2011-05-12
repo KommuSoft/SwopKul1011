@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 import projectswop20102011.domain.Unit;
+import projectswop20102011.utils.SortedListSet;
 
 /**
  * An abstract class representing a constraint to dispatch units.
@@ -59,7 +59,7 @@ public abstract class DispatchUnitsConstraint {
      * @return True if the given Emergency can be resolved with the avialable units, otherwise false.
      */
     public boolean canBeResolved(List<Unit> finishedOrAssigned, Set<Unit> availableUnits) {
-        TreeSet<Unit> available = new TreeSet<Unit>(availableUnits);
+        SortedListSet<Unit> available = new SortedListSet<Unit>(availableUnits);
         HashSet<Unit> proposal = new HashSet<Unit>();
         if (generateProposal(finishedOrAssigned, available, proposal)) {
             List<Unit> assumedFinished = new ArrayList<Unit>(finishedOrAssigned);

@@ -80,10 +80,8 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @return A list of units that would be allocated to the emergency if the policy would be applied.
      */
     public Set<Unit> generateProposal(Set<? extends Unit> availableUnits) {
-        System.out.println("hallo1"+Arrays.toString(availableUnits.toArray()));
         SortedSet<Unit> available = new SortedListSet<Unit>(this);
         available.addAll(availableUnits);
-        System.out.println("hallo2"+Arrays.toString(available.toArray()));
         return this.getUnitsNeeded().generateProposal(available);
     }
 

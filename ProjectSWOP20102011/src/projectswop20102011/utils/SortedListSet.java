@@ -14,8 +14,19 @@ public class SortedListSet<T> implements SortedSet<T> {
 
     private final PriorityQueue<T> queue;
 
+    public SortedListSet () {
+        this.queue = new PriorityQueue<T>(11,new DefaultComparator<T>());
+    }
     public SortedListSet(Comparator<? super T> comparator) {
         this.queue = new PriorityQueue<T>(11, comparator);
+    }
+    public SortedListSet(Collection<? extends T> items) {
+        this();
+        this.addAll(items);
+    }
+    public SortedListSet(Comparator<? super T> comparator, Collection<? extends T> items) {
+        this(comparator);
+        this.addAll(items);
     }
 
     @Override
@@ -128,8 +139,8 @@ public class SortedListSet<T> implements SortedSet<T> {
     @Override
     public boolean addAll(Collection<? extends T> c) {
         boolean added = false;
-        for(T t : c) {
-            added |= this.add(t);
+        for(T item : c) {
+            added |= this.add(item);
         }
         return added;
     }

@@ -2,10 +2,8 @@ package projectswop20102011.domain;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
@@ -13,6 +11,7 @@ import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.utils.SortedListSet;
 
 public class DerivedUnitsNeeded extends UnitsNeeded {
 
@@ -86,8 +85,9 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
      *          can be assigned and the constraint for allocation is passed;
      *          otherwise false.
      */
+    @Override
     public boolean canAssignUnitsToEmergency(Set<Unit> units) {
-        SortedSet<Unit> options = new TreeSet<Unit>(units);
+        SortedSet<Unit> options = new SortedListSet<Unit>(units);
         for (Emergency e : getDisaster().getEmergencies()) {
             ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
             Set<Unit> unitsForEmergency = CUN.generateProposal(options);
@@ -120,7 +120,8 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
      */
     @Override
     public synchronized void assignUnitsToEmergency(Set<Unit> units) throws InvalidEmergencyException {
-        SortedSet<Unit> options = new TreeSet<Unit>(units);
+        SortedSet<Unit> options = new SortedListSet<Unit>();
+        options.addAll(units);
         if (!canAssignUnitsToEmergency(units)) {
             throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
         }

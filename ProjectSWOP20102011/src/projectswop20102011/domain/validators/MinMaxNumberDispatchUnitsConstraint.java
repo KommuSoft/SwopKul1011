@@ -176,14 +176,12 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      */
     @Override
     public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
-        System.out.println(Arrays.toString(availableUnits.toArray()));
         ArrayList<Unit> collect = new ArrayList<Unit>();
         long value = collectValidUnits(finishedOrAssignedUnits,collect);
         if (value >= this.getMinimum()) {
             return true;
         }
         for (Unit u : availableUnits) {
-            System.out.print(String.format("%s\t(%s,%s,%s)", u,this.getValidator().isValid(u),this.getQuadraticValidator().isValid(collect, u),this.getValidator().getNumber(u)));
             if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collect, u)) {
                 long unumber = this.getValidator().getNumber(u);
                 if (value + unumber <= this.getMaximum()) {
