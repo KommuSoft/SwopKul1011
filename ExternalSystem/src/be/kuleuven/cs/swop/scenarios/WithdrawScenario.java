@@ -54,16 +54,16 @@ public class WithdrawScenario extends AbstractScenario {
 		getApi().assignUnits(cfg1);
 		printDebugStatements();
 
-		// Advance time with 15 minutes
-		advanceTime(new Time(0, 15));
-		printDebugStatements();
-
 		// Withraw unit
 		List<IEmergency> emergencies = getApi().getListOfEmergencies(EmergencyState.ANY);
 		IEmergency emergency = emergencies.get(0);
 		List<IUnit> units = emergency.getAssignedUnits();
 		IUnit unit = units.get(0);
 		getApi().withdrawUnit(unit, emergency);
+
+		// Advance time with 15 minutes
+		advanceTime(new Time(0, 15));
+		printDebugStatements();
 	}
 
 	private void printDebugStatements() throws EmergencyDispatchException {
