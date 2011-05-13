@@ -1,6 +1,5 @@
 package projectswop20102011.controllers;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +16,6 @@ import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
  *
- * @author Pieter-Jan
  */
 public class DispatchUnitsToDisasterController extends Controller {
 
@@ -36,8 +34,10 @@ public class DispatchUnitsToDisasterController extends Controller {
 		return this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToDisasterDistanceComparator(disaster));
 	}
 
-	public String getRequiredUnits(Disaster disaster) {
-		throw new RuntimeException("Not yet supported.DUTDC1");
+	public Set<Unit> getRequiredUnits(Disaster disaster) {
+		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
+		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
+		return disaster.getPolicyProposalAll(mapItems);
 	}
 
 	public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {

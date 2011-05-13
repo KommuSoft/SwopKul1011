@@ -105,7 +105,7 @@ public class InspectDisastersUserInterface extends CommandUserInterface{
 							if (disaster != null) {
 								this.writeOutput(this.getLongInformationString(disaster));
 							} else {
-								this.writeOutput("ERROR: can't find the asked emergency, please try again.");
+								this.writeOutput("ERROR: can't find the asked disaster, please try again.");
 							}
 						} catch (Exception e) {
 							this.writeOutput("ERROR: Unknown command, try again.");
