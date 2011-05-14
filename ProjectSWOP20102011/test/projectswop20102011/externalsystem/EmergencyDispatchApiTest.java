@@ -1,10 +1,14 @@
 package projectswop20102011.externalsystem;
 
 import be.kuleuven.cs.swop.api.EmergencyDispatchException;
+import be.kuleuven.cs.swop.api.EmergencyState;
+import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IFireView;
 import be.kuleuven.cs.swop.api.IPublicDisturbanceView;
 import be.kuleuven.cs.swop.api.IRobberyView;
 import be.kuleuven.cs.swop.api.ITrafficAccidentView;
+import be.kuleuven.cs.swop.api.IUnit;
+import be.kuleuven.cs.swop.api.Severity;
 import java.util.logging.Level;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,23 +16,30 @@ import static org.junit.Assert.*;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.World;
+import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
+import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
+import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidMapItemNameException;
+import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.externalsystem.adapters.FireAdapter;
 import projectswop20102011.externalsystem.adapters.PublicDisturbanceAdapter;
 import projectswop20102011.externalsystem.adapters.RobberyAdapter;
 import projectswop20102011.externalsystem.adapters.TimeAdapter;
 import projectswop20102011.externalsystem.adapters.TrafficAccidentAdapter;
+import projectswop20102011.externalsystem.adapters.LocationAdapter;
 import projectswop20102011.factories.FireFactory;
 import projectswop20102011.factories.PublicDisturbanceFactory;
 import projectswop20102011.factories.RobberyFactory;
@@ -51,7 +62,7 @@ public class EmergencyDispatchApiTest {
 	private ITrafficAccidentView trafficAccident1, trafficAccident2, trafficAccident3, trafficAccident4;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
 		world = new World();
 		EmergencyFactoryList efl = world.getEmergencyFactoryList();
 		api = new EmergencyDispatchApi(world);
@@ -75,13 +86,29 @@ public class EmergencyDispatchApiTest {
 		pl.addParser(new LongParser());
 		pl.addParser(new StringParser());
 
+		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98,9), 100, 1001);
+		Ambulance am1 = new Ambulance("ziekenwagen", new GPSCoordinate(9,98), 100);
+		Ambulance am2 = new Ambulance("ziekenwagen", new GPSCoordinate(9,98), 100);
+		Ambulance am3 = new Ambulance("ziekenwagen", new GPSCoordinate(9,98), 100);
+		Hospital ho = new Hospital("ziekenhuis",new GPSCoordinate(57,68));
+
+		world.getMapItemList().addMapItem(ft);
+		world.getMapItemList().addMapItem(am1);
+		world.getMapItemList().addMapItem(am2);
+		world.getMapItemList().addMapItem(am3);
+		world.getMapItemList().addMapItem(ho);
+
+		world.getTimeSensitiveList().addTimeSensitive(ft);
+		world.getTimeSensitiveList().addTimeSensitive(am1);
+		world.getTimeSensitiveList().addTimeSensitive(am2);
+		world.getTimeSensitiveList().addTimeSensitive(am3);
 
 		Fire f1, f2, f3, f4;
 		Robbery r1, r2, r3, r4;
 		PublicDisturbance pd1, pd2, pd3, pd4;
 		TrafficAccident ta1, ta2, ta3, ta4;
 
-		f1 = new Fire(new GPSCoordinate(10, 20), EmergencySeverity.BENIGN, "brandje", FireSize.FACILITY, true, 0, 2);
+		f1 = new Fire(new GPSCoordinate(10, 20), EmergencySeverity.BENIGN, "brandje", FireSize.LOCAL, false, 0, 1);
 		f2 = new Fire(new GPSCoordinate(1, 20), EmergencySeverity.SERIOUS, "Brandje", FireSize.HOUSE, true, 2, 2);
 		f3 = new Fire(new GPSCoordinate(10, 2), EmergencySeverity.URGENT, "brandje", FireSize.LOCAL, false, 2, 0);
 		f4 = new Fire(new GPSCoordinate(-10, 20), EmergencySeverity.NORMAL, "brandje", FireSize.FACILITY, true, 0, 2);
@@ -162,7 +189,24 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
-	public void testGetListOfEmergencies(){
+	public void testGetListOfEmergencies() throws EmergencyDispatchException{
+		assertEquals(0, world.getEmergencyList().toArray().length);
+		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+
+		api.registerNewEvent(fire1);
+		assertEquals(1, world.getEmergencyList().toArray().length);
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+
+		api.assignUnits(api.getUnitConfiguration((IEmergency) fire1));
+		api.advanceTime(new TimeAdapter(10,0));
 		
+		assertEquals(1, world.getEmergencyList().toArray().length);
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.RESPONDED).size());
+
+		for(IUnit u:api.getUnitConfiguration((IEmergency) fire1).getAllUnits()){
+			api.indicateEndOfTask(u, (IEmergency) fire1);
+		}
 	}
 }

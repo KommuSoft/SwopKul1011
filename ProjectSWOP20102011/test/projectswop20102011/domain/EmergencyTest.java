@@ -1,6 +1,5 @@
 package projectswop20102011.domain;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.LinkedHashSet;

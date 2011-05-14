@@ -216,7 +216,6 @@ public abstract class Emergency extends Sendable {
 	 */
 	@Override
 	synchronized ConcreteUnitsNeeded getUnitsNeeded() {
-		//TODO deze methode staat nu package maar vroeger stond ze private, is dit een probleem?
 		if (this.unitsNeeded == null) {
 			this.unitsNeeded = calculateUnitsNeeded();
 		}

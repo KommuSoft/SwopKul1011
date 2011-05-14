@@ -4,6 +4,7 @@ import be.kuleuven.cs.swop.api.IFireView;
 import be.kuleuven.cs.swop.api.ILocation;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.Severity;
+import java.util.Locale;
 import projectswop20102011.domain.Fire;
 
 /**

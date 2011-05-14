@@ -168,11 +168,13 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		} catch (Exception ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		if(world.getTime() >= event.getTime().getHours()*3600+event.getTime().getMinutes()*60){
-			cec.addCreatedEmergencyToTheWorld(emergency);
-		} else {
-			addTodoEmergency(emergency, event.getTime().getHours()*3600+event.getTime().getMinutes()*60);
-		}
+		//TODO: voor timestamp
+//		if (world.getTime() >= event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {
+//			cec.addCreatedEmergencyToTheWorld(emergency);
+//		} else {
+//			addTodoEmergency(emergency, event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60);
+//		}
+		cec.addCreatedEmergencyToTheWorld(emergency);
 	}
 
 	@Override
@@ -329,8 +331,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
-		UnitConfiguration unitConfiguration = new UnitConfiguration(emergency, getWorld());
-		return unitConfiguration;
+		return new UnitConfiguration(emergency, getWorld());
 	}
 
 	@Override
@@ -443,12 +444,22 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
 		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
-		for(Emergency e:getTodoEmergencies().keySet()){
-			if(getTodoEmergencies().get(e) <= world.getTime()){
-				getWorld().getEmergencyList().addEmergency(e);
-				deleteTodoEmergency(e);
-			}
-		}
+
+		//TODO: voor timestamp
+//		CreateEmergencyController cec = null;
+//		try {
+//			cec = new CreateEmergencyController(getWorld());
+//		} catch (InvalidWorldException ex) {
+//			throw new EmergencyDispatchException("The world is invalid");
+//		}
+//		for (Emergency e : getTodoEmergencies().keySet()) {
+//			if (getTodoEmergencies().get(e) <= world.getTime()) {
+//				cec.addCreatedEmergencyToTheWorld(e);
+//				getWorld().getEmergencyList().addEmergency(e);
+//				deleteTodoEmergency(e);
+//			}
+//		}
+
 		try {
 			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
 		} catch (InvalidDurationException ex) {

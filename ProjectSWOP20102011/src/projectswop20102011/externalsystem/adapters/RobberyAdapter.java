@@ -24,7 +24,7 @@ public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 		time = new TimeAdapter();
 	}
 
-	public RobberyAdapter(Robbery robbery, TimeAdapter time){
+	public RobberyAdapter(Robbery robbery, ITime time){
 		super(robbery);
 		this.time = time;
 	}

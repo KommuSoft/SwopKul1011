@@ -51,11 +51,11 @@ public class Global2Test {
 
 	@Test
 	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
-		Firetruck ft = new Firetruck("tettn", new GPSCoordinate(98, 9), 100, 1001);
-		Ambulance am1 = new Ambulance("gn tettn", new GPSCoordinate(9, 98), 100);
-		Ambulance am2 = new Ambulance("gn tettn", new GPSCoordinate(9, 98), 100);
-		Ambulance am3 = new Ambulance("gn tettn", new GPSCoordinate(9, 98), 100);
-		Hospital ho = new Hospital("water", new GPSCoordinate(57, 68));
+		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98,9), 100, 1001);
+		Ambulance am1 = new Ambulance("ambulance1", new GPSCoordinate(9,98), 100);
+		Ambulance am2 = new Ambulance("ambulance2", new GPSCoordinate(9,98), 100);
+		Ambulance am3 = new Ambulance("ambulance3", new GPSCoordinate(9,98), 100);
+		Hospital ho = new Hospital("hospital",new GPSCoordinate(57,68));
 
 		world.getMapItemList().addMapItem(ft);
 		world.getMapItemList().addMapItem(am1);

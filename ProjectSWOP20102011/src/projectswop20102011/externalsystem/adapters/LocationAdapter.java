@@ -19,7 +19,7 @@ public class LocationAdapter implements ILocation {
 	 * @param location
 	 *		The GPSCoordinate that is used to create a LocationAdapter.
 	 */
-	LocationAdapter(GPSCoordinate location) {
+	public LocationAdapter(GPSCoordinate location) {
 		this.location = location;
 	}
 
