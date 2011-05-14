@@ -123,7 +123,17 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
+	public void testAdvanceTime() throws EmergencyDispatchException{
+		assertEquals(0, world.getTime());
+		api.advanceTime(new TimeAdapter(0, 1));
+		assertEquals(60, world.getTime());
+		api.advanceTime(new TimeAdapter(1, 0));
+		assertEquals(3600+60, world.getTime());
+	}
+
+	@Test
 	public void testRegisterNewEvent() throws EmergencyDispatchException {
+		assertEquals(0, world.getEmergencyList().toArray().length);
 		api.registerNewEvent(fire1);
 		api.registerNewEvent(fire2);
 		api.registerNewEvent(fire3);
@@ -145,11 +155,14 @@ public class EmergencyDispatchApiTest {
 		api.registerNewEvent(trafficAccident4);
 
 		assertEquals(13, world.getEmergencyList().toArray().length);
+		api.advanceTime(new TimeAdapter(0,10));
+		assertEquals(14, world.getEmergencyList().toArray().length);
+		api.advanceTime(new TimeAdapter(3,0));
+		assertEquals(16, world.getEmergencyList().toArray().length);
 	}
-//	@Test
-//	public void testNotifyTimeChanged() throws ExternalSystemException, EmergencyDispatchException {
-//		assertEquals(0, world.getEmergencyList().toArray().length);
-//		simpleScenario.run();
-//		assertEquals(5, world.getEmergencyList().toArray().length);
-//	}
+
+	@Test
+	public void testGetListOfEmergencies(){
+		
+	}
 }

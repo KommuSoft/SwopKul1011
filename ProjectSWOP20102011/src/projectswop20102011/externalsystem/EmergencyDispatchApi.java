@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.Main;
@@ -81,7 +82,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 * A variable registering the world that is connected with this EmergencyDispatchApi.
 	 */
 	private World world;
-	private HashMap<Emergency, Long> todoEmergencies;
+	private ConcurrentHashMap<Emergency, Long> todoEmergencies;
 
 	/**
 	 * Creates a new EmergencyDispatchApi with the given world.
@@ -92,10 +93,10 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	public EmergencyDispatchApi(World world) {
 		this.world = world;
-		todoEmergencies = new HashMap<Emergency, Long>(0);
+		todoEmergencies = new ConcurrentHashMap<Emergency, Long>(0);
 	}
 
-	private HashMap<Emergency, Long> getTodoEmergencies(){
+	private ConcurrentHashMap<Emergency, Long> getTodoEmergencies(){
 		return todoEmergencies;
 	}
 
