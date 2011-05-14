@@ -12,6 +12,8 @@ import projectswop20102011.domain.Fire;
  */
 public class FireAdapter extends EmergencyAdapter implements IFireView {
 
+	private final ITime time;
+
 	/**
 	 * Create a FireAdapter from the given Fire.
 	 * @param fire
@@ -19,6 +21,12 @@ public class FireAdapter extends EmergencyAdapter implements IFireView {
 	 */
 	public FireAdapter(Fire fire){
 		super(fire);
+		time = new TimeAdapter();
+	}
+
+	public FireAdapter(Fire fire, ITime time){
+		super(fire);
+		this.time = time;
 	}
 
 	/**
@@ -64,8 +72,7 @@ public class FireAdapter extends EmergencyAdapter implements IFireView {
 	 */
 	@Override
 	public ITime getTime() {
-		//TODO: misschien implementeren
-		throw new UnsupportedOperationException("Not supported yet.FA1");
+		return time;
 	}
 
 	/**
@@ -83,6 +90,6 @@ public class FireAdapter extends EmergencyAdapter implements IFireView {
 	 */
 	@Override
 	public Severity getSeverity() {
-		return Severity.valueOf(getEmergency().getSeverity().toString());
+		return Severity.valueOf(getEmergency().getSeverity().toString().toUpperCase());
 	}
 }

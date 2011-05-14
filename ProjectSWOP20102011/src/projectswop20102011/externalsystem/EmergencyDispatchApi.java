@@ -5,16 +5,16 @@ import be.kuleuven.cs.swop.api.EmergencyState;
 import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.IEvent;
+import be.kuleuven.cs.swop.api.IFireView;
 import be.kuleuven.cs.swop.api.IHospital;
+import be.kuleuven.cs.swop.api.IPublicDisturbanceView;
+import be.kuleuven.cs.swop.api.IRobberyView;
 import be.kuleuven.cs.swop.api.ITime;
+import be.kuleuven.cs.swop.api.ITrafficAccidentView;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import be.kuleuven.cs.swop.api.NotSupportedException;
 import be.kuleuven.cs.swop.api.UnitState;
-import be.kuleuven.cs.swop.events.Fire;
-import be.kuleuven.cs.swop.events.PublicDisturbance;
-import be.kuleuven.cs.swop.events.Robbery;
-import be.kuleuven.cs.swop.events.TrafficAccident;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -81,6 +81,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 * A variable registering the world that is connected with this EmergencyDispatchApi.
 	 */
 	private World world;
+	private HashMap<Emergency, Long> todoEmergencies;
 
 	/**
 	 * Creates a new EmergencyDispatchApi with the given world.
@@ -91,6 +92,19 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	public EmergencyDispatchApi(World world) {
 		this.world = world;
+		todoEmergencies = new HashMap<Emergency, Long>(0);
+	}
+
+	private HashMap<Emergency, Long> getTodoEmergencies(){
+		return todoEmergencies;
+	}
+
+	private void addTodoEmergency(Emergency e, long time){
+		todoEmergencies.put(e, time);
+	}
+
+	private void deleteTodoEmergency(Emergency e){
+		todoEmergencies.remove(e);
 	}
 
 	/**
@@ -122,33 +136,42 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		parameters.put("severity", event.getSeverity().toString().toLowerCase()); //TODO: lowercase moet nog weg wanneer de parser klaar is
 		parameters.put("description", "");
 
-		if (event.getClass().getSimpleName().equals("Fire")) {
-			Fire fire = (Fire) event;
+		String nameFactory = null;
+		if (event instanceof IFireView) {
+			IFireView fire = (IFireView) event;
 			parameters.put("size", fire.getSize());
 			parameters.put("chemical", Boolean.toString(fire.isChemical()));
 			parameters.put("trappedPeople", Integer.toString(fire.getNumberOfTrappedPeople()));
 			parameters.put("numberOfInjured", Integer.toString(fire.getNumberOfInjured()));
-		} else if (event.getClass().getSimpleName().equals("PublicDisturbance")) {
-			PublicDisturbance publicDisturbance = (PublicDisturbance) event;
+			nameFactory = "fire";
+		} else if (event instanceof IPublicDisturbanceView) {
+			IPublicDisturbanceView publicDisturbance = (IPublicDisturbanceView) event;
 			parameters.put("numberOfPeople", Integer.toString(publicDisturbance.getNumberOfPeople()));
-		} else if (event.getClass().getSimpleName().equals("TrafficAccident")) {
-			TrafficAccident trafficAccident = (TrafficAccident) event;
+			nameFactory = "publicDisturbance";
+		} else if (event instanceof ITrafficAccidentView) {
+			ITrafficAccidentView trafficAccident = (ITrafficAccidentView) event;
 			parameters.put("numberOfCars", Integer.toString(trafficAccident.getNumberOfCars()));
 			parameters.put("numberOfInjured", Integer.toString(trafficAccident.getNumberOfInjured()));
-		} else if (event.getClass().getSimpleName().equals("Robbery")) {
-			Robbery robbery = (Robbery) event;
+			nameFactory = "trafficAccident";
+		} else if (event instanceof IRobberyView) {
+			IRobberyView robbery = (IRobberyView) event;
 			parameters.put("armed", Boolean.toString(robbery.isArmed()));
 			parameters.put("inProgress", Boolean.toString(robbery.isInProgress()));
+			nameFactory = "robbery";
 		}
 
 		Emergency emergency = null;
-		EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(event.getClass().getSimpleName());
+		EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(nameFactory);
 		try {
 			emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
 		} catch (Exception ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		cec.addCreatedEmergencyToTheWorld(emergency);
+		if(world.getTime() >= event.getTime().getHours()*3600+event.getTime().getMinutes()*60){
+			cec.addCreatedEmergencyToTheWorld(emergency);
+		} else {
+			addTodoEmergency(emergency, event.getTime().getHours()*3600+event.getTime().getMinutes()*60);
+		}
 	}
 
 	@Override
@@ -419,6 +442,12 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
 		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
+		for(Emergency e:getTodoEmergencies().keySet()){
+			if(getTodoEmergencies().get(e) <= world.getTime()){
+				getWorld().getEmergencyList().addEmergency(e);
+				deleteTodoEmergency(e);
+			}
+		}
 		try {
 			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
 		} catch (InvalidDurationException ex) {

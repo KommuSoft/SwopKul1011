@@ -12,6 +12,8 @@ import projectswop20102011.domain.Robbery;
  */
 public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 
+	private final ITime time;
+
 	/**
 	 * Creates a RobberyAdapter from the given Robbery.
 	 * @param robbery
@@ -19,6 +21,12 @@ public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 	 */
 	public RobberyAdapter(Robbery robbery){
 		super(robbery);
+		time = new TimeAdapter();
+	}
+
+	public RobberyAdapter(Robbery robbery, TimeAdapter time){
+		super(robbery);
+		this.time = time;
 	}
 
 	/**
@@ -45,8 +53,7 @@ public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 	 */
 	@Override
 	public ITime getTime() {
-		//TODO: misschien implementeren.
-		throw new UnsupportedOperationException("Not supported yet.RA1");
+		return time;
 	}
 
 	/**
@@ -64,7 +71,7 @@ public class RobberyAdapter extends EmergencyAdapter implements IRobberyView{
 	 */
 	@Override
 	public Severity getSeverity() {
-		return Severity.valueOf(getEmergency().getSeverity().toString());
+		return Severity.valueOf(getEmergency().getSeverity().toString().toUpperCase());
 	}
 
 }

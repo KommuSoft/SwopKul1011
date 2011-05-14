@@ -12,6 +12,8 @@ import projectswop20102011.domain.PublicDisturbance;
  */
 public class PublicDisturbanceAdapter extends EmergencyAdapter implements IPublicDisturbanceView {
 
+	private final ITime time;
+
 	/**
 	 * Creates a PublicDisturbanceAdapter from the given PublicDisturbance.
 	 * @param publicDisturbance
@@ -19,6 +21,12 @@ public class PublicDisturbanceAdapter extends EmergencyAdapter implements IPubli
 	 */
 	public PublicDisturbanceAdapter(PublicDisturbance publicDisturbance) {
 		super(publicDisturbance);
+		time = new TimeAdapter();
+	}
+
+	public PublicDisturbanceAdapter(PublicDisturbance publicDisturbance, ITime time) {
+		super(publicDisturbance);
+		this.time = time;
 	}
 
 	/**
@@ -36,8 +44,7 @@ public class PublicDisturbanceAdapter extends EmergencyAdapter implements IPubli
 	 */
 	@Override
 	public ITime getTime() {
-		//TODO: misschien implementeren
-		throw new UnsupportedOperationException("Not supported yet.PDA1");
+		return time;
 	}
 
 	/**
@@ -55,6 +62,6 @@ public class PublicDisturbanceAdapter extends EmergencyAdapter implements IPubli
 	 */
 	@Override
 	public Severity getSeverity() {
-		return Severity.valueOf(getEmergency().getSeverity().toString());
+		return Severity.valueOf(getEmergency().getSeverity().toString().toUpperCase());
 	}
 }

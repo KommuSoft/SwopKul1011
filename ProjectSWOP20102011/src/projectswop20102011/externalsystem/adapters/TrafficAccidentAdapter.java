@@ -12,6 +12,8 @@ import projectswop20102011.domain.TrafficAccident;
  */
 public class TrafficAccidentAdapter extends EmergencyAdapter implements ITrafficAccidentView{
 
+	private final ITime time;
+
 	/**
 	 * Creates an TrafficAccidentAdapter from the given TrafficAccident.
 	 * @param trafficAccident
@@ -19,6 +21,12 @@ public class TrafficAccidentAdapter extends EmergencyAdapter implements ITraffic
 	 */
 	public TrafficAccidentAdapter(TrafficAccident trafficAccident){
 		super(trafficAccident);
+		time = new TimeAdapter();
+	}
+
+	public TrafficAccidentAdapter(TrafficAccident trafficAccident, ITime time){
+		super(trafficAccident);
+		this.time = time;
 	}
 
 	/**
@@ -45,8 +53,7 @@ public class TrafficAccidentAdapter extends EmergencyAdapter implements ITraffic
 	 */
 	@Override
 	public ITime getTime() {
-		//TODO: misschien implementeren.
-		throw new UnsupportedOperationException("Not supported yet.TAA1");
+		return time;
 	}
 
 	/**
@@ -64,7 +71,7 @@ public class TrafficAccidentAdapter extends EmergencyAdapter implements ITraffic
 	 */
 	@Override
 	public Severity getSeverity() {
-		return Severity.valueOf(getEmergency().getSeverity().toString());
+		return Severity.valueOf(getEmergency().getSeverity().toString().toUpperCase());
 	}
 
 }
