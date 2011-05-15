@@ -55,6 +55,7 @@ import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidMapItemException;
@@ -96,15 +97,15 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		todoEmergencies = new ConcurrentHashMap<Emergency, Long>(0);
 	}
 
-	private ConcurrentHashMap<Emergency, Long> getTodoEmergencies(){
+	private ConcurrentHashMap<Emergency, Long> getTodoEmergencies() {
 		return todoEmergencies;
 	}
 
-	private void addTodoEmergency(Emergency e, long time){
+	private void addTodoEmergency(Emergency e, long time) {
 		todoEmergencies.put(e, time);
 	}
 
-	private void deleteTodoEmergency(Emergency e){
+	private void deleteTodoEmergency(Emergency e) {
 		todoEmergencies.remove(e);
 	}
 
@@ -166,6 +167,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
 		} catch (Exception ex) {
+			//TODO: mag de logger blijven of moet dit doorgegeven worden met een EmergencyDispatchException
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		//TODO: voor timestamp
@@ -183,7 +185,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			iec = new InspectEmergenciesController(world);
 		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 
 		EmergencyStatus status = null;
@@ -216,7 +218,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			}
 			return iEmergencies;
 		}
-		
+
 		Emergency[] emergencies = iec.inspectEmergenciesOnStatus(status);
 		List<IEmergency> iEmergencies = new ArrayList<IEmergency>();
 		for (int i = 0; i < emergencies.length; ++i) {
@@ -233,7 +235,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			idc = new InspectDisastersController(getWorld());
 		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 
 		EmergencyStatus status = null;
@@ -288,6 +290,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public List<IUnit> getListOfUnits(UnitState state) throws EmergencyDispatchException {
+		//TODO: kan er in deze methode iets mislopen? Ze gaan er namelijk van uit dat er een exception gegooid kan worden.
+
 		MapItemList mil = world.getMapItemList();
 		TypeMapItemValidator<Unit> miv = new TypeMapItemValidator<Unit>(Unit.class);
 		ArrayList<Unit> units = mil.getSubMapItemListByValidator(miv).toArrayList();
@@ -323,6 +327,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
+		//TODO: kan er in deze methode iets mislopen? Ze gaan er namelijk van uit dat er een exception gegooid kan worden.
 		return new UnitConfiguration(emergency, getWorld());
 	}
 
@@ -333,7 +338,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			controller = new DispatchUnitsController(getWorld());
 		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 
 		EmergencyAdapter emergency = (EmergencyAdapter) configuration.getEmergency();
@@ -359,32 +364,38 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			controller = new CreateDisasterController(getWorld());
 		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 		EmergencyAdapter emergencyAdapter;
-		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(0);
 		for (IEmergency em : iEmergencies) {
 			emergencyAdapter = (EmergencyAdapter) em;
 			emergencies.add(emergencyAdapter.getEmergency());
 		}
 		try {
 			controller.createDisaster(emergencies, description);
-		} catch (InvalidAddedDisasterException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidEmergencyException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		} catch (InvalidConstraintListException ex) {
+			//TODO: mag de logger blijven of moet dit doorgegeven worden met een EmergencyDispatchException
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
 	@Override
 	public void selectHospital(IUnit unit, IHospital hospital) throws EmergencyDispatchException {
+		if (unit == null) {
+			throw new EmergencyDispatchException("The unit is not effective.");
+		}
+		if (hospital == null) {
+			throw new EmergencyDispatchException("The hospital is not effective.");
+		}
+
 		SelectHospitalController controller = null;
 		try {
 			controller = new SelectHospitalController(getWorld());
 		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 		AmbulanceAdapter ambulanceAdapter = (AmbulanceAdapter) unit;
 		Ambulance amb = (Ambulance) ambulanceAdapter.getUnit();
@@ -395,41 +406,47 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			controller.selectHospital(amb, hosp);
 		} catch (InvalidAmbulanceException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		} catch (InvalidHospitalException ex) {
+			//We assume this can't happen.
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
 	@Override
 	public void indicateEndOfTask(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
+		if (unit == null) {
+			throw new EmergencyDispatchException("The unit must be effective");
+		}
+
 		EndOfTaskController controller = null;
 		try {
 			controller = new EndOfTaskController(getWorld());
 		} catch (InvalidWorldException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 		UnitAdapter unitAdapter = (UnitAdapter) unit;
 		Unit u = unitAdapter.getUnit();
 		try {
 			controller.indicateEndOfTask(u);
-
 		} catch (InvalidUnitException ex) {
+			//We assume this can't happen
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidEmergencyStatusException ex) {
+			//TODO: kan dit eigenlijk voorkomen?
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidFinishJobException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 	}
 
 	@Override
-	public void indicateProblem(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
+	public void indicateProblem(IUnit unit) throws  EmergencyDispatchException {
 		throw new IndicateProblemNotSupportedException("Units can't encounter a problem.");
 	}
 
 	@Override
-	public void indicateRepair(IUnit unit) throws NotSupportedException, EmergencyDispatchException {
+	public void indicateRepair(IUnit unit) throws EmergencyDispatchException {
 		throw new IndicateRepairNotSupportedException("Units can't be repaired.");
 	}
 
@@ -455,7 +472,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
 		} catch (InvalidDurationException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 	}
 
@@ -474,14 +491,16 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		} catch (InvalidWithdrawalException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		} catch (InvalidEmergencyStatusException ex) {
-			throw new EmergencyDispatchException(ex.getMessage());
+			//TODO: kan dit eigenlijk voorkomen?
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidMapItemException ex) {
-			throw new EmergencyDispatchException(ex.getMessage());
+			//We assume this can't happen.
+			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
 	@Override
-	public void cancelEmergency(IEmergency emergency) throws NotSupportedException, EmergencyDispatchException {
+	public void cancelEmergency(IEmergency emergency) throws EmergencyDispatchException {
 		throw new CancelEmergencyNotSupportedException("An emergency can't be cancelled.");
 	}
 
@@ -489,31 +508,39 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	public void clearSystem() {
 		try {
 			world = Main.initWorld();
-		} catch (Exception ex) {
+		} catch (InvalidEmergencyTypeNameException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
-	@Override
-	public void loadEnvironment(File file) throws EmergencyDispatchException {
-		clearSystem();
+	private void loadFile(File file) throws EmergencyDispatchException {
 		EnvironmentReader er = null;
 		try {
-			try {
-				er = new EnvironmentReader(new ReadEnvironmentDataController(world));
-			} catch (InvalidWorldException ex) {
-				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-			}
+			er = new EnvironmentReader(new ReadEnvironmentDataController(world));
 		} catch (InvalidControllerException ex) {
+			//We assume this can't happen
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidWorldException ex) {
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
+
 		try {
-			FileInputStream fis = new FileInputStream("thirditeration.dat"); //TODO: magic string
+			FileInputStream fis = new FileInputStream(file);
 			er.readEnvironmentData(fis);
 			fis.close();
 		} catch (Exception ex) {
 			System.out.println(String.format("ERROR: %s", ex.getMessage()));
 			System.out.println("program will now stop.");
 		}
+	}
+
+	@Override
+	public void loadEnvironment(File file) throws EmergencyDispatchException {
+		clearSystem();
+		loadFile(file);
+	}
+
+	public void loadEnvironmentWithoutClear(File file) throws EmergencyDispatchException {
+		loadFile(file);
 	}
 }

@@ -18,13 +18,12 @@ public class CreateDisasterController extends Controller {
 	/**
 	 * Adding the given Emergency to the world.
 	 * @param disaster the disaster to add
-	 * @throws InvalidAddedDisasterException 
 	 */
-	public void addCreatedDisasterToTheWorld(Disaster disaster) throws InvalidAddedDisasterException {
+	public void addCreatedDisasterToTheWorld(Disaster disaster) {
 		getWorld().getDisasterList().addDisaster(disaster);
 	}
 
-	public void createDisaster(List<Emergency> emergencies, String description) throws InvalidAddedDisasterException, InvalidEmergencyException, InvalidConstraintListException{
+	public void createDisaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException{
 		this.addCreatedDisasterToTheWorld(new Disaster(emergencies,description));
 	}
 }

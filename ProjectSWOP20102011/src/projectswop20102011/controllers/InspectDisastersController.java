@@ -30,6 +30,7 @@ public class InspectDisastersController extends Controller {
 	 * Inspects all the disasters in the world on a certain status, and returns a list with disasters that have that status.
 	 * @param status The status of to check the disasters on.
 	 * @return A list with disasters with the given status.
+	 * @throws InvalidAddedDisasterException  
 	 */
 	public Disaster[] inspectDisastersOnStatus(EmergencyStatus status) throws InvalidAddedDisasterException {
 		DisasterEvaluationCriterium criterium = new StatusEqualityDisasterEvaluationCriterium(status);

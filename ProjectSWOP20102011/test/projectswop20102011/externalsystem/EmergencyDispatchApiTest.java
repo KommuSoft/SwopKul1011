@@ -11,6 +11,7 @@ import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import be.kuleuven.cs.swop.api.UnitState;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import org.junit.Before;
@@ -23,9 +24,15 @@ import projectswop20102011.domain.EmergencySeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
+import projectswop20102011.domain.MapItem;
 import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
+import projectswop20102011.domain.Unit;
+import projectswop20102011.domain.UnitStatus;
+import projectswop20102011.exceptions.CancelEmergencyNotSupportedException;
+import projectswop20102011.exceptions.IndicateProblemNotSupportedException;
+import projectswop20102011.exceptions.IndicateRepairNotSupportedException;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
@@ -130,7 +137,50 @@ public class EmergencyDispatchApiTest {
 		trafficAccident3 = new TrafficAccidentAdapter(ta3);
 		trafficAccident4 = new TrafficAccidentAdapter(ta4);
 
-		api.loadEnvironment(new File("thirditeration.dat"));
+		api.loadEnvironmentWithoutClear(new File("thirditeration.dat"));
+	}
+
+	@Test
+	public void testTimeAhead() throws EmergencyDispatchException {
+		assertEquals(0, world.getTime());
+		api.advanceTime(new TimeAdapter(0, 10));
+		assertEquals(600, world.getTime());
+		api.advanceTime(new TimeAdapter(1, 10));
+		assertEquals(3600 + 600 + 600, world.getTime());
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testTimeAheadInvalidMinutes() throws EmergencyDispatchException {
+		assertEquals(0, world.getTime());
+		api.advanceTime(new TimeAdapter(0, -10));
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testTimeAheadInvalidHours() throws EmergencyDispatchException {
+		assertEquals(0, world.getTime());
+		api.advanceTime(new TimeAdapter(-1, 0));
+	}
+
+	@Test
+	public void testClearSystem() throws EmergencyDispatchException {
+		assertEquals(0, world.getTime());
+		api.advanceTime(new TimeAdapter(0, 10));
+		assertEquals(600, world.getTime());
+
+		api.registerNewEvent(fire1);
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(5, api.getListOfUnits(UnitState.ANY).size());
+		assertEquals(1, api.getListOfHospitals().size());
+		assertEquals(6, world.getMapItemList().toArrayList().size());
+		assertEquals(1, world.getEmergencyList().toArray().length);
+
+		api.clearSystem();
+		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(0, api.getListOfUnits(UnitState.ANY).size());
+		assertEquals(0, api.getListOfHospitals().size());
+		assertEquals(600, world.getTime());
+		assertEquals(6, world.getMapItemList().toArrayList().size());
+		assertEquals(1, world.getEmergencyList().toArray().length);
 	}
 
 	@Test
@@ -163,16 +213,26 @@ public class EmergencyDispatchApiTest {
 //		api.advanceTime(new TimeAdapter(3, 0));
 		assertEquals(16, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(16, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+		assertEquals(16, world.getEmergencyList().toArray().length);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testRegisterNewEventInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+		api.registerNewEvent(fire1);
 	}
 
 	@Test
 	public void testGetListOfEmergenciesSingleEmergency() throws EmergencyDispatchException {
 		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(0, world.getEmergencyList().toArray().length);
 
 		api.registerNewEvent(robbery1);
 
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+		assertEquals(1, world.getEmergencyList().toArray().length);
 
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -180,6 +240,7 @@ public class EmergencyDispatchApiTest {
 
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.RESPONDED).size());
+		assertEquals(1, world.getEmergencyList().toArray().length);
 
 		api.advanceTime(new TimeAdapter(10, 0));
 
@@ -189,22 +250,26 @@ public class EmergencyDispatchApiTest {
 
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.COMPLETED).size());
+		assertEquals(1, world.getEmergencyList().toArray().length);
 	}
 
 	@Test
 	public void testGetListOfEmergenciesMultipleEmergencies() throws EmergencyDispatchException {
 		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(0, world.getEmergencyList().toArray().length);
 
 		api.registerNewEvent(robbery1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+		assertEquals(1, world.getEmergencyList().toArray().length);
 
 		api.registerNewEvent(fire1);
 
 		assertEquals(2, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(2, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+		assertEquals(2, world.getEmergencyList().toArray().length);
 
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
 		api.assignUnits(cfg1);
@@ -212,6 +277,7 @@ public class EmergencyDispatchApiTest {
 		assertEquals(2, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.RESPONDED).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+		assertEquals(2, world.getEmergencyList().toArray().length);
 
 		api.advanceTime(new TimeAdapter(10, 0));
 
@@ -222,10 +288,22 @@ public class EmergencyDispatchApiTest {
 		assertEquals(2, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.COMPLETED).size());
 		assertEquals(1, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
+		assertEquals(2, world.getEmergencyList().toArray().length);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testGetListOfEmergenciesInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+		api.getListOfEmergencies(EmergencyState.ANY);
 	}
 
 	@Test
 	public void testGetListOfDisasters() throws EmergencyDispatchException {
+		assertEquals(0, api.getListOfDisasters(EmergencyState.ANY).size());
+		assertEquals(0, api.getListOfDisasters(EmergencyState.UNHANDLED).size());
+		assertEquals(0, world.getDisasterList().toArray().length);
+
 		api.registerNewEvent(robbery1);
 		api.registerNewEvent(robbery2);
 
@@ -233,6 +311,14 @@ public class EmergencyDispatchApiTest {
 
 		assertEquals(2, api.getListOfDisasters(EmergencyState.ANY).size());
 		assertEquals(2, api.getListOfDisasters(EmergencyState.UNHANDLED).size());
+		assertEquals(1, world.getDisasterList().toArray().length);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testGetListOfDisastersInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+		api.getListOfDisasters(EmergencyState.ANY);
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
@@ -248,7 +334,6 @@ public class EmergencyDispatchApiTest {
 		List<IEmergency> ems = api.getListOfEmergencies(EmergencyState.UNHANDLED);
 		for (IEmergency e : ems) {
 			IUnitConfiguration cfg1 = api.getUnitConfiguration(e);
-			System.out.println(cfg1.getAllUnits().get(0));
 			api.assignUnits(cfg1);
 		}
 	}
@@ -299,6 +384,125 @@ public class EmergencyDispatchApiTest {
 		assertEquals(1, api.getListOfUnits(UnitState.OCCUPIED).size());
 	}
 
+	@Test(expected = EmergencyDispatchException.class)
+	public void testSelectHospitalInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+
+		api.registerNewEvent(fire1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+		api.advanceTime(new TimeAdapter(10, 0));
+
+		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
+
+		for (IUnit u : cfg1.getListOfAmbulances()) {
+			api.selectHospital(u, api.getListOfHospitals().get(0));
+		}
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testSelectInvalidHospital() throws EmergencyDispatchException {
+		api.registerNewEvent(fire1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+		api.advanceTime(new TimeAdapter(10, 0));
+
+		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
+
+		for (IUnit u : cfg1.getListOfAmbulances()) {
+			api.selectHospital(u, null);
+		}
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testSelectHospitalInvalidUnit() throws EmergencyDispatchException {
+		api.registerNewEvent(fire1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+		api.advanceTime(new TimeAdapter(10, 0));
+
+		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
+
+		api.selectHospital(null, api.getListOfHospitals().get(0));
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testSelectHospitalNotAtEmergency() throws EmergencyDispatchException {
+		api.registerNewEvent(fire1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
+		for (IUnit u : cfg1.getListOfAmbulances()) {
+			api.selectHospital(u, api.getListOfHospitals().get(0));
+		}
+	}
+
+	@Test
+	public void testEndOfTask() throws EmergencyDispatchException {
+		api.registerNewEvent(robbery1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.advanceTime(new TimeAdapter(10, 0));
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.RESPONDED).size());
+		for (IUnit u : cfg1.getAllUnits()) {
+			api.indicateEndOfTask(u, em1);
+		}
+		assertEquals(1, api.getListOfEmergencies(EmergencyState.COMPLETED).size());
+		assertEquals(EmergencyState.COMPLETED, em1.getState());
+
+		for (IUnit u : cfg1.getAllUnits()) {
+			assertEquals(UnitState.IDLE, u.getState());
+		}
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testEndOfTaskInvalidWorld() throws EmergencyDispatchException {
+		api.registerNewEvent(robbery1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.advanceTime(new TimeAdapter(10, 0));
+
+		world = null;
+		api = new EmergencyDispatchApi(world);
+		for (IUnit u : cfg1.getAllUnits()) {
+			api.indicateEndOfTask(u, em1);
+		}
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testEndOfTaskInvalidUnit() throws EmergencyDispatchException {
+		api.registerNewEvent(robbery1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.advanceTime(new TimeAdapter(10, 0));
+		api.indicateEndOfTask(null, em1);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testEndOfTaskCantFinish() throws EmergencyDispatchException {
+		api.registerNewEvent(fire1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.advanceTime(new TimeAdapter(10, 0));
+		for (IUnit u : cfg1.getAllUnits()) {
+			api.indicateEndOfTask(u, em1);
+		}
+	}
+
 	@Test
 	public void testWithdrawUnit() throws EmergencyDispatchException {
 		api.registerNewEvent(fire1);
@@ -307,13 +511,24 @@ public class EmergencyDispatchApiTest {
 		api.assignUnits(cfg1);
 
 		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
-		
+
 		api.withdrawUnit(cfg1.getListOfAmbulances().get(0), em1);
-		
+
 		assertEquals(1, api.getListOfUnits(UnitState.ASSIGNED).size());
 	}
-	
-	@Test(expected=EmergencyDispatchException.class)
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testWithdrawUnitThatWasAlreadyAtSite() throws EmergencyDispatchException {
+		api.registerNewEvent(fire1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.advanceTime(new TimeAdapter(10, 0));
+		api.withdrawUnit(cfg1.getListOfAmbulances().get(0), em1);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
 	public void testWithdrawFiretruck() throws EmergencyDispatchException {
 		api.registerNewEvent(fire1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
@@ -321,9 +536,146 @@ public class EmergencyDispatchApiTest {
 		api.assignUnits(cfg1);
 
 		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
-		
+
 		api.withdrawUnit(cfg1.getListOfFireTrucks().get(0), em1);
-		
+
 		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
+	}
+
+	@Test
+	public void testAssignTo() throws EmergencyDispatchException {
+		api.registerNewEvent(fire1);
+
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		assertEquals(2, api.getListOfUnits(UnitState.ASSIGNED).size());
+		int counter = 0;
+		List<MapItem> mapItems = world.getMapItemList().toArrayList();
+		for (int i = 0; i < mapItems.size(); ++i) {
+			if (mapItems.get(i) instanceof Unit) {
+				Unit u = (Unit) mapItems.get(i);
+				if (u.getUnitStatus().equals(UnitStatus.ASSIGNED)) {
+					++counter;
+				}
+			}
+		}
+		assertEquals(2, counter);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testAssignToInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+
+		api.registerNewEvent(fire1);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testAssignToCompletedEmergency() throws EmergencyDispatchException {
+		api.registerNewEvent(robbery1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.advanceTime(new TimeAdapter(10, 0));
+		for (IUnit u : cfg1.getAllUnits()) {
+			api.indicateEndOfTask(u, em1);
+		}
+
+		api.assignUnits(cfg1);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testAssignToHarmsConstraint() throws EmergencyDispatchException {
+		api.registerNewEvent(robbery1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
+		api.assignUnits(cfg1);
+
+		api.assignUnits(cfg1);
+	}
+
+	@Test
+	public void testCreateDisaster() throws EmergencyDispatchException {
+		ArrayList<IEmergency> emergencies = new ArrayList<IEmergency>();
+		emergencies.add((IEmergency) fire1);
+
+		api.createDisaster("", emergencies);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testCreateDisasterInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+		ArrayList<IEmergency> emergencies = new ArrayList<IEmergency>();
+		emergencies.add((IEmergency) fire1);
+
+		api.createDisaster("", emergencies);
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testCreateDisasterWithNoEmergencies() throws EmergencyDispatchException {
+		ArrayList<IEmergency> emergencies = new ArrayList<IEmergency>();
+
+		api.createDisaster("", emergencies);
+	}
+
+	@Test
+	public void testLoadEnvironment() throws EmergencyDispatchException {
+		assertEquals(0, api.getListOfDisasters(EmergencyState.ANY).size());
+		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(1, api.getListOfHospitals().size());
+		assertEquals(5, api.getListOfUnits(UnitState.ANY).size());
+
+
+		api.loadEnvironment(new File("thirditeration.dat"));
+
+		assertEquals(0, api.getListOfDisasters(EmergencyState.ANY).size());
+		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(1, api.getListOfHospitals().size());
+		assertEquals(5, api.getListOfUnits(UnitState.ANY).size());
+	}
+
+	@Test
+	public void testLoadEnvironmentWithoutClear() throws EmergencyDispatchException {
+		assertEquals(0, api.getListOfDisasters(EmergencyState.ANY).size());
+		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(1, api.getListOfHospitals().size());
+		assertEquals(5, api.getListOfUnits(UnitState.ANY).size());
+
+
+		api.loadEnvironmentWithoutClear(new File("thirditeration.dat"));
+
+		assertEquals(0, api.getListOfDisasters(EmergencyState.ANY).size());
+		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
+		assertEquals(2, api.getListOfHospitals().size());
+		assertEquals(10, api.getListOfUnits(UnitState.ANY).size());
+	}
+
+	@Test(expected = EmergencyDispatchException.class)
+	public void testLoadEnvironmentWithoutClearInvalidWorld() throws EmergencyDispatchException {
+		world = null;
+		api = new EmergencyDispatchApi(world);
+
+		api.loadEnvironmentWithoutClear(new File("thirditeration.dat"));
+	}
+
+	@Test(expected = CancelEmergencyNotSupportedException.class)
+	public void testCancelEmergency() throws EmergencyDispatchException {
+		api.registerNewEvent(robbery1);
+		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
+		api.cancelEmergency(em1);
+	}
+
+	@Test(expected=IndicateProblemNotSupportedException.class)
+	public void testIndicateProblem() throws EmergencyDispatchException {
+		api.indicateProblem(api.getListOfUnits(UnitState.ANY).get(0));
+	}
+
+	@Test(expected=IndicateRepairNotSupportedException.class)
+	public void testIndicateRepair() throws EmergencyDispatchException {
+		api.indicateRepair(api.getListOfUnits(UnitState.ANY).get(0));
 	}
 }
