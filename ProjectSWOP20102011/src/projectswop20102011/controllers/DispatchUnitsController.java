@@ -1,6 +1,5 @@
 package projectswop20102011.controllers;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -68,10 +67,12 @@ public class DispatchUnitsController extends Controller {
      * @param units The set of units to assign to the given emergency.
      * @throws InvalidEmergencyStatusException
      *          If the emergency is in a state where units can't be dispatched to.
-     * @throws Exception
-     *          If another reason disables dispatching the given units to the given emergency.
+	 * @throws InvalidEmergencyException 
      */
     public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+		if(emergency.isPartOfADisaster()){
+			throw new InvalidEmergencyException("The emergency is part of a disaster.");
+		}
         emergency.assignUnits(units);
     }
 }

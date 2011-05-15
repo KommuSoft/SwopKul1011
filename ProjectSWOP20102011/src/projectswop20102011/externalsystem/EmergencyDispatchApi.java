@@ -216,7 +216,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			}
 			return iEmergencies;
 		}
-
+		
 		Emergency[] emergencies = iec.inspectEmergenciesOnStatus(status);
 		List<IEmergency> iEmergencies = new ArrayList<IEmergency>();
 		for (int i = 0; i < emergencies.length; ++i) {
@@ -309,14 +309,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	public List<IHospital> getListOfHospitals() {
 		MapItemList mil = world.getMapItemList();
 
-		//TODO: begin debug statement
-//		ArrayList<MapItem> items = mil.toArrayList();
-//		System.out.println("Number of mapItems (hospitals) " + items.size());
-//		for (int i = 0; i < items.size(); ++i) {
-//			System.out.println("\t" + items.get(i) + " {name=" + items.get(i).getName() + ", homeLocation=" + items.get(i).getHomeLocation() + "}");
-//		}
-		//TODO: end debug statement
-
 		TypeMapItemValidator<Hospital> miv = new TypeMapItemValidator<Hospital>(Hospital.class);
 		ArrayList<Hospital> hospitals = mil.getSubMapItemListByValidator(miv).toArrayList();
 		ArrayList<IHospital> result = new ArrayList<IHospital>();
@@ -355,9 +347,9 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			controller.dispatchToEmergency(emergency.getEmergency(), units);
 		} catch (InvalidEmergencyStatusException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (Exception ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
+		} catch (InvalidEmergencyException ex) {
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 	}
 
@@ -480,11 +472,11 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			ruac.withdrawUnit(u);
 		} catch (InvalidWithdrawalException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		} catch (InvalidEmergencyStatusException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		} catch (InvalidMapItemException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 	}
 
