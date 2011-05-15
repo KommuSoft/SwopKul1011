@@ -374,6 +374,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		} else {
 			this.getEmergency().withdrawUnit(this);
 			this.setEmergency(null);
+			//TODO: dit lijntje toegevoegd in verband met het withdrawen van units bij een disaster
+			this.setDisaster(null);
 			setUnitStatus(UnitStatus.IDLE);
 		}
 	}

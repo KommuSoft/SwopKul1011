@@ -13,7 +13,7 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * A controller class that handles a remove unit assignment use case.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public class RemoveUnitAssignmentController extends Controller {
+public class RemoveUnitAssignmentFromEmergencyController extends Controller {
 
     /**
      * Creates a new RemoveUnitAssignmentController with a given world.
@@ -21,7 +21,7 @@ public class RemoveUnitAssignmentController extends Controller {
      *      The world that will be manipulated by the controller.
      * @throws InvalidWorldException If the world is invalid.
      */
-    public RemoveUnitAssignmentController(World world) throws InvalidWorldException {
+    public RemoveUnitAssignmentFromEmergencyController(World world) throws InvalidWorldException {
         super(world);
     }
 

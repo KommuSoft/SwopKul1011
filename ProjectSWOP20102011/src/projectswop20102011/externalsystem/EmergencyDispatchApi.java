@@ -36,7 +36,7 @@ import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
-import projectswop20102011.controllers.RemoveUnitAssignmentController;
+import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Disaster;
@@ -461,9 +461,9 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 	@Override
 	public void withdrawUnit(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
-		RemoveUnitAssignmentController ruac = null;
+		RemoveUnitAssignmentFromEmergencyController ruac = null;
 		try {
-			ruac = new RemoveUnitAssignmentController(getWorld());
+			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld());
 		} catch (InvalidWorldException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}

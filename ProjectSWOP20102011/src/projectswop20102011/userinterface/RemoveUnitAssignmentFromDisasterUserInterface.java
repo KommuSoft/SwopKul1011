@@ -1,9 +1,9 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
-import projectswop20102011.controllers.EmergencyMapper;
-import projectswop20102011.controllers.RemoveUnitAssignmentController;
-import projectswop20102011.domain.Emergency;
+import projectswop20102011.controllers.DisasterMapper;
+import projectswop20102011.controllers.RemoveUnitAssignmentFromDisasterController;
+import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
@@ -11,55 +11,43 @@ import projectswop20102011.exceptions.ParsingAbortedException;
 import projectswop20102011.utils.parsers.LongParser;
 import projectswop20102011.utils.parsers.StringParser;
 
-/**
- * A user interface that handles the remove unit assignment use case
- *
- * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
- */
-public class RemoveUnitAssignmentUserInterface extends CommandUserInterface {
+public class RemoveUnitAssignmentFromDisasterUserInterface extends CommandUserInterface {
 
-	private final RemoveUnitAssignmentController removeUnitAssignmentController;
-	private final EmergencyMapper emergencyController;
+	private final RemoveUnitAssignmentFromDisasterController removeUnitAssignmentFromDisasterController;
+	private final DisasterMapper disasterController;
 
-	/**
-	 *
-	 * @param removeUnitAssignmentController
-	 * @param emergencyController
-	 * @throws InvalidCommandNameException
-	 * @throws InvalidControllerException
-	 */
-	public RemoveUnitAssignmentUserInterface(RemoveUnitAssignmentController removeUnitAssignmentController, EmergencyMapper emergencyController) throws InvalidCommandNameException, InvalidControllerException {
-		super("remove unit assignment");
-		if (removeUnitAssignmentController == null || emergencyController == null) {
+	public RemoveUnitAssignmentFromDisasterUserInterface(RemoveUnitAssignmentFromDisasterController removeUnitAssignmentFromDisasterController, DisasterMapper disasterController) throws InvalidControllerException, InvalidCommandNameException {
+		super("remove unit assignment from disaster");
+		if (removeUnitAssignmentFromDisasterController == null || disasterController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}
-		this.removeUnitAssignmentController = removeUnitAssignmentController;
-		this.emergencyController = emergencyController;
+		this.removeUnitAssignmentFromDisasterController = removeUnitAssignmentFromDisasterController;
+		this.disasterController = disasterController;
 	}
 
 	@Override
-	public RemoveUnitAssignmentController getController() {
-		return this.removeUnitAssignmentController;
+	public RemoveUnitAssignmentFromDisasterController getController() {
+		return this.removeUnitAssignmentFromDisasterController;
 	}
 
-	private EmergencyMapper getEmergencyController() {
-		return emergencyController;
+	private DisasterMapper getDisasterController() {
+		return disasterController;
 	}
 
 	@Override
 	public void handleUserInterface() {
-		long emergencyId = 0;
+		long disasterID = 0;
 		try {
-			emergencyId = this.parseInputToType(new LongParser(), "The id of the emergency");
+			disasterID = this.parseInputToType(new LongParser(), "The id of the disaster");
 		} catch (ParsingAbortedException ex) {
 			writeOutput(String.format("ERROR: %s", ex.getMessage()));
 		}
-		Emergency selectedEmergency = getEmergencyController().getEmergencyFromId(emergencyId);
-		if (selectedEmergency == null) {
-			this.writeOutput("Emergency not found.");
+		Disaster selectedDisaster = getDisasterController().getDisasterFromId(disasterID);
+		if (selectedDisaster == null) {
+			this.writeOutput("Disaster not found.");
 		} else {
 			this.writeOutput("WORKING UNITS:");
-			ArrayList<Unit> workingUnits = this.getController().getWorkingUnits(selectedEmergency);
+			ArrayList<Unit> workingUnits = this.getController().getWorkingUnits(selectedDisaster);
 			if (workingUnits.isEmpty()) {
 				this.writeOutput("ERROR: There are no working units.");
 			} else {
