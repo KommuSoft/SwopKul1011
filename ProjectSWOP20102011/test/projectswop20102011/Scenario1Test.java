@@ -13,7 +13,7 @@ import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
-import projectswop20102011.controllers.RemoveUnitAssignmentController;
+import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.Ambulance;
@@ -67,7 +67,7 @@ public class Scenario1Test {
     private EndOfTaskController eotc;
     private TimeAheadController tac;
     private SelectHospitalController shc;
-    private RemoveUnitAssignmentController ruac;
+    private RemoveUnitAssignmentFromEmergencyController ruac;
 
     @Before
     public void setUp() throws InvalidWorldException, InvalidEmergencyTypeNameException {
@@ -94,7 +94,7 @@ public class Scenario1Test {
         eotc = new EndOfTaskController(world);
         tac = new TimeAheadController(world, ExternalSystem.bootstrap(api));
         shc = new SelectHospitalController(world);
-        ruac = new RemoveUnitAssignmentController(world);
+        ruac = new RemoveUnitAssignmentFromEmergencyController(world);
     }
 
     @Test
