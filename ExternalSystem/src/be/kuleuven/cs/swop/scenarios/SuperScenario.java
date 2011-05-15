@@ -5,8 +5,6 @@ import be.kuleuven.cs.swop.api.EmergencyState;
 import be.kuleuven.cs.swop.api.IAmbulanceView;
 import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
-import be.kuleuven.cs.swop.api.IEvent;
-import be.kuleuven.cs.swop.api.IFireView;
 import be.kuleuven.cs.swop.api.IHospital;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.IUnit;
@@ -81,8 +79,8 @@ public class SuperScenario extends AbstractScenario {
 				if (u instanceof IAmbulanceView) {
 					++ambulanceCounter;
 					List<IHospital> h = getApi().getListOfHospitals();
-					if (h.size() != 1) {
-						getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 1)");
+					if (h.size() != 3) {
+						getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 3)");
 					}
 
 					// Select hospital
@@ -133,16 +131,12 @@ public class SuperScenario extends AbstractScenario {
 				}
 				++ambulanceCounter;
 				List<IHospital> h = getApi().getListOfHospitals();
-				if (h.size() != 1) {
-					getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 1)");
+				if (h.size() != 3) {
+					getLogger().fatal("Unexpected number of hospitals (" + h.size() + ", expected 3)");
 				}
 
 				// Select hospital
 				getApi().selectHospital(u, h.get(0));
-
-				getLogger().info("Location ambulance " + u.getLocation());
-				getLogger().info("Location emergency " + "(30,50)");
-				getLogger().info("Location hospital " + h.get(0).getLocation());
 			} else {
 				if (u.getState() != UnitState.ASSIGNED) {
 					getLogger().error("Unexpected unit state (" + u.getName() + "): " + u.getState() + " instead of ASSIGNED");
@@ -153,55 +147,41 @@ public class SuperScenario extends AbstractScenario {
 		getLogger().info("b) Number of ambulances = " + ambulanceCounter);
 
 		// Advance time with 32 hours
-		advanceTime(
-				new Time(32, 0));
+		advanceTime(new Time(32, 0));
 
 		// Indicate end of task for all units
 		List<IEmergency> ems = getApi().getListOfEmergencies(EmergencyState.RESPONDED);
-
-
 		for (IEmergency e : ems) {
 			for (IUnit u : e.getAssignedUnits()) {
 				getApi().indicateEndOfTask(u, e);
-
-
 			}
 		}
 
 		// Check state units
 		List<IUnit> units = getApi().getListOfUnits(UnitState.ANY);
-
-
 		for (IUnit unit : units) {
 			if (!unit.getState().equals(UnitState.IDLE)) {
 				getLogger().error(unit + " has state " + unit.getState() + " this should be " + UnitState.IDLE);
-
-
 			}
 		}
 
 		// Check number of unhandled emergencies
 		int count = getApi().getListOfEmergencies(EmergencyState.UNHANDLED).size();
-
-
 		if (count != 0) {
 			getLogger().error("Unexpected number of unhandled emergencies: " + count + ", expected 0");
 
 
 		} // Check number of responded emergencies
 		count = getApi().getListOfEmergencies(EmergencyState.RESPONDED).size();
-
-
 		if (count != 0) {
-			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 0");
+			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 0");;
 
+		}
 
-		} // Check number of completed emergencies
+		// Check number of completed emergencies
 		count = getApi().getListOfEmergencies(EmergencyState.COMPLETED).size();
-
-
 		if (count != 2) {
-			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 2");
+			getLogger().error("Unexpected number of completed emergencies: " + count + ", expected 2");
 
 
 		}

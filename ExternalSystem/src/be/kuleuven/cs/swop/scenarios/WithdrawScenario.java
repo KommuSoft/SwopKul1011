@@ -12,6 +12,7 @@ import be.kuleuven.cs.swop.api.Severity;
 import be.kuleuven.cs.swop.api.UnitState;
 import be.kuleuven.cs.swop.events.Fire;
 import be.kuleuven.cs.swop.events.Location;
+import be.kuleuven.cs.swop.events.Robbery;
 import be.kuleuven.cs.swop.events.Time;
 import be.kuleuven.cs.swop.external.AbstractScenario;
 import be.kuleuven.cs.swop.external.ExternalSystemException;
@@ -33,14 +34,12 @@ public class WithdrawScenario extends AbstractScenario {
 		printDebugStatements();
 
 		// Register a new event
-		addEvent(new Fire(
+		addEvent(new Robbery(
 				new Time(0, 10),
 				new Location(30, 50),
 				Severity.SERIOUS,
-				"local",
-				false,
-				0,
-				1));
+				true,
+				false));
 		printDebugStatements();
 
 		// Assign the unit suggestion to the emergency
