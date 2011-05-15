@@ -9,6 +9,7 @@ import be.kuleuven.cs.swop.api.IRobberyView;
 import be.kuleuven.cs.swop.api.ITrafficAccidentView;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
+import be.kuleuven.cs.swop.api.NotSupportedException;
 import be.kuleuven.cs.swop.api.UnitState;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,9 +31,6 @@ import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.UnitStatus;
-import projectswop20102011.exceptions.CancelEmergencyNotSupportedException;
-import projectswop20102011.exceptions.IndicateProblemNotSupportedException;
-import projectswop20102011.exceptions.IndicateRepairNotSupportedException;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
@@ -662,20 +660,20 @@ public class EmergencyDispatchApiTest {
 		api.loadEnvironmentWithoutClear(new File("thirditeration.dat"));
 	}
 
-	@Test(expected = CancelEmergencyNotSupportedException.class)
-	public void testCancelEmergency() throws EmergencyDispatchException {
+	@Test(expected = NotSupportedException.class)
+	public void testCancelEmergency() throws NotSupportedException, EmergencyDispatchException {
 		api.registerNewEvent(robbery1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		api.cancelEmergency(em1);
 	}
 
-	@Test(expected=IndicateProblemNotSupportedException.class)
-	public void testIndicateProblem() throws EmergencyDispatchException {
+	@Test(expected=NotSupportedException.class)
+	public void testIndicateProblem() throws NotSupportedException, EmergencyDispatchException {
 		api.indicateProblem(api.getListOfUnits(UnitState.ANY).get(0));
 	}
 
-	@Test(expected=IndicateRepairNotSupportedException.class)
-	public void testIndicateRepair() throws EmergencyDispatchException {
+	@Test(expected=NotSupportedException.class)
+	public void testIndicateRepair() throws NotSupportedException, EmergencyDispatchException {
 		api.indicateRepair(api.getListOfUnits(UnitState.ANY).get(0));
 	}
 }

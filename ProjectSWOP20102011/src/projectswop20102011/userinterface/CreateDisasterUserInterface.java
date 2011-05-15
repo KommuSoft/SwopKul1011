@@ -141,8 +141,6 @@ public class CreateDisasterUserInterface extends CommandUserInterface {
 		
 		try {
 			getController().createDisaster(emergenciesToAssign, description);
-		} catch (InvalidAddedDisasterException ex) {
-			Logger.getLogger(CreateDisasterUserInterface.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidEmergencyException ex) {
 			Logger.getLogger(CreateDisasterUserInterface.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidConstraintListException ex) {

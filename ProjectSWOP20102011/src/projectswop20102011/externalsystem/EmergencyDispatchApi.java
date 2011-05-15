@@ -45,9 +45,6 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
-import projectswop20102011.exceptions.CancelEmergencyNotSupportedException;
-import projectswop20102011.exceptions.IndicateProblemNotSupportedException;
-import projectswop20102011.exceptions.IndicateRepairNotSupportedException;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
@@ -126,11 +123,13 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	@Override
 	public void registerNewEvent(IEvent event) throws EmergencyDispatchException {
+		checkParameter(event);
+
 		CreateEmergencyController cec = null;
 		try {
 			cec = new CreateEmergencyController(getWorld());
 		} catch (InvalidWorldException ex) {
-			throw new EmergencyDispatchException("The world is invalid");
+			throw new EmergencyDispatchException("The world is invalid.");
 		}
 
 		Map<String, String> parameters = new HashMap<String, String>(3);
@@ -179,8 +178,19 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		cec.addCreatedEmergencyToTheWorld(emergency);
 	}
 
+	/**
+	 * Retrieves a list of emergencies which conform to the given state. The returned emergency objects conform to the IEmergency interface.
+	 * @param state
+	 *		The state of the emergencies that are requested. 
+	 * @return The list of requested emergencies.
+	 * @throws EmergencyDispatchException 
+	 *		When an error occurs during retrieval (e.g. an incorrect state value).
+	 * @note The objects in the list are not expected to be in any particular order. 
+	 */
 	@Override
 	public List<IEmergency> getListOfEmergencies(EmergencyState state) throws EmergencyDispatchException {
+		checkParameter(state);
+
 		InspectEmergenciesController iec = null;
 		try {
 			iec = new InspectEmergenciesController(world);
@@ -229,8 +239,19 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		return iEmergencies;
 	}
 
+	/**
+	 * Retrieves a list of disasters which conform to the given state. The returned disaster objects conform to the EmergencyState interface. 
+	 * @param state
+	 *		The state of the disasters that are requested. 
+	 * @return The list of requested disasters.
+	 * @throws EmergencyDispatchException
+	 *		When an error occurs during retrieval (e.g. an incorrect state value).
+	 * @note The objects in the list are not expected to be in any particular order.
+	 */
 	@Override
 	public List<IEmergency> getListOfDisasters(EmergencyState state) throws EmergencyDispatchException {
+		checkParameter(state);
+
 		InspectDisastersController idc = null;
 		try {
 			idc = new InspectDisastersController(getWorld());
@@ -288,9 +309,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		return iEmergencies;
 	}
 
+	/**
+	 * Retrieves a list of units which conform to the given state. The returned units conform to the IUnit interface.
+	 * @param state
+	 *		The state of the units that are requested.
+	 * @return The list of requested units.
+	 * @throws EmergencyDispatchException 
+	 *		When an error occurs during retrieval (e.g. an incorrect state value).
+	 * @note The objects in the list are not expected to be in any particular order. 
+	 */
 	@Override
 	public List<IUnit> getListOfUnits(UnitState state) throws EmergencyDispatchException {
-		//TODO: kan er in deze methode iets mislopen? Ze gaan er namelijk van uit dat er een exception gegooid kan worden.
+		checkParameter(state);
 
 		MapItemList mil = world.getMapItemList();
 		TypeMapItemValidator<Unit> miv = new TypeMapItemValidator<Unit>(Unit.class);
@@ -309,6 +339,10 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		return result;
 	}
 
+	/**
+	 * Retrieves a list of hospitals that exist within the world. The returned hospitals conform to the IHospital interface.
+	 * @return The list of requested hospitals.
+	 */
 	@Override
 	public List<IHospital> getListOfHospitals() {
 		MapItemList mil = world.getMapItemList();
@@ -325,14 +359,31 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		return result;
 	}
 
+	/**
+	 * Returns a suggested unit configuration for the given emergency. The unit configuration is compiled according to the emergency and disaster policies. 
+	 * @param emergency
+	 *		The emergency data to compile the configuration for. 
+	 * @return The suggested unit configuration.
+	 * @throws EmergencyDispatchException 
+	 *		When an error occurs during the compilation of the unit configuration.
+	 */
 	@Override
 	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
-		//TODO: kan er in deze methode iets mislopen? Ze gaan er namelijk van uit dat er een exception gegooid kan worden.
+		checkParameter(emergency);
 		return new UnitConfiguration(emergency, getWorld());
 	}
 
+	/**
+	 * Assigns the units in the unit configuration to the emergency associated with the given unit configuration. 
+	 * @param configuration
+	 *		The configuration of units to be assigned to the associated emergency.
+	 * @throws EmergencyDispatchException
+	 *		When the assignment of one or more units fails (e.g. wrong type, already assigned, ...).
+	 */
 	@Override
 	public void assignUnits(IUnitConfiguration configuration) throws EmergencyDispatchException {
+		checkParameter(configuration);
+
 		//TODO: dit is lelijk (getEmergency en getUnit staan nu public)
 		DispatchUnitsController controller = null;
 		try {
@@ -358,8 +409,19 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Assigns the given emergencies to a new disaster with the given description. 
+	 * @param description
+	 *		The description of the disaster that needs to be created.
+	 * @param iEmergencies
+	 *		The emergencies that are part of the disaster. 
+	 * @throws EmergencyDispatchException 
+	 *		When the creation of the disaster fails (e.g. wrong emergency state, ...).
+	 */
 	@Override
 	public void createDisaster(String description, List<IEmergency> iEmergencies) throws EmergencyDispatchException {
+		checkParameter(description, iEmergencies);
+
 		CreateDisasterController controller = null;
 		try {
 			controller = new CreateDisasterController(getWorld());
@@ -382,15 +444,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Selects the given hospital as the destination for the given unit. 
+	 * @param unit
+	 *		The unit for which the hospital needs to be selected.
+	 * @param hospital
+	 *		The selected hospital, which will become the destination of the unit.
+	 * @throws EmergencyDispatchException
+	 *		In case the selection of the hospital fails (e.g. wrong unit type).
+	 */
 	@Override
 	public void selectHospital(IUnit unit, IHospital hospital) throws EmergencyDispatchException {
-		if (unit == null) {
-			throw new EmergencyDispatchException("The unit is not effective.");
-		}
-		if (hospital == null) {
-			throw new EmergencyDispatchException("The hospital is not effective.");
-		}
-
+		checkParameter(unit, hospital);
 		SelectHospitalController controller = null;
 		try {
 			controller = new SelectHospitalController(getWorld());
@@ -413,11 +478,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Indicates that the given unit has completed the given task. 
+	 * @param unit
+	 *		The unit that has finished the task.
+	 * @param emergency
+	 *		The emergency that has been handled by the unit. 
+	 * @throws EmergencyDispatchException 
+	 *		When the indication fails (e.g. wrong emergency).
+	 */
 	@Override
 	public void indicateEndOfTask(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
-		if (unit == null) {
-			throw new EmergencyDispatchException("The unit must be effective");
-		}
+		checkParameter(unit, emergency);
 
 		EndOfTaskController controller = null;
 		try {
@@ -440,18 +512,40 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Indicates that the given unit has encountered a problem and should be marked as broken. 
+	 * @param unit
+	 *		The unit that has encountered the problem.
+	 * @throws NotSupportedException
+	 *		Our implementation doesn't support this operation.
+	 */
 	@Override
-	public void indicateProblem(IUnit unit) throws  EmergencyDispatchException {
-		throw new IndicateProblemNotSupportedException("Units can't encounter a problem.");
+	public void indicateProblem(IUnit unit) throws NotSupportedException {
+		throw new NotSupportedException("Units can't encounter a problem.");
 	}
 
+	/**
+	 * Indicates that the given unit has been repaired and should be marked as available. 
+	 * @param unit
+	 *		The unit that has encountered the problem.
+	 * @throws NotSupportedException
+	 *		Our implementation doesn't support this operation.
+	 */
 	@Override
-	public void indicateRepair(IUnit unit) throws EmergencyDispatchException {
-		throw new IndicateRepairNotSupportedException("Units can't be repaired.");
+	public void indicateRepair(IUnit unit) throws NotSupportedException {
+		throw new NotSupportedException("Units can't be repaired.");
 	}
 
+	/**
+	 * Advances the system time by the given amount of time. 
+	 * @param time
+	 *		The amount of time to advance.
+	 * @throws EmergencyDispatchException
+	 *		When advancing time fails.
+	 */
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
+		checkParameter(time);
 		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
 
 		//TODO: voor timestamp
@@ -476,8 +570,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Withdraws the given unit from the given emergency. 
+	 * @param unit
+	 *		The unit to withdraw.
+	 * @param emergency
+	 *		The emergency to withdraw the unit from.
+	 * @throws EmergencyDispatchException
+	 *		When withdrawing the unit fails (e.g. not assigned). This also includes the cases where the unit has already arrived or is a fire truck.
+	 */
 	@Override
 	public void withdrawUnit(IUnit unit, IEmergency emergency) throws EmergencyDispatchException {
+		checkParameter(unit, emergency);
 		RemoveUnitAssignmentFromEmergencyController ruac = null;
 		try {
 			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld());
@@ -499,11 +603,21 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Cancels the given emergency. 
+	 * @param emergency
+	 *		The emergency to cancel 
+	 * @throws EmergencyDispatchException
+	 *		Our implementation doesn't support this operation.
+	 */
 	@Override
-	public void cancelEmergency(IEmergency emergency) throws EmergencyDispatchException {
-		throw new CancelEmergencyNotSupportedException("An emergency can't be cancelled.");
+	public void cancelEmergency(IEmergency emergency) throws NotSupportedException {
+		throw new NotSupportedException("An emergency can't be cancelled.");
 	}
 
+	/**
+	 * Clears all existing data in the system.
+	 */
 	@Override
 	public void clearSystem() {
 		try {
@@ -513,6 +627,13 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 	}
 
+	/**
+	 * Initializes the system with the dat present in the environment file.
+	 * @param file
+	 *		The file representing the environment file that needs to be read.
+	 * @throws EmergencyDispatchException
+	 *		When the initialisation fails.
+	 */
 	private void loadFile(File file) throws EmergencyDispatchException {
 		EnvironmentReader er = null;
 		try {
@@ -529,18 +650,39 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			er.readEnvironmentData(fis);
 			fis.close();
 		} catch (Exception ex) {
-			System.out.println(String.format("ERROR: %s", ex.getMessage()));
-			System.out.println("program will now stop.");
+			throw new EmergencyDispatchException(ex.getMessage());
 		}
 	}
 
+	/**
+	 * Clears all existing data in the system and then initializes the system with the data present in the environment file, which is specified according to the desired format. 
+	 * @param file
+	 *		A File object representing the environment file that needs to be read. 
+	 * @throws EmergencyDispatchException
+	 *		When the environment file can not be loaded (e.g. invalid format, invalid input, ...).
+	 */
 	@Override
 	public void loadEnvironment(File file) throws EmergencyDispatchException {
 		clearSystem();
 		loadFile(file);
 	}
 
+	/**
+	 * Initializes the system with the data present in the environment file, which is specified according to the format in the desired format.
+	 * @param file
+	 *		A File object representing the environment file that needs to be read. 
+	 * @throws EmergencyDispatchException
+	 *		When the environment file can not be loaded (e.g. invalid format, invalid input, ...).
+	 */
 	public void loadEnvironmentWithoutClear(File file) throws EmergencyDispatchException {
 		loadFile(file);
+	}
+
+	private <T> void checkParameter(T... t) throws EmergencyDispatchException {		
+		for (T tmp:t) {
+			if (tmp == null) {
+				throw new EmergencyDispatchException( "Parameter must be effective.");
+			}
+		}
 	}
 }
