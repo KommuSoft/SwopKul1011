@@ -8,10 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.World;
+import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.controllers.DispatchUnitsController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
+import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
@@ -24,20 +26,24 @@ import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidUnitException;
+import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class Global2Test {
 
 	World world;
+	CreateDisasterController cdc;
 	InspectEmergenciesController iec;
 	CreateEmergencyController cec;
 	DispatchUnitsController duc;
 	SelectHospitalController shc;
 	EndOfTaskController eotc;
+	RemoveUnitAssignmentFromEmergencyController ruafe;
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidWorldException {
@@ -47,15 +53,17 @@ public class Global2Test {
 		duc = new DispatchUnitsController(world);
 		shc = new SelectHospitalController(world);
 		eotc = new EndOfTaskController(world);
+		ruafe = new RemoveUnitAssignmentFromEmergencyController(world);
+		cdc = new CreateDisasterController(world);
 	}
 
 	@Test
-	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
-		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98,9), 100, 1001);
-		Ambulance am1 = new Ambulance("ambulance1", new GPSCoordinate(9,98), 100);
-		Ambulance am2 = new Ambulance("ambulance2", new GPSCoordinate(9,98), 100);
-		Ambulance am3 = new Ambulance("ambulance3", new GPSCoordinate(9,98), 100);
-		Hospital ho = new Hospital("hospital",new GPSCoordinate(57,68));
+	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException {
+		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98, 9), 100, 1001);
+		Ambulance am1 = new Ambulance("ambulance1", new GPSCoordinate(9, 98), 100);
+		Ambulance am2 = new Ambulance("ambulance2", new GPSCoordinate(9, 98), 100);
+		Ambulance am3 = new Ambulance("ambulance3", new GPSCoordinate(9, 98), 100);
+		Hospital ho = new Hospital("hospital", new GPSCoordinate(57, 68));
 
 		world.getMapItemList().addMapItem(ft);
 		world.getMapItemList().addMapItem(am1);
@@ -81,8 +89,7 @@ public class Global2Test {
 
 		// Assign the unit suggestion to the emergency
 		duc.dispatchToEmergency(f, duc.getUnitsByPolicy(f));
-
-		System.out.println("working units after assignation " + f.getWorkingUnits().size());
+		assertEquals(3, f.getWorkingUnits().size());
 
 		// Advance time with 15 minutes
 		world.getTimeSensitiveList().timeAhead(90000);
@@ -107,19 +114,27 @@ public class Global2Test {
 		world.getTimeSensitiveList().timeAhead(115200);
 		world.setTime(world.getTime() + 115200);
 
+		//We checken op het verwachte aantal units
+		int counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), f.getWorkingUnits());
+		assertEquals(0, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), f.getWorkingUnits());
+		assertEquals(2, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), f.getWorkingUnits());
+		assertEquals(1, counter);
+
 		// Indicate end of task for all units
 		for (Unit u : f.getWorkingUnits()) {
 			System.out.println(u.getClass());
 			eotc.indicateEndOfTask(u);
 		}
 
-		System.out.println(f.getWorkingUnits().size());
-		System.out.println(f.getStatus());
+		assertEquals(0, f.getWorkingUnits().size());
+		assertEquals(EmergencyStatus.COMPLETED, f.getStatus());
 
 	}
 
 	@Test
-	public void testExtendedFinishedJob() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidClassException, InvalidDurationException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException {
+	public void testExtendedFinishedJob() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidClassException, InvalidDurationException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidWithdrawalException, InvalidMapItemException {
 
 		//Firetrucks aanmaken
 		Firetruck ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
@@ -254,12 +269,28 @@ public class Global2Test {
 		//We dispatchten de units naar robbery 4
 		duc.dispatchToEmergency(r4, unitsForRobbery4);
 		assertEquals(3, r4.getWorkingUnits().size());
+		//We withdrawen ze eens, no problems
+		for (Unit u : unitsForRobbery4) {
+			ruafe.withdrawUnit(u);
+		}
+		assertEquals(0, r4.getWorkingUnits().size());
+		duc.dispatchToEmergency(r4, unitsForRobbery4);
+		assertEquals(3, r4.getWorkingUnits().size());
 		world.getTimeSensitiveList().timeAhead(600);
 		world.setTime(world.getTime() + 600);
 
 		//We verwachten dat ze op de locatie van de emergency zijn toegekomen
 		for (Unit u : r4.getWorkingUnits()) {
 			assertTrue(u.isAtDestination());
+		}
+
+		//we proberen ze nog eens te withdrawen
+		try {
+			for (Unit u : unitsForRobbery4) {
+				ruafe.withdrawUnit(u);
+			}
+			fail("De units zijn al op de plaats van de emergency");
+		} catch (InvalidWithdrawalException e) {
 		}
 
 		//We beëindigen de taak van de units
@@ -290,6 +321,15 @@ public class Global2Test {
 
 		//We dispatchen de units naar fire 1
 		duc.dispatchToEmergency(f1, unitsForFire1);
+		ArrayList<Unit> unitsForFire1List = this.convertSetToList(unitsForFire1);
+		Set<Unit> firetrucksForFire1List = this.filterUnits(new TypeUnitValidator(Firetruck.class), unitsForFire1List);
+		try {
+			for (Unit u : firetrucksForFire1List) {
+				ruafe.withdrawUnit(u);
+			}
+			fail("De unit is een firetruck, dus kan niet gewithdrawed worden");
+		} catch (InvalidWithdrawalException e) {
+		}
 		assertEquals(4, f1.getWorkingUnits().size());
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -391,6 +431,15 @@ public class Global2Test {
 			shc.selectHospital(a, h1);
 		}
 
+		//De ambulances kunnen niet meer gewithdrawed worden, want ze zijn al op de plaats van emergency geweest.
+		try {
+			for (Unit u : ambOfFire1) {
+				ruafe.withdrawUnit(u);
+			}
+			fail("De units zijn op de plaats van de emergency");
+		} catch (InvalidWithdrawalException e) {
+		}
+
 		//De ambulances kunnen nog niet ge-end-of-tasked worden omdat ze nog niet op de locatie van het hospitaal zijn
 		try {
 			endTaskOfGivenUnits(ambOfFire1);
@@ -402,8 +451,22 @@ public class Global2Test {
 		world.getTimeSensitiveList().timeAhead(1000);
 		world.setTime(world.getTime() + 1000);
 
+		try {
+			for (Unit u : ambOfFire1) {
+				ruafe.withdrawUnit(u);
+			}
+			fail("De units zijn al op de plaats van de emergency geweest");
+		} catch (InvalidWithdrawalException e) {
+		}
 		//Nu kunnen we de taak van de ambulances wel beeindigen
 		endTaskOfGivenUnits(ambOfFire1);
+		try {
+			for (Unit u : ambOfFire1) {
+				ruafe.withdrawUnit(u);
+			}
+			fail("De units zijn niet toegewezen aan een emergency");
+		} catch (InvalidWithdrawalException e) {
+		}
 
 		//Er werken nog 0 units en de emergency is completed
 		assertEquals(0, f1.getWorkingUnits().size());
@@ -593,13 +656,12 @@ public class Global2Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsForFire3Assignment4);
 		assertEquals(0, counter);
 
-		try{
-			for(Unit u: unitsForFire3Assignment3){
+		try {
+			for (Unit u : unitsForFire3Assignment3) {
 				eotc.indicateEndOfTask(u);
 			}
 			fail("Dit kon niet omdat de firetruck nog niet op de plaats van de emergency is.");
-		}catch(InvalidFinishJobException e){
-
+		} catch (InvalidFinishJobException e) {
 		}
 		try {
 			eotc.indicateEndOfTask(firetrucksOfFire3.get(0));
@@ -630,11 +692,21 @@ public class Global2Test {
 		world.setTime(world.getTime() + 1500);
 
 		endTaskOfGivenUnits(f3.getWorkingUnits());
-		assertEquals(0,f3.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED,f3.getStatus());
+		assertEquals(0, f3.getWorkingUnits().size());
+		assertEquals(EmergencyStatus.COMPLETED, f3.getStatus());
 	}
 
 	private int checkAantalUnits(TypeUnitValidator tuv, Set<Unit> units) {
+		int counter = 0;
+		for (Unit u : units) {
+			if (tuv.isValid(u)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	private int checkAantalUnits(TypeUnitValidator tuv, ArrayList<Unit> units) {
 		int counter = 0;
 		for (Unit u : units) {
 			if (tuv.isValid(u)) {
