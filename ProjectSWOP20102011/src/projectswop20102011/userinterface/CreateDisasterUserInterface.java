@@ -11,7 +11,6 @@ import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencyStatus;
-import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidControllerException;
