@@ -18,6 +18,7 @@ import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCapacityException;
+import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -694,6 +695,91 @@ public class Global2Test {
 		endTaskOfGivenUnits(f3.getWorkingUnits());
 		assertEquals(0, f3.getWorkingUnits().size());
 		assertEquals(EmergencyStatus.COMPLETED, f3.getStatus());
+	}
+
+	@Test
+	public void testCreateDisaster() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException {
+
+		//Fires aanmaken
+		Fire f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		Fire f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		Fire f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+
+		//Robberies aanmaken
+		Robbery r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
+		Robbery r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
+		Robbery r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
+		Robbery r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+
+		//TrafficAccidents aanmaken
+		TrafficAccident ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
+		TrafficAccident ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
+		TrafficAccident ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+
+		//Public Disturbances aanmaken
+		PublicDisturbance pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
+		PublicDisturbance pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
+		PublicDisturbance pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+
+		//Alle Emergencies toevoegen aan de World
+		cec.addCreatedEmergencyToTheWorld(f1);
+		cec.addCreatedEmergencyToTheWorld(f2);
+		cec.addCreatedEmergencyToTheWorld(f3);
+		cec.addCreatedEmergencyToTheWorld(r1);
+		cec.addCreatedEmergencyToTheWorld(r2);
+		cec.addCreatedEmergencyToTheWorld(r3);
+		cec.addCreatedEmergencyToTheWorld(r4);
+		cec.addCreatedEmergencyToTheWorld(ta1);
+		cec.addCreatedEmergencyToTheWorld(ta2);
+		cec.addCreatedEmergencyToTheWorld(ta3);
+		cec.addCreatedEmergencyToTheWorld(pd1);
+		cec.addCreatedEmergencyToTheWorld(pd2);
+		cec.addCreatedEmergencyToTheWorld(pd3);
+
+		ArrayList<Emergency> emergenciesOfDisaster1 = new ArrayList<Emergency>(0);
+		emergenciesOfDisaster1.add(r1);
+		emergenciesOfDisaster1.add(r2);
+		emergenciesOfDisaster1.add(r3);
+		emergenciesOfDisaster1.add(r4);
+		String description1 = "Disaster 1";
+
+		ArrayList<Emergency> emergenciesOfDisaster2 = new ArrayList<Emergency>(0);
+		emergenciesOfDisaster2.add(ta1);
+		emergenciesOfDisaster2.add(ta2);
+		emergenciesOfDisaster2.add(ta3);
+		emergenciesOfDisaster2.add(r4);
+		String description2 = "Disaster 2";
+
+		ArrayList<Emergency> emergenciesOfDisaster3 = new ArrayList<Emergency>(0);
+		emergenciesOfDisaster3.add(ta1);
+		emergenciesOfDisaster3.add(ta2);
+		emergenciesOfDisaster3.add(ta3);
+		String description3 = "Disaster 3";
+
+		ArrayList<Emergency> emergenciesOfDisaster4 = new ArrayList<Emergency>(0);
+		emergenciesOfDisaster4.add(f1);
+		emergenciesOfDisaster4.add(f2);
+		emergenciesOfDisaster4.add(f3);
+		emergenciesOfDisaster4.add(pd1);
+		emergenciesOfDisaster4.add(pd2);
+		emergenciesOfDisaster4.add(pd3);
+		String description4 = "Disaster 4";
+
+		cdc.createDisaster(emergenciesOfDisaster1, description1);
+
+		try {
+			cdc.createDisaster(emergenciesOfDisaster1, description1);
+			fail("An emergency that is already part of a disaster can't be chosen for a disaster");
+		} catch (InvalidEmergencyException e) {
+		}
+		try {
+			cdc.createDisaster(emergenciesOfDisaster2, description2);
+			fail("Some emergencies are already part of another disaster");
+		} catch (InvalidEmergencyException e) {
+		}
+		cdc.createDisaster(emergenciesOfDisaster3, description3);
+		cdc.createDisaster(emergenciesOfDisaster4, description4);
+
 	}
 
 	private int checkAantalUnits(TypeUnitValidator tuv, Set<Unit> units) {
