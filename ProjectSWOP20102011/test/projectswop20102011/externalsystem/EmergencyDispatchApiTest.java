@@ -204,11 +204,6 @@ public class EmergencyDispatchApiTest {
 		api.registerNewEvent(trafficAccident3);
 		api.registerNewEvent(trafficAccident4);
 
-		//TODO: aanpassen als de timestamp toch anders werkt
-//		assertEquals(13, api.getListOfEmergencies(EmergencyState.ANY));
-//		api.advanceTime(new TimeAdapter(0, 10));
-//		assertEquals(14, api.getListOfEmergencies(EmergencyState.ANY));
-//		api.advanceTime(new TimeAdapter(3, 0));
 		assertEquals(16, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(16, api.getListOfEmergencies(EmergencyState.UNHANDLED).size());
 		assertEquals(16, world.getEmergencyList().toArray().length);
@@ -219,6 +214,17 @@ public class EmergencyDispatchApiTest {
 		world = null;
 		api = new EmergencyDispatchApi(world);
 		api.registerNewEvent(fire1);
+	}
+	
+	@Test
+	public void testRegisterNewEventInFuture() throws EmergencyDispatchException{
+		assertEquals(0, world.getTime());
+		api.registerNewEvent(fire1);
+		assertEquals(0, world.getTime());
+		api.registerNewEvent(fire4);
+		assertEquals(3600, world.getTime());
+		api.registerNewEvent(fire2);
+		assertEquals(3600, world.getTime());
 	}
 
 	@Test

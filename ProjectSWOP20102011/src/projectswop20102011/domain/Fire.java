@@ -274,8 +274,6 @@ public class Fire extends Emergency {
 			//TODO: getSize() mag hier waarschijnlijk nog weg en 
 			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
 			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired, Long.MAX_VALUE); 
-			System.out.println("Minimum " + minimum);
-			System.out.println("Maximum " + maximum);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars, new DifferentQuadraticValidator<Unit, Unit>());
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

@@ -63,6 +63,7 @@ import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.externalsystem.adapters.AmbulanceAdapter;
 import projectswop20102011.externalsystem.adapters.EmergencyAdapter;
 import projectswop20102011.externalsystem.adapters.HospitalAdapter;
+import projectswop20102011.externalsystem.adapters.TimeAdapter;
 import projectswop20102011.externalsystem.adapters.UnitAdapter;
 import projectswop20102011.externalsystem.adapters.UnitConfiguration;
 import projectswop20102011.factories.EmergencyFactory;
@@ -80,7 +81,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 * A variable registering the world that is connected with this EmergencyDispatchApi.
 	 */
 	private World world;
-	private ConcurrentHashMap<Emergency, Long> todoEmergencies;
 
 	/**
 	 * Creates a new EmergencyDispatchApi with the given world.
@@ -91,19 +91,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	public EmergencyDispatchApi(World world) {
 		this.world = world;
-		todoEmergencies = new ConcurrentHashMap<Emergency, Long>(0);
-	}
-
-	private ConcurrentHashMap<Emergency, Long> getTodoEmergencies() {
-		return todoEmergencies;
-	}
-
-	private void addTodoEmergency(Emergency e, long time) {
-		todoEmergencies.put(e, time);
-	}
-
-	private void deleteTodoEmergency(Emergency e) {
-		todoEmergencies.remove(e);
 	}
 
 	/**
@@ -169,13 +156,13 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			//TODO: mag de logger blijven of moet dit doorgegeven worden met een EmergencyDispatchException
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		//TODO: voor timestamp
-//		if (world.getTime() >= event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {
-//			cec.addCreatedEmergencyToTheWorld(emergency);
-//		} else {
-//			addTodoEmergency(emergency, event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60);
-//		}
-		cec.addCreatedEmergencyToTheWorld(emergency);
+		
+		if (world.getTime() < event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {
+			final int hours =(int) ((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 - world.getTime())/3600);
+			final int minutes = (int) (((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 - world.getTime())%3600)/60);
+			advanceTime(new TimeAdapter(hours, minutes));
+			
+		}cec.addCreatedEmergencyToTheWorld(emergency);		
 	}
 
 	/**
@@ -548,23 +535,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		checkParameter(time);
 		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
 
-		//TODO: voor timestamp
-//		CreateEmergencyController cec = null;
-//		try {
-//			cec = new CreateEmergencyController(getWorld());
-//		} catch (InvalidWorldException ex) {
-//			throw new EmergencyDispatchException("The world is invalid");
-//		}
-//		for (Emergency e : getTodoEmergencies().keySet()) {
-//			if (getTodoEmergencies().get(e) <= world.getTime()) {
-//				cec.addCreatedEmergencyToTheWorld(e);
-//				getWorld().getEmergencyList().addEmergency(e);
-//				deleteTodoEmergency(e);
-//			}
-//		}
-
 		try {
-			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
+			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60);
 		} catch (InvalidDurationException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -678,10 +650,10 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		loadFile(file);
 	}
 
-	private <T> void checkParameter(T... t) throws EmergencyDispatchException {		
-		for (T tmp:t) {
+	private <T> void checkParameter(T... t) throws EmergencyDispatchException {
+		for (T tmp : t) {
 			if (tmp == null) {
-				throw new EmergencyDispatchException( "Parameter must be effective.");
+				throw new EmergencyDispatchException("Parameter must be effective.");
 			}
 		}
 	}
