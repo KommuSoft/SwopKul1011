@@ -177,6 +177,22 @@ public class Disaster extends Sendable {
 	}
 
 	/**
+	 * Assigning units to this emergency.
+	 * @param units
+	 *      A list of units to assign.
+	 * @throws InvalidEmergencyStatusException
+	 *      If the status of this emergency does not allow this action.
+	 * @throws  InvalidEmergencyException
+	 *		If the emergency is invalid.
+	 */
+	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+		for(Unit u:units){
+			u.setDisaster(this);
+		}
+		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
+	}
+
+	/**
 	 * Returns a ConcreteUnitsNeeded structure that contains the units needed for this Disaster.
 	 * @return A ConcreteUnitsNeeded structure that contains the units needed for this Disaster.
 	 * @note Handling dispatching and updating the status of the Disaster is also done by this object.
