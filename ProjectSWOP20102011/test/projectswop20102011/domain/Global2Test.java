@@ -125,7 +125,6 @@ public class Global2Test {
 
 		// Indicate end of task for all units
 		for (Unit u : f.getWorkingUnits()) {
-			System.out.println(u.getClass());
 			eotc.indicateEndOfTask(u);
 		}
 
