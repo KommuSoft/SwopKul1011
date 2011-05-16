@@ -41,6 +41,9 @@ public class Disaster extends Sendable {
 		if (!areValidEmergencies(emergencies)) {
 			throw new InvalidEmergencyException("The number of emergencies must be higher than one.");
 		}
+		if(areUsedInOtherDisaster(emergencies)){
+			throw new InvalidEmergencyException("There is at least one emergency that is already part of a disaster, so it can't be chosen.");
+		}
 		indicateEmergenciesAsPartOfDisaster(emergencies);
 		this.emergencies = emergencies;
 		unitsNeeded = new DerivedUnitsNeeded(this);
@@ -66,6 +69,21 @@ public class Disaster extends Sendable {
 	 */
 	private boolean areValidEmergencies(List<Emergency> emergencies) {
 		return !emergencies.isEmpty();
+	}
+
+	/**
+	 * Checks whether an emergency from this list is already used in another disaster
+	 * @param emergencies
+	 *		The emergencies to check if they are valid for a Disaster
+	 * @return True if an emergency of this list is already part of another disaster.
+	 */
+	private boolean areUsedInOtherDisaster(List<Emergency> emergencies){
+		for(Emergency e: emergencies){
+			if(e.isPartOfADisaster()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
