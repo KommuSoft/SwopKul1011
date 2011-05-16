@@ -31,7 +31,7 @@ import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.World;
 import projectswop20102011.controllers.CreateDisasterController;
-import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.controllers.InspectEmergenciesController;
@@ -372,9 +372,9 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		checkParameter(configuration);
 
 		//TODO: dit is lelijk (getEmergency en getUnit staan nu public)
-		DispatchUnitsController controller = null;
+		DispatchUnitsToEmergencyController controller = null;
 		try {
-			controller = new DispatchUnitsController(getWorld());
+			controller = new DispatchUnitsToEmergencyController(getWorld());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}

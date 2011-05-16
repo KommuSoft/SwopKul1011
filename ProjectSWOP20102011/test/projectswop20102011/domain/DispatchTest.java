@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.World;
-import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencySeverityException;
@@ -19,7 +19,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class DispatchTest {
 	private World world;
-	private DispatchUnitsController duc;
+	private DispatchUnitsToEmergencyController duc;
 	private Fire f1;
 	private Firetruck ft;
 	private Ambulance am1, am2, am3;
@@ -27,7 +27,7 @@ public class DispatchTest {
 	@Before
 	public void setUp() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
 		world = new World();
-		duc = new DispatchUnitsController(world);
+		duc = new DispatchUnitsToEmergencyController(world);
 		f1 = new Fire(new GPSCoordinate(0,10), EmergencySeverity.BENIGN, "brand", FireSize.LOCAL, false, 0, 1);
 
 		ft = new Firetruck("vuurwagen", new GPSCoordinate(98,9), 100, 1001);

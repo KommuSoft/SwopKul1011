@@ -9,7 +9,7 @@ import projectswop20102011.controllers.CreateEmergencyController;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.ReadEnvironmentDataController;
@@ -63,7 +63,7 @@ public class Scenario1Test {
     private CreateEmergencyController cec;
     private InspectEmergenciesController iec;
     private ReadEnvironmentDataController redc;
-    private DispatchUnitsController duc;
+    private DispatchUnitsToEmergencyController duc;
     private EndOfTaskController eotc;
     private TimeAheadController tac;
     private SelectHospitalController shc;
@@ -90,7 +90,7 @@ public class Scenario1Test {
         cec = new CreateEmergencyController(world);
         iec = new InspectEmergenciesController(world);
         redc = new ReadEnvironmentDataController(world);
-        duc = new DispatchUnitsController(world);
+        duc = new DispatchUnitsToEmergencyController(world);
         eotc = new EndOfTaskController(world);
         tac = new TimeAheadController(world, ExternalSystem.bootstrap(api));
         shc = new SelectHospitalController(world);

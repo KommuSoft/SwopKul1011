@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
@@ -22,10 +22,10 @@ import projectswop20102011.utils.parsers.StringParser;
  */
 public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface {
 
-	private final DispatchUnitsController dispatchUnitsController;
+	private final DispatchUnitsToEmergencyController dispatchUnitsController;
 	private final EmergencyMapper emergencyController;
 
-	public DispatchUnitsToEmergencyUserInterface(DispatchUnitsController dispatchUnitsController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
+	public DispatchUnitsToEmergencyUserInterface(DispatchUnitsToEmergencyController dispatchUnitsController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("dispatch units to emergency");
 
 		if (dispatchUnitsController == null || emergencyController == null) {
@@ -36,7 +36,7 @@ public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface 
 	}
 
 	@Override
-	public DispatchUnitsController getController() {
+	public DispatchUnitsToEmergencyController getController() {
 		return this.dispatchUnitsController;
 	}
 

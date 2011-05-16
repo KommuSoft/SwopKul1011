@@ -17,14 +17,14 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * A controller to handle unit dispatching.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class DispatchUnitsController extends Controller {
+public class DispatchUnitsToEmergencyController extends Controller {
 
     /**
      * Creates a new instance of a DispatchUnitsController with a given word to operate on.
      * @param world The world where the controller will operate on.
      * @throws InvalidWorldException If the given world is invalid.
      */
-    public DispatchUnitsController(World world) throws InvalidWorldException {
+    public DispatchUnitsToEmergencyController(World world) throws InvalidWorldException {
         super(world);
     }
 

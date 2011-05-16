@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.controllers.DisasterMapper;
-import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.DispatchUnitsToDisasterController;
 import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.controllers.EndOfTaskController;
@@ -105,7 +105,7 @@ public class Main {
 		MainUserInterface mainUserInterface = new MainUserInterface();
 		CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
 		CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world), new EmergencyMapper(world));
-		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsToEmergencyUserInterface(new DispatchUnitsController(world), new EmergencyMapper(world));
+		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsToEmergencyUserInterface(new DispatchUnitsToEmergencyController(world), new EmergencyMapper(world));
 		CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
 		CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
 		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));

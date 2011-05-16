@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import projectswop20102011.World;
 import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.CreateEmergencyController;
-import projectswop20102011.controllers.DispatchUnitsController;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyController;
@@ -41,7 +41,7 @@ public class Global2Test {
 	CreateDisasterController cdc;
 	InspectEmergenciesController iec;
 	CreateEmergencyController cec;
-	DispatchUnitsController duc;
+	DispatchUnitsToEmergencyController duc;
 	SelectHospitalController shc;
 	EndOfTaskController eotc;
 	RemoveUnitAssignmentFromEmergencyController ruafe;
@@ -51,7 +51,7 @@ public class Global2Test {
 		world = new World();
 		iec = new InspectEmergenciesController(world);
 		cec = new CreateEmergencyController(world);
-		duc = new DispatchUnitsController(world);
+		duc = new DispatchUnitsToEmergencyController(world);
 		shc = new SelectHospitalController(world);
 		eotc = new EndOfTaskController(world);
 		ruafe = new RemoveUnitAssignmentFromEmergencyController(world);
