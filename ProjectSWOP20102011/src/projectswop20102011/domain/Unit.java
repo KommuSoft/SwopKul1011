@@ -372,9 +372,13 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		if (!canBeWithdrawn()) {
 			throw new InvalidWithdrawalException("Unit can't be withdrawn.");
 		} else {
-			this.getEmergency().withdrawUnit(this);
+			//TODO: niet zo mooi waarschijnlijk
+			if (getDisaster() == null) {
+				this.getEmergency().withdrawUnit(this);
+			} else {
+				this.getDisaster().withdrawUnit(this);
+			}
 			this.setEmergency(null);
-			//TODO: dit lijntje toegevoegd in verband met het withdrawen van units bij een disaster
 			this.setDisaster(null);
 			setUnitStatus(UnitStatus.IDLE);
 		}
@@ -420,9 +424,9 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
 	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {//|| (isRequired() && !arePresent())
-		if(getDisaster() == null){
+		if (getDisaster() == null) {
 			finishedJobForEmergencies();
-		}else{
+		} else {
 			finishedJobForDisasters();
 		}
 	}
