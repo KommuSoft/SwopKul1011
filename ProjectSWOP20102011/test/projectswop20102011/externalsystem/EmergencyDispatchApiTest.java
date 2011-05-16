@@ -6,6 +6,7 @@ import be.kuleuven.cs.swop.api.IEmergency;
 import be.kuleuven.cs.swop.api.IFireView;
 import be.kuleuven.cs.swop.api.IPublicDisturbanceView;
 import be.kuleuven.cs.swop.api.IRobberyView;
+import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.ITrafficAccidentView;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
@@ -139,7 +140,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
-	public void testTimeAhead() throws EmergencyDispatchException {
+	public void testTimeAhead() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		assertEquals(0, world.getTime());
 		api.advanceTime(new TimeAdapter(0, 10));
 		assertEquals(600, world.getTime());
@@ -150,17 +151,17 @@ public class EmergencyDispatchApiTest {
 	@Test(expected = EmergencyDispatchException.class)
 	public void testTimeAheadInvalidMinutes() throws EmergencyDispatchException {
 		assertEquals(0, world.getTime());
-		api.advanceTime(new TimeAdapter(0, -10));
+		api.advanceTime(new Time(0, -10));
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
 	public void testTimeAheadInvalidHours() throws EmergencyDispatchException {
 		assertEquals(0, world.getTime());
-		api.advanceTime(new TimeAdapter(-1, 0));
+		api.advanceTime(new Time(-1, 0));
 	}
 
 	@Test
-	public void testClearSystem() throws EmergencyDispatchException {
+	public void testClearSystem() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		assertEquals(0, world.getTime());
 		api.advanceTime(new TimeAdapter(0, 10));
 		assertEquals(600, world.getTime());
@@ -215,9 +216,9 @@ public class EmergencyDispatchApiTest {
 		api = new EmergencyDispatchApi(world);
 		api.registerNewEvent(fire1);
 	}
-	
+
 	@Test
-	public void testRegisterNewEventInFuture() throws EmergencyDispatchException{
+	public void testRegisterNewEventInFuture() throws EmergencyDispatchException {
 		assertEquals(0, world.getTime());
 		api.registerNewEvent(fire1);
 		assertEquals(0, world.getTime());
@@ -228,7 +229,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
-	public void testGetListOfEmergenciesSingleEmergency() throws EmergencyDispatchException {
+	public void testGetListOfEmergenciesSingleEmergency() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(0, world.getEmergencyList().toArray().length);
 
@@ -258,7 +259,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
-	public void testGetListOfEmergenciesMultipleEmergencies() throws EmergencyDispatchException {
+	public void testGetListOfEmergenciesMultipleEmergencies() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(0, world.getEmergencyList().toArray().length);
 
@@ -371,7 +372,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
-	public void testSelectHospital() throws EmergencyDispatchException {
+	public void testSelectHospital() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(fire1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -389,7 +390,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testSelectHospitalInvalidWorld() throws EmergencyDispatchException {
+	public void testSelectHospitalInvalidWorld() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		world = null;
 		api = new EmergencyDispatchApi(world);
 
@@ -407,7 +408,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testSelectInvalidHospital() throws EmergencyDispatchException {
+	public void testSelectInvalidHospital() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(fire1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -422,7 +423,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testSelectHospitalInvalidUnit() throws EmergencyDispatchException {
+	public void testSelectHospitalInvalidUnit() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(fire1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -448,7 +449,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test
-	public void testEndOfTask() throws EmergencyDispatchException {
+	public void testEndOfTask() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(robbery1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -468,7 +469,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testEndOfTaskInvalidWorld() throws EmergencyDispatchException {
+	public void testEndOfTaskInvalidWorld() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(robbery1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -484,7 +485,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testEndOfTaskInvalidUnit() throws EmergencyDispatchException {
+	public void testEndOfTaskInvalidUnit() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(robbery1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -495,7 +496,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testEndOfTaskCantFinish() throws EmergencyDispatchException {
+	public void testEndOfTaskCantFinish() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(fire1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -522,7 +523,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testWithdrawUnitThatWasAlreadyAtSite() throws EmergencyDispatchException {
+	public void testWithdrawUnitThatWasAlreadyAtSite() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(fire1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -577,7 +578,7 @@ public class EmergencyDispatchApiTest {
 	}
 
 	@Test(expected = EmergencyDispatchException.class)
-	public void testAssignToCompletedEmergency() throws EmergencyDispatchException {
+	public void testAssignToCompletedEmergency() throws EmergencyDispatchException, NumberOutOfBoundsException {
 		api.registerNewEvent(robbery1);
 		IEmergency em1 = api.getListOfEmergencies(EmergencyState.UNHANDLED).get(0);
 		IUnitConfiguration cfg1 = api.getUnitConfiguration(em1);
@@ -673,13 +674,39 @@ public class EmergencyDispatchApiTest {
 		api.cancelEmergency(em1);
 	}
 
-	@Test(expected=NotSupportedException.class)
+	@Test(expected = NotSupportedException.class)
 	public void testIndicateProblem() throws NotSupportedException, EmergencyDispatchException {
 		api.indicateProblem(api.getListOfUnits(UnitState.ANY).get(0));
 	}
 
-	@Test(expected=NotSupportedException.class)
+	@Test(expected = NotSupportedException.class)
 	public void testIndicateRepair() throws NotSupportedException, EmergencyDispatchException {
 		api.indicateRepair(api.getListOfUnits(UnitState.ANY).get(0));
+	}
+
+	private class Time implements ITime {
+		
+		private int hours;
+		private int minutes;
+
+		public Time(int hours, int minutes) {
+			this.hours = hours;
+			this.minutes = minutes;
+		}
+
+		@Override
+		public int getHours() {
+			return hours;
+		}
+
+		@Override
+		public int getMinutes() {
+			return minutes;
+		}
+
+		@Override
+		public int compareTo(ITime o) {
+			return Integer.valueOf(hours * 60 + minutes).compareTo(Integer.valueOf(o.getHours() * 60 + o.getMinutes()));
+		}
 	}
 }

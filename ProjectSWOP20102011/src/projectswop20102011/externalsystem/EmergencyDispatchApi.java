@@ -59,6 +59,7 @@ import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.externalsystem.adapters.AmbulanceAdapter;
 import projectswop20102011.externalsystem.adapters.EmergencyAdapter;
@@ -160,7 +161,11 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		if (world.getTime() < event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {
 			final int hours =(int) ((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 - world.getTime())/3600);
 			final int minutes = (int) (((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 - world.getTime())%3600)/60);
-			advanceTime(new TimeAdapter(hours, minutes));
+			try {
+				advanceTime(new TimeAdapter(hours, minutes));
+			} catch (NumberOutOfBoundsException ex) {
+				throw new EmergencyDispatchException("Invalid time");
+			}
 			
 		}cec.addCreatedEmergencyToTheWorld(emergency);		
 	}
