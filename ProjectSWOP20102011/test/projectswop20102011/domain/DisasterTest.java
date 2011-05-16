@@ -317,6 +317,7 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
+		System.out.println("Voor be resolved");
 		assertTrue(d.canBeResolved(units));
 	}
 

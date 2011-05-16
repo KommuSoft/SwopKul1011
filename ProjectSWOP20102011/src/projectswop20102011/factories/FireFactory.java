@@ -52,12 +52,23 @@ public class FireFactory extends EmergencyFactory {
      *          If the given list of parameters has'nt the proper length or types of parameters.
      */
     @Override
-    public Emergency createInstance(Object... parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidParametersException {
+    public Emergency createInstance(Object... parameters) throws InvalidParametersException {
         if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
         } else {
-            return new Fire((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (FireSize) parameters[3], (Boolean) parameters[4], (Long) parameters[5], (Long) parameters[6]);
+			try {
+				return new Fire((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (FireSize) parameters[3], (Boolean) parameters[4], (Long) parameters[5], (Long) parameters[6]);
+			} catch (InvalidLocationException ex) {
+				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidEmergencySeverityException ex) {
+				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidFireSizeException ex) {
+				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (NumberOutOfBoundsException ex) {
+				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
+			}
         }
+		return null;
     }
 
     /**

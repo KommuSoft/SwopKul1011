@@ -87,17 +87,6 @@ public class Firetruck extends Unit {
 	}
 
 	/**
-	 * Tests if this firetruck can handle a fire with a given fire size
-	 * @param fireSize
-	 *      The fire size of the fire to test.
-	 * @return True
-	 */
-	public boolean canHandleFireSize(FireSize fireSize) {
-		//TODO:Dit zou nu altijd true moeten teruggeven, aangezien iedere firetruck dienst kan doen (onafhankelijk van het aantal liters.
-		return true;
-	}
-
-	/**
 	 * A method to withdraw this unit from the current Emergency.
 	 * @throws InvalidWithdrawalException
 	 *		Always: A Firetruck can't be withdrawn from an Emergency.

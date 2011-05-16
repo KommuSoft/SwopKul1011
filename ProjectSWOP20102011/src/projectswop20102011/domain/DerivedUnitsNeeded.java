@@ -95,10 +95,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
             ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
             Set<Unit> unitsForEmergency = CUN.generateProposal(options);
 
-            //TODO is dit juist?
-//			if (unitsForEmergency.isEmpty() || !e.canAssignUnits(unitsForEmergency)) {
-//				return false;
-//			}
             if (!unitsForEmergency.isEmpty() && e.canAssignUnits(unitsForEmergency)) {
                 return true;
             }

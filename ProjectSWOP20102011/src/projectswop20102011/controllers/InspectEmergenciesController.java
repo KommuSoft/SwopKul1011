@@ -39,20 +39,7 @@ public class InspectEmergenciesController extends Controller {
         return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).toArray();
     }
 
-	//TODO: deze methode zeker weg?
-    /**
-     * Inspect all the emergencies in the world on a certain status, and searches for an emergency with that status who has also the given id.
-     * @param status The status of emergencies to search for.
-     * @param id The id number to search for.
-     * @return The emergency who mets the conditions, if no condition succeeds, null is returned.
-     * @throws InvalidWorldException
-     */
-	//TODO: deze methode wordt niet meer gebruikt
-    private Emergency inspectEmergencyDetailOnStatusId(EmergencyStatus status, long id) throws InvalidWorldException {
-        return new EmergencyMapper(getWorld()).getEmergencyFromId(id);
-    }
-
-    /**
+	/**
      * Generates a set of entries with parts of information of the given emergency.
      * @param emergency The emergency to generate information from.
      * @return A set of entries containing the key and value of a piece of information of the emergency.

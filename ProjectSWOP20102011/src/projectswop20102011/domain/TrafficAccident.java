@@ -154,14 +154,12 @@ public class TrafficAccident extends Emergency {
 		return information;
 	}
 
-	//TODO: mag dit? analoge methode in fire
-	private long[] calculateMinMaxNumberOfAmbulances() {
-		long maximum = getNumberOfInjured();
-		long minimum = maximum / 2;
-		if (maximum % 2 != 0) {
-			minimum += 1;
-		}
-		return new long[]{minimum, maximum};
+	private long calculateMinNumberOfAmbulances() {
+		return (getNumberOfInjured() + 1) / 2;
+	}
+
+	private long calculateMaxNumberOfAmbulances() {
+		return getNumberOfInjured();
 	}
 
 	/**
@@ -171,10 +169,9 @@ public class TrafficAccident extends Emergency {
 	@Override
 	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
-			long[] ambulances = calculateMinMaxNumberOfAmbulances();
-			long minimum = ambulances[0];
-			long maximum = ambulances[1];
-			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), 1000,Long.MAX_VALUE);
+			long minimum = calculateMinNumberOfAmbulances();
+			long maximum = calculateMaxNumberOfAmbulances();
+			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), 1000, Long.MAX_VALUE);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

@@ -26,7 +26,7 @@ public class FiretruckValidatorTest {
 
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
-                fs1 = FireSize.LOCAL;
+        fs1 = FireSize.LOCAL;
 		fs2 = FireSize.HOUSE;
 		fs3 = FireSize.FACILITY;
 
@@ -79,13 +79,10 @@ public class FiretruckValidatorTest {
 		assertTrue(ftv1.isValid(ft2));
 		assertTrue(ftv1.isValid(ft3));
 
-		//TODO: hier faalt de test
-		//TODO: assertTrue naar assertFalse veranderd, want als een firetruck een instantie van unit is, zou dit moetn slagen
 		assertTrue(ftv2.isValid(ft1));
 		assertTrue(ftv2.isValid(ft2));
 		assertTrue(ftv2.isValid(ft3));
 
-		//idem hieronder
 		assertTrue(ftv3.isValid(ft1));
 		assertTrue(ftv3.isValid(ft2));
 		assertTrue(ftv3.isValid(ft3));

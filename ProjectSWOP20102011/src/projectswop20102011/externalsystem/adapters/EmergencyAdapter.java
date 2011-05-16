@@ -16,7 +16,7 @@ import projectswop20102011.domain.Unit;
  * An adapter that implements an IEmergency and offers operations to inspect the state of an emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class EmergencyAdapter implements IEmergency {
+public class EmergencyAdapter implements IEmergency, Cloneable{
 
 	/**
 	 * The emergency of this EmergencyAdapter.
@@ -72,9 +72,6 @@ public class EmergencyAdapter implements IEmergency {
 				iUnits.add(new AmbulanceAdapter((Ambulance) u));
 			} else if(u instanceof Firetruck){
 				iUnits.add(new FireTruckAdapter((Firetruck) u));
-			}else {
-				//TODO mooie exception
-				throw new RuntimeException("Type of unit is wrong.");
 			}
 		}
 
@@ -86,7 +83,8 @@ public class EmergencyAdapter implements IEmergency {
 	 * @return True if the emergency is part of a disaster; false otherwise.
 	 */
 	@Override
-	public boolean isPartOfDisaster() {
+	public boolean isPartOfDisaster() {		
 		return getEmergency().isPartOfADisaster();
 	}
+	
 }

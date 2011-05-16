@@ -45,13 +45,19 @@ public class RobberyFactory extends EmergencyFactory {
      *          If the given parameters are invalid.
      */
     @Override
-    public Emergency createInstance(Object... parameters) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidParametersException {
+    public Emergency createInstance(Object... parameters) throws InvalidParametersException {
         if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
-            return new Robbery((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);
-
+			try {
+				return new Robbery((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);
+			} catch (InvalidLocationException ex) {
+				Logger.getLogger(RobberyFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidEmergencySeverityException ex) {
+				Logger.getLogger(RobberyFactory.class.getName()).log(Level.SEVERE, null, ex);
+			}
         }
+		return null;
     }
 
     /**

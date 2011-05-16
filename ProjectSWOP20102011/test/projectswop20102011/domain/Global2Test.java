@@ -936,13 +936,13 @@ public class Global2Test {
 		return counter;
 	}
 
-	private void endTaskOfGivenUnits(ArrayList<Unit> units) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException {
+	private void endTaskOfGivenUnits(ArrayList<Unit> units) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {
 		for (Unit u : units) {
 			eotc.indicateEndOfTask(u);
 		}
 	}
 
-	private void endTaskOfGivenUnits(Set<Unit> units) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException {
+	private void endTaskOfGivenUnits(Set<Unit> units) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {
 		for (Unit u : units) {
 			eotc.indicateEndOfTask(u);
 		}

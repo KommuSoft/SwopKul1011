@@ -9,13 +9,15 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
  */
 public enum FireSize {
 	
-	LOCAL("local"),
-	HOUSE("house"),
-	FACILITY("facility");
+	LOCAL("local", 1000),
+	HOUSE("house", 100000),
+	FACILITY("facility", 500000);
 	/**
 	 * The textual representation of the fire size.
 	 */
 	private final String textual;
+	
+	private final long neededCapacity;
 
 	/**
 	 * Creates a new instance of the FireSize class with a given textual representation.
@@ -24,8 +26,9 @@ public enum FireSize {
 	 * @post The textual representation is set to the given textual representation.
 	 *		| new.getTextual().equals(textual)
 	 */
-	private FireSize(String textual) {
+	private FireSize(String textual, long neededCapacity) {
 		this.textual = textual;
+		this.neededCapacity = neededCapacity;
 	}
 
 	/**
@@ -36,6 +39,10 @@ public enum FireSize {
 		return textual;
 	}
 
+	public long getNeededCapacity(){
+		return neededCapacity;
+	}
+	
 	/**
 	 * Returns a textual representation of the FireSize.
 	 * @return A textual representation of the FireSize.

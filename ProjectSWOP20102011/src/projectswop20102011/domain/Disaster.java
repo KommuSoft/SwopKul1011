@@ -271,4 +271,15 @@ public class Disaster extends Sendable {
 			}
 		}
 	}
+	
+	@Override
+	public boolean canBeResolved(Set<Unit> availableUnits) {		
+		for(Emergency e: getEmergencies()){
+			if(!e.canBeResolved(availableUnits)){
+				return false;
+			}
+		}
+		
+		return true;
+	}
 }

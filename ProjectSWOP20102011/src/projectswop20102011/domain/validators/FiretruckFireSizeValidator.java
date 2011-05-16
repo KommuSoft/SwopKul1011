@@ -51,23 +51,11 @@ public class FiretruckFireSizeValidator extends TypeUnitValidator {
 	}
 
 	/**
-	 * Checks if the given firetruck is valid for the fire size.
-	 * @param unit
-	 *		The element to check.
-	 * @return True is the given unit is valid; false otherwise.
-	 */
-	@Override
-	public boolean isValid(Unit unit) {
-		return (super.isValid(unit) && ((Firetruck) unit).canHandleFireSize(this.getFireSize()));
-	}
-
-	/**
 	 * Returns a textual representation of the FiretruckFireSizeValidator.
 	 * @return a textual representation of the FiretruckFireSizeValidator.
 	 */
 	@Override
 	public String toString() {
-		//TODO: klopt ook niet meer
 		return String.format("Firetrucks who can handle a %s fire", this.getFireSize());
 	}
 }

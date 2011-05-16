@@ -59,7 +59,6 @@ public class Main {
 		}
 	}
 
-	//TODO: deze methode heb ik (Jonas Vanthornhout) eventjus public gezet
 	public static World initWorld() throws InvalidEmergencyTypeNameException {
 		World world = new World();
 
@@ -112,7 +111,7 @@ public class Main {
 		CommandUserInterface removeUnitAssignmentFromEmergencyInterface = new RemoveUnitAssignmentFromEmergencyUserInterface(new RemoveUnitAssignmentFromEmergencyController(world), new EmergencyMapper(world));
 		CommandUserInterface removeUnitAssignmentFromDisasterInterface = new RemoveUnitAssignmentFromDisasterUserInterface(new RemoveUnitAssignmentFromDisasterController(world), new DisasterMapper(world));
 		CommandUserInterface dispatchUnitsToDisasterInterface = new DispatchUnitsToDisasterUserInterface(new DispatchUnitsToDisasterController(world), new DisasterMapper(world));
-		CommandUserInterface createDisasterInterface = new CreateDisasterUserInterface(new CreateDisasterController(world), new InspectEmergenciesController(world), new EmergencyMapper(world)); //TODO: ik (jonas) heb hier de twee laatste parameters bijgezet om te kunnen compilen
+		CommandUserInterface createDisasterInterface = new CreateDisasterUserInterface(new CreateDisasterController(world), new InspectEmergenciesController(world), new EmergencyMapper(world));
 		CommandUserInterface inspectDisastersInterface = new InspectDisastersUserInterface(new InspectDisastersController(world), new DisasterMapper(world));
 		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface, createDisasterInterface);
 		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentFromEmergencyInterface, removeUnitAssignmentFromDisasterInterface, dispatchUnitsToDisasterInterface,inspectDisastersInterface);

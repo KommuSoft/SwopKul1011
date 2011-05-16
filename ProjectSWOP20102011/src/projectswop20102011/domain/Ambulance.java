@@ -57,21 +57,8 @@ public class Ambulance extends Unit {
 	 */
 	public Hospital getCurrentHospital() {
 		return currentHospital;
-	}
-
-	/**
-	 * TODO: mag waarschijnlijk weg, werken nu met target (DELETE COMMENTED CODE)
-	 * Returns the destination of this Ambulance.
-	 * @return The location of the assigned hospital if the ambulance has a hospital as destination,
-	 *         otherwise the homelocation or the location of the emergency.
-	@Override
-	public GPSCoordinate getDestination() {
-	if (getCurrentHospital() == null) {
-	return super.getDestination();
-	} else {
-	return getCurrentHospital().getHomeLocation();
-	}
-	}*/
+	}	
+	
 	/**
 	 * Sets the current hospital chosen by this ambulance.
 	 * @param currentHospital

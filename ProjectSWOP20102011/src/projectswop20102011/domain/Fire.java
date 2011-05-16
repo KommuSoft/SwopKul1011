@@ -195,18 +195,8 @@ public class Fire extends Emergency {
 		return (fireSize != null);
 	}
 
-	//TODO: is dit goed?
 	public long getNumberOfLitersRequired() {
-		if (getSize().equals(FireSize.LOCAL)) {
-			return 1000;
-		} else if (getSize().equals(FireSize.HOUSE)) {
-			return 100000;
-		} else if (getSize().equals(FireSize.FACILITY)) {
-			return 500000;
-		} else {
-			//We assume this can never happen
-			return -1;
-		}
+		return getSize().getNeededCapacity();
 	}
 
 	/**
@@ -247,15 +237,13 @@ public class Fire extends Emergency {
 
 		return information;
 	}
-	//TODO: mag dit? Analoge methode in trafficaccident
-
-	private long[] calculateMinMaxNumberOfAmbulances() {
-		long maximum = getTrappedPeople() + getNumberOfInjured();
-		long minimum = maximum / 2;
-		if (maximum % 2 != 0) {
-			minimum += 1;
-		}
-		return new long[]{minimum, maximum};
+	
+	private long calculateMinNumberOfAmbulances(){
+		return (getTrappedPeople() + getNumberOfInjured()+1) / 2;
+	}
+	
+	private long calculateMaxNumberOfAmbulances(){
+		return getTrappedPeople() + getNumberOfInjured();
 	}
 
 	/**
@@ -268,11 +256,9 @@ public class Fire extends Emergency {
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
 			long numberOfLitersRequired = units[0];
 			long policecars = units[1];
-			long[] ambulances = calculateMinMaxNumberOfAmbulances();
-			long minimum = ambulances[0];
-			long maximum = ambulances[1];
-			//TODO: getSize() mag hier waarschijnlijk nog weg en 
-			//"new FiretruckFireSizeValidator(getSize())" vervangen door "new TypeUnitValidator(Firetruck.class)"
+			long minimum = calculateMinNumberOfAmbulances();
+			long maximum = calculateMaxNumberOfAmbulances();
+			
 			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired, Long.MAX_VALUE); 
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars, new DifferentQuadraticValidator<Unit, Unit>());

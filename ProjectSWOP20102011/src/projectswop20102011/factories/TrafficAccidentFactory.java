@@ -48,12 +48,21 @@ public class TrafficAccidentFactory extends EmergencyFactory {
      *          If the given list of parameters is invalid.
      */
     @Override
-    public Emergency createInstance(Object... parameters) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
+    public Emergency createInstance(Object... parameters) throws InvalidParametersException {
         if (!this.areValidParameters(parameters)) {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
-            return new TrafficAccident((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
+			try {
+				return new TrafficAccident((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
+			} catch (InvalidLocationException ex) {
+				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (InvalidEmergencySeverityException ex) {
+				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (NumberOutOfBoundsException ex) {
+				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
+			}
         }
+		return null;
     }
 
     /**

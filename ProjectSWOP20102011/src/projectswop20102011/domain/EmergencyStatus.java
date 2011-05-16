@@ -21,8 +21,6 @@ public enum EmergencyStatus {
 		@Override
 		protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
 			try {
-				//TODO dit is hier een klein beetje aangepast om het gemakkelijker te maken, het origineel staat hier nog onder
-				//unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
 				if(!units.isEmpty()){
 					unitsNeeded.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
 				}
