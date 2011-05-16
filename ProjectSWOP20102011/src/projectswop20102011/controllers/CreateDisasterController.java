@@ -4,7 +4,6 @@ import java.util.List;
 import projectswop20102011.World;
 import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -24,6 +23,7 @@ public class CreateDisasterController extends Controller {
 	}
 
 	public void createDisaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException{
-		this.addCreatedDisasterToTheWorld(new Disaster(emergencies,description));
+		Disaster disasterToCreate = new Disaster(emergencies,description);
+		this.addCreatedDisasterToTheWorld(disasterToCreate);
 	}
 }
