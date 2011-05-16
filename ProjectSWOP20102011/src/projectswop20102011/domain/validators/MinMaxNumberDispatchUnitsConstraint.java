@@ -20,7 +20,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 	/**
 	 * A variable registering the minimum desired number of units
 	 */
-	private long minimum;
+	final private long minimum;
 	/**
 	 * A variable registering the maximum desired number of units
 	 */
@@ -181,7 +181,9 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 			return true;
 		}
 		for (Unit u : availableUnits) {
-			if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collect, u)) {
+			boolean a = this.getValidator().isValid(u);
+			boolean b = this.getQuadraticValidator().isValid(collect, u);
+			if (a && b) {
 				long unumber = this.getValidator().getNumber(u);
 				if (value + unumber <= this.getMaximum()) {
 					collect.add(u);
@@ -205,10 +207,10 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 		}
 		for (Unit u : toAssignUnits) {
 			if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collect, u)) {
-				
+
 				++counter;
 				collect.add(u);
-				
+
 				relevantUnits.add(u);
 				if (counter >= this.getMaximum()) {
 					return true;

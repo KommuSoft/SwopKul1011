@@ -1,10 +1,10 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
@@ -261,7 +261,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * Returns the disaster of this unit.
 	 * @return The disaster of this unit if the unit is assigned, otherwise null.
 	 */
-	public Disaster getDisaster() {
+	protected Disaster getDisaster() {
 		return disaster;
 	}
 
@@ -423,7 +423,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @throws InvalidEmergencyStatusException
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
-	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException {//|| (isRequired() && !arePresent())
+	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
 		if (getDisaster() == null) {
 			finishedJobForEmergencies();
 		} else {
@@ -431,7 +431,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		}
 	}
 
-	private void finishedJobForEmergencies() throws InvalidFinishJobException, InvalidEmergencyStatusException {
+	protected void finishedJobForEmergencies() throws InvalidFinishJobException, InvalidEmergencyStatusException {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (isRequired()) {
@@ -446,7 +446,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		}
 	}
 
-	private void finishedJobForDisasters() {
+	private void finishedJobForDisasters() throws InvalidEmergencyStatusException, InvalidEmergencyException {
+		getDisaster().finishUnit(this);
+		setEmergency(null);
+		setWasAlreadyAtSite(false);
+		setUnitStatus(UnitStatus.IDLE);
+		getDisaster().afterFinish(this);
 	}
 
 	/**

@@ -1,13 +1,16 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import projectswop20102011.domain.validators.EmergencyComparator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
@@ -125,7 +128,12 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
         if (!canAssignUnitsToEmergency(units)) {
             throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
         }
-        for (Emergency e : getDisaster().getEmergencies()) {
+		
+		List<Emergency> emergencies = getDisaster().getEmergencies();
+		Collections.sort(emergencies, new EmergencyComparator());
+		Collections.reverse(emergencies);
+		
+        for (Emergency e : emergencies) {
             ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
             Set<Unit> unitsForEmergency = CUN.generateProposal(options);
             try {

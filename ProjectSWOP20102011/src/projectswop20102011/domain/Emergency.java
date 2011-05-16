@@ -18,7 +18,7 @@ import projectswop20102011.exceptions.InvalidLocationException;
  *		| isValidStatus(getStatus())
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public abstract class Emergency extends Sendable {
+public abstract class Emergency extends Sendable{
 
 	/**
 	 * A variable registering the location of this emergency.

@@ -23,7 +23,9 @@ public enum EmergencyStatus {
 			try {
 				//TODO dit is hier een klein beetje aangepast om het gemakkelijker te maken, het origineel staat hier nog onder
 				//unitsNeeded.getEmergency().setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
-				unitsNeeded.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+				if(!units.isEmpty()){
+					unitsNeeded.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+				}
 			} catch (InvalidEmergencyStatusException ex) {
 				//We assume this can't happen.
 				Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);

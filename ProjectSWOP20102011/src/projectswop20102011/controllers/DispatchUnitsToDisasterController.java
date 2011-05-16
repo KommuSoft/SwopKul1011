@@ -34,10 +34,11 @@ public class DispatchUnitsToDisasterController extends Controller {
 		return this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToDisasterDistanceComparator(disaster));
 	}
 
+	//TODO: string hiervan maken
 	public Set<Unit> getRequiredUnits(Disaster disaster) {
 		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
 		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
-		return disaster.getPolicyProposalAll(mapItems);
+		return disaster.getPolicyProposalAllSeverities(mapItems);
 	}
 
 	public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {

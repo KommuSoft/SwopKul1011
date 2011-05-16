@@ -4,6 +4,7 @@ import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.World;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidUnitException;
@@ -45,7 +46,7 @@ public class EndOfTaskController extends Controller {
      * @throws InvalidFinishJobException
      *          If the unit can't finish his job.
      */
-    public void indicateEndOfTask(Unit unit) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException {
+    public void indicateEndOfTask(Unit unit) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {
         if (unit == null) {
             throw new InvalidUnitException("The given unit must be effective.");
         }

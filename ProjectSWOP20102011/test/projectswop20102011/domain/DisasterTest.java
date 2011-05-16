@@ -33,7 +33,7 @@ public class DisasterTest {
 	private Disaster d;
 	private long speed1;
 	private GPSCoordinate homeLocation1;
-	private String name1;
+	private String name1, name2;
 	private long capacity1;
 
 	@Before
@@ -54,13 +54,14 @@ public class DisasterTest {
 		e5 = new Fire(l1, EmergencySeverity.SERIOUS, "", FireSize.LOCAL, false, 0, 1337);
 		e6 = new PublicDisturbance(l2, EmergencySeverity.SERIOUS, "", 1302);
 		e7 = new Fire(l1, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
-		e8 = new PublicDisturbance(l2, EmergencySeverity.URGENT, "", 1302);
+		e8 = new PublicDisturbance(l2, EmergencySeverity.URGENT, "", 6);
 
 		description1 = "A couple of emergencies";
 
 		speed1 = 10;
 		homeLocation1 = new GPSCoordinate(10, 10);
 		name1 = "Unit1";
+		name2 = "Unit2";
 		capacity1 = 2000;
 	}
 
@@ -72,8 +73,8 @@ public class DisasterTest {
 		assertEquals(1, d.getEmergencies().size());
 		emergencies.clear();
 
-		emergencies.add(e1);
 		emergencies.add(e2);
+		emergencies.add(e3);
 		d = new Disaster(emergencies, description1);
 		assertEquals(2, d.getEmergencies().size());
 	}
@@ -113,73 +114,116 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testSeverity() throws InvalidEmergencyException, InvalidConstraintListException {
+	public void testSeverityNormalBenign() throws InvalidEmergencyException, InvalidConstraintListException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+
 		emergencies.add(e1);
-		emergencies.add(e2);
+		emergencies.add(e3);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.BENIGN, d.getSeverity());
+		assertEquals(EmergencySeverity.NORMAL, d.getSeverity());
 		emergencies.clear();
 
+	}
+
+	@Test
+	public void testSeverityNormalNormal() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e3);
 		emergencies.add(e4);
 		d = new Disaster(emergencies, description1);
 		assertEquals(EmergencySeverity.NORMAL, d.getSeverity());
 		emergencies.clear();
+	}
 
+	@Test
+	public void testSeveritySeriousBenign() throws InvalidEmergencyException, InvalidEmergencyException, InvalidEmergencyException, InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+
+		emergencies.add(e1);
+		emergencies.add(e5);
+		d = new Disaster(emergencies, description1);
+		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		emergencies.clear();
+	}
+
+	@Test
+	public void testSeveritySeriousSerious() throws InvalidEmergencyException, InvalidEmergencyException, InvalidEmergencyException, InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e5);
 		emergencies.add(e6);
 		d = new Disaster(emergencies, description1);
 		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
 		emergencies.clear();
+	}
 
+	@Test
+	public void testSeveritySeriousNormal() throws InvalidEmergencyException, InvalidEmergencyException, InvalidEmergencyException, InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e3);
+		emergencies.add(e5);
+		d = new Disaster(emergencies, description1);
+		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		emergencies.clear();
+	}
+
+	@Test
+	public void testSeveritySeriousNormalBening() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e4);
+		emergencies.add(e6);
+		d = new Disaster(emergencies, description1);
+		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		emergencies.clear();
+	}
+
+	@Test
+	public void testSeverityUrgent() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e5);
+		emergencies.add(e7);
+		d = new Disaster(emergencies, description1);
+		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		emergencies.clear();
+	}
+
+	@Test
+	public void testSeverityUrgentBenign() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e7);
+		d = new Disaster(emergencies, description1);
+		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		emergencies.clear();
+	}
+
+	@Test
+	public void testSeverityUrgentNormal() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e3);
+		emergencies.add(e7);
+		d = new Disaster(emergencies, description1);
+		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		emergencies.clear();
+	}
+
+	@Test
+	public void testSeverityUrgentSerious() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e7);
 		emergencies.add(e8);
 		d = new Disaster(emergencies, description1);
 		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
 		emergencies.clear();
+	}
 
+	@Test
+	public void testSeverityBenign() throws InvalidEmergencyException, InvalidConstraintListException {
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
-		emergencies.add(e3);
+		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.NORMAL, d.getSeverity());
-		emergencies.clear();
-
-		emergencies.add(e1);
-		emergencies.add(e5);
-		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
-		emergencies.clear();
-
-		emergencies.add(e1);
-		emergencies.add(e7);
-		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
-		emergencies.clear();
-
-		emergencies.add(e3);
-		emergencies.add(e5);
-		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
-		emergencies.clear();
-
-		emergencies.add(e3);
-		emergencies.add(e7);
-		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
-		emergencies.clear();
-
-		emergencies.add(e5);
-		emergencies.add(e7);
-		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
-		emergencies.clear();
-
-		emergencies.add(e1);
-		emergencies.add(e4);
-		emergencies.add(e6);
-		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		assertEquals(EmergencySeverity.BENIGN, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -215,7 +259,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testCanPartiallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -227,9 +271,21 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 		assertTrue(d.canAssignUnits(units));
+	}
 
+	@Test
+	public void testCanTotallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
 		units.add(politiewagen2);
 		units.add(politiewagen3);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+		emergencies.add(e1);
+		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 		assertTrue(d.canAssignUnits(units));
 	}
@@ -256,21 +312,6 @@ public class DisasterTest {
 		units.add(politiewagen1);
 		units.add(politiewagen2);
 		units.add(politiewagen3);
-
-		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
-		emergencies.add(e1);
-		emergencies.add(e2);
-		d = new Disaster(emergencies, description1);
-		assertTrue(d.canBeResolved(units));
-	}
-
-	@Test
-	public void testCanBeResolved2() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
-		Set<Unit> units = new LinkedHashSet<Unit>(5);
-		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
-		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
-		units.add(politiewagen1);
-		units.add(politiewagen2);
 
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
 		emergencies.add(e1);
@@ -337,6 +378,38 @@ public class DisasterTest {
 		d.finishUnit(politiewagen2);
 		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		d.finishUnit(politiewagen3);
+		assertEquals(EmergencyStatus.COMPLETED, d.getStatus());
+	}
+
+	@Test
+	public void testFinishUnitAutoDispatch() throws InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidConstraintListException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFinishJobException {
+		Set<Unit> units = new LinkedHashSet<Unit>(5);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name2, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
+		emergencies.add(e8);
+		emergencies.add(e1);
+		d = new Disaster(emergencies, description1);
+		
+		d.assignUnits(units);
+		assertEquals(0, e1.getWorkingUnits().size());
+
+		politiewagen1.timeAhead(1000000000);
+		politiewagen2.timeAhead(1000000000);
+
+		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		politiewagen1.finishedJob();
+		assertEquals(1, e1.getWorkingUnits().size());
+		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		politiewagen2.finishedJob();
+		
+		politiewagen1.timeAhead(1000000000);
+		politiewagen1.finishedJob();
+		
+		assertEquals(0, e1.getWorkingUnits().size());
 		assertEquals(EmergencyStatus.COMPLETED, d.getStatus());
 	}
 
@@ -440,7 +513,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testPolicyProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testPolicyProposalBenign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		HashSet<Unit> units = new HashSet<Unit>(3);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -453,6 +526,24 @@ public class DisasterTest {
 
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
 		emergencies.add(e2);
+		Disaster d = new Disaster(emergencies, description1);
+		assertEquals(0, d.getPolicyProposal(units).size());
+	}
+
+	@Test
+	public void testPolicyProposalUrgent() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
+		HashSet<Unit> units = new HashSet<Unit>(3);
+		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen3 = new Policecar(name1, homeLocation1, speed1);
+		Policecar politiewagen4 = new Policecar(name1, homeLocation1, speed1);
+		units.add(politiewagen1);
+		units.add(politiewagen2);
+		units.add(politiewagen3);
+		units.add(politiewagen4);
+
+		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
+		emergencies.add(e8);
 		Disaster d = new Disaster(emergencies, description1);
 		assertEquals(2, d.getPolicyProposal(units).size());
 	}
