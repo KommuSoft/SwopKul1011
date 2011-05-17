@@ -102,8 +102,6 @@ public abstract class Sendable implements Targetable {
 	 * @return True if this emergency is partially assigned, otherwise false.
 	 */
 	public boolean isPartiallyAssigned() {
-		System.out.println(getWorkingUnits().size());
-		System.out.println(!this.canBeResolved(new HashSet<Unit>()));
 		
 		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new HashSet<Unit>()));
 	}

@@ -172,9 +172,9 @@ public class Disaster extends Sendable {
 		Hashtable<String, String> information = super.getInformation();
 
 		//TODO: Deze info kan niet volledig afgeprint worden in UI.
-//		for (Emergency e : getEmergencies()) {
-//			information.putAll(e.getLongInformation());
-//		}
+		for (Emergency e : getEmergencies()) {
+			information.putAll(e.getLongInformation());
+		}
 
 		return information;
 	}
@@ -214,14 +214,14 @@ public class Disaster extends Sendable {
 	 */
 	@Override
 	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
+		Set<Unit> au = new HashSet<Unit>((ArrayList<Unit>)((new ArrayList<Unit>(availableUnits)).clone()));
 		Set<Unit> units = new HashSet<Unit>();
 		for (int i = 0; i < getEmergencies().size(); ++i) {
 			if (getEmergencies().get(i).getSeverity().ordinal() > EmergencySeverity.NORMAL.ordinal()) {
-				units.addAll(getEmergencies().get(i).getPolicyProposal(availableUnits));
-				availableUnits.removeAll(units);
+				units.addAll(getEmergencies().get(i).getPolicyProposal(au));
+				au.removeAll(units);
 			}
 		}
-
 		return units;
 	}
 

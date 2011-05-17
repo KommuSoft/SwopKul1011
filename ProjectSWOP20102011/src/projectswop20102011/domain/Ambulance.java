@@ -57,8 +57,8 @@ public class Ambulance extends Unit {
 	 */
 	public Hospital getCurrentHospital() {
 		return currentHospital;
-	}	
-	
+	}
+
 	/**
 	 * Sets the current hospital chosen by this ambulance.
 	 * @param currentHospital
@@ -145,6 +145,40 @@ public class Ambulance extends Unit {
 
 		}
 
+	}
+
+	/**
+	 * 
+	 * 
+	 * @throws InvalidFinishJobException
+	 * @throws InvalidEmergencyStatusException  
+	 */
+	@Override
+	public void finishedJobForDisasters() throws InvalidFinishJobException, InvalidEmergencyStatusException, InvalidEmergencyException {
+		if (!canFinishJob()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} else {
+			boolean isRequired = isRequired();
+			Emergency e = getEmergency();
+			setWasAlreadyAtSite(false);
+			setUnitStatus(UnitStatus.IDLE);
+			getDisaster().finishUnit(this);
+			setEmergency(null);
+			setCurrentHospital(null);
+
+			if (isRequired) {
+				HashSet<Unit> ambulance = new HashSet<Unit>(0);
+				ambulance.add(this);
+				try {
+					e.getStatus().assignUnits(e.getUnitsNeeded(), ambulance);
+				} catch (InvalidEmergencyException ex) {
+					Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			} else {
+				getDisaster().afterFinish(this);
+			}
+			
+		}
 	}
 
 	@Override

@@ -156,6 +156,7 @@ public class Scenario1Test {
 
 		Firetruck engine2 = (Firetruck) units.get(1);
 		Firetruck engine3 = (Firetruck) units.get(2);
+		//TODO: de availableUnitsSorted returned maar 3 units (dit moet ook zo zijn)
 		Policecar unit1 = (Policecar) units.get(3);
 		Ambulance ambulance1 = (Ambulance) units.get(4);
 		Ambulance ambulance2 = (Ambulance) units.get(5);

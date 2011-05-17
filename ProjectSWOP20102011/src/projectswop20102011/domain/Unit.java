@@ -339,6 +339,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 			setEmergency(emergency);
 			if (getCurrentLocation().equals(emergency.getLocation())) {
 				setWasAlreadyAtSite(true);
+			} else {
+				setWasAlreadyAtSite(false);
 			}
 			setUnitStatus(UnitStatus.ASSIGNED);
 		}
@@ -441,7 +443,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		}
 	}
 
-	private void finishedJobForDisasters() throws InvalidEmergencyStatusException, InvalidEmergencyException {
+	protected void finishedJobForDisasters() throws InvalidEmergencyStatusException, InvalidEmergencyException, InvalidFinishJobException {
+		if (!canFinishJob()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} else if (isRequired()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} else if (!arePresent()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		}
 		getDisaster().finishUnit(this);
 		setEmergency(null);
 		setWasAlreadyAtSite(false);

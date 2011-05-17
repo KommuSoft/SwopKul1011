@@ -224,4 +224,13 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 	public boolean canFinish(List<Unit> finishedUnits) {
 		return (countValidUnits(finishedUnits) >= this.getMinimum()) && countValidUnits(finishedUnits) <= getMaximum();
 	}
+
+	/**
+	 * Returns a textual representation of the NumberDispatchUnitsConstraint.
+	 * @return A textual representation of the NumberDispatchUnitsConstraint.
+	 */
+	@Override
+	public String toString() {
+		return String.format("number of %s must be higher than %s and lower than %s.", getValidator().toString(), getMinimum(), getMaximum());
+	}
 }

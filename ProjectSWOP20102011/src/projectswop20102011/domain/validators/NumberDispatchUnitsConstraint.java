@@ -92,7 +92,7 @@ public class NumberDispatchUnitsConstraint extends MinMaxNumberDispatchUnitsCons
      */
     @Override
     public String toString() {
-        return String.format("number of %s must be %s",this.getValidator().toString(),this.getNumber());
+        return String.format("number of %s must be %s",this.getValidator().toString(), this.getNumber());
     }
 
 }

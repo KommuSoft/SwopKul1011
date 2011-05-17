@@ -113,8 +113,8 @@ public class Main {
 		CommandUserInterface dispatchUnitsToDisasterInterface = new DispatchUnitsToDisasterUserInterface(new DispatchUnitsToDisasterController(world), new DisasterMapper(world));
 		CommandUserInterface createDisasterInterface = new CreateDisasterUserInterface(new CreateDisasterController(world), new InspectEmergenciesController(world), new EmergencyMapper(world));
 		CommandUserInterface inspectDisastersInterface = new InspectDisastersUserInterface(new InspectDisastersController(world), new DisasterMapper(world));
-		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface, createDisasterInterface);
-		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentFromEmergencyInterface, removeUnitAssignmentFromDisasterInterface, dispatchUnitsToDisasterInterface,inspectDisastersInterface);
+		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);
+		ActorUserInterface dispatcherUserInterface = new ActorUserInterface("Dispatcher", createDisasterInterface, dispatchUnitsUserInterface, inspectEmergenciesUserInterface, removeUnitAssignmentFromEmergencyInterface, removeUnitAssignmentFromDisasterInterface, dispatchUnitsToDisasterInterface,inspectDisastersInterface);
 		ActorUserInterface demonstratorUserInterface = new ActorUserInterface("Demonstrator", timeAheadUserInterface);
 		ActorUserInterface unitCommanderUserInterface = new ActorUserInterface("Unit commander", selectHospitalUserInterface, endOfEmergencyUserInterface);
 		mainUserInterface.addActorUserInterfaces(operatorUserInterface, dispatcherUserInterface, demonstratorUserInterface, unitCommanderUserInterface);

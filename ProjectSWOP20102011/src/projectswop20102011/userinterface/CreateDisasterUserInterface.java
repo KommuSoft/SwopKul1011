@@ -107,7 +107,12 @@ public class CreateDisasterUserInterface extends CommandUserInterface {
 					long id = Long.parseLong(input);
 					Emergency emergency = getEmergencyMapper().getEmergencyFromId(id);
 					if (emergency != null) {
-						this.writeOutput(this.getLongInformationString(emergency));
+						if (emergency.getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)) {
+							this.writeOutput(this.getLongInformationString(emergency));
+						} else {
+							this.writeOutput("ERROR: can't choose an emergency that isn't unhandled.");
+						}
+
 					} else {
 						this.writeOutput("ERROR: can't find the asked emergency, please try again.");
 					}
@@ -137,7 +142,7 @@ public class CreateDisasterUserInterface extends CommandUserInterface {
 			} while (!expression.equals("stop"));
 		} catch (ParsingAbortedException parsingAbortedException) {
 		}
-		
+
 		try {
 			getController().createDisaster(emergenciesToAssign, description);
 		} catch (InvalidEmergencyException ex) {

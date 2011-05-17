@@ -65,8 +65,6 @@ public abstract class DispatchUnitsConstraint {
 		if (generateProposal(finishedOrAssigned, available, proposal)) {
 			List<Unit> assumedFinished = new ArrayList<Unit>(finishedOrAssigned);
 			assumedFinished.addAll(proposal);
-			System.out.println("Available units " + availableUnits.size());
-			System.out.println("Assumed finished " + assumedFinished.size());
 			return canFinish(assumedFinished);
 		} else {
 			return false;

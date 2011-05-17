@@ -74,17 +74,18 @@ public class DispatchUnitsToDisasterUserInterface extends CommandUserInterface {
 							retry = false;
 							this.writeOutput("REQUIRED UNITS:");
 							//TODO: Hier moet enkel het aantal units komen die vereist is, niet welke soorten
-							Set<Unit> requiredUnits = this.getController().getRequiredUnits(selectedDisaster);
-							ArrayList<Unit> requiredUnisL = new ArrayList<Unit>(requiredUnits);
+//							Set<Unit> requiredUnits = this.getController().getRequiredUnits(selectedDisaster);
+//							ArrayList<Unit> requiredUnisL = new ArrayList<Unit>(requiredUnits);
 							//print information for the suggested units
-							for (int i = 0; i < requiredUnisL.size(); i++) {
-								Unit u = requiredUnisL.get(i);
-								double distance = u.getCurrentLocation().getDistanceTo(selectedDisaster.getLocation());
-								long eta = u.getETA(selectedDisaster.getLocation());
-								this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
-							}
+//							for (int i = 0; i < requiredUnisL.size(); i++) {
+//								Unit u = requiredUnisL.get(i);
+//								double distance = u.getCurrentLocation().getDistanceTo(selectedDisaster.getLocation());
+//								long eta = u.getETA(selectedDisaster.getLocation());
+//								this.writeOutput(String.format("\t%s\t%s\t%s\t%.4f\t%s", i, u.getClass().getSimpleName(), u.getName(), distance, eta));
+//							}
+							this.writeOutput(getController().getRequiredUnits(selectedDisaster));
 
-							this.writeOutput("AVAILABLE UNITS:");
+							this.writeOutput("AVAILABLE UNITS:" + selectedDisaster);
 							ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedDisaster);
 							for (int i = 0; i < availableUnits.size(); i++) {
 								Unit u = availableUnits.get(i);
