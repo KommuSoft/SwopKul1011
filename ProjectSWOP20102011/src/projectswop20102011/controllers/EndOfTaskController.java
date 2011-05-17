@@ -1,9 +1,13 @@
 package projectswop20102011.controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.World;
+import projectswop20102011.domain.Hospital;
+import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidEmergencyStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
@@ -52,4 +56,14 @@ public class EndOfTaskController extends Controller {
         }
         unit.finishedJob();
     }
+
+	public ArrayList<Unit> findAllUnits() {
+		MapItemValidator criterium = new TypeMapItemValidator(Hospital.class);
+		
+		ArrayList<Unit> mapItems = getWorld().getMapItemList().toArrayList();
+		ArrayList<Unit> hospitals = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).toArrayList();
+		mapItems.removeAll(hospitals);
+		
+        return mapItems;
+	}
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.controllers.SelectHospitalController;
-import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
@@ -34,9 +33,6 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
 
 	@Override
 	public void handleUserInterface() {
-		//String name = this.parseInputToType(new StringParser(), "name of the unit");
-		//Ambulance amb = this.getController().findAmbulance(name);
-
 		ArrayList<Ambulance> ambulances = this.getController().findAllAmbulances();
 		if (ambulances.isEmpty()) {
 			this.writeOutput("ERROR: There are no ambulances.");
@@ -46,7 +42,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
 			}
 
 		}
-		this.writeOutput("Type in a unit id");
+		this.writeOutput("Type in a ambulance id");
 		String expression = null;
 		try {
 			expression = this.parseInputToType(new StringParser(), "id");
@@ -71,7 +67,6 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
 		
 
 		if (id < ambulances.size()) {
-			System.out.println("Naam " + amb.getName());
 			this.writeOutput(String.format("Login %s", amb));
 			if (!amb.isAssigned()) {
 				this.writeOutput("Ambulance is not assigned to an emergency");
