@@ -59,4 +59,9 @@ public class SelectHospitalController extends Controller {
         ambulance.selectHospital(hospital);
     }
 
+	public ArrayList<Ambulance> findAllAmbulances() {
+		MapItemValidator criterium = new TypeMapItemValidator(Ambulance.class);
+        return this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).toArrayList();
+	}
+
 }

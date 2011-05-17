@@ -75,14 +75,20 @@ public class RemoveUnitAssignmentFromEmergencyUserInterface extends CommandUserI
 						writeOutput(String.format("ERROR: %s", ex.getMessage()));
 					}
 					if (!expression.equals("stop")) {
-						int id = Integer.parseInt(expression);
+						int id = -1;
 						try {
-							this.getController().withdrawUnit(workingUnits.get(id));
-							this.writeOutput("Unit removed.");
-						} catch (Exception e) {
-							writeOutput(String.format("ERROR: %s", e.getMessage()));
+							id = Integer.parseInt(expression);
+						} catch (NumberFormatException ex) {
+							writeOutput(String.format("ERROR: %s", ex.getMessage()));
 						}
-
+						if (id >= 0) {
+							try {
+								this.getController().withdrawUnit(workingUnits.get(id));
+								this.writeOutput("Unit removed.");
+							} catch (Exception e) {
+								writeOutput(String.format("ERROR: %s", e.getMessage()));
+							}
+						}
 					}
 				} while (!expression.equals("stop"));
 				this.writeOutput("Units are removed");

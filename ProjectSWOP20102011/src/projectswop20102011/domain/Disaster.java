@@ -147,22 +147,6 @@ public class Disaster extends Sendable {
 	}
 
 	/**
-	 * Returns a hashtable that contains the information of this emergency.
-	 * This hashtable contains the id, location, severity, status and the working units.
-	 * @return A hashtable that contains the information of this emergency.
-	 */
-	@Override
-	protected Hashtable<String, String> getInformation() {
-		Hashtable<String, String> information = super.getInformation();
-
-//		for (Emergency e : getEmergencies()) {
-//			information.putAll(e.getShortInformation());
-//		}
-
-		return information;
-	}
-
-	/**
 	 * Returns a hashtable that contains the extended information of this emergency.
 	 * This hashtable contains the id, type, location, severity, status, the working units and specific elements of the child of this emergency.
 	 * @return A hashtable that contains the extended information of this emergency.
