@@ -8,6 +8,7 @@ import projectswop20102011.controllers.Controller;
 import projectswop20102011.controllers.DisasterMapper;
 import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.domain.Disaster;
+import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.EmergencyStatus;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
@@ -19,7 +20,7 @@ import projectswop20102011.utils.parsers.EmergencyStatusParser;
  * A command user interface to inspect the disasters
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class InspectDisastersUserInterface extends CommandUserInterface{
+public class InspectDisastersUserInterface extends CommandUserInterface {
 
 	private final InspectDisastersController inspectDisastersController;
 	private final DisasterMapper disasterController;
@@ -50,7 +51,7 @@ public class InspectDisastersUserInterface extends CommandUserInterface{
 	 */
 	private String getShortInformationString(Disaster disaster) {
 		//String result = String.format("[type=%s", emergency.getClass().getSimpleName());
-		String result = "";
+		String result = "[Disaster ";
 		Set<Entry<String, String>> set = this.getController().getDisasterShortInformation(disaster);
 		for (Entry<String, String> e : set) {
 			result += String.format("; %s=%s", e.getKey(), e.getValue());
@@ -64,16 +65,21 @@ public class InspectDisastersUserInterface extends CommandUserInterface{
 	 * @return A textual representation of the given Emergency.
 	 */
 	private String getLongInformationString(Disaster disaster) {
-		//String result = String.format("\ttype=%s", emergency.getClass().getSimpleName());
 		String result = "";
-		Set<Entry<String, String>> set = this.getController().getDisasterLongInformation(disaster);
-		for (Entry<String, String> e : set) {
-			result += String.format("\n\t%s=%s", e.getKey(), e.getValue());
+
+		for (int i = 0; i < disaster.getEmergencies().size(); ++i) {
+			result += "Emergency " + (i + 1) + ": ";
+			Set<Entry<String, String>> set = disaster.getEmergencies().get(i).getLongInformation().entrySet();
+			for (Entry<String, String> e : set) {
+				result += String.format("\n\t%s=%s", e.getKey(), e.getValue());
+			}
+			result += "\n";
 		}
+
+		result += "Disaster \n" + getShortInformationString(disaster); 
+		
 		return result;
 	}
-
-
 
 	@Override
 	public void handleUserInterface() {
