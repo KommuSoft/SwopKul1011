@@ -253,7 +253,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *		The speed of a timesensitive mapitem to test.
      * @return True if the speed is valid; false otherwise.
      */
-    public boolean isValidSpeed(long speed) {
+    public static boolean isValidSpeed(long speed) {
         return speed >= 0;
     }
 
@@ -282,7 +282,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         if (duration > 0) {
             if (!this.isAtDestination()) {
                 this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
-                checkArrivedAtDestination();
             }
         } else if (duration < 0) {
             throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
@@ -403,6 +402,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
      */
     public void finishedJob() throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
+        //TODO: verbeteren (mappen door disaster)
         if (getDisaster() == null) {
             finishedJobForEmergencies();
         } else {
@@ -454,6 +454,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @return
      */
     public boolean isRequired() {
+        //TODO: welke principes worden hier gebruikt?
         Set<Unit> unit = new HashSet<Unit>(0);
         unit.add(this.clone());
 //		ArrayList<Unit> workingUnits = this.getEmergency().getWorkingUnits();
@@ -471,7 +472,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * Checks whether all needed units of this type are present at the location of the emergency
      * @return
      */
-    public abstract boolean arePresent();
+    public abstract boolean arePresent();//wat doet deze methode hier?
 
     /**
      * Clone this unit
@@ -479,16 +480,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      */
     @Override
     public abstract Unit clone();
-
-    /**
-     * A virtual method that will be called by the system when the unit is arrived at his location.
-     * @note This method can be called from two methods: changeLocation(long) and setTarget(Targetable).
-     * @note If this method is called from the changeLocation method, it will not call this method anymore unit it has a new target.
-     * @see #setTarget(projectswop20102011.domain.Targetable)
-     * @see #changeLocation(long)
-     */
-    protected void arrivedAtDestination() {
-    }
 
     /**
      * Returns the target where the Unit is driving to.
@@ -507,7 +498,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             throw new InvalidTargetableException("The target must be effective.");
         }
         this.target = target;
-        checkArrivedAtDestination();
     }
 
     /**
@@ -518,14 +508,5 @@ public abstract class Unit extends MapItem implements TimeSensitive {
     public boolean isValidTarget(Targetable target) {
         return (target != null);
     }
-
-    /**
-     * Checks if the Unit arrived at it's Destination and if so, calls the arrivedAtDestination method.
-     * @see #arrivedAtDestination()
-     */
-    private void checkArrivedAtDestination() {
-        if (this.isAtDestination()) {
-            this.arrivedAtDestination();
-        }
-    }
+    
 }
