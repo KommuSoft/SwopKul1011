@@ -191,7 +191,7 @@ public class MinMaxNumberDispatchUnitsConstraintTest {
      * Test of generateProposal method, of class MinMaxNumberDispatchUnitsConstraint.
      */
     @Test
-    public void testGenerateProposal() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
+    public void testGenerateProposal() throws NumberOutOfBoundsException, InvalidValidatorException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException {
         List<Unit> finishedOrAssignedUnits = new ArrayList<Unit>();
         SortedSet<Unit> availableUnits = new SortedListSet<Unit>();
         Ambulance a01 = new Ambulance("a01",new GPSCoordinate(0,0),50);
@@ -229,23 +229,30 @@ public class MinMaxNumberDispatchUnitsConstraintTest {
         assertTrue(proposal.contains(a02));
         assertTrue(proposal.contains(f02));
         assertTrue(proposal.contains(a03));
+
+        instance = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class),14,25);
+        proposal = new HashSet<Unit>();
+        result = instance.generateProposal(finishedOrAssignedUnits, availableUnits, proposal);
+        assertEquals(expResult, result);
+        assertEquals(2,proposal.size());
+        assertTrue(proposal.contains(f01));
+        assertTrue(proposal.contains(f02));
     }
 
     /**
      * Test of canAssign method, of class MinMaxNumberDispatchUnitsConstraint.
      */
     @Test
-    public void testCanAssign() {
-        /*System.out.println("canAssign");
-        List<Unit> finishedOrAssignedUnits = null;
-        Set<Unit> toAssignUnits = null;
-        Set<Unit> relevantUnits = null;
-        MinMaxNumberDispatchUnitsConstraint instance = null;
-        boolean expResult = false;
+    public void testCanAssign() throws InvalidClassException, NumberOutOfBoundsException, InvalidValidatorException {
+        List<Unit> finishedOrAssignedUnits = new ArrayList<Unit>();
+        Set<Unit> toAssignUnits = new HashSet<Unit>();
+        Set<Unit> relevantUnits = new HashSet<Unit>();
+        MinMaxNumberDispatchUnitsConstraint instance = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Firetruck.class),14,25);
+        boolean expResult = true;
         boolean result = instance.canAssign(finishedOrAssignedUnits, toAssignUnits, relevantUnits);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");*/
+        assertEquals(0,relevantUnits.size());
+        //TODO: complete test
     }
 
     /**

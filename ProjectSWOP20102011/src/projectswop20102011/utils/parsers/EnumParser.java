@@ -87,7 +87,7 @@ public class EnumParser<T extends Enum> extends BasicUserInterfaceParser<T> {
         if(iterator.hasNext()) {
             sbRegex.append(iterator.next());
             while(iterator.hasNext()) {
-                sbRegex.append(String.format("|%s",iterator.next()));
+                sbRegex.append(String.format("|%s",iterator.next().toLowerCase()));
             }
         }
         return Pattern.compile(sbRegex.toString());
@@ -112,10 +112,11 @@ public class EnumParser<T extends Enum> extends BasicUserInterfaceParser<T> {
      */
     @Override
     public int parse(String textualRepresentation, ObjectHolder<? super T> objectHolder) throws ParsingException {
-        if(!this.canParse(textualRepresentation)) {
+        String lowerTextualRepresentation = textualRepresentation.toLowerCase();
+        if(!this.canParse(lowerTextualRepresentation)) {
             throw new ParsingException("Can't find a textual representation that can be parsed.");
         }
-        Matcher matcher = this.getSearchPattern().matcher(textualRepresentation);
+        Matcher matcher = this.getSearchPattern().matcher(lowerTextualRepresentation);
         matcher.find();
         T value = this.getEnumerationDictionary().get(matcher.group(0));
         objectHolder.setObject(value);

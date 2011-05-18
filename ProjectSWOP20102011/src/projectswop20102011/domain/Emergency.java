@@ -38,9 +38,9 @@ public abstract class Emergency extends Sendable {
      */
     private ConcreteUnitsNeeded unitsNeeded;
     /**
-     * A variable registering whether this emergency is part of a Disaster
+     * A veriable registering to which disaster this emergency is part of. Null if the emergency is no part of a disaster.
      */
-    private boolean partOfDisaster;
+    private Disaster disaster;
 
     /**
      * Make a new emergency with the given location, severity and description.
@@ -68,7 +68,7 @@ public abstract class Emergency extends Sendable {
         setLocation(location);
         setSeverity(severity);
         setDescription(description);
-        setIsPartOfADisaster(false);
+        setDisaster(null);
         try {
             setStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
         } catch (InvalidSendableStatusException ex) {
@@ -126,22 +126,11 @@ public abstract class Emergency extends Sendable {
     }
 
     /**
-     * Sets whether this emergency is part of a disaster.
-     * @param partOfADisaster
-     *		The new value of the partOfDisaster indicator
-     * @post This partOfDisaster indicator is equal to the given partOfADisaster indicator.
-     *		| partOfDisaster.equals(partOfADisaster())
-     */
-    void setIsPartOfADisaster(boolean partOfADisaster) {
-        this.partOfDisaster = partOfADisaster;
-    }
-
-    /**
      * Returns the part of a disaster indicator of this emergency
      * @return The part of a disaster indicator of this emergency
      */
     public boolean isPartOfADisaster() {
-        return partOfDisaster;
+        return (this.getDisaster() != null);
     }
 
     /**
@@ -246,5 +235,25 @@ public abstract class Emergency extends Sendable {
      */
     public DispatchUnitsConstraint getDispatchConstraint() {
         return this.getUnitsNeeded().getConstraint();
+    }
+
+    /**
+     * Gets the disaster where this emergency is part of, if this emergency is no part of a disaster null is returned.
+     * @return the disaster where this emergency is part of, if this emergency is no part of a disaster null is returned.
+     */
+    public Disaster getDisaster () {
+        return this.disaster;
+    }
+
+    /**
+     * Sets the disaster where this emergency is part of.
+     * @param disaster The disaster where this emergency is part of.
+     * @throws InvalidEmergencyException If the Emergency is already part of a Disaster.
+     */
+    void setDisaster(Disaster disaster) throws InvalidEmergencyException {
+        if(this.isPartOfADisaster()) {
+            throw new InvalidEmergencyException("The emergency is already part of an emergency.");
+        }
+        this.disaster = disaster;
     }
 }

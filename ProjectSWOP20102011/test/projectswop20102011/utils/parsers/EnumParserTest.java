@@ -16,7 +16,6 @@ public class EnumParserTest {
     private EnumParser emergencyStatusParser = new EnumParser<SendableStatus>(SendableStatus.class);
     private EnumParser emergencySeverityParser = new EnumParser<SendableSeverity>(SendableSeverity.class);
 
-
     @Test
     public void testConstructor() {
         new EnumParser(FireSize.class);
@@ -32,23 +31,23 @@ public class EnumParserTest {
         ObjectHolder<FireSize> fireSizeHolder = new ObjectHolder<FireSize>();
         String textualRepresentation = "local";
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
-        assertEquals(FireSize.LOCAL,fireSizeHolder.getObject());
+        assertEquals(FireSize.LOCAL, fireSizeHolder.getObject());
         textualRepresentation = "house";
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
-        assertEquals(FireSize.HOUSE,fireSizeHolder.getObject());
+        assertEquals(FireSize.HOUSE, fireSizeHolder.getObject());
         textualRepresentation = "facility";
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
-        assertEquals(FireSize.FACILITY,fireSizeHolder.getObject());
+        assertEquals(FireSize.FACILITY, fireSizeHolder.getObject());
 
         textualRepresentation = "42local1425";
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
-        assertEquals(FireSize.LOCAL,fireSizeHolder.getObject());
+        assertEquals(FireSize.LOCAL, fireSizeHolder.getObject());
         textualRepresentation = "1302house1817";
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
-        assertEquals(FireSize.HOUSE,fireSizeHolder.getObject());
+        assertEquals(FireSize.HOUSE, fireSizeHolder.getObject());
         textualRepresentation = "2010facility2015";
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
-        assertEquals(FireSize.FACILITY,fireSizeHolder.getObject());
+        assertEquals(FireSize.FACILITY, fireSizeHolder.getObject());
 
         ObjectHolder<SendableStatus> emergencyStatusHolder = new ObjectHolder<SendableStatus>();
         textualRepresentation = "recorded but unhandled";
@@ -152,6 +151,4 @@ public class EnumParserTest {
         assertFalse(emergencySeverityParser.canParse("Serieus"));
         assertFalse(emergencySeverityParser.canParse("Kritiek"));
     }
-    
-
 }
