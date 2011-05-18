@@ -62,13 +62,13 @@ public abstract class Emergency extends Sendable {
      *		|new.getDescription().equals(description)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an emergency.
-     * @throws InvalidEmergencySeverityException
+     * @throws InvalidSendableSeverityException
      *		If the given severity is an invalid severity for an emergency.
      */
     protected Emergency(GPSCoordinate location, SendableSeverity severity, String description) throws InvalidLocationException, InvalidSendableSeverityException {
+        super(description);
         setLocation(location);
         setSeverity(severity);
-        setDescription(description);
         try {
             setDisaster(null);
         } catch (InvalidEmergencyException ex) {

@@ -13,6 +13,10 @@ public abstract class Sendable implements Targetable {
      * The description of the sendable.
      */
     private String description;
+    
+    protected Sendable (String description) {
+        setDescription(description);
+    }
 
     /**
      * Returns the location of this emergency.
@@ -116,7 +120,7 @@ public abstract class Sendable implements Targetable {
      * Assigning units to this emergency.
      * @param units
      *      A list of units to assign.
-     * @throws InvalidEmergencyStatusException
+     * @throws InvalidSendableStatusException
      *      If the status of this emergency does not allow this action.
      * @throws  InvalidEmergencyException
      *		If the emergency is invalid.

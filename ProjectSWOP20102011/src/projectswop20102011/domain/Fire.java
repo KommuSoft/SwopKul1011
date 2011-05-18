@@ -238,11 +238,11 @@ public class Fire extends Emergency {
 		return information;
 	}
 	
-	private long calculateMinNumberOfAmbulances(){
-		return (getTrappedPeople() + getNumberOfInjured()+1) / 2;
-	}
-	
-	private long calculateMaxNumberOfAmbulances(){
+	/**
+         * Calculates the number of patients from this emergency.
+         * @return The number of patients from this emergency.
+         */
+        private long calculateNumberOfPatients(){
 		return getTrappedPeople() + getNumberOfInjured();
 	}
 
@@ -256,8 +256,8 @@ public class Fire extends Emergency {
 			long[] units = FireUnitsNeededCalculator.calculate(getSize());
 			long numberOfLitersRequired = units[0];
 			long policecars = units[1];
-			long minimum = calculateMinNumberOfAmbulances();
-			long maximum = calculateMaxNumberOfAmbulances();
+			long minimum = Ambulance.getMinimumNumberOfAmbulances(this.calculateNumberOfPatients());
+			long maximum = Ambulance.getMaximumNumberOfAmbulances(this.calculateNumberOfPatients());
 			
 			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired, Long.MAX_VALUE); 
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);

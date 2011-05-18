@@ -154,11 +154,11 @@ public class TrafficAccident extends Emergency {
 		return information;
 	}
 
-	private long calculateMinNumberOfAmbulances() {
-		return (getNumberOfInjured() + 1) / 2;
-	}
-
-	private long calculateMaxNumberOfAmbulances() {
+	/**
+         * Caclulates the number of patients of this emergency.
+         * @return The number of patients of this emergency.
+         */
+        private long calculateNumberOfPatients() {
 		return getNumberOfInjured();
 	}
 
@@ -169,8 +169,8 @@ public class TrafficAccident extends Emergency {
 	@Override
 	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
-			long minimum = calculateMinNumberOfAmbulances();
-			long maximum = calculateMaxNumberOfAmbulances();
+			long minimum = Ambulance.getMinimumNumberOfAmbulances(this.calculateNumberOfPatients());
+			long maximum = Ambulance.getMaximumNumberOfAmbulances(this.calculateNumberOfPatients());
 			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), 1000, Long.MAX_VALUE);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);

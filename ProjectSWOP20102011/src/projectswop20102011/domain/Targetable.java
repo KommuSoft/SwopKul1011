@@ -6,6 +6,10 @@ package projectswop20102011.domain;
  */
 public interface Targetable {
 
+    /**
+     * Returns the location of the target.
+     * @return A GPSCoordinate that represents the location of the target.
+     */
     public GPSCoordinate getTargetLocation ();
 
 }
