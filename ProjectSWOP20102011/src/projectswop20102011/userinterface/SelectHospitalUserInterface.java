@@ -1,6 +1,7 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
+import java.util.List;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.controllers.SelectHospitalController;
@@ -33,7 +34,7 @@ public class SelectHospitalUserInterface extends CommandUserInterface {
 
 	@Override
 	public void handleUserInterface() {
-		ArrayList<Ambulance> ambulances = this.getController().findAllAmbulances();
+		List<Ambulance> ambulances = this.getController().findAllAmbulances();
 		if (ambulances.isEmpty()) {
 			this.writeOutput("ERROR: There are no ambulances.");
 		} else {

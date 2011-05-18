@@ -1,6 +1,7 @@
 package projectswop20102011.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.validators.HospitalToEmergencyDistanceComparator;
@@ -59,7 +60,7 @@ public class SelectHospitalController extends Controller {
         ambulance.selectHospital(hospital);
     }
 
-	public ArrayList<Ambulance> findAllAmbulances() {
+	public List<Ambulance> findAllAmbulances() {
 		MapItemValidator criterium = new TypeMapItemValidator(Ambulance.class);
         return this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).toArrayList();
 	}

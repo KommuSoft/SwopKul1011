@@ -45,13 +45,4 @@ public class InspectDisastersController extends Controller {
 	public Set<Entry<String, String>> getDisasterShortInformation(Disaster disaster) {
 		return disaster.getShortInformation().entrySet();
 	}
-
-	/**
-	 * Generates a table of all the information of the given disaster.
-	 * @param disaster The disaster to generate the table for.
-	 * @return A set of entries of a table containing all the information of the disaster.
-	 */
-	public Set<Entry<String, String>> getDisasterLongInformation(Disaster disaster) {
-		return disaster.getLongInformation().entrySet();
-	}
 }

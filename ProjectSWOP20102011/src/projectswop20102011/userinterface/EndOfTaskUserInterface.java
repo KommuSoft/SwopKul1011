@@ -1,6 +1,7 @@
 package projectswop20102011.userinterface;
 
 import java.util.ArrayList;
+import java.util.List;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.EndOfTaskController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
@@ -26,15 +27,15 @@ public class EndOfTaskUserInterface extends CommandUserInterface {
 
 	@Override
 	public void handleUserInterface() {
-		ArrayList<Unit> units = this.getController().findAllUnits();
+		List<Unit> units = this.getController().findAllUnits();
 		if (units.isEmpty()) {
 			this.writeOutput("ERROR: There are no units.");
 		} else {
 			for (int i = 0; i < units.size(); ++i) {
 				this.writeOutput(String.format("\t%s\t%s", i, units.get(i).getName()));
 			}
-
 		}
+		
 		this.writeOutput("Type in a unit id");
 		String expression = null;
 		try {

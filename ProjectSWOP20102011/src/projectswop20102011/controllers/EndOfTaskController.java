@@ -2,6 +2,7 @@ package projectswop20102011.controllers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
@@ -57,7 +58,7 @@ public class EndOfTaskController extends Controller {
         unit.finishedJob();
     }
 
-	public ArrayList<Unit> findAllUnits() {
+	public List<Unit> findAllUnits() {
 		MapItemValidator criterium = new TypeMapItemValidator(Hospital.class);
 		
 		ArrayList<Unit> mapItems = getWorld().getMapItemList().toArrayList();
