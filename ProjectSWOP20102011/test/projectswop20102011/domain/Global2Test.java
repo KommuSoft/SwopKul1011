@@ -3,6 +3,7 @@ package projectswop20102011.domain;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +14,13 @@ import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.controllers.DispatchUnitsToDisasterController;
 import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.EndOfTaskController;
+import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.RemoveUnitAssignmentFromDisasterController;
 import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyController;
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
+import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
@@ -42,6 +45,7 @@ public class Global2Test {
 	World world;
 	CreateDisasterController cdc;
 	InspectEmergenciesController iec;
+	InspectDisastersController idc;
 	CreateEmergencyController cec;
 	DispatchUnitsToEmergencyController duc;
 	DispatchUnitsToDisasterController dudc;
@@ -49,10 +53,41 @@ public class Global2Test {
 	EndOfTaskController eotc;
 	RemoveUnitAssignmentFromEmergencyController ruafe;
 	RemoveUnitAssignmentFromDisasterController ruafd;
-
+	Firetruck ft1;
+	Firetruck ft2;
+	Firetruck ft3;
+	Firetruck ft4;
+	Firetruck ft5;
+	Ambulance am1;
+	Ambulance am2;
+	Ambulance am3;
+	Ambulance am4;
+	Ambulance am5;
+	Ambulance am6;
+	Policecar pc1;
+	Policecar pc2;
+	Policecar pc3;
+	Policecar pc4;
+	Policecar pc5;
+	Hospital h1;
+	Hospital h2;
+	Hospital h3;
+	Fire f1;
+	Fire f2;
+	Fire f3;
+	Robbery r1;
+	Robbery r2;
+	Robbery r3;
+	Robbery r4;
+	TrafficAccident ta1;
+	TrafficAccident ta2;
+	TrafficAccident ta3;
+	PublicDisturbance pd1;
+	PublicDisturbance pd2;
+	PublicDisturbance pd3;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidWorldException {
+	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidWorldException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencySeverityException {
 		world = new World();
 		iec = new InspectEmergenciesController(world);
 		cec = new CreateEmergencyController(world);
@@ -63,10 +98,60 @@ public class Global2Test {
 		ruafd = new RemoveUnitAssignmentFromDisasterController(world);
 		cdc = new CreateDisasterController(world);
 		dudc = new DispatchUnitsToDisasterController(world);
+		idc = new InspectDisastersController(world);
+
+		//Firetrucks aanmaken
+		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
+		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
+		ft3 = new Firetruck("brandweerwagen3", new GPSCoordinate(300, 300), 10 * 3600, 95000);
+		ft4 = new Firetruck("brandweerwagen4", new GPSCoordinate(400, 400), 10 * 3600, 6000);
+		ft5 = new Firetruck("brandweerwagen5", new GPSCoordinate(500, 500), 10 * 3600, 42000);
+
+		//Ambulances aanmaken
+		am1 = new Ambulance("ziekenwagen1", new GPSCoordinate(600, 600), 10 * 3600);
+		am2 = new Ambulance("ziekenwagen1", new GPSCoordinate(700, 700), 10 * 3600);
+		am3 = new Ambulance("ziekenwagen1", new GPSCoordinate(800, 800), 10 * 3600);
+		am4 = new Ambulance("ziekenwagen1", new GPSCoordinate(900, 900), 10 * 3600);
+		am5 = new Ambulance("ziekenwagen1", new GPSCoordinate(1000, 1000), 10 * 3600);
+		am6 = new Ambulance("ziekenwagen1", new GPSCoordinate(1100, 1100), 10 * 3600);
+
+		//Policecars aanmaken
+		pc1 = new Policecar("politiewagen1", new GPSCoordinate(1200, 1200), 10 * 3600);
+		pc2 = new Policecar("politiewagen1", new GPSCoordinate(1300, 1300), 10 * 3600);
+		pc3 = new Policecar("politiewagen1", new GPSCoordinate(1400, 1400), 10 * 3600);
+		pc4 = new Policecar("politiewagen1", new GPSCoordinate(1500, 1500), 10 * 3600);
+		pc5 = new Policecar("politiewagen1", new GPSCoordinate(1600, 1600), 10 * 3600);
+
+		//Hospitals aanmaken
+		h1 = new Hospital("UZ1", new GPSCoordinate(-5000, -5000));
+		h2 = new Hospital("UZ2", new GPSCoordinate(0, 0));
+		h3 = new Hospital("UZ3", new GPSCoordinate(5000, 5000));
+
+		//Fires aanmaken
+		f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+
+		//Robberies aanmaken
+		r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
+		r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
+		r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
+		r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+
+		//TrafficAccidents aanmaken
+		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
+		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
+		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+
+		//Public Disturbances aanmaken
+		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
+		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
+		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+
 	}
 
 	@Test
-	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException {
+	public void testFinishedJob() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException,  InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException, InvalidEmergencySeverityException, InvalidEmergencyStatusException {
 		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98, 9), 100, 1001);
 		Ambulance am1 = new Ambulance("ambulance1", new GPSCoordinate(9, 98), 100);
 		Ambulance am2 = new Ambulance("ambulance2", new GPSCoordinate(9, 98), 100);
@@ -141,35 +226,7 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testExtendedFinishedJob() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidClassException, InvalidDurationException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidWithdrawalException, InvalidMapItemException {
-
-		//Firetrucks aanmaken
-		Firetruck ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
-		Firetruck ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
-		Firetruck ft3 = new Firetruck("brandweerwagen3", new GPSCoordinate(300, 300), 10 * 3600, 95000);
-		Firetruck ft4 = new Firetruck("brandweerwagen4", new GPSCoordinate(400, 400), 10 * 3600, 6000);
-		Firetruck ft5 = new Firetruck("brandweerwagen5", new GPSCoordinate(500, 500), 10 * 3600, 42000);
-
-		//Ambulances aanmaken
-		Ambulance am1 = new Ambulance("ziekenwagen1", new GPSCoordinate(600, 600), 10 * 3600);
-		Ambulance am2 = new Ambulance("ziekenwagen1", new GPSCoordinate(700, 700), 10 * 3600);
-		Ambulance am3 = new Ambulance("ziekenwagen1", new GPSCoordinate(800, 800), 10 * 3600);
-		Ambulance am4 = new Ambulance("ziekenwagen1", new GPSCoordinate(900, 900), 10 * 3600);
-		Ambulance am5 = new Ambulance("ziekenwagen1", new GPSCoordinate(1000, 1000), 10 * 3600);
-		Ambulance am6 = new Ambulance("ziekenwagen1", new GPSCoordinate(1100, 1100), 10 * 3600);
-
-		//Policecars aanmaken
-		Policecar pc1 = new Policecar("politiewagen1", new GPSCoordinate(1200, 1200), 10 * 3600);
-		Policecar pc2 = new Policecar("politiewagen1", new GPSCoordinate(1300, 1300), 10 * 3600);
-		Policecar pc3 = new Policecar("politiewagen1", new GPSCoordinate(1400, 1400), 10 * 3600);
-		Policecar pc4 = new Policecar("politiewagen1", new GPSCoordinate(1500, 1500), 10 * 3600);
-		Policecar pc5 = new Policecar("politiewagen1", new GPSCoordinate(1600, 1600), 10 * 3600);
-
-		//Hospitals aanmaken
-		Hospital h1 = new Hospital("UZ1", new GPSCoordinate(-5000, -5000));
-		Hospital h2 = new Hospital("UZ2", new GPSCoordinate(0, 0));
-		Hospital h3 = new Hospital("UZ3", new GPSCoordinate(5000, 5000));
-
+	public void testExtendedFinishedJobEmergency() throws InvalidClassException, InvalidWithdrawalException, InvalidMapItemException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidEmergencyStatusException {
 		//Firetrucks toevoegen aan de MapItemList
 		world.getMapItemList().addMapItem(ft1);
 		world.getMapItemList().addMapItem(ft2);
@@ -218,27 +275,6 @@ public class Global2Test {
 		world.getTimeSensitiveList().addTimeSensitive(pc3);
 		world.getTimeSensitiveList().addTimeSensitive(pc4);
 		world.getTimeSensitiveList().addTimeSensitive(pc5);
-
-		//Fires aanmaken
-		Fire f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
-		Fire f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
-		Fire f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
-
-		//Robberies aanmaken
-		Robbery r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
-		Robbery r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
-		Robbery r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
-		Robbery r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
-
-		//TrafficAccidents aanmaken
-		TrafficAccident ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
-		TrafficAccident ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
-		TrafficAccident ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
-
-		//Public Disturbances aanmaken
-		PublicDisturbance pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
-		PublicDisturbance pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
-		PublicDisturbance pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
 
 		//Alle Emergencies toevoegen aan de World
 		cec.addCreatedEmergencyToTheWorld(f1);
@@ -704,28 +740,28 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testCreateDisaster() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testCreateDisaster() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencySeverityException {
 
 		//Fires aanmaken
-		Fire f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
-		Fire f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
-		Fire f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+		f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
 
 		//Robberies aanmaken
-		Robbery r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
-		Robbery r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
-		Robbery r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
-		Robbery r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+		r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
+		r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
+		r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
+		r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
 
 		//TrafficAccidents aanmaken
-		TrafficAccident ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
-		TrafficAccident ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
-		TrafficAccident ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
+		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
+		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
 
 		//Public Disturbances aanmaken
-		PublicDisturbance pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
-		PublicDisturbance pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
-		PublicDisturbance pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
+		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
+		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
 
 		//Alle Emergencies toevoegen aan de World
 		cec.addCreatedEmergencyToTheWorld(f1);
@@ -789,34 +825,34 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testWithdrawDisaster() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException, InvalidWithdrawalException, InvalidMapItemException {
+	public void testWithdrawDisaster() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException,  NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencyException, InvalidConstraintListException,  InvalidWithdrawalException, InvalidMapItemException, InvalidEmergencySeverityException, InvalidEmergencyStatusException {
 
 		//Firetrucks aanmaken
-		Firetruck ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
-		Firetruck ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
-		Firetruck ft3 = new Firetruck("brandweerwagen3", new GPSCoordinate(300, 300), 10 * 3600, 95000);
-		Firetruck ft4 = new Firetruck("brandweerwagen4", new GPSCoordinate(400, 400), 10 * 3600, 6000);
-		Firetruck ft5 = new Firetruck("brandweerwagen5", new GPSCoordinate(500, 500), 10 * 3600, 42000);
+		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
+		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
+		ft3 = new Firetruck("brandweerwagen3", new GPSCoordinate(300, 300), 10 * 3600, 95000);
+		ft4 = new Firetruck("brandweerwagen4", new GPSCoordinate(400, 400), 10 * 3600, 6000);
+		ft5 = new Firetruck("brandweerwagen5", new GPSCoordinate(500, 500), 10 * 3600, 42000);
 
 		//Ambulances aanmaken
-		Ambulance am1 = new Ambulance("ziekenwagen1", new GPSCoordinate(600, 600), 10 * 3600);
-		Ambulance am2 = new Ambulance("ziekenwagen1", new GPSCoordinate(700, 700), 10 * 3600);
-		Ambulance am3 = new Ambulance("ziekenwagen1", new GPSCoordinate(800, 800), 10 * 3600);
-		Ambulance am4 = new Ambulance("ziekenwagen1", new GPSCoordinate(900, 900), 10 * 3600);
-		Ambulance am5 = new Ambulance("ziekenwagen1", new GPSCoordinate(1000, 1000), 10 * 3600);
-		Ambulance am6 = new Ambulance("ziekenwagen1", new GPSCoordinate(1100, 1100), 10 * 3600);
+		am1 = new Ambulance("ziekenwagen1", new GPSCoordinate(600, 600), 10 * 3600);
+		am2 = new Ambulance("ziekenwagen1", new GPSCoordinate(700, 700), 10 * 3600);
+		am3 = new Ambulance("ziekenwagen1", new GPSCoordinate(800, 800), 10 * 3600);
+		am4 = new Ambulance("ziekenwagen1", new GPSCoordinate(900, 900), 10 * 3600);
+		am5 = new Ambulance("ziekenwagen1", new GPSCoordinate(1000, 1000), 10 * 3600);
+		am6 = new Ambulance("ziekenwagen1", new GPSCoordinate(1100, 1100), 10 * 3600);
 
 		//Policecars aanmaken
-		Policecar pc1 = new Policecar("politiewagen1", new GPSCoordinate(1200, 1200), 10 * 3600);
-		Policecar pc2 = new Policecar("politiewagen1", new GPSCoordinate(1300, 1300), 10 * 3600);
-		Policecar pc3 = new Policecar("politiewagen1", new GPSCoordinate(1400, 1400), 10 * 3600);
-		Policecar pc4 = new Policecar("politiewagen1", new GPSCoordinate(1500, 1500), 10 * 3600);
-		Policecar pc5 = new Policecar("politiewagen1", new GPSCoordinate(1600, 1600), 10 * 3600);
+		pc1 = new Policecar("politiewagen1", new GPSCoordinate(1200, 1200), 10 * 3600);
+		pc2 = new Policecar("politiewagen1", new GPSCoordinate(1300, 1300), 10 * 3600);
+		pc3 = new Policecar("politiewagen1", new GPSCoordinate(1400, 1400), 10 * 3600);
+		pc4 = new Policecar("politiewagen1", new GPSCoordinate(1500, 1500), 10 * 3600);
+		pc5 = new Policecar("politiewagen1", new GPSCoordinate(1600, 1600), 10 * 3600);
 
 		//Hospitals aanmaken
-		Hospital h1 = new Hospital("UZ1", new GPSCoordinate(-5000, -5000));
-		Hospital h2 = new Hospital("UZ2", new GPSCoordinate(0, 0));
-		Hospital h3 = new Hospital("UZ3", new GPSCoordinate(5000, 5000));
+		h1 = new Hospital("UZ1", new GPSCoordinate(-5000, -5000));
+		h2 = new Hospital("UZ2", new GPSCoordinate(0, 0));
+		h3 = new Hospital("UZ3", new GPSCoordinate(5000, 5000));
 
 		//Firetrucks toevoegen aan de MapItemList
 		world.getMapItemList().addMapItem(ft1);
@@ -868,25 +904,25 @@ public class Global2Test {
 		world.getTimeSensitiveList().addTimeSensitive(pc5);
 
 		//Fires aanmaken
-		Fire f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
-		Fire f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
-		Fire f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+		f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
 
 		//Robberies aanmaken
-		Robbery r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
-		Robbery r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
-		Robbery r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
-		Robbery r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+		r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
+		r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
+		r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
+		r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
 
 		//TrafficAccidents aanmaken
-		TrafficAccident ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
-		TrafficAccident ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
-		TrafficAccident ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
+		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
+		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
 
 		//Public Disturbances aanmaken
-		PublicDisturbance pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
-		PublicDisturbance pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
-		PublicDisturbance pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
+		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
+		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
 
 		//Alle Emergencies toevoegen aan de World
 		cec.addCreatedEmergencyToTheWorld(f1);
@@ -909,11 +945,105 @@ public class Global2Test {
 		emergencies.add(r2);
 		Disaster disaster = new Disaster(emergencies, "Veel brand");
 
-		Set <Unit> units = dudc.getUnitsByPolicy(disaster);
+		Set<Unit> units = dudc.getUnitsByPolicy(disaster);
 		cdc.addCreatedDisasterToTheWorld(disaster);
 		dudc.dispatchToDisaster(disaster, units);
 
 		ruafd.withdrawUnit(units.iterator().next());
+	}
+
+	@Test
+	public void testExtendedFinishedJobForDisaster() throws InvalidEmergencyException, InvalidConstraintListException, InvalidAddedDisasterException {
+
+		//Firetrucks toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(ft1);
+		world.getMapItemList().addMapItem(ft2);
+		world.getMapItemList().addMapItem(ft3);
+		world.getMapItemList().addMapItem(ft4);
+		world.getMapItemList().addMapItem(ft5);
+
+		//Ambulances toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(am1);
+		world.getMapItemList().addMapItem(am2);
+		world.getMapItemList().addMapItem(am3);
+		world.getMapItemList().addMapItem(am4);
+		world.getMapItemList().addMapItem(am5);
+		world.getMapItemList().addMapItem(am6);
+
+		//Policars toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(pc1);
+		world.getMapItemList().addMapItem(pc2);
+		world.getMapItemList().addMapItem(pc3);
+		world.getMapItemList().addMapItem(pc4);
+		world.getMapItemList().addMapItem(pc5);
+
+		//Hospitals toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(h1);
+		world.getMapItemList().addMapItem(h2);
+		world.getMapItemList().addMapItem(h3);
+
+		//Firetrucks toevoegen aan de TimeSensitiveList
+		world.getTimeSensitiveList().addTimeSensitive(ft1);
+		world.getTimeSensitiveList().addTimeSensitive(ft2);
+		world.getTimeSensitiveList().addTimeSensitive(ft3);
+		world.getTimeSensitiveList().addTimeSensitive(ft4);
+		world.getTimeSensitiveList().addTimeSensitive(ft5);
+
+		//Ambulances toevoegen aan de TimeSensitiveList
+		world.getTimeSensitiveList().addTimeSensitive(am1);
+		world.getTimeSensitiveList().addTimeSensitive(am2);
+		world.getTimeSensitiveList().addTimeSensitive(am3);
+		world.getTimeSensitiveList().addTimeSensitive(am4);
+		world.getTimeSensitiveList().addTimeSensitive(am5);
+		world.getTimeSensitiveList().addTimeSensitive(am6);
+
+		//Policars toevoegen aan de TimeSensitiveList
+		world.getTimeSensitiveList().addTimeSensitive(pc1);
+		world.getTimeSensitiveList().addTimeSensitive(pc2);
+		world.getTimeSensitiveList().addTimeSensitive(pc3);
+		world.getTimeSensitiveList().addTimeSensitive(pc4);
+		world.getTimeSensitiveList().addTimeSensitive(pc5);
+
+		//Alle Emergencies toevoegen aan de World
+		cec.addCreatedEmergencyToTheWorld(f1);
+		cec.addCreatedEmergencyToTheWorld(f2);
+		cec.addCreatedEmergencyToTheWorld(f3);
+		cec.addCreatedEmergencyToTheWorld(r1);
+		cec.addCreatedEmergencyToTheWorld(r2);
+		cec.addCreatedEmergencyToTheWorld(r3);
+		cec.addCreatedEmergencyToTheWorld(r4);
+		cec.addCreatedEmergencyToTheWorld(ta1);
+		cec.addCreatedEmergencyToTheWorld(ta2);
+		cec.addCreatedEmergencyToTheWorld(ta3);
+		cec.addCreatedEmergencyToTheWorld(pd1);
+		cec.addCreatedEmergencyToTheWorld(pd2);
+		cec.addCreatedEmergencyToTheWorld(pd3);
+
+		List<Emergency> emergenciesForDisaster = new ArrayList<Emergency>(0);
+
+		emergenciesForDisaster.add(f1);
+		emergenciesForDisaster.add(f2);
+		emergenciesForDisaster.add(f3);
+
+		emergenciesForDisaster.add(r1);
+		emergenciesForDisaster.add(r2);
+		emergenciesForDisaster.add(r3);
+		emergenciesForDisaster.add(r4);
+
+		emergenciesForDisaster.add(ta1);
+		emergenciesForDisaster.add(ta2);
+		emergenciesForDisaster.add(ta3);
+
+		emergenciesForDisaster.add(pd1);
+		emergenciesForDisaster.add(pd2);
+		emergenciesForDisaster.add(pd3);
+
+		String description = "Tis de moeite";
+		cdc.createDisaster(emergenciesForDisaster, description);
+		idc.inspectDisastersOnStatus(EmergencyStatus.COMPLETED);
+
+		
+
 	}
 
 	private int checkAantalUnits(TypeUnitValidator tuv, Set<Unit> units) {
@@ -936,13 +1066,13 @@ public class Global2Test {
 		return counter;
 	}
 
-	private void endTaskOfGivenUnits(ArrayList<Unit> units) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {
+	private void endTaskOfGivenUnits(ArrayList<Unit> units) throws InvalidUnitException, InvalidFinishJobException, InvalidEmergencyException, InvalidEmergencyStatusException {
 		for (Unit u : units) {
 			eotc.indicateEndOfTask(u);
 		}
 	}
 
-	private void endTaskOfGivenUnits(Set<Unit> units) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {
+	private void endTaskOfGivenUnits(Set<Unit> units) throws InvalidUnitException, InvalidFinishJobException, InvalidEmergencyException, InvalidEmergencyStatusException {
 		for (Unit u : units) {
 			eotc.indicateEndOfTask(u);
 		}
