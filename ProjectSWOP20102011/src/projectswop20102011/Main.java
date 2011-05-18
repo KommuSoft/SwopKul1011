@@ -104,7 +104,7 @@ public class Main {
 		MainUserInterface mainUserInterface = new MainUserInterface();
 		CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
 		CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world), new EmergencyMapper(world));
-		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsToEmergencyUserInterface(new DispatchUnitsToEmergencyController(world), new EmergencyMapper(world));
+		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsToEmergencyUserInterface(new DispatchUnitsToEmergencyController(world), new InspectEmergenciesController(world), new EmergencyMapper(world));
 		CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
 		CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
 		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));

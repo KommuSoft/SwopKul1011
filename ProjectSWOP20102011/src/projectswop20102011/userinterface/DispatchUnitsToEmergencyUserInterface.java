@@ -10,6 +10,8 @@ import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.controllers.EmergencyMapper;
+import projectswop20102011.controllers.InspectEmergenciesController;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.ParsingAbortedException;
@@ -24,16 +26,18 @@ import projectswop20102011.utils.parsers.StringParser;
 public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface {
 
 	private final DispatchUnitsToEmergencyController dispatchUnitsController;
-	private final EmergencyMapper emergencyController;
+	private final EmergencyMapper emergencyMapper;
+	private final InspectEmergenciesController inspectEmergenciesController;
 
-	public DispatchUnitsToEmergencyUserInterface(DispatchUnitsToEmergencyController dispatchUnitsController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
+	public DispatchUnitsToEmergencyUserInterface(DispatchUnitsToEmergencyController dispatchUnitsController, InspectEmergenciesController inspectEmergenciesController, EmergencyMapper emergencyController) throws InvalidControllerException, InvalidCommandNameException {
 		super("dispatch units to emergency");
 
-		if (dispatchUnitsController == null || emergencyController == null) {
+		if (dispatchUnitsController == null || emergencyController == null || inspectEmergenciesController == null) {
 			throw new InvalidControllerException("Controller must be effective.");
 		}
 		this.dispatchUnitsController = dispatchUnitsController;
-		this.emergencyController = emergencyController;
+		this.emergencyMapper = emergencyController;
+		this.inspectEmergenciesController = inspectEmergenciesController;
 	}
 
 	@Override
@@ -41,15 +45,48 @@ public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface 
 		return this.dispatchUnitsController;
 	}
 
-	private EmergencyMapper getEmergencyController(){
-		return emergencyController;
+	private EmergencyMapper getEmergencyMapper() {
+		return emergencyMapper;
+	}
+
+	private InspectEmergenciesController getInspectEmergenciesController() {
+		return inspectEmergenciesController;
+	}
+
+	/**
+	 * Build a short textual representation of the given emergency.
+	 * @param emergency The given emergency to convert.
+	 * @return A textual representation of the given Emergency.
+	 */
+	private String getShortInformationString(Emergency emergency) {
+		//String result = String.format("[type=%s", emergency.getClass().getSimpleName());
+		String result = String.format("[assignable=%s", this.getInspectEmergenciesController().canBeResolved(emergency));
+		Set<Entry<String, String>> set = this.getInspectEmergenciesController().getEmergencyShortInformation(emergency);
+		for (Entry<String, String> e : set) {
+			result += String.format("; %s=%s", e.getKey(), e.getValue());
+		}
+		return result + "]";
 	}
 
 	@Override
 	public void handleUserInterface() {
+		Emergency[] emergenciesUnhandled = this.getInspectEmergenciesController().inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
+		Emergency[] emergenciesResponded = getInspectEmergenciesController().inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS);
+		this.writeOutput(String.format("Founded emergencies (%s):", (emergenciesUnhandled.length + emergenciesResponded.length)));
+		for (Emergency em : emergenciesResponded) {
+			if (!em.isPartOfADisaster()) {
+				this.writeOutput(String.format("\t%s", this.getShortInformationString(em)) + " id: " + getEmergencyMapper().getEmergencyId(em).toString());
+			}
+		}
+		for (Emergency em : emergenciesUnhandled) {
+			if (!em.isPartOfADisaster()) {
+				this.writeOutput(String.format("\t%s", this.getShortInformationString(em)) + " id: " + getEmergencyMapper().getEmergencyId(em).toString());
+			}
+		}
+
 		try {
 			long emergencyId = this.parseInputToType(new LongParser(), "The id of the emergency");
-			Emergency selectedEmergency = getEmergencyController().getEmergencyFromId(emergencyId);
+			Emergency selectedEmergency = getEmergencyMapper().getEmergencyFromId(emergencyId);
 			if (selectedEmergency == null) {
 				this.writeOutput("Emergency not found.");
 			} else if (selectedEmergency.getStatus().matches("completed")) {
@@ -83,7 +120,7 @@ public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface 
 							//TODO: Hier moet enkel het aantal units komen die vereist is, niet welke soorten
 							this.writeOutput(getController().getRequiredUnits(selectedEmergency));
 							this.writeOutput("AVAILABLE UNITS:");
-							List<Unit> availableUnits =  this.getController().getAvailableUnitsSorted(selectedEmergency);
+							List<Unit> availableUnits = this.getController().getAvailableUnitsSorted(selectedEmergency);
 							for (int i = 0; i < availableUnits.size(); i++) {
 								Unit u = availableUnits.get(i);
 								double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());
