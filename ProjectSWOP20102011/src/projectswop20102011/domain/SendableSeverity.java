@@ -3,7 +3,7 @@ package projectswop20102011.domain;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 
 /**
- * An enumeration that represents the severity of an emergency.
+ * An enumeration that represents the severity of a sendable.
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
@@ -14,14 +14,14 @@ public enum SendableSeverity {
     SERIOUS("serious"),
     URGENT("urgent");
     /**
-     * The textual representation of the emergency severity.
+     * The textual representation of the sendable severity.
      */
     private final String textual;
 
     /**
-     * Creates a new instance of the EmergencySeverity class with a given textual representation.
+     * Creates a new instance of the SendableSeverity class with a given textual representation.
      * @param textual
-     *		The textual representation of the EmergencySeverity, used for parsing and user interaction.
+     *		The textual representation of the SendableSeverity, used for parsing and user interaction.
      * @post The textual representation is set to the given textual representation.
      *		| new.toString().equals(textual)
      */
@@ -30,8 +30,8 @@ public enum SendableSeverity {
     }
 
     /**
-     * Returns the textual representation of the EmergencyStatus.
-     * @return A textual representation of the EmergencyStatus.
+     * Returns the textual representation of the SendableSeverity.
+     * @return A textual representation of the SendableSeverity.
      */
     @Override
     public String toString() {
@@ -39,7 +39,7 @@ public enum SendableSeverity {
     }
 
     /**
-     * Tests if a given textual representation of an EmergencyStatus matches this EmergencyStatus.
+     * Tests if a given textual representation of an SendableSeverity matches this SendableSeverity.
      * @param textualRepresentation
      *		The textual representation to test.
      * @return True if the textual representation matches, otherwise false.
@@ -49,12 +49,12 @@ public enum SendableSeverity {
     }
 
     /**
-     * Parses a textual representation into its EmergencyStatus equivalent.
+     * Parses a textual representation into its SendableSeverity equivalent.
      * @param textualRepresentation
      *		The textual representation to parse.
-     * @return An EmergencyStatus that is the equivalent of the textual representation.
-     * @throws InvalidEmergencySeverityException
-     *		If no EmergencyStatus matches the textual representation.
+     * @return An SendableSeverity that is the equivalent of the textual representation.
+     * @throws InvalidSendableSeverityException
+     *		If no SendableSeverity matches the textual representation.
      */
     public static SendableSeverity parse(String textualRepresentation) throws InvalidSendableSeverityException {
         for (SendableSeverity es : SendableSeverity.values()) {
