@@ -3,6 +3,7 @@ package projectswop20102011.userinterface;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.domain.Emergency;
@@ -82,7 +83,7 @@ public class DispatchUnitsToEmergencyUserInterface extends CommandUserInterface 
 							//TODO: Hier moet enkel het aantal units komen die vereist is, niet welke soorten
 							this.writeOutput(getController().getRequiredUnits(selectedEmergency));
 							this.writeOutput("AVAILABLE UNITS:");
-							ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedEmergency);
+							List<Unit> availableUnits =  this.getController().getAvailableUnitsSorted(selectedEmergency);
 							for (int i = 0; i < availableUnits.size(); i++) {
 								Unit u = availableUnits.get(i);
 								double distance = u.getCurrentLocation().getDistanceTo(selectedEmergency.getLocation());

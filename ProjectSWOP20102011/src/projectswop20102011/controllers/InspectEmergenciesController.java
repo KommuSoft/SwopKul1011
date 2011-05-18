@@ -1,6 +1,5 @@
 package projectswop20102011.controllers;
 
-import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
