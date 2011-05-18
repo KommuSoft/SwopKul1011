@@ -163,10 +163,10 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
     }
 
     //TODO: beter verplaatsen naar een Util?
-    private int collectValidUnits(Collection<Unit> source, Collection<Unit> collected) {
+    protected int collectValidUnits(Collection<Unit> source, Collection<Unit> collected) {
         int count = 0;
         for (Unit u : source) {
-            if (this.getValidator().isValid(u)) {
+            if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collected,u)) {
                 collected.add(u);
                 count += this.getValidator().getNumber(u);
             }
@@ -175,7 +175,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
     }
 
     //TODO: beter verplaatsen naar een Util?
-    private int countValidUnits(Collection<Unit> source) {
+    protected int countValidUnits(Collection<Unit> source) {
         return collectValidUnits(source, new HashSet<Unit>());
     }
 
@@ -235,7 +235,8 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
 
     @Override
     public boolean canFinish(List<Unit> finishedUnits) {
-        return (countValidUnits(finishedUnits) >= this.getMinimum()) && countValidUnits(finishedUnits) <= getMaximum();
+        int number = countValidUnits(finishedUnits);
+        return (number >= this.getMinimum() && number <= getMaximum());
     }
 
     /**
