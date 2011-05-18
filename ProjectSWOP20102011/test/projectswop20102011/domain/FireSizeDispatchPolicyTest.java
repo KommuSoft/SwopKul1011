@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidCapacityException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -15,7 +15,7 @@ public class FireSizeDispatchPolicyTest {
 	private Emergency e1;
 	private long xEmergency, yEmergency, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9;
 	private GPSCoordinate locationEmergency, location1, location2, location3, location4, location5, location6, location7, location8, location9, location10;
-	private EmergencySeverity severity;
+	private SendableSeverity severity;
 	private String description;
 	private FireSize firesize;
 	private long capacity1, capacity2, capacity3, capacity4, capacity5, capacity6, capacity7, capacity8, capacity9;
@@ -26,12 +26,12 @@ public class FireSizeDispatchPolicyTest {
 	private Unit u1, u2, u3, u4, u5, u6, u7, u8, u9;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidCapacityException {
+	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidCapacityException {
 
 		xEmergency = 0;
 		yEmergency = 0;
 		locationEmergency = new GPSCoordinate(xEmergency, yEmergency);
-		severity = EmergencySeverity.BENIGN;
+		severity = SendableSeverity.BENIGN;
 		description = "Vuurtje";
 		firesize = FireSize.LOCAL;
 		chemical = false;

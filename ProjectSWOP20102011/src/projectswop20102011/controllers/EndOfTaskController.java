@@ -9,7 +9,7 @@ import projectswop20102011.World;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -50,7 +50,7 @@ public class EndOfTaskController extends Controller {
      * @throws InvalidFinishJobException
      *          If the unit can't finish his job.
      */
-    public void indicateEndOfTask(Unit unit) throws InvalidUnitException, InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {
+    public void indicateEndOfTask(Unit unit) throws InvalidUnitException, InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {
         if (unit == null) {
             throw new InvalidUnitException("The given unit must be effective.");
         }

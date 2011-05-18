@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
@@ -16,8 +16,8 @@ import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -53,10 +53,10 @@ public class PartiallyAssignedEmergencyComparatorTest {
      * Test of compare method, of class PartiallyAssignedEmergencyComparator.
      */
     @Test
-    public void testCompare() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidEmergencyStatusException, Exception {
+    public void testCompare() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidFireSizeException, InvalidSendableStatusException, Exception {
         PartiallyAssignedEmergencyComparator paect = new PartiallyAssignedEmergencyComparator();
-        Emergency e1 = new Robbery(new GPSCoordinate(0,0),EmergencySeverity.BENIGN,"",true,true);
-        Emergency e2 = new TrafficAccident(new GPSCoordinate(0,0),EmergencySeverity.URGENT,"",3,0);
+        Emergency e1 = new Robbery(new GPSCoordinate(0,0),SendableSeverity.BENIGN,"",true,true);
+        Emergency e2 = new TrafficAccident(new GPSCoordinate(0,0),SendableSeverity.URGENT,"",3,0);
         assertEquals(0,paect.compare(e1, e2));
 
         Firetruck ft1 = new Firetruck("engine1",new GPSCoordinate(5,0),180,500000);

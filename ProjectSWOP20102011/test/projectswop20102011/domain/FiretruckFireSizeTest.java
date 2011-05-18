@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -56,9 +56,9 @@ public class FiretruckFireSizeTest {
 
 	@Test
 	public void testTimeAhead() throws InvalidLocationException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencySeverityException,
-			InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidCapacityException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
+			InvalidSpeedException, InvalidSendableSeverityException,
+			InvalidFireSizeException, NumberOutOfBoundsException, InvalidSendableStatusException, InvalidDurationException, InvalidEmergencyException, InvalidCapacityException{
+		f1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity1);
 
 		HashSet<Unit> units = new HashSet<Unit>();
@@ -73,10 +73,10 @@ public class FiretruckFireSizeTest {
 	}
 
 	@Test(expected = InvalidDurationException.class)
-	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testInvalidTimeAhead() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidMapItemNameException, InvalidSpeedException,
-			NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException, InvalidFireSizeException, InvalidCapacityException{
-		f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
+			NumberOutOfBoundsException, InvalidSendableStatusException, InvalidDurationException, InvalidEmergencyException, InvalidAmbulanceException, InvalidFireSizeException, InvalidCapacityException{
+		f1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 0);
 		brandweerwagen = new Firetruck(name, homeLocation, speed1, capacity1);
 
 		HashSet<Unit> units = new HashSet<Unit>();

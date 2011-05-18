@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
@@ -366,7 +366,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
     }
 
     @Override
-    void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException {
+    void setStatus(SendableStatus emergencyStatus) throws InvalidSendableStatusException {
         getEmergency().setStatus(emergencyStatus);
     }
 

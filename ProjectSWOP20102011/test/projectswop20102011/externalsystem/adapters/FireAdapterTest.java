@@ -3,11 +3,11 @@ package projectswop20102011.externalsystem.adapters;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.GPSCoordinate;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -17,7 +17,7 @@ public class FireAdapterTest {
 	private Fire f1, f2;
 	private FireAdapter fire1, fire2;
 	private GPSCoordinate location1, location2;
-	private EmergencySeverity severity1, severity2;
+	private SendableSeverity severity1, severity2;
 	private String description1, description2;
 	private FireSize size1, size2;
 	private boolean chemical1, chemical2;
@@ -26,12 +26,12 @@ public class FireAdapterTest {
 	private TimeAdapter time;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
 		location1 = new GPSCoordinate(-10, 5);
 		location2 = new GPSCoordinate(10, 66);
 
-		severity1 = EmergencySeverity.BENIGN;
-		severity2 = EmergencySeverity.SERIOUS;
+		severity1 = SendableSeverity.BENIGN;
+		severity2 = SendableSeverity.SERIOUS;
 
 		description1 = "Brand1";
 		description2 = "Brand2";

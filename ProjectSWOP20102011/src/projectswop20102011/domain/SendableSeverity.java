@@ -1,13 +1,13 @@
 package projectswop20102011.domain;
 
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 
 /**
  * An enumeration that represents the severity of an emergency.
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public enum EmergencySeverity {
+public enum SendableSeverity {
 
     BENIGN("benign"),
     NORMAL("normal"),
@@ -25,7 +25,7 @@ public enum EmergencySeverity {
      * @post The textual representation is set to the given textual representation.
      *		| new.toString().equals(textual)
      */
-    private EmergencySeverity(String textual) {
+    private SendableSeverity(String textual) {
         this.textual = textual;
     }
 
@@ -56,13 +56,13 @@ public enum EmergencySeverity {
      * @throws InvalidEmergencySeverityException
      *		If no EmergencyStatus matches the textual representation.
      */
-    public static EmergencySeverity parse(String textualRepresentation) throws InvalidEmergencySeverityException {
-        for (EmergencySeverity es : EmergencySeverity.values()) {
+    public static SendableSeverity parse(String textualRepresentation) throws InvalidSendableSeverityException {
+        for (SendableSeverity es : SendableSeverity.values()) {
             if (es.matches(textualRepresentation)) {
                 return es;
             }
         }
-        throw new InvalidEmergencySeverityException(String.format("Unknown severity level \"%s\".", textualRepresentation));
+        throw new InvalidSendableSeverityException(String.format("Unknown severity level \"%s\".", textualRepresentation));
     }
 
     /**
@@ -70,7 +70,7 @@ public enum EmergencySeverity {
      * @param otherSeverity The other severity to calculate the severity level from.
      * @return The maximum severity level of this and otherSeverity.
      */
-    public EmergencySeverity getMaximum(EmergencySeverity otherSeverity) {
+    public SendableSeverity getMaximum(SendableSeverity otherSeverity) {
         if (this.ordinal() >= otherSeverity.ordinal()) {
             return this;
         } else {

@@ -19,7 +19,7 @@ import projectswop20102011.domain.validators.UnitToDisasterDistanceComparator;
 import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
 import projectswop20102011.exceptions.InvalidDisasterException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
@@ -93,7 +93,7 @@ public class DispatchUnitsToDisasterController extends Controller {
 //		return disaster.getPolicyProposalAllSeverities(mapItems);
 	}
 
-	public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
 		disaster.assignUnits(units);
 	}
 }

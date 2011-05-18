@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import projectswop20102011.domain.validators.EmergencyComparator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
 
@@ -125,8 +125,8 @@ public class Disaster extends Sendable {
 	 * @note The severity level of the Disaster is the maximum severity level of its emergencies.
 	 */
 	@Override
-	public EmergencySeverity getSeverity() {
-		EmergencySeverity max = this.getEmergencies().get(0).getSeverity();
+	public SendableSeverity getSeverity() {
+		SendableSeverity max = this.getEmergencies().get(0).getSeverity();
 		for (Emergency e : getEmergencies()) {
 			max = max.getMaximum(e.getSeverity());
 		}
@@ -138,8 +138,8 @@ public class Disaster extends Sendable {
 	 * @return The status of this Disaster.
 	 */
 	@Override
-	public EmergencyStatus getStatus() {
-		EmergencyStatus status = this.getEmergencies().get(0).getStatus();
+	public SendableStatus getStatus() {
+		SendableStatus status = this.getEmergencies().get(0).getStatus();
 		for (int i = 1; i < this.getEmergencies().size(); i++) {
 			status = status.combine(this.getEmergencies().get(i).getStatus());
 		}
@@ -172,7 +172,7 @@ public class Disaster extends Sendable {
 	 * @throws  InvalidEmergencyException
 	 *		If the emergency is invalid.
 	 */
-	public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void assignUnits(Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
 		for(Unit u:units){
 			u.setDisaster(this);
 		}
@@ -201,7 +201,7 @@ public class Disaster extends Sendable {
 		Set<Unit> au = new HashSet<Unit>((ArrayList<Unit>)((new ArrayList<Unit>(availableUnits)).clone()));
 		Set<Unit> units = new HashSet<Unit>();
 		for (int i = 0; i < getEmergencies().size(); ++i) {
-			if (getEmergencies().get(i).getSeverity().ordinal() > EmergencySeverity.NORMAL.ordinal()) {
+			if (getEmergencies().get(i).getSeverity().ordinal() > SendableSeverity.NORMAL.ordinal()) {
 				units.addAll(getEmergencies().get(i).getPolicyProposal(au));
 				au.removeAll(units);
 			}
@@ -234,11 +234,11 @@ public class Disaster extends Sendable {
 	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Disaster.
 	 */
 	@Override
-	void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
+	void finishUnit(Unit unitToFinish) throws InvalidSendableStatusException {
 		this.getStatus().finishUnit(unitToFinish.getEmergency().getUnitsNeeded(), unitToFinish);
 	}
 
-	protected void afterFinish(Unit unit) throws InvalidEmergencyStatusException, InvalidEmergencyException{
+	protected void afterFinish(Unit unit) throws InvalidSendableStatusException, InvalidEmergencyException{
 		List<Emergency> emergencies = getEmergencies();
 		Collections.sort(emergencies, new EmergencyComparator());
 		Collections.reverse(emergencies);

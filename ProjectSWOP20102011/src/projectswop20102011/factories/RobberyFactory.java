@@ -4,11 +4,11 @@ import java.io.InvalidClassException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.exceptions.InvalidDescriptionException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidNameException;
@@ -50,10 +50,10 @@ public class RobberyFactory extends EmergencyFactory {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
 			try {
-				return new Robbery((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);
+				return new Robbery((GPSCoordinate) parameters[0], (SendableSeverity) parameters[1], (String) parameters[2], (Boolean) parameters[3], (Boolean) parameters[4]);
 			} catch (InvalidLocationException ex) {
 				Logger.getLogger(RobberyFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidEmergencySeverityException ex) {
+			} catch (InvalidSendableSeverityException ex) {
 				Logger.getLogger(RobberyFactory.class.getName()).log(Level.SEVERE, null, ex);
 			}
         }
@@ -69,7 +69,7 @@ public class RobberyFactory extends EmergencyFactory {
         try {
             return new FactoryInformation(
                     new FactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
-                    new FactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
+                    new FactoryInformationParameter("severity", SendableSeverity.class, "The severity level of the emergency."),
                     new FactoryInformationParameter("description", String.class, "The description of the emergency."),
                     new FactoryInformationParameter("armed", Boolean.class, "Indicates if the robber is armed."),
                     new FactoryInformationParameter("inProgress", Boolean.class, "Indicates if the robbery is still in progress."));

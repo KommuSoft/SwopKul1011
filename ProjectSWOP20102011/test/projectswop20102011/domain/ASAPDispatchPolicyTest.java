@@ -3,7 +3,7 @@ package projectswop20102011.domain;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -14,7 +14,7 @@ public class ASAPDispatchPolicyTest {
 	private Emergency e1;
 	private long x1, y1, x2, y2, x3, y3;
 	private GPSCoordinate location1, location2, location3;
-	private EmergencySeverity severity1;
+	private SendableSeverity severity1;
 	private boolean armed1;
 	private boolean inProgress1;
 	private String name1, name2;
@@ -22,7 +22,7 @@ public class ASAPDispatchPolicyTest {
 	private Unit u1, u2;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
 		x1 = 0;
 		y1 = 0;
 		x2 = 10;
@@ -34,7 +34,7 @@ public class ASAPDispatchPolicyTest {
 		location2 = new GPSCoordinate(x2, y2);
 		location3 = new GPSCoordinate(x3, y3);
 
-		severity1 = EmergencySeverity.BENIGN;
+		severity1 = SendableSeverity.BENIGN;
 		armed1 = false;
 		inProgress1 = false;
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.World;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -41,7 +41,7 @@ public class RemoveUnitAssignmentFromEmergencyController extends Controller {
      * @throws InvalidEmergencyStatusException If the status of the emergency does not allow units to withdraw.
      * @throws InvalidMapItemException If the given unit is not effective.
      */
-    public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidEmergencyStatusException, InvalidMapItemException {
+    public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidSendableStatusException, InvalidMapItemException {
         if (unit != null) {
             unit.withdraw();
         } else {

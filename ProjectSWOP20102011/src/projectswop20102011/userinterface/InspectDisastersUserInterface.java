@@ -9,7 +9,7 @@ import projectswop20102011.controllers.DisasterMapper;
 import projectswop20102011.controllers.InspectDisastersController;
 import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
@@ -87,7 +87,7 @@ public class InspectDisastersUserInterface extends CommandUserInterface {
 		do {
 			viewOtherList = false;
 			try {
-				EmergencyStatus status = this.parseInputToType(new EmergencyStatusParser(), "status of the disaster");
+				SendableStatus status = this.parseInputToType(new EmergencyStatusParser(), "status of the disaster");
 				Disaster[] disasters = this.getController().inspectDisastersOnStatus(status);
 				this.writeOutput(String.format("Founded disasters (%s):", disasters.length));
 				for (Disaster em : disasters) {

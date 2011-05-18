@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.World;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
@@ -33,7 +33,7 @@ import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.UnitStatus;
 import projectswop20102011.exceptions.InvalidCapacityException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -67,7 +67,7 @@ public class EmergencyDispatchApiTest {
 	private ITrafficAccidentView trafficAccident1, trafficAccident2, trafficAccident3, trafficAccident4;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, EmergencyDispatchException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, EmergencyDispatchException {
 		world = new World();
 		api = new EmergencyDispatchApi(world);
 
@@ -96,40 +96,40 @@ public class EmergencyDispatchApiTest {
 		PublicDisturbance pd1, pd2, pd3, pd4;
 		TrafficAccident ta1, ta2, ta3, ta4;
 
-		f1 = new Fire(new GPSCoordinate(10, 20), EmergencySeverity.BENIGN, "brandje", FireSize.LOCAL, false, 0, 1);
-		f2 = new Fire(new GPSCoordinate(1, 20), EmergencySeverity.SERIOUS, "Brandje", FireSize.HOUSE, true, 2, 2);
-		f3 = new Fire(new GPSCoordinate(10, 2), EmergencySeverity.URGENT, "brandje", FireSize.LOCAL, false, 2, 0);
-		f4 = new Fire(new GPSCoordinate(-10, 20), EmergencySeverity.NORMAL, "brandje", FireSize.FACILITY, true, 0, 2);
+		f1 = new Fire(new GPSCoordinate(10, 20), SendableSeverity.BENIGN, "brandje", FireSize.LOCAL, false, 0, 1);
+		f2 = new Fire(new GPSCoordinate(1, 20), SendableSeverity.SERIOUS, "Brandje", FireSize.HOUSE, true, 2, 2);
+		f3 = new Fire(new GPSCoordinate(10, 2), SendableSeverity.URGENT, "brandje", FireSize.LOCAL, false, 2, 0);
+		f4 = new Fire(new GPSCoordinate(-10, 20), SendableSeverity.NORMAL, "brandje", FireSize.FACILITY, true, 0, 2);
 
 		fire1 = new FireAdapter(f1);
 		fire2 = new FireAdapter(f2, new TimeAdapter(0, 10));
 		fire3 = new FireAdapter(f3, new TimeAdapter(2, 10));
 		fire4 = new FireAdapter(f4, new TimeAdapter(1, 0));
 
-		r1 = new Robbery(new GPSCoordinate(0, 10), EmergencySeverity.NORMAL, "overvalletje", true, false);
-		r2 = new Robbery(new GPSCoordinate(1, 10), EmergencySeverity.SERIOUS, "overvalletje", false, true);
-		r3 = new Robbery(new GPSCoordinate(3, 0), EmergencySeverity.URGENT, "overvalletje", true, true);
-		r4 = new Robbery(new GPSCoordinate(-5, 10), EmergencySeverity.BENIGN, "overvalletje", false, true);
+		r1 = new Robbery(new GPSCoordinate(0, 10), SendableSeverity.NORMAL, "overvalletje", true, false);
+		r2 = new Robbery(new GPSCoordinate(1, 10), SendableSeverity.SERIOUS, "overvalletje", false, true);
+		r3 = new Robbery(new GPSCoordinate(3, 0), SendableSeverity.URGENT, "overvalletje", true, true);
+		r4 = new Robbery(new GPSCoordinate(-5, 10), SendableSeverity.BENIGN, "overvalletje", false, true);
 
 		robbery1 = new RobberyAdapter(r1);
 		robbery2 = new RobberyAdapter(r2);
 		robbery3 = new RobberyAdapter(r3);
 		robbery4 = new RobberyAdapter(r4);
 
-		pd1 = new PublicDisturbance(new GPSCoordinate(0, 5), EmergencySeverity.SERIOUS, "", 10);
-		pd2 = new PublicDisturbance(new GPSCoordinate(0, 5), EmergencySeverity.URGENT, "", 10);
-		pd3 = new PublicDisturbance(new GPSCoordinate(0, 5), EmergencySeverity.NORMAL, "", 10);
-		pd4 = new PublicDisturbance(new GPSCoordinate(0, 5), EmergencySeverity.BENIGN, "", 10);
+		pd1 = new PublicDisturbance(new GPSCoordinate(0, 5), SendableSeverity.SERIOUS, "", 10);
+		pd2 = new PublicDisturbance(new GPSCoordinate(0, 5), SendableSeverity.URGENT, "", 10);
+		pd3 = new PublicDisturbance(new GPSCoordinate(0, 5), SendableSeverity.NORMAL, "", 10);
+		pd4 = new PublicDisturbance(new GPSCoordinate(0, 5), SendableSeverity.BENIGN, "", 10);
 
 		publicDisturbance1 = new PublicDisturbanceAdapter(pd1);
 		publicDisturbance2 = new PublicDisturbanceAdapter(pd2);
 		publicDisturbance3 = new PublicDisturbanceAdapter(pd3);
 		publicDisturbance4 = new PublicDisturbanceAdapter(pd4);
 
-		ta1 = new TrafficAccident(new GPSCoordinate(0, -5), EmergencySeverity.BENIGN, "", 1L, 3L);
-		ta2 = new TrafficAccident(new GPSCoordinate(0, -5), EmergencySeverity.NORMAL, "", 1L, 3L);
-		ta3 = new TrafficAccident(new GPSCoordinate(0, -5), EmergencySeverity.SERIOUS, "", 1L, 3L);
-		ta4 = new TrafficAccident(new GPSCoordinate(0, -5), EmergencySeverity.URGENT, "", 1L, 3L);
+		ta1 = new TrafficAccident(new GPSCoordinate(0, -5), SendableSeverity.BENIGN, "", 1L, 3L);
+		ta2 = new TrafficAccident(new GPSCoordinate(0, -5), SendableSeverity.NORMAL, "", 1L, 3L);
+		ta3 = new TrafficAccident(new GPSCoordinate(0, -5), SendableSeverity.SERIOUS, "", 1L, 3L);
+		ta4 = new TrafficAccident(new GPSCoordinate(0, -5), SendableSeverity.URGENT, "", 1L, 3L);
 
 		trafficAccident1 = new TrafficAccidentAdapter(ta1);
 		trafficAccident2 = new TrafficAccidentAdapter(ta2);

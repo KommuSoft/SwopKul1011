@@ -8,7 +8,7 @@ import projectswop20102011.exceptions.InvalidCoordinateException;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -21,7 +21,7 @@ public class EmergencyListTest {
     private long x1, y1, x2, y2;
 
     @Before
-    public void setUp() throws InvalidCoordinateException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+    public void setUp() throws InvalidCoordinateException, InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         x1 = 12;
         y1 = 789;
         x2 = 95;
@@ -30,9 +30,9 @@ public class EmergencyListTest {
         l2 = new GPSCoordinate(x2, y2);
 
         el1 = new EmergencyList();
-        e1 = new Fire(l1, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
+        e1 = new Fire(l1, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
         el2 = new EmergencyList();
-        e2 = new PublicDisturbance(l1, EmergencySeverity.URGENT, "", 1302);
+        e2 = new PublicDisturbance(l1, SendableSeverity.URGENT, "", 1302);
         el3 = new EmergencyList();
     }
 
@@ -54,7 +54,7 @@ public class EmergencyListTest {
 
 	@Test
 	public void testGetEmergenciesByCriterium(){
-		EmergencyEvaluationCriterium evc = new StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+		EmergencyEvaluationCriterium evc = new StatusEqualityEmergencyEvaluationCriterium(SendableStatus.RECORDED_BUT_UNHANDLED);
 		el1.addEmergency(e1);
         el1.addEmergency(e2);
 		EmergencyList emergencies = el1.getEmergenciesByCriterium(evc);

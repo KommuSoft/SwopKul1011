@@ -8,8 +8,8 @@ import projectswop20102011.World;
 import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -25,10 +25,10 @@ public class DispatchTest {
 	private Ambulance am1, am2, am3;
 
 	@Before
-	public void setUp() throws InvalidWorldException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
+	public void setUp() throws InvalidWorldException, InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
 		world = new World();
 		duc = new DispatchUnitsToEmergencyController(world);
-		f1 = new Fire(new GPSCoordinate(0,10), EmergencySeverity.BENIGN, "brand", FireSize.LOCAL, false, 0, 1);
+		f1 = new Fire(new GPSCoordinate(0,10), SendableSeverity.BENIGN, "brand", FireSize.LOCAL, false, 0, 1);
 
 		ft = new Firetruck("vuurwagen", new GPSCoordinate(98,9), 100, 1001);
 		am1 = new Ambulance("ziekenwagen", new GPSCoordinate(9,98), 100);
@@ -47,15 +47,15 @@ public class DispatchTest {
 	}
 
 	@Test
-	public void testDispatch() throws InvalidEmergencyStatusException, InvalidEmergencyException{
-		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, f1.getStatus());
+	public void testDispatch() throws InvalidSendableStatusException, InvalidEmergencyException{
+		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, f1.getStatus());
 
 		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(ft);
 		units.add(am1);
 		duc.dispatchToEmergency(f1, units);
 
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f1.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f1.getStatus());
 	}
 
 }

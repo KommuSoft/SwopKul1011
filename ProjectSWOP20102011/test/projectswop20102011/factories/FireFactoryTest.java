@@ -3,12 +3,12 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -20,7 +20,7 @@ public class FireFactoryTest {
 	private long x1;
 	private long y1;
 	private GPSCoordinate gps1, gps2;
-	private EmergencySeverity severity1, severity2;
+	private SendableSeverity severity1, severity2;
 	private String description1, description2;
 	private FireSize size1, size2;
 	private boolean chemical1;
@@ -35,7 +35,7 @@ public class FireFactoryTest {
 
 		gps1 = new GPSCoordinate(x1, y1);
 		gps2 = null;
-		severity1 = EmergencySeverity.NORMAL;
+		severity1 = SendableSeverity.NORMAL;
 		severity2 = null;
 		description1 = "BRAND!";
 		description2 = null;
@@ -54,7 +54,7 @@ public class FireFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidParametersException{
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidParametersException{
 		ff = new FireFactory();
 		Fire f = (Fire) ff.createInstance(new Object[] {gps1, severity1, description1, size1, chemical1, trappedPeople1, numberOfInjured1});
 
@@ -68,7 +68,7 @@ public class FireFactoryTest {
 	}
 
 	@Test(expected = InvalidParametersException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, InvalidAmountOfParametersException, NumberOutOfBoundsException, InvalidParametersException{
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, InvalidAmountOfParametersException, NumberOutOfBoundsException, InvalidParametersException{
 		ff = new FireFactory();
 		ff.createInstance(new Object[] {});
 	}

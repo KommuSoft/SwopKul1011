@@ -11,7 +11,7 @@ import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
@@ -55,8 +55,8 @@ public class Robbery extends Emergency {
      * @throws InvalidEmergencySeverityException
      *		If the given severity is an invalid severity for an emergency.
      */
-    public Robbery(GPSCoordinate location, EmergencySeverity severity, String description,
-            boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
+    public Robbery(GPSCoordinate location, SendableSeverity severity, String description,
+            boolean armed, boolean inProgress) throws InvalidLocationException, InvalidSendableSeverityException {
         super(location, severity, description);
         setArmed(armed);
         setInProgress(inProgress);

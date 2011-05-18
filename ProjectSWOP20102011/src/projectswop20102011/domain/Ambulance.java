@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -121,7 +121,7 @@ public class Ambulance extends Unit {
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
 	@Override
-	public void finishedJobForEmergencies() throws InvalidEmergencyStatusException, InvalidFinishJobException {
+	public void finishedJobForEmergencies() throws InvalidSendableStatusException, InvalidFinishJobException {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else {
@@ -154,7 +154,7 @@ public class Ambulance extends Unit {
 	 * @throws InvalidEmergencyStatusException  
 	 */
 	@Override
-	public void finishedJobForDisasters() throws InvalidFinishJobException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void finishedJobForDisasters() throws InvalidFinishJobException, InvalidSendableStatusException, InvalidEmergencyException {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else {

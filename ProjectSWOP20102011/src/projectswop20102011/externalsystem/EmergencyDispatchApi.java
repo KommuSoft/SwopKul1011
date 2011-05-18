@@ -40,7 +40,7 @@ import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyControll
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
@@ -51,7 +51,7 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
@@ -197,7 +197,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
 
-		EmergencyStatus status = null;
+		SendableStatus status = null;
 		EmergencyStatusParser ep = new EmergencyStatusParser();
 		//TODO: onderstaande if-statements mogen weg wanneer de parser dit ondersteund
 		if (state.toString().equalsIgnoreCase("unhandled")) {
@@ -264,7 +264,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
 
-		EmergencyStatus status = null;
+		SendableStatus status = null;
 		EmergencyStatusParser ep = new EmergencyStatusParser();
 		//TODO: onderstaande if-statements mogen weg wanneer de parser dit ondersteund
 		if (state.toString().equalsIgnoreCase("unhandled")) {
@@ -415,7 +415,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 		try {
 			controller.dispatchToEmergency(emergency.getEmergency(), units);
-		} catch (InvalidEmergencyStatusException ex) {
+		} catch (InvalidSendableStatusException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		} catch (InvalidEmergencyException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
@@ -522,7 +522,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		} catch (InvalidUnitException ex) {
 			//We assume this can't happen
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidEmergencyStatusException ex) {
+		} catch (InvalidSendableStatusException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidFinishJobException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
@@ -598,7 +598,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			ruac.withdrawUnit(u);
 		} catch (InvalidWithdrawalException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
-		} catch (InvalidEmergencyStatusException ex) {
+		} catch (InvalidSendableStatusException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidMapItemException ex) {
 			//We assume this can't happen.

@@ -6,7 +6,7 @@ import java.util.Set;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.validators.EmergencyEvaluationCriterium;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.domain.validators.StatusEqualityEmergencyEvaluationCriterium;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
@@ -34,7 +34,7 @@ public class InspectEmergenciesController extends Controller {
      * @param status The status of to check the emrgencies on.
      * @return A list with emergencies with the given status.
      */
-    public Emergency[] inspectEmergenciesOnStatus(EmergencyStatus status) {
+    public Emergency[] inspectEmergenciesOnStatus(SendableStatus status) {
         EmergencyEvaluationCriterium criterium = new StatusEqualityEmergencyEvaluationCriterium(status);
         return this.getWorld().getEmergencyList().getEmergenciesByCriterium(criterium).toArray();
     }

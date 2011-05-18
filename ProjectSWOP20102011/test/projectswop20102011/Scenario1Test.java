@@ -21,8 +21,8 @@ import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableSeverity;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Firetruck;
@@ -34,8 +34,8 @@ import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -102,7 +102,7 @@ public class Scenario1Test {
 	}
 
 	@Test
-	public void testScenario1() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemTypeNameException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidEmergencyException, InvalidEmergencyStatusException, Exception {
+	public void testScenario1() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemTypeNameException, InvalidMapItemNameException, InvalidSpeedException, InvalidAmountOfParametersException, InvalidEmergencyException, InvalidSendableStatusException, Exception {
 		//initialize world
 		redc.addFiretruck("engine1", new GPSCoordinate(0, 20), 5, 100000);
 		redc.addFiretruck("engine2", new GPSCoordinate(0, 21), 5, 100000);
@@ -123,19 +123,19 @@ public class Scenario1Test {
 		}
 
 		//inspecting emergencies
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 
 		//adding fire
-		cec.createFireEmergency(new GPSCoordinate(0, 0), EmergencySeverity.BENIGN, "geïmplodeerde tv", FireSize.LOCAL, false, 0, 0);
+		cec.createFireEmergency(new GPSCoordinate(0, 0), SendableSeverity.BENIGN, "geïmplodeerde tv", FireSize.LOCAL, false, 0, 0);
 
 		//inspecting emergencies
-		Emergency[] rbu_em = iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+		Emergency[] rbu_em = iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
 		assertEquals(1, rbu_em.length);
 		Emergency emergency = rbu_em[0];
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 		assertFalse(emergency.isPartiallyAssigned());
 
 		//assign engine1 to the fire
@@ -173,9 +173,9 @@ public class Scenario1Test {
 
 		//inspecting emergencies
 		assertFalse(emergency.isPartiallyAssigned());
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
-		assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
+		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 		try {
 			eotc.indicateEndOfTask(engine1);
 			fail("engine1 cant end of task");
@@ -204,13 +204,13 @@ public class Scenario1Test {
 
 		//inspect emergencies
 		assertFalse(emergency.isPartiallyAssigned());
-		assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
-		assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 		//adding fire
-		cec.createFireEmergency(new GPSCoordinate(0, 0), EmergencySeverity.BENIGN, "terrorist maakt METH", FireSize.HOUSE, false, 0, 1);
+		cec.createFireEmergency(new GPSCoordinate(0, 0), SendableSeverity.BENIGN, "terrorist maakt METH", FireSize.HOUSE, false, 0, 1);
 		//inspect emergencies
-		rbu_em = iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+		rbu_em = iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
 		assertEquals(6, rbu_em.length);
 		Fire fire = null;
 		for (int i = 0; i < rbu_em.length; i++) {
@@ -279,9 +279,9 @@ public class Scenario1Test {
 		assertFalse(fire.isPartiallyAssigned());
 		
 		//inspect emergencies
-		assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
-		assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
-		assertEquals(1, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
+		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 		shc.selectHospital(ambulance1, hospital1);
 		Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
 		
@@ -302,9 +302,9 @@ public class Scenario1Test {
 		
 		//inspect emergencies
 		assertFalse(fire.isPartiallyAssigned());
-		assertEquals(5, iec.inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED).length);
+		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
 		
-		assertEquals(0, iec.inspectEmergenciesOnStatus(EmergencyStatus.RESPONSE_IN_PROGRESS).length);
-		assertEquals(2, iec.inspectEmergenciesOnStatus(EmergencyStatus.COMPLETED).length);
+		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(2, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 	}
 }

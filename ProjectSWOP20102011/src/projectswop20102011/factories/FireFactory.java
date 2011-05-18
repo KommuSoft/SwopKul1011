@@ -4,12 +4,12 @@ import java.io.InvalidClassException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.exceptions.InvalidDescriptionException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -57,10 +57,10 @@ public class FireFactory extends EmergencyFactory {
             throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
         } else {
 			try {
-				return new Fire((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (FireSize) parameters[3], (Boolean) parameters[4], (Long) parameters[5], (Long) parameters[6]);
+				return new Fire((GPSCoordinate) parameters[0], (SendableSeverity) parameters[1], (String) parameters[2], (FireSize) parameters[3], (Boolean) parameters[4], (Long) parameters[5], (Long) parameters[6]);
 			} catch (InvalidLocationException ex) {
 				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidEmergencySeverityException ex) {
+			} catch (InvalidSendableSeverityException ex) {
 				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (InvalidFireSizeException ex) {
 				Logger.getLogger(FireFactory.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,7 +80,7 @@ public class FireFactory extends EmergencyFactory {
         try {
             return new FactoryInformation(
                     new FactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
-                    new FactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
+                    new FactoryInformationParameter("severity", SendableSeverity.class, "The severity level of the emergency."),
                     new FactoryInformationParameter("description", String.class, "The description of the emergency."),
                     new FactoryInformationParameter("size", FireSize.class, "The size of the fire."),
                     new FactoryInformationParameter("chemical", Boolean.class, "Indicates if the fire is chemical."),

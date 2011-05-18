@@ -10,7 +10,7 @@ import projectswop20102011.controllers.CreateDisasterController;
 import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidControllerException;
@@ -87,7 +87,7 @@ public class CreateDisasterUserInterface extends CommandUserInterface {
 		} catch (ParsingAbortedException ex) {
 			Logger.getLogger(CreateDisasterUserInterface.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		Emergency[] emergencies = this.getInspectEmergenciesController().inspectEmergenciesOnStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
+		Emergency[] emergencies = this.getInspectEmergenciesController().inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
 		this.writeOutput(String.format("Founded emergencies (%s):", emergencies.length));
 		for (Emergency em : emergencies) {
 			this.writeOutput(String.format("\t%s", this.getShortInformationString(em)) + " id: " + getEmergencyMapper().getEmergencyId(em).toString());
@@ -107,7 +107,7 @@ public class CreateDisasterUserInterface extends CommandUserInterface {
 					long id = Long.parseLong(input);
 					Emergency emergency = getEmergencyMapper().getEmergencyFromId(id);
 					if (emergency != null) {
-						if (emergency.getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)) {
+						if (emergency.getStatus().equals(SendableStatus.RECORDED_BUT_UNHANDLED)) {
 							this.writeOutput(this.getLongInformationString(emergency));
 						} else {
 							this.writeOutput("ERROR: can't choose an emergency that isn't unhandled.");

@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 
 public abstract class UnitsNeeded {
 
@@ -81,7 +81,7 @@ public abstract class UnitsNeeded {
      * @param emergencyStatus The new status of the sendable/
      * @throws InvalidEmergencyStatusException If the given status is invalid.
      */
-    abstract void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException;
+    abstract void setStatus(SendableStatus emergencyStatus) throws InvalidSendableStatusException;
 
     /**
      * Checks if the units needed for the emergency are all finished.

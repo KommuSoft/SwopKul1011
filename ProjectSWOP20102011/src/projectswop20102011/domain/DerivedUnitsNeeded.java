@@ -13,7 +13,7 @@ import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.EmergencyComparator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.SortedListSet;
 
 public class DerivedUnitsNeeded extends UnitsNeeded {
@@ -134,7 +134,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
             Set<Unit> unitsForEmergency = CUN.generateProposal(options);
             try {
                 e.assignUnits(unitsForEmergency);
-            } catch (InvalidEmergencyStatusException ex) {
+            } catch (InvalidSendableStatusException ex) {
                 //We assume this can't happen.
                 Logger.getLogger(DerivedUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -203,7 +203,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
     }
 
     @Override
-    void setStatus(EmergencyStatus emergencyStatus) throws InvalidEmergencyStatusException {
+    void setStatus(SendableStatus emergencyStatus) throws InvalidSendableStatusException {
         for (Emergency e : getDisaster().getEmergencies()) {
             e.setStatus(emergencyStatus);
         }

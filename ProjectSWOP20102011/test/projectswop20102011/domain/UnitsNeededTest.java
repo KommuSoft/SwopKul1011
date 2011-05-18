@@ -3,7 +3,7 @@ package projectswop20102011.domain;
 import java.io.InvalidClassException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -33,8 +33,8 @@ public class UnitsNeededTest {
     }
 
     @Test
-    public void testValidEmergency () throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
-        f1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+    public void testValidEmergency () throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException{
+        f1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
         assertTrue(ConcreteUnitsNeeded.isValidEmergency(f1));
     }
 

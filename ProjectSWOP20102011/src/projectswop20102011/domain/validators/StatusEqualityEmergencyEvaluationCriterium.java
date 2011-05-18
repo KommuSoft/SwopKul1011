@@ -1,7 +1,7 @@
 package projectswop20102011.domain.validators;
 
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 
 /**
  * An implementation for an EmergencyEvaluationCriterium that checks if the status is equal to a given status.
@@ -12,7 +12,7 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
 	/**
 	 * A variable registering the status of this StatusEqualityEmergencyEvaluationCriterium.
 	 */
-	private final EmergencyStatus status;
+	private final SendableStatus status;
 
 	/**
 	 * Creates a new instance of a StatusEqualityEmergencyEvaluationCriterium with a given EmergencyStatus to check on.
@@ -21,7 +21,7 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
 	 * @post This status is equal to the parameter status
 	 *		| status == getStatus()
 	 */
-	public StatusEqualityEmergencyEvaluationCriterium(EmergencyStatus status) {
+	public StatusEqualityEmergencyEvaluationCriterium(SendableStatus status) {
 		this.status = status;
 	}
 
@@ -40,7 +40,7 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
 	 * Returns the status to check an emergency on.
 	 * @return The status that must be equal to the status of the emergency to validate that emergency.
 	 */
-	public EmergencyStatus getStatus() {
+	public SendableStatus getStatus() {
 		return status;
 	}
 }

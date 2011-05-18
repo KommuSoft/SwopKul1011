@@ -15,7 +15,7 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidValidatorException;
@@ -85,8 +85,8 @@ public class Fire extends Emergency {
 	 * @throws NumberOutOfBoundsException
 	 *		If the given number of injured people is smaller than zero or if the number of trapped people is smaller than zero.
 	 */
-	public Fire(GPSCoordinate location, EmergencySeverity severity, String description,
-			FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+	public Fire(GPSCoordinate location, SendableSeverity severity, String description,
+			FireSize size, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
 		super(location, severity, description);
 		setSize(size);
 		setChemical(chemical);

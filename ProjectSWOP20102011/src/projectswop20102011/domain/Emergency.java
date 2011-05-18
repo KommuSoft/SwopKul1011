@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 
 /**
@@ -27,11 +27,11 @@ public abstract class Emergency extends Sendable {
     /**
      * A variable registering the severity of this emergency.
      */
-    private EmergencySeverity severity;
+    private SendableSeverity severity;
     /**
      * A variable registering the status of this emergency.
      */
-    private EmergencyStatus status;
+    private SendableStatus status;
     /**
      * A variable registering the units needed to handle the emergency
      * and does the management of dispatching units and setting the status of this emergency.
@@ -64,14 +64,14 @@ public abstract class Emergency extends Sendable {
      * @throws InvalidEmergencySeverityException
      *		If the given severity is an invalid severity for an emergency.
      */
-    protected Emergency(GPSCoordinate location, EmergencySeverity severity, String description) throws InvalidLocationException, InvalidEmergencySeverityException {
+    protected Emergency(GPSCoordinate location, SendableSeverity severity, String description) throws InvalidLocationException, InvalidSendableSeverityException {
         setLocation(location);
         setSeverity(severity);
         setDescription(description);
         setIsPartOfADisaster(false);
         try {
-            setStatus(EmergencyStatus.RECORDED_BUT_UNHANDLED);
-        } catch (InvalidEmergencyStatusException ex) {
+            setStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
+        } catch (InvalidSendableStatusException ex) {
             //Can't be thrown: We ensure that the status is valid.
             Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,9 +102,9 @@ public abstract class Emergency extends Sendable {
      * @throws InvalidEmergencySeverityException
      *		If the given severity level is invalid for an emergency.
      */
-    private void setSeverity(EmergencySeverity severity) throws InvalidEmergencySeverityException {
+    private void setSeverity(SendableSeverity severity) throws InvalidSendableSeverityException {
         if (!isValidSeverity(severity)) {
-            throw new InvalidEmergencySeverityException(String.format("\"%s\" is an invalid location for an emergency.", severity));
+            throw new InvalidSendableSeverityException(String.format("\"%s\" is an invalid location for an emergency.", severity));
         }
         this.severity = severity;
     }
@@ -118,9 +118,9 @@ public abstract class Emergency extends Sendable {
      * @throws InvalidEmergencyStatusException
      *		If the given status is invalid for an emergency.
      */
-    void setStatus(EmergencyStatus status) throws InvalidEmergencyStatusException {
+    void setStatus(SendableStatus status) throws InvalidSendableStatusException {
         if (!isValidStatus(status)) {
-            throw new InvalidEmergencyStatusException(String.format("\"%s\" is an invalid status for an emergency.", status));
+            throw new InvalidSendableStatusException(String.format("\"%s\" is an invalid status for an emergency.", status));
         }
         this.status = status;
     }
@@ -158,7 +158,7 @@ public abstract class Emergency extends Sendable {
      * @return The severity of this emergency.
      */
     @Override
-    public EmergencySeverity getSeverity() {
+    public SendableSeverity getSeverity() {
         return severity;
     }
 
@@ -167,7 +167,7 @@ public abstract class Emergency extends Sendable {
      * @return The status of this emergency.
      */
     @Override
-    public EmergencyStatus getStatus() {
+    public SendableStatus getStatus() {
         return status;
     }
 
@@ -177,7 +177,7 @@ public abstract class Emergency extends Sendable {
      *		The severity level to check.
      * @return True if the severity level is effective, otherwise false.
      */
-    public static boolean isValidSeverity(EmergencySeverity severity) {
+    public static boolean isValidSeverity(SendableSeverity severity) {
         return (severity != null);
     }
 
@@ -187,7 +187,7 @@ public abstract class Emergency extends Sendable {
      *		The status to check.
      * @return True if the status is effective, otherwise false.
      */
-    public static boolean isValidStatus(EmergencyStatus status) {
+    public static boolean isValidStatus(SendableStatus status) {
         return (status != null);
     }
 

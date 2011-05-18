@@ -26,8 +26,8 @@ import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidHospitalException;
@@ -87,7 +87,7 @@ public class Global2Test {
 	PublicDisturbance pd3;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidWorldException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencySeverityException {
+	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidWorldException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidSendableSeverityException {
 		world = new World();
 		iec = new InspectEmergenciesController(world);
 		cec = new CreateEmergencyController(world);
@@ -128,30 +128,30 @@ public class Global2Test {
 		h3 = new Hospital("UZ3", new GPSCoordinate(5000, 5000));
 
 		//Fires aanmaken
-		f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
-		f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
-		f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+		f1 = new Fire(new GPSCoordinate(-100, -100), SendableSeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		f2 = new Fire(new GPSCoordinate(-200, -200), SendableSeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		f3 = new Fire(new GPSCoordinate(-300, -300), SendableSeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
 
 		//Robberies aanmaken
-		r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
-		r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
-		r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
-		r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+		r1 = new Robbery(new GPSCoordinate(-400, -400), SendableSeverity.SERIOUS, "beroving1", false, false);
+		r2 = new Robbery(new GPSCoordinate(-500, -500), SendableSeverity.URGENT, "beroving2", true, false);
+		r3 = new Robbery(new GPSCoordinate(-600, -600), SendableSeverity.NORMAL, "beroving3", false, true);
+		r4 = new Robbery(new GPSCoordinate(-700, -700), SendableSeverity.BENIGN, "beroving4", true, true);
 
 		//TrafficAccidents aanmaken
-		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
-		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
-		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), SendableSeverity.BENIGN, "ongeluk1", 2, 3);
+		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), SendableSeverity.NORMAL, "ongeluk2", 7, 5);
+		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), SendableSeverity.URGENT, "ongeluk3", 4, 8);
 
 		//Public Disturbances aanmaken
-		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
-		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
-		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), SendableSeverity.URGENT, "boel1", 4);
+		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), SendableSeverity.NORMAL, "boel2", 4);
+		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), SendableSeverity.BENIGN, "boel3", 4);
 
 	}
 
 	@Test
-	public void testFinishedJob() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException,  InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException, InvalidEmergencySeverityException, InvalidEmergencyStatusException {
+	public void testFinishedJob() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException,  InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException, InvalidSendableSeverityException, InvalidSendableStatusException {
 		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98, 9), 100, 1001);
 		Ambulance am1 = new Ambulance("ambulance1", new GPSCoordinate(9, 98), 100);
 		Ambulance am2 = new Ambulance("ambulance2", new GPSCoordinate(9, 98), 100);
@@ -171,7 +171,7 @@ public class Global2Test {
 		// Register a new event
 		Fire f = new Fire(
 				new GPSCoordinate(30, 50),
-				EmergencySeverity.SERIOUS,
+				SendableSeverity.SERIOUS,
 				"local",
 				FireSize.LOCAL,
 				false,
@@ -221,12 +221,12 @@ public class Global2Test {
 		}
 
 		assertEquals(0, f.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED, f.getStatus());
+		assertEquals(SendableStatus.COMPLETED, f.getStatus());
 
 	}
 
 	@Test
-	public void testExtendedFinishedJobEmergency() throws InvalidClassException, InvalidWithdrawalException, InvalidMapItemException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidEmergencyStatusException {
+	public void testExtendedFinishedJobEmergency() throws InvalidClassException, InvalidWithdrawalException, InvalidMapItemException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidSendableStatusException {
 		//Firetrucks toevoegen aan de MapItemList
 		world.getMapItemList().addMapItem(ft1);
 		world.getMapItemList().addMapItem(ft2);
@@ -342,11 +342,11 @@ public class Global2Test {
 		}
 
 		assertEquals(0, r4.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED, r4.getStatus());
+		assertEquals(SendableStatus.COMPLETED, r4.getStatus());
 		try {
 			duc.dispatchToEmergency(r4, duc.getUnitsByPolicy(r4));
 			fail("Er kon niet gedispatched worden aan een emergency die al completed is!");
-		} catch (InvalidEmergencyStatusException e) {
+		} catch (InvalidSendableStatusException e) {
 		}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -460,7 +460,7 @@ public class Global2Test {
 
 		//We verwachten dat er enkel nog ambulances zijn en dat de emergency nog bezig is
 		assertEquals(3, f1.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f1.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f1.getStatus());
 
 		//De ambulances kunnen nog niet ge end of tasked worden
 		try {
@@ -513,13 +513,13 @@ public class Global2Test {
 
 		//Er werken nog 0 units en de emergency is completed
 		assertEquals(0, f1.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED, f1.getStatus());
+		assertEquals(SendableStatus.COMPLETED, f1.getStatus());
 
 		//Aangezien de emergency completed is, kunnen er geen units meer gestuurd worden
 		try {
 			duc.dispatchToEmergency(f1, duc.getUnitsByPolicy(f1));
 			fail("Er kon niet gedispatched worden aan een emergency die al completed is!");
-		} catch (InvalidEmergencyStatusException e) {
+		} catch (InvalidSendableStatusException e) {
 		}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -538,7 +538,7 @@ public class Global2Test {
 		//units dispatchen naar de emergency
 		duc.dispatchToEmergency(f3, unitsForFire3Assignment2);
 		assertEquals(8, f3.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -553,7 +553,7 @@ public class Global2Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsForFire2Assignment2);
 		assertEquals(0, counter);
 
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
 
 		//Filter de working units op type
 		Set<Unit> ambOfFire2 = filterUnits(new TypeUnitValidator(Ambulance.class), f2.getWorkingUnits());
@@ -586,7 +586,7 @@ public class Global2Test {
 		//Laat de ambulances stoppen met werken (ze worden opnieuw toegewezen omdat er nog nodig zijn)
 		endTaskOfGivenUnits(ambOfFire2);
 		assertEquals(3, f2.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f2.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f2.getStatus());
 
 		//Ze kunnen nog niet stoppen omdat ze opnieuw naar de plaats van emergency moeten
 		try {
@@ -618,7 +618,7 @@ public class Global2Test {
 		//Ze kunnen stoppen
 		endTaskOfGivenUnits(ambOfFire2);
 		assertEquals(0, f2.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED, f2.getStatus());
+		assertEquals(SendableStatus.COMPLETED, f2.getStatus());
 
 		//We verwachten dat de proposal er geen meer voorstelt
 		Set<Unit> unitsForFire2Assignment3 = duc.getUnitsByPolicy(f2);
@@ -641,10 +641,10 @@ public class Global2Test {
 		ArrayList<Unit> firetrucksOfFire3 = convertSetToList(fOfFire3);
 		Set<Unit> policecarsOfFire3 = filterUnits(new TypeUnitValidator(Policecar.class), f3.getWorkingUnits());
 
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
 		endTaskOfGivenUnits(policecarsOfFire3);
 		assertEquals(5, f3.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
 
 		//Kies een hospitaal
 		for (Ambulance a : ambulancesOfFire3) {
@@ -657,7 +657,7 @@ public class Global2Test {
 
 		endTaskOfGivenUnits(ambOfFire3);
 		assertEquals(4, f3.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
 
 
 		try {
@@ -690,7 +690,7 @@ public class Global2Test {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		assertEquals(5, f3.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, f3.getStatus());
 		Set<Unit> unitsForFire3Assignment4 = duc.getUnitsByPolicy(f3);
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsForFire3Assignment4);
 		assertEquals(0, counter);
@@ -736,32 +736,32 @@ public class Global2Test {
 
 		endTaskOfGivenUnits(f3.getWorkingUnits());
 		assertEquals(0, f3.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED, f3.getStatus());
+		assertEquals(SendableStatus.COMPLETED, f3.getStatus());
 	}
 
 	@Test
-	public void testCreateDisaster() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencySeverityException {
+	public void testCreateDisaster() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableSeverityException {
 
 		//Fires aanmaken
-		f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
-		f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
-		f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+		f1 = new Fire(new GPSCoordinate(-100, -100), SendableSeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		f2 = new Fire(new GPSCoordinate(-200, -200), SendableSeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		f3 = new Fire(new GPSCoordinate(-300, -300), SendableSeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
 
 		//Robberies aanmaken
-		r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
-		r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
-		r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
-		r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+		r1 = new Robbery(new GPSCoordinate(-400, -400), SendableSeverity.SERIOUS, "beroving1", false, false);
+		r2 = new Robbery(new GPSCoordinate(-500, -500), SendableSeverity.URGENT, "beroving2", true, false);
+		r3 = new Robbery(new GPSCoordinate(-600, -600), SendableSeverity.NORMAL, "beroving3", false, true);
+		r4 = new Robbery(new GPSCoordinate(-700, -700), SendableSeverity.BENIGN, "beroving4", true, true);
 
 		//TrafficAccidents aanmaken
-		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
-		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
-		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), SendableSeverity.BENIGN, "ongeluk1", 2, 3);
+		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), SendableSeverity.NORMAL, "ongeluk2", 7, 5);
+		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), SendableSeverity.URGENT, "ongeluk3", 4, 8);
 
 		//Public Disturbances aanmaken
-		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
-		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
-		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), SendableSeverity.URGENT, "boel1", 4);
+		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), SendableSeverity.NORMAL, "boel2", 4);
+		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), SendableSeverity.BENIGN, "boel3", 4);
 
 		//Alle Emergencies toevoegen aan de World
 		cec.addCreatedEmergencyToTheWorld(f1);
@@ -825,7 +825,7 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testWithdrawDisaster() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException,  NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencyException, InvalidConstraintListException,  InvalidWithdrawalException, InvalidMapItemException, InvalidEmergencySeverityException, InvalidEmergencyStatusException {
+	public void testWithdrawDisaster() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException,  NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencyException, InvalidConstraintListException,  InvalidWithdrawalException, InvalidMapItemException, InvalidSendableSeverityException, InvalidSendableStatusException {
 
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
@@ -904,25 +904,25 @@ public class Global2Test {
 		world.getTimeSensitiveList().addTimeSensitive(pc5);
 
 		//Fires aanmaken
-		f1 = new Fire(new GPSCoordinate(-100, -100), EmergencySeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
-		f2 = new Fire(new GPSCoordinate(-200, -200), EmergencySeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
-		f3 = new Fire(new GPSCoordinate(-300, -300), EmergencySeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
+		f1 = new Fire(new GPSCoordinate(-100, -100), SendableSeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
+		f2 = new Fire(new GPSCoordinate(-200, -200), SendableSeverity.URGENT, "brand2", FireSize.HOUSE, true, 6, 6);
+		f3 = new Fire(new GPSCoordinate(-300, -300), SendableSeverity.BENIGN, "brand3", FireSize.FACILITY, false, 1, 0);
 
 		//Robberies aanmaken
-		r1 = new Robbery(new GPSCoordinate(-400, -400), EmergencySeverity.SERIOUS, "beroving1", false, false);
-		r2 = new Robbery(new GPSCoordinate(-500, -500), EmergencySeverity.URGENT, "beroving2", true, false);
-		r3 = new Robbery(new GPSCoordinate(-600, -600), EmergencySeverity.NORMAL, "beroving3", false, true);
-		r4 = new Robbery(new GPSCoordinate(-700, -700), EmergencySeverity.BENIGN, "beroving4", true, true);
+		r1 = new Robbery(new GPSCoordinate(-400, -400), SendableSeverity.SERIOUS, "beroving1", false, false);
+		r2 = new Robbery(new GPSCoordinate(-500, -500), SendableSeverity.URGENT, "beroving2", true, false);
+		r3 = new Robbery(new GPSCoordinate(-600, -600), SendableSeverity.NORMAL, "beroving3", false, true);
+		r4 = new Robbery(new GPSCoordinate(-700, -700), SendableSeverity.BENIGN, "beroving4", true, true);
 
 		//TrafficAccidents aanmaken
-		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), EmergencySeverity.BENIGN, "ongeluk1", 2, 3);
-		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), EmergencySeverity.NORMAL, "ongeluk2", 7, 5);
-		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), EmergencySeverity.URGENT, "ongeluk3", 4, 8);
+		ta1 = new TrafficAccident(new GPSCoordinate(-800, -800), SendableSeverity.BENIGN, "ongeluk1", 2, 3);
+		ta2 = new TrafficAccident(new GPSCoordinate(-900, -900), SendableSeverity.NORMAL, "ongeluk2", 7, 5);
+		ta3 = new TrafficAccident(new GPSCoordinate(-1000, -1000), SendableSeverity.URGENT, "ongeluk3", 4, 8);
 
 		//Public Disturbances aanmaken
-		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), EmergencySeverity.URGENT, "boel1", 4);
-		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), EmergencySeverity.NORMAL, "boel2", 4);
-		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), EmergencySeverity.BENIGN, "boel3", 4);
+		pd1 = new PublicDisturbance(new GPSCoordinate(-1100, -1100), SendableSeverity.URGENT, "boel1", 4);
+		pd2 = new PublicDisturbance(new GPSCoordinate(-1200, -1200), SendableSeverity.NORMAL, "boel2", 4);
+		pd3 = new PublicDisturbance(new GPSCoordinate(-1300, -1300), SendableSeverity.BENIGN, "boel3", 4);
 
 		//Alle Emergencies toevoegen aan de World
 		cec.addCreatedEmergencyToTheWorld(f1);
@@ -1040,7 +1040,7 @@ public class Global2Test {
 
 		String description = "Tis de moeite";
 		cdc.createDisaster(emergenciesForDisaster, description);
-		idc.inspectDisastersOnStatus(EmergencyStatus.COMPLETED);
+		idc.inspectDisastersOnStatus(SendableStatus.COMPLETED);
 
 		
 
@@ -1066,13 +1066,13 @@ public class Global2Test {
 		return counter;
 	}
 
-	private void endTaskOfGivenUnits(ArrayList<Unit> units) throws InvalidUnitException, InvalidFinishJobException, InvalidEmergencyException, InvalidEmergencyStatusException {
+	private void endTaskOfGivenUnits(ArrayList<Unit> units) throws InvalidUnitException, InvalidFinishJobException, InvalidEmergencyException, InvalidSendableStatusException {
 		for (Unit u : units) {
 			eotc.indicateEndOfTask(u);
 		}
 	}
 
-	private void endTaskOfGivenUnits(Set<Unit> units) throws InvalidUnitException, InvalidFinishJobException, InvalidEmergencyException, InvalidEmergencyStatusException {
+	private void endTaskOfGivenUnits(Set<Unit> units) throws InvalidUnitException, InvalidFinishJobException, InvalidEmergencyException, InvalidSendableStatusException {
 		for (Unit u : units) {
 			eotc.indicateEndOfTask(u);
 		}

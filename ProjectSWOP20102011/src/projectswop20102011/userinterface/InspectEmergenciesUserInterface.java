@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.controllers.EmergencyMapper;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.exceptions.InvalidCommandNameException;
 import projectswop20102011.exceptions.InvalidControllerException;
@@ -78,7 +78,7 @@ public class InspectEmergenciesUserInterface extends CommandUserInterface {
 		do {
 			viewOtherList = false;
 			try {
-				EmergencyStatus status = this.parseInputToType(new EmergencyStatusParser(), "status of the emergency");
+				SendableStatus status = this.parseInputToType(new EmergencyStatusParser(), "status of the emergency");
 				Emergency[] emergencies = this.getController().inspectEmergenciesOnStatus(status);
 				this.writeOutput(String.format("Founded emergencies (%s):", emergencies.length));
 				for (Emergency em : emergencies) {

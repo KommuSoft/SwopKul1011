@@ -1,7 +1,7 @@
 package projectswop20102011.domain.validators;
 
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 
 /**
  * An implementation for an DisasterEvaluationCriterium that checks if the status is equal to a given status.
@@ -12,7 +12,7 @@ public class StatusEqualityDisasterEvaluationCriterium extends DisasterEvaluatio
 	/**
 	 * A variable registering the status of this StatusEqualityDisasterEvaluationCriterium.
 	 */
-	private final EmergencyStatus status;
+	private final SendableStatus status;
 
 	/**
 	 * Creates a new instance of a StatusEqualityDisasterEvaluationCriterium with a given EmergencyStatus to check on.
@@ -21,7 +21,7 @@ public class StatusEqualityDisasterEvaluationCriterium extends DisasterEvaluatio
 	 * @post This status is equal to the parameter status
 	 *		| status == getStatus()
 	 */
-	public StatusEqualityDisasterEvaluationCriterium(EmergencyStatus status) {
+	public StatusEqualityDisasterEvaluationCriterium(SendableStatus status) {
 		this.status = status;
 	}
 
@@ -40,7 +40,7 @@ public class StatusEqualityDisasterEvaluationCriterium extends DisasterEvaluatio
 	 * Returns the status to check a disaster on.
 	 * @return The status that must be equal to the status of the disaster to validate that disaster.
 	 */
-	public EmergencyStatus getStatus() {
+	public SendableStatus getStatus() {
 		return status;
 	}
 }

@@ -3,10 +3,10 @@ package projectswop20102011.externalsystem.adapters;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.TrafficAccident;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -15,19 +15,19 @@ public class TrafficAccidentAdapterTest {
 	private TrafficAccident ta1, ta2;
 	private TrafficAccidentAdapter trafficAccident1, trafficAccident2;
 	private GPSCoordinate location1, location2;
-	private EmergencySeverity severity1, severity2;
+	private SendableSeverity severity1, severity2;
 	private String description1, description2;
 	private long numberOfCars1, numberOfCars2;
 	private long numberOfInjured1, numberOfInjured2;
 	private TimeAdapter time;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException {
 		location1 = new GPSCoordinate(-10, 5);
 		location2 = new GPSCoordinate(10, 66);
 
-		severity1 = EmergencySeverity.BENIGN;
-		severity2 = EmergencySeverity.SERIOUS;
+		severity1 = SendableSeverity.BENIGN;
+		severity2 = SendableSeverity.SERIOUS;
 
 		description1 = "Ongeval1";
 		description2 = "Ongeval2";

@@ -3,11 +3,11 @@ package projectswop20102011.factories;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidParametersException;
@@ -18,7 +18,7 @@ public class PublicDisturbanceFactoryTest {
 	private long x1;
 	private long y1;
 	private GPSCoordinate gps1, gps2;
-	private EmergencySeverity severity1, severity2;
+	private SendableSeverity severity1, severity2;
 	private String description1, description2;
 	private long numberOfPeople1, numberOfPeople2;
 	private PublicDisturbanceFactory pdf;
@@ -30,7 +30,7 @@ public class PublicDisturbanceFactoryTest {
 
 		gps1 = new GPSCoordinate(x1, y1);
 		gps2 = null;
-		severity1 = EmergencySeverity.NORMAL;
+		severity1 = SendableSeverity.NORMAL;
 		severity2 = null;
 		description1 = "Openbare dronkenschap";
 		description2 = null;
@@ -44,7 +44,7 @@ public class PublicDisturbanceFactoryTest {
 	}
 
 	@Test
-	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
+	public void testCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		pdf = new PublicDisturbanceFactory();
 		PublicDisturbance pd  = (PublicDisturbance) pdf.createInstance(new Object[]{gps1, severity1, description1, numberOfPeople1});
 
@@ -55,7 +55,7 @@ public class PublicDisturbanceFactoryTest {
 	}
 
 	@Test(expected = InvalidParametersException.class)
-	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidParametersException {
+	public void testIllegalCreateEmergency() throws InvalidEmergencyTypeNameException, InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidParametersException {
 		pdf = new PublicDisturbanceFactory();
 		pdf.createInstance(new Object[]{});
 	}

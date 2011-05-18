@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
@@ -46,7 +46,7 @@ public class EmergencyAdapter implements IEmergency, Cloneable{
 	 */
 	@Override
 	public EmergencyState getState() {
-		EmergencyStatus status = getEmergency().getStatus();
+		SendableStatus status = getEmergency().getStatus();
 		if (status.toString().equalsIgnoreCase("recorded but unhandled")) {
 			return EmergencyState.UNHANDLED;
 		} else if (status.toString().equalsIgnoreCase("response in progress")) {

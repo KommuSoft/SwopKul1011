@@ -5,16 +5,16 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 
 /**
- * An enumeration that represents the status of an emergency.
+ * An enumeration that represents the status of a sendable.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public enum EmergencyStatus {
+public enum SendableStatus {
 
 	/**
-	 * A state where the emergency is recorded by the operator but not yet handled by the dispatcher.
+	 * A state where the sendable is recorded by the operator but not yet handled by the dispatcher.
 	 */
 	RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
@@ -22,22 +22,22 @@ public enum EmergencyStatus {
 		protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
 			try {
 				if(!units.isEmpty()){
-					unitsNeeded.setStatus(EmergencyStatus.RESPONSE_IN_PROGRESS);
+					unitsNeeded.setStatus(SendableStatus.RESPONSE_IN_PROGRESS);
 				}
-			} catch (InvalidEmergencyStatusException ex) {
+			} catch (InvalidSendableStatusException ex) {
 				//We assume this can't happen.
-				Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(SendableStatus.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 
 		@Override
-		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
-			throw new InvalidEmergencyStatusException("Can't finish units from an unhandled emergency.");
+		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+			throw new InvalidSendableStatusException("Can't finish units from an unhandled emergency.");
 		}
 
 		@Override
-		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
-			throw new InvalidEmergencyStatusException("Can't withdraw units from an unhandled emergency.");
+		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+			throw new InvalidSendableStatusException("Can't withdraw units from an unhandled emergency.");
 		}
 
 		@Override
@@ -51,12 +51,12 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		protected EmergencyStatus combineWithLower(EmergencyStatus otherStatus) {
+		protected SendableStatus combineWithLower(SendableStatus otherStatus) {
 			return null;//This method can't be called because RECORDED_BUT UNHANDLED has the lowest ordinal.
 		}
 	},
 	/**
-	 * A state of an emergency where the dispatcher has already sent units (this does not mean there are still units working or already finished).
+	 * A state of a sendable where the dispatcher has already sent units (this does not mean there are still units working or already finished).
 	 */
 	RESPONSE_IN_PROGRESS("response in progress") {
 
@@ -68,9 +68,9 @@ public enum EmergencyStatus {
 				try {
 					e.setStatus(COMPLETED);
 					//unitsNeeded.setStatus(COMPLETED);
-				} catch (InvalidEmergencyStatusException ex) {
+				} catch (InvalidSendableStatusException ex) {
 					//We assume this can't happen
-					Logger.getLogger(EmergencyStatus.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(SendableStatus.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
 
@@ -92,7 +92,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		protected EmergencyStatus combineWithLower(EmergencyStatus otherStatus) {
+		protected SendableStatus combineWithLower(SendableStatus otherStatus) {
 			switch (otherStatus) {
 				case RECORDED_BUT_UNHANDLED:
 					return RESPONSE_IN_PROGRESS;
@@ -102,18 +102,18 @@ public enum EmergencyStatus {
 		}
 	},
 	/**
-	 * A state of an emergency where the emergency has been completly handled. All the units needed for this emergency have finished.
+	 * A state of a sendable where the sendable has been completly handled. All the units needed for this sendable have finished.
 	 */
 	COMPLETED("completed") {
 
 		@Override
-		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
-			throw new InvalidEmergencyStatusException("Unable to finish units from a completed emergency.");
+		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+			throw new InvalidSendableStatusException("Unable to finish units from a completed emergency.");
 		}
 
 		@Override
-		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException {
-			throw new InvalidEmergencyStatusException("Unable to withdraw units from a competed emergency.");
+		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+			throw new InvalidSendableStatusException("Unable to withdraw units from a competed emergency.");
 		}
 
 		@Override
@@ -132,7 +132,7 @@ public enum EmergencyStatus {
 		}
 
 		@Override
-		protected EmergencyStatus combineWithLower(EmergencyStatus otherStatus) {
+		protected SendableStatus combineWithLower(SendableStatus otherStatus) {
 			switch (otherStatus) {
 				case RECORDED_BUT_UNHANDLED:
 					return RESPONSE_IN_PROGRESS;
@@ -144,24 +144,24 @@ public enum EmergencyStatus {
 		}
 	};
 	/**
-	 * The textual representation of an EmergencyStatus.
+	 * The textual representation of an SendableStatus.
 	 */
 	private final String textual;
 
 	/**
-	 * Creates a new instance of the EmergencyStatus class with a given textual representation.
+	 * Creates a new instance of the SendableStatus class with a given textual representation.
 	 * @param textual
-	 *		The textual representation of the EmergencyStatus, used for parsing and user interaction.
+	 *		The textual representation of the SendableStatus, used for parsing and user interaction.
 	 * @post The textual representation is set to the given textual representation.
 	 *		| new.toString().equals(textual)
 	 */
-	private EmergencyStatus(String textual) {
+	private SendableStatus(String textual) {
 		this.textual = textual;
 	}
 
 	/**
-	 * Returns the textual representation of the EmergencyStatus.
-	 * @return A textual representation of the EmergencyStatus.
+	 * Returns the textual representation of the SendableStatus.
+	 * @return A textual representation of the SendableStatus.
 	 */
 	@Override
 	public String toString() {
@@ -169,7 +169,7 @@ public enum EmergencyStatus {
 	}
 
 	/**
-	 * Tests if a given textual representation of an EmergencyStatus matches this EmergencyStatus.
+	 * Tests if a given textual representation of an SendableStatus matches this SendableStatus.
 	 * @param textualRepresentation
 	 *		The textual representation to test.
 	 * @return True if the textual representation matches, otherwise false.
@@ -179,20 +179,20 @@ public enum EmergencyStatus {
 	}
 
 	/**
-	 * Parses a textual representation into its EmergencyStatus equivalent.
+	 * Parses a textual representation into its SendableStatus equivalent.
 	 * @param textualRepresentation
 	 *		The textual representation to parse.
-	 * @return An EmergencyStatus that is the equivalent of the textual representation.
-	 * @throws InvalidEmergencyStatusException
-	 *		If no EmergencyStatus matches the textual representation.
+	 * @return An SendableStatus that is the equivalent of the textual representation.
+	 * @throws InvalidSendableStatusException
+	 *		If no SendableStatus matches the textual representation.
 	 */
-	public static EmergencyStatus parse(String textualRepresentation) throws InvalidEmergencyStatusException {
-		for (EmergencyStatus es : EmergencyStatus.values()) {
+	public static SendableStatus parse(String textualRepresentation) throws InvalidSendableStatusException {
+		for (SendableStatus es : SendableStatus.values()) {
 			if (es.matches(textualRepresentation)) {
 				return es;
 			}
 		}
-		throw new InvalidEmergencyStatusException(String.format("Unknown emergency status level \"%s\".", textualRepresentation));
+		throw new InvalidSendableStatusException(String.format("Unknown emergency status level \"%s\".", textualRepresentation));
 	}
 
 	/**
@@ -201,15 +201,15 @@ public enum EmergencyStatus {
 	 *      The unitsNeeded object of the emergency where the action takes place.
 	 * @param units
 	 *      The units to allocate to the emergency.
-	 * @throws InvalidEmergencyStatusException
+	 * @throws InvalidSendableStatusException
 	 *      If the status of the emergency is invalid.
 	 * @throws  InvalidEmergencyException
 	 *		If the emergency is invalid.
 	 * @note This method has a package visibility: Only the emergency class can call this method.
 	 */
-	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
 		if (!canAssignUnitsFromState()) {
-			throw new InvalidEmergencyStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
+			throw new InvalidSendableStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
 		}
 		unitsNeeded.assignUnitsToEmergency(units);
 		afterUnitsAssignment(unitsNeeded, units);
@@ -218,31 +218,31 @@ public enum EmergencyStatus {
 	/**
 	 * A method representing a transition where a unit signals it has finished it's job.
 	 * @param unitsNeeded
-	 *      The unitsNeeded object of the emergency where the action takes place.
+	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param unit
 	 *      The unit that signals it has finished its job.
-	 * @throws InvalidEmergencyStatusException
+	 * @throws InvalidSendableStatusException
 	 *      If the status of the emergency is invalid.
 	 * @note This method has a package visibility: Only the emergency class can call this method.
 	 */
-	abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
+	abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException;
 
 	/**
-	 * A method that handles a situation where a given unit withdraws from a given emergency.
+	 * A method that handles a situation where a given unit withdraws from a given sendable.
 	 * @param unitsNeeded
 	 *      The unitsNeeded object of the emergency where the action takes place.
 	 * @param unit
 	 *      The unit that withdraws from an emergency.
-	 * @throws InvalidEmergencyStatusException
+	 * @throws InvalidSendableStatusException
 	 *      If the status of the emergency is invalid.
 	 * @note This method has a package visibility: Only the emergency class can call this method.
 	 */
-	abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidEmergencyStatusException;
+	abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException;
 
 	/**
-	 * A method that checks if the given units can be assigned to the given emergency.
+	 * A method that checks if the given units can be assigned to the given sendable.
 	 * @param unitsNeeded
-	 *      The unitsNeeded object of the emergency where the action takes place.
+	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param units
 	 *      A list of units to check for.
 	 * @return True if the given list of units can be assigned, otherwise false (this also includes states where no allocation can be done).
@@ -252,9 +252,9 @@ public enum EmergencyStatus {
 	}
 
 	/**
-	 * Gets a proposal generated by the policy of this emergency.
+	 * Gets a proposal generated by the policy of this sendable.
 	 * @param unitsNeeded
-	 *      The unitsNeeded object of the emergency where the action takes place.
+	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param availableUnits
 	 *      A list of available units that can be selected.
 	 * @return A set of units that represents the proposal of the policy.
@@ -264,16 +264,16 @@ public enum EmergencyStatus {
 	/**
 	 * Checks if the given emergency can be resolved with a given collection of all the available units.
 	 * @param unitsNeeded
-	 *      The unitsNeeded object of the emergency where the action takes place.
+	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param availableUnits
 	 *		A collection of all the available units.
-	 * @return True if the given emergency can be resolved, otherwise false.
+	 * @return True if the given sendable can be resolved, otherwise false.
 	 */
 	abstract boolean canBeResolved(UnitsNeeded unitsNeeded, Set<Unit> availableUnits);
 
 	/**
 	 * Checks if units can be assgined with the current state.
-	 * @return True if the EmergencyState allows assignment of units, otherwise false.
+	 * @return True if the SendableStatus allows assignment of units, otherwise false.
 	 * @note Returning true does not guarantee any combination of units can be assigned.
 	 */
 	protected boolean canAssignUnitsFromState() {
@@ -281,15 +281,15 @@ public enum EmergencyStatus {
 	}
 
 	/**
-	 * A virtual method that needs to be overridden by an EmergencyStatus where something has to be done after Units are assigned to the Emergency.
-	 * @param unitsNeeded The ConcreteUnitsNeeded object of the Emergency.
+	 * A virtual method that needs to be overridden by an SendableStatus where something has to be done after Units are assigned to the Sendable.
+	 * @param unitsNeeded The ConcreteUnitsNeeded object of the Sendable.
 	 * @param units The Set of assigned Units.
 	 */
 	protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
 	}
 
 	/**
-	 * Combining two EmergencyStatuses (this and otherStatus) intro a new EmergencyStatus. The transmission-table of the method is defined by the following transmission table:
+	 * Combining two SendableStatuses (this and otherStatus) intro a new SendableStatus. The transmission-table of the method is defined by the following transmission table:
 	 * <table>
 	 *  <tr><td>Combine</td><td>RBU</td><td>RIP</td><td>CPT</td></tr>
 	 *  <tr><td>RBU</td><td>RBU</td><td>RIP</td><td>RIP</td></tr>
@@ -297,15 +297,15 @@ public enum EmergencyStatus {
 	 *  <tr><td>CPT</td><td>RIP</td><td>RIP</td><td>CPT</td></tr>
 	 * </table>
 	 * @param otherStatus The other status to combine with.
-	 * @return The combination of the two EmergencyStatuses.
+	 * @return The combination of the two SendableStatuses.
 	 * @note This method is used to calculate the derived status of the disaster from it's emergency.
 	 * @note This method is commutitive, this is forced: this.combine(otherStatus) == otherStatus.combine(this).
 	 * @note Another property is that a status combined with the same status always results in that status: this.combine(this) == this.
 	 * @note This method uses the combineWithLower method.
 	 * @see Disaster#getStatus()
-	 * @see #combineWithLower(projectswop20102011.domain.EmergencyStatus)
+	 * @see #combineWithLower(projectswop20102011.domain.SendableStatus)
 	 */
-	public EmergencyStatus combine(EmergencyStatus otherStatus) {
+	public SendableStatus combine(SendableStatus otherStatus) {
 		if (this == otherStatus) {
 			return this;
 		} else if (this.ordinal() < otherStatus.ordinal()) {
@@ -316,9 +316,9 @@ public enum EmergencyStatus {
 	}
 
 	/**
-	 * Combines this EmergencyStatus with a status that has a lower ordinal.
+	 * Combines this SendableStatus with a status that has a lower ordinal.
 	 * @param otherStatus The other status to combine with.
-	 * @return The combination of the two EmergencyStatuses.
+	 * @return The combination of the two SendableStatuses.
 	 */
-	protected abstract EmergencyStatus combineWithLower(EmergencyStatus otherStatus);
+	protected abstract SendableStatus combineWithLower(SendableStatus otherStatus);
 }

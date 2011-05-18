@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
@@ -49,8 +49,8 @@ public class PublicDisturbance extends Emergency {
      * @throws NumberOutOfBoundsException
      *		If the given number of people involved is invalid.
      */
-    public PublicDisturbance(GPSCoordinate location, EmergencySeverity severity, String description,
-            long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+    public PublicDisturbance(GPSCoordinate location, SendableSeverity severity, String description,
+            long numberOfPeople) throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException {
         super(location, severity, description);
         setNumberOfPeople(numberOfPeople);
     }

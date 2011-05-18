@@ -4,11 +4,11 @@ import java.io.InvalidClassException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.exceptions.InvalidDescriptionException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidNameException;
@@ -53,10 +53,10 @@ public class TrafficAccidentFactory extends EmergencyFactory {
             throw new InvalidParametersException("The parameters are invalid.");
         } else {
 			try {
-				return new TrafficAccident((GPSCoordinate) parameters[0], (EmergencySeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
+				return new TrafficAccident((GPSCoordinate) parameters[0], (SendableSeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
 			} catch (InvalidLocationException ex) {
 				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (InvalidEmergencySeverityException ex) {
+			} catch (InvalidSendableSeverityException ex) {
 				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (NumberOutOfBoundsException ex) {
 				Logger.getLogger(TrafficAccidentFactory.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,7 +74,7 @@ public class TrafficAccidentFactory extends EmergencyFactory {
         try {
             return new FactoryInformation(
                     new FactoryInformationParameter("location", GPSCoordinate.class, "The location of the emergency."),
-                    new FactoryInformationParameter("severity", EmergencySeverity.class, "The severity level of the emergency."),
+                    new FactoryInformationParameter("severity", SendableSeverity.class, "The severity level of the emergency."),
                     new FactoryInformationParameter("description", String.class, "The description of the emergency."),
                     new FactoryInformationParameter("numberOfCars", Long.class, "The number of cars envolved in the traffic accident."),
                     new FactoryInformationParameter("numberOfInjured", Long.class, "The number of injured people."));

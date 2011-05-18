@@ -12,8 +12,8 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -37,7 +37,7 @@ public class DisasterTest {
 	private long capacity1;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
 		x1 = 12;
 		y1 = 789;
 		x2 = 95;
@@ -47,14 +47,14 @@ public class DisasterTest {
 		armed1 = true;
 		inProgress1 = false;
 
-		e1 = new Robbery(l1, EmergencySeverity.BENIGN, "", armed1, inProgress1);
-		e2 = new PublicDisturbance(l2, EmergencySeverity.BENIGN, "", 6);
-		e3 = new Fire(l1, EmergencySeverity.NORMAL, "", FireSize.LOCAL, false, 0, 1337);
-		e4 = new PublicDisturbance(l2, EmergencySeverity.NORMAL, "", 1302);
-		e5 = new Fire(l1, EmergencySeverity.SERIOUS, "", FireSize.LOCAL, false, 0, 1337);
-		e6 = new PublicDisturbance(l2, EmergencySeverity.SERIOUS, "", 1302);
-		e7 = new Fire(l1, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
-		e8 = new PublicDisturbance(l2, EmergencySeverity.URGENT, "", 6);
+		e1 = new Robbery(l1, SendableSeverity.BENIGN, "", armed1, inProgress1);
+		e2 = new PublicDisturbance(l2, SendableSeverity.BENIGN, "", 6);
+		e3 = new Fire(l1, SendableSeverity.NORMAL, "", FireSize.LOCAL, false, 0, 1337);
+		e4 = new PublicDisturbance(l2, SendableSeverity.NORMAL, "", 1302);
+		e5 = new Fire(l1, SendableSeverity.SERIOUS, "", FireSize.LOCAL, false, 0, 1337);
+		e6 = new PublicDisturbance(l2, SendableSeverity.SERIOUS, "", 1302);
+		e7 = new Fire(l1, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
+		e8 = new PublicDisturbance(l2, SendableSeverity.URGENT, "", 6);
 
 		description1 = "A couple of emergencies";
 
@@ -107,10 +107,10 @@ public class DisasterTest {
 			assertEquals(new GPSCoordinate(x1, y1), d.getEmergencies().get(1).getLocation());
 		}
 
-		assertEquals(EmergencySeverity.BENIGN, d.getEmergencies().get(0).getSeverity());
-		assertEquals(EmergencySeverity.BENIGN, d.getEmergencies().get(1).getSeverity());
-		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, d.getEmergencies().get(0).getStatus());
-		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, d.getEmergencies().get(1).getStatus());
+		assertEquals(SendableSeverity.BENIGN, d.getEmergencies().get(0).getSeverity());
+		assertEquals(SendableSeverity.BENIGN, d.getEmergencies().get(1).getSeverity());
+		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, d.getEmergencies().get(0).getStatus());
+		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, d.getEmergencies().get(1).getStatus());
 	}
 
 	@Test
@@ -120,7 +120,7 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e3);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.NORMAL, d.getSeverity());
+		assertEquals(SendableSeverity.NORMAL, d.getSeverity());
 		emergencies.clear();
 
 	}
@@ -131,7 +131,7 @@ public class DisasterTest {
 		emergencies.add(e3);
 		emergencies.add(e4);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.NORMAL, d.getSeverity());
+		assertEquals(SendableSeverity.NORMAL, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -142,7 +142,7 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e5);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		assertEquals(SendableSeverity.SERIOUS, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -152,7 +152,7 @@ public class DisasterTest {
 		emergencies.add(e5);
 		emergencies.add(e6);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		assertEquals(SendableSeverity.SERIOUS, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -162,7 +162,7 @@ public class DisasterTest {
 		emergencies.add(e3);
 		emergencies.add(e5);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		assertEquals(SendableSeverity.SERIOUS, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -173,7 +173,7 @@ public class DisasterTest {
 		emergencies.add(e4);
 		emergencies.add(e6);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.SERIOUS, d.getSeverity());
+		assertEquals(SendableSeverity.SERIOUS, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -183,7 +183,7 @@ public class DisasterTest {
 		emergencies.add(e5);
 		emergencies.add(e7);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		assertEquals(SendableSeverity.URGENT, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -193,7 +193,7 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e7);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		assertEquals(SendableSeverity.URGENT, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -203,7 +203,7 @@ public class DisasterTest {
 		emergencies.add(e3);
 		emergencies.add(e7);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		assertEquals(SendableSeverity.URGENT, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -213,7 +213,7 @@ public class DisasterTest {
 		emergencies.add(e7);
 		emergencies.add(e8);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.URGENT, d.getSeverity());
+		assertEquals(SendableSeverity.URGENT, d.getSeverity());
 		emergencies.clear();
 	}
 
@@ -223,17 +223,17 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencySeverity.BENIGN, d.getSeverity());
+		assertEquals(SendableSeverity.BENIGN, d.getSeverity());
 		emergencies.clear();
 	}
 
 	@Test
-	public void testStatus() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException, InvalidDurationException, InvalidFinishJobException {
+	public void testStatus() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidSendableStatusException, InvalidEmergencyException, InvalidConstraintListException, InvalidDurationException, InvalidFinishJobException {
 		ArrayList<Emergency> emergencies = new ArrayList<Emergency>(2);
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, d.getStatus());
+		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, d.getStatus());
 
 		Set<Unit> units = new LinkedHashSet<Unit>(3);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
@@ -244,22 +244,22 @@ public class DisasterTest {
 		units.add(politiewagen3);
 
 		d.assignUnits(units);
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 
 		politiewagen1.timeAhead(1000000);
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		politiewagen2.timeAhead(1000000);
 		politiewagen3.timeAhead(1000000);
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 
 		politiewagen1.finishedJob();
 		politiewagen2.finishedJob();
 		politiewagen3.finishedJob();
-		assertEquals(EmergencyStatus.COMPLETED, d.getStatus());
+		assertEquals(SendableStatus.COMPLETED, d.getStatus());
 	}
 
 	@Test
-	public void testCanPartiallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testCanPartiallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidSendableStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -274,7 +274,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanTotallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testCanTotallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidSendableStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -291,7 +291,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testCanNotAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testCanNotAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidSendableStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Ambulance ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		units.add(ziekenwagen1);
@@ -334,7 +334,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidConstraintListException {
+	public void testAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidSendableStatusException, InvalidEmergencyException, InvalidConstraintListException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -352,7 +352,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException, InvalidDurationException {
+	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableStatusException, InvalidDurationException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -365,24 +365,24 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED, d.getStatus());
+		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, d.getStatus());
 		d.assignUnits(units);
 
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 		politiewagen3.timeAhead(1000000000);
 
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		d.finishUnit(politiewagen1);
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		d.finishUnit(politiewagen2);
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		d.finishUnit(politiewagen3);
-		assertEquals(EmergencyStatus.COMPLETED, d.getStatus());
+		assertEquals(SendableStatus.COMPLETED, d.getStatus());
 	}
 
 	@Test
-	public void testFinishUnitAutoDispatch() throws InvalidEmergencyStatusException, InvalidDurationException, InvalidEmergencyException, InvalidConstraintListException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFinishJobException {
+	public void testFinishUnitAutoDispatch() throws InvalidSendableStatusException, InvalidDurationException, InvalidEmergencyException, InvalidConstraintListException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidFinishJobException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name2, homeLocation1, speed1);
@@ -400,21 +400,21 @@ public class DisasterTest {
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		politiewagen1.finishedJob();
 		assertEquals(1, e1.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS, d.getStatus());
+		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 		politiewagen2.finishedJob();
 		
 		politiewagen1.timeAhead(1000000000);
 		politiewagen1.finishedJob();
 		
 		assertEquals(0, e1.getWorkingUnits().size());
-		assertEquals(EmergencyStatus.COMPLETED, d.getStatus());
+		assertEquals(SendableStatus.COMPLETED, d.getStatus());
 	}
 
 	@Test
-	public void testWithdrawUnit() throws InvalidMapItemNameException, InvalidLocationException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException, InvalidDurationException, InvalidWithdrawalException {
+	public void testWithdrawUnit() throws InvalidMapItemNameException, InvalidLocationException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableStatusException, InvalidDurationException, InvalidWithdrawalException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -435,7 +435,7 @@ public class DisasterTest {
 	}
 
 	@Test(expected = InvalidWithdrawalException.class)
-	public void testInvalidWithdrawUnit() throws InvalidMapItemNameException, InvalidLocationException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException, InvalidDurationException, InvalidWithdrawalException {
+	public void testInvalidWithdrawUnit() throws InvalidMapItemNameException, InvalidLocationException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableStatusException, InvalidDurationException, InvalidWithdrawalException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -459,7 +459,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testIsPartiallyAssigned() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException {
+	public void testIsPartiallyAssigned() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableStatusException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		units.add(politiewagen1);
@@ -473,7 +473,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testIsPartiallyAssigned2() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException {
+	public void testIsPartiallyAssigned2() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableStatusException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, homeLocation1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, homeLocation1, speed1);
@@ -489,7 +489,7 @@ public class DisasterTest {
 	}
 
 	@Test
-	public void testPartiallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidEmergencyStatusException {
+	public void testPartiallyAssign() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableStatusException {
 		Set<Unit> units1 = new LinkedHashSet<Unit>(5);
 		Set<Unit> units2 = new LinkedHashSet<Unit>(5);
 

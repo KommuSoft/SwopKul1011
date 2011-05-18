@@ -1,11 +1,11 @@
 package projectswop20102011.utils.parsers;
 
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import java.util.Map;
 import java.util.regex.Pattern;
 import projectswop20102011.domain.FireSize;
 import org.junit.Test;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.exceptions.ParsingException;
 import projectswop20102011.utils.ObjectHolder;
 import static org.junit.Assert.*;
@@ -13,15 +13,15 @@ import static org.junit.Assert.*;
 public class EnumParserTest {
 
     private EnumParser fireSizeParser = new EnumParser<FireSize>(FireSize.class);
-    private EnumParser emergencyStatusParser = new EnumParser<EmergencyStatus>(EmergencyStatus.class);
-    private EnumParser emergencySeverityParser = new EnumParser<EmergencySeverity>(EmergencySeverity.class);
+    private EnumParser emergencyStatusParser = new EnumParser<SendableStatus>(SendableStatus.class);
+    private EnumParser emergencySeverityParser = new EnumParser<SendableSeverity>(SendableSeverity.class);
 
 
     @Test
     public void testConstructor() {
         new EnumParser(FireSize.class);
-        new EnumParser(EmergencyStatus.class);
-        new EnumParser(EmergencySeverity.class);
+        new EnumParser(SendableStatus.class);
+        new EnumParser(SendableSeverity.class);
     }
 
     /**
@@ -50,87 +50,87 @@ public class EnumParserTest {
         fireSizeParser.parse(textualRepresentation, fireSizeHolder);
         assertEquals(FireSize.FACILITY,fireSizeHolder.getObject());
 
-        ObjectHolder<EmergencyStatus> emergencyStatusHolder = new ObjectHolder<EmergencyStatus>();
+        ObjectHolder<SendableStatus> emergencyStatusHolder = new ObjectHolder<SendableStatus>();
         textualRepresentation = "recorded but unhandled";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
         textualRepresentation = "response in progress";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
         textualRepresentation = "completed";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.COMPLETED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.COMPLETED,emergencyStatusHolder.getObject());
 
 		textualRepresentation = "UNHANDLED";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
         textualRepresentation = "RESPONDED";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
 		 textualRepresentation = "COMPLETED";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.COMPLETED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.COMPLETED,emergencyStatusHolder.getObject());
 
         textualRepresentation = "42recorded but unhandled1425";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
         textualRepresentation = "1302response in progress1817";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
         textualRepresentation = "2010completed2015";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.COMPLETED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.COMPLETED,emergencyStatusHolder.getObject());
 
-        ObjectHolder<EmergencySeverity> emergencySeverityHolder = new ObjectHolder<EmergencySeverity>();
+        ObjectHolder<SendableSeverity> emergencySeverityHolder = new ObjectHolder<SendableSeverity>();
         textualRepresentation = "benign";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.BENIGN,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.BENIGN,emergencySeverityHolder.getObject());
         textualRepresentation = "normal";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.NORMAL,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.NORMAL,emergencySeverityHolder.getObject());
         textualRepresentation = "serious";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.SERIOUS,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.SERIOUS,emergencySeverityHolder.getObject());
         textualRepresentation = "urgent";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.URGENT,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.URGENT,emergencySeverityHolder.getObject());
 
         textualRepresentation = "BENIGN";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.BENIGN,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.BENIGN,emergencySeverityHolder.getObject());
         textualRepresentation = "NORMAL";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.NORMAL,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.NORMAL,emergencySeverityHolder.getObject());
         textualRepresentation = "SERIOUS";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.SERIOUS,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.SERIOUS,emergencySeverityHolder.getObject());
         textualRepresentation = "URGENT";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.URGENT,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.URGENT,emergencySeverityHolder.getObject());
 
         textualRepresentation = "42benign1425";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.BENIGN,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.BENIGN,emergencySeverityHolder.getObject());
         textualRepresentation = "1302normal1817";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.NORMAL,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.NORMAL,emergencySeverityHolder.getObject());
         textualRepresentation = "2010serious2015";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.SERIOUS,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.SERIOUS,emergencySeverityHolder.getObject());
         textualRepresentation = "1789urgent1879";
         emergencySeverityParser.parse(textualRepresentation, emergencySeverityHolder);
-        assertEquals(EmergencySeverity.URGENT,emergencySeverityHolder.getObject());
+        assertEquals(SendableSeverity.URGENT,emergencySeverityHolder.getObject());
     }
 
 	@Test
 	public void testExternalSystemEnum() throws ParsingException{
-		ObjectHolder<EmergencyStatus> emergencyStatusHolder = new ObjectHolder<EmergencyStatus>();
+		ObjectHolder<SendableStatus> emergencyStatusHolder = new ObjectHolder<SendableStatus>();
 		String textualRepresentation = "unhandled";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED,emergencyStatusHolder.getObject());
         textualRepresentation = "responded";
         emergencyStatusParser.parse(textualRepresentation, emergencyStatusHolder);
-        assertEquals(EmergencyStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
+        assertEquals(SendableStatus.RESPONSE_IN_PROGRESS,emergencyStatusHolder.getObject());
 	}
 
     /**

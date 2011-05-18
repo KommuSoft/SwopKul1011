@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Set;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 
 public abstract class Sendable implements Targetable {
 
@@ -33,13 +33,13 @@ public abstract class Sendable implements Targetable {
      * Returns the severity of this emergency.
      * @return The severity of this emergency.
      */
-    public abstract EmergencySeverity getSeverity();
+    public abstract SendableSeverity getSeverity();
 
     /**
      * Returns the status of this emergency.
      * @return The status of this emergency.
      */
-    public abstract EmergencyStatus getStatus();
+    public abstract SendableStatus getStatus();
 
     /**
      * Returns the description of this emergency.
@@ -121,7 +121,7 @@ public abstract class Sendable implements Targetable {
      * @throws  InvalidEmergencyException
      *		If the emergency is invalid.
      */
-    public void assignUnits(Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+    public void assignUnits(Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
         this.getStatus().assignUnits(this.getUnitsNeeded(), units);
     }
 
@@ -163,7 +163,7 @@ public abstract class Sendable implements Targetable {
      *      If the status of this emergency does not allow this action.
      * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
      */
-    void finishUnit(Unit unitToFinish) throws InvalidEmergencyStatusException {
+    void finishUnit(Unit unitToFinish) throws InvalidSendableStatusException {
         this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish);
     }
 
@@ -175,7 +175,7 @@ public abstract class Sendable implements Targetable {
      *      If the status of this emergency does not allow this action.
      * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
      */
-    void withdrawUnit(Unit unitToWithdraw) throws InvalidEmergencyStatusException {
+    void withdrawUnit(Unit unitToWithdraw) throws InvalidSendableStatusException {
         this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw);
     }
     

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidDurationException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -365,7 +365,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @throws InvalidEmergencyStatusException
 	 *                  If the emergency of this unit is in a state where the unit cannot withdraw.
 	 */
-	public void withdraw() throws InvalidWithdrawalException, InvalidEmergencyStatusException {
+	public void withdraw() throws InvalidWithdrawalException, InvalidSendableStatusException {
 		if (!canBeWithdrawn()) {
 			throw new InvalidWithdrawalException("Unit can't be withdrawn.");
 		} else {
@@ -420,7 +420,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @throws InvalidEmergencyStatusException
 	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
 	 */
-	public void finishedJob() throws InvalidEmergencyStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
+	public void finishedJob() throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
 		if (getDisaster() == null) {
 			finishedJobForEmergencies();
 		} else {
@@ -428,7 +428,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		}
 	}
 
-	protected void finishedJobForEmergencies() throws InvalidFinishJobException, InvalidEmergencyStatusException {
+	protected void finishedJobForEmergencies() throws InvalidFinishJobException, InvalidSendableStatusException {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (isRequired()) {
@@ -443,7 +443,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		}
 	}
 
-	protected void finishedJobForDisasters() throws InvalidEmergencyStatusException, InvalidEmergencyException, InvalidFinishJobException {
+	protected void finishedJobForDisasters() throws InvalidSendableStatusException, InvalidEmergencyException, InvalidFinishJobException {
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (isRequired()) {

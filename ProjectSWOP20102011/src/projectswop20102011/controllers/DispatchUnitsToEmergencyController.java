@@ -16,7 +16,7 @@ import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
@@ -102,7 +102,7 @@ public class DispatchUnitsToEmergencyController extends Controller {
 	 *          If the emergency is in a state where units can't be dispatched to.
 	 * @throws InvalidEmergencyException 
 	 */
-	public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
 		if (emergency.isPartOfADisaster()) {
 			throw new InvalidEmergencyException("The emergency is part of a disaster.");
 		}

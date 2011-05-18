@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -124,8 +124,8 @@ public class MapItemListTest {
     }
 
     @Test
-    public void testSort() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemException, InvalidEmergencyException {
-        f1 = new Fire(fireLocation, EmergencySeverity.BENIGN, "",FireSize.LOCAL, true, 1, 6);
+    public void testSort() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemException, InvalidEmergencyException {
+        f1 = new Fire(fireLocation, SendableSeverity.BENIGN, "",FireSize.LOCAL, true, 1, 6);
         hdc = new HospitalToEmergencyDistanceComparator(f1);
         ubl1.addMapItem(h2);
         ubl1.addMapItem(h1);

@@ -1,6 +1,6 @@
 package projectswop20102011.userinterface;
 
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.controllers.CreateEmergencyController;
@@ -46,7 +46,7 @@ public class CreateEmergencyUserInterface extends CommandUserInterface {
             retry = false;
             try {
                 GPSCoordinate location = this.parseInputToType(new GPSCoordinateParser(), "location of the emergency");
-                EmergencySeverity severity = this.parseInputToType(new EmergencySeverityParser(), "severity level of the emergency");
+                SendableSeverity severity = this.parseInputToType(new EmergencySeverityParser(), "severity level of the emergency");
                 String description = this.parseInputToType(new StringParser(), "description of the emergency");
                 String emergencyType = this.parseInputToType(new StringParser(), "type of the emergency");//, "fire", "robbery", "public disturbance", "traffic accident"
                 if (emergencyType.equals("fire")) {

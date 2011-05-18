@@ -5,13 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.domain.Unit;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -24,13 +24,13 @@ public class UnitToEmergencyDistanceComparatorTest {
 	private Unit u1, u2, u3, u4;
 	private GPSCoordinate gps1, gps2, gps3, gps4;
 	private long x1, y1, x2, y2, x3, y3, x4, y4;
-	private EmergencySeverity es1, es2;
+	private SendableSeverity es1, es2;
 	private long number1, number2;
 	private String name1, name2, name3, name4;
 	private long speed1, speed2, speed3, speed4;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
 		x1 = 10;
 		y1 = 10;
 
@@ -48,8 +48,8 @@ public class UnitToEmergencyDistanceComparatorTest {
 		gps3 = new GPSCoordinate(x3, y3);
 		gps4 = new GPSCoordinate(x4, y4);
 
-		es1 = EmergencySeverity.BENIGN;
-		es2 = EmergencySeverity.NORMAL;
+		es1 = SendableSeverity.BENIGN;
+		es2 = SendableSeverity.NORMAL;
 
 		number1 = 10;
 		number2 = 2;

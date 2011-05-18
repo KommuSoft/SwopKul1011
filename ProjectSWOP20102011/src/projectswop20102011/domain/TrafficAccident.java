@@ -13,7 +13,7 @@ import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
@@ -64,8 +64,8 @@ public class TrafficAccident extends Emergency {
 	 *		If the number of involved cars or injured people is invalid.
 	 *
 	 */
-	public TrafficAccident(GPSCoordinate location, EmergencySeverity severity, String description,
-			long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+	public TrafficAccident(GPSCoordinate location, SendableSeverity severity, String description,
+			long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException {
 		super(location, severity, description);
 		setNumberOfCars(numberOfCars);
 		setNumberOfInjured(numberOfInjured);

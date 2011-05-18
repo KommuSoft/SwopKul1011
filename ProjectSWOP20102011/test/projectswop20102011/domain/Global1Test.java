@@ -11,8 +11,8 @@ import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -99,10 +99,10 @@ public class Global1Test {
 	}
 
 	@Test(expected = InvalidEmergencyException.class)
-	public void testInvalidAssignToFire() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testInvalidAssignToFire() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidEmergencyStatusException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidSendableStatusException, Exception {
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
@@ -134,10 +134,10 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testValidAssignToFire() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testValidAssignToFire() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidEmergencyStatusException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidSendableStatusException, Exception {
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
@@ -164,11 +164,11 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testNormalWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testNormalWithdrawUnits() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidEmergencyStatusException, Exception {
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidSendableStatusException, Exception {
 		//Brand aanmaken + alle units
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
 		ziekenwagen3 = new Ambulance(name3, homeLocation3, speed3);
@@ -253,10 +253,10 @@ public class Global1Test {
 	}
 
 	@Test(expected = InvalidWithdrawalException.class)
-	public void testNotWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testNotWithdrawUnits() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidEmergencyStatusException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 2);
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidSendableStatusException, Exception {
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 2);
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
@@ -290,10 +290,10 @@ public class Global1Test {
 	}
 
 	@Test(expected = InvalidWithdrawalException.class)
-	public void testInvalidNormalWithdrawUnits() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testInvalidNormalWithdrawUnits() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidEmergencyStatusException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+			InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidWithdrawalException, InvalidSendableStatusException, Exception {
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
 		brandweerwagen1 = new Firetruck(name6, homeLocation6, speed6, capacity);
@@ -323,11 +323,11 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testFinishedJob() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testFinishedJob() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+			InvalidSpeedException, InvalidSendableStatusException, InvalidEmergencyException, InvalidDurationException,
 			InvalidAmbulanceException, InvalidHospitalException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
 
 		Set<Unit> units = new LinkedHashSet<Unit>(1338);
 		int aantal = 1335;
@@ -359,15 +359,15 @@ public class Global1Test {
 			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
 		}
 
-		assertEquals(EmergencyStatus.COMPLETED, e1.getStatus());
+		assertEquals(SendableStatus.COMPLETED, e1.getStatus());
 	}
 
 	@Test
-	public void testFinishedJobTwoFireTrucks() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testFinishedJobTwoFireTrucks() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+			InvalidSpeedException, InvalidSendableStatusException, InvalidEmergencyException, InvalidDurationException,
 			InvalidAmbulanceException, InvalidHospitalException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 0, 1337);
 
 		Set<Unit> units = new LinkedHashSet<Unit>(1338);
 		int aantal = 1335;
@@ -401,15 +401,15 @@ public class Global1Test {
 			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
 		}
 
-		assertEquals(EmergencyStatus.COMPLETED, e1.getStatus());
+		assertEquals(SendableStatus.COMPLETED, e1.getStatus());
 	}
 
 	@Test
-	public void testFinishedJobPoliceCar() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testFinishedJobPoliceCar() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+			InvalidSpeedException, InvalidSendableStatusException, InvalidEmergencyException, InvalidDurationException,
 			InvalidAmbulanceException, InvalidHospitalException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.HOUSE, false, 0, 1337);
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.HOUSE, false, 0, 1337);
 
 		Set<Unit> units = new LinkedHashSet<Unit>(1338);
 		int aantal = 1335;
@@ -445,15 +445,15 @@ public class Global1Test {
 			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
 		}
 
-		assertEquals(EmergencyStatus.COMPLETED, e1.getStatus());
+		assertEquals(SendableStatus.COMPLETED, e1.getStatus());
 	}
 
 	@Test
-	public void testFinishedJobPoliceCars() throws InvalidLocationException, InvalidEmergencySeverityException,
+	public void testFinishedJobPoliceCars() throws InvalidLocationException, InvalidSendableSeverityException,
 			InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException,
-			InvalidSpeedException, InvalidEmergencyStatusException, InvalidEmergencyException, InvalidDurationException,
+			InvalidSpeedException, InvalidSendableStatusException, InvalidEmergencyException, InvalidDurationException,
 			InvalidAmbulanceException, InvalidHospitalException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.FACILITY, false, 0, 1337);
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.FACILITY, false, 0, 1337);
 
 		Set<Unit> units = new LinkedHashSet<Unit>(1338);
 		int aantal = 1335;
@@ -509,12 +509,12 @@ public class Global1Test {
 			assertEquals(UnitStatus.IDLE, u.getUnitStatus());
 		}
 
-		assertEquals(EmergencyStatus.COMPLETED, e1.getStatus());
+		assertEquals(SendableStatus.COMPLETED, e1.getStatus());
 	}
 
 	@Test
-	public void testSelectHospital() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidAmbulanceException, InvalidHospitalException, InvalidEmergencyStatusException, Exception {
-		e1 = new Fire(emergencyLocation, EmergencySeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
+	public void testSelectHospital() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidDurationException, InvalidAmbulanceException, InvalidHospitalException, InvalidSendableStatusException, Exception {
+		e1 = new Fire(emergencyLocation, SendableSeverity.URGENT, "", FireSize.LOCAL, false, 1, 2);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
@@ -542,8 +542,8 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testRobberyUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
-		e1 = new Robbery(emergencyLocation, EmergencySeverity.URGENT, "", armed1, inProgress1);
+	public void testRobberyUnitsNeeded() throws InvalidLocationException, InvalidSendableSeverityException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
+		e1 = new Robbery(emergencyLocation, SendableSeverity.URGENT, "", armed1, inProgress1);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);
@@ -562,8 +562,8 @@ public class Global1Test {
 	}
 
 	@Test
-	public void testPublicDisturbanceUnitsNeeded() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
-		e1 = new PublicDisturbance(emergencyLocation, EmergencySeverity.URGENT, "", numberOfPeople1);
+	public void testPublicDisturbanceUnitsNeeded() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
+		e1 = new PublicDisturbance(emergencyLocation, SendableSeverity.URGENT, "", numberOfPeople1);
 
 		ziekenwagen1 = new Ambulance(name1, homeLocation1, speed1);
 		ziekenwagen2 = new Ambulance(name2, homeLocation2, speed2);

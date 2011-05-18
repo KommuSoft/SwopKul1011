@@ -1,7 +1,7 @@
 package projectswop20102011.controllers;
 
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.EmergencySeverity;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.GPSCoordinate;
@@ -9,7 +9,7 @@ import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.World;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidWorldException;
@@ -63,7 +63,7 @@ public class CreateEmergencyController extends Controller {
      * @throws NumberOutOfBoundsException
      *		If the given number of trapped or injured people is invalid.
      */
-    public void createFireEmergency(GPSCoordinate location, EmergencySeverity severity, String description, FireSize fireSize, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
+    public void createFireEmergency(GPSCoordinate location, SendableSeverity severity, String description, FireSize fireSize, boolean chemical, long trappedPeople, long numberOfInjured) throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
         this.addCreatedEmergencyToTheWorld(new Fire(location, severity, description, fireSize, chemical, trappedPeople, numberOfInjured));
     }
 
@@ -77,7 +77,7 @@ public class CreateEmergencyController extends Controller {
      * @throws InvalidLocationException If the given location is invalid.
      * @throws InvalidEmergencySeverityException If the severity level is invalid.
      */
-    public void createRobberyEmergency(GPSCoordinate location, EmergencySeverity severity, String description, boolean armed, boolean inProgress) throws InvalidLocationException, InvalidEmergencySeverityException {
+    public void createRobberyEmergency(GPSCoordinate location, SendableSeverity severity, String description, boolean armed, boolean inProgress) throws InvalidLocationException, InvalidSendableSeverityException {
         this.addCreatedEmergencyToTheWorld(new Robbery(location, severity, description, armed, inProgress));
     }
 
@@ -91,7 +91,7 @@ public class CreateEmergencyController extends Controller {
      * @throws InvalidEmergencySeverityException If the given severity level is invalid.
      * @throws NumberOutOfBoundsException If the given number of envolved people is invalid.
      */
-    public void createPublicDisturbanceEmergency(GPSCoordinate location, EmergencySeverity severity, String description, long numberOfPeople) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+    public void createPublicDisturbanceEmergency(GPSCoordinate location, SendableSeverity severity, String description, long numberOfPeople) throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException {
         this.addCreatedEmergencyToTheWorld(new PublicDisturbance(location, severity, description, numberOfPeople));
     }
 
@@ -106,7 +106,7 @@ public class CreateEmergencyController extends Controller {
      * @throws InvalidEmergencySeverityException If the severity level of the traffic accident.
      * @throws NumberOutOfBoundsException If the given number of injured people is invalid.
      */
-    public void createTrafficAccidentEmergency(GPSCoordinate location, EmergencySeverity severity, String description, long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException {
+    public void createTrafficAccidentEmergency(GPSCoordinate location, SendableSeverity severity, String description, long numberOfCars, long numberOfInjured) throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException {
         this.addCreatedEmergencyToTheWorld(new TrafficAccident(location, severity, description, numberOfCars, numberOfInjured));
     }
 }

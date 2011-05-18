@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -16,14 +16,14 @@ public class DefaultDispatchPolicyTest {
 	private Emergency e1, e2;
 	private long x1, y1, x2, y2, x3, y3;
 	private GPSCoordinate location1, location2, location3;
-	private EmergencySeverity severity1;
+	private SendableSeverity severity1;
 	private long numberOfPeople1;
 	private String name1, name2;
 	private long speed1, speed2;
 	private Unit u1, u2;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
 		x1 = 0;
 		y1 = 0;
 		x2 = 10;
@@ -35,7 +35,7 @@ public class DefaultDispatchPolicyTest {
 		location2 = new GPSCoordinate(x2, y2);
 		location3 = new GPSCoordinate(x3, y3);
 
-		severity1 = EmergencySeverity.BENIGN;
+		severity1 = SendableSeverity.BENIGN;
 		numberOfPeople1 = 10;
 
 		name1 = "PC1";

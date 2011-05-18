@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import projectswop20102011.World;
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EmergencyStatus;
+import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.domain.validators.DisasterEvaluationCriterium;
 import projectswop20102011.domain.validators.StatusEqualityDisasterEvaluationCriterium;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
@@ -32,7 +32,7 @@ public class InspectDisastersController extends Controller {
 	 * @return A list with disasters with the given status.
 	 * @throws InvalidAddedDisasterException  
 	 */
-	public Disaster[] inspectDisastersOnStatus(EmergencyStatus status) throws InvalidAddedDisasterException {
+	public Disaster[] inspectDisastersOnStatus(SendableStatus status) throws InvalidAddedDisasterException {
 		DisasterEvaluationCriterium criterium = new StatusEqualityDisasterEvaluationCriterium(status);
 		return this.getWorld().getDisasterList().getDisastersByCriterium(criterium).toArray();
 	}

@@ -8,8 +8,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidEmergencySeverityException;
-import projectswop20102011.exceptions.InvalidEmergencyStatusException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSpeedException;
@@ -19,10 +19,10 @@ public class EmergencyTest {
 
 	private GPSCoordinate gp1, gp2, gp3;
 	private long x1, y1, x2, y2;
-	private EmergencyStatus es1, es2;
+	private SendableStatus es1, es2;
 	private String name1, name2, name3, name4;
 	private long speed1;
-	private EmergencySeverity severity;
+	private SendableSeverity severity;
 	private String description1, description2;
 	private long numberOfPeople1, numberOfPeople2;
 	private boolean armed1;
@@ -40,7 +40,7 @@ public class EmergencyTest {
 		gp2 = null;
 		gp3 = new GPSCoordinate(x2, y2);
 
-		es1 = EmergencyStatus.COMPLETED;
+		es1 = SendableStatus.COMPLETED;
 		es2 = null;
 
 		name1 = "politiewagen1";
@@ -49,7 +49,7 @@ public class EmergencyTest {
 		name4 = "politiewagen4";
 		speed1 = 100;
 
-		severity = EmergencySeverity.NORMAL;
+		severity = SendableSeverity.NORMAL;
 		description1 = "Volksopstand";
 		description2 = "Overvalletje";
 		numberOfPeople1 = 1000;
@@ -71,7 +71,7 @@ public class EmergencyTest {
 	}
 
 	@Test
-	public void testIsPartiallyAssigned() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencySeverityException, NumberOutOfBoundsException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void testIsPartiallyAssigned() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidSendableStatusException, InvalidEmergencyException {
 		Set<Unit> units = new LinkedHashSet<Unit>(5);
 		Policecar politiewagen1 = new Policecar(name1, gp1, speed1);
 		units.add(politiewagen1);
@@ -93,7 +93,7 @@ public class EmergencyTest {
 	}
 
 	@Test
-	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencySeverityException, InvalidDurationException, InvalidEmergencyStatusException, InvalidEmergencyException {
+	public void testFinishUnit() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidSendableSeverityException, InvalidDurationException, InvalidSendableStatusException, InvalidEmergencyException {
 		Set<Unit> units = new HashSet<Unit>(3);
 		Policecar politiewagen1 = new Policecar(name1, gp1, speed1);
 		Policecar politiewagen2 = new Policecar(name1, gp1, speed1);
@@ -111,11 +111,11 @@ public class EmergencyTest {
 		e.finishUnit(politiewagen1);
 		e.finishUnit(politiewagen2);
 		e.finishUnit(politiewagen3);
-		assertEquals(EmergencyStatus.COMPLETED, e.getStatus());
+		assertEquals(SendableStatus.COMPLETED, e.getStatus());
 	}
 
 	@Test
-	public void testProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencySeverityException{
+	public void testProposal() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidSendableSeverityException{
 		Set<Unit> units = new HashSet<Unit>(3);
 		Policecar politiewagen1 = new Policecar(name1, gp1, speed1);
 		Policecar politiewagen2 = new Policecar(name2, gp1, speed1);
