@@ -24,6 +24,8 @@ public class SendableList<T extends Sendable> implements Iterable<T> {
 	 * @post The inner list that manages the sendables is initialized.
 	 *		| sendables = new HashSet<T>()
 	 */
+	//TODO: wordt normaal nergens gebruikt, zouden we deze generische implementatie nog integreren in onze implementatie?
+	//Dit houdt ook verband met het sendableevaluationcriterium
 	public SendableList() {
 		sendables = new HashSet<T>();
 	}
