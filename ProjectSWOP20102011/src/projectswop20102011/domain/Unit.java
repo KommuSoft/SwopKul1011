@@ -433,11 +433,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         } else if (!arePresent()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         }
+		Disaster d = getDisaster();
         getDisaster().finishUnit(this);
         setEmergency(null);
         setWasAlreadyAtSite(false);
         setUnitStatus(UnitStatus.IDLE);
-        getDisaster().afterFinish(this);
+        d.afterFinish(this);
     }
 
     /**

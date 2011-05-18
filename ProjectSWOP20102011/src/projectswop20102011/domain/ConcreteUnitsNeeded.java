@@ -325,7 +325,8 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
      */
     private void removeFromWorkingUnits(Unit unit) {
         takeWorkingUnits().remove(unit);
-        unit.setEmergency(null);
+        //TODO: Oplossing voor de nullpointer van het finishjobben bij units, kan mss nog terugkomen
+		unit.setEmergency(null);
     }
 
     /**
