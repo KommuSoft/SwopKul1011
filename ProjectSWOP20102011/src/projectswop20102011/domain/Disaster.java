@@ -16,6 +16,7 @@ import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
 
 /**
+ * A class representing a disaster (a group of emergencies).
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Disaster extends Sendable {
@@ -176,15 +177,13 @@ public class Disaster extends Sendable {
 	 * Assigning units to this emergency.
 	 * @param units
 	 *      A list of units to assign.
-	 * @throws InvalidEmergencyStatusException
+	 * @throws InvalidSendableStatusException
 	 *      If the status of this emergency does not allow this action.
 	 * @throws  InvalidEmergencyException
 	 *		If the emergency is invalid.
 	 */
+    @Override
 	public void assignUnits(Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
-		for(Unit u:units){
-			u.setDisaster(this);
-		}
 		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
 	}
 
@@ -259,7 +258,6 @@ public class Disaster extends Sendable {
             Set<Unit> proposal = e.getPolicyProposal(u);
             if (proposal.size() > 0) {
                 e.assignUnits(proposal);
-                unit.setDisaster(this);
                 return;
             }
         }
@@ -272,7 +270,6 @@ public class Disaster extends Sendable {
                 return false;
             }
         }
-
         return true;
     }
 }
