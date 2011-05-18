@@ -196,16 +196,16 @@ public enum SendableStatus {
 	}
 
 	/**
-	 * A method representing a potential transition where units are allocated to the emergency.
+	 * A method representing a potential transition where units are allocated to the sendable.
 	 * @param unitsNeeded
-	 *      The unitsNeeded object of the emergency where the action takes place.
+	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param units
-	 *      The units to allocate to the emergency.
+	 *      The units to allocate to the sendable.
 	 * @throws InvalidSendableStatusException
-	 *      If the status of the emergency is invalid.
+	 *      If the status of the sendable is invalid.
 	 * @throws  InvalidEmergencyException
-	 *		If the emergency is invalid.
-	 * @note This method has a package visibility: Only the emergency class can call this method.
+	 *		If the sendable is invalid.
+	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
 	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
 		if (!canAssignUnitsFromState()) {
@@ -222,20 +222,20 @@ public enum SendableStatus {
 	 * @param unit
 	 *      The unit that signals it has finished its job.
 	 * @throws InvalidSendableStatusException
-	 *      If the status of the emergency is invalid.
-	 * @note This method has a package visibility: Only the emergency class can call this method.
+	 *      If the status of the sendable is invalid.
+	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
 	abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException;
 
 	/**
 	 * A method that handles a situation where a given unit withdraws from a given sendable.
 	 * @param unitsNeeded
-	 *      The unitsNeeded object of the emergency where the action takes place.
+	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param unit
-	 *      The unit that withdraws from an emergency.
+	 *      The unit that withdraws from a sendable.
 	 * @throws InvalidSendableStatusException
-	 *      If the status of the emergency is invalid.
-	 * @note This method has a package visibility: Only the emergency class can call this method.
+	 *      If the status of the sendable is invalid.
+	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
 	abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException;
 
@@ -262,7 +262,7 @@ public enum SendableStatus {
 	abstract Set<Unit> getPolicyProposal(ConcreteUnitsNeeded unitsNeeded, Set<Unit> availableUnits);
 
 	/**
-	 * Checks if the given emergency can be resolved with a given collection of all the available units.
+	 * Checks if the given sendable can be resolved with a given collection of all the available units.
 	 * @param unitsNeeded
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param availableUnits
@@ -298,7 +298,7 @@ public enum SendableStatus {
 	 * </table>
 	 * @param otherStatus The other status to combine with.
 	 * @return The combination of the two SendableStatuses.
-	 * @note This method is used to calculate the derived status of the disaster from it's emergency.
+	 * @note This method is used to calculate the derived status of the disaster from it's sendable.
 	 * @note This method is commutitive, this is forced: this.combine(otherStatus) == otherStatus.combine(this).
 	 * @note Another property is that a status combined with the same status always results in that status: this.combine(this) == this.
 	 * @note This method uses the combineWithLower method.
