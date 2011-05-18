@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -68,7 +69,12 @@ public abstract class Emergency extends Sendable {
         setLocation(location);
         setSeverity(severity);
         setDescription(description);
-        setDisaster(null);
+        try {
+            setDisaster(null);
+        } catch (InvalidEmergencyException ex) {
+            //Can't be thrown at this time the Emergency can't be part of a disaster yet.
+            Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             setStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
         } catch (InvalidSendableStatusException ex) {
@@ -241,7 +247,7 @@ public abstract class Emergency extends Sendable {
      * Gets the disaster where this emergency is part of, if this emergency is no part of a disaster null is returned.
      * @return the disaster where this emergency is part of, if this emergency is no part of a disaster null is returned.
      */
-    public Disaster getDisaster () {
+    public Disaster getDisaster() {
         return this.disaster;
     }
 
@@ -251,9 +257,18 @@ public abstract class Emergency extends Sendable {
      * @throws InvalidEmergencyException If the Emergency is already part of a Disaster.
      */
     void setDisaster(Disaster disaster) throws InvalidEmergencyException {
-        if(this.isPartOfADisaster()) {
+        if (this.isPartOfADisaster()) {
             throw new InvalidEmergencyException("The emergency is already part of an emergency.");
         }
         this.disaster = disaster;
+    }
+
+    @Override
+    void withdrawUnit(Unit unitToWithdraw) throws InvalidSendableStatusException {
+        if (this.isPartOfADisaster()) {
+            this.getDisaster().withdrawUnit(unitToWithdraw);
+        } else {
+            super.withdrawUnit(unitToWithdraw);
+        }
     }
 }

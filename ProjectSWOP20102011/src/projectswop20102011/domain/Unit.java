@@ -88,7 +88,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         setSpeed(speed);
         setCurrentLocation(homeLocation);
         setEmergency(null);
-        setDisaster(null);
         setWasAlreadyAtSite(false);
         setUnitStatus(UnitStatus.IDLE);
         try {
@@ -350,21 +349,16 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      *		|this.setEmergency(null)
      * @throws InvalidWithdrawalException
      *			If the unit is already at site of the emergency.
-     * @throws InvalidEmergencyStatusException
+     * @throws InvalidSendableStatusException
      *                  If the emergency of this unit is in a state where the unit cannot withdraw.
      */
     public void withdraw() throws InvalidWithdrawalException, InvalidSendableStatusException {
         if (!canBeWithdrawn()) {
             throw new InvalidWithdrawalException("Unit can't be withdrawn.");
         } else {
-            //TODO: niet zo mooi waarschijnlijk
-            if (getDisaster() == null) {
-                this.getEmergency().withdrawUnit(this);
-            } else {
-                this.getDisaster().withdrawUnit(this);
-            }
+            //TODO: niet zo mooi waarschijnlijk? [Willem: Beter?]
+            this.getEmergency().withdrawUnit(this);
             this.setEmergency(null);
-            this.setDisaster(null);
             setUnitStatus(UnitStatus.IDLE);
         }
     }
