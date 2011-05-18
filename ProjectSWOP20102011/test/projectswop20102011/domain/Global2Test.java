@@ -19,6 +19,7 @@ import projectswop20102011.controllers.InspectEmergenciesController;
 import projectswop20102011.controllers.RemoveUnitAssignmentFromDisasterController;
 import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyController;
 import projectswop20102011.controllers.SelectHospitalController;
+import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
@@ -53,6 +54,7 @@ public class Global2Test {
 	EndOfTaskController eotc;
 	RemoveUnitAssignmentFromEmergencyController ruafe;
 	RemoveUnitAssignmentFromDisasterController ruafd;
+	TimeAheadController tac;
 	Firetruck ft1;
 	Firetruck ft2;
 	Firetruck ft3;
@@ -99,6 +101,7 @@ public class Global2Test {
 		cdc = new CreateDisasterController(world);
 		dudc = new DispatchUnitsToDisasterController(world);
 		idc = new InspectDisastersController(world);
+		tac = new TimeAheadController(world, null);
 
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
@@ -151,7 +154,7 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testFinishedJob() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException,  InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException, InvalidSendableSeverityException, InvalidSendableStatusException {
+	public void testFinishedJob() throws InvalidLocationException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException, InvalidAmbulanceException, InvalidHospitalException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidClassException, InvalidSendableSeverityException, InvalidSendableStatusException {
 		Firetruck ft = new Firetruck("vuurwagen", new GPSCoordinate(98, 9), 100, 1001);
 		Ambulance am1 = new Ambulance("ambulance1", new GPSCoordinate(9, 98), 100);
 		Ambulance am2 = new Ambulance("ambulance2", new GPSCoordinate(9, 98), 100);
@@ -740,7 +743,7 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testCreateDisaster() throws InvalidLocationException,  InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableSeverityException {
+	public void testCreateDisaster() throws InvalidLocationException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidEmergencyException, InvalidConstraintListException, InvalidSendableSeverityException {
 
 		//Fires aanmaken
 		f1 = new Fire(new GPSCoordinate(-100, -100), SendableSeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
@@ -825,7 +828,7 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testWithdrawDisaster() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException,  NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencyException, InvalidConstraintListException,  InvalidWithdrawalException, InvalidMapItemException, InvalidSendableSeverityException, InvalidSendableStatusException {
+	public void testWithdrawDisaster() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidEmergencyException, InvalidConstraintListException, InvalidWithdrawalException, InvalidMapItemException, InvalidSendableSeverityException, InvalidSendableStatusException {
 
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
@@ -953,7 +956,7 @@ public class Global2Test {
 	}
 
 	@Test
-	public void testExtendedFinishedJobForDisaster() throws InvalidEmergencyException, InvalidConstraintListException, InvalidAddedDisasterException {
+	public void testExtendedFinishedJobForDisaster() throws InvalidEmergencyException, InvalidConstraintListException, InvalidAddedDisasterException, InvalidClassException, InvalidDurationException, InvalidWithdrawalException, InvalidSendableStatusException, InvalidMapItemException {
 
 		//Firetrucks toevoegen aan de MapItemList
 		world.getMapItemList().addMapItem(ft1);
@@ -1024,25 +1027,99 @@ public class Global2Test {
 		emergenciesForDisaster.add(f1);
 		emergenciesForDisaster.add(f2);
 		emergenciesForDisaster.add(f3);
-
 		emergenciesForDisaster.add(r1);
 		emergenciesForDisaster.add(r2);
 		emergenciesForDisaster.add(r3);
 		emergenciesForDisaster.add(r4);
-
 		emergenciesForDisaster.add(ta1);
 		emergenciesForDisaster.add(ta2);
 		emergenciesForDisaster.add(ta3);
-
 		emergenciesForDisaster.add(pd1);
 		emergenciesForDisaster.add(pd2);
 		emergenciesForDisaster.add(pd3);
 
 		String description = "Tis de moeite";
 		cdc.createDisaster(emergenciesForDisaster, description);
-		idc.inspectDisastersOnStatus(SendableStatus.COMPLETED);
 
-		
+		Disaster[] disasters = idc.inspectDisastersOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
+		Disaster disaster = disasters[0];
+		assertEquals(1, disasters.length);
+
+		Emergency[] emergencies = iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
+		assertEquals(13, emergencies.length);
+
+		Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+		int counter;
+
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
+		assertEquals(6, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
+		assertEquals(3, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
+		assertEquals(5, counter);
+
+		dudc.dispatchToDisaster(disaster, unitsFromPolicy);
+
+		tac.doTimeAheadAction(10);
+		for (Unit u : disaster.getWorkingUnits()) {
+			assertFalse(u.isAtDestination());
+		}
+
+		try {
+			ruafd.withdrawUnit(ft1);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft2);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft3);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft4);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft5);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+
+		ruafd.withdrawUnit(am1);
+		ruafd.withdrawUnit(am2);
+		ruafd.withdrawUnit(am3);
+		ruafd.withdrawUnit(am4);
+		ruafd.withdrawUnit(am5);
+		ruafd.withdrawUnit(am6);
+
+		ruafd.withdrawUnit(pc1);
+		ruafd.withdrawUnit(pc2);
+		ruafd.withdrawUnit(pc3);
+		ruafd.withdrawUnit(pc4);
+		ruafd.withdrawUnit(pc5);
+
+		List<Unit> workingUnits = disaster.getWorkingUnits();
+
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), workingUnits);
+		assertEquals(0, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), workingUnits);
+		assertEquals(3, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), workingUnits);
+		assertEquals(0, counter);
+
+		unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
+		assertEquals(6, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
+		assertEquals(0, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
+		assertEquals(5, counter);
 
 	}
 
@@ -1056,7 +1133,7 @@ public class Global2Test {
 		return counter;
 	}
 
-	private int checkAantalUnits(TypeUnitValidator tuv, ArrayList<Unit> units) {
+	private int checkAantalUnits(TypeUnitValidator tuv, List<Unit> units) {
 		int counter = 0;
 		for (Unit u : units) {
 			if (tuv.isValid(u)) {
