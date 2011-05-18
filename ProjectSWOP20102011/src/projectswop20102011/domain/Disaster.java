@@ -77,7 +77,7 @@ public class Disaster extends Sendable {
             return false;
         }
         for (Emergency e : emergencies) {
-            if (e.isPartOfADisaster() || e.getStatus() == SendableStatus.RECORDED_BUT_UNHANDLED) {
+            if (e.isPartOfADisaster() || e.getStatus() != SendableStatus.RECORDED_BUT_UNHANDLED) {
                 return false;
             }
         }
