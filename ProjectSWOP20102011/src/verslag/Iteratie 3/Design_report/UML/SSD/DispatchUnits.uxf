@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.2">
+<diagram program="umlet" version="11.0">
   <help_text>// Uncomment the following line to change the fontsize:
 // fontsize=14
 
@@ -27,7 +27,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>890</x>
+      <x>670</x>
       <y>50</y>
       <w>310</w>
       <h>30</h>
@@ -38,7 +38,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>340</x>
+      <x>120</x>
       <y>60</y>
       <w>50</w>
       <h>80</h>
@@ -49,7 +49,7 @@
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1030</x>
+      <x>810</x>
       <y>130</y>
       <w>20</w>
       <h>1040</h>
@@ -60,7 +60,7 @@
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>360</x>
+      <x>140</x>
       <y>120</y>
       <w>20</w>
       <h>1050</h>
@@ -71,7 +71,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1010</x>
+      <x>790</x>
       <y>50</y>
       <w>50</w>
       <h>100</h>
@@ -82,19 +82,19 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>570</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getUnitsByPolicy(Emergency)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>600</y>
       <w>700</w>
       <h>70</h>
@@ -106,19 +106,19 @@ Set&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>840</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getAvailableUnitsSorted(Emergency)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>870</y>
       <w>700</w>
       <h>70</h>
@@ -130,19 +130,19 @@ ArrayList&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>680</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>730</y>
       <w>700</w>
       <h>50</h>
@@ -153,7 +153,7 @@ dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
   <element>
     <type>com.umlet.element.Actor</type>
     <coordinates>
-      <x>320</x>
+      <x>100</x>
       <y>0</y>
       <w>100</w>
       <h>120</h>
@@ -164,19 +164,19 @@ dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>780</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getRequiredUnits(Emergency)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>810</y>
       <w>700</w>
       <h>70</h>
@@ -188,7 +188,7 @@ String</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>340</x>
+      <x>120</x>
       <y>750</y>
       <w>720</w>
       <h>50</h>
@@ -199,7 +199,7 @@ String</panel_attributes>
   <element>
     <type>com.umlet.element.custom.InteractionFrame</type>
     <coordinates>
-      <x>370</x>
+      <x>150</x>
       <y>680</y>
       <w>670</w>
       <h>470</h>
@@ -210,19 +210,19 @@ String</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>90</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-inspectEmergenciesOnStatus(EmergencyStatus)</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+inspectEmergenciesOnStatus(SendableStatus)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>130</y>
       <w>700</w>
       <h>70</h>
@@ -234,19 +234,19 @@ Emergency[]</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>300</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getLongInformation(Emergency)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>350</y>
       <w>700</w>
       <h>70</h>
@@ -258,19 +258,19 @@ Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>190</y>
       <w>420</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;
 getEmergencyFromId(Long)</panel_attributes>
     <additional_attributes>400;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>230</y>
       <w>420</w>
       <h>70</h>
@@ -282,7 +282,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>750</x>
+      <x>530</x>
       <y>210</y>
       <w>20</w>
       <h>380</h>
@@ -293,7 +293,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>640</x>
+      <x>420</x>
       <y>50</y>
       <w>240</w>
       <h>30</h>
@@ -304,7 +304,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>730</x>
+      <x>510</x>
       <y>50</y>
       <w>50</w>
       <h>180</h>
@@ -315,19 +315,19 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>390</y>
       <w>420</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getEmergencyFromId(Long)</panel_attributes>
     <additional_attributes>400;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>450</y>
       <w>420</w>
       <h>70</h>
@@ -339,7 +339,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>370</x>
+      <x>150</x>
       <y>780</y>
       <w>110</w>
       <h>30</h>
@@ -350,7 +350,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.custom.InteractionFrame</type>
     <coordinates>
-      <x>370</x>
+      <x>150</x>
       <y>450</y>
       <w>390</w>
       <h>130</h>
@@ -361,7 +361,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>340</x>
+      <x>120</x>
       <y>490</y>
       <w>440</w>
       <h>50</h>
@@ -372,7 +372,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>370</x>
+      <x>150</x>
       <y>520</y>
       <w>180</w>
       <h>30</h>
@@ -383,7 +383,7 @@ Emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>520</y>
       <w>420</w>
       <h>70</h>
@@ -395,19 +395,19 @@ Exception</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>900</y>
       <w>700</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
     <additional_attributes>680;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>990</y>
       <w>700</w>
       <h>50</h>
@@ -418,7 +418,7 @@ dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
   <element>
     <type>com.umlet.element.custom.InteractionFrame</type>
     <coordinates>
-      <x>380</x>
+      <x>160</x>
       <y>970</y>
       <w>650</w>
       <h>140</h>
@@ -429,7 +429,7 @@ dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>1010</y>
       <w>700</w>
       <h>50</h>
@@ -440,7 +440,7 @@ dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
   <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>380</x>
+      <x>160</x>
       <y>1040</y>
       <w>110</w>
       <h>30</h>
@@ -451,7 +451,7 @@ dispatchToEmergency(Emergency, Set&lt;Unit&gt;)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>350</x>
+      <x>130</x>
       <y>1040</y>
       <w>700</w>
       <h>70</h>

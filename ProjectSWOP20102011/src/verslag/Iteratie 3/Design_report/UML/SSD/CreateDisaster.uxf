@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.2">
+<diagram program="umlet" version="11.0">
   <zoom_level>10</zoom_level>
   <element>
     <type>com.umlet.element.Class</type>
@@ -42,7 +42,7 @@
       <w>890</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 createDisaster(List&lt;Emergency&gt;, String)</panel_attributes>
     <additional_attributes>870;50;30;50</additional_attributes>
   </element>
@@ -154,8 +154,8 @@ Exception</panel_attributes>
       <w>640</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-inspectEmergenciesOnStatus(EmergencyStatus)</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+inspectEmergenciesOnStatus(SendableStatus)</panel_attributes>
     <additional_attributes>620;50;30;50</additional_attributes>
   </element>
   <element>
@@ -200,7 +200,7 @@ Emergency[]</panel_attributes>
       <w>640</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getLongInformation(Emergency)</panel_attributes>
     <additional_attributes>620;50;30;50</additional_attributes>
   </element>
@@ -224,7 +224,7 @@ Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
       <w>390</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getEmergencyFromId(Long)</panel_attributes>
     <additional_attributes>370;50;30;50</additional_attributes>
   </element>

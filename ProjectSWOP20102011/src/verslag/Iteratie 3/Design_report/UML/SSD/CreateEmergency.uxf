@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.2">
+<diagram program="umlet" version="11.0">
   <help_text>// Uncomment the following line to change the fontsize:
 // fontsize=14
 
@@ -65,7 +65,7 @@
       <w>370</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 createFireEmergency(GPSCoordinate, ...)</panel_attributes>
     <additional_attributes>350;50;30;50</additional_attributes>
   </element>

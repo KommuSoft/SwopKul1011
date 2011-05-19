@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.2">
+<diagram program="umlet" version="11.0">
   <zoom_level>10</zoom_level>
   <element>
     <type>com.umlet.element.Actor</type>
     <coordinates>
-      <x>110</x>
+      <x>0</x>
       <y>130</y>
       <w>100</w>
       <h>120</h>
@@ -15,7 +15,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>130</x>
+      <x>20</x>
       <y>200</y>
       <w>50</w>
       <h>90</h>
@@ -26,7 +26,7 @@
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>150</x>
+      <x>40</x>
       <y>270</y>
       <w>20</w>
       <h>440</h>
@@ -37,7 +37,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>730</x>
+      <x>620</x>
       <y>170</y>
       <w>240</w>
       <h>30</h>
@@ -48,19 +48,19 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>240</y>
       <w>710</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-inspectDisastersOnStatus(EmergencyStatus)</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+inspectDisastersOnStatus(SendableStatus)</panel_attributes>
     <additional_attributes>690;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
+      <x>700</x>
       <y>170</y>
       <w>50</w>
       <h>120</h>
@@ -71,7 +71,7 @@ inspectDisastersOnStatus(EmergencyStatus)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>270</y>
       <w>710</w>
       <h>70</h>
@@ -83,19 +83,19 @@ Disaster[]</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>490</y>
       <w>990</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getLongInformation(Emergency)</panel_attributes>
     <additional_attributes>970;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>530</y>
       <w>990</w>
       <h>70</h>
@@ -107,7 +107,7 @@ Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>350</y>
       <w>460</w>
       <h>70</h>
@@ -119,7 +119,7 @@ getDisasterFromId(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>390</y>
       <w>460</w>
       <h>70</h>
@@ -132,7 +132,7 @@ Disaster
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>470</x>
+      <x>360</x>
       <y>170</y>
       <w>240</w>
       <h>30</h>
@@ -143,7 +143,7 @@ Disaster
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>560</x>
+      <x>450</x>
       <y>170</y>
       <w>50</w>
       <h>220</h>
@@ -154,7 +154,7 @@ Disaster
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>580</x>
+      <x>470</x>
       <y>370</y>
       <w>20</w>
       <h>90</h>
@@ -165,7 +165,7 @@ Disaster
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>830</x>
+      <x>720</x>
       <y>270</y>
       <w>20</w>
       <h>440</h>
@@ -176,7 +176,7 @@ Disaster
   <element>
     <type>com.umlet.element.custom.InteractionFrame</type>
     <coordinates>
-      <x>160</x>
+      <x>50</x>
       <y>480</y>
       <w>990</w>
       <h>150</h>
@@ -187,7 +187,7 @@ Disaster
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>990</x>
+      <x>880</x>
       <y>170</y>
       <w>260</w>
       <h>30</h>
@@ -198,7 +198,7 @@ Disaster
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1090</x>
+      <x>980</x>
       <y>170</y>
       <w>50</w>
       <h>370</h>
@@ -209,7 +209,7 @@ Disaster
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1110</x>
+      <x>1000</x>
       <y>520</y>
       <w>20</w>
       <h>80</h>
@@ -220,19 +220,19 @@ Disaster
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>610</y>
       <w>710</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getShortInformation(Disaster)</panel_attributes>
     <additional_attributes>690;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
+      <x>30</x>
       <y>640</y>
       <w>710</w>
       <h>70</h>
