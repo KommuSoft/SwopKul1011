@@ -151,7 +151,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		}
 
 		Emergency emergency = null;
-		EmergencyFactory factory = this.getWorld().getEmergencyFactoryList().getGenericFactoryFromName(nameFactory);
+		EmergencyFactory factory = getWorld().getEmergencyFactoryList().getGenericFactoryFromName(nameFactory);
 
 		try {
 			emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
@@ -161,9 +161,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-
-		if (world.getTime()
-				< event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {
+		if (world.getTime() < event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {
 			final int hours = (int) ((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 - world.getTime()) / 3600);
 			final int minutes = (int) (((event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60 - world.getTime()) % 3600) / 60);
 			try {
@@ -607,11 +605,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	@Override
 	public void clearSystem() {
-		try {
-			world = Main.initWorld();
-		} catch (InvalidEmergencyTypeNameException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		getWorld().clear();
 	}
 
 	/**

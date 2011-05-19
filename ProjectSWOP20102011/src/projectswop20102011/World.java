@@ -225,4 +225,12 @@ public class World {
 	public IEmergencyDispatchApi getIEmergencyDispatchApi() {
 		return emergencyDispatchApi;
 	}
+	
+	public void clear(){
+		setEmergencyList(new EmergencyList());
+		setDisasterList(new DisasterList());
+		setMapItemList(new MapItemList());
+		setTimeSensitiveList(new TimeSensitiveList());
+		setTime(0);
+	}
 }
