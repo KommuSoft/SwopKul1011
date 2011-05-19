@@ -23,7 +23,6 @@ public class CreateDisasterController extends Controller {
 	}
 
 	public void createDisaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException{
-		Disaster disasterToCreate = new Disaster(emergencies,description);
-		this.addCreatedDisasterToTheWorld(disasterToCreate);
+		this.addCreatedDisasterToTheWorld(new Disaster(emergencies,description));
 	}
 }
