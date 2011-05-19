@@ -1,6 +1,7 @@
 package projectswop20102011;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
+import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.lists.DisasterList;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.EmergencyList;
@@ -47,7 +48,7 @@ public class World {
 	 * A variable that makes the connection to the EmergencyDispatchApi.
 	 */
 	private IEmergencyDispatchApi emergencyDispatchApi;
-
+	
 	/**
 	 * Creates a new world.
 	 *
@@ -161,8 +162,18 @@ public class World {
 	 * @param time
 	 *		The new time of the world.
 	 */
-	public final void setTime(long time) {
+	private void setTime(long time) {
 		this.time = time;
+	}
+	
+	/**
+	 * Sets the time of the world to the given value.
+	 * @param time
+	 *		The new time of the world.
+	 */
+	public final void setTime(long time, EventHandler eventHandler) {
+		this.time = time;
+		eventHandler.doTimeSet(time);
 	}
 
 	/**

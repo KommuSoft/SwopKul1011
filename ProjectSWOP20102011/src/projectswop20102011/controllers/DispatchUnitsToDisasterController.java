@@ -8,7 +8,7 @@ import java.util.Set;
 import projectswop20102011.World;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EmergencyEventHandler;
+import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
@@ -26,10 +26,10 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class DispatchUnitsToDisasterController extends Controller {
 	
-	private EmergencyEventHandler eventHandler;
+	private EventHandler eventHandler;
 
 
-	public DispatchUnitsToDisasterController(World world, EmergencyEventHandler eventHandler) throws InvalidWorldException {
+	public DispatchUnitsToDisasterController(World world, EventHandler eventHandler) throws InvalidWorldException {
 		super(world);
 		this.eventHandler = eventHandler;
 	}

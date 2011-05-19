@@ -21,7 +21,7 @@ import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyControll
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
-import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
+import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCapacityException;
@@ -94,15 +94,15 @@ public class Global2Test {
         world = new World();
         iec = new InspectEmergenciesController(world);
         cec = new CreateEmergencyController(world);
-        duc = new DispatchUnitsToEmergencyController(world, new PlaceHolderEventHandler());
+        duc = new DispatchUnitsToEmergencyController(world, new NullEventHandler());
         shc = new SelectHospitalController(world);
-        eotc = new EndOfTaskController(world, new PlaceHolderEventHandler());
-        ruafe = new RemoveUnitAssignmentFromEmergencyController(world, new PlaceHolderEventHandler());
-        ruafd = new RemoveUnitAssignmentFromDisasterController(world, new PlaceHolderEventHandler());
+        eotc = new EndOfTaskController(world, new NullEventHandler());
+        ruafe = new RemoveUnitAssignmentFromEmergencyController(world, new NullEventHandler());
+        ruafd = new RemoveUnitAssignmentFromDisasterController(world, new NullEventHandler());
         cdc = new CreateDisasterController(world);
-        dudc = new DispatchUnitsToDisasterController(world, new PlaceHolderEventHandler());
+        dudc = new DispatchUnitsToDisasterController(world, new NullEventHandler());
         idc = new InspectDisastersController(world);
-        tac = new TimeAheadController(world, null);
+        tac = new TimeAheadController(world, null, new NullEventHandler());
 
         //Firetrucks aanmaken
         ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
@@ -190,7 +190,7 @@ public class Global2Test {
 
         // Advance time with 15 minutes
         world.getTimeSensitiveList().timeAhead(90000);
-        world.setTime(world.getTime() + 90000);
+        world.setTime(world.getTime() + 90000, new NullEventHandler());
 
         // Check the unit state of all involved units
         ArrayList<Unit> units = f.getWorkingUnits();
@@ -209,7 +209,7 @@ public class Global2Test {
 
         // Advance time with 32 hours
         world.getTimeSensitiveList().timeAhead(115200);
-        world.setTime(world.getTime() + 115200);
+        world.setTime(world.getTime() + 115200, new NullEventHandler());
 
         //We checken op het verwachte aantal units
         int counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), f.getWorkingUnits());
@@ -324,7 +324,7 @@ public class Global2Test {
         duc.dispatchToEmergency(r4, unitsForRobbery4);
         assertEquals(3, r4.getWorkingUnits().size());
         world.getTimeSensitiveList().timeAhead(600);
-        world.setTime(world.getTime() + 600);
+        world.setTime(world.getTime() + 600, new NullEventHandler());
 
         //We verwachten dat ze op de locatie van de emergency zijn toegekomen
         for (Unit u : r4.getWorkingUnits()) {
@@ -439,7 +439,7 @@ public class Global2Test {
 
         //We spoelen de tijd door
         world.getTimeSensitiveList().timeAhead(600);
-        world.setTime(world.getTime() + 600);
+        world.setTime(world.getTime() + 600, new NullEventHandler());
 
         //We verwachten dat alle units op de plaats van de emergency zijn
         for (Unit u : f1.getWorkingUnits()) {
@@ -496,7 +496,7 @@ public class Global2Test {
 
         //We spoelen de tijd door
         world.getTimeSensitiveList().timeAhead(1000);
-        world.setTime(world.getTime() + 1000);
+        world.setTime(world.getTime() + 1000, new NullEventHandler());
 
         try {
             for (Unit u : ambOfFire1) {
@@ -585,7 +585,7 @@ public class Global2Test {
 
         //Spoel de tijd door
         world.getTimeSensitiveList().timeAhead(1000);
-        world.setTime(world.getTime() + 1000);
+        world.setTime(world.getTime() + 1000, new NullEventHandler());
 
         //Laat de ambulances stoppen met werken (ze worden opnieuw toegewezen omdat er nog nodig zijn)
         endTaskOfGivenUnits(ambOfFire2);
@@ -601,7 +601,7 @@ public class Global2Test {
 
         //Spoel de tijd door
         world.getTimeSensitiveList().timeAhead(1500);
-        world.setTime(world.getTime() + 1500);
+        world.setTime(world.getTime() + 1500, new NullEventHandler());
 
         //Selecteer een hospitaal
         for (Ambulance a : ambulancesOfFire2) {
@@ -617,7 +617,7 @@ public class Global2Test {
 
         //Spoel de tijd door
         world.getTimeSensitiveList().timeAhead(1500);
-        world.setTime(world.getTime() + 1500);
+        world.setTime(world.getTime() + 1500, new NullEventHandler());
 
         //Ze kunnen stoppen
         endTaskOfGivenUnits(ambOfFire2);
@@ -657,7 +657,7 @@ public class Global2Test {
 
         //Spoel de tijd door
         world.getTimeSensitiveList().timeAhead(1500);
-        world.setTime(world.getTime() + 1500);
+        world.setTime(world.getTime() + 1500, new NullEventHandler());
 
         endTaskOfGivenUnits(ambOfFire3);
         assertEquals(4, f3.getWorkingUnits().size());
@@ -736,7 +736,7 @@ public class Global2Test {
         }
 
         world.getTimeSensitiveList().timeAhead(1500);
-        world.setTime(world.getTime() + 1500);
+        world.setTime(world.getTime() + 1500, new NullEventHandler());
 
         endTaskOfGivenUnits(f3.getWorkingUnits());
         assertEquals(0, f3.getWorkingUnits().size());

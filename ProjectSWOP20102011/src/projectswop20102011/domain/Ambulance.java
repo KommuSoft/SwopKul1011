@@ -125,7 +125,7 @@ public class Ambulance extends Unit {
      *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
      */
     @Override
-    public void finishedJob(EmergencyEventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException, InvalidEmergencyException {
+    public void finishedJob(EventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException, InvalidEmergencyException {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {

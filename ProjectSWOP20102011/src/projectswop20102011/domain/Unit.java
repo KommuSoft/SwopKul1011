@@ -364,7 +364,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @throws InvalidSendableStatusException
      *                  If the emergency of this unit is in a state where the unit cannot withdraw.
      */
-    public void withdraw(EmergencyEventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
+    public void withdraw(EventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
         if (!canBeWithdrawn()) {
             throw new InvalidWithdrawalException("Unit can't be withdrawn.");
         } else {
@@ -414,7 +414,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @throws InvalidSendableStatusException
      *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
      */
-    public void finishedJob(EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
+    public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else if (isRequired()) {

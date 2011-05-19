@@ -234,11 +234,10 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
-	public synchronized void assignUnitsToEmergency(Set<Unit> units,EmergencyEventHandler eventHandler) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToEmergency(Set<Unit> units,EventHandler eventHandler) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
 		}
-		eventHandler.setEmergency(getEmergency());
 		
 		for (Unit u : units) {
 			try {
@@ -248,8 +247,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 				Logger.getLogger(ConcreteUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			addWorkingUnits(u);
-			eventHandler.setUnit(u);
-			eventHandler.doEvent();
+			eventHandler.doAssign(getEmergency(), u);
 		}
 	}
 
@@ -261,7 +259,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		|takeWorkingUnit().remove(unit)
 	 */
 	@Override
-	void unitFinishedJob(Unit unit,EmergencyEventHandler eventHandler) {
+	void unitFinishedJob(Unit unit,EventHandler eventHandler) {
 		removeFromWorkingUnits(unit, eventHandler);
 		addFinishedUnits(unit);
 	}
@@ -326,13 +324,11 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @effect The emergency of the given unit is set to null
 	 *		|unit.setEmergency(null)
 	 */
-	private void removeFromWorkingUnits(Unit unit, EmergencyEventHandler eventHandler) {
+	private void removeFromWorkingUnits(Unit unit, EventHandler eventHandler) {
 		takeWorkingUnits().remove(unit);
 		//TODO: Oplossing voor de nullpointer van het finishjobben bij units, kan mss nog terugkomen
 		unit.setEmergency(null);
-		eventHandler.setEmergency(getEmergency());
-		eventHandler.setUnit(unit);
-		eventHandler.doEvent();
+		eventHandler.doRelease(getEmergency(), unit);
 	}
 
 	/**
@@ -384,7 +380,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @effect The unit is removed from the workingUnits list.
 	 */
 	@Override
-	void withdrawUnit(Unit unit,EmergencyEventHandler eventHandler) {
+	void withdrawUnit(Unit unit,EventHandler eventHandler) {
 		removeFromWorkingUnits(unit, eventHandler);
 	}
 }

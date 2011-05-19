@@ -3,7 +3,7 @@ package projectswop20102011.controllers;
 import java.util.ArrayList;
 import projectswop20102011.World;
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EmergencyEventHandler;
+import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
@@ -12,9 +12,9 @@ import projectswop20102011.exceptions.InvalidWorldException;
 
 public class RemoveUnitAssignmentFromDisasterController extends Controller {
 
-	private EmergencyEventHandler eventHandler;
+	private EventHandler eventHandler;
 
-	public RemoveUnitAssignmentFromDisasterController(World world, EmergencyEventHandler eventHandler) throws InvalidWorldException {
+	public RemoveUnitAssignmentFromDisasterController(World world, EventHandler eventHandler) throws InvalidWorldException {
 		super(world);
 		this.eventHandler = eventHandler;
 	}

@@ -2,6 +2,7 @@ package projectswop20102011.controllers;
 
 import be.kuleuven.cs.swop.external.IExternalSystem;
 import projectswop20102011.World;
+import projectswop20102011.domain.EventHandler;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
@@ -10,6 +11,8 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class TimeAheadController extends Controller {
+	
+	private EventHandler eventHandler;
 
 	/**
 	 * Creates a new instance of a TimeAhead controller with a given world.
@@ -24,8 +27,9 @@ public class TimeAheadController extends Controller {
 	 * @throws InvalidWorldException
 	 *		If the world is not effective.
 	 */
-	public TimeAheadController(World world, IExternalSystem externalSystem) throws InvalidWorldException {
+	public TimeAheadController(World world, IExternalSystem externalSystem, EventHandler eventHandler) throws InvalidWorldException {
 		super(world);
+		this.eventHandler = eventHandler;
 	}
 	/**
 	 * Performs a time ahead action, where all the time sensitive objects in the world will be modified under a certain time difference.
@@ -36,6 +40,6 @@ public class TimeAheadController extends Controller {
 	 */
 	public void doTimeAheadAction(long seconds) throws InvalidDurationException {
 		getWorld().getTimeSensitiveList().timeAhead(seconds);
-		getWorld().setTime(getWorld().getTime() + seconds);
+		getWorld().setTime(getWorld().getTime() + seconds, eventHandler);
 	}
 }

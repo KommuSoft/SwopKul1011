@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import projectswop20102011.World;
 import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
-import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
+import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
@@ -28,7 +28,7 @@ public class DispatchTest {
 	@Before
 	public void setUp() throws InvalidWorldException, InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException{
 		world = new World();
-		duc = new DispatchUnitsToEmergencyController(world, new PlaceHolderEventHandler());
+		duc = new DispatchUnitsToEmergencyController(world, new NullEventHandler());
 		f1 = new Fire(new GPSCoordinate(0,10), SendableSeverity.BENIGN, "brand", FireSize.LOCAL, false, 0, 1);
 
 		ft = new Firetruck("vuurwagen", new GPSCoordinate(98,9), 100, 1001);

@@ -118,7 +118,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
 	@Override
-	public synchronized void assignUnitsToEmergency(Set<Unit> units, EmergencyEventHandler eventhandler) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToEmergency(Set<Unit> units, EventHandler eventhandler) throws InvalidEmergencyException {
 		SortedSet<Unit> options = new SortedListSet<Unit>();
 		options.addAll(units);
 		if (!canAssignUnitsToEmergency(units)) {
@@ -141,7 +141,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	@Override
-	void unitFinishedJob(Unit unit, EmergencyEventHandler eventHandler) {
+	void unitFinishedJob(Unit unit, EventHandler eventHandler) {
 		unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit, eventHandler);
 		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
@@ -156,7 +156,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	@Override
-	void withdrawUnit(Unit unit, EmergencyEventHandler eventHandler) {
+	void withdrawUnit(Unit unit, EventHandler eventHandler) {
 		for (Emergency e : getDisaster().getEmergencies()) {
 			e.getUnitsNeeded().withdrawUnit(unit, eventHandler);
 		}

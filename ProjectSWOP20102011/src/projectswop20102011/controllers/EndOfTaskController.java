@@ -1,15 +1,13 @@
 package projectswop20102011.controllers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.World;
-import projectswop20102011.domain.EmergencyEventHandler;
+import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Hospital;
-import projectswop20102011.domain.MapItem;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
@@ -22,7 +20,7 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class EndOfTaskController extends Controller {
 	
-	private EmergencyEventHandler eventHandler;
+	private EventHandler eventHandler;
 
     /**
      * Creates a new instance of an EndOfTaskException with a given world to operate on.
@@ -30,7 +28,7 @@ public class EndOfTaskController extends Controller {
      * @throws InvalidWorldException
      *          If the given world is invalid.
      */
-    public EndOfTaskController(World world, EmergencyEventHandler eventHandler) throws InvalidWorldException {
+    public EndOfTaskController(World world, EventHandler eventHandler) throws InvalidWorldException {
         super(world);
 		this.eventHandler = eventHandler;
     }

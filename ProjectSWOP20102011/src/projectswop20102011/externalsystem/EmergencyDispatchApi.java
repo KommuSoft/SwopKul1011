@@ -44,7 +44,7 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
-import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
+import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
@@ -386,7 +386,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		//TODO: dit is lelijk (getEmergency en getUnit staan nu public)
 		DispatchUnitsToEmergencyController controller = null;
 		try {
-			controller = new DispatchUnitsToEmergencyController(getWorld(), new PlaceHolderEventHandler());
+			controller = new DispatchUnitsToEmergencyController(getWorld(), new NullEventHandler());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -493,7 +493,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		EndOfTaskController controller = null;
 		try {
-			controller = new EndOfTaskController(getWorld(), new PlaceHolderEventHandler());
+			controller = new EndOfTaskController(getWorld(), new NullEventHandler());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -549,7 +549,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
 		checkParameter(time);
-		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
+		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime(), new NullEventHandler());
 
 		try {
 			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60);
@@ -572,7 +572,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		checkParameter(unit, emergency);
 		RemoveUnitAssignmentFromEmergencyController ruac = null;
 		try {
-			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld(), new PlaceHolderEventHandler());
+			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld(), new NullEventHandler());
 		} catch (InvalidWorldException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
