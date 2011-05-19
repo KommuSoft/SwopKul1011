@@ -32,474 +32,472 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
  */
 public abstract class Unit extends MapItem implements TimeSensitive {
 
-    /**
-     * A variable registering the speed of this unit.
-     */
-    private long speed;
-    /**
-     * A variable registering the current location of this unit.
-     */
-    private GPSCoordinate currentLocation;
-    /**
-     * A variable registering the emergency of this unit.
-     */
-    private Emergency emergency;
-    /**
-     * A variable registering whether a unit was already at the site of emergency.
-     */
-    private boolean wasAlreadyAtSite;
-    /**
-     * A variable registering the target where the Units will go to (for instance an emergency, a hospital or it's home location).
-     */
-    private Targetable target;
-    /**
-     * A variable registering the state of a unit
-     */
-    private UnitStatus unitStatus;
+	/**
+	 * A variable registering the speed of this unit.
+	 */
+	private long speed;
+	/**
+	 * A variable registering the current location of this unit.
+	 */
+	private GPSCoordinate currentLocation;
+	/**
+	 * A variable registering the emergency of this unit.
+	 */
+	private Emergency emergency;
+	/**
+	 * A variable registering whether a unit was already at the site of emergency.
+	 */
+	private boolean wasAlreadyAtSite;
+	/**
+	 * A variable registering the target where the Units will go to (for instance an emergency, a hospital or it's home location).
+	 */
+	private Targetable target;
+	/**
+	 * A variable registering the state of a unit
+	 */
+	private UnitStatus unitStatus;
 
-    /**
-     * Initialize a new unit with given parameters.
-     *
-     * @param name
-     *		The name of the new unit.
-     * @param homeLocation
-     *		The home location of the new unit.
-     * @param speed
-     *		The speed of the new unit.
-     * @effect The new unit is a unit with given name and home location.
-     *		|super(name,homeLocation);
-     * @effect This speed is equal to the given parameter speed.
-     *		|speed.equals(getSpeed())
-     * @effect This currentLocation is equal to the given parameter homeLocation.
-     *		|homeLocation.equals(getCurrentLocation())
-     * @effect This emergency is equal to null.
-     *		|getEmergency().equals(null)
-     * @effect The unit wasn't already at the site of emergency.
-     *		|setWasAlreadyAtSite(false)
-     * @throws InvalidMapItemNameException
-     *		If the given name is an invalid name for a unit.
-     * @throws InvalidLocationException
-     *		If the given location is an invalid location for a unit.
-     * @throws InvalidSpeedException
-     *		If the given speed is an invalid speed for a unit.
-     */
-    Unit(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
-        super(name, homeLocation);
-        setSpeed(speed);
-        setCurrentLocation(homeLocation);
-        setEmergency(null);
-        setWasAlreadyAtSite(false);
-        setUnitStatus(UnitStatus.IDLE);
-        try {
-            setTarget(this);
-        } catch (InvalidTargetableException ex) {
-            //We assume this can't happen.
-            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	/**
+	 * Initialize a new unit with given parameters.
+	 *
+	 * @param name
+	 *		The name of the new unit.
+	 * @param homeLocation
+	 *		The home location of the new unit.
+	 * @param speed
+	 *		The speed of the new unit.
+	 * @effect The new unit is a unit with given name and home location.
+	 *		|super(name,homeLocation);
+	 * @effect This speed is equal to the given parameter speed.
+	 *		|speed.equals(getSpeed())
+	 * @effect This currentLocation is equal to the given parameter homeLocation.
+	 *		|homeLocation.equals(getCurrentLocation())
+	 * @effect This emergency is equal to null.
+	 *		|getEmergency().equals(null)
+	 * @effect The unit wasn't already at the site of emergency.
+	 *		|setWasAlreadyAtSite(false)
+	 * @throws InvalidMapItemNameException
+	 *		If the given name is an invalid name for a unit.
+	 * @throws InvalidLocationException
+	 *		If the given location is an invalid location for a unit.
+	 * @throws InvalidSpeedException
+	 *		If the given speed is an invalid speed for a unit.
+	 */
+	Unit(String name, GPSCoordinate homeLocation, long speed) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException {
+		super(name, homeLocation);
+		setSpeed(speed);
+		setCurrentLocation(homeLocation);
+		setEmergency(null);
+		setWasAlreadyAtSite(false);
+		setUnitStatus(UnitStatus.IDLE);
+		try {
+			setTarget(this);
+		} catch (InvalidTargetableException ex) {
+			//We assume this can't happen.
+			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    /**
-     * Returns whether this unit is assigned.
-     * @return True if this unit is assigned; false otherwise.
-     */
-    public boolean isAssigned() {
-        return (getEmergency() != null);
-    }
+	/**
+	 * Returns whether this unit is assigned.
+	 * @return True if this unit is assigned; false otherwise.
+	 */
+	public boolean isAssigned() {
+		return (getEmergency() != null);
+	}
 
-    /**
-     * Returns whether this unit is at its destination. I.e. The unit is at the location of its emergency. If the unit is not assigned it can't be at the destination.
-     * @return True if this unit is at its destination; false otherwise.
-     */
-    public boolean isAtDestination() {
-        if (getEmergency() != null) {
-            return getCurrentLocation().equals(getDestination());
-        } else {
-            return false;
-        }
-    }
+	/**
+	 * Returns whether this unit is at its destination. I.e. The unit is at the location of its emergency. If the unit is not assigned it can't be at the destination.
+	 * @return True if this unit is at its destination; false otherwise.
+	 */
+	public boolean isAtDestination() {
+		if (getEmergency() != null) {
+			return getCurrentLocation().equals(getDestination());
+		} else {
+			return false;
+		}
+	}
 
-    /**
-     * Returns the speed of this unit.
-     * @return The speed of this unit.
-     */
-    public long getSpeed() {
-        return speed;
-    }
+	/**
+	 * Returns the speed of this unit.
+	 * @return The speed of this unit.
+	 */
+	public long getSpeed() {
+		return speed;
+	}
 
-    /**
-     * Returns the current location of this unit.
-     * @return The current location of this unit.
-     */
-    public GPSCoordinate getCurrentLocation() {
-        return currentLocation;
-    }
+	/**
+	 * Returns the current location of this unit.
+	 * @return The current location of this unit.
+	 */
+	public GPSCoordinate getCurrentLocation() {
+		return currentLocation;
+	}
 
-    /**
-     * Returns the destination of this unit.
-     * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
-     */
-    public GPSCoordinate getDestination() {
-        return this.getTarget().getTargetLocation();
-    }
+	/**
+	 * Returns the destination of this unit.
+	 * @return The location of the assigned emergency if the unit is assigned, otherwise the homelocation.
+	 */
+	public GPSCoordinate getDestination() {
+		return this.getTarget().getTargetLocation();
+	}
 
-    /**
-     * Returns whether a unit was already at the site of emergency.
-     * @return True if this unit was already at the site of emergency, false otherwise.
-     */
-    public boolean wasAlreadyAtSite() {
-        return wasAlreadyAtSite;
-    }
+	/**
+	 * Returns whether a unit was already at the site of emergency.
+	 * @return True if this unit was already at the site of emergency, false otherwise.
+	 */
+	public boolean wasAlreadyAtSite() {
+		return wasAlreadyAtSite;
+	}
 
-    /**
-     * Return the state of this unit
-     * @return the state of this unit.
-     */
-    public UnitStatus getUnitStatus() {
-        return unitStatus;
-    }
+	/**
+	 * Return the state of this unit
+	 * @return the state of this unit.
+	 */
+	public UnitStatus getUnitStatus() {
+		return unitStatus;
+	}
 
-    /**
-     * Sets the state of this unit to the given value
-     * @param unitStatus
-     *		The new state of this unit
-     */
-    public void setUnitStatus(UnitStatus unitStatus) {
-        this.unitStatus = unitStatus;
-    }
+	/**
+	 * Sets the state of this unit to the given value
+	 * @param unitStatus
+	 *		The new state of this unit
+	 */
+	public void setUnitStatus(UnitStatus unitStatus) {
+		this.unitStatus = unitStatus;
+	}
 
-    /**
-     * Sets the speed of this unit to the given value.
-     * @param speed
-     *		The new speed of this unit.
-     * @throws InvalidSpeedException
-     *		If the given speed isn't a valid speed for a unit.
-     * @post The speed of this unit is set according to the given speed.
-     *		|new.getSpeed() == speed
-     */
-    private void setSpeed(long speed) throws InvalidSpeedException {
-        if (!isValidSpeed(speed)) {
-            throw new InvalidSpeedException(String.format("\"%s\" is an invalid speed for this unit.", speed));
-        } else {
-            this.speed = speed;
-        }
-    }
+	/**
+	 * Sets the speed of this unit to the given value.
+	 * @param speed
+	 *		The new speed of this unit.
+	 * @throws InvalidSpeedException
+	 *		If the given speed isn't a valid speed for a unit.
+	 * @post The speed of this unit is set according to the given speed.
+	 *		|new.getSpeed() == speed
+	 */
+	private void setSpeed(long speed) throws InvalidSpeedException {
+		if (!isValidSpeed(speed)) {
+			throw new InvalidSpeedException(String.format("\"%s\" is an invalid speed for this unit.", speed));
+		} else {
+			this.speed = speed;
+		}
+	}
 
-    /**
-     * Sets the current location of this unit to the given value.
-     * @param currentLocation
-     *		The new speed of this unit.
-     * @post The current location of this unit is set according to the given current location.
-     *		|new.getCurrentLocation() == currentLocation
-     */
-    private void setCurrentLocation(GPSCoordinate currentLocation) {
-        this.currentLocation = currentLocation;
-    }
+	/**
+	 * Sets the current location of this unit to the given value.
+	 * @param currentLocation
+	 *		The new speed of this unit.
+	 * @post The current location of this unit is set according to the given current location.
+	 *		|new.getCurrentLocation() == currentLocation
+	 */
+	private void setCurrentLocation(GPSCoordinate currentLocation) {
+		this.currentLocation = currentLocation;
+	}
 
-    /**
-     * Sets the emergency of this Unit.
-     * @param emergency
-     *		The new emergency of this unit.
-     * @post The emergency of this unit is set to the given emergency.
-     *		|new.getEmergency() == emergency
-     */
-    final void setEmergency(Emergency emergency) {
-        this.emergency = emergency;
-        try {
-            if (emergency != null) {
-                this.setTarget(emergency);
-            } else {
-                this.setTarget(this);
-            }
-        } catch (InvalidTargetableException ex) {
-            //We assume this can't happen
-            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	/**
+	 * Sets the emergency of this Unit.
+	 * @param emergency
+	 *		The new emergency of this unit.
+	 * @post The emergency of this unit is set to the given emergency.
+	 *		|new.getEmergency() == emergency
+	 */
+	final void setEmergency(Emergency emergency) {
+		this.emergency = emergency;
+		try {
+			if (emergency != null) {
+				this.setTarget(emergency);
+			} else {
+				this.setTarget(this);
+			}
+		} catch (InvalidTargetableException ex) {
+			//We assume this can't happen
+			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    /**
-     * Sets whether a unit was already at the site of emergency.
-     * @param wasAlreadyAtSite
-     *		The condition whether a unit was already at the site of emergency.
-     * @post The condition wasAlreadyAtSite is set to the given value.
-     *		|new.wasAlreadyAtSite() == wasAlreadyAtSite
-     */
-    protected final void setWasAlreadyAtSite(boolean wasAlreadyAtSite) {
-        this.wasAlreadyAtSite = wasAlreadyAtSite;
-    }
+	/**
+	 * Sets whether a unit was already at the site of emergency.
+	 * @param wasAlreadyAtSite
+	 *		The condition whether a unit was already at the site of emergency.
+	 * @post The condition wasAlreadyAtSite is set to the given value.
+	 *		|new.wasAlreadyAtSite() == wasAlreadyAtSite
+	 */
+	protected final void setWasAlreadyAtSite(boolean wasAlreadyAtSite) {
+		this.wasAlreadyAtSite = wasAlreadyAtSite;
+	}
 
-    /**
-     * Returns the emergency of this unit.
-     * @return The emergency of this unit if the unit is assigned, otherwise null.
-     */
-    public Emergency getEmergency() {
-        return emergency;
-    }
+	/**
+	 * Returns the emergency of this unit.
+	 * @return The emergency of this unit if the unit is assigned, otherwise null.
+	 */
+	public Emergency getEmergency() {
+		return emergency;
+	}
 
-    /**
-     * Gets the managing sendable of this Unit.
-     * @return  The managing sendable of this unit.
-     */
-    public Sendable getManagingSendable () {
-        if(this.getEmergency() != null) {
-            return this.getEmergency().getManagingSendable();
-        }
-        else {
-            return null;
-        }
-    }
-    
-    /**
-     * Returns the disaster of this unit.
-     * @return The disaster of this unit if the unit is assigned, otherwise null.
-     */
-    public Disaster getDisaster() {
-        if (this.getEmergency() == null) {
-            return null;
-        } else {
-            return this.getEmergency().getDisaster();
-        }
-    }
+	/**
+	 * Gets the managing sendable of this Unit.
+	 * @return  The managing sendable of this unit.
+	 */
+	public Sendable getManagingSendable() {
+		if (this.getEmergency() != null) {
+			return this.getEmergency().getManagingSendable();
+		} else {
+			return null;
+		}
+	}
 
-    /**
-     * Checks if the given speed is a valid speed for a unit.
-     * @param speed
-     *		The speed of a timesensitive mapitem to test.
-     * @return True if the speed is valid; false otherwise.
-     */
-    public static boolean isValidSpeed(long speed) {
-        return speed >= 0;
-    }
+	/**
+	 * Returns the disaster of this unit.
+	 * @return The disaster of this unit if the unit is assigned, otherwise null.
+	 */
+	public Disaster getDisaster() {
+		if (this.getEmergency() == null) {
+			return null;
+		} else {
+			return this.getEmergency().getDisaster();
+		}
+	}
 
-    /**
-     * Checks if the given current location is a valid current location for a unit.
-     * @param currentLocation
-     *		The current location of a unit to test.
-     * @return True if the current location is valid; false otherwise.
-     */
-    public static boolean isValidCurrentLocation(GPSCoordinate currentLocation) {
-        return (currentLocation != null);
-    }
+	/**
+	 * Checks if the given speed is a valid speed for a unit.
+	 * @param speed
+	 *		The speed of a timesensitive mapitem to test.
+	 * @return True if the speed is valid; false otherwise.
+	 */
+	public static boolean isValidSpeed(long speed) {
+		return speed >= 0;
+	}
 
-    /**
-     * Change the current location of this unit over a given time interval.
-     * @param duration
-     *		The duration of the displacement of this unit.
-     * @effect
-     *		The location of this unit has been changed according to a given time interval.
-     *		Stop is the current location of this unit after the time interval.
-     *		|changeCurrentLocation(stop)
-     * @throws InvalidDurationException
-     *		If the given duration is invalid.
-     */
-    private void changeLocation(long duration) throws InvalidDurationException {
-        if (duration > 0) {
-            if (!this.isAtDestination()) {
-                this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
-            }
-        } else if (duration < 0) {
-            throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
-        }
+	/**
+	 * Checks if the given current location is a valid current location for a unit.
+	 * @param currentLocation
+	 *		The current location of a unit to test.
+	 * @return True if the current location is valid; false otherwise.
+	 */
+	public static boolean isValidCurrentLocation(GPSCoordinate currentLocation) {
+		return (currentLocation != null);
+	}
 
-    }
+	/**
+	 * Change the current location of this unit over a given time interval.
+	 * @param duration
+	 *		The duration of the displacement of this unit.
+	 * @effect
+	 *		The location of this unit has been changed according to a given time interval.
+	 *		Stop is the current location of this unit after the time interval.
+	 *		|changeCurrentLocation(stop)
+	 * @throws InvalidDurationException
+	 *		If the given duration is invalid.
+	 */
+	private void changeLocation(long duration) throws InvalidDurationException {
+		if (duration > 0) {
+			if (!this.isAtDestination()) {
+				this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600));
+			}
+		} else if (duration < 0) {
+			throw new InvalidDurationException(String.format("\"%s\" is an invalid duration for a unit.", duration));
+		}
 
-    /**
-     * Advances the time with a given amount of seconds.
-     * @param seconds
-     *		The amount of seconds that the time must be advanced.
-     * @throws InvalidDurationException
-     *		If the given amount of seconds is invalid.
-     * @effect The location of this unit is changed.
-     *		|changeLocation(seconds)
-     * @effect If this unit arrived at the location of the emergency during this action, the flag wasAlreadyAtSite is set to true.
-     *		| wasAlreadyAtSite().equals(true)
-     */
-    @Override
-    public void timeAhead(long seconds) throws InvalidDurationException {
-        changeLocation(seconds);
-        if (isAssigned() && !wasAlreadyAtSite() && getCurrentLocation().equals(getEmergency().getLocation())) {
-            setWasAlreadyAtSite(true);
-        }
-    }
+	}
 
-    /**
-     * Assign the unit to a given emergency.
-     * @param emergency
-     *		The emergency where this unit has to respond to.
-     * @effect The units emergency is equal to the given emergency
-     *		| this.getEmergency().equals(emergency)
-     * @effect The unit is assigned.
-     * @throws InvalidMapItemException
-     *          If the unit is already assigned to an emergency.
-     */
-    void assignTo(Emergency emergency) throws InvalidMapItemException {
-        if (!canBeAssigned()) {
-            throw new InvalidMapItemException("Unit can't be assigned");
-        } else {
-            setEmergency(emergency);
-            if (getCurrentLocation().equals(emergency.getLocation())) {
-                setWasAlreadyAtSite(true);
-            } else {
-                setWasAlreadyAtSite(false);
-            }
-            setUnitStatus(UnitStatus.ASSIGNED);
-        }
-    }
+	/**
+	 * Advances the time with a given amount of seconds.
+	 * @param seconds
+	 *		The amount of seconds that the time must be advanced.
+	 * @throws InvalidDurationException
+	 *		If the given amount of seconds is invalid.
+	 * @effect The location of this unit is changed.
+	 *		|changeLocation(seconds)
+	 * @effect If this unit arrived at the location of the emergency during this action, the flag wasAlreadyAtSite is set to true.
+	 *		| wasAlreadyAtSite().equals(true)
+	 */
+	@Override
+	public void timeAhead(long seconds) throws InvalidDurationException {
+		changeLocation(seconds);
+		if (isAssigned() && !wasAlreadyAtSite() && getCurrentLocation().equals(getEmergency().getLocation())) {
+			setWasAlreadyAtSite(true);
+		}
+	}
 
-    /**
-     * Checks if this unit can be assigned.
-     * @return True if this unit can be assigned, otherwise false.
-     */
-    public boolean canBeAssigned() {
-        return !isAssigned();
-    }
+	/**
+	 * Assign the unit to a given emergency.
+	 * @param emergency
+	 *		The emergency where this unit has to respond to.
+	 * @effect The units emergency is equal to the given emergency
+	 *		| this.getEmergency().equals(emergency)
+	 * @effect The unit is assigned.
+	 * @throws InvalidMapItemException
+	 *          If the unit is already assigned to an emergency.
+	 */
+	void assignTo(Emergency emergency) throws InvalidMapItemException {
+		if (!canBeAssigned()) {
+			throw new InvalidMapItemException("Unit can't be assigned");
+		} else {
+			setEmergency(emergency);
+			if (getCurrentLocation().equals(emergency.getLocation())) {
+				setWasAlreadyAtSite(true);
+			} else {
+				setWasAlreadyAtSite(false);
+			}
+			setUnitStatus(UnitStatus.ASSIGNED);
+		}
+	}
 
-    /**
-     * Withdraw this unit from the emergency he is currently assigned to
-     * @effect The unit is withdrawn from its emergency.
-     *		|this.getManagingSendable().withdrawUnit(this)
-     * @effect The emergency of this unit is set to null.
-     *		|this.setEmergency(null)
-     * @throws InvalidWithdrawalException
-     *			If the unit is already at site of the emergency.
-     * @throws InvalidSendableStatusException
-     *                  If the emergency of this unit is in a state where the unit cannot withdraw.
-     */
-    public void withdraw(EventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
-        if (!canBeWithdrawn()) {
-            throw new InvalidWithdrawalException("Unit can't be withdrawn.");
-        } else {
-            //TODO: niet zo mooi waarschijnlijk? [Willem: Beter?]
-            this.getManagingSendable().withdrawUnit(this,eventHandler);
-            this.setEmergency(null);
-            setUnitStatus(UnitStatus.IDLE);
-        }
-    }
+	/**
+	 * Checks if this unit can be assigned.
+	 * @return True if this unit can be assigned, otherwise false.
+	 */
+	public boolean canBeAssigned() {
+		return !isAssigned();
+	}
 
-    /**
-     * Checks if the unit can be withdrawn.
-     * @return True if the unit is assigned to an emergency and was alread at the site of the emergency, otherwise false.
-     */
-    public boolean canBeWithdrawn() {
-        return (this.isAssigned() && !this.wasAlreadyAtSite());
-    }
+	/**
+	 * Withdraw this unit from the emergency he is currently assigned to
+	 * @effect The unit is withdrawn from its emergency.
+	 *		|this.getManagingSendable().withdrawUnit(this)
+	 * @effect The emergency of this unit is set to null.
+	 *		|this.setEmergency(null)
+	 * @throws InvalidWithdrawalException
+	 *			If the unit is already at site of the emergency.
+	 * @throws InvalidSendableStatusException
+	 *                  If the emergency of this unit is in a state where the unit cannot withdraw.
+	 */
+	public void withdraw(EventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
+		if (!canBeWithdrawn()) {
+			throw new InvalidWithdrawalException("Unit can't be withdrawn.");
+		} else {
+			//TODO: niet zo mooi waarschijnlijk? [Willem: Beter?]
+			this.getManagingSendable().withdrawUnit(this, eventHandler);
+			this.setEmergency(null);
+			setUnitStatus(UnitStatus.IDLE);
+		}
+	}
 
-    /**
-     * Calculates the estimated time of arrival to a location.
-     * @param location
-     *		The given location.
-     * @return The number of seconds this unit would use to reach the given location.
-     */
-    public long getETA(GPSCoordinate location) {
-        return Math.round(3600 * this.getDistanceTo(location) / this.getSpeed());
-    }
+	/**
+	 * Checks if the unit can be withdrawn.
+	 * @return True if the unit is assigned to an emergency and was alread at the site of the emergency, otherwise false.
+	 */
+	public boolean canBeWithdrawn() {
+		return (this.isAssigned() && !this.wasAlreadyAtSite());
+	}
 
-    /**
-     * Calculates the distance of this unit to the given location.
-     * @param location
-     *		The location to calculate the distance to.
-     * @return The distance between this unit and the given location.
-     */
-    public double getDistanceTo(GPSCoordinate location) {
-        return this.getCurrentLocation().getDistanceTo(location);
-    }
+	/**
+	 * Calculates the estimated time of arrival to a location.
+	 * @param location
+	 *		The given location.
+	 * @return The number of seconds this unit would use to reach the given location.
+	 */
+	public long getETA(GPSCoordinate location) {
+		return Math.round(3600 * this.getDistanceTo(location) / this.getSpeed());
+	}
 
-    /**
-     * Finishes the job of this Unit.
-     * @effect The emergency of this unit is null
-     *		| this.getEmergency().equals(null)
-     * @effect The flag wasAlreadyAtSite is set to false.
-     *		|this.getWasAlreadyAtSite().equals(false)
-     * @throws InvalidFinishJobException
-     *          If the unit can't finish his job (not assigned to an emergency, not at it's destination).
-     * @throws InvalidSendableStatusException
-     *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
-     */
-    public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
-        if (!canFinishJob()) {
-            throw new InvalidFinishJobException("Unit can't finish his job.");
-        } else if (isRequired()) {
-            throw new InvalidFinishJobException("Unit can't finish his job.");
-        } else if (!arePresent()) {
-            throw new InvalidFinishJobException("Unit can't finish his job.");
-        }
-	Sendable manager = this.getManagingSendable();
-        manager.finishUnit(this,eventHandler);
-        setEmergency(null);
-        setWasAlreadyAtSite(false);
-        setUnitStatus(UnitStatus.IDLE);
-        try {
-            manager.afterFinish(this,eventHandler);
-        } catch (Exception ex) {
-            Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	/**
+	 * Calculates the distance of this unit to the given location.
+	 * @param location
+	 *		The location to calculate the distance to.
+	 * @return The distance between this unit and the given location.
+	 */
+	public double getDistanceTo(GPSCoordinate location) {
+		return this.getCurrentLocation().getDistanceTo(location);
+	}
 
-    /**
-     * Checks if the unit can finish from it's job.
-     * @return True if the unit is assigned and is at it's destination, orherwise false.
-     */
-    public boolean canFinishJob() {
-        return (isAssigned() && isAtDestination());
-    }
+	/**
+	 * Finishes the job of this Unit.
+	 * @effect The emergency of this unit is null
+	 *		| this.getEmergency().equals(null)
+	 * @effect The flag wasAlreadyAtSite is set to false.
+	 *		|this.getWasAlreadyAtSite().equals(false)
+	 * @throws InvalidFinishJobException
+	 *          If the unit can't finish his job (not assigned to an emergency, not at it's destination).
+	 * @throws InvalidSendableStatusException
+	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
+	 */
+	public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
+		if (!canFinishJob()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} else if (isRequired()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		} else if (!arePresent()) {
+			throw new InvalidFinishJobException("Unit can't finish his job.");
+		}
+		Sendable manager = this.getManagingSendable();
+		manager.finishUnit(this, eventHandler);
+		setEmergency(null);
+		setWasAlreadyAtSite(false);
+		setUnitStatus(UnitStatus.IDLE);
+		try {
+			manager.afterFinish(this, eventHandler);
+		} catch (Exception ex) {
+			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    /**
-     * Checks whether another unit of the same type for its emergency is required
-     * @return
-     */
-    public boolean isRequired() {
-        //TODO: welke principes worden hier gebruikt?
-        Set<Unit> unit = new HashSet<Unit>(0);
-        unit.add(this.clone());
+	/**
+	 * Checks if the unit can finish from it's job.
+	 * @return True if the unit is assigned and is at it's destination, orherwise false.
+	 */
+	public boolean canFinishJob() {
+		return (isAssigned() && isAtDestination());
+	}
+
+	/**
+	 * Checks whether another unit of the same type for its emergency is required
+	 * @return
+	 */
+	public boolean isRequired() {
+		//TODO: welke principes worden hier gebruikt?
+		Set<Unit> unit = new HashSet<Unit>(0);
+		unit.add(this.clone());
 //		ArrayList<Unit> workingUnits = this.getEmergency().getWorkingUnits();
 //		ArrayList<Unit> finishedUnits = this.getEmergency().getUnitsNeeded().getFinishedUnits();
 //		ArrayList<Unit> units = new ArrayList<Unit>(0);
 //		units.addAll(workingUnits);
 //		units.addAll(finishedUnits);
 
-        return getEmergency().getPolicyProposal(unit).size() == 1;
-        //return getEmergency().canAssignUnits(unit);
-        //return this.getEmergency().getDispatchConstraint().canAssign(units, unit);
-    }
+		return getEmergency().getPolicyProposal(unit).size() == 1;
+		//return getEmergency().canAssignUnits(unit);
+		//return this.getEmergency().getDispatchConstraint().canAssign(units, unit);
+	}
 
-    /**
-     * Checks whether all needed units of this type are present at the location of the emergency
-     * @return
-     */
-    public abstract boolean arePresent();//wat doet deze methode hier?
+	/**
+	 * Checks whether all needed units of this type are present at the location of the emergency
+	 * @return
+	 */
+	public abstract boolean arePresent();//wat doet deze methode hier?
 
-    /**
-     * Clone this unit
-     * @return a clone of this unit
-     */
-    @Override
-    public abstract Unit clone();
+	/**
+	 * Clone this unit
+	 * @return a clone of this unit
+	 */
+	@Override
+	public abstract Unit clone();
 
-    /**
-     * Returns the target where the Unit is driving to.
-     * @return the target where the Unit is driving to.
-     */
-    private Targetable getTarget() {
-        return this.target;
-    }
+	/**
+	 * Returns the target where the Unit is driving to.
+	 * @return the target where the Unit is driving to.
+	 */
+	private Targetable getTarget() {
+		return this.target;
+	}
 
-    /**
-     * Sets the target where the Unit will drive to.
-     * @param target The new target of the Unit.
-     */
-    protected void setTarget(Targetable target) throws InvalidTargetableException {
-        if (!isValidTarget(target)) {
-            throw new InvalidTargetableException("The target must be effective.");
-        }
-        this.target = target;
-    }
+	/**
+	 * Sets the target where the Unit will drive to.
+	 * @param target The new target of the Unit.
+	 */
+	protected void setTarget(Targetable target) throws InvalidTargetableException {
+		if (!isValidTarget(target)) {
+			throw new InvalidTargetableException("The target must be effective.");
+		}
+		this.target = target;
+	}
 
-    /**
-     * Checks if the given target is valid.
-     * @param target The target to check for.
-     * @return True if the target is effective, otherwise false.
-     */
-    public boolean isValidTarget(Targetable target) {
-        return (target != null);
-    }
-    
+	/**
+	 * Checks if the given target is valid.
+	 * @param target The target to check for.
+	 * @return True if the target is effective, otherwise false.
+	 */
+	public boolean isValidTarget(Targetable target) {
+		return (target != null);
+	}
 }

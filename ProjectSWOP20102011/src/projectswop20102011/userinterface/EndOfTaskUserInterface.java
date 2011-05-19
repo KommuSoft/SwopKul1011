@@ -1,6 +1,5 @@
 package projectswop20102011.userinterface;
 
-import java.util.ArrayList;
 import java.util.List;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.controllers.EndOfTaskController;
