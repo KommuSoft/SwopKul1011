@@ -228,6 +228,7 @@ public class Disaster extends Sendable {
         this.getStatus().finishUnit(unitToFinish.getEmergency().getUnitsNeeded(), unitToFinish, eventHandler);
     }
 
+    @Override
     protected void afterFinish(Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
         List<Emergency> emergencies = getEmergencies();
         Collections.sort(emergencies, new EmergencyComparator());

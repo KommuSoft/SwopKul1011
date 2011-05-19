@@ -125,50 +125,20 @@ public class Ambulance extends Unit {
      *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
      */
     @Override
-    public void finishedJobForEmergencies(EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException {
+    public void finishedJob(EmergencyEventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException, InvalidEmergencyException {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
             boolean isRequired = isRequired();
+            Sendable manager = this.getManagingSendable();
             Emergency e = getEmergency();
             setWasAlreadyAtSite(false);
             setUnitStatus(UnitStatus.IDLE);
-            getEmergency().finishUnit(this, eventHandler);
+            getManagingSendable().finishUnit(this,eventHandler);
             setEmergency(null);
             setCurrentHospital(null);
 
-            if (isRequired) {
-                HashSet<Unit> ambulance = new HashSet<Unit>(0);
-                ambulance.add(this);
-                try {
-                    e.getStatus().assignUnits(e.getUnitsNeeded(), ambulance, eventHandler);
-                } catch (InvalidEmergencyException ex) {
-                    Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    /**
-     * 
-     * 
-     * @throws InvalidFinishJobException
-     * @throws InvalidEmergencyStatusException  
-     */
-    @Override
-    public void finishedJobForDisasters(EmergencyEventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException, InvalidEmergencyException {
-        if (!canFinishJob()) {
-            throw new InvalidFinishJobException("Unit can't finish his job.");
-        } else {
-            boolean isRequired = isRequired();
-            Emergency e = getEmergency();
-            setWasAlreadyAtSite(false);
-            setUnitStatus(UnitStatus.IDLE);
-            getDisaster().finishUnit(this, eventHandler);
-            setEmergency(null);
-            setCurrentHospital(null);
-
-            if (isRequired) {
+            if (isRequired) {//TODO: wat doet deze structuur hier?
                 HashSet<Unit> ambulance = new HashSet<Unit>(0);
                 ambulance.add(this);
                 try {
@@ -177,9 +147,12 @@ public class Ambulance extends Unit {
                     Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                getDisaster().afterFinish(this, eventHandler);
+                try {
+                    manager.afterFinish(this,eventHandler);
+                } catch (Exception ex) {
+                    Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
         }
     }
 
@@ -203,22 +176,22 @@ public class Ambulance extends Unit {
         //TODO: deze methode zal niet gebruikt worden, hoe oplossen?
         return false;
     }
-    
+
     /**
      * Calculates the minimum number of ambulances based on the number of patients.
      * @param patients The number of patients to transport.
      * @return The minimum number of ambulances to the patients.
      */
-    public static long getMinimumNumberOfAmbulances (long patients) {
-        return (patients+MAXIMUM_NUMBER_OF_PATIENTS-1)/MAXIMUM_NUMBER_OF_PATIENTS;
+    public static long getMinimumNumberOfAmbulances(long patients) {
+        return (patients + MAXIMUM_NUMBER_OF_PATIENTS - 1) / MAXIMUM_NUMBER_OF_PATIENTS;
     }
+
     /**
      * Calculates the maximum number of ambulances based on the number of patients.
      * @param patients The number of patients to transport.
      * @return The maximum number of ambulances to transport the patients.
      */
-    public static long getMaximumNumberOfAmbulances (long patients) {
+    public static long getMaximumNumberOfAmbulances(long patients) {
         return patients;
     }
-    
 }
