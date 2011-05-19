@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
@@ -78,7 +79,7 @@ public class EmergencyTest {
 
 		Emergency e1 = new PublicDisturbance(gp3, severity, description1, numberOfPeople1);
 		assertFalse(e1.isPartiallyAssigned());
-		e1.assignUnits(units);
+		e1.assignUnits(units, new PlaceHolderEventHandler());
 		assertTrue(e1.isPartiallyAssigned());
 		
 		units.clear();
@@ -88,7 +89,7 @@ public class EmergencyTest {
 		units.add(politiewagen3);
 		Emergency e2 = new PublicDisturbance(gp3, severity, description1, numberOfPeople2);
 		assertFalse(e2.isPartiallyAssigned());
-		e2.assignUnits(units);
+		e2.assignUnits(units, new PlaceHolderEventHandler());
 		assertFalse(e2.isPartiallyAssigned());
 	}
 
@@ -103,14 +104,14 @@ public class EmergencyTest {
 		units.add(politiewagen3);
 
 		Emergency e = new Robbery(gp1, severity, description2, armed1, inProgress1);
-		e.assignUnits(units);
+		e.assignUnits(units, new PlaceHolderEventHandler());
 
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 		politiewagen3.timeAhead(1000000000);
-		e.finishUnit(politiewagen1);
-		e.finishUnit(politiewagen2);
-		e.finishUnit(politiewagen3);
+		e.finishUnit(politiewagen1, new PlaceHolderEventHandler());
+		e.finishUnit(politiewagen2, new PlaceHolderEventHandler());
+		e.finishUnit(politiewagen3, new PlaceHolderEventHandler());
 		assertEquals(SendableStatus.COMPLETED, e.getStatus());
 	}
 

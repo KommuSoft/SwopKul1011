@@ -31,12 +31,12 @@ public enum SendableStatus {
 		}
 
 		@Override
-		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+		void finishUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
 			throw new InvalidSendableStatusException("Can't finish units from an unhandled emergency.");
 		}
 
 		@Override
-		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
 			throw new InvalidSendableStatusException("Can't withdraw units from an unhandled emergency.");
 		}
 
@@ -61,9 +61,9 @@ public enum SendableStatus {
 	RESPONSE_IN_PROGRESS("response in progress") {
 
 		@Override
-		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) {
+		void finishUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) {
 			Emergency e = unit.getEmergency();
-			unitsNeeded.unitFinishedJob(unit);
+			unitsNeeded.unitFinishedJob(unit, eventHandler);
 			if (unitsNeeded.canCompleteEmergency()) {
 				try {
 					e.setStatus(COMPLETED);
@@ -77,8 +77,8 @@ public enum SendableStatus {
 		}
 
 		@Override
-		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) {
-			unitsNeeded.withdrawUnit(unit);
+		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) {
+			unitsNeeded.withdrawUnit(unit, eventHandler);
 		}
 
 		@Override
@@ -107,12 +107,12 @@ public enum SendableStatus {
 	COMPLETED("completed") {
 
 		@Override
-		void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+		void finishUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
 			throw new InvalidSendableStatusException("Unable to finish units from a completed emergency.");
 		}
 
 		@Override
-		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException {
+		void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
 			throw new InvalidSendableStatusException("Unable to withdraw units from a competed emergency.");
 		}
 
@@ -207,11 +207,11 @@ public enum SendableStatus {
 	 *		If the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
-	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
+	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
 		if (!canAssignUnitsFromState()) {
 			throw new InvalidSendableStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
 		}
-		unitsNeeded.assignUnitsToEmergency(units);
+		unitsNeeded.assignUnitsToEmergency(units, eventHandler);
 		afterUnitsAssignment(unitsNeeded, units);
 	}
 
@@ -225,7 +225,7 @@ public enum SendableStatus {
 	 *      If the status of the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
-	abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException;
+	abstract void finishUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException;
 
 	/**
 	 * A method that handles a situation where a given unit withdraws from a given sendable.
@@ -237,7 +237,7 @@ public enum SendableStatus {
 	 *      If the status of the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
-	abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit) throws InvalidSendableStatusException;
+	abstract void withdrawUnit(UnitsNeeded unitsNeeded, Unit unit, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException;
 
 	/**
 	 * A method that checks if the given units can be assigned to the given sendable.

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.World;
+import projectswop20102011.domain.EmergencyEventHandler;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
@@ -14,6 +15,8 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class RemoveUnitAssignmentFromEmergencyController extends Controller {
+	
+	private EmergencyEventHandler eventHandler;
 
     /**
      * Creates a new RemoveUnitAssignmentController with a given world.
@@ -21,8 +24,9 @@ public class RemoveUnitAssignmentFromEmergencyController extends Controller {
      *      The world that will be manipulated by the controller.
      * @throws InvalidWorldException If the world is invalid.
      */
-    public RemoveUnitAssignmentFromEmergencyController(World world) throws InvalidWorldException {
+    public RemoveUnitAssignmentFromEmergencyController(World world, EmergencyEventHandler eventHandler) throws InvalidWorldException {
         super(world);
+		this.eventHandler = eventHandler;
     }
 
     /**
@@ -43,7 +47,7 @@ public class RemoveUnitAssignmentFromEmergencyController extends Controller {
      */
     public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidSendableStatusException, InvalidMapItemException {
         if (unit != null) {
-            unit.withdraw();
+            unit.withdraw(eventHandler);
         } else {
             throw new InvalidMapItemException("MapItem must be a Unit and exist in the World!");
         }

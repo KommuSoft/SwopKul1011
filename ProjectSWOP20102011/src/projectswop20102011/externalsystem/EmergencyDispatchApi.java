@@ -44,6 +44,7 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
+import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
@@ -202,24 +203,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		if (state.toString().equalsIgnoreCase("unhandled")) {
 			try {
 				status = ep.parse("recorded but unhandled");
-
-
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} else if (state.toString().equalsIgnoreCase("responded")) {
 			try {
 				status = ep.parse("response in progress");
-
-
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} else if (state.toString().equalsIgnoreCase("completed")) {
 			try {
 				status = ep.parse(state.toString().toLowerCase());
-
-
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -269,24 +264,18 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		if (state.toString().equalsIgnoreCase("unhandled")) {
 			try {
 				status = ep.parse("recorded but unhandled");
-
-
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} else if (state.toString().equalsIgnoreCase("responded")) {
 			try {
 				status = ep.parse("response in progress");
-
-
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} else if (state.toString().equalsIgnoreCase("completed")) {
 			try {
 				status = ep.parse(state.toString());
-
-
 			} catch (ParsingException ex) {
 				Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -305,8 +294,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		Disaster[] disasters = null;
 		try {
 			disasters = idc.inspectDisastersOnStatus(status);
-
-
 		} catch (InvalidAddedDisasterException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -399,7 +386,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		//TODO: dit is lelijk (getEmergency en getUnit staan nu public)
 		DispatchUnitsToEmergencyController controller = null;
 		try {
-			controller = new DispatchUnitsToEmergencyController(getWorld());
+			controller = new DispatchUnitsToEmergencyController(getWorld(), new PlaceHolderEventHandler());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -506,7 +493,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		EndOfTaskController controller = null;
 		try {
-			controller = new EndOfTaskController(getWorld());
+			controller = new EndOfTaskController(getWorld(), new PlaceHolderEventHandler());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -585,9 +572,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		checkParameter(unit, emergency);
 		RemoveUnitAssignmentFromEmergencyController ruac = null;
 		try {
-			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld());
-
-
+			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld(), new PlaceHolderEventHandler());
 		} catch (InvalidWorldException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -624,8 +609,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	public void clearSystem() {
 		try {
 			world = Main.initWorld();
-
-
 		} catch (InvalidEmergencyTypeNameException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -642,8 +625,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		EnvironmentReader er = null;
 		try {
 			er = new EnvironmentReader(new ReadEnvironmentDataController(world));
-
-
 		} catch (InvalidControllerException ex) {
 			//We assume this can't happen
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);

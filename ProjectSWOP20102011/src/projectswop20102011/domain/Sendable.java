@@ -125,8 +125,8 @@ public abstract class Sendable implements Targetable {
      * @throws  InvalidEmergencyException
      *		If the emergency is invalid.
      */
-    public void assignUnits(Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
-        this.getStatus().assignUnits(this.getUnitsNeeded(), units);
+    public void assignUnits(Set<Unit> units, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
+        this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
     }
 
     /**
@@ -167,8 +167,8 @@ public abstract class Sendable implements Targetable {
      *      If the status of this emergency does not allow this action.
      * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
      */
-    void finishUnit(Unit unitToFinish) throws InvalidSendableStatusException {
-        this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish);
+    void finishUnit(Unit unitToFinish, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
+        this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler);
     }
 
     /**
@@ -179,8 +179,8 @@ public abstract class Sendable implements Targetable {
      *      If the status of this emergency does not allow this action.
      * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
      */
-    void withdrawUnit(Unit unitToWithdraw) throws InvalidSendableStatusException {
-        this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw);
+    void withdrawUnit(Unit unitToWithdraw, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
+        this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler);
     }
     
 }

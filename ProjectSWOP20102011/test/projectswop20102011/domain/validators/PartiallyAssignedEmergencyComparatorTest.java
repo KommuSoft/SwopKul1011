@@ -16,6 +16,7 @@ import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.domain.Unit;
+import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
@@ -64,7 +65,7 @@ public class PartiallyAssignedEmergencyComparatorTest {
         HashSet<Unit> alloc1 = new HashSet<Unit>();
         alloc1.add(ft1);
 
-        e2.assignUnits(alloc1);//e1 is partially allocated
+        e2.assignUnits(alloc1, new PlaceHolderEventHandler());//e1 is partially allocated
 
         assertTrue(paect.compare(e1, e2)>0);
         assertTrue(paect.compare(e2, e1)<0);
@@ -76,7 +77,7 @@ public class PartiallyAssignedEmergencyComparatorTest {
         alloc2.add(pc1);
         alloc2.add(pc2);
 
-        e2.assignUnits(alloc2);//e2 is totally assigned
+        e2.assignUnits(alloc2, new PlaceHolderEventHandler());//e2 is totally assigned
 
         assertEquals(0,paect.compare(e1, e2));
         assertEquals(0,paect.compare(e2, e1));
@@ -88,7 +89,7 @@ public class PartiallyAssignedEmergencyComparatorTest {
         alloc3.add(pc3);
         alloc3.add(pc4);
 
-        e1.assignUnits(alloc3);//e1 is partially allocated
+        e1.assignUnits(alloc3, new PlaceHolderEventHandler());//e1 is partially allocated
 
         assertTrue(paect.compare(e1, e2)<0);
         assertTrue(paect.compare(e2, e1)>0);
@@ -98,7 +99,7 @@ public class PartiallyAssignedEmergencyComparatorTest {
         HashSet<Unit> alloc4 = new HashSet<Unit>();
         alloc4.add(pc5);
 
-        e1.assignUnits(alloc4);//e1 is totally assigned
+        e1.assignUnits(alloc4, new PlaceHolderEventHandler());//e1 is totally assigned
 
         assertEquals(0,paect.compare(e1, e2));
         assertEquals(0,paect.compare(e2, e1));

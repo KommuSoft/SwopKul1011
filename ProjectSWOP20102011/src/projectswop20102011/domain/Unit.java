@@ -351,12 +351,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @throws InvalidSendableStatusException
      *                  If the emergency of this unit is in a state where the unit cannot withdraw.
      */
-    public void withdraw() throws InvalidWithdrawalException, InvalidSendableStatusException {
+    public void withdraw(EmergencyEventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
         if (!canBeWithdrawn()) {
             throw new InvalidWithdrawalException("Unit can't be withdrawn.");
         } else {
             //TODO: niet zo mooi waarschijnlijk? [Willem: Beter?]
-            this.getEmergency().withdrawUnit(this);
+            this.getEmergency().withdrawUnit(this, eventHandler);
             this.setEmergency(null);
             setUnitStatus(UnitStatus.IDLE);
         }
@@ -401,16 +401,16 @@ public abstract class Unit extends MapItem implements TimeSensitive {
      * @throws InvalidEmergencyStatusException
      *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
      */
-    public void finishedJob() throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
+    public void finishedJob(EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
         //TODO: verbeteren (mappen door disaster)
         if (getDisaster() == null) {
-            finishedJobForEmergencies();
+            finishedJobForEmergencies(eventHandler);
         } else {
-            finishedJobForDisasters();
+            finishedJobForDisasters(eventHandler);
         }
     }
 
-    protected void finishedJobForEmergencies() throws InvalidFinishJobException, InvalidSendableStatusException {
+    protected void finishedJobForEmergencies(EmergencyEventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else if (isRequired()) {
@@ -418,14 +418,14 @@ public abstract class Unit extends MapItem implements TimeSensitive {
         } else if (!arePresent()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
-            getEmergency().finishUnit(this);
+            getEmergency().finishUnit(this, eventHandler);
             setEmergency(null);
             setWasAlreadyAtSite(false);
             setUnitStatus(UnitStatus.IDLE);
         }
     }
 
-    protected void finishedJobForDisasters() throws InvalidSendableStatusException, InvalidEmergencyException, InvalidFinishJobException {
+    protected void finishedJobForDisasters(EmergencyEventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException, InvalidFinishJobException {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else if (isRequired()) {
@@ -434,11 +434,11 @@ public abstract class Unit extends MapItem implements TimeSensitive {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         }
 		Disaster d = getDisaster();
-        getDisaster().finishUnit(this);
+        getDisaster().finishUnit(this, eventHandler);
         setEmergency(null);
         setWasAlreadyAtSite(false);
         setUnitStatus(UnitStatus.IDLE);
-        d.afterFinish(this);
+        d.afterFinish(this, eventHandler);
     }
 
     /**

@@ -31,7 +31,7 @@ public abstract class UnitsNeeded {
      * @effect The unit is removed from the workingUnits list.
      *		|takeWorkingUnit().remove(unit)
      */
-    abstract void unitFinishedJob(Unit unit);
+    abstract void unitFinishedJob(Unit unit, EmergencyEventHandler eventHandler);
 
     /**
      * Generates a proposal based on a list of available units to allocate to the emergency.
@@ -74,7 +74,7 @@ public abstract class UnitsNeeded {
      * @param units the set of units to assign to the sendable.
      * @throws InvalidEmergencyException If the given units can be assigned because of the constraints of the sendable.
      */
-    abstract void assignUnitsToEmergency(Set<Unit> units) throws InvalidEmergencyException;
+    abstract void assignUnitsToEmergency(Set<Unit> units, EmergencyEventHandler eventHandler) throws InvalidEmergencyException;
 
     /**
      * Sets the status of the sendable.
@@ -104,7 +104,7 @@ public abstract class UnitsNeeded {
      *		The unit that wants to withdraw.
      * @effect The unit is removed from the workingUnits list.
      */
-    abstract void withdrawUnit(Unit unit);
+    abstract void withdrawUnit(Unit unit, EmergencyEventHandler eventHandler);
 
     /**
      * Gets the list of units that have been finished in the Sendable.

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="11.2">
-  <zoom_level>7</zoom_level>
+  <zoom_level>3</zoom_level>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1092</x>
-      <y>98</y>
-      <w>14</w>
-      <h>1302</h>
+      <x>708</x>
+      <y>147</y>
+      <w>6</w>
+      <h>558</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -15,10 +15,10 @@
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>49</x>
-      <y>98</y>
-      <w>14</w>
-      <h>1295</h>
+      <x>195</x>
+      <y>150</y>
+      <w>6</w>
+      <h>555</h>
     </coordinates>
     <panel_attributes>bg=yellow</panel_attributes>
     <additional_attributes/>
@@ -26,92 +26,80 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>35</x>
-      <y>49</y>
-      <w>34</w>
-      <h>62</h>
+      <x>189</x>
+      <y>129</y>
+      <w>14</w>
+      <h>26</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;49</additional_attributes>
+    <additional_attributes>9;9;9;21</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>42</x>
-      <y>819</y>
-      <w>1063</w>
-      <h>49</h>
+      <x>192</x>
+      <y>351</y>
+      <w>521</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;-
-getWorkingUnits(Emergency)</panel_attributes>
-    <additional_attributes>21;35;1050;35</additional_attributes>
+getWorkingUnits(Disaster)</panel_attributes>
+    <additional_attributes>9;15;516;12</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>42</x>
-      <y>1001</y>
-      <w>1063</w>
-      <h>49</h>
+      <x>192</x>
+      <y>456</y>
+      <w>521</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 ArrayList&lt;Unit&gt; </panel_attributes>
-    <additional_attributes>21;35;1050;35</additional_attributes>
+    <additional_attributes>9;15;516;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>42</x>
-      <y>1057</y>
-      <w>1063</w>
-      <h>49</h>
+      <x>192</x>
+      <y>558</y>
+      <w>521</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;-
 withdrawUnit(Unit)</panel_attributes>
-    <additional_attributes>21;35;1050;35</additional_attributes>
+    <additional_attributes>9;15;516;12</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>42</x>
-      <y>1218</y>
-      <w>1063</w>
-      <h>34</h>
+      <x>192</x>
+      <y>753</y>
+      <w>521</w>
+      <h>17</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;1050;21</additional_attributes>
+    <additional_attributes>9;12;516;9</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1085</x>
-      <y>833</y>
-      <w>160</w>
-      <h>49</h>
+      <x>705</x>
+      <y>354</y>
+      <w>80</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;-
 getWorkingUnits()</panel_attributes>
-    <additional_attributes>21;35;147;35</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1085</x>
-      <y>980</y>
-      <w>160</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-ArrayList&lt;Unit&gt; </panel_attributes>
-    <additional_attributes>21;35;147;35</additional_attributes>
+    <additional_attributes>9;15;75;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Actor</type>
     <coordinates>
-      <x>21</x>
-      <y>0</y>
-      <w>70</w>
-      <h>84</h>
+      <x>183</x>
+      <y>108</y>
+      <w>30</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Dispatcher</panel_attributes>
     <additional_attributes/>
@@ -119,21 +107,21 @@ ArrayList&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1204</x>
-      <y>49</y>
-      <w>70</w>
-      <h>21</h>
+      <x>768</x>
+      <y>126</y>
+      <w>30</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>_:Emergency_</panel_attributes>
+    <panel_attributes>_:Disaster_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1232</x>
-      <y>861</y>
-      <w>14</w>
-      <h>168</h>
+      <x>780</x>
+      <y>366</y>
+      <w>6</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -141,21 +129,21 @@ ArrayList&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1218</x>
-      <y>49</y>
-      <w>34</w>
-      <h>825</h>
+      <x>774</x>
+      <y>126</y>
+      <w>14</w>
+      <h>245</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;812</additional_attributes>
+    <additional_attributes>9;9;9;240</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1281</x>
-      <y>49</y>
-      <w>70</w>
-      <h>21</h>
+      <x>801</x>
+      <y>126</y>
+      <w>30</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>_:Unit_</panel_attributes>
     <additional_attributes/>
@@ -163,10 +151,10 @@ ArrayList&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1309</x>
-      <y>1099</y>
-      <w>14</w>
-      <h>245</h>
+      <x>813</x>
+      <y>573</y>
+      <w>6</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -174,33 +162,33 @@ ArrayList&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1085</x>
-      <y>1078</y>
-      <w>237</w>
-      <h>49</h>
+      <x>705</x>
+      <y>564</y>
+      <w>113</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;-
 withdrawUnit()</panel_attributes>
-    <additional_attributes>21;35;224;35</additional_attributes>
+    <additional_attributes>9;15;108;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1085</x>
-      <y>1190</y>
-      <w>237</w>
-      <h>34</h>
+      <x>705</x>
+      <y>741</y>
+      <w>113</w>
+      <h>14</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;224;21</additional_attributes>
+    <additional_attributes>9;9;108;9</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.custom.InteractionFrame</type>
     <coordinates>
-      <x>56</x>
-      <y>1141</y>
-      <w>1260</w>
-      <h>231</h>
+      <x>198</x>
+      <y>723</y>
+      <w>540</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>alt [valid unit]</panel_attributes>
     <additional_attributes/>
@@ -208,66 +196,66 @@ withdrawUnit()</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>35</x>
-      <y>1239</y>
-      <w>1294</w>
-      <h>34</h>
+      <x>189</x>
+      <y>765</y>
+      <w>554</w>
+      <h>14</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;1281;21</additional_attributes>
+    <additional_attributes>9;9;549;9</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>2037</x>
-      <y>1400</y>
-      <w>28</w>
-      <h>35</h>
+      <x>1125</x>
+      <y>831</y>
+      <w>12</w>
+      <h>15</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>-721;-28;-721;-28</additional_attributes>
+    <additional_attributes>-309;-12;-309;-12</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1085</x>
-      <y>1288</y>
-      <w>237</w>
-      <h>49</h>
+      <x>705</x>
+      <y>783</y>
+      <w>113</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 Exception</panel_attributes>
-    <additional_attributes>21;35;224;35</additional_attributes>
+    <additional_attributes>9;15;108;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1001</x>
-      <y>49</y>
-      <w>196</w>
-      <h>21</h>
+      <x>651</x>
+      <y>126</y>
+      <w>102</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>_:RemoveUnitAssignmentController_</panel_attributes>
+    <panel_attributes>_:RemoveUnitAssignmentFromDisasterController_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1078</x>
-      <y>49</y>
-      <w>34</w>
-      <h>62</h>
+      <x>702</x>
+      <y>126</y>
+      <w>14</w>
+      <h>26</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;49</additional_attributes>
+    <additional_attributes>9;9;9;21</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1456</x>
-      <y>49</y>
-      <w>70</w>
-      <h>21</h>
+      <x>876</x>
+      <y>126</y>
+      <w>30</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>_:Sendable_</panel_attributes>
     <additional_attributes/>
@@ -275,21 +263,21 @@ Exception</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1470</x>
-      <y>49</y>
-      <w>34</w>
-      <h>825</h>
+      <x>882</x>
+      <y>126</y>
+      <w>14</w>
+      <h>245</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;812</additional_attributes>
+    <additional_attributes>9;9;9;240</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1484</x>
-      <y>861</y>
-      <w>14</w>
-      <h>168</h>
+      <x>888</x>
+      <y>366</y>
+      <w>6</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -297,34 +285,525 @@ Exception</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1225</x>
-      <y>840</y>
-      <w>272</w>
-      <h>49</h>
+      <x>777</x>
+      <y>357</y>
+      <w>116</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;-
 getWorkingUnits()</panel_attributes>
-    <additional_attributes>21;35;259;35</additional_attributes>
+    <additional_attributes>9;15;111;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1225</x>
-      <y>959</y>
-      <w>272</w>
-      <h>49</h>
+      <x>777</x>
+      <y>363</y>
+      <w>116</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.
-ArrayList&lt;Unit&gt; </panel_attributes>
-    <additional_attributes>21;35;259;35</additional_attributes>
+    <panel_attributes>lt=&gt;&gt;-
+getUnitsNeeded()</panel_attributes>
+    <additional_attributes>111;15;9;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>810</x>
+      <y>567</y>
+      <w>206</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;-
+withdrawUnit(Unit)</panel_attributes>
+    <additional_attributes>9;15;201;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>810</x>
+      <y>582</y>
+      <w>206</w>
+      <h>14</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>9;9;201;9</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>807</x>
+      <y>126</y>
+      <w>14</w>
+      <h>452</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;447</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Note</type>
+    <coordinates>
+      <x>198</x>
+      <y>774</y>
+      <w>90</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Invalid unit</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1701</x>
-      <y>49</y>
-      <w>70</w>
+      <x>333</x>
+      <y>126</y>
+      <w>72</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:InspectDisastersController_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>150</y>
+      <w>176</w>
       <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+inspectDisastersOnStatus(EmergencyStatus)</panel_attributes>
+    <additional_attributes>171;15;9;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>357</x>
+      <y>126</y>
+      <w>14</w>
+      <h>38</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>228</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Disaster[]</panel_attributes>
+    <additional_attributes>9;15;171;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>282</y>
+      <w>413</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+getLongInformation(Emergency)</panel_attributes>
+    <additional_attributes>408;15;9;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>294</y>
+      <w>413</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
+    <additional_attributes>9;15;408;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>243</y>
+      <w>101</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;
+getDisasterFromId(Long)</panel_attributes>
+    <additional_attributes>96;15;9;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>255</y>
+      <w>101</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Disaster
+</panel_attributes>
+    <additional_attributes>9;15;96;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>255</x>
+      <y>126</y>
+      <w>72</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:DisasterMapper_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>282</x>
+      <y>126</y>
+      <w>14</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;123</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>288</x>
+      <y>249</y>
+      <w>6</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>363</x>
+      <y>159</y>
+      <w>6</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InteractionFrame</type>
+    <coordinates>
+      <x>198</x>
+      <y>282</y>
+      <w>405</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>loop [for every emergency in the disaster]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>564</x>
+      <y>126</y>
+      <w>78</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:InspectEmergenciesController_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>594</x>
+      <y>126</y>
+      <w>14</w>
+      <h>233</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;228</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>600</x>
+      <y>291</y>
+      <w>6</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>321</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+getShortInformation(Disaster)</panel_attributes>
+    <additional_attributes>171;15;9;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>330</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
+    <additional_attributes>9;15;171;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>162</y>
+      <w>35</w>
+      <h>14</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;</panel_attributes>
+    <additional_attributes>9;9;30;9</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>390</x>
+      <y>165</y>
+      <w>72</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:DisasterEvaluationCriterium_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>414</x>
+      <y>165</y>
+      <w>14</w>
+      <h>83</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;78</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>471</x>
+      <y>126</y>
+      <w>30</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:World_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>186</y>
+      <w>128</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;
+getDisasterList()</panel_attributes>
+    <additional_attributes>9;15;123;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>477</x>
+      <y>126</y>
+      <w>14</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;69</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>483</x>
+      <y>195</y>
+      <w>6</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>519</x>
+      <y>126</y>
+      <w>30</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:DisasterList_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>525</x>
+      <y>126</y>
+      <w>14</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;87</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>531</x>
+      <y>213</y>
+      <w>6</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>204</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;
+getDisastersByCriterium(DisasterEvaluationCriterium)</panel_attributes>
+    <additional_attributes>9;15;171;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>195</y>
+      <w>128</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+DisasterList</panel_attributes>
+    <additional_attributes>9;15;123;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>210</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+DisasterList</panel_attributes>
+    <additional_attributes>9;15;171;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>225</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Disaster[]</panel_attributes>
+    <additional_attributes>9;15;171;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>216</y>
+      <w>176</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;
+toArray()</panel_attributes>
+    <additional_attributes>9;15;171;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>777</x>
+      <y>372</y>
+      <w>116</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+DerivedUnitsNeeded</panel_attributes>
+    <additional_attributes>9;15;111;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>927</x>
+      <y>126</y>
+      <w>54</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>_:DerivedUnitsNeeded_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>948</x>
+      <y>126</y>
+      <w>14</w>
+      <h>266</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;261</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>954</x>
+      <y>387</y>
+      <w>6</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>885</x>
+      <y>378</y>
+      <w>74</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;-
+getWorkingUnits()</panel_attributes>
+    <additional_attributes>9;15;69;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InteractionFrame</type>
+    <coordinates>
+      <x>957</x>
+      <y>399</y>
+      <w>117</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>loop [for every emergency in the disaster]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>999</x>
+      <y>126</y>
+      <w>30</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>_:Emergency_</panel_attributes>
     <additional_attributes/>
@@ -332,56 +811,56 @@ ArrayList&lt;Unit&gt; </panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1715</x>
-      <y>49</y>
-      <w>28</w>
-      <h>840</h>
+      <x>1005</x>
+      <y>126</y>
+      <w>14</w>
+      <h>290</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;833</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1477</x>
-      <y>854</y>
-      <w>265</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
-getUnitsNeeded()</panel_attributes>
-    <additional_attributes>21;35;252;35</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1477</x>
-      <y>952</y>
-      <w>265</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-ConcreteUnitsNeeded</panel_attributes>
-    <additional_attributes>21;35;252;35</additional_attributes>
+    <additional_attributes>9;9;9;285</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1729</x>
-      <y>882</y>
-      <w>14</w>
-      <h>322</h>
+      <x>1011</x>
+      <y>411</y>
+      <w>6</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
   </element>
   <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>951</x>
+      <y>402</y>
+      <w>65</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;-
+getUnitsNeeded()</panel_attributes>
+    <additional_attributes>9;15;60;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>951</x>
+      <y>414</y>
+      <w>65</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ConcreteUnitsNeeded</panel_attributes>
+    <additional_attributes>9;15;60;15</additional_attributes>
+  </element>
+  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1820</x>
-      <y>49</y>
-      <w>140</w>
-      <h>21</h>
+      <x>1050</x>
+      <y>126</y>
+      <w>54</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>_:ConcreteUnitsNeeded_</panel_attributes>
     <additional_attributes/>
@@ -389,21 +868,21 @@ ConcreteUnitsNeeded</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1869</x>
-      <y>49</y>
-      <w>28</w>
-      <h>840</h>
+      <x>1065</x>
+      <y>126</y>
+      <w>14</w>
+      <h>311</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;833</additional_attributes>
+    <additional_attributes>9;9;9;306</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1883</x>
-      <y>882</y>
-      <w>14</w>
-      <h>112</h>
+      <x>1071</x>
+      <y>432</y>
+      <w>6</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -411,137 +890,128 @@ ConcreteUnitsNeeded</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1722</x>
-      <y>868</y>
-      <w>168</w>
-      <h>49</h>
+      <x>951</x>
+      <y>423</y>
+      <w>125</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;-
 getWorkingUnits()</panel_attributes>
-    <additional_attributes>21;35;161;35</additional_attributes>
+    <additional_attributes>9;15;120;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1722</x>
-      <y>938</y>
-      <w>168</w>
-      <h>49</h>
+      <x>951</x>
+      <y>432</y>
+      <w>125</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 ArrayList&lt;Unit&gt; </panel_attributes>
-    <additional_attributes>21;35;161;35</additional_attributes>
+    <additional_attributes>9;15;120;15</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1302</x>
-      <y>1085</y>
-      <w>440</w>
-      <h>49</h>
+      <x>885</x>
+      <y>444</y>
+      <w>74</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
+    <panel_attributes>lt=&lt;.
+ArrayList&lt;Unit&gt; </panel_attributes>
+    <additional_attributes>9;15;69;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>777</x>
+      <y>447</y>
+      <w>116</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ArrayList&lt;Unit&gt; </panel_attributes>
+    <additional_attributes>9;15;111;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>705</x>
+      <y>450</y>
+      <w>80</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ArrayList&lt;Unit&gt; </panel_attributes>
+    <additional_attributes>9;15;75;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1005</x>
+      <y>423</y>
+      <w>14</w>
+      <h>158</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;153</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>1011</x>
+      <y>576</y>
+      <w>6</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>774</x>
+      <y>459</y>
+      <w>14</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>9;9;9;135</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>777</x>
+      <y>585</y>
+      <w>239</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
 withdrawUnit(Unit)</panel_attributes>
-    <additional_attributes>21;35;427;35</additional_attributes>
+    <additional_attributes>9;15;234;15</additional_attributes>
   </element>
   <element>
-    <type>com.umlet.element.Relation</type>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1302</x>
-      <y>1169</y>
-      <w>440</w>
-      <h>34</h>
+      <x>780</x>
+      <y>594</y>
+      <w>6</w>
+      <h>18</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;427;21</additional_attributes>
+    <panel_attributes/>
+    <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>2002</x>
-      <y>49</y>
-      <w>98</w>
-      <h>21</h>
+      <x>1113</x>
+      <y>123</y>
+      <w>54</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>_:SendableStatus_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>2030</x>
-      <y>49</y>
-      <w>35</w>
-      <h>1064</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;28;1057</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1722</x>
-      <y>1085</y>
-      <w>336</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
-withdrawUnit(UnitsNeeded, Unit)</panel_attributes>
-    <additional_attributes>21;35;329;35</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.SeqObjectActive</type>
-    <coordinates>
-      <x>2051</x>
-      <y>1106</y>
-      <w>14</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1295</x>
-      <y>49</y>
-      <w>34</w>
-      <h>1063</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>21;21;21;1050</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1722</x>
-      <y>1134</y>
-      <w>336</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;21;329;21</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Note</type>
-    <coordinates>
-      <x>56</x>
-      <y>1260</y>
-      <w>210</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>Invalid unit</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Note</type>
-    <coordinates>
-      <x>371</x>
-      <y>245</y>
-      <w>210</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>Hier komt inspect disasters</panel_attributes>
+    <panel_attributes>_:ConcreteUnitsNeeded_</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

@@ -32,6 +32,7 @@ import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
+import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
@@ -94,11 +95,11 @@ public class Scenario1Test {
 		cec = new CreateEmergencyController(world);
 		iec = new InspectEmergenciesController(world);
 		redc = new ReadEnvironmentDataController(world);
-		duc = new DispatchUnitsToEmergencyController(world);
-		eotc = new EndOfTaskController(world);
+		duc = new DispatchUnitsToEmergencyController(world, new PlaceHolderEventHandler());
+		eotc = new EndOfTaskController(world, new PlaceHolderEventHandler());
 		tac = new TimeAheadController(world, ExternalSystem.bootstrap(api));
 		shc = new SelectHospitalController(world);
-		ruac = new RemoveUnitAssignmentFromEmergencyController(world);
+		ruac = new RemoveUnitAssignmentFromEmergencyController(world, new PlaceHolderEventHandler());
 	}
 
 	@Test

@@ -12,6 +12,7 @@ import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.validators.UnitToEmergencyDistanceComparator;
 import projectswop20102011.World;
 import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.EmergencyEventHandler;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.validators.TypeUnitValidator;
@@ -24,14 +25,17 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class DispatchUnitsToEmergencyController extends Controller {
+	
+	private EmergencyEventHandler eventHandler;
 
 	/**
 	 * Creates a new instance of a DispatchUnitsController with a given word to operate on.
 	 * @param world The world where the controller will operate on.
 	 * @throws InvalidWorldException If the given world is invalid.
 	 */
-	public DispatchUnitsToEmergencyController(World world) throws InvalidWorldException {
+	public DispatchUnitsToEmergencyController(World world, EmergencyEventHandler eventHandler) throws InvalidWorldException {
 		super(world);
+		this.eventHandler = eventHandler;
 	}
 
 	/**
@@ -106,6 +110,6 @@ public class DispatchUnitsToEmergencyController extends Controller {
 		if (emergency.isPartOfADisaster()) {
 			throw new InvalidEmergencyException("The emergency is part of a disaster.");
 		}
-		emergency.assignUnits(units);
+		emergency.assignUnits(units, eventHandler);
 	}
 }

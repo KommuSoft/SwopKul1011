@@ -264,11 +264,11 @@ public abstract class Emergency extends Sendable {
     }
 
     @Override
-    void withdrawUnit(Unit unitToWithdraw) throws InvalidSendableStatusException {
+    void withdrawUnit(Unit unitToWithdraw, EmergencyEventHandler eventHandler) throws InvalidSendableStatusException {
         if (this.isPartOfADisaster()) {
-            this.getDisaster().withdrawUnit(unitToWithdraw);
+            this.getDisaster().withdrawUnit(unitToWithdraw, eventHandler);
         } else {
-            super.withdrawUnit(unitToWithdraw);
+            super.withdrawUnit(unitToWithdraw, eventHandler);
         }
     }
 }

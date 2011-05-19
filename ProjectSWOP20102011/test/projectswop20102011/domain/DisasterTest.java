@@ -7,6 +7,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDurationException;
@@ -243,7 +244,7 @@ public class DisasterTest {
 		units.add(politiewagen2);
 		units.add(politiewagen3);
 
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 
 		politiewagen1.timeAhead(1000000);
@@ -252,9 +253,9 @@ public class DisasterTest {
 		politiewagen3.timeAhead(1000000);
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
 
-		politiewagen1.finishedJob();
-		politiewagen2.finishedJob();
-		politiewagen3.finishedJob();
+		politiewagen1.finishedJob(new PlaceHolderEventHandler());
+		politiewagen2.finishedJob(new PlaceHolderEventHandler());
+		politiewagen3.finishedJob(new PlaceHolderEventHandler());
 		assertEquals(SendableStatus.COMPLETED, d.getStatus());
 	}
 
@@ -347,7 +348,7 @@ public class DisasterTest {
 		emergencies.add(e1);
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 		assertEquals(3, d.getWorkingUnits().size());
 	}
 
@@ -366,18 +367,18 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, d.getStatus());
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 		politiewagen3.timeAhead(1000000000);
 
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
-		d.finishUnit(politiewagen1);
+		d.finishUnit(politiewagen1, new PlaceHolderEventHandler());
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
-		d.finishUnit(politiewagen2);
+		d.finishUnit(politiewagen2, new PlaceHolderEventHandler());
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
-		d.finishUnit(politiewagen3);
+		d.finishUnit(politiewagen3, new PlaceHolderEventHandler());
 		assertEquals(SendableStatus.COMPLETED, d.getStatus());
 	}
 
@@ -394,20 +395,20 @@ public class DisasterTest {
 		emergencies.add(e1);
 		d = new Disaster(emergencies, description1);
 		
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 		assertEquals(0, e1.getWorkingUnits().size());
 
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
-		politiewagen1.finishedJob();
+		politiewagen1.finishedJob(new PlaceHolderEventHandler());
 		assertEquals(1, e1.getWorkingUnits().size());
 		assertEquals(SendableStatus.RESPONSE_IN_PROGRESS, d.getStatus());
-		politiewagen2.finishedJob();
+		politiewagen2.finishedJob(new PlaceHolderEventHandler());
 		
 		politiewagen1.timeAhead(1000000000);
-		politiewagen1.finishedJob();
+		politiewagen1.finishedJob(new PlaceHolderEventHandler());
 		
 		assertEquals(0, e1.getWorkingUnits().size());
 		assertEquals(SendableStatus.COMPLETED, d.getStatus());
@@ -428,9 +429,9 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 		assertEquals(3, d.getWorkingUnits().size());
-		politiewagen3.withdraw();
+		politiewagen3.withdraw(new PlaceHolderEventHandler());
 		assertEquals(2, d.getWorkingUnits().size());
 	}
 
@@ -449,13 +450,13 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 
 		politiewagen1.timeAhead(1000000000);
 		politiewagen2.timeAhead(1000000000);
 		politiewagen3.timeAhead(1000000000);
 
-		politiewagen3.withdraw();
+		politiewagen3.withdraw(new PlaceHolderEventHandler());
 	}
 
 	@Test
@@ -468,7 +469,7 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 		assertFalse(d.isPartiallyAssigned());
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 		assertTrue(d.isPartiallyAssigned());
 	}
 
@@ -484,7 +485,7 @@ public class DisasterTest {
 		emergencies.add(e2);
 		d = new Disaster(emergencies, description1);
 		assertFalse(d.isPartiallyAssigned());
-		d.assignUnits(units);
+		d.assignUnits(units, new PlaceHolderEventHandler());
 		assertFalse(d.isPartiallyAssigned());
 	}
 
@@ -506,9 +507,9 @@ public class DisasterTest {
 		d = new Disaster(emergencies, description1);
 
 		assertEquals(0, d.getWorkingUnits().size());
-		d.assignUnits(units1);
+		d.assignUnits(units1, new PlaceHolderEventHandler());
 		assertEquals(1, d.getWorkingUnits().size());
-		d.assignUnits(units2);
+		d.assignUnits(units2, new PlaceHolderEventHandler());
 		assertEquals(3, d.getWorkingUnits().size());
 	}
 

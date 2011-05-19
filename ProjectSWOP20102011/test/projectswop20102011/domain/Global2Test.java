@@ -21,6 +21,7 @@ import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyControll
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
+import projectswop20102011.eventhandlers.PlaceHolderEventHandler;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCapacityException;
@@ -93,13 +94,13 @@ public class Global2Test {
         world = new World();
         iec = new InspectEmergenciesController(world);
         cec = new CreateEmergencyController(world);
-        duc = new DispatchUnitsToEmergencyController(world);
+        duc = new DispatchUnitsToEmergencyController(world, new PlaceHolderEventHandler());
         shc = new SelectHospitalController(world);
-        eotc = new EndOfTaskController(world);
-        ruafe = new RemoveUnitAssignmentFromEmergencyController(world);
-        ruafd = new RemoveUnitAssignmentFromDisasterController(world);
+        eotc = new EndOfTaskController(world, new PlaceHolderEventHandler());
+        ruafe = new RemoveUnitAssignmentFromEmergencyController(world, new PlaceHolderEventHandler());
+        ruafd = new RemoveUnitAssignmentFromDisasterController(world, new PlaceHolderEventHandler());
         cdc = new CreateDisasterController(world);
-        dudc = new DispatchUnitsToDisasterController(world);
+        dudc = new DispatchUnitsToDisasterController(world, new PlaceHolderEventHandler());
         idc = new InspectDisastersController(world);
         tac = new TimeAheadController(world, null);
 
