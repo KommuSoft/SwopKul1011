@@ -263,7 +263,12 @@ public abstract class Emergency extends Sendable {
         this.disaster = disaster;
     }
     
-    public Sendable getManagingeSendable () {
+    /**
+     * Gets the Sendable that manages this Emergency.
+     * @return The Disaster that contains this Emergency if there is any, otherwise the Emergency itself.
+     */
+    @Override
+    public Sendable getManagingSendable () {
         if(this.isPartOfADisaster()) {
             return this.getDisaster();
         }
