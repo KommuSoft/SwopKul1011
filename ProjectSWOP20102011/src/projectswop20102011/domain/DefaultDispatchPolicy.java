@@ -14,7 +14,7 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	 * @param unitsNeeded
 	 *      The ConcreteUnitsNeeded object of the emergency this policy will handle.
 	 * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the givenUnitsNeeded object.
-	 *		|super(unitsNeeded)
+	 *		| super(unitsNeeded)
 	 * @throws InvalidUnitsNeededException
 	 *      If the given ConcreteUnitsNeeded policy is ineffective.
 	 */

@@ -16,7 +16,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
 
 /**
  * A class that records which units are working on an emergency and does
- *		the accounting which units are working on the emergency.
+ *		the accounting for the units that are working on the emergency.
  * @invar The emergency is valid.
  *		| isValidEmergency(getEmergency())
  * @invar The constraint is valid.
@@ -25,7 +25,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-//TODO: voorlopig staat dit public
+//TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast worden.
 public class ConcreteUnitsNeeded extends UnitsNeeded {
 
 	/**
@@ -66,10 +66,10 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @throws InvalidEmergencyException
 	 *		If the given emergency is not effective.
 	 * @throws InvalidDispatchUnitsConstraintException
-	 *          If the given constraint is invalid.
+	 *		If the given constraint is invalid.
 	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
 	 */
-	//TODO: voorlopig staat dit public
+	//TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast.
 	public ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
 		if (!isValidEmergency(emergency)) {
 			throw new InvalidEmergencyException("Emergency must be effective.");
@@ -207,8 +207,8 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @param units
 	 *		The units to be assigned.
 	 * @return True if all the given units are effective, unique and
-	 *          can be assigned and the constraint for allocation is passed;
-	 *          otherwise false.
+	 *		can be assigned and the constraint for allocation is passed;
+	 *		otherwise false.
 	 */
 	@Override
 	public boolean canAssignUnitsToEmergency(Set<Unit> units) {
@@ -224,16 +224,19 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Assign the given list of units to the emergency.
 	 * @param units
 	 *		The given list of units.
-	 * @post All the units in the given list are assigned
+	 * @param eventHandler 
+	 *		The eventhander where the notifications should be sent to.
+	 * @effect All the units in the given list are assigned
 	 *		| forall (u in units)
 	 *		|	u.isAssigned()
-	 * @post All the units in the given list are handling the emergency of this UnitNeeded
+	 * @effect Alle the units are added to the working units.
 	 *		| forall (u in units)
-	 *		|	u.getEmergency().equals(this.getEmergency())
+	 *		|	addWorkingUnits(u)
 	 * @throws InvalidEmergencyException
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
+	@Override
 	public synchronized void assignUnitsToEmergency(Set<Unit> units,EventHandler eventHandler) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
@@ -255,8 +258,12 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * A method called when a unit finishes his job to manage the emergency.
 	 * @param unit
 	 *		The unit that finishes his job.
+	 * @parem eventHandler
+	 *		The evenhandler where the notifications should be sent to.
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
+	 * @effect The unit is added to the finished units.
+	 *		|addFinishedUnits(unit)
 	 */
 	@Override
 	void unitFinishedJob(Unit unit,EventHandler eventHandler) {
@@ -276,8 +283,11 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Sets the policy of this ConcreteUnitsNeeded object to the given object.
 	 * @param policy
 	 *		The given policy to set.
-	 * @post The given policy is equal to the policy of this ConcreteUnitsNeeded
-	 *		| new.getPolicy() == policy
+	 * @post The given policy is equal to the policy of this ConcreteUnitsNeeded. If the given policy is null the DefaultDispatchPolicy is set.
+	 *		|if(policy == null)
+	 *		|	new.getPolicy() == new DefaultDispatchPolicy(this)
+	 *		|else
+	 *		|	new.getPolicy() == policy
 	 */
 	void setPolicy(DispatchPolicy policy) {
 		if (policy == null) {
@@ -296,6 +306,10 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Pushes the given policy on the current policy, and sets this as the current policy.
 	 * @param policy
 	 *		The policy to push on the current policy.
+	 * @effect The given policy is added in the chain of policies.
+	 *		| policy.getDeepSuccessor().setSuccessor(this.getPolicy())
+	 * @effect The policy of this concreteUnitsNeeded is set to the given policy.
+	 *		| setPolicy(policy)
 	 * @throws InvalidDispatchPolicyException
 	 *		If the given policy does not handle this ConcreteUnitsNeeded.
 	 */
@@ -319,6 +333,8 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Remove unit from the working units and set its emergency to null.
 	 * @param unit
 	 *		The unit that wants to withdraw.
+	 * @param eventHandler 
+	 *		The eventhandler where the notifications should be sent to.
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 * @effect The emergency of the given unit is set to null
@@ -368,6 +384,13 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 		return this.getConstraint().canBeResolved(this.getAlreadyAssignedUnits(), availableUnits);
 	}
 
+	/**
+	 * Sets the status of the emergency.
+	 * @param emergencyStatus
+	 *		The new status of the emergency.
+	 * @throws InvalidSendableStatusException 
+	 *		If the status is wrong.
+	 */
 	@Override
 	void setStatus(SendableStatus emergencyStatus) throws InvalidSendableStatusException {
 		getEmergency().setStatus(emergencyStatus);
@@ -377,7 +400,10 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Withdraw a unit from its emergency.
 	 * @param unit
 	 *		The unit that wants to withdraw.
+	 * @param eventHandler 
+	 *		The eventHandler where the notifications should be sent to.
 	 * @effect The unit is removed from the workingUnits list.
+	 *		| removeFromWorkingUnits(unit)
 	 */
 	@Override
 	void withdrawUnit(Unit unit,EventHandler eventHandler) {

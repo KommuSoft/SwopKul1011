@@ -14,11 +14,40 @@ import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.SortedListSet;
 
+/**
+ * A class that records which units are working on an disaster and does
+ *		the accounting for the units that are working on the disaster.
+ * @invar The disaster is valid.
+ *		| isValidDisaster(getDisaster())
+ * @invar The constraint is valid.
+ *		| isValidConstraint(getConstraint())
+ *
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ */
 public class DerivedUnitsNeeded extends UnitsNeeded {
 
+	/**
+	 * The disaster that is handled by this DerivedUnitsNeeded.
+	 */
 	private final Disaster disaster;
+	/**
+	 * An AndDispatchUnitsConstraint object specifying which units can be allocated to the disaster.
+	 */
 	private final AndDispatchUnitsConstraint constraint;
 
+	/**
+	 * Creates a new object that calculates the units needed for a disaster.
+	 * @param disaster
+	 *		The disaster that will be handled by this DerivedUnitsNeeded.
+	 * @post This disaster is set to the given disaster.
+	 *		| new.getdisaster() == disaster
+	 * @post The constraint is set to the constraints of the emergencies of the disaster.
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is not effective.
+	 * @throws InvalidDispatchUnitsConstraintException
+	 *		If the given constraint is invalid.
+	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
+	 */
 	DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException {
 		this.disaster = disaster;
 		DispatchUnitsConstraint[] constraints = new DispatchUnitsConstraint[disaster.getEmergencies().size()];
@@ -30,27 +59,52 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Checks if the units needed for the emergency are all finished.
-	 * @return True if all units needed for the emergency are finished; otherwise false.
-	 * @note If the units needed for the emergency are all finished, then the emergency of this units needed can be completed.
+	 * Checks if the units needed for the disaster are all finished.
+	 * @return True if all units needed for the disaster are finished; otherwise false.
+	 * @note If the units needed for the disaster are all finished, then the disaster of this units needed can be completed.
 	 */
-	public boolean canCompleteDisaster() {
+	//TODO: mag deze methode weg?
+	private boolean canCompleteDisaster() {
 		throw new RuntimeException("Not yet implemented");
+		//TODO: moet dit niet geïmplementeerd worden?
 		//return getConstraint().areValidDispatchUnits(takeFinishedUnits());
 	}
 
+	/**
+	 * Add a given unit to the working units.
+	 * @param unit
+	 *      The unit that must be added to the working units.
+	 * @effect The given unit is added to the working units.
+	 *		| takeWorkingUnits().add(unit)
+	 */
 	private void addWorkingUnits(Unit unit) {
 		takeWorkingUnits().add(unit);
 	}
 
+	/**
+	 * Add a given unit to the finished units.
+	 * @param unit
+	 *      The unit that must be added to the finished units.
+	 * @effect The given unit is added to the finished units.
+	 *		|takeFinishedUnits().add(unit)
+	 */
 	private void addFinishedUnits(Unit unit) {
 		takeFinishedUnits().add(unit);
 	}
 
+	/**
+	 * Returns the disaster of this DerivedUnitsNeeded.
+	 * @return The disaster of this DerivedUnitsNeeded.
+	 */
 	private Disaster getDisaster() {
 		return disaster;
 	}
 
+	/**
+	 * Returns a list of units working on the disaster.
+	 * @return A list of the units working on the disaster.
+	 * @note This methods returns the union of all working units of every emergency in the disaster.
+	 */
 	@Override
 	public ArrayList<Unit> getWorkingUnits() {
 		ArrayList<Unit> result = new ArrayList<Unit>();
@@ -60,6 +114,11 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		return result;
 	}
 
+	/**
+	 * Returns a list of finished units of the disaster.
+	 * @return A list of finished units of the disaster.
+	 * @note This methods returns the union of all finished units of every emergency in the disaster.
+	 */
 	@Override
 	public ArrayList<Unit> getFinishedUnits() {
 		ArrayList<Unit> result = new ArrayList<Unit>();
@@ -69,17 +128,27 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		return result;
 	}
 
+	/**
+	 * Returns the constraint of this DerivedUnitsNeeded.
+	 * @return The constraint used by this DerivedUnitsNeeded.
+	 */
 	@Override
 	DispatchUnitsConstraint getConstraint() {
 		return constraint;
 	}
 
+	/**
+	 * Checks if the given disaster is a valid disaster.
+	 * @param disaster
+	 *		The disaster to check if it is effective.
+	 * @return True if the given disaster is effective; false otherwise.
+	 */
 	public static boolean isValidDisaster(Disaster disaster) {
 		return (disaster != null);
 	}
 
 	/**
-	 * Checks if the given units can be assigned to the emergency.
+	 * Checks if the given units can be assigned to the disaster.
 	 * @param units
 	 *		The units to be assigned.
 	 * @return True if all the given units are effective, unique and
@@ -102,18 +171,19 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Assign the given list of units to the emergency.
+	 * Assign the given list of units to the disaster.
 	 * @param units
 	 *		The given list of units.
-	 * @post All the units in the given list are assigned
+	 * @param eventhandler 
+	 *		The eventHandler where the notifications should be sent to.
+	 * @effect All the units in the given list are assigned
 	 *		| forall (u in units)
 	 *		|	u.isAssigned()
-	 * @post All the units in the given list are handling the emergency of this UnitNeeded
+	 * @effect All the units in the given list are handling an emergency of the disaster of this UnitNeeded.
 	 *		| forall (u in units)
-	 *		|	u.getEmergency().equals(this.getEmergency())
+	 *		|	u.getManagingSendable().equals(this.getDisaster())
 	 * @throws InvalidEmergencyException
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
-	 * @see #canAssignUnitsToEmergency(Set)
 	 */
 	@Override
 	public synchronized void assignUnitsToEmergency(Set<Unit> units, EventHandler eventhandler) throws InvalidEmergencyException {
@@ -138,6 +208,19 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		}
 	}
 
+	/**
+	 * A method called when a unit finishes his job to manage the disaster.
+	 * @param unit
+	 *		The unit that finishes his job.
+	 * @parem eventHandler
+	 *		The evenhandler where the notifications should be sent to.
+	 * @effect The unit finishes its job in the emergency.
+	 *		| unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit)
+	 * @effect The unit is removed from the workingUnits list.
+	 *		|takeWorkingUnit().remove(unit)
+	 * @effect The unit is added to the finished units.
+	 *		|addFinishedUnits(unit)
+	 */
 	@Override
 	void unitFinishedJob(Unit unit, EventHandler eventHandler) {
 		unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit, eventHandler);
@@ -145,14 +228,42 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		addFinishedUnits(unit);
 	}
 
+	/**
+	 * Tests if the given DispatchUnitConstraint can be a valid constraint, i.e.
+	 *		the constraint is not null.
+	 * @param constraint
+	 *		The constraint to check.
+	 * @return True if the given constraint is effective; otherwise false.
+	 */
 	public static boolean isValidConstraint(AndDispatchUnitsConstraint constraint) {
 		return (constraint != null);
 	}
 
+	/**
+	 * Remove unit from the working units.
+	 * @param unit
+	 *		The unit that wants to withdraw.
+	 * @param eventHandler 
+	 *		The eventhandler where the notifications should be sent to.
+	 * @effect The unit is removed from the workingUnits list.
+	 *		|takeWorkingUnit().remove(unit)
+	 */
 	private void removeFromWorkingUnits(Unit unit) {
 		takeWorkingUnits().remove(unit);
 	}
 
+	/**
+	 * Withdraw a unit from its disaster.
+	 * @param unit
+	 *		The unit that wants to withdraw.
+	 * @param eventHandler 
+	 *		The eventHandler where the notifications should be sent to.
+	 * @effect The unit is withdrawn from every emergency in the disaster.
+	 *		| for(every emergency e in disaster)
+	 *		|	e.getUnitsNeeded().withdrawUnit(unit, eventHandler)
+	 * @effect The unit is removed from the workingUnits list.
+	 *		| removeFromWorkingUnits(unit)
+	 */
 	@Override
 	void withdrawUnit(Unit unit, EventHandler eventHandler) {
 		for (Emergency e : getDisaster().getEmergencies()) {
@@ -161,6 +272,13 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		removeFromWorkingUnits(unit);
 	}
 
+	/**
+	 * Generates a proposal based on a list of available units to allocate to the disaster.
+	 * @param options
+	 *		A list of units where the proposal must be created from.
+	 * @return A subset of the given list containing units proposed for allocation.
+	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
+	 */
 	@Override
 	Set<Unit> generateProposal(SortedSet<Unit> options) {
 		HashSet<Unit> proposal = new HashSet<Unit>();
@@ -171,6 +289,10 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		}
 	}
 
+	/**
+	 * Generates a proposal for unit allocation based on the policy of the disaster.
+	 * @return A list of units proposed by the policy of this disaster.
+	 */
 	@Override
 	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
 		Set<Unit> units = null;
@@ -185,28 +307,43 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Decides whether the emergency can be handled by the given units.
+	 * Decides whether the disaster can be handled by the given units.
 	 * @param availableUnits
-	 *		The units to check if they can handle the emergency.
-	 * @return True if the given units can handle the emrgency; false otherwise.
+	 *		The units to check if they can handle the disaster.
+	 * @return True if the given units can handle the disaster; false otherwise.
 	 */
 	@Override
 	public boolean canBeResolved(Set<Unit> availableUnits) {
 		return this.getConstraint().canBeResolved(this.getAlreadyAssignedUnits(), availableUnits);
 	}
 
+	/**
+	 * Sets the status of the disaster.
+	 * @param disasterStatus
+	 *		The new status of the disaster.
+	 * @throws InvalidSendableStatusException 
+	 *		If the status is wrong.
+	 */
 	@Override
-	void setStatus(SendableStatus emergencyStatus) throws InvalidSendableStatusException {
+	void setStatus(SendableStatus disasterStatus) throws InvalidSendableStatusException {
 		for (Emergency e : getDisaster().getEmergencies()) {
-			e.setStatus(emergencyStatus);
+			e.setStatus(disasterStatus);
 		}
 	}
 
+	/**
+	 * Returns the finished units of this disaster.
+	 * @return The finished units of this disaster.
+	 */
 	@Override
 	ArrayList<Unit> takeFinishedUnits() {
 		return getFinishedUnits();
 	}
 
+	/**
+	 * Returns the working units of the disaster.
+	 * @return The working units of the disaster.
+	 */
 	@Override
 	ArrayList<Unit> takeWorkingUnits() {
 		return getWorkingUnits();

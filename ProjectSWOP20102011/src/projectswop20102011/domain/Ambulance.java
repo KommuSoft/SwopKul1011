@@ -20,7 +20,7 @@ import projectswop20102011.exceptions.InvalidTargetableException;
 public class Ambulance extends Unit {
 
     /**
-     * The maximum number of units an abulance can transport
+     * The maximum number of units an abulance can transport.
      */
     public static final long MAXIMUM_NUMBER_OF_PATIENTS = 2;
     /**
@@ -37,12 +37,10 @@ public class Ambulance extends Unit {
      *		The home location of the new ambulance.
      * @param speed
      *		The speed of the new ambulance.
-     * @effect The new ambulance is a unit with given name, home location, speed.
+     * @effect The new ambulance is a unit with given name, home location and speed.
      *		|super(name,homeLocation,speed)
      * @effect The new ambulance has no current hospital. Its value is null.
-     *		|getCurrentHospital.equals(null)
-     * @effect The withdrawBehavior of this new ambulance is set to the given normalwithdraw behavior.
-     *      |setWithdrawBehavior(new NormalWithdraw())
+     *		|getCurrentHospital() == null
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an ambulance.
      * @throws InvalidMapItemNameException
@@ -69,6 +67,8 @@ public class Ambulance extends Unit {
      *		The hospital chosen by this ambulance.
      * @post The current hospital of this ambulance is set to the given.
      *		| this.currentHospital = new.currentHospital
+	 * @effect The target of this ambulance is set to the hospital if the hospital is effective.
+	 *		| setTarget(currentHospital)
      */
     private void setCurrentHospital(Hospital currentHospital) {
         this.currentHospital = currentHospital;
@@ -87,7 +87,9 @@ public class Ambulance extends Unit {
      * @param hospital
      *		The hospital to assign to the ambulance.
      * @effect The selected hopsital of this ambulance is equal to the given hospital.
-     *		| this.getCurrentHospital().equals(hospital)
+     *		| this.getCurrentHospital() = hospital
+	 * @effect The status of this unit is set to occupied.
+	 *		| setUnitStatus(UnitStatus.OCCUPIED)
      * @throws InvalidAmbulanceException
      *		If this ambulance is not assigned to an emergency or is not at the location of the emergency.
      * @throws InvalidHospitalException
@@ -115,17 +117,23 @@ public class Ambulance extends Unit {
 
     /**
      * Finishes the job of this Unit.
-     * @effect The emergency of this unit is null
+	 * @param eventHandler 
+	 *		The event handler where the finished should be signaled to.
+	 * @effect The emergency of this unit is null.
      *		| this.getEmergency().equals(null)
      * @effect The flag wasAlreadyAtSite is set to false.
-     *		|this.getWasAlreadyAtSite().equals(false)
+     *		| this.getWasAlreadyAtSite().equals(false)
+	 * @effect The unit status is set to IDLE.
+	 *		| setUnitStatus(UnitStatus.IDLE)
+	 * @effect The hospital of this ambulance is set to null.
+	 *		| setCurrentHospital(null)
      * @throws InvalidFinishJobException
-     *          If the unit can't finish his job (not assigned to an emergency, not at it's destination).
-     * @throws InvalidEmergencyStatusException
-     *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
+	 *		If the unit can't finish his job (not assigned to an emergency, not at it's destination).
+	 * @throws InvalidSendableStatusException
+	 *		If the status of the sendable where this unit is assigned to, does not allow units to finish their job.
      */
     @Override
-    public void finishedJob(EventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException, InvalidEmergencyException {
+    public void finishedJob(EventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
@@ -156,6 +164,10 @@ public class Ambulance extends Unit {
         }
     }
 
+	/**
+	 * Clones this ambulance.
+	 * @return A clone of this ambulance.
+	 */
     @Override
     public Ambulance clone() {
         Ambulance amb = null;
@@ -171,15 +183,22 @@ public class Ambulance extends Unit {
         return amb;
     }
 
+	/**
+	 * Checks whether all needed units of this type are present at the location of the emergency.
+	 * @return True if all needed units of this  type are present at the location of the emergency; false otherwise.
+	 */
     @Override
     public boolean arePresent() {
         //TODO: deze methode zal niet gebruikt worden, hoe oplossen?
+		//TODO: ofwel is de naam slecht ofwel hoort deze methode hier niet. Ik [jonas] verwacht dat er isPresent zou staan.
+		//Als het effectief arePresent moet zijn: wat doe deze methode hier. Een ambulance is toch niet verantwoordelijk of de andere ambulances present zijn?
         return false;
     }
 
     /**
      * Calculates the minimum number of ambulances based on the number of patients.
-     * @param patients The number of patients to transport.
+     * @param patients
+	 *		The number of patients to transport.
      * @return The minimum number of ambulances to the patients.
      */
     public static long getMinimumNumberOfAmbulances(long patients) {
@@ -188,7 +207,8 @@ public class Ambulance extends Unit {
 
     /**
      * Calculates the maximum number of ambulances based on the number of patients.
-     * @param patients The number of patients to transport.
+     * @param patients
+	 *		The number of patients to transport.
      * @return The maximum number of ambulances to transport the patients.
      */
     public static long getMaximumNumberOfAmbulances(long patients) {
