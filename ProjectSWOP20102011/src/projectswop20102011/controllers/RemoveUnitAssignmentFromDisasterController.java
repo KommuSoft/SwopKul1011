@@ -16,7 +16,9 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class RemoveUnitAssignmentFromDisasterController extends Controller {
 
-	//TODO: documentatie?
+	/**
+	 * An eventHandler where the notifications should be sent to.
+	 */
 	private EventHandler eventHandler;
 
 	public RemoveUnitAssignmentFromDisasterController(World world, EventHandler eventHandler) throws InvalidWorldException {
