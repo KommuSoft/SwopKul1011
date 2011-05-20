@@ -3,6 +3,7 @@ package projectswop20102011.domain.validators;
 import projectswop20102011.domain.SendableStatus;
 import projectswop20102011.domain.Sendable;
 
+//TODO: wordt normaal nergens gebruikt, zouden we deze generische implementatie nog integreren in onze implementatie?
 public class StatusEqualitySendableEvaluationCriterium<T extends Sendable> extends SendableEvaluationCriterium<T>{
 
 	/**

@@ -7,6 +7,7 @@ import projectswop20102011.domain.Sendable;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
+//TODO: wordt normaal nergens gebruikt, zouden we deze generische implementatie nog integreren in onze implementatie?
 public abstract class SendableEvaluationCriterium<T extends Sendable> {
 
 	/**

@@ -177,9 +177,9 @@ public class EmergencyDispatchApiTest {
 		assertEquals(0, api.getListOfEmergencies(EmergencyState.ANY).size());
 		assertEquals(0, api.getListOfUnits(UnitState.ANY).size());
 		assertEquals(0, api.getListOfHospitals().size());
-		assertEquals(600, world.getTime());
-		assertEquals(6, world.getMapItemList().toArrayList().size());
-		assertEquals(1, world.getEmergencyList().toArray().length);
+		assertEquals(0, world.getTime());
+		assertEquals(0, world.getMapItemList().toArrayList().size());
+		assertEquals(0, world.getEmergencyList().toArray().length);
 	}
 
 	@Test

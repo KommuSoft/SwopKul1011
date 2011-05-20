@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.EmergencyComparator;

@@ -13,6 +13,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  * A special case of a NumberDispatchUnitsConstraint but where units needs to be assigned at once.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
+//TODO: deze klasse mocht weg waarschijnlijk
 public class AtOnceNumberDispatchUnitsConstraint extends NumberDispatchUnitsConstraint {
 
     /**

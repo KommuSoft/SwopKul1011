@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.Main;
 import projectswop20102011.controllers.CreateEmergencyController;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.GPSCoordinate;
@@ -52,7 +51,6 @@ import projectswop20102011.exceptions.InvalidControllerException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
-import projectswop20102011.exceptions.InvalidEmergencyTypeNameException;
 import projectswop20102011.exceptions.InvalidFinishJobException;
 import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidMapItemException;
@@ -102,7 +100,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	private World getWorld() {
 		return world;
 	}
-
+	
 	/**
 	 * Registers a new event.
 	 * @param event
