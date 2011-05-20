@@ -7,6 +7,10 @@ import java.util.Set;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 
+/**
+ * A class representing a sendable.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public abstract class Sendable implements Targetable {
 
     /**
@@ -14,13 +18,19 @@ public abstract class Sendable implements Targetable {
      */
     private String description;
 
+	/**
+	 * Create a new sendable with given description
+	 * @param description
+	 *		The description of this sendable
+	 */
     protected Sendable(String description) {
         setDescription(description);
     }
 
+	//TODO: de twee onderstaande methodes lijken hetzelfde te doen?
     /**
-     * Returns the location of this emergency.
-     * @return The location of this emergency.
+     * Returns the location of this Sendable.
+     * @return The location of this Sendable.
      */
     public abstract GPSCoordinate getLocation();
 
@@ -34,20 +44,20 @@ public abstract class Sendable implements Targetable {
     }
 
     /**
-     * Returns the severity of this emergency.
-     * @return The severity of this emergency.
+     * Returns the severity of this Sendable.
+     * @return The severity of this Sendable.
      */
     public abstract SendableSeverity getSeverity();
 
     /**
-     * Returns the status of this emergency.
-     * @return The status of this emergency.
+     * Returns the status of this Sendable.
+     * @return The status of this Sendable.
      */
     public abstract SendableStatus getStatus();
 
     /**
-     * Returns the description of this emergency.
-     * @return The description of this emergency.
+     * Returns the description of this Sendable.
+     * @return The description of this Sendable.
      */
     public String getDescription() {
         return description;
@@ -62,9 +72,9 @@ public abstract class Sendable implements Targetable {
     }
 
     /**
-     * Returns a hashtable that contains the information of this emergency.
+     * Returns a hashtable that contains the information of this Sendable.
      * This hashtable contains the id, location, severity, status and the working units.
-     * @return A hashtable that contains the information of this emergency.
+     * @return A hashtable that contains the information of this Sendable.
      */
     public Hashtable<String, String> getShortInformation() {
         return getInformation();
@@ -93,9 +103,9 @@ public abstract class Sendable implements Targetable {
     }
 
     /**
-     * Returns a hashtable that contains the information of this emergency.
-     * This hashtable contains the id, type, location, severity, status, the working units and specific elements of the child of this emergency.
-     * @return A hashtable that contains the information of this emergency.
+     * Returns a hashtable that contains the information of this Sendable.
+     * This hashtable contains the id, type, location, severity, status, the working units and specific elements of the child of this Sendable.
+     * @return A hashtable that contains the information of this Sendable.
      */
     public abstract Hashtable<String, String> getLongInformation();
 
@@ -108,8 +118,8 @@ public abstract class Sendable implements Targetable {
     public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
 
     /**
-     * Tests if this emergency is partially assigned.
-     * @return True if this emergency is partially assigned, otherwise false.
+     * Tests if this Sendable is partially assigned.
+     * @return True if this Sendable is partially assigned, otherwise false.
      */
     public boolean isPartiallyAssigned() {
 
@@ -117,20 +127,21 @@ public abstract class Sendable implements Targetable {
     }
 
     /**
-     * Assigning units to this emergency.
+     * Assigning units to this Sendable.
      * @param units
      *      A list of units to assign.
      * @throws InvalidSendableStatusException
-     *      If the status of this emergency does not allow this action.
+     *      If the status of this Sendable does not allow this action.
      * @throws  InvalidEmergencyException
-     *		If the emergency is invalid.
+     *		If the Sendable is invalid.
      */
+	//TODO: invalidsendableException ipv invalidEmergencyException
     public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
         this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
     }
 
     /**
-     * Checks if the given unit can assign the given list of units to the emergency.
+     * Checks if the given unit can assign the given list of units to the Sendable.
      * @param units
      *      A list of units to check.
      * @return True if the given list of units can be assigned, otherwise false.
@@ -140,18 +151,18 @@ public abstract class Sendable implements Targetable {
     }
 
     /**
-     * Checks if this emergency can be resolved with a given collection of all available units.
+     * Checks if this Sendable can be resolved with a given collection of all available units.
      * @param availableUnits
      *		All the available units in the world.
-     * @return True if the given emergency can be resolved, otherwise false.
+     * @return True if the given Sendable can be resolved, otherwise false.
      */
     public boolean canBeResolved(Set<Unit> availableUnits) {
         return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
     }
 
     /**
-     * Returns a list of units currently working at this emergency.
-     * @return a list of units currently working at this emergency.
+     * Returns a list of units currently working at this Sendable.
+     * @return a list of units currently working at this Sendable.
      */
     public ArrayList<Unit> getWorkingUnits() {
         return this.getUnitsNeeded().getWorkingUnits();
@@ -160,24 +171,24 @@ public abstract class Sendable implements Targetable {
     abstract UnitsNeeded getUnitsNeeded();
 
     /**
-     * Enable a unit to finish his job for this emergency.
+     * Enable a unit to finish his job for this Sendable.
      * @param unitToFinish
-     *      The unit that wants to finish this emergency.
+     *      The unit that wants to finish this Sendable.
      * @throws InvalidEmergencyStatusException
-     *      If the status of this emergency does not allow this action.
-     * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the emergency.
+     *      If the status of this Sendable does not allow this action.
+     * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Sendable.
      */
     void finishUnit(Unit unitToFinish, EventHandler eventHandler) throws InvalidSendableStatusException {
         this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler);
     }
 
     /**
-     * Withdraws a unit from this emergency.
+     * Withdraws a unit from this Sendable.
      * @param unitToWithdraw
-     *      The unit that wants to withdraw from this emergency.
-     * @throws InvalidEmergencyStatusException
-     *      If the status of this emergency does not allow this action.
-     * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the emergency.
+     *      The unit that wants to withdraw from this Sendable.
+     * @throws InvalidSendableStatusException
+     *      If the status of this Sendable does not allow this action.
+     * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the Sendable.
      */
     void withdrawUnit(Unit unitToWithdraw, EventHandler eventHandler) throws InvalidSendableStatusException {
         this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler);

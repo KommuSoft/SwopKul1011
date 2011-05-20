@@ -248,18 +248,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	}
 
 	/**
-	 * Returns the disaster of this unit.
-	 * @return The disaster of this unit if the unit is assigned, otherwise null.
-	 */
-	public Disaster getDisaster() {
-		if (this.getEmergency() == null) {
-			return null;
-		} else {
-			return this.getEmergency().getDisaster();
-		}
-	}
-
-	/**
 	 * Checks if the given speed is a valid speed for a unit.
 	 * @param speed
 	 *		The speed of a timesensitive mapitem to test.
@@ -354,6 +342,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Withdraw this unit from the emergency he is currently assigned to
+	 * param eventHandler
+	 *		The event handler where the notifications should be sent to
 	 * @effect The unit is withdrawn from its emergency.
 	 *		|this.getManagingSendable().withdrawUnit(this)
 	 * @effect The emergency of this unit is set to null.
@@ -376,7 +366,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Checks if the unit can be withdrawn.
-	 * @return True if the unit is assigned to an emergency and was alread at the site of the emergency, otherwise false.
+	 * @return True if the unit is assigned to an emergency and was y at the site of the emergency, otherwise false.
 	 */
 	public boolean canBeWithdrawn() {
 		return (this.isAssigned() && !this.wasAlreadyAtSite());
@@ -404,6 +394,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Finishes the job of this Unit.
+	 * param eventHandler
+	 *		The event handler where the notifications should be sent to
 	 * @effect The emergency of this unit is null
 	 *		| this.getEmergency().equals(null)
 	 * @effect The flag wasAlreadyAtSite is set to false.
@@ -434,7 +426,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	}
 
 	/**
-	 * Checks if the unit can finish from it's job.
+	 * Checks if the unit can finish from its job.
 	 * @return True if the unit is assigned and is at it's destination, orherwise false.
 	 */
 	public boolean canFinishJob() {
@@ -443,28 +435,20 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Checks whether another unit of the same type for its emergency is required
-	 * @return
+	 * @return true if another unit of this type is required for its emergency
 	 */
 	public boolean isRequired() {
-		//TODO: welke principes worden hier gebruikt?
+		//TODO(belangrijk): welke principes worden hier gebruikt?!
 		Set<Unit> unit = new HashSet<Unit>(0);
 		unit.add(this.clone());
-//		ArrayList<Unit> workingUnits = this.getEmergency().getWorkingUnits();
-//		ArrayList<Unit> finishedUnits = this.getEmergency().getUnitsNeeded().getFinishedUnits();
-//		ArrayList<Unit> units = new ArrayList<Unit>(0);
-//		units.addAll(workingUnits);
-//		units.addAll(finishedUnits);
-
 		return getEmergency().getPolicyProposal(unit).size() == 1;
-		//return getEmergency().canAssignUnits(unit);
-		//return this.getEmergency().getDispatchConstraint().canAssign(units, unit);
 	}
 
 	/**
 	 * Checks whether all needed units of this type are present at the location of the emergency
 	 * @return
 	 */
-	public abstract boolean arePresent();//wat doet deze methode hier?
+	public abstract boolean arePresent();//TODO(belangrijk):wat doet deze methode hier?!
 
 	/**
 	 * Clone this unit

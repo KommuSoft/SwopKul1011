@@ -143,8 +143,9 @@ public enum SendableStatus {
 			}
 		}
 	};
+
 	/**
-	 * The textual representation of an SendableStatus.
+	 * The textual representation of a SendableStatus.
 	 */
 	private final String textual;
 
@@ -182,7 +183,7 @@ public enum SendableStatus {
 	 * Parses a textual representation into its SendableStatus equivalent.
 	 * @param textualRepresentation
 	 *		The textual representation to parse.
-	 * @return An SendableStatus that is the equivalent of the textual representation.
+	 * @return A SendableStatus that is the equivalent of the textual representation.
 	 * @throws InvalidSendableStatusException
 	 *		If no SendableStatus matches the textual representation.
 	 */
@@ -201,12 +202,15 @@ public enum SendableStatus {
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param units
 	 *      The units to allocate to the sendable.
+	 * param eventHandler
+	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidSendableStatusException
 	 *      If the status of the sendable is invalid.
 	 * @throws  InvalidEmergencyException
 	 *		If the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
+	//TODO: er klopt hier zeker nog iets niet in verband met die InvalidEmergencyException -> InvalidSendableException
 	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
 		if (!canAssignUnitsFromState()) {
 			throw new InvalidSendableStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
@@ -221,6 +225,8 @@ public enum SendableStatus {
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param unit
 	 *      The unit that signals it has finished its job.
+	 * param eventHandler
+	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidSendableStatusException
 	 *      If the status of the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
@@ -233,6 +239,8 @@ public enum SendableStatus {
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param unit
 	 *      The unit that withdraws from a sendable.
+	 * param eventHandler
+	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidSendableStatusException
 	 *      If the status of the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
@@ -296,10 +304,11 @@ public enum SendableStatus {
 	 *  <tr><td>RIP</td><td>RIP</td><td>RIP</td><td>RIP</td></tr>
 	 *  <tr><td>CPT</td><td>RIP</td><td>RIP</td><td>CPT</td></tr>
 	 * </table>
-	 * @param otherStatus The other status to combine with.
+	 * @param otherStatus
+	 *		The other status to combine with.
 	 * @return The combination of the two SendableStatuses.
 	 * @note This method is used to calculate the derived status of the disaster from it's sendable.
-	 * @note This method is commutitive, this is forced: this.combine(otherStatus) == otherStatus.combine(this).
+	 * @note This method is commutative, this is forced: this.combine(otherStatus) == otherStatus.combine(this).
 	 * @note Another property is that a status combined with the same status always results in that status: this.combine(this) == this.
 	 * @note This method uses the combineWithLower method.
 	 * @see Disaster#getStatus()
