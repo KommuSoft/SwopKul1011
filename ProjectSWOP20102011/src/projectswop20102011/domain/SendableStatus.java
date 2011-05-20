@@ -210,7 +210,6 @@ public enum SendableStatus {
 	 *		If the sendable is invalid.
 	 * @note This method has a package visibility: Only the sendable class can call this method.
 	 */
-	//TODO: er klopt hier zeker nog iets niet in verband met die InvalidEmergencyException -> InvalidSendableException
 	void assignUnits(UnitsNeeded unitsNeeded, Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
 		if (!canAssignUnitsFromState()) {
 			throw new InvalidSendableStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");

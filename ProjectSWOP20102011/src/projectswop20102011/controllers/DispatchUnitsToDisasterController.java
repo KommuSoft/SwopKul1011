@@ -84,7 +84,7 @@ public class DispatchUnitsToDisasterController extends Controller {
 		return result;
 	}
 
-	//TODO: string hiervan maken
+	//TODO: string hiervan maken [is waarschijnlijk OK nu]
 	public String getRequiredUnits(Disaster disaster) {
 		String s = "";
 

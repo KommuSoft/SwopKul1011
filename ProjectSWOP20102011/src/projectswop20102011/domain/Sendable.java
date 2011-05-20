@@ -135,7 +135,6 @@ public abstract class Sendable implements Targetable {
      * @throws  InvalidEmergencyException
      *		If the Sendable is invalid.
      */
-	//TODO: invalidsendableException ipv invalidEmergencyException
     public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
         this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
     }

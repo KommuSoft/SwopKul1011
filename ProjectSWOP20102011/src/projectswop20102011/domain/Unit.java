@@ -357,7 +357,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		if (!canBeWithdrawn()) {
 			throw new InvalidWithdrawalException("Unit can't be withdrawn.");
 		} else {
-			//TODO: niet zo mooi waarschijnlijk? [Willem: Beter?]
+			//TODO: niet zo mooi waarschijnlijk? [Willem: Beter?] [Jonas: voor mij wel :)]
 			this.getManagingSendable().withdrawUnit(this, eventHandler);
 			this.setEmergency(null);
 			setUnitStatus(UnitStatus.IDLE);
