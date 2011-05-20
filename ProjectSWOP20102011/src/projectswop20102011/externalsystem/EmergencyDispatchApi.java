@@ -100,7 +100,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	private World getWorld() {
 		return world;
 	}
-	
+
 	/**
 	 * Registers a new event.
 	 * @param event

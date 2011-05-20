@@ -187,7 +187,8 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 
     /**
      * Checks if taking the given successor as the successor of this DispatchPolicy, there would become a loop in the chain of responsibilities.
-     * @param successor The successor to test for.
+     * @param successor
+	 *		The successor to test for.
      * @return True if we create a loop in the system, otherwise false.
      * @note This condition always needs to fail for the current successor.
      */

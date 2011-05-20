@@ -52,10 +52,14 @@ public abstract class Emergency extends Sendable {
      *		The severity of this emergency.
      * @param description
      *		The description of this emergency.
+	 * @effect Creates a new Sendable with the given description.
+	 *		|super(description)
      * @effect This location is equal to the parameter location.
      *		|location.equals(this.getLocation())
      * @effect This severity is equal to the parameter severity.
      *		|severity.equals(this.getSeverity())
+	 * @effect The disaster of this emergency is set to null.
+	 *		|setDisaster(null)
      * @effect This status is equal to the EmergencyStatus RECORDED_BUT_UNHANDLED.
      *		|getStatus().equals(EmergencyStatus.RECORDED_BUT_UNHANDLED)
      * @post This description is equal to the given description.
@@ -132,8 +136,8 @@ public abstract class Emergency extends Sendable {
     }
 
     /**
-     * Returns the part of a disaster indicator of this emergency
-     * @return The part of a disaster indicator of this emergency
+     * Returns the part of a disaster indicator of this emergency.
+     * @return The part of a disaster indicator of this emergency.
      */
     public boolean isPartOfADisaster() {
         return (this.getDisaster() != null);
@@ -253,8 +257,10 @@ public abstract class Emergency extends Sendable {
 
     /**
      * Sets the disaster where this emergency is part of.
-     * @param disaster The disaster where this emergency is part of.
-     * @throws InvalidEmergencyException If the Emergency is already part of a Disaster.
+     * @param disaster
+	 *		The disaster where this emergency is part of.
+     * @throws InvalidEmergencyException
+	 *		If the Emergency is already part of a Disaster.
      */
     void setDisaster(Disaster disaster) throws InvalidEmergencyException {
         if (this.isPartOfADisaster()) {
