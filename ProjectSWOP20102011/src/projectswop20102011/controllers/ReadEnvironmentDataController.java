@@ -16,7 +16,7 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller that reads in the environmental data, and constructs the units and buildings described in it.
+ * A controller that reads in the environmental data, and constructs the units and buildings (i.e. a hospital) described in it.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class ReadEnvironmentDataController extends Controller {

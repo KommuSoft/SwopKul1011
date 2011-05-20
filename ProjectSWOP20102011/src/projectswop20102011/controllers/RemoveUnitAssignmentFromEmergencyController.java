@@ -11,11 +11,12 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller class that handles a remove unit assignment use case.
+ * A controller used for the use case where a unit is withdrawn from a disaster.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 public class RemoveUnitAssignmentFromEmergencyController extends Controller {
-	
+
+	//TODO: documentatie?
 	private EventHandler eventHandler;
 
     /**

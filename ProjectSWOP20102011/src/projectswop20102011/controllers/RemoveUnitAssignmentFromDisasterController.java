@@ -10,8 +10,13 @@ import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
+/**
+ * A controller used for the use case where a unit is withdrawn from a disaster.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public class RemoveUnitAssignmentFromDisasterController extends Controller {
 
+	//TODO: documentatie?
 	private EventHandler eventHandler;
 
 	public RemoveUnitAssignmentFromDisasterController(World world, EventHandler eventHandler) throws InvalidWorldException {

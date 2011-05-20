@@ -8,6 +8,10 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
+/**
+ * A controller used for the use case where a disaster is created.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public class CreateDisasterController extends Controller {
 
 	public CreateDisasterController(World world) throws InvalidWorldException {

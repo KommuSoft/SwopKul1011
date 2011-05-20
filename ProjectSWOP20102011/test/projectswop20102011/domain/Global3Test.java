@@ -38,10 +38,7 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-/**
- *
- * @author Pieter-Jan
- */
+
 public class Global3Test {
 
 	World world;

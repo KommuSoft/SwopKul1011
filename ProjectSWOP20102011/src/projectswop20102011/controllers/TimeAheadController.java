@@ -7,11 +7,12 @@ import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller used to go forward in time (use case #7).
+ * A controller used for the use case where the simulated time is advanced.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class TimeAheadController extends Controller {
-	
+
+	//TODO: documentatie?
 	private EventHandler eventHandler;
 
 	/**

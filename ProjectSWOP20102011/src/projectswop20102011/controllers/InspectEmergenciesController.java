@@ -13,7 +13,7 @@ import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller for the inspect emergencies use case.
+ * A controller for the use case where emergencies are inspected  based on their status.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class InspectEmergenciesController extends Controller {

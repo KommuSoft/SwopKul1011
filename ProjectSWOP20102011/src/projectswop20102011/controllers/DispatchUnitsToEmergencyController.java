@@ -21,11 +21,12 @@ import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller to handle unit dispatching.
+ * A controller for the use case where units are dispatched to an emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class DispatchUnitsToEmergencyController extends Controller {
-	
+
+	//TODO: documentatie?
 	private EventHandler eventHandler;
 
 	/**

@@ -14,7 +14,7 @@ import projectswop20102011.exceptions.InvalidHospitalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller for the SelectHospitalController (use case #5).
+ * A controller used for the use case where a hospital is chosen for an ambulance.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class SelectHospitalController extends Controller {

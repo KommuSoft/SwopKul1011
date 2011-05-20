@@ -16,7 +16,7 @@ import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 /**
- * A controller used for use case #1, where an emergency is created.
+ * A controller used for the use case  where an emergency is created.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class CreateEmergencyController extends Controller {

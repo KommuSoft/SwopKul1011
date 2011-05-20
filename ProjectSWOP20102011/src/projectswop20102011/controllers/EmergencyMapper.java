@@ -5,6 +5,10 @@ import projectswop20102011.domain.Emergency;
 import projectswop20102011.World;
 import projectswop20102011.exceptions.InvalidWorldException;
 
+/**
+ * A controller used for the mapping between an id and an emergency.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public class EmergencyMapper extends Controller {
 
 	private static ArrayList<Long> ids = new ArrayList<Long>();

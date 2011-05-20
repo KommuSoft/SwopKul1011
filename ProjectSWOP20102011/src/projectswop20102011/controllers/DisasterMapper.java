@@ -5,6 +5,10 @@ import projectswop20102011.World;
 import projectswop20102011.domain.Disaster;
 import projectswop20102011.exceptions.InvalidWorldException;
 
+/**
+ * A controller used for the mapping between an id and a disaster.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ */
 public class DisasterMapper extends Controller {
 
 	private static ArrayList<Long> ids = new ArrayList<Long>();

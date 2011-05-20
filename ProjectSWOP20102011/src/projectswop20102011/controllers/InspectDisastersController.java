@@ -11,7 +11,7 @@ import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller for the inspect disasters use case.
+ * A controller for the use case where disasters are inspected  based on their status.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class InspectDisastersController extends Controller {

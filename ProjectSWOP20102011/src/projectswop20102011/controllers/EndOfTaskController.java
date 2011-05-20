@@ -15,11 +15,12 @@ import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
- * A controller to handle the End-of-Task use case.
+ * A controller for the use case where the current task is ended of a unit.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class EndOfTaskController extends Controller {
-	
+
+	//TODO: documentatie?
 	private EventHandler eventHandler;
 
     /**
