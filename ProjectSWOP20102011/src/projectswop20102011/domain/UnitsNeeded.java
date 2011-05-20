@@ -31,9 +31,6 @@ public abstract class UnitsNeeded {
      *		The unit that finishes his job.
 	 * param eventHandler
 	 *		The event handler where the notifications should be sent to
-	 * //TODO: moet het onderstaande stukje hier staan? [Jonas: nee]
-     * @effect The unit is removed from the workingUnits list.
-     *		|takeWorkingUnit().remove(unit)
      */
     abstract void unitFinishedJob(Unit unit, EventHandler eventHandler);
 

@@ -379,7 +379,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	public void assignUnits(IUnitConfiguration configuration) throws EmergencyDispatchException {
 		checkParameter(configuration);
 
-		//TODO: dit is lelijk (getEmergency en getUnit staan nu public)
 		DispatchUnitsToEmergencyController controller = null;
 		try {
 			controller = new DispatchUnitsToEmergencyController(getWorld(), new NullEventHandler());

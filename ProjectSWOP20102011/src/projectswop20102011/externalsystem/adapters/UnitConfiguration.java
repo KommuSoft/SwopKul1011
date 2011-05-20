@@ -84,7 +84,7 @@ public class UnitConfiguration implements IUnitConfiguration {
 	 */
 	@Override
 	public IEmergency getEmergency() {
-		return emergency; //TODO: dit moet nog safe gemaakt worden (clone)
+		return emergency;
 	}
 
 	/**

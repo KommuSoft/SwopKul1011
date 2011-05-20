@@ -161,7 +161,6 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return (isValidNumber(minimum) && isValidNumber(maximum) && (minimum <= maximum));
     }
 
-    //TODO: beter verplaatsen naar een Util?
     protected int collectValidUnits(Collection<Unit> source, Collection<Unit> collected) {
         int count = 0;
         for (Unit u : source) {
@@ -173,7 +172,6 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return count;
     }
 
-    //TODO: beter verplaatsen naar een Util?
     protected int countValidUnits(Collection<Unit> source) {
         return collectValidUnits(source, new HashSet<Unit>());
     }
@@ -244,6 +242,6 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      */
     @Override
     public String toString() {
-        return String.format("number of %s must be higher than %s and lower than %s.", getValidator().toString(), getMinimum(), getMaximum());
+        return String.format("number of %s must be higher than or equal to %s and lower than or equal to %s.", getValidator().toString(), getMinimum(), getMaximum());
     }
 }

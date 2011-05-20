@@ -54,14 +54,14 @@ public class DispatchUnitsToEmergencyController extends Controller {
 	}
 
 	/**
-	 * Returns a list of available units sorted on the policy used by the givem emergency.
+	 * Returns a list of available units sorted on the policy used by the given emergency.
 	 * @param emergency The emergency to sort the units.
 	 * @return A list of available units sorted on the policy used by the given emergency.
 	 * @throws InvalidEmergencyException
 	 *          If the given emergency is invalid.
 	 * @throws InvalidClassException  
 	 */
-	public List<Unit> getAvailableUnitsSorted(Emergency emergency) throws InvalidEmergencyException, InvalidClassException {
+	public List<Unit> getAvailableUnitsNeededSorted(Emergency emergency) throws InvalidEmergencyException, InvalidClassException {
 		//TODO: dit kan waarschijnlijk iets mooier?
 		MapItemValidator criterium = new AvailableUnitsMapItemValidator();
 		Set<Unit> units = getUnitsByPolicy(emergency);
