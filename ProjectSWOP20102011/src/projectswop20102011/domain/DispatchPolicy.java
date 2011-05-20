@@ -114,7 +114,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @note If two objects are assumed to be equivalent, the comparison passes to the successor until one succesor finds a difference, or no successors are available anyomore.
      */
     @Override
-    public int compare(Unit unit1, Unit unit2) {
+    public final int compare(Unit unit1, Unit unit2) {
         final int firstResult = internalCompare(unit1, unit2);
         if (cantSolveAndHasSuccessor(firstResult)) {
             return getSuccessor().compare(unit1, unit2);

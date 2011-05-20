@@ -57,9 +57,4 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
 		return etaOfUnit1.compareTo(etaOfUnit2);
 	}
         
-    @Override
-        public int compare (Unit unit1, Unit unit2) {
-            return internalCompare(unit1,unit2);
-        }
-        
 }
