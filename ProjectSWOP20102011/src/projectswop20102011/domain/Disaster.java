@@ -52,7 +52,7 @@ public class Disaster extends Sendable {
     public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException {
         super(description);
         if (!areValidEmergencies(emergencies)) {
-            throw new InvalidEmergencyException("The number of emergencies must be higher than one, and all the emergency must be no part of an emergency.");
+            throw new InvalidEmergencyException("The number of emergencies must be higher than one, and all the emergency must be no part of an disaster.");
         }
         indicateEmergenciesAsPartOfDisaster(emergencies);
         this.emergencies = emergencies;

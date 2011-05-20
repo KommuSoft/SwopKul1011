@@ -1,25 +1,30 @@
 package projectswop20102011.domain.validators;
 
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import projectswop20102011.domain.Ambulance;
+import projectswop20102011.domain.Disaster;
 import projectswop20102011.domain.Emergency;
-import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.PublicDisturbance;
+import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.Unit;
-import static org.junit.Assert.*;
+import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.exceptions.InvalidDisasterException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
-import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
+import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-public class UnitToEmergencyDistanceComparatorTest {
+public class UnitToDisasterDistanceComparatorTest {
 
-	private UnitToEmergencyDistanceComparator uc;
+	private UnitToDisasterDistanceComparator uc;
 	private Emergency e1, e2, e3;
+	private Disaster d1, d2, d3;
 	private Unit u1, u2, u3, u4;
 	private GPSCoordinate gps1, gps2, gps3, gps4;
 	private long x1, y1, x2, y2, x3, y3, x4, y4;
@@ -29,7 +34,7 @@ public class UnitToEmergencyDistanceComparatorTest {
 	private long speed1, speed2, speed3, speed4;
 
 	@Before
-	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException {
+	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidEmergencyException, InvalidConstraintListException {
 		x1 = 10;
 		y1 = 10;
 
@@ -55,8 +60,7 @@ public class UnitToEmergencyDistanceComparatorTest {
 
 		e1 = new PublicDisturbance(gps1, es1, "", number1);
 		e2 = new PublicDisturbance(gps2, es2, "", number2);
-		e3 = null;
-
+		
 		name1 = "A1";
 		name2 = "A2";
 		name3 = "A3";
@@ -71,35 +75,32 @@ public class UnitToEmergencyDistanceComparatorTest {
 		u2 = new Ambulance(name2, gps2, speed2);
 		u3 = new Ambulance(name3, gps3, speed3);
 		u4 = new Ambulance(name4, gps4, speed4);
+		
+		ArrayList<Emergency> emergencies1 = new ArrayList<Emergency>();
+		
+		emergencies1.add(e1);
+		emergencies1.add(e2);
+		
+		d1 = new Disaster(emergencies1, "ramp1");
+		d3 = null;
 	}
 
 	@Test
-	public void testConstructor() throws InvalidEmergencyException {
-		uc = new UnitToEmergencyDistanceComparator(e1);
+	public void testConstructor() throws InvalidDisasterException {
+		uc = new UnitToDisasterDistanceComparator(d1);
 	}
 
-	@Test(expected = InvalidEmergencyException.class)
-	public void testIllegalConstructor() throws InvalidEmergencyException {
-			uc = new UnitToEmergencyDistanceComparator(e3);
-		}
+	@Test(expected = InvalidDisasterException.class)
+	public void testIllegalConstructor() throws InvalidDisasterException {
+		uc = new UnitToDisasterDistanceComparator(d3);
+	}
 
 	@Test
-	public void testCompare() throws InvalidEmergencyException {
-		uc = new UnitToEmergencyDistanceComparator(e1);
+	public void testCompare() throws InvalidEmergencyException, InvalidDisasterException {
+		uc = new UnitToDisasterDistanceComparator(d1);
 
-		assertTrue(uc.compare(u1, u2) < 0);
+		assertTrue(uc.compare(u3, u2) < 0);
 		assertTrue(uc.compare(u2, u1) > 0);
 		assertTrue(uc.compare(u1, u1) == 0);
-		assertTrue(uc.compare(u1, u3) < 0);
-		assertTrue(uc.compare(u1, u4) < 0);
-		assertTrue(uc.compare(u3, u2) < 0);
-		assertTrue(uc.compare(u3, u4) < 0);
-
-		uc = new UnitToEmergencyDistanceComparator(e2);
-		assertTrue(uc.compare(u2, u1) < 0);
-		assertTrue(uc.compare(u2, u3) < 0);
-		assertTrue(uc.compare(u2, u4) < 0);
-		assertTrue(uc.compare(u4, u3) < 0);
-		assertTrue(uc.compare(u4, u1) < 0);
 	}
 }
