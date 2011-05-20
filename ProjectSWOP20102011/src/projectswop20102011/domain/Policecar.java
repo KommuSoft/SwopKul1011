@@ -27,8 +27,6 @@ public class Policecar extends Unit {
 	 *		The speed of the new policecar.
 	 * @effect The new policecar is a unit with given name, home location, speed.
 	 *		| super(name,homeLocation,speed);
-	 * @effect The withdrawBehaviour of this policecar is initialised.
-	 *		|setWithdrawBehavior(new NormalWithdraw())
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a policecar.
 	 * @throws InvalidMapItemNameException
@@ -40,6 +38,10 @@ public class Policecar extends Unit {
 		super(name, homeLocation, speed);
 	}
 
+	/**
+	 * Clone this policecar
+	 * @return A clone of this policecar.
+	 */
 	@Override
 	public Policecar clone() {
 		Policecar pol = null;
@@ -55,6 +57,10 @@ public class Policecar extends Unit {
 		return pol;
 	}
 
+	/**
+	 * Checks whether all assigned policecars are present at the location of the emergency
+	 * @return True if all assigned policecars of this type are present at the location of the emergency, false otherwise.
+	 */
 	@Override
 	public boolean arePresent() {
 		ArrayList<Unit> workingUnits = getEmergency().getWorkingUnits();

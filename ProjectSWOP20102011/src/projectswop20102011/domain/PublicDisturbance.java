@@ -10,7 +10,6 @@ import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
-import projectswop20102011.exceptions.InvalidUnitValidatorException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -44,7 +43,7 @@ public class PublicDisturbance extends Emergency {
      *		| setNumberOfPeople(numberOfPeople)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an emergency.
-     * @throws InvalidEmergencySeverityException
+     * @throws InvalidSendableSeverityException
      *		If the given severity is an invalid severity for an emergency.
      * @throws NumberOutOfBoundsException
      *		If the given number of people involved is invalid.

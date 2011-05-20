@@ -29,7 +29,7 @@ public abstract class MapItem implements Targetable {
      * @param name
      *		The name of the new mapitem.
      * @param homeLocation
-     *		The home location of the new mapitemg.
+     *		The home location of the new mapitem.
      * @effect The new mapitem has the given name.
      *		|setName(name)
      * @post The home location of this mapitem is set according to the given home location.
@@ -101,7 +101,7 @@ public abstract class MapItem implements Targetable {
     }
 
     /**
-     * Returns te home location of the MapItem (in case of a unit the place where to go to after it's task is completed).
+     * Returns te home location of the MapItem (in case of a unit, the place where to go to after its task is completed).
      * @return the home location of the MapItem.
      */
     @Override

@@ -396,6 +396,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * Finishes the job of this Unit.
 	 * param eventHandler
 	 *		The event handler where the notifications should be sent to
+	 * @effect Finish the job for this emergency
+	 *		| manager.finishUnit(his, eventHandler);
 	 * @effect The emergency of this unit is null
 	 *		| this.getEmergency().equals(null)
 	 * @effect The flag wasAlreadyAtSite is set to false.
@@ -445,8 +447,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	}
 
 	/**
-	 * Checks whether all needed units of this type are present at the location of the emergency
-	 * @return
+	 * Checks whether all assigned units of this type are present at the location of the emergency
+	 * @return True if all assigned units of this type are present at the location of the emergency.
 	 */
 	public abstract boolean arePresent();//TODO(belangrijk):wat doet deze methode hier?!
 

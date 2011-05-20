@@ -36,7 +36,7 @@ public class Firetruck extends Unit {
 	 *		The capacity of this firetruck.
 	 * @effect The new firetruck is a unit with given name, home location, speed and capacity.
 	 *		|super(name,homeLocation,speed)
-	 * @effect The capacity of this fire truck is set to the given capacity
+	 * @post The capacity of this fire truck is set to the given capacity
 	 *		|this.capacity.equals(capacity)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a firetruck.
@@ -88,6 +88,8 @@ public class Firetruck extends Unit {
 
 	/**
 	 * A method to withdraw this unit from the current Emergency.
+	 * @param eventHandler
+	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidWithdrawalException
 	 *		Always: A Firetruck can't be withdrawn from an Emergency.
 	 */
@@ -97,6 +99,10 @@ public class Firetruck extends Unit {
 	}
 
 	@Override
+	/**
+	 * Clone this firetruck
+	 * @return A clone of this firetruck.
+	 */
 	public Firetruck clone() {
 		Firetruck fir = null;
 		try {
@@ -113,6 +119,10 @@ public class Firetruck extends Unit {
 		return fir;
 	}
 
+	/**
+	 * Checks whether all assigned firetrucks are present at the location of the emergency
+	 * @return True if all assigned firetrucks of this type are present at the location of the emergency, false otherwise.
+	 */
 	@Override
 	public boolean arePresent() {
 		ArrayList<Unit> workingUnits = getEmergency().getUnitsNeeded().getWorkingUnits();

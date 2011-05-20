@@ -51,7 +51,7 @@ public class Robbery extends Emergency {
      *		| setInProgress(inProgress)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an emergency.
-     * @throws InvalidEmergencySeverityException
+     * @throws InvalidSendableSeverityException
      *		If the given severity is an invalid severity for an emergency.
      */
     public Robbery(GPSCoordinate location, SendableSeverity severity, String description,

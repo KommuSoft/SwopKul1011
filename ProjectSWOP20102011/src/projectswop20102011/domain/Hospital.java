@@ -15,13 +15,13 @@ import projectswop20102011.exceptions.InvalidMapItemNameException;
 public class Hospital extends MapItem {
 
 	/**
-	 * Initialize a new not-timesensitive unit or building with given parameters.
+	 * Initialize a new hospital with given parameters.
 	 *
 	 * @param name
 	 *		The name of the new hospital.
 	 * @param homeLocation
 	 *		The home location of the new hospital.
-	 * @effect The new hospital is a not-timesensitive unit or building with given name and home home location.
+	 * @effect The new hospital is a hospital with given name and home home location.
 	 *         |super(name,homeLocation)
 	 * @throws InvalidMapItemNameException
 	 *		If the given name is an invalid name for this hospital.

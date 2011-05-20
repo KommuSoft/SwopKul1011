@@ -60,10 +60,10 @@ public class GPSCoordinate {
     }
 
     /**
-     * Calculates the distance to a given gpsCoordinate.
+     * Calculates the distance to a given GPSCoordinate.
      * @param gpsCoordinate
-     *		The gpsCoordinate to calculate te distance to.
-     * @return The distance to the given gpsCoordinate.
+     *		The GPSCoordinate to calculate te distance to.
+     * @return The distance to the given GPSCoordinate.
      */
     public double getDistanceTo(GPSCoordinate gpsCoordinate) {
         return Math.sqrt(Math.pow(getX() - gpsCoordinate.getX(), 2) + Math.pow(getY() - gpsCoordinate.getY(), 2));
@@ -96,8 +96,10 @@ public class GPSCoordinate {
 
     /**
      * Calculate the new GPSCoordinate when an object moves from the current coordinate to the destination by a given length.
-     * @param destination The distination where the object needs to move to.
-     * @param length The amount of movement the object makes.
+     * @param destination
+	 *		The distination where the object needs to move to.
+     * @param length
+	 *		The amount of movement the object makes.
      * @return The new GPSCoordinate where the object is after the movement.
      * @note If the distance to the destination is smaller than the given length, the result will be the destination.
      * @note If the destination is a null reference, the current GPSCoordinate will be returned.
