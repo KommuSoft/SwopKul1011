@@ -56,4 +56,10 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
 		final Long etaOfUnit2 = unit2.getETA(emergencyLocation);
 		return etaOfUnit1.compareTo(etaOfUnit2);
 	}
+        
+    @Override
+        public int compare (Unit unit1, Unit unit2) {
+            return internalCompare(unit1,unit2);
+        }
+        
 }

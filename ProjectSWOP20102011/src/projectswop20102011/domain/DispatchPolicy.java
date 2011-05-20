@@ -1,5 +1,8 @@
 package projectswop20102011.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.SortedSet;
@@ -114,7 +117,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @note If two objects are assumed to be equivalent, the comparison passes to the successor until one succesor finds a difference, or no successors are available anyomore.
      */
     @Override
-    public final int compare(Unit unit1, Unit unit2) {
+    public int compare(Unit unit1, Unit unit2) {
         final int firstResult = internalCompare(unit1, unit2);
         if (cantSolveAndHasSuccessor(firstResult)) {
             return getSuccessor().compare(unit1, unit2);
@@ -130,7 +133,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @return True if the parameter is zero and there is a successor. False otherwise.
      */
     private boolean cantSolveAndHasSuccessor(int firstResult) {
-        return firstResult == 0 && getSuccessor() != null;
+        return (firstResult == 0 && getSuccessor() != null);
     }
 
     /**
