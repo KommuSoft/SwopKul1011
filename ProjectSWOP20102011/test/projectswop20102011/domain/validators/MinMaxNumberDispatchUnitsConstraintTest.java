@@ -252,7 +252,7 @@ public class MinMaxNumberDispatchUnitsConstraintTest {
         boolean result = instance.canAssign(finishedOrAssignedUnits, toAssignUnits, relevantUnits);
         assertEquals(expResult, result);
         assertEquals(0,relevantUnits.size());
-        //TODO: complete test
+        //TODO: complete test [zie pc op kot Willem]
     }
 
     /**
@@ -260,14 +260,14 @@ public class MinMaxNumberDispatchUnitsConstraintTest {
      */
     @Test
     public void testCanFinish() {
-        /*System.out.println("canFinish");
+        System.out.println("canFinish");
         List<Unit> finishedUnits = null;
         MinMaxNumberDispatchUnitsConstraint instance = null;
         boolean expResult = false;
         boolean result = instance.canFinish(finishedUnits);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");*/
+        // TODO review the generated test code and remove the default call to fail. [zie pc op kot Willem]
+        fail("The test case is a prototype.");
     }
 
     private class BasicUnitValidator extends UnitValidator<Unit> {

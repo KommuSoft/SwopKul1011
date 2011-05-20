@@ -86,13 +86,7 @@ public class AndDispatchUnitsConstraintTest {
         c4 = new NumberDispatchUnitsConstraint(uv4, number4);
     }
 
-	@Test
-	public void testTest(){
-		//placeholder
-	}
-
-    //TODO: write new tests (in comment to make tests run again)
-    /*@Test
+    @Test
     public void testConstructor() throws InvalidConstraintListException {
         c5 = new AndDispatchUnitsConstraint(c1, c2, c3);
 
@@ -105,10 +99,6 @@ public class AndDispatchUnitsConstraintTest {
         ArrayList<Unit> units3 = new ArrayList<Unit>();
         units3.add(u1);
         units3.add(u3);
-
-        assertTrue(c1.areValidDispatchUnits(units1) == c5.getConstraints()[0].areValidDispatchUnits(units1));
-        assertTrue(c2.areValidDispatchUnits(units2) == c5.getConstraints()[1].areValidDispatchUnits(units2));
-        assertTrue(c3.areValidDispatchUnits(units3) == c5.getConstraints()[2].areValidDispatchUnits(units3));
     }
 
     @Test
@@ -124,96 +114,6 @@ public class AndDispatchUnitsConstraintTest {
         ArrayList<Unit> units2 = new ArrayList<Unit>();
         units2.add(u1);
         units2.add(u2);
-
-        assertTrue(c4.areValidDispatchUnits(units1) == c6.getConstraints()[0].areValidDispatchUnits(units1));
-        assertTrue(c5.areValidDispatchUnits(units2) == c6.getConstraints()[1].areValidDispatchUnits(units2));
-    }
-
-    @Test
-    public void testAreValidDispatchUnits() throws InvalidConstraintListException {
-        ArrayList<Unit> units1 = new ArrayList<Unit>();
-        units1.add(u1);
-        ArrayList<Unit> units2 = new ArrayList<Unit>();
-        units2.add(u2);
-        ArrayList<Unit> units13 = new ArrayList<Unit>();
-        units13.add(u1);
-        units13.add(u3);
-        ArrayList<Unit> units4 = new ArrayList<Unit>();
-        units4.add(u4);
-        ArrayList<Unit> units12 = new ArrayList<Unit>();
-        units12.add(u1);
-        units12.add(u2);
-        ArrayList<Unit> units14 = new ArrayList<Unit>();
-        units14.add(u1);
-        units14.add(u4);
-        ArrayList<Unit> units123 = new ArrayList<Unit>();
-        units123.add(u1);
-        units123.add(u2);
-        units123.add(u3);
-        ArrayList<Unit> units24 = new ArrayList<Unit>();
-        units24.add(u2);
-        units24.add(u4);
-        ArrayList<Unit> units134 = new ArrayList<Unit>();
-        units134.add(u1);
-        units134.add(u3);
-        units134.add(u4);
-        ArrayList<Unit> units124 = new ArrayList<Unit>();
-        units124.add(u1);
-        units124.add(u2);
-        units124.add(u4);
-        ArrayList<Unit> units1234 = new ArrayList<Unit>();
-        units1234.add(u1);
-        units1234.add(u2);
-        units1234.add(u3);
-        units1234.add(u4);
-        ArrayList<Unit> units41 = new ArrayList<Unit>();
-        units41.add(u4);
-        units41.add(u1);
-
-        c5 = new AndDispatchUnitsConstraint(c1);
-        assertTrue(c5.areValidDispatchUnits(units1));
-        assertFalse(c5.areValidDispatchUnits(units2));
-
-        c5 = new AndDispatchUnitsConstraint(c2);
-        assertTrue(c5.areValidDispatchUnits(units2));
-        assertFalse(c5.areValidDispatchUnits(units1));
-
-        c5 = new AndDispatchUnitsConstraint(c3);
-        assertTrue(c5.areValidDispatchUnits(units13));
-        assertFalse(c5.areValidDispatchUnits(units4));
-
-        c5 = new AndDispatchUnitsConstraint(c4);
-        assertTrue(c5.areValidDispatchUnits(units4));
-        assertFalse(c5.areValidDispatchUnits(units1));
-
-        c5 = new AndDispatchUnitsConstraint(c1, c2);
-        assertTrue(c5.areValidDispatchUnits(units12));
-        assertFalse(c5.areValidDispatchUnits(units2));
-
-        c5 = new AndDispatchUnitsConstraint(c1, c4);
-        assertTrue(c5.areValidDispatchUnits(units14));
-        assertFalse(c5.areValidDispatchUnits(units1));
-
-        c5 = new AndDispatchUnitsConstraint(c2, c3);
-        assertTrue(c5.areValidDispatchUnits(units123));
-        assertFalse(c5.areValidDispatchUnits(units12));
-
-        c5 = new AndDispatchUnitsConstraint(c2, c4);
-        assertTrue(c5.areValidDispatchUnits(units24));
-        assertFalse(c5.areValidDispatchUnits(units2));
-
-        c5 = new AndDispatchUnitsConstraint(c3, c4);
-        assertTrue(c5.areValidDispatchUnits(units134));
-        assertFalse(c5.areValidDispatchUnits(units14));
-
-        c5 = new AndDispatchUnitsConstraint(c1, c2, c4);
-        assertTrue(c5.areValidDispatchUnits(units1234));
-        assertFalse(c5.areValidDispatchUnits(units134));
-
-        c5 = new AndDispatchUnitsConstraint(c1, c2);
-        c6 = new AndDispatchUnitsConstraint(c4, c5);
-        assertTrue(c6.areValidDispatchUnits(units124));
-        assertFalse(c5.areValidDispatchUnits(units41));
     }
 
     @Test(expected = InvalidConstraintListException.class)
@@ -225,5 +125,5 @@ public class AndDispatchUnitsConstraintTest {
     public void testInvalidConstraintList2() throws InvalidConstraintListException {
         c6 = null;
         c5 = new AndDispatchUnitsConstraint(c6);
-    }//*/
+    }
 }

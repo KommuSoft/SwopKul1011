@@ -140,7 +140,7 @@ public class Scenario1Test {
 		assertFalse(emergency.isPartiallyAssigned());
 
 		//assign engine1 to the fire
-		List<Unit> units = duc.getAvailableUnitsSorted(rbu_em[0]);
+		List<Unit> units = duc.getAvailableUnitsNeededSorted(rbu_em[0]);
 		Firetruck engine1 = (Firetruck) units.get(0);
 
 		try {
@@ -157,10 +157,6 @@ public class Scenario1Test {
 
 		Firetruck engine2 = (Firetruck) units.get(1);
 		Firetruck engine3 = (Firetruck) units.get(2);
-		//TODO: de availableUnitsSorted returned maar 3 units (dit moet ook zo zijn)
-		Policecar unit1 = (Policecar) units.get(3);
-		Ambulance ambulance1 = (Ambulance) units.get(4);
-		Ambulance ambulance2 = (Ambulance) units.get(5);
 		assertEquals("engine1", engine1.getName());
 		Set<Unit> assign_units = new HashSet<Unit>();
 		assign_units.add(engine1);
@@ -222,89 +218,47 @@ public class Scenario1Test {
 		}
 		assertFalse(fire.isPartiallyAssigned());
 
-		try {
-			assign_units.clear();
-			assign_units.add(ambulance1);
-			assign_units.add(engine1);
-			assign_units.add(ambulance2);
-			duc.dispatchToEmergency(fire, assign_units);
-			fail("can not assign too much units to an emergency");
-		} catch (Exception e) {
-		}
-		
 		assign_units.clear();
-		assign_units.add(engine2);
-		assign_units.add(ambulance1);
-		assign_units.add(unit1);
+		assign_units.add(engine1);
 		duc.dispatchToEmergency(fire, assign_units);
 		
+		assertTrue(fire.isPartiallyAssigned()); //TODO we gaan da later zien dixit Willem
+		System.out.println(fire.getWorkingUnits().get(0).getName());
+
 		try {
 			assign_units.clear();
 			assign_units.add(engine2);
 			duc.dispatchToEmergency(fire, assign_units);
-			fail("Engine can't be assigned if he is already working.");
+			fail("Engine can't be assigned because tha fire is already resolved?");
 		} catch (Exception e) {
 		}
-		
+
 		assertFalse(fire.isPartiallyAssigned());
-		Hospital hospital1 = shc.getHospitalList(ambulance1).get(0);
-		try {
-			shc.selectHospital(ambulance2, hospital1);
-			fail("ambulances can't select a hospital when they aren't assigned.");
-		} catch (Exception e) {
-		}
-		try {
-			shc.selectHospital(ambulance2, null);
-			fail("ambulances can't select a hospital when they aren't assigned.");
-		} catch (Exception e) {
-		}
-		try {
-			shc.selectHospital(ambulance1, hospital1);
-			fail("ambulances can't select a hospital when they aren't at the location of the emergency.");
-		} catch (Exception e) {
-		}
-		try {
-			eotc.indicateEndOfTask(ambulance2);
-			fail("units who don't have jobs can't finish work.");
-		} catch (Exception e) {
-		}
-		try {
-			eotc.indicateEndOfTask(ambulance1);
-			fail("units who aren't at the emergency can't finish their job.");
-		} catch (Exception e) {
-		}
 		tac.doTimeAheadAction(25000);
 		eotc.indicateEndOfTask(engine2);
-		eotc.indicateEndOfTask(unit1);
-		
+
 		assertFalse(fire.isPartiallyAssigned());
-		
+
 		//inspect emergencies
 		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
 		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
 		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
-		shc.selectHospital(ambulance1, hospital1);
 		Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
-		
+
 		assertEquals(0, policy_units.size());
 		assertFalse(fire.isPartiallyAssigned());
-		try {
-			eotc.indicateEndOfTask(ambulance1);
-			fail("ambulance must be at hospital.");
-		} catch (Exception e) {
-		}
+
 		tac.doTimeAheadAction(18000);
 		try {
 			eotc.indicateEndOfTask(engine2);
 			fail("firetruck isn't assigned to an emergency, so it can't end his task");
 		} catch (Exception e) {
 		}
-		eotc.indicateEndOfTask(ambulance1);
-		
+
 		//inspect emergencies
 		assertFalse(fire.isPartiallyAssigned());
 		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
-		
+
 		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
 		assertEquals(2, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 	}
