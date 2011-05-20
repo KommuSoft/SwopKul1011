@@ -78,8 +78,8 @@ public class Fire extends Emergency {
 	 *		| trappedPeople.equals(hasTrappedPeople())
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for an emergency.
-	 * @throws InvalidEmergencySeverityException
-	 *		If the given severity is an invalid severity for an emergency.
+	 * @throws InvalidSendableSeverityException
+	 *		If the given severity is an invalid severity for a sendable.
 	 * @throws InvalidFireSizeException
 	 *		If the given fire size isn't a valid fire size for a fire emergency.
 	 * @throws NumberOutOfBoundsException

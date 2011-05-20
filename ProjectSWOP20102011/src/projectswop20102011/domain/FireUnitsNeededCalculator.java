@@ -1,9 +1,16 @@
 package projectswop20102011.domain;
 
+/**
+ *
+ * @author Pieter-Jan
+ */
 public class FireUnitsNeededCalculator {
 
 	/**
-	 * private constructor: this class is a static class
+	 * A class that represents a FireUnitsNeededCalculator.
+	 * It calculates the units needed for a fire.
+	 *
+	 * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
 	 */
 	private FireUnitsNeededCalculator() {
 	}

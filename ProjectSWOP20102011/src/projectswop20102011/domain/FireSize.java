@@ -16,7 +16,10 @@ public enum FireSize {
 	 * The textual representation of the fire size.
 	 */
 	private final String textual;
-	
+
+	/**
+	 * The needed amount of capacity that is needed for this firesize
+	 */
 	private final long neededCapacity;
 
 	/**
@@ -53,7 +56,7 @@ public enum FireSize {
 	}
 
 	/**
-	 * Tests if a given textual representation of an FireSize matches this FireSize.
+	 * Tests if a given textual representation of a FireSize matches this FireSize.
 	 * @param textualRepresentation
 	 *		The textual representation to test.
 	 * @return True if the textual representation matches, otherwise false.
