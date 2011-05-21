@@ -22,7 +22,6 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
  * @invar The constraint is valid.
  *		| isValidConstraint(getConstraint())
  * @note This class has a package visibility and is a pure fabrication object.
- *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
 //TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast worden.

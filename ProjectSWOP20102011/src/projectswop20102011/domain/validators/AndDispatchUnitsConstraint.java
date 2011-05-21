@@ -12,14 +12,17 @@ import projectswop20102011.exceptions.InvalidConstraintListException;
  */
 public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
 
+    /*
+     * The list of DispatchUnitsConstraints the are contained by this AndDispatchUnitsConstraint.
+     */
     private final DispatchUnitsConstraint[] constraints;
 
     /**
      * Creates a new AndDispatchUnitsConstraint with the given constraints below that all should pass to let pass this constraint.
      * @param constraints
-	 *		The list of constraints that all should pass.
+     *		The list of constraints that all should pass.
      * @throws InvalidConstraintListException
-	 *		If the given list of constraints is invalid.
+     *		If the given list of constraints is invalid.
      */
     public AndDispatchUnitsConstraint(DispatchUnitsConstraint... constraints) throws InvalidConstraintListException {
         if (!areValidConstraints(constraints)) {
@@ -31,7 +34,7 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Tests if the given list of constraints is a valid constraint argument in the constructor.
      * @param constraints
-	 *		A list of constraints to check.
+     *		A list of constraints to check.
      * @return True if the list and all it's elements are effective, otherwise false.Ò
      */
     public static boolean areValidConstraints(DispatchUnitsConstraint... constraints) {
@@ -50,7 +53,7 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * Returns a list of all the DispatchUnitConstraints below this AndDispatchUnitsConstraint.
      * @return A list of all the DispatchUnitConstraints below this AndDispatchUnitsConstraint.
      */
-    public DispatchUnitsConstraint[] getConstraints () {
+    public DispatchUnitsConstraint[] getConstraints() {
         return constraints.clone();
     }
 
@@ -59,15 +62,14 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      * @return A textual representation of the AndDispatchUnitsConstraint.
      */
     @Override
-    public String toString () {
+    public String toString() {
         DispatchUnitsConstraint[] c = getConstraints();
-        if(c.length == 0) {
+        if (c.length == 0) {
             return "TRUE";
-        }
-        else {
+        } else {
             StringBuilder sb = new StringBuilder();
-            sb.append(String.format("(%s)",c[0].toString()));
-            for(int i = 1; i < c.length; i++) {
+            sb.append(String.format("(%s)", c[0].toString()));
+            for (int i = 1; i < c.length; i++) {
                 sb.append(String.format(" AND (%s)", c[i]));
             }
             return sb.toString();
@@ -84,8 +86,8 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      */
     @Override
     public boolean generateProposal(List<Unit> finishedOrAssignedUnits, SortedSet<Unit> availableUnits, Set<Unit> proposal) {
-        for(DispatchUnitsConstraint duc : this.constraints) {
-            if(!duc.generateProposal(finishedOrAssignedUnits,availableUnits,proposal)) {
+        for (DispatchUnitsConstraint duc : this.constraints) {
+            if (!duc.generateProposal(finishedOrAssignedUnits, availableUnits, proposal)) {
                 return false;
             }
         }
@@ -101,8 +103,8 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      */
     @Override
     public boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits, Set<Unit> relevantUnits) {
-        for(DispatchUnitsConstraint duc : this.constraints) {
-            if(!duc.canAssign(finishedOrAssignedUnits,toAssignUnits,relevantUnits)) {
+        for (DispatchUnitsConstraint duc : this.constraints) {
+            if (!duc.canAssign(finishedOrAssignedUnits, toAssignUnits, relevantUnits)) {
                 return false;
             }
         }
@@ -117,12 +119,11 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
      */
     @Override
     public boolean canFinish(List<Unit> finishedUnits) {
-        for(DispatchUnitsConstraint duc : this.constraints) {
-            if(!duc.canFinish(finishedUnits)) {
+        for (DispatchUnitsConstraint duc : this.constraints) {
+            if (!duc.canFinish(finishedUnits)) {
                 return false;
             }
         }
         return true;
     }
-
 }
