@@ -4,7 +4,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1350</x>
+      <x>2760</x>
       <y>350</y>
       <w>360</w>
       <h>390</h>
@@ -39,7 +39,7 @@
   <element>
     <type>com.umlet.element.Interface</type>
     <coordinates>
-      <x>1300</x>
+      <x>2710</x>
       <y>170</y>
       <w>180</w>
       <h>90</h>
@@ -53,7 +53,7 @@ timeAhead(seconds:long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1360</x>
+      <x>2770</x>
       <y>230</y>
       <w>50</w>
       <h>140</h>
@@ -64,7 +64,7 @@ timeAhead(seconds:long)</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1520</x>
+      <x>2930</x>
       <y>160</y>
       <w>400</w>
       <h>150</h>
@@ -84,7 +84,7 @@ timeAhead(seconds:long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1620</x>
+      <x>3030</x>
       <y>280</y>
       <w>50</w>
       <h>90</h>
@@ -95,7 +95,7 @@ timeAhead(seconds:long)</panel_attributes>
   <element>
     <type>com.umlet.element.Interface</type>
     <coordinates>
-      <x>860</x>
+      <x>2270</x>
       <y>0</y>
       <w>280</w>
       <h>90</h>
@@ -109,7 +109,7 @@ getTargetLocation():GPSCoordinate</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1000</x>
+      <x>2410</x>
       <y>60</y>
       <w>700</w>
       <h>120</h>
@@ -120,7 +120,7 @@ getTargetLocation():GPSCoordinate</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1360</x>
+      <x>2770</x>
       <y>1120</y>
       <w>570</w>
       <h>190</h>
@@ -142,7 +142,7 @@ GPSCoordinate
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1350</x>
+      <x>2760</x>
       <y>710</y>
       <w>154</w>
       <h>430</h>
@@ -154,7 +154,7 @@ currentLocation</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>760</x>
+      <x>2150</x>
       <y>580</y>
       <w>490</w>
       <h>220</h>
@@ -178,19 +178,19 @@ currentLocation</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1220</x>
+      <x>2610</x>
       <y>550</y>
-      <w>150</w>
+      <w>170</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 emergency</panel_attributes>
-    <additional_attributes>30;50;130;50</additional_attributes>
+    <additional_attributes>30;50;150;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>440</x>
+      <x>1850</x>
       <y>150</y>
       <w>560</w>
       <h>400</h>
@@ -225,7 +225,7 @@ emergency</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1110</x>
+      <x>2520</x>
       <y>770</y>
       <w>270</w>
       <h>390</h>
@@ -237,7 +237,7 @@ location</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>930</x>
+      <x>2340</x>
       <y>60</y>
       <w>50</w>
       <h>110</h>
@@ -248,7 +248,7 @@ location</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>860</x>
+      <x>2270</x>
       <y>520</y>
       <w>50</w>
       <h>80</h>
@@ -259,16 +259,15 @@ location</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>160</x>
+      <x>1550</x>
       <y>580</y>
       <w>520</w>
-      <h>320</h>
+      <h>300</h>
     </coordinates>
     <panel_attributes>&lt;&lt;class&gt;&gt;
 Disaster
 --
 -emergencies:List&lt;Emergency&gt;
--unitsNeeded:DerivedUnitsNeeded
 --
 &lt;&lt;constructors&gt;&gt;
 #Emergency(emergencies:List&lt;Emergency&gt;,...)
@@ -289,7 +288,7 @@ Disaster
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>550</x>
+      <x>1960</x>
       <y>520</y>
       <w>50</w>
       <h>80</h>
@@ -300,7 +299,7 @@ Disaster
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>650</x>
+      <x>2040</x>
       <y>550</y>
       <w>130</w>
       <h>70</h>
@@ -312,9 +311,9 @@ disaster</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1030</x>
-      <y>350</y>
-      <w>110</w>
+      <x>2430</x>
+      <y>240</y>
+      <w>230</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enum&gt;&gt;
@@ -330,19 +329,19 @@ OCCUPIED</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1110</x>
-      <y>360</y>
-      <w>260</w>
+      <x>2630</x>
+      <y>310</y>
+      <w>150</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 unitStatus</panel_attributes>
-    <additional_attributes>30;50;240;50</additional_attributes>
+    <additional_attributes>30;50;130;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1810</x>
+      <x>3220</x>
       <y>280</y>
       <w>130</w>
       <h>860</h>
@@ -354,10 +353,10 @@ homelocation</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1150</x>
-      <y>430</y>
-      <w>130</w>
-      <h>110</h>
+      <x>2560</x>
+      <y>390</y>
+      <w>190</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enum&gt;&gt;
 SendableSeverity
@@ -371,7 +370,7 @@ URGENT</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1160</x>
+      <x>2570</x>
       <y>510</y>
       <w>96</w>
       <h>90</h>
@@ -383,7 +382,7 @@ status</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1190</x>
+      <x>2600</x>
       <y>830</y>
       <w>210</w>
       <h>130</h>
@@ -402,7 +401,7 @@ Firetruck
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1350</x>
+      <x>2760</x>
       <y>710</y>
       <w>50</w>
       <h>140</h>
@@ -413,7 +412,7 @@ Firetruck
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1500</x>
+      <x>2910</x>
       <y>770</y>
       <w>210</w>
       <h>80</h>
@@ -429,7 +428,7 @@ Policecar
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1530</x>
+      <x>2940</x>
       <y>710</y>
       <w>50</w>
       <h>80</h>
@@ -440,7 +439,7 @@ Policecar
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1450</x>
+      <x>2860</x>
       <y>860</y>
       <w>420</w>
       <h>220</h>
@@ -464,7 +463,7 @@ _+getMinimumNumberOfAmbulances(patients:long):long_</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1450</x>
+      <x>2860</x>
       <y>710</y>
       <w>50</w>
       <h>170</h>
@@ -475,7 +474,7 @@ _+getMinimumNumberOfAmbulances(patients:long):long_</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1740</x>
+      <x>3150</x>
       <y>600</y>
       <w>120</w>
       <h>90</h>
@@ -491,7 +490,7 @@ Hospital
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1770</x>
+      <x>3180</x>
       <y>280</y>
       <w>50</w>
       <h>340</h>
@@ -502,7 +501,7 @@ Hospital
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1720</x>
+      <x>3130</x>
       <y>660</y>
       <w>152</w>
       <h>220</h>
@@ -514,30 +513,31 @@ currentHospital</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>0</x>
-      <y>960</y>
-      <w>530</w>
-      <h>190</h>
+      <x>2100</x>
+      <y>1100</y>
+      <w>320</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>&lt;&lt;class&gt;&gt;
 Fire
 --
--size:FireSize
 chemical:boolean
 -trappedPeople:long
 -numberOfInjured:long
 --
 &lt;&lt;constructors&gt;&gt;
-+Fire(...,size:FireSize,chemical:boolean,trappedPeople:long,numberOfInjured:long)
++Fire(...,...)
 &lt;&lt;methods&gt;&gt;
-+getNumberOfLitersRequired()</panel_attributes>
++getNumberOfLitersRequired()
++getLongInformation():HashSet&lt;String,String&gt;
+#calculateUnitsNeeded():ConcreteUnitsNeeded</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>700</x>
-      <y>1360</y>
+      <x>380</x>
+      <y>530</y>
       <w>530</w>
       <h>340</h>
     </coordinates>
@@ -567,8 +567,8 @@ chemical:boolean
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>610</x>
-      <y>980</y>
+      <x>790</x>
+      <y>170</y>
       <w>370</w>
       <h>320</h>
     </coordinates>
@@ -597,88 +597,641 @@ chemical:boolean
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>950</x>
+      <x>640</x>
       <y>770</y>
-      <w>128</w>
-      <h>610</h>
+      <w>1910</w>
+      <h>650</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 emergency</panel_attributes>
-    <additional_attributes>70;30;70;590</additional_attributes>
+    <additional_attributes>1890;30;1890;370;1790;370;1790;630;30;630;30;100</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1030</x>
-      <y>770</y>
-      <w>136</w>
-      <h>610</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-unitsNeeded</panel_attributes>
-    <additional_attributes>70;590;70;30</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>850</x>
-      <y>1270</y>
+      <x>840</x>
+      <y>460</y>
       <w>50</w>
-      <h>110</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;90</additional_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1320</x>
-      <y>1360</y>
-      <w>210</w>
-      <h>190</h>
+      <x>1050</x>
+      <y>920</y>
+      <w>740</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;class&gt;&gt;
 /DispatchUnitsConstraint/
 --
-</panel_attributes>
+--
+/+generateProposal(finishedOrAssignedUnits:List&lt;Unit&gt;,availableUnits:SortedSet&lt;Unit&gt;,proposal:Set&lt;Unit&gt;):boolean/
+/#canAssign(finishedOrAssignedUnits:List&lt;Unit&gt;,toAssignUnits:Set&lt;Unit&gt;,relevantUnits:Set&lt;Unit&gt;):boolean/
++canAssign(finishedOrAssignedUnits:List&lt;Unit&gt;,toAssignUnits:Set&lt;Unit&gt;):boolean
+/+canFinish(finishedUnits:List&lt;Unit&gt;):boolean/
++canBeResolved(finishedOrAssignedUnits:List&lt;Unit&gt;,availableUnits:Set&lt;Unit&gt;):boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1200</x>
-      <y>1350</y>
-      <w>140</w>
-      <h>70</h>
+      <x>720</x>
+      <y>840</y>
+      <w>720</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 constraint</panel_attributes>
-    <additional_attributes>120;50;30;50</additional_attributes>
+    <additional_attributes>700;80;700;50;30;50;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1320</x>
-      <y>1590</y>
-      <w>210</w>
-      <h>190</h>
+      <x>260</x>
+      <y>980</y>
+      <w>360</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>&lt;&lt;class&gt;&gt;
 /DispatchPolicy/
 --
---</panel_attributes>
+--
+&lt;&lt;constructors&gt;&gt;
+#DispatchPolicy(...)
+&lt;&lt;methods&gt;&gt;
++generateProposal(availableUnits:Set&lt;Unit&gt;):Set&lt;Unit&gt;
+/#internalCompare(unit1:Unit,unit2:Unit):int/
++compare(unit1:Unit1,unit2:Unit):int
++getDeepSuccessor():DispatchPolicy()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1200</x>
-      <y>1570</y>
-      <w>140</w>
-      <h>70</h>
+      <x>490</x>
+      <y>840</y>
+      <w>94</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 policy</panel_attributes>
-    <additional_attributes>120;50;30;50</additional_attributes>
+    <additional_attributes>50;140;50;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>940</x>
+      <y>530</y>
+      <w>530</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+/DerivedUnitsNeeded/
+--
+-workingUnits:ArrayList&lt;Unit&gt;
+-finishedUnits:ArrayList&lt;Unit&gt;
+--
+&lt;&lt;constructors&gt;&gt;
++ConcreteUnitsNeeded(emergency:Emergency,constraint:DispatchUnitConstraint)
+&lt;&lt;methods&gt;&gt;
++takeFinishedUnits():ArrayList&lt;Unit&gt;
++takeWorkingUnits():ArrayList&lt;Unit&gt;
++canAssignUnitsToEmergency(units:Set&lt;Unit&gt;):boolean
+~assignUnitsToEmergency(units:Set&lt;Unit&gt;)
+~unitFinishedJob(unit:Unit)
+~pushPolicy(policy:DispatchPolicy)
+~generateProposal(options:SortedSet&lt;Unit&gt;):Set&lt;Unit&gt;
++getPolicyProposal(availableUnits:Set&lt;Unit&gt;):Set&lt;Unit&gt;
++canBeResolved(availableUnits:Set&lt;Unit&gt;):boolean
+~setStatus()
+~withdrawUnit(unit:Unit)
+~getConstraint():DispatchUnitsConstraint()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1080</x>
+      <y>460</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1440</x>
+      <y>540</y>
+      <w>130</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+disaster</panel_attributes>
+    <additional_attributes>110;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2170</x>
+      <y>770</y>
+      <w>50</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;330</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1900</x>
+      <y>1130</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enum&gt;&gt;
+FireSize
+--
+-neededCapacity:long
+_+LOCAL_
+_+HOUSE_
+_+FACILITY_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2020</x>
+      <y>1130</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+size</panel_attributes>
+    <additional_attributes>30;50;80;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>2450</x>
+      <y>1160</y>
+      <w>310</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+PublicDisturbance
+--
+-numberOfPeople:long
+--
+&lt;&lt;constructors&gt;&gt;
++PublicDisturbance(...,numberOfPeople:long)
+&lt;&lt;methods&gt;&gt;
++getLongInformation():HashSet&lt;String,String&gt;
+#calculateUnitsNeeded():ConcreteUnitsNeeded</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2520</x>
+      <y>770</y>
+      <w>50</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;390</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1880</x>
+      <y>890</y>
+      <w>310</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+Robbery
+--
+-armed:boolean
+-inProgress:boolean
+--
+&lt;&lt;constructors&gt;&gt;
++Robbery(...,...)
+&lt;&lt;methods&gt;&gt;
++getLongInformation():HashSet&lt;String,String&gt;
+#calculateUnitsNeeded():ConcreteUnitsNeeded</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>2210</x>
+      <y>890</y>
+      <w>310</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+TrafficAccident
+--
+-numberOfCars:long
+-numberOfInjured:long
+--
+&lt;&lt;constructors&gt;&gt;
++TrafficAccident(...,...)
+&lt;&lt;methods&gt;&gt;
++getLongInformation():HashSet&lt;String,String&gt;
+#calculateUnitsNeeded():ConcreteUnitsNeeded</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2140</x>
+      <y>770</y>
+      <w>50</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2340</x>
+      <y>770</y>
+      <w>50</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1350</x>
+      <y>1290</y>
+      <w>740</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+AndDispatchUnitsConstraint
+--
+--
++generateProposal(finishedOrAssignedUnits:List&lt;Unit&gt;,availableUnits:SortedSet&lt;Unit&gt;,proposal:Set&lt;Unit&gt;):boolean
+#canAssign(finishedOrAssignedUnits:List&lt;Unit&gt;,toAssignUnits:Set&lt;Unit&gt;,relevantUnits:Set&lt;Unit&gt;):boolean
++canFinish(finishedUnits:List&lt;Unit&gt;):boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1760</x>
+      <y>930</y>
+      <w>136</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-&gt;
+constraints</panel_attributes>
+    <additional_attributes>80;360;80;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>990</x>
+      <y>1080</y>
+      <w>740</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+MinMaxNumberDispatchUnitConstraint
+--
+-minimum:long
+-maximum:long
+--
+&lt;&lt;constructors&gt;&gt;
+MinMaxNumberDispatchUnitConstraint(...,...)
+&lt;&lt;methods&gt;&gt;
++generateProposal(finishedOrAssignedUnits:List&lt;Unit&gt;,availableUnits:SortedSet&lt;Unit&gt;,proposal:Set&lt;Unit&gt;):boolean
+#canAssign(finishedOrAssignedUnits:List&lt;Unit&gt;,toAssignUnits:Set&lt;Unit&gt;,relevantUnits:Set&lt;Unit&gt;):boolean
++canFinish(finishedUnits:List&lt;Unit&gt;):boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1730</x>
+      <y>1020</y>
+      <w>50</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;270</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1330</x>
+      <y>1020</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;60</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1060</x>
+      <y>1310</y>
+      <w>250</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+NumberDispatchUnitConstraint
+--
+--
+&lt;&lt;constructors&gt;&gt;
+NumberDispatchUnitConstraint(...)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1160</x>
+      <y>1240</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>870</x>
+      <y>930</y>
+      <w>180</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Numberator&lt;T&gt;
+--
+getNumber(object:T):long</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>710</x>
+      <y>930</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Validator&lt;T&gt;
+--
+isValid(object:T):boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>720</x>
+      <y>1080</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>ValidatorNumberator&lt;T&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1390</x>
+      <y>1130</y>
+      <w>186</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+validatorNumberator</panel_attributes>
+    <additional_attributes>340;50;340;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>760</x>
+      <y>970</y>
+      <w>50</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70;30;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>780</x>
+      <y>970</y>
+      <w>200</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180;30;180;70;30;70;30;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>670</x>
+      <y>1140</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>QuadraticValidator&lt;S,T&gt;
+--
+isValid(collection:Collection&lt;S&gt;,item:T)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1390</x>
+      <y>1180</y>
+      <w>172</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+quadraticValidator</panel_attributes>
+    <additional_attributes>340;50;340;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>1040</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+validatorNumberator</panel_attributes>
+    <additional_attributes>30;50;190;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>1100</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+quadraticValidator</panel_attributes>
+    <additional_attributes>30;50;190;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>530</x>
+      <y>840</y>
+      <w>136</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+unitsNeeded</panel_attributes>
+    <additional_attributes>70;140;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>570</x>
+      <y>910</y>
+      <w>122</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+successor</panel_attributes>
+    <additional_attributes>40;70;40;50;70;50;70;100;50;100</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>360</x>
+      <y>910</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Comparator&lt;Unit&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>430</x>
+      <y>940</y>
+      <w>50</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;40;30;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>410</x>
+      <y>920</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;60</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>380</x>
+      <y>1180</y>
+      <w>280</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+DefaultDispatchPolicy
+--
+--
+&lt;&lt;constructors&gt;&gt;
++DefaultDispatchPolicy(...)
+&lt;&lt;methods&gt;&gt;
++internalCompare(unit1:Unit,unit2:Unit):int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>90</x>
+      <y>1180</y>
+      <w>270</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+FireSizeDispatchPolicy
+--
+--
+&lt;&lt;constructors&gt;&gt;
++FireSizeDispatchPolicy(...)
+&lt;&lt;methods&gt;&gt;
++internalCompare(unit1:Unit,unit2:Unit):int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>230</x>
+      <y>1310</y>
+      <w>280</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
+ASAPDispatchPolicy
+--
+--
+&lt;&lt;constructors&gt;&gt;
++ASAPDispatchPolicy(...)
+&lt;&lt;methods&gt;&gt;
++internalCompare(unit1:Unit,unit2:Unit):int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>340</x>
+      <y>1120</y>
+      <w>50</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;190</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>500</x>
+      <y>1120</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;60</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>280</x>
+      <y>1120</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;60</additional_attributes>
   </element>
 </diagram>
