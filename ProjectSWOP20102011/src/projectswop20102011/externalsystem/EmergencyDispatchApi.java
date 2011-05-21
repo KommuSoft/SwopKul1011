@@ -154,9 +154,9 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		try {
 			emergency = factory.createInstance(factory.getInformation().generateParametersFromMap(this.getWorld().getParserList(), parameters));
 		} catch (InvalidParametersException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException("Wrong parameters for the emergency.");
 		} catch (ParsingException ex) {
-			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
+			throw new EmergencyDispatchException("Wrong parameters for the emergency.");
 		}
 
 		if (world.getTime() < event.getTime().getHours() * 3600 + event.getTime().getMinutes() * 60) {

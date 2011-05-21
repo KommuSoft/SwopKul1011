@@ -54,14 +54,13 @@ public class PublicDisturbanceFactory extends EmergencyFactory {
 			try {
 				return new PublicDisturbance((GPSCoordinate) parameters[0], (SendableSeverity) parameters[1], (String) parameters[2], (Long) parameters[3]);
 			} catch (InvalidLocationException ex) {
-				Logger.getLogger(PublicDisturbanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor."); //TODO: vroeger stonden hier 3 loggers, deze heb ik verwijderd zodat exceptions kunnen doorgesmeten worden naar de EmergencyDispatchtApi.
 			} catch (InvalidSendableSeverityException ex) {
-				Logger.getLogger(PublicDisturbanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
 			} catch (NumberOutOfBoundsException ex) {
-				Logger.getLogger(PublicDisturbanceFactory.class.getName()).log(Level.SEVERE, null, ex);
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
 			}
 		}
-		return null;
 	}
 
 	/**
