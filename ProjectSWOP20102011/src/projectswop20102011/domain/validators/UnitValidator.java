@@ -13,7 +13,7 @@ public abstract class UnitValidator<T extends Unit> implements ValidatorNumberat
     /**
      * A primitive implementation of the getNumberMethod.
      * @param object The object to get the number from.
-     * @return One if the constraint is true, and zero of the constraint is false.
+     * @return One (1) if the constraint is true, and zero (0) of the constraint is false.
      * @see ValidatorNumberator#getNumber(java.lang.Object)
      */
     @Override
@@ -24,5 +24,4 @@ public abstract class UnitValidator<T extends Unit> implements ValidatorNumberat
             return 0;
         }
     }
-
 }

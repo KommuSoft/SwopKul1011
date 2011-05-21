@@ -15,10 +15,11 @@ import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.domain.validators.TypeUnitValidator;
-import projectswop20102011.domain.validators.UnitToDisasterDistanceComparator;
+import projectswop20102011.domain.validators.UnitToTargetableDistanceComparator;
 import projectswop20102011.exceptions.InvalidDisasterException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
+import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 
@@ -51,7 +52,7 @@ public class DispatchUnitsToDisasterController extends Controller {
 		return disaster.getPolicyProposalAllSeverities(mapItems);
 	}
 
-	public List<Unit> getAvailableUnitsSorted(Disaster disaster) throws InvalidDisasterException, InvalidClassException {
+	public List<Unit> getAvailableUnitsSorted(Disaster disaster) throws InvalidClassException, InvalidTargetableException {
 		//TODO: dit kan waarschijnlijk een heel klein beetje mooier misschien wellicht?
 		MapItemValidator criterium = new AvailableUnitsMapItemValidator();
 		Set<Unit> units = getUnitsByPolicyAllSeverities(disaster);
@@ -67,7 +68,7 @@ public class DispatchUnitsToDisasterController extends Controller {
 			policecar = policecar || tuv2.isValid(u);
 		}
 		
-		List<Unit> allUnits = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToDisasterDistanceComparator(disaster));
+		List<Unit> allUnits = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToTargetableDistanceComparator(disaster));
 		List<Unit> result = new ArrayList<Unit>(0);
 		for (Unit u : allUnits) {
 			if (ambulance && u instanceof Ambulance) {

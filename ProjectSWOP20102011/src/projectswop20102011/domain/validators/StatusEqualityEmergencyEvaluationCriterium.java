@@ -32,7 +32,7 @@ public class StatusEqualityEmergencyEvaluationCriterium extends EmergencyEvaluat
 	 * @return True if the status of the emergency equals this status, otherwise false.
 	 */
 	@Override
-	public boolean isValidEmergency(Emergency emergency) {
+	public boolean isValid(Emergency emergency) {
 		return (emergency.getStatus() == getStatus());
 	}
 

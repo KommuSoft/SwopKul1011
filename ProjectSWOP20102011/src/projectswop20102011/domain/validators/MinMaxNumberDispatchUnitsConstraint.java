@@ -41,16 +41,8 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
      *		The desired minimum number of units.
      * @param maximum
      *		The desired minimum number of units.
-     * @post This minimum is equal to the given minimum.
-     *		|this.minimum.equals(minimum)
-     * @post This maximum is equal to the given maximum.
-     *		|this.maximum.equals(maximum)
-     * @post This validator is equal to the given validator.
-     *		|this.validator.equals(validator)
-     * @throws NumberOutOfBoundsException
-     *		If the given minimum and maxumum bounds are invalid.
-     * @throws InvalidValidatorException
-     *		If the given UnitValidator is invalid.
+     * @effect
+     *          this(validatorNumberator, minimum, maximum, new DefaultQuadraticValidator<Unit, Unit>())
      * @note The quadraticValidator will be set to a new DefaultQuadraticValidator where any item is valid.
      */
     public MinMaxNumberDispatchUnitsConstraint(ValidatorNumberator<? super Unit> validatorNumberator, long minimum, long maximum) throws NumberOutOfBoundsException, InvalidValidatorException {
@@ -86,7 +78,7 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         if (!isValidValidator(validatorNumberator)) {
             throw new InvalidValidatorException("UnitValidator must be effective.");
         }
-        if(!isValidQuadraticValidator(quadraticValidator)) {
+        if (!isValidQuadraticValidator(quadraticValidator)) {
             throw new InvalidValidatorException("QuadraticValidator must be effective.");
         }
         this.minimum = minimum;
@@ -157,14 +149,28 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return (number >= 0);
     }
 
+    /**
+     * Tests if the given minimum and maximum are valid parameters for a MinMaxNumberDispatchUnitsConstraint.
+     * @param minimum
+     *          The minimum parameter.
+     * @param maximum
+     *          The maximum parameter.
+     * @return True if the given numbers are valid, and the minimum is smaller or equal to the maximum.
+     */
     public static boolean areValidMinimumMaximum(long minimum, long maximum) {
         return (isValidNumber(minimum) && isValidNumber(maximum) && (minimum <= maximum));
     }
 
+    /**
+     * A utility method, used to collect Units from the source, if the validator and the quadraticValidator succeed.
+     * @param source The source collection where units are validated from.
+     * @param collected The collection of collected units.
+     * @return The sum of all numbers generated out of the numberator.
+     */
     protected int collectValidUnits(Collection<Unit> source, Collection<Unit> collected) {
         int count = 0;
         for (Unit u : source) {
-            if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collected,u)) {
+            if (this.getValidator().isValid(u) && this.getQuadraticValidator().isValid(collected, u)) {
                 collected.add(u);
                 count += this.getValidator().getNumber(u);
             }
@@ -172,6 +178,11 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return count;
     }
 
+    /**
+     * A utility method that calculates the sum of all the numberators of valid elements.
+     * @param source A source collection that contains all units that need to be validated.
+     * @return The sum of all the numberators of valid units, validated by the validatornumberator and quadraticValidator.
+     */
     protected int countValidUnits(Collection<Unit> source) {
         return collectValidUnits(source, new HashSet<Unit>());
     }
@@ -208,6 +219,15 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return true;
     }
 
+    /**
+     * Checks if the given set of units to assign to an emergency can be assigned.
+     * @param finishedOrAssignedUnits The list of Units that were already
+     * @param toAssignUnits
+     *          The list of units to check if they can be assigned.
+     * @param relevantUnits
+     *          The set of units that are relevant to the assignation. In the end all the units to Assign must be relevant to the composed constraint.
+     * @return True if the given set of units can be assigned, otherwise false.
+     */
     @Override
     protected boolean canAssign(List<Unit> finishedOrAssignedUnits, Set<Unit> toAssignUnits, Set<Unit> relevantUnits) {
         ArrayList<Unit> collect = new ArrayList<Unit>();
@@ -230,6 +250,12 @@ public class MinMaxNumberDispatchUnitsConstraint extends DispatchUnitsConstraint
         return true;
     }
 
+    /**
+     * Checks if the emergency can be finished if the given units have all done their job in the emergency.
+     * @param finishedUnits
+     *          A list of finished Units.
+     * @return True if the given emergency can finish, otherwise false.
+     */
     @Override
     public boolean canFinish(List<Unit> finishedUnits) {
         int number = countValidUnits(finishedUnits);

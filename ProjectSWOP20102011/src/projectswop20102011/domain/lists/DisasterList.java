@@ -62,7 +62,7 @@ public class DisasterList implements Iterable<Disaster> {
 	public DisasterList getDisastersByCriterium(DisasterEvaluationCriterium criterium) throws InvalidAddedDisasterException {
 		DisasterList list = new DisasterList();
 		for (Disaster d : this) {
-			if (criterium.isValidDisaster(d)) {
+			if (criterium.isValid(d)) {
 				list.addDisaster(d);
 			}
 		}

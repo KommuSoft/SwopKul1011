@@ -3,12 +3,12 @@ package projectswop20102011.domain.validators;
 import java.util.Collection;
 
 /**
- * A constraint that succeeds on a certain object T depending on a collection of objects of the U type.
+ * A constraint that succeeds on a certain object TItem depending on a collection of objects of the TCollection type.
  * @param <TCollection> The type of objects in the collection.
  * @param <TItem> The type of objects validated by the QuadraticValidator.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public interface QuadraticValidator<TCollection,TItem> {
+public interface QuadraticValidator<TCollection, TItem> {
 
     /**
      * A method that returns true if the item is valid depending on the content of the collection.
@@ -16,6 +16,5 @@ public interface QuadraticValidator<TCollection,TItem> {
      * @param item The item to validate.
      * @return True if the object is valid, otherwise false.
      */
-    public abstract boolean isValid (Collection<TCollection> collection, TItem item);
-
+    public abstract boolean isValid(Collection<TCollection> collection, TItem item);
 }

@@ -48,10 +48,10 @@ public class StatusEqualityEmergencyEvaluationCriteriumTest {
 	@Test
 	public void testIsValidEmergency() {
 		StatusEqualityEmergencyEvaluationCriterium seeec1 = new StatusEqualityEmergencyEvaluationCriterium(SendableStatus.RECORDED_BUT_UNHANDLED);
-		assertTrue(seeec1.isValidEmergency(e1r));
-		assertTrue(seeec1.isValidEmergency(e2r));
-		assertTrue(seeec1.isValidEmergency(e3r));
-		assertTrue(seeec1.isValidEmergency(e4r));
+		assertTrue(seeec1.isValid(e1r));
+		assertTrue(seeec1.isValid(e2r));
+		assertTrue(seeec1.isValid(e3r));
+		assertTrue(seeec1.isValid(e4r));
 	}
 	
 	@Test

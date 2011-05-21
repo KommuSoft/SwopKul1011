@@ -22,7 +22,7 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class UnitToDisasterDistanceComparatorTest {
 
-	private UnitToDisasterDistanceComparator uc;
+	private UnitToTargetableDistanceComparator uc;
 	private Emergency e1, e2, e3;
 	private Disaster d1, d2, d3;
 	private Unit u1, u2, u3, u4;
@@ -87,17 +87,17 @@ public class UnitToDisasterDistanceComparatorTest {
 
 	@Test
 	public void testConstructor() throws InvalidDisasterException {
-		uc = new UnitToDisasterDistanceComparator(d1);
+		uc = new UnitToTargetableDistanceComparator(d1);
 	}
 
 	@Test(expected = InvalidDisasterException.class)
 	public void testIllegalConstructor() throws InvalidDisasterException {
-		uc = new UnitToDisasterDistanceComparator(d3);
+		uc = new UnitToTargetableDistanceComparator(d3);
 	}
 
 	@Test
 	public void testCompare() throws InvalidEmergencyException, InvalidDisasterException {
-		uc = new UnitToDisasterDistanceComparator(d1);
+		uc = new UnitToTargetableDistanceComparator(d1);
 
 		assertTrue(uc.compare(u3, u2) < 0);
 		assertTrue(uc.compare(u2, u1) > 0);

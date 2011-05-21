@@ -59,7 +59,7 @@ public class EmergencyList implements Iterable<Emergency> {
 	public EmergencyList getEmergenciesByCriterium(EmergencyEvaluationCriterium criterium) {
 		EmergencyList list = new EmergencyList();
 		for (Emergency e : this) {
-			if (criterium.isValidEmergency(e)) {
+			if (criterium.isValid(e)) {
 				list.addEmergency(e);
 			}
 		}

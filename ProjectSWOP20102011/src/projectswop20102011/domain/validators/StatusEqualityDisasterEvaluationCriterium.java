@@ -32,7 +32,7 @@ public class StatusEqualityDisasterEvaluationCriterium extends DisasterEvaluatio
 	 * @return True if the status of the disaster equals this status, otherwise false.
 	 */
 	@Override
-	public boolean isValidDisaster(Disaster disaster) {
+	public boolean isValid(Disaster disaster) {
 		return (disaster.getStatus() == getStatus());
 	}
 

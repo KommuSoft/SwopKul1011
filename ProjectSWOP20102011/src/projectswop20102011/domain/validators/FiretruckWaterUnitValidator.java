@@ -12,6 +12,8 @@ public class FiretruckWaterUnitValidator extends TypeUnitValidator {
 
     /**
      * Creates a new FiretruckWaterUnitValidator.
+     * @effect
+     *          super(Firetruck.class)
      * @throws InvalidClassException The exception will never be thrown.
      */
     public FiretruckWaterUnitValidator() throws InvalidClassException {

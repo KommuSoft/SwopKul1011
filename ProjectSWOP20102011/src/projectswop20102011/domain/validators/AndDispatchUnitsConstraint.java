@@ -20,7 +20,7 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Creates a new AndDispatchUnitsConstraint with the given constraints below that all should pass to let pass this constraint.
      * @param constraints
-     *		The list of constraints that all should pass.
+     *		The list of constraints that all should pass and are contained by this AndDispatchUnitsConstraint.
      * @throws InvalidConstraintListException
      *		If the given list of constraints is invalid.
      */
@@ -79,11 +79,11 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Generates a proposal for units based on the set of available units, and adds them to the proposal.
      * @param finishedOrAssignedUnits
-	 *		The list of units that are already finished or assigned.
+     *		The list of units that are already finished or assigned.
      * @param availableUnits
-	 *		The set of available units to assign.
+     *		The set of available units to assign.
      * @param proposal
-	 *		A set where the units that will be proposed will be added to.
+     *		A set where the units that will be proposed will be added to.
      * @return True if this methods can generate a proposal without violating constraints (for example firetrucks can only added once, sometimes we can't generate a proposal).
      * @note This constraint will ask all containing constraints to generate their proposal, the result is the union of all the proposed units, and the return value the and of all the return values.
      */
@@ -100,11 +100,11 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Checks if the given set of units to assign to an emergency can be assigned.
      * @param finishedOrAssignedUnits
-	 *		The list of Units that were already finished or assigned
+     *		The list of Units that were already finished or assigned
      * @param toAssignUnits
-	 *		The list of units to check if they can be assigned.
-	 * @param relevantUnits
-	 *		//TODO: wat is de uitleg van die relevantUnits?
+     *		The list of units to check if they can be assigned.
+     * @param relevantUnits
+     *          A set of units; units who are relevant for this constraint will be added to this set.
      * @return True if the given set of units can be assigned, otherwise false.
      * @note The result of this method is the and of the results of the containing constraints.
      */
@@ -121,7 +121,7 @@ public class AndDispatchUnitsConstraint extends DispatchUnitsConstraint {
     /**
      * Checks if the emergency can be finished if the given units have all done their job in the emergency.
      * @param finishedUnits
-	 *		A list of finished Units.
+     *		A list of finished Units.
      * @return True if the given emergency can finish, otherwise false.
      * @note The result of this method is the and of the results of the containing constraints.
      */

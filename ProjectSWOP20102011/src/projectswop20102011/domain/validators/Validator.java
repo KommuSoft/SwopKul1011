@@ -12,6 +12,5 @@ public interface Validator<T> {
      * @param object The object to validate.
      * @return True if the object is valid, false otherwise.
      */
-    public abstract boolean isValid (T object);
-
+    public abstract boolean isValid(T object);
 }

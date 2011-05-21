@@ -17,9 +17,9 @@ public class TypeUnitValidator extends UnitValidator<Unit> {
     /**
      * Creates a new instance of a TypeUnitValidator object with a given unit type.
      * @param unitClass
-	 *		A class where the validating units need to be an instance from.
+     *		A class where the validating units need to be an instance from.
      * @throws InvalidClassException
-	 *		If the given unit class is invalid.
+     *		If the given unit class is invalid.
      */
     public TypeUnitValidator(Class<? extends Unit> unitClass) throws InvalidClassException {
         if (!isValidUnitClass(unitClass)) {
@@ -39,7 +39,7 @@ public class TypeUnitValidator extends UnitValidator<Unit> {
     /**
      * Checks if the given unit statisfies this UnitValidator.
      * @param unit
-	 *		The unit to validate.
+     *		The unit to validate.
      * @return True if the given unit is a type that is the same or a subtype of the unitClass of this TypeUnitValidator, otherwise false.
      */
     @Override
@@ -50,7 +50,7 @@ public class TypeUnitValidator extends UnitValidator<Unit> {
     /**
      * Tests if the given UnitClass is a valid class for a TypeUnitValidator.
      * @param unitClass
-	 * The unit class to validate.
+     * The unit class to validate.
      * @return True if the given unit class is effective, otherwise false.
      */
     public static boolean isValidUnitClass(Class<? extends Unit> unitClass) {
@@ -63,7 +63,6 @@ public class TypeUnitValidator extends UnitValidator<Unit> {
      */
     @Override
     public String toString() {
-        return String.format("%ss",this.getUnitClass().getSimpleName());
+        return String.format("%ss", this.getUnitClass().getSimpleName());
     }
-
 }

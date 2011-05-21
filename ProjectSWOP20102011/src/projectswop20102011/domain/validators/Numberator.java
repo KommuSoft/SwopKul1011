@@ -12,6 +12,5 @@ public interface Numberator<T> {
      * @param object The object to generate a number from.
      * @return A number out of the object.
      */
-    public abstract long getNumber (T object);
-
+    public abstract long getNumber(T object);
 }

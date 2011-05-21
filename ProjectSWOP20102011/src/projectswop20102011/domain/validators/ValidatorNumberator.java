@@ -6,5 +6,4 @@ package projectswop20102011.domain.validators;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public interface ValidatorNumberator<T> extends Numberator<T>, Validator<T> {
-
 }

@@ -10,7 +10,7 @@ import java.util.Collection;
  *		The type of items to validate.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class DifferentQuadraticValidator<TCollection,TItem extends TCollection> implements QuadraticValidator<TCollection,TItem> {
+public class DifferentQuadraticValidator<TCollection, TItem extends TCollection> implements QuadraticValidator<TCollection, TItem> {
 
     /**
      * A method that succeeds if the given item is not an element of the collection.
@@ -24,5 +24,4 @@ public class DifferentQuadraticValidator<TCollection,TItem extends TCollection> 
     public boolean isValid(Collection<TCollection> collection, TItem item) {
         return !collection.contains(item);
     }
-
 }
