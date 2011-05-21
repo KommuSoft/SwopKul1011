@@ -101,34 +101,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Returns a list of units working on the disaster.
-	 * @return A list of the units working on the disaster.
-	 * @note This methods returns the union of all working units of every emergency in the disaster.
-	 */
-	@Override
-	public ArrayList<Unit> getWorkingUnits() {
-		ArrayList<Unit> result = new ArrayList<Unit>();
-		for (Emergency e : getDisaster().getEmergencies()) {
-			result.addAll(e.getUnitsNeeded().getWorkingUnits());
-		}
-		return result;
-	}
-
-	/**
-	 * Returns a list of finished units of the disaster.
-	 * @return A list of finished units of the disaster.
-	 * @note This methods returns the union of all finished units of every emergency in the disaster.
-	 */
-	@Override
-	public ArrayList<Unit> getFinishedUnits() {
-		ArrayList<Unit> result = new ArrayList<Unit>();
-		for (Emergency e : getDisaster().getEmergencies()) {
-			result.addAll(e.getUnitsNeeded().getFinishedUnits());
-		}
-		return result;
-	}
-
-	/**
 	 * Returns the constraint of this DerivedUnitsNeeded.
 	 * @return The constraint used by this DerivedUnitsNeeded.
 	 */
@@ -337,7 +309,11 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 */
 	@Override
 	ArrayList<Unit> takeFinishedUnits() {
-		return getFinishedUnits();
+		ArrayList<Unit> result = new ArrayList<Unit>();
+		for (Emergency e : getDisaster().getEmergencies()) {
+			result.addAll(e.getUnitsNeeded().getFinishedUnits());
+		}
+		return result;
 	}
 
 	/**
@@ -346,6 +322,10 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 */
 	@Override
 	ArrayList<Unit> takeWorkingUnits() {
-		return getWorkingUnits();
+		ArrayList<Unit> result = new ArrayList<Unit>();
+		for (Emergency e : getDisaster().getEmergencies()) {
+			result.addAll(e.getUnitsNeeded().getWorkingUnits());
+		}
+		return result;
 	}
 }

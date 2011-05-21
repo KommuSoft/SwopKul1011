@@ -130,19 +130,6 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Returns a list of units working on the emergency.
-	 * @return A list of the units working on the emergency.
-	 * @note The difference between takeWorkingUnits and getWorkingUnits is that
-	 *		getWorkingUnits first clones the list, takeWorkingUnits is only
-	 *		visible at private level and returns the real list.
-	 * @see #takeWorkingUnits()
-	 */
-	@Override
-	public ArrayList<Unit> getWorkingUnits() {
-		return (ArrayList<Unit>) workingUnits.clone();
-	}
-
-	/**
 	 * Returns the working units of the emergency.
 	 * @return The working units of the emergency.
 	 * @note The difference between takeWorkingUnits and getWorkingUnits is that
@@ -166,19 +153,6 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	@Override
 	ArrayList<Unit> takeFinishedUnits() {
 		return finishedUnits;
-	}
-
-	/**
-	 * Returns a list of units who have finished working on this emergency.
-	 * @return a list of units who have finished working on this emergency.
-	 * @note The difference between takeFinishedUnits and getFinishedUnits is
-	 *		that getFinishedUnits first clones the list, takeFinishedUnits is
-	 *		only visible at private level and returns the real list.
-	 * @see #takeFinishedUnits()
-	 */
-	@Override
-	public ArrayList<Unit> getFinishedUnits() {
-		return (ArrayList<Unit>) this.finishedUnits.clone();
 	}
 
 	/**

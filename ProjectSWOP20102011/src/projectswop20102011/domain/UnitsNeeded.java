@@ -51,7 +51,9 @@ public abstract class UnitsNeeded {
      *		only visible at private level and returns the real list.
      * @see #takeFinishedUnits()
      */
-    public abstract ArrayList<Unit> getFinishedUnits();
+    public final ArrayList<Unit> getFinishedUnits() {
+        return (ArrayList<Unit>) this.takeFinishedUnits().clone();
+    }
 
     /**
      * Returns a list of units working on the sendable.
@@ -61,7 +63,9 @@ public abstract class UnitsNeeded {
      *		visible at private level and returns the real list.
      * @see #takeWorkingUnits()
      */
-    public abstract ArrayList<Unit> getWorkingUnits();
+    public final ArrayList<Unit> getWorkingUnits() {
+        return (ArrayList<Unit>) this.takeWorkingUnits().clone();
+    }
 
     /**
      * A method that checks if the given set of units can be assigned to the sendable.
