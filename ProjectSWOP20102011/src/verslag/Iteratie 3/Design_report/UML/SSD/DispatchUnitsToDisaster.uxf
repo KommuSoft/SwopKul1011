@@ -146,7 +146,7 @@ getUnitsByPolicy(Disaster)
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-Unit[ ]</panel_attributes>
+Set&lt;Unit&gt; </panel_attributes>
     <additional_attributes>30;50;730;50</additional_attributes>
   </element>
   <element>
@@ -218,7 +218,7 @@ getAvailableUnitsSorted(Emergency)</panel_attributes>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-Unit[ ]</panel_attributes>
+List&lt;Unit&gt; </panel_attributes>
     <additional_attributes>30;50;730;50</additional_attributes>
   </element>
   <element>
@@ -241,7 +241,7 @@ Unit[ ]</panel_attributes>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-dispatchToDisaster(Disaster, Unit [ ])
+dispatchToDisaster(Disaster, Set&lt;Unit&gt;)
 </panel_attributes>
     <additional_attributes>730;50;30;50</additional_attributes>
   </element>
@@ -276,7 +276,7 @@ dispatchToDisaster(Disaster, Unit [ ])
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-dispatchToDisaster(Disaster, Unit [ ])
+dispatchToDisaster(Disaster, Set&lt;Unit&gt;)
 </panel_attributes>
     <additional_attributes>730;50;30;50</additional_attributes>
   </element>
