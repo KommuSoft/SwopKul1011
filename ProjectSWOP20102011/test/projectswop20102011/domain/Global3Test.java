@@ -38,7 +38,6 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
-
 public class Global3Test {
 
 	World world;
@@ -199,38 +198,37 @@ public class Global3Test {
 		//Alle Emergencies toevoegen aan de World
 		cec.addCreatedEmergencyToTheWorld(f1);
 		cec.addCreatedEmergencyToTheWorld(f2);
-		//cec.addCreatedEmergencyToTheWorld(f3);
 
 		List<Emergency> emergenciesForDisaster = new ArrayList<Emergency>(0);
 
 		emergenciesForDisaster.add(f1);
 		emergenciesForDisaster.add(f2);
-		//emergenciesForDisaster.add(f3);
 
-//		String description = "Tis de moeite";
-//		cdc.createDisaster(emergenciesForDisaster, description);
-//
-//		Disaster[] disasters = idc.inspectDisastersOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
-//		Disaster disaster = disasters[0];
+		String description = "Tis de moeite";
+		cdc.createDisaster(emergenciesForDisaster, description);
 
-		//	Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-		Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
+		Disaster[] disasters = idc.inspectDisastersOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
+		Disaster disaster = disasters[0];
+
+		Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+		//Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
 
 		int counter;
 
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
-		//assertEquals(3, counter);
+		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		for (Unit u : unitsFromPolicy) {
-			System.out.println(u.getName());
-		}
-		//assertEquals(2, counter);
+		assertEquals(2, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);
-		assertEquals(pc1.getName(),policecars.get(0).getName());
+		assertEquals(pc1.getName(), policecars.get(0).getName());
 
-		//	dudc.dispatchToDisaster(disaster, unitsFromPolicy);
+		dudc.dispatchToDisaster(disaster, unitsFromPolicy);
+		System.out.println("De firetruck(s) die toegekend zijn");
+		for (Unit u : getFiretrucks(disaster.getWorkingUnits())) {
+			System.out.println(u.getName());
+		}
 
 		tac.doTimeAheadAction(1);
 
@@ -239,10 +237,22 @@ public class Global3Test {
 		ruafd.withdrawUnit(am3);
 
 		ruafd.withdrawUnit(pc1);
-		ruafd.withdrawUnit(pc2);
-		ruafd.withdrawUnit(pc3);
-		ruafd.withdrawUnit(pc4);
+		try {
+			ruafd.withdrawUnit(pc2);
+			fail("This unit can't be withdrawn");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(pc3);
+			fail("This unit can't be withdrawn");
 
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(pc4);
+			fail("This unit can't be withdrawn");
+		} catch (InvalidWithdrawalException e) {
+		}
 		try {
 			ruafd.withdrawUnit(ft1);
 			fail("This unit can't be withdrawn.");
@@ -268,6 +278,20 @@ public class Global3Test {
 			fail("This unit can't be withdrawn.");
 		} catch (InvalidWithdrawalException e) {
 		}
+
+		unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+
+		System.out.println("De firetruck van de tweede proposal");
+		for (Unit u : getFiretrucks(unitsFromPolicy)) {
+			System.out.println(u.getName());
+		}
+
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
+		assertEquals(3, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
+		assertEquals(1, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
+		assertEquals(0, counter);
 	}
 
 	private int checkAantalUnits(TypeUnitValidator tuv, Set<Unit> units) {
@@ -285,9 +309,31 @@ public class Global3Test {
 		List<Policecar> policecars = new ArrayList<Policecar>();
 		for (Unit u : units) {
 			if (tuv.isValid(u)) {
-				policecars.add((Policecar)u);
+				policecars.add((Policecar) u);
 			}
 		}
 		return policecars;
+	}
+
+	private List<Firetruck> getFiretrucks(Set<Unit> units) throws InvalidClassException {
+		TypeUnitValidator tuv = new TypeUnitValidator(Firetruck.class);
+		List<Firetruck> firetrucks = new ArrayList<Firetruck>();
+		for (Unit u : units) {
+			if (tuv.isValid(u)) {
+				firetrucks.add((Firetruck) u);
+			}
+		}
+		return firetrucks;
+	}
+
+	private List<Firetruck> getFiretrucks(List<Unit> units) throws InvalidClassException {
+		TypeUnitValidator tuv = new TypeUnitValidator(Firetruck.class);
+		List<Firetruck> firetrucks = new ArrayList<Firetruck>();
+		for (Unit u : units) {
+			if (tuv.isValid(u)) {
+				firetrucks.add((Firetruck) u);
+			}
+		}
+		return firetrucks;
 	}
 }
