@@ -7,6 +7,11 @@ import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 
+/**
+ * A class that records which units are working on a sendable and does
+ *		the accounting for the units that are working on the sendable.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
+ */
 public abstract class UnitsNeeded {
 
     /**
@@ -29,8 +34,11 @@ public abstract class UnitsNeeded {
      * A method called when a unit finishes his job to manage the sendable.
      * @param unit
      *		The unit that finishes his job.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
+	 * @effect
+	 *		The unit finishes its job.
+	 *
      */
     abstract void unitFinishedJob(Unit unit, EventHandler eventHandler);
 
@@ -79,17 +87,19 @@ public abstract class UnitsNeeded {
      * Assigns units to the sendable.
      * @param units 
 	 *		The set of units to assign to the sendable.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
      * @throws InvalidEmergencyException If the given units can be assigned because of the constraints of the sendable.
      */
+	//TODO: refactoren naar assignUnitsToSendable?
     abstract void assignUnitsToEmergency(Set<Unit> units, EventHandler eventHandler) throws InvalidEmergencyException;
 
     /**
      * Sets the status of the sendable.
      * @param sendableStatus
 	 *		The new status of the sendable/
-     * @throws InvalidEmergencyStatusException If the given status is invalid.
+     * @throws InvalidSendableStatusException
+	 *		If the given status is invalid.
      */
     abstract void setStatus(SendableStatus sendableStatus) throws InvalidSendableStatusException;
 
@@ -112,7 +122,7 @@ public abstract class UnitsNeeded {
      * Withdraw a unit from its sendable.
      * @param unit
      *		The unit that wants to withdraw.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
      * @effect The unit is removed from the workingUnits list.
      */

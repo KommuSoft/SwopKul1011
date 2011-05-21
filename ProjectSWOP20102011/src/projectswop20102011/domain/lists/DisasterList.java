@@ -42,8 +42,6 @@ public class DisasterList implements Iterable<Disaster> {
 	 * is not already in this list of disasters.
 	 * @param disaster
 	 *		Disaster to be appended to this list of disasters.
-	 * @throws InvalidAddedDisasterException
-	 *			If the given disaster contains no emergencies.
 	 * @post This DisasterList contains the given Disaster.
 	 *		| getDisasters().contains(disaster)
 	 */

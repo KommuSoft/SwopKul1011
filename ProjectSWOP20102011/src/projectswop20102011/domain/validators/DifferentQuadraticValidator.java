@@ -3,9 +3,11 @@ package projectswop20102011.domain.validators;
 import java.util.Collection;
 
 /**
- * A QuadraticValidator implementation that succeeeds when the item is different to all objects in the collection.
- * @param <TCollection> The type of objects in the collection.
- * @param <TItem> The type of items to validate.
+ * A QuadraticValidator implementation that succeeds when the item is different from all objects in the collection.
+ * @param <TCollection>
+ *		The type of objects in the collection.
+ * @param <TItem>
+ *		The type of items to validate.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class DifferentQuadraticValidator<TCollection,TItem extends TCollection> implements QuadraticValidator<TCollection,TItem> {

@@ -3,9 +3,11 @@ package projectswop20102011.domain.validators;
 import java.util.Collection;
 
 /**
- * A QuadraticValidator that always is valid.
- * @param <TCollection> The type of items in the collection.
- * @param <TItem> The type of items to check for.
+ * A QuadraticValidator that is always valid.
+ * @param <TCollection>
+ *		The type of items in the collection.
+ * @param <TItem>
+ *		The type of items to check for.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class DefaultQuadraticValidator<TCollection,TItem> implements QuadraticValidator<TCollection,TItem> {

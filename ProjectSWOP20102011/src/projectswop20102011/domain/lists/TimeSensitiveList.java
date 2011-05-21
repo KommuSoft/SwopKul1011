@@ -41,7 +41,7 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	 * If the given TimeSensitive object is already in the list, nothing happens.
 	 * @param timeSensitive
 	 *		The TimeSensitive to be appended to this list of time sensitive objects.
-	 * @post This TimeSensitiveList contains the given TimeSensitive.
+	 * @effect This TimeSensitiveList contains the given TimeSensitive.
 	 *		|new.getTimeSensitives().contains(timeSensitive)
 	 */
 	public void addTimeSensitive(TimeSensitive timeSensitive) {
@@ -63,6 +63,10 @@ public class TimeSensitiveList implements Iterable<TimeSensitive> {
 	 * Moves the time forward for all instances in this TimeSensitiveList for the given amount of seconds.
 	 * @param seconds
 	 *		The given amount of seconds.
+	 * @effect The time for all instances in this Timesensitivelist is forwarded
+	 *		| for (TimeSensitive ts : this) {
+	 *		| 	 ts.timeAhead(seconds)
+	 *		| }
 	 * @throws InvalidDurationException
 	 *		If the given duration is invalid. I.e. the duration is negative.
 	 */

@@ -28,7 +28,7 @@ import projectswop20102011.exceptions.InvalidWithdrawalException;
  * @invar The speed of a unit is always valid.
  *		|isValidSpeed(getSpeed())
  * @invar The target of the unit is always valid.
- *              |isValidTarget(getTarget())
+ *		|isValidTarget(getTarget())
  */
 public abstract class Unit extends MapItem implements TimeSensitive {
 
@@ -66,7 +66,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *		The home location of the new unit.
 	 * @param speed
 	 *		The speed of the new unit.
-	 * @effect The new unit is a unit with given name and home location.
+	 * @effect The new unit is a mapitem with given name and home location.
 	 *		|super(name,homeLocation);
 	 * @effect This speed is equal to the given parameter speed.
 	 *		|speed.equals(getSpeed())
@@ -74,12 +74,16 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *		|homeLocation.equals(getCurrentLocation())
 	 * @effect This emergency is equal to null.
 	 *		|getEmergency().equals(null)
-	 * @effect The unit wasn't already at the site of emergency.
+	 * @effect The unit wasn't already at the site of the emergency.
 	 *		|setWasAlreadyAtSite(false)
-	 * @throws InvalidMapItemNameException
-	 *		If the given name is an invalid name for a unit.
+	 * @effect This unit status is set to the idle-status.
+	 *		|getUnitStatus().equals(UnitStatus.IDLE)
+	 * @effect The target of this unit is set to this unit.
+	 *		|getTarget().equals(this)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a unit.
+	 * @throws InvalidMapItemNameException
+	 *		If the given name is an invalid name for a unit.
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a unit.
 	 */
@@ -162,6 +166,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * Sets the state of this unit to the given value
 	 * @param unitStatus
 	 *		The new state of this unit
+	 * @post The state of this unit is set to the given unit status.
+	 *		| new.getUnitStatus().equals(unitStatus)
 	 */
 	public void setUnitStatus(UnitStatus unitStatus) {
 		this.unitStatus = unitStatus;
@@ -171,10 +177,10 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * Sets the speed of this unit to the given value.
 	 * @param speed
 	 *		The new speed of this unit.
-	 * @throws InvalidSpeedException
-	 *		If the given speed isn't a valid speed for a unit.
 	 * @post The speed of this unit is set according to the given speed.
 	 *		|new.getSpeed() == speed
+	 * @throws InvalidSpeedException
+	 *		If the given speed isn't a valid speed for a unit.
 	 */
 	private void setSpeed(long speed) throws InvalidSpeedException {
 		if (!isValidSpeed(speed)) {
@@ -201,6 +207,13 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 *		The new emergency of this unit.
 	 * @post The emergency of this unit is set to the given emergency.
 	 *		|new.getEmergency() == emergency
+	 * @effect If the given emergency is not null, then the target of this unit is set to the given emergency,
+	 *		othwerwise the target is set to this unit.
+	 * 		| if (emergency != null) {
+	 *		| 	this.setTarget(emergency)
+	 *		| } else {
+	 *		| 	this.setTarget(this)
+	 *		| }
 	 */
 	final void setEmergency(Emergency emergency) {
 		this.emergency = emergency;
@@ -236,7 +249,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	}
 
 	/**
-	 * Gets the managing sendable of this Unit.
+	 * Get the managing sendable of this Unit.
 	 * @return  The managing sendable of this unit.
 	 */
 	public Sendable getManagingSendable() {
@@ -250,7 +263,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	/**
 	 * Checks if the given speed is a valid speed for a unit.
 	 * @param speed
-	 *		The speed of a timesensitive mapitem to test.
+	 *		The speed of a unit to test.
 	 * @return True if the speed is valid; false otherwise.
 	 */
 	public static boolean isValidSpeed(long speed) {
@@ -272,9 +285,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @param duration
 	 *		The duration of the displacement of this unit.
 	 * @effect
-	 *		The location of this unit has been changed according to a given time interval.
-	 *		Stop is the current location of this unit after the time interval.
-	 *		|changeCurrentLocation(stop)
+	 *		If the unit wasn't at its location, then the location of this unit has been changed according to a given time interval.
+	 *		|this.setCurrentLocation(this.getCurrentLocation().calculateMovingTo(this.getDestination(), (double) this.getSpeed() * duration / 3600))
 	 * @throws InvalidDurationException
 	 *		If the given duration is invalid.
 	 */
@@ -298,7 +310,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @effect The location of this unit is changed.
 	 *		|changeLocation(seconds)
 	 * @effect If this unit arrived at the location of the emergency during this action, the flag wasAlreadyAtSite is set to true.
-	 *		| wasAlreadyAtSite().equals(true)
+	 *		| setWasAlreadyAtSite(true)
 	 */
 	@Override
 	public void timeAhead(long seconds) throws InvalidDurationException {
@@ -313,8 +325,15 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @param emergency
 	 *		The emergency where this unit has to respond to.
 	 * @effect The units emergency is equal to the given emergency
-	 *		| this.getEmergency().equals(emergency)
-	 * @effect The unit is assigned.
+	 *		| setEmergency(emergency)
+	 * @effect If the unit is at the location of the emergency, then the flag is set true, false otherwise.
+	 * 		| if (getCurrentLocation().equals(emergency.getLocation())) {
+	 *		| 	setWasAlreadyAtSite(true)
+	 *		| } else {
+	 *		| 	setWasAlreadyAtSite(false)
+	 *		| }
+	 * @effect The status of this unit is set to the assigned-status
+	 *		| setUnitStatus(UnitStatus.ASSIGNED)
 	 * @throws InvalidMapItemException
 	 *          If the unit is already assigned to an emergency.
 	 */
@@ -342,16 +361,18 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Withdraw this unit from the emergency he is currently assigned to
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
 	 * @effect The unit is withdrawn from its emergency.
 	 *		|this.getManagingSendable().withdrawUnit(this)
 	 * @effect The emergency of this unit is set to null.
 	 *		|this.setEmergency(null)
+	 * @effect The status of this unit is set to the idle-status
+	 *		| setUnitStatus(UnitStatus.IDLE)
 	 * @throws InvalidWithdrawalException
-	 *			If the unit is already at site of the emergency.
+	 *		If the unit is already at site of the emergency.
 	 * @throws InvalidSendableStatusException
-	 *                  If the emergency of this unit is in a state where the unit cannot withdraw.
+	 *      If the emergency of this unit is in a state where the unit cannot withdraw.
 	 */
 	public void withdraw(EventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
 		if (!canBeWithdrawn()) {
@@ -394,18 +415,22 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Finishes the job of this Unit.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
 	 * @effect Finish the job for this emergency
 	 *		| manager.finishUnit(his, eventHandler);
 	 * @effect The emergency of this unit is null
-	 *		| this.getEmergency().equals(null)
+	 *		| setEmergency(null)
 	 * @effect The flag wasAlreadyAtSite is set to false.
-	 *		|this.getWasAlreadyAtSite().equals(false)
+	 *		| setWasAlreadyAtSite(false)
+	 * @effect The status of this unit is set to the idle-status
+	 *		| setUnitStatus(UnitStatus.IDLE)
 	 * @throws InvalidFinishJobException
-	 *          If the unit can't finish his job (not assigned to an emergency, not at it's destination).
+	 *      If the unit can't finish his job (not assigned to an emergency, not at it's destination).
 	 * @throws InvalidSendableStatusException
-	 *          If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
+	 *      If the status of the emergency where this unit is assigned to, does not allow units to finish their job.
+	 * @throws InvalidEmergencyException
+	 *		If the given emergency is not effective
 	 */
 	public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
 		if (!canFinishJob()) {
@@ -429,7 +454,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Checks if the unit can finish from its job.
-	 * @return True if the unit is assigned and is at it's destination, orherwise false.
+	 * @return True if the unit is assigned and is at its destination, orherwise false.
 	 */
 	public boolean canFinishJob() {
 		return (isAssigned() && isAtDestination());
@@ -454,7 +479,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Clone this unit
-	 * @return a clone of this unit
+	 * @return A clone of this unit
 	 */
 	@Override
 	public abstract Unit clone();
@@ -469,7 +494,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Sets the target where the Unit will drive to.
-	 * @param target The new target of the Unit.
+	 * @param target 
+	 *		The new target of the Unit.
+	 * @post Set the target of this unit to the given target
+	 *		|new.getTarget() == target
+	 * @throws InvalidTargetableException
+	 *		If the given target is not valid
 	 */
 	protected void setTarget(Targetable target) throws InvalidTargetableException {
 		if (!isValidTarget(target)) {
@@ -480,7 +510,8 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 
 	/**
 	 * Checks if the given target is valid.
-	 * @param target The target to check for.
+	 * @param target
+	 *		The target to check for.
 	 * @return True if the target is effective, otherwise false.
 	 */
 	public boolean isValidTarget(Targetable target) {

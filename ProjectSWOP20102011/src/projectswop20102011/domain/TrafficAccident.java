@@ -38,26 +38,27 @@ public class TrafficAccident extends Emergency {
 	private long numberOfInjured;
 
 	/**
-	 * Makes a new traffic accident emergency with the given parameters.
+	 * Creates a new traffic accident with the given parameters.
+	 *
 	 * @param location
-	 *		The location of this traffic accident emergency.
+	 *		The location of this traffic accident.
 	 * @param severity
-	 *		The severity of this traffic accident emergency.
+	 *		The severity of this traffic accident.
 	 * @param description
-	 *		The description of this traffic accident emergency.
+	 *		The description of this traffic accident.
 	 * @param numberOfCars
 	 *		The number of cars involved in this traffic accident.
 	 * @param numberOfInjured
 	 *		The number of injured people of this traffic accident.
-	 * @effect The new traffic accident is a new emergency with the given location and severity.
-	 *		| super(location,severity)
+	 * @effect The new traffic accident is a new emergency with the given location and severity and description.
+	 *		| super(location,severity,description)
 	 * @effect The number of involved cars in this traffic accident is equal to the given number of cars.
 	 *		| setNumberOfCars(numberOfCars)
 	 * @effect The number of injured people in this traffic accident is equal to the given number of people.
 	 *		| setNumberOfInjured(numberOfInjured)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for an emergency.
-	 * @throws InvalidEmergencySeverityException
+	 * @throws InvalidSendableSeverityException
 	 *		If the given severity is an invalid severity for an emergency.
 	 * @throws NumberOutOfBoundsException
 	 *		If the number of involved cars or injured people is invalid.
@@ -82,10 +83,10 @@ public class TrafficAccident extends Emergency {
 	 * Sets then number of cars involved in this traffic accident to the given value.
 	 * @param numberOfCars
 	 *		The new value of the number of cars involved in this traffic accident.
-	 * @throws NumberOutOfBoundsException
-	 *		If the number of cars is invalid.
 	 * @post The number of involved cars in this traffic accident is equal to the given number of cars.
 	 *		| numberOfCars.equals(getNumberOfCars())
+	 * @throws NumberOutOfBoundsException
+	 *		If the number of cars is invalid.
 	 */
 	private void setNumberOfCars(long numberOfCars) throws NumberOutOfBoundsException {
 		if (!isValidNumberOfCars(numberOfCars)) {
@@ -122,7 +123,7 @@ public class TrafficAccident extends Emergency {
 	 * Checks if the given number of cars is a valid number for a traffic accident.
 	 * @param numberOfCars
 	 *		The number of cars to validate.
-	 * @return True if numberOfCars is larger or equal to zero, otherwise false.
+	 * @return True if numberOfCars is larger than or equal to zero, otherwise false.
 	 */
 	public static boolean isValidNumberOfCars(long numberOfCars) {
 		return (numberOfCars >= 0);
@@ -132,7 +133,7 @@ public class TrafficAccident extends Emergency {
 	 * Checks if the given number of injured people is a valid number for a traffic accident.
 	 * @param numberOfInjured
 	 *		The number of injured people to validate.
-	 * @return True if numberOfInjured is larger or equal to zero, otherwise false.
+	 * @return True if numberOfInjured is larger than or equal to zero, otherwise false.
 	 */
 	public static boolean isValidNumberOfInjured(long numberOfInjured) {
 		return (numberOfInjured >= 0);
@@ -140,7 +141,7 @@ public class TrafficAccident extends Emergency {
 
 	/**
 	 * Returns a hashtable that represents all the information of the traffic accident.
-	 * This hashtable contains the id, location, severity, status, the working units, the number of cars and the number of injured.
+	 * This hashtable contains the type, location, severity, status, description, the working units, the number of cars and the number of injured.
 	 * @return A hashtable representing all the information of the traffic accident.
 	 */
 	@Override
@@ -154,10 +155,10 @@ public class TrafficAccident extends Emergency {
 	}
 
 	/**
-         * Caclulates the number of patients of this emergency.
-         * @return The number of patients of this emergency.
-         */
-        private long calculateNumberOfPatients() {
+	 * Caclulates the number of patients of this emergency.
+	 * @return The number of patients of this emergency.
+	 */
+	private long calculateNumberOfPatients() {
 		return getNumberOfInjured();
 	}
 

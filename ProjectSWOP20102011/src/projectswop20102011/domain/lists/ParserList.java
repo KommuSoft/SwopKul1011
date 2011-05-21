@@ -32,7 +32,10 @@ public class ParserList {
     }
     /**
      * Adds the given parser to the parser list.
-     * @param parser The parser to add to the list.
+     * @param parser 
+	 *		The parser to add to the list.
+	 * @effect The given parser is added to this parser list.
+	 *		| this.getParsers().put(parser.getParsingType(), parser)
      */
     public void addParser (Parser parser) {
         this.getParsers().put(parser.getParsingType(), parser);
@@ -40,7 +43,10 @@ public class ParserList {
 
     /**
      * Removes the given parser from the parser list.
-     * @param parser The parser to remove from the list.
+     * @param parser 
+	 *		The parser to remove from the list.
+	 * @effect The given parser is removed from this parser list.
+	 *		| this.getParsers().remove(parser.getParsingType())
      */
     public void removeParser (Parser parser) {
         this.getParsers().remove(parser.getParsingType());

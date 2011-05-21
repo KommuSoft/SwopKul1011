@@ -79,7 +79,7 @@ public class MapItemList<T extends MapItem> implements Iterable<T> {
 	 * is not already in this list of mapitems.
 	 * @param mapItem
 	 *		The MapItem to be appended to this list of mapitems.
-	 * @post This MapItemList contains the given MapItem.
+	 * @effect This MapItemList contains the given MapItem.
 	 */
 	public void addMapItem(T mapItem) {
 		this.takeMapItems().add(mapItem);

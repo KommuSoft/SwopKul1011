@@ -14,7 +14,7 @@ import projectswop20102011.exceptions.InvalidSendableStatusException;
 public enum SendableStatus {
 
 	/**
-	 * A state where the sendable is recorded by the operator but not yet handled by the dispatcher.
+	 * The state the sendable has after it is created, but where the dispatcher hasn't already sent units to it.
 	 */
 	RECORDED_BUT_UNHANDLED("recorded but unhandled") {
 
@@ -170,7 +170,7 @@ public enum SendableStatus {
 	}
 
 	/**
-	 * Tests if a given textual representation of an SendableStatus matches this SendableStatus.
+	 * Tests if a given textual representation of a SendableStatus matches the textual representation of this SendableStatus.
 	 * @param textualRepresentation
 	 *		The textual representation to test.
 	 * @return True if the textual representation matches, otherwise false.
@@ -193,7 +193,7 @@ public enum SendableStatus {
 				return es;
 			}
 		}
-		throw new InvalidSendableStatusException(String.format("Unknown emergency status level \"%s\".", textualRepresentation));
+		throw new InvalidSendableStatusException(String.format("Unknown sendable status level \"%s\".", textualRepresentation));
 	}
 
 	/**
@@ -202,7 +202,7 @@ public enum SendableStatus {
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param units
 	 *      The units to allocate to the sendable.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidSendableStatusException
 	 *      If the status of the sendable is invalid.
@@ -219,12 +219,12 @@ public enum SendableStatus {
 	}
 
 	/**
-	 * A method representing a transition where a unit signals it has finished it's job.
+	 * A method representing a transition where a unit signals it has finished its job.
 	 * @param unitsNeeded
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param unit
 	 *      The unit that signals it has finished its job.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidSendableStatusException
 	 *      If the status of the sendable is invalid.
@@ -238,7 +238,7 @@ public enum SendableStatus {
 	 *      The unitsNeeded object of the sendable where the action takes place.
 	 * @param unit
 	 *      The unit that withdraws from a sendable.
-	 * param eventHandler
+	 * @param eventHandler
 	 *		The event handler where the notifications should be sent to
 	 * @throws InvalidSendableStatusException
 	 *      If the status of the sendable is invalid.
@@ -289,8 +289,10 @@ public enum SendableStatus {
 
 	/**
 	 * A virtual method that needs to be overridden by an SendableStatus where something has to be done after Units are assigned to the Sendable.
-	 * @param unitsNeeded The ConcreteUnitsNeeded object of the Sendable.
-	 * @param units The Set of assigned Units.
+	 * @param unitsNeeded
+	 *		The ConcreteUnitsNeeded object of the Sendable.
+	 * @param units
+	 *		The Set of assigned Units.
 	 */
 	protected void afterUnitsAssignment(UnitsNeeded unitsNeeded, Set<Unit> units) {
 	}
@@ -304,7 +306,7 @@ public enum SendableStatus {
 	 *  <tr><td>CPT</td><td>RIP</td><td>RIP</td><td>CPT</td></tr>
 	 * </table>
 	 * @param otherStatus
-	 *		The other status to combine with.
+	 *		The other sendablestatus to combine with.
 	 * @return The combination of the two SendableStatuses.
 	 * @note This method is used to calculate the derived status of the disaster from it's sendable.
 	 * @note This method is commutative, this is forced: this.combine(otherStatus) == otherStatus.combine(this).
