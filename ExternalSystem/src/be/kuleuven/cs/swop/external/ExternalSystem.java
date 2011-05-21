@@ -8,7 +8,10 @@ import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.api.ITime;
 import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.external.logging.Logger;
+import be.kuleuven.cs.swop.scenarios.ClearScenario;
+import be.kuleuven.cs.swop.scenarios.CreationScenario;
 import be.kuleuven.cs.swop.scenarios.DisasterScenario;
+import be.kuleuven.cs.swop.scenarios.NotifyScenario;
 import be.kuleuven.cs.swop.scenarios.SimpleScenario;
 import be.kuleuven.cs.swop.scenarios.SuperScenario;
 import be.kuleuven.cs.swop.scenarios.TestScenario;
@@ -47,12 +50,15 @@ public class ExternalSystem implements IExternalSystem {
 		setLogger(new Logger());
 		
 		setScenarios(new ArrayList<AbstractScenario>());
-		getScenarios().add(new SimpleScenario(api, logger));			//werkt (12/05/11 15:31)
-		getScenarios().add(new ThirdIterationScenario(api, logger));	//werkt (12/05/11 15:32)
-		getScenarios().add(new TestScenario(api, logger));				//werkt (12/05/11 15:32)
+		getScenarios().add(new ClearScenario(api, logger));
+		getScenarios().add(new SimpleScenario(api, logger));			
+		getScenarios().add(new ThirdIterationScenario(api, logger));	
+		getScenarios().add(new TestScenario(api, logger));				
 		getScenarios().add(new WithdrawScenario(api, logger));
 		getScenarios().add(new SuperScenario(api, logger));
-		getScenarios().add(new DisasterScenario(api, logger));			//werkt (12/05/11 15:33)
+		getScenarios().add(new DisasterScenario(api, logger));	
+		getScenarios().add(new NotifyScenario(api, logger));
+		getScenarios().add(new CreationScenario(api, logger));
 		
 		new Thread(new Runnable() {
 			@Override

@@ -77,10 +77,10 @@ public class ThirdIterationScenario extends AbstractScenario {
 
 	@Override
 	protected void runScenario() throws EmergencyDispatchException {
-		// Load the environment
+		//Load the environment
 		loadEnvironment("thirditeration.dat");
 
-		// Register a new event
+		//Register a new event
 		addEvent(new Fire(
 				new Time(0, 10),
 				new Location(30, 50),
@@ -166,6 +166,12 @@ public class ThirdIterationScenario extends AbstractScenario {
 		count = getApi().getListOfEmergencies(EmergencyState.RESPONDED).size();
 		if (count > 0) {
 			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 0");
+		}
+		
+		// Check number of completed emergencies
+		count = getApi().getListOfEmergencies(EmergencyState.COMPLETED).size();
+		if (count != 2) {
+			getLogger().error("Unexpected number of responded emergencies: " + count + ", expected 2");
 		}
 	}
 }
