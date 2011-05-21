@@ -229,7 +229,7 @@ public class Scenario1Test {
 			assign_units.clear();
 			assign_units.add(engine2);
 			duc.dispatchToEmergency(fire, assign_units);
-			fail("Engine can't be assigned because tha fire is already resolved?");
+			fail("Engine can't be assigned because the fire is already resolved?");
 		} catch (Exception e) {
 		}
 

@@ -71,28 +71,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Add a given unit to the working units.
-	 * @param unit
-	 *      The unit that must be added to the working units.
-	 * @effect The given unit is added to the working units.
-	 *		| takeWorkingUnits().add(unit)
-	 */
-	private void addWorkingUnits(Unit unit) {
-		takeWorkingUnits().add(unit);
-	}
-
-	/**
-	 * Add a given unit to the finished units.
-	 * @param unit
-	 *      The unit that must be added to the finished units.
-	 * @effect The given unit is added to the finished units.
-	 *		|takeFinishedUnits().add(unit)
-	 */
-	private void addFinishedUnits(Unit unit) {
-		takeFinishedUnits().add(unit);
-	}
-
-	/**
 	 * Returns the disaster of this DerivedUnitsNeeded.
 	 * @return The disaster of this DerivedUnitsNeeded.
 	 */
@@ -173,9 +151,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
 			Set<Unit> unitsForEmergency = CUN.generateProposal(options);
 			CUN.assignUnitsToEmergency(unitsForEmergency, eventhandler);
-			for (Unit u : unitsForEmergency) {
-				addWorkingUnits(u);
-			}
 			options.removeAll(unitsForEmergency);
 		}
 	}
@@ -196,8 +171,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	void unitFinishedJob(Unit unit, EventHandler eventHandler) {
 		unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit, eventHandler);
-		removeFromWorkingUnits(unit);
-		addFinishedUnits(unit);
 	}
 
 	/**
@@ -209,19 +182,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 */
 	public static boolean isValidConstraint(AndDispatchUnitsConstraint constraint) {
 		return (constraint != null);
-	}
-
-	/**
-	 * Remove unit from the working units.
-	 * @param unit
-	 *		The unit that wants to withdraw.
-	 * @param eventHandler 
-	 *		The eventhandler where the notifications should be sent to.
-	 * @effect The unit is removed from the workingUnits list.
-	 *		|takeWorkingUnit().remove(unit)
-	 */
-	private void removeFromWorkingUnits(Unit unit) {
-		takeWorkingUnits().remove(unit);
 	}
 
 	/**
@@ -241,7 +201,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		for (Emergency e : getDisaster().getEmergencies()) {
 			e.getUnitsNeeded().withdrawUnit(unit, eventHandler);
 		}
-		removeFromWorkingUnits(unit);
 	}
 
 	/**
