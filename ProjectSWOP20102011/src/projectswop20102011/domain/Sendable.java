@@ -19,15 +19,18 @@ public abstract class Sendable implements Targetable {
     private String description;
 
 	/**
-	 * Create a new sendable with given description
+	 * Creates a new sendable with the given description
 	 * @param description
 	 *		The description of this sendable
+	 * @effect The description of the new sendable is set to the given description.
+	 *		| setDescription(description)
 	 */
     protected Sendable(String description) {
         setDescription(description);
     }
 
 	//TODO: de twee onderstaande methodes lijken hetzelfde te doen?
+	//Volgens mij (jonas) is dat voor de uitbreidbaarheid. De plaats waar de units naar moeten gestuurd moeten worden is niet altijd hetzelfde als de locatie van de sendable.
     /**
      * Returns the location of this Sendable.
      * @return The location of this Sendable.
@@ -35,7 +38,7 @@ public abstract class Sendable implements Targetable {
     public abstract GPSCoordinate getLocation();
 
     /**
-     * Return the location of the Sendable.
+     * Returns the location of the Sendable.
      * @return the location of the Sendable.
      */
     @Override
@@ -65,7 +68,10 @@ public abstract class Sendable implements Targetable {
 
     /**
      * Sets the description to the given description.
-     * @param description The new description.
+     * @param description
+	 *		The new description.
+	 * @post The description of this sendable is set to the given description.
+	 *		| this.description.equals(new.description)
      */
     protected void setDescription(String description) {
         this.description = description;
@@ -73,13 +79,18 @@ public abstract class Sendable implements Targetable {
 
     /**
      * Returns a hashtable that contains the information of this Sendable.
-     * This hashtable contains the id, location, severity, status and the working units.
+     * This hashtable contains the type, location, severity, status, descripition and the working units.
      * @return A hashtable that contains the information of this Sendable.
      */
     public Hashtable<String, String> getShortInformation() {
         return getInformation();
     }
 
+	/**
+	 * Returns a hashtable that contains the information of this Sendable.
+	 * This hashtable contains the type, location, severity, status, descripition and the working units.
+	 * @return A hashtable that contains the information of this Sendable.
+	 */
     protected Hashtable<String, String> getInformation() {
         Hashtable<String, String> information = new Hashtable<String, String>();
         information.put("type", this.getClass().getSimpleName());
@@ -104,7 +115,7 @@ public abstract class Sendable implements Targetable {
 
     /**
      * Returns a hashtable that contains the information of this Sendable.
-     * This hashtable contains the id, type, location, severity, status, the working units and specific elements of the child of this Sendable.
+     * This hashtable contains the type, location, severity, status, descripition, the working units and specific elements of the child of this Sendable.
      * @return A hashtable that contains the information of this Sendable.
      */
     public abstract Hashtable<String, String> getLongInformation();
@@ -122,25 +133,28 @@ public abstract class Sendable implements Targetable {
      * @return True if this Sendable is partially assigned, otherwise false.
      */
     public boolean isPartiallyAssigned() {
-
         return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new HashSet<Unit>()));
     }
 
     /**
-     * Assigning units to this Sendable.
+     * Assigns units to this Sendable.
      * @param units
      *      A list of units to assign.
-     * @throws InvalidSendableStatusException
+	 * @param eventHandler 
+	 *		The eventhandler where the notifications should be sent to.
+	 * @throws InvalidSendableStatusException
      *      If the status of this Sendable does not allow this action.
      * @throws  InvalidEmergencyException
-     *		If the Sendable is invalid.
+     *		If the Emergency where the units are sent to is invalid.
+	 * @effect Units are assigned to this sendable.
+	 *		| getStatus().assignUnits(getUnitsNeeded(), units, eventHandler)
      */
     public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
         this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
     }
 
     /**
-     * Checks if the given unit can assign the given list of units to the Sendable.
+     * Checks if the given units can be assigned to the Sendable.
      * @param units
      *      A list of units to check.
      * @return True if the given list of units can be assigned, otherwise false.
@@ -152,7 +166,7 @@ public abstract class Sendable implements Targetable {
     /**
      * Checks if this Sendable can be resolved with a given collection of all available units.
      * @param availableUnits
-     *		All the available units in the world.
+     *		A set of units to check if they can resolve the sendable.
      * @return True if the given Sendable can be resolved, otherwise false.
      */
     public boolean canBeResolved(Set<Unit> availableUnits) {
@@ -167,14 +181,22 @@ public abstract class Sendable implements Targetable {
         return this.getUnitsNeeded().getWorkingUnits();
     }
 
+	/**
+	 * Returns the UnitsNeeded object of this Sandable.
+	 * @return the UnitsNeeded object of this Sendable.
+	 */
     abstract UnitsNeeded getUnitsNeeded();
 
     /**
      * Enable a unit to finish his job for this Sendable.
      * @param unitToFinish
      *      The unit that wants to finish this Sendable.
+	 * @param  eventHandler
+	 *		The eventHandler where the notifications should be sent to.
      * @throws InvalidEmergencyStatusException
      *      If the status of this Sendable does not allow this action.
+	 * @effect The unit finishes his job in this Sendable.
+	 *		| getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler)
      * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Sendable.
      */
     void finishUnit(Unit unitToFinish, EventHandler eventHandler) throws InvalidSendableStatusException {
@@ -185,8 +207,12 @@ public abstract class Sendable implements Targetable {
      * Withdraws a unit from this Sendable.
      * @param unitToWithdraw
      *      The unit that wants to withdraw from this Sendable.
+	 * @param  eventHandler
+	 *		The eventHandler where the notifications should be sent to.
      * @throws InvalidSendableStatusException
      *      If the status of this Sendable does not allow this action.
+	 * @effect The unit is withdrawn from this Sendable
+	 *		| getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler)
      * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the Sendable.
      */
     void withdrawUnit(Unit unitToWithdraw, EventHandler eventHandler) throws InvalidSendableStatusException {
@@ -203,10 +229,15 @@ public abstract class Sendable implements Targetable {
 
     /**
      * A virtual empty method that does operations after a unit has finished.
-     * @param unit  The unit that will finish.
-     * @param handler a handler to handle the events generated by this action.
-     * @throws Exception If something has gone wrong.
+     * @param unit
+	 *		The unit that will finish.
+     * @param handler 
+	 *		A handler to handle the events generated by this action.
+     * @throws Exception
+	 *		If something has gone wrong.
      */
+	//TODO: waarom throws Exception, kan dit niet specifieker
+	//TODO: waarom niet abstract (met dan een lege implementatie in emergency)?
     protected void afterFinish(Unit unit, EventHandler handler) throws Exception {
     }
     

@@ -5,18 +5,26 @@ import projectswop20102011.exceptions.InvalidFireSizeException;
 /**
  * An enumeration that represents the size of a fire.
  * @note The enum defines automatically the total order relation amongst the fire sizes. Where the largest fire size is the fire that is the most difficult to handle.
- *  @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public enum FireSize {
-	
+
+	/**
+	 * A local fire. The needed capacity of this fire is 1000.
+	 */
 	LOCAL("local", 1000),
+	/**
+	 * A fire size that indicates that a house is on a fire. The needed capacity of this fire is 100000.
+	 */
 	HOUSE("house", 100000),
+	/**
+	 * A facility fire. The needed capacity of this fire is 500000.
+	 */
 	FACILITY("facility", 500000);
 	/**
 	 * The textual representation of the fire size.
 	 */
 	private final String textual;
-
 	/**
 	 * The needed amount of capacity that is needed for this firesize
 	 */
@@ -28,6 +36,8 @@ public enum FireSize {
 	 *		The textual representation of the FireSize, used for parsing and user interaction.
 	 * @post The textual representation is set to the given textual representation.
 	 *		| new.getTextual().equals(textual)
+	 * @post The needed capacity is set to the given needed capacity.
+	 *		| new.neededCapacity().equals(neededCapacity)
 	 */
 	private FireSize(String textual, long neededCapacity) {
 		this.textual = textual;
@@ -42,10 +52,14 @@ public enum FireSize {
 		return textual;
 	}
 
-	public long getNeededCapacity(){
+	/**
+	 * Returns the needed capacity of this fire.
+	 * @return The needed capacity of this fire.
+	 */
+	public long getNeededCapacity() {
 		return neededCapacity;
 	}
-	
+
 	/**
 	 * Returns a textual representation of the FireSize.
 	 * @return A textual representation of the FireSize.

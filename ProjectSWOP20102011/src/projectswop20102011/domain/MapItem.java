@@ -101,8 +101,8 @@ public abstract class MapItem implements Targetable {
     }
 
     /**
-     * Returns te home location of the MapItem (in case of a unit, the place where to go to after its task is completed).
-     * @return the home location of the MapItem.
+     * Returns te target location of the MapItem (in case of a unit, the place where to go to after its task is completed).
+     * @return the target location of the MapItem.
      */
     @Override
     public GPSCoordinate getTargetLocation() {

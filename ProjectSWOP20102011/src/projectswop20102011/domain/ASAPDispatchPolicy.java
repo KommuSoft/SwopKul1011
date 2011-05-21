@@ -23,7 +23,7 @@ public class ASAPDispatchPolicy extends DispatchPolicy {
 	}
 
 	/**
-	 * Create a new instance of an ASAPDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
+	 * Creates a new instance of an ASAPDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
 	 * @param unitsNeeded
 	 *		The given unitsNeeded object of the emergency.
 	 * @param successor

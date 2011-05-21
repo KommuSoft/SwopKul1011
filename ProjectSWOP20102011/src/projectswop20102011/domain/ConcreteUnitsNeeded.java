@@ -350,7 +350,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Decides whether the emergency can be handled by the given units.
 	 * @param availableUnits
 	 *		The units to check if they can handle the emergency.
-	 * @return True if the given units can handle the emrgency; false otherwise.
+	 * @return True if the given units can handle the emergency; false otherwise.
 	 */
 	@Override
 	public boolean canBeResolved(Set<Unit> availableUnits) {

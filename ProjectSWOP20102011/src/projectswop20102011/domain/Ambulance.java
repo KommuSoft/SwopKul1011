@@ -86,7 +86,7 @@ public class Ambulance extends Unit {
      * Select a hospital where the ambulance will drive the injured patients to.
      * @param hospital
      *		The hospital to assign to the ambulance.
-     * @effect The selected hopsital of this ambulance is equal to the given hospital.
+     * @effect The selected hospital of this ambulance is equal to the given hospital.
      *		| this.getCurrentHospital() = hospital
 	 * @effect The status of this unit is set to occupied.
 	 *		| setUnitStatus(UnitStatus.OCCUPIED)
@@ -127,6 +127,13 @@ public class Ambulance extends Unit {
 	 *		| setUnitStatus(UnitStatus.IDLE)
 	 * @effect The hospital of this ambulance is set to null.
 	 *		| setCurrentHospital(null)
+	 * @effect The unit is finished in its sendable.
+	 *		| getManagingSendable().finishUnit(this,eventHandler)
+	 * @effect If the unit is still needed it is assigned to an emergency. Otherwise the sendable must decide what the ambulance must do.
+	 *		| if(required)
+	 *		|	e.getStatus().assignUnits(e.getUnitsNeeded(), ambulance, eventHandler)
+	 *		| else
+	 *		|	getManagingSendable().afterFinish(this,eventHandler)
      * @throws InvalidFinishJobException
 	 *		If the unit can't finish his job (not assigned to an emergency, not at it's destination).
 	 * @throws InvalidSendableStatusException

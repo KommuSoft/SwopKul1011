@@ -13,7 +13,7 @@ import projectswop20102011.utils.SortedListSet;
  *		|isValidUnitsNeeded(getUnitsNeeded())
  * @invar The succesor of this DispatchPolicy is always valid.
  *		|isValidSuccessor(getSuccesor())
- * @note Policies are basically sorters who define which units are the most interesting. Based on their criteria they filter the most intresting allocatable units out of a list of units.
+ * @note Policies are basically sorters who define which units are the most interesting. Based on their criteria they filter the most interesting allocatable units out of a list of units.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public abstract class DispatchPolicy implements Comparator<Unit> {
@@ -44,7 +44,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
     }
 
     /**
-     * Creates a new instance of a DispatchPolicy class with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor to determine an order if this emergency doesn't find any.
+     * Creates a new instance of a DispatchPolicy class with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor to determine an order if this policy doesn't find any.
      * @param unitsNeeded
      *      The unitsNeeded object of the emergency this policy will handle.
      * @param successor
@@ -73,10 +73,9 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
 
     /**
      * Filters the selected units (by the policy) out of a number of available units.
-     * @pre The list of available units is effective and contains unique (no duplicates) units that are available for an emergency.
      * @param availableUnits
-     *      A list of units that are available to handle an emergency (not necessarily this emergency in particular).
-     * @return A list of units that would be allocated to the emergency if the policy would be applied.
+     *      A list of units that are available to handle an emergency.
+     * @return A set of units that would be allocated to the emergency if the policy would be applied.
      */
     public Set<Unit> generateProposal(Set<? extends Unit> availableUnits) {
         SortedSet<Unit> available = new SortedListSet<Unit>(this);
@@ -111,7 +110,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      * @param unit2
      *		The second unit to compare.
      * @return A negative integer, zero, or a positive integer as the first unit is more, equal or less intresting than the unit according to this Policy.
-     * @note If two objects are assumed to be equivalent, the comparison passes to the successor until one succesor finds a difference, or no successors are available anyomore.
+     * @note If two objects are assumed to be equivalent, the comparison passes to the successor until one succesor finds a difference, or no successors are available anymore.
      */
     @Override
     public final int compare(Unit unit1, Unit unit2) {
@@ -177,10 +176,10 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      */
     public boolean isValidSuccessor(DispatchPolicy successor) {
         if (successor == null) {
-            return true; //todo test hiervoor schrijven
+            return true; //TODO: test hiervoor schrijven
         }
         if (successor.getUnitsNeeded() != this.getUnitsNeeded()) {
-            return false; //todo test hiervoor schrijven
+            return false; //TODO: test hiervoor schrijven
         }
         return !detectLoop(successor);
     }
@@ -197,6 +196,6 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
         while (deepSuccessor != null && deepSuccessor != this) {
             deepSuccessor = deepSuccessor.getSuccessor();
         }
-        return (deepSuccessor != null); //todo test hiervoor schrijven (deel 2)
+        return (deepSuccessor != null); //TODO: test hiervoor schrijven (deel 2)
     }
 }

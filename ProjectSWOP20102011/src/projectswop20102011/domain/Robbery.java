@@ -47,7 +47,7 @@ public class Robbery extends Emergency {
      *		| super(location,severity, description)
 	 * @effect The is armed parameter of the robery is equal to the given parameter.
      *		| setArmed(armed)
-     * @effect the in progress parameter of this robbery is equal to the given parameter.
+     * @effect The in progress parameter of this robbery is equal to the given parameter.
      *		| setInProgress(inProgress)
      * @throws InvalidLocationException
      *		If the given location is an invalid location for an emergency.
@@ -101,8 +101,7 @@ public class Robbery extends Emergency {
 
     /**
      * Returns a hashtable that represents all the information of this robbery.
-     * This hashtable contains the id, location, severity, status, working units,
-     * a boolean representing if the robbery is armed and one if the robbery is in progress.
+     * This hashtable contains if the robbery is armed an if the robbery is in progress.
      * @return A hashtable that represents all the information of this robbery.
      */
     @Override
@@ -121,7 +120,7 @@ public class Robbery extends Emergency {
      */
     @Override
     protected ConcreteUnitsNeeded calculateUnitsNeeded() {
-        int nPolice = ((isArmed() && isInProgress()) ? 3 : 1);
+        int nPolice = ((isArmed() && isInProgress()) ? 3 : 1); //TODO: zijn dit geen magic numbers?
         try {
             ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice,new DifferentQuadraticValidator<Unit,Unit>()));
             un.pushPolicy(new ASAPDispatchPolicy(un));

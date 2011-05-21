@@ -50,7 +50,7 @@ public class Fire extends Emergency {
 	private long numberOfInjured;
 
 	/**
-	 * Make a new fire emergency with the given parameters.
+	 * Makes a new fire emergency with the given parameters.
 	 *
 	 * @param location
 	 *		The location of this fire emergency.
@@ -195,6 +195,10 @@ public class Fire extends Emergency {
 		return (fireSize != null);
 	}
 
+	/**
+	 * Returns the liters that are required for this fire.
+	 * @return The liters that are required for this fire.
+	 */
 	public long getNumberOfLitersRequired() {
 		return getSize().getNeededCapacity();
 	}
@@ -221,8 +225,7 @@ public class Fire extends Emergency {
 
 	/**
 	 * Returns a hashtable that represents all the information of the Fire.
-	 * This hashtable contains the id, type, location, severity, status, the working units,
-	 * the size of the fire, a boolean representing if the fire is chemical,
+	 * This hashtable contains the the size of the fire, a boolean representing if the fire is chemical,
 	 * the number of trapped people and the number of injured.
 	 * @return A hashtable that represents all the information of the Fire.
 	 */
@@ -237,12 +240,12 @@ public class Fire extends Emergency {
 
 		return information;
 	}
-	
+
 	/**
-         * Calculates the number of patients from this emergency.
-         * @return The number of patients from this emergency.
-         */
-        private long calculateNumberOfPatients(){
+	 * Calculates the number of patients of this emergency.
+	 * @return The number of patients of this emergency.
+	 */
+	private long calculateNumberOfPatients() {
 		return getTrappedPeople() + getNumberOfInjured();
 	}
 
@@ -258,8 +261,8 @@ public class Fire extends Emergency {
 			long policecars = units[1];
 			long minimum = Ambulance.getMinimumNumberOfAmbulances(this.calculateNumberOfPatients());
 			long maximum = Ambulance.getMaximumNumberOfAmbulances(this.calculateNumberOfPatients());
-			
-			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired, Long.MAX_VALUE); 
+
+			DispatchUnitsConstraint fir = new MinMaxNumberDispatchUnitsConstraint(new FiretruckWaterUnitValidator(), numberOfLitersRequired, Long.MAX_VALUE);
 			DispatchUnitsConstraint amb = new MinMaxNumberDispatchUnitsConstraint(new TypeUnitValidator(Ambulance.class), minimum, maximum);
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), policecars, new DifferentQuadraticValidator<Unit, Unit>());
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));

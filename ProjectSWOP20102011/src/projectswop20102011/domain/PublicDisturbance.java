@@ -90,7 +90,7 @@ public class PublicDisturbance extends Emergency {
 
     /**
      * Returns a hashtable that represents all the information of the public disturbance.
-     * This hashtable contains the id, location, severity, status the working units and the number of people.
+     * This hashtable contains the the number of people involved in this public disturbance.
      * @return A hashtable that represents all the information of the public disturbance.
      */
     @Override

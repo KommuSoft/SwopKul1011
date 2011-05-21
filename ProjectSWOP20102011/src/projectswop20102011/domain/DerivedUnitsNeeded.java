@@ -42,6 +42,8 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @post This disaster is set to the given disaster.
 	 *		| new.getdisaster() == disaster
 	 * @post The constraint is set to the constraints of the emergencies of the disaster.
+	 *		| for(every Emergency e in Disaster)
+	 *		|	add the constraint of e to this constraint
 	 * @throws InvalidEmergencyException
 	 *		If the given emergency is not effective.
 	 * @throws InvalidDispatchUnitsConstraintException
@@ -102,8 +104,8 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @param units
 	 *		The units to be assigned.
 	 * @return True if all the given units are effective, unique and
-	 *          can be assigned and the constraint for allocation is passed;
-	 *          otherwise false.
+	 *		can be assigned and the constraint for allocation is passed;
+	 *		otherwise false.
 	 */
 	@Override
 	public boolean canAssignUnitsToEmergency(Set<Unit> units) {
@@ -121,9 +123,9 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Assign the given list of units to the disaster.
+	 * Assign the given set of units to the disaster.
 	 * @param units
-	 *		The given list of units.
+	 *		The given set of units.
 	 * @param eventhandler 
 	 *		The eventHandler where the notifications should be sent to.
 	 * @effect All the units in the given list are assigned
@@ -204,12 +206,13 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Generates a proposal based on a list of available units to allocate to the disaster.
+	 * Generates a proposal based on a set of available units to allocate to the disaster.
 	 * @param options
-	 *		A list of units where the proposal must be created from.
+	 *		A set of units where the proposal must be created from.
 	 * @return A subset of the given list containing units proposed for allocation.
-	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
+	//TODO: vroeger stond hier @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
+	//gaat dit nu geen problemen meer geven?
 	@Override
 	Set<Unit> generateProposal(SortedSet<Unit> options) {
 		HashSet<Unit> proposal = new HashSet<Unit>();
@@ -222,7 +225,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 
 	/**
 	 * Generates a proposal for unit allocation based on the policy of the disaster.
-	 * @return A list of units proposed by the policy of this disaster.
+	 * @return A set of units proposed by the policy of this disaster.
 	 */
 	@Override
 	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {

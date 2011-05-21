@@ -39,7 +39,7 @@ public class Policecar extends Unit {
 	}
 
 	/**
-	 * Clone this policecar
+	 * Clones this policecar.
 	 * @return A clone of this policecar.
 	 */
 	@Override
@@ -58,7 +58,7 @@ public class Policecar extends Unit {
 	}
 
 	/**
-	 * Checks whether all assigned policecars are present at the location of the emergency
+	 * Checks whether all assigned policecars are present at the location of the emergency.
 	 * @return True if all assigned policecars of this type are present at the location of the emergency, false otherwise.
 	 */
 	@Override

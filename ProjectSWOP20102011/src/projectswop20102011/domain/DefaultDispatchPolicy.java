@@ -23,11 +23,11 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	}
 
 	/**
-	 * Create a new instance of an DefaultDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
+	 * Creates a new instance of an DefaultDispatchPolicy with a given ConcreteUnitsNeeded object of the emergency it will handle and a successor policy.
 	 * @param unitsNeeded
 	 *		The given unitsNeeded object of the emergency.
 	 * @param successor
-	 *		The given successor policy
+	 *		The given successor policy.
 	 * @effect The new DefaultDispatchPolicy is a DispatchPolicy with the given ConcreteUnitsNeeded object and the given DispatchPolicy.
 	 *		|super(unitsNeeded,successor)
 	 * @throws InvalidUnitsNeededException
@@ -46,8 +46,8 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	 * @param unit2
 	 *      The second unit to compare.
 	 * @return A negative integer, zero, or a positive integer if the first unit is more,
-	 *          equal or less interesting than the unit according to this Policy. This means
-	 *          that the unit with the lowest distance to the emergency will be more interesting.
+	 *		equal or less interesting than the unit according to this Policy. This means
+	 *		that the unit with the lowest distance to the emergency will be more interesting.
 	 */
 	@Override
 	public int internalCompare(Unit unit1, Unit unit2) {

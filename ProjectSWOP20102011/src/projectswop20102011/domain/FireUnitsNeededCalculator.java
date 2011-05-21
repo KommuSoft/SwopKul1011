@@ -1,20 +1,26 @@
 package projectswop20102011.domain;
 
 /**
- *
- * @author Pieter-Jan
+ *A class that calculates how much units a Fire needs.
+ * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class FireUnitsNeededCalculator {
 
 	/**
 	 * A class that represents a FireUnitsNeededCalculator.
 	 * It calculates the units needed for a fire.
-	 *
-	 * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+	 * @note This constructor is private, no instances of this calculator should be made.
 	 */
 	private FireUnitsNeededCalculator() {
 	}
 
+	/**
+	 * Returns an array that contains how much firetrucks and police cars are needed for this fireSize.
+	 * @param fireSize
+	 *		The size of the fire.
+	 * @return An array that contains how much firetrucks (first element) and police cars (second element) are needed for this fireSize.
+	 */
+	//TODO: opsplitsen in policecars en firetrucks
 	public static long[] calculate(FireSize fireSize) {
 		long[] result = new long[2];
 		switch (fireSize) {

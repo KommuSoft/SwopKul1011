@@ -35,9 +35,9 @@ public class Firetruck extends Unit {
 	 * @param capacity
 	 *		The capacity of this firetruck.
 	 * @effect The new firetruck is a unit with given name, home location, speed and capacity.
-	 *		|super(name,homeLocation,speed)
-	 * @post The capacity of this fire truck is set to the given capacity
-	 *		|this.capacity.equals(capacity)
+	 *		| super(name,homeLocation,speed)
+	 * @effect The capacity of this fire truck is set to the given capacity
+	 *		| setCapacity(capacity)
 	 * @throws InvalidLocationException
 	 *		If the given location is an invalid location for a firetruck.
 	 * @throws InvalidMapItemNameException
@@ -45,7 +45,7 @@ public class Firetruck extends Unit {
 	 * @throws InvalidSpeedException
 	 *		If the given speed is an invalid speed for a firetruck.
 	 * @throws InvalidCapacityException
-	 *          If the given capacity is not effective.
+	 *		If the given capacity is not effective.
 	 */
 	public Firetruck(String name, GPSCoordinate homeLocation, long speed, long capacity) throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException {
 		super(name, homeLocation, speed);
@@ -67,7 +67,7 @@ public class Firetruck extends Unit {
 	 * @post This capacity is equal to the given capacity
 	 *		|new.capacity.equals(capacity)
 	 * @throws InvalidCapacityException
-	 *          If the given capacity is not effective.
+	 *		If the given capacity is not valid.
 	 */
 	private void setCapacity(long capacity) throws InvalidCapacityException {
 		if (!isValidCapacity(capacity)) {
@@ -80,7 +80,7 @@ public class Firetruck extends Unit {
 	 * Tests if the given capacity is a valid capacity for a firetruck.
 	 * @param capacity
 	 *      The given capacity.
-	 * @return True if the given capacity is effective, otherwise false.
+	 * @return True if the given capacity is greater than or equal to zero, otherwise false.
 	 */
 	public static boolean isValidCapacity(long capacity) {
 		return (capacity >= 0);
@@ -98,11 +98,11 @@ public class Firetruck extends Unit {
 		throw new InvalidWithdrawalException("This unit can't be withdrawn");
 	}
 
-	@Override
 	/**
-	 * Clone this firetruck
+	 * Clones this firetruck
 	 * @return A clone of this firetruck.
 	 */
+	@Override
 	public Firetruck clone() {
 		Firetruck fir = null;
 		try {
