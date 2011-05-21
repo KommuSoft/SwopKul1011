@@ -256,9 +256,8 @@ public class Fire extends Emergency {
 	@Override
 	protected ConcreteUnitsNeeded calculateUnitsNeeded() {
 		try {
-			long[] units = FireUnitsNeededCalculator.calculate(getSize());
-			long numberOfLitersRequired = units[0];
-			long policecars = units[1];
+			long numberOfLitersRequired = FireUnitsNeededCalculator.calculateLiters(size);
+			long policecars = FireUnitsNeededCalculator.calculatePoliceCars(size);
 			long minimum = Ambulance.getMinimumNumberOfAmbulances(this.calculateNumberOfPatients());
 			long maximum = Ambulance.getMaximumNumberOfAmbulances(this.calculateNumberOfPatients());
 

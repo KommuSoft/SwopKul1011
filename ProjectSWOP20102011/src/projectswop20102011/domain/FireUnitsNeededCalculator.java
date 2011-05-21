@@ -13,29 +13,42 @@ public class FireUnitsNeededCalculator {
 	 */
 	private FireUnitsNeededCalculator() {
 	}
-
+	
 	/**
-	 * Returns an array that contains how much firetrucks and police cars are needed for this fireSize.
+	 * Returns how much liters are needed for the given fire size.
 	 * @param fireSize
 	 *		The size of the fire.
-	 * @return An array that contains how much firetrucks (first element) and police cars (second element) are needed for this fireSize.
+	 * @return The number of liters that are needed for the give fire size.
 	 */
-	//TODO: opsplitsen in policecars en firetrucks
-	public static long[] calculate(FireSize fireSize) {
-		long[] result = new long[2];
+	public static long calculateLiters(FireSize fireSize){
 		switch (fireSize) {
 			case LOCAL:
-				result[0] = 1000;
-				result[1] = 0;
-				break;
+				return 1000;
 			case HOUSE:
-				result[0] = 100000;
-				result[1] = 1;
-				break;
+				return 100000;
 			case FACILITY:
-				result[0] = 500000;
-				result[1] = 3;
+				return 500000;
+			default:
+				return 0;
+		}		
+	}
+	
+	/**
+	 * Returns how much police cars are needed for the given fire size.
+	 * @param fireSize
+	 *		The size of the fire.
+	 * @return The number of police cars that are needed for the give fire size.
+	 */
+	public static long calculatePoliceCars(FireSize fireSize){
+		switch (fireSize) {
+			case LOCAL:
+				return 0;
+			case HOUSE:
+				return 1;
+			case FACILITY:
+				return 3;
+			default:
+				return 0;
 		}
-		return result;
 	}
 }
