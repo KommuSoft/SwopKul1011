@@ -30,6 +30,14 @@ public class Robbery extends Emergency {
      * Indicates if this robbery is still in progress.
      */
     private boolean inProgress;
+    /**
+     * A constant defining the number of policecars when the robbery is still in progress and the robber is armed.
+     */
+    public static final int POLICE_CARS_WHEN_ARMED_AND_IN_PROGRESS = 3;
+    /**
+     * A constant defining the number if policecars when the robbery is not armed or not in progress.
+     */
+    public static final int POLICE_CARS_WHEN_NOT_ARMED_OR_IN_PROGRESS = 1;
 
     /**
      * Makes a new robbery emergency with the given parameters.
@@ -120,7 +128,7 @@ public class Robbery extends Emergency {
      */
     @Override
     protected ConcreteUnitsNeeded calculateUnitsNeeded() {
-        int nPolice = ((isArmed() && isInProgress()) ? 3 : 1); //TODO: zijn dit geen magic numbers?
+        int nPolice = ((isArmed() && isInProgress()) ? POLICE_CARS_WHEN_ARMED_AND_IN_PROGRESS : POLICE_CARS_WHEN_NOT_ARMED_OR_IN_PROGRESS); //TODO: zijn dit geen magic numbers? [Willem: beter?]
         try {
             ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice,new DifferentQuadraticValidator<Unit,Unit>()));
             un.pushPolicy(new ASAPDispatchPolicy(un));
