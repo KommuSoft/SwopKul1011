@@ -18,6 +18,7 @@ import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidSpeedException;
+import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
 public class UnitToDisasterDistanceComparatorTest {
@@ -86,17 +87,17 @@ public class UnitToDisasterDistanceComparatorTest {
 	}
 
 	@Test
-	public void testConstructor() throws InvalidDisasterException {
+	public void testConstructor() throws InvalidTargetableException {
 		uc = new UnitToTargetableDistanceComparator(d1);
 	}
 
-	@Test(expected = InvalidDisasterException.class)
-	public void testIllegalConstructor() throws InvalidDisasterException {
+	@Test(expected = InvalidTargetableException.class)
+	public void testIllegalConstructor() throws InvalidTargetableException {
 		uc = new UnitToTargetableDistanceComparator(d3);
 	}
 
 	@Test
-	public void testCompare() throws InvalidEmergencyException, InvalidDisasterException {
+	public void testCompare() throws InvalidTargetableException {
 		uc = new UnitToTargetableDistanceComparator(d1);
 
 		assertTrue(uc.compare(u3, u2) < 0);
