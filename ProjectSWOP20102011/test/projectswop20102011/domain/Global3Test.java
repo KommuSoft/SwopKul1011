@@ -225,10 +225,6 @@ public class Global3Test {
 		assertEquals(pc1.getName(), policecars.get(0).getName());
 
 		dudc.dispatchToDisaster(disaster, unitsFromPolicy);
-		System.out.println("De firetruck(s) die toegekend zijn");
-		for (Unit u : getFiretrucks(disaster.getWorkingUnits())) {
-			System.out.println(u.getName());
-		}
 
 		tac.doTimeAheadAction(1);
 
@@ -280,11 +276,6 @@ public class Global3Test {
 		}
 
 		unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-
-		System.out.println("De firetruck van de tweede proposal");
-		for (Unit u : getFiretrucks(unitsFromPolicy)) {
-			System.out.println(u.getName());
-		}
 
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);

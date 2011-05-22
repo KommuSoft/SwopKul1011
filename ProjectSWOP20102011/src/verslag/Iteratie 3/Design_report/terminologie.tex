@@ -1,0 +1,13 @@
+\label{terminologie}
+Terminology that has been changed since the last iteration is listed below. Objects in the domain model that can't be found in the list have remain the same.
+\begin{description}
+  \item[Fire truck] A fire truck is a normal unit, except that there is a maximum size of fire it is capable of dealing with. The capacitiy of a fire truck is expressed in liters of water.
+  \item[Disaster] A disaster is a group of emergencies that seem to be caused by the same event. Disasters are specified by a description and have a severity level and location derived from its emergencies.
+  \item[Ambulance] An ambulance responds to emergencies with victims. When an ambulance arrives at the location of an emergency, it picks up a victim and transports him/her to a hospital. An ambulance can carry two victims at once if needed, but can also transport a single victim. An ambulance has finished its task if the victim is delivered at the hospital. 
+  \item[Dispatcher] A person working at the dispatch center, handling emergencies or disasters by assigning units to respond to the emergency or disaster. Dispatchers are identified by their name. A dispatcher can create disasters to group emergencies caused by the same event.
+  \item[Unit] A unit can be an ambulance, policecar or fire truck, which are identified by a name, have a home location (its station) and a current location. Units can be assigned to an emergency or disaster by a dispatcher, which means they will respond to the emergency or disaster by going to its location and executing their task (e.g. putting out a fire). A unit can only be assigned to one emergency or disaster at once. The unit commander notifies the system when a unit has finished its current assignment, after which it can be reassigned to another emergency or disaster. When a unit is not assigned to an emergency or disaster, it returns to its home location.
+  \item[Policy] A policy is a default way to handle an emergency proposed by the system. This proposal can be accepted or denied by the dispatcher.
+  \item[DefaultPolicy] The policy used when no special policy is used is the default policy. This policy will assign units that are physically the closest to the emergency.
+  \item[ASAP] ASAP is a special type of policy where units are assigned that will reach the emergency first.
+  \item[FireASAP] FireASAP is a special type of the ASAP policy. The units are selected that will arrive first and whose capacity matches the size of the fire most closely will be selected.
+\end{description}
