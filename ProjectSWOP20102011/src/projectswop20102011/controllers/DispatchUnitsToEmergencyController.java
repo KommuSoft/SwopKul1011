@@ -2,6 +2,7 @@ package projectswop20102011.controllers;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,8 +15,10 @@ import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
+import projectswop20102011.domain.validators.OrValidator;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.domain.validators.UnitToTargetableDistanceComparator;
+import projectswop20102011.domain.validators.Validator;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidTargetableException;
@@ -63,30 +66,22 @@ public class DispatchUnitsToEmergencyController extends Controller {
      * @throws InvalidClassException
      */
     public List<Unit> getAvailableUnitsNeededSorted(Emergency emergency) throws InvalidClassException, InvalidTargetableException {
-        //TODO: dit kan waarschijnlijk iets mooier?
+        //TODO: dit kan waarschijnlijk iets mooier? [Willem: beter? Noot: is volledig identiek aan EmergencyUnits...Controller, pullup naar nieuwe klasse?]
         MapItemValidator criterium = new AvailableUnitsMapItemValidator();
         Set<Unit> units = getUnitsByPolicy(emergency);
-        TypeUnitValidator tuv1 = new TypeUnitValidator(Ambulance.class);
-        TypeUnitValidator tuv2 = new TypeUnitValidator(Policecar.class);
-        TypeUnitValidator tuv3 = new TypeUnitValidator(Firetruck.class);
-        boolean ambulance = false;
-        boolean firetruck = false;
-        boolean policecar = false;
+        Set<Class<? extends Unit>> usedUnitTypes = new HashSet<Class<? extends Unit>>();
         for (Unit u : units) {
-            ambulance = ambulance || tuv1.isValid(u);
-            firetruck = firetruck || tuv3.isValid(u);
-            policecar = policecar || tuv2.isValid(u);
+            usedUnitTypes.add(u.getClass());
         }
+        Collection<Validator<? super Unit>> tuvs = new ArrayList<Validator<? super Unit>>();
+        for (Class<? extends Unit> type : usedUnitTypes) {
+            tuvs.add(new TypeUnitValidator(type));
+        }
+        Validator<Unit> validator = new OrValidator<Unit>(tuvs);
         List<Unit> allUnits = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToTargetableDistanceComparator(emergency));
         List<Unit> result = new ArrayList<Unit>(0);
         for (Unit u : allUnits) {
-            if (ambulance && u instanceof Ambulance) {
-                result.add(u);
-            }
-            if (policecar && u instanceof Policecar) {
-                result.add(u);
-            }
-            if (firetruck && u instanceof Firetruck) {
+            if (validator.isValid(u)) {
                 result.add(u);
             }
         }

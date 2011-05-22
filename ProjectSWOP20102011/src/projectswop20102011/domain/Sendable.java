@@ -30,7 +30,8 @@ public abstract class Sendable implements Targetable {
     }
 
 	//TODO: de twee onderstaande methodes lijken hetzelfde te doen?
-	//Volgens mij (jonas) is dat voor de uitbreidbaarheid. De plaats waar de units naar moeten gestuurd moeten worden is niet altijd hetzelfde als de locatie van de sendable.
+	//TODO: Volgens mij (jonas) is dat voor de uitbreidbaarheid. De plaats waar de units naar moeten gestuurd moeten worden is niet altijd hetzelfde als de locatie van de sendable.
+        //TODO: [Willem: klopt, is enkel omdat Targetable geimplementeerd wordt, en omdat eventueel de TargetLocatie anders kan zijn dan de locatie van de Sendable]
     /**
      * Returns the location of this Sendable.
      * @return The location of this Sendable.
