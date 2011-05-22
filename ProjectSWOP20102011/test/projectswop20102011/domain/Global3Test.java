@@ -129,7 +129,7 @@ public class Global3Test {
 
 	}
 
-	/*
+	
 	@Test
 	public void testFire() throws InvalidEmergencyException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidAddedDisasterException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidDurationException, InvalidWithdrawalException, InvalidMapItemException {
 	//Firetrucks aanmaken
@@ -287,7 +287,7 @@ public class Global3Test {
 	counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
 	assertEquals(0, counter);
 	}
-	 */
+	 
 	@Test
 	public void testFinishedJob() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
 		//Firetrucks aanmaken
