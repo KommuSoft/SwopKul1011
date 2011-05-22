@@ -1124,7 +1124,7 @@ public class Global2Test {
         counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
         assertEquals(6, counter);
         counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-        assertEquals(0, counter);
+        assertEquals(0, counter);//Hier faalt de test
         counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
         assertEquals(5, counter);
 
