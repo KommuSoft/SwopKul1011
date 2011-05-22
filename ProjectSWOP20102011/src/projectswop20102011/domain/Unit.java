@@ -434,7 +434,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else if (getManagingSendable().getUnitsNeeded().isRequired(this)) {
+		} else if (getEmergency().getUnitsNeeded().isRequired(this)) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (!arePresent()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");

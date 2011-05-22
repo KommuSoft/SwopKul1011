@@ -186,8 +186,8 @@ public abstract class UnitsNeeded {
 	 *		The unit to check.
 	 * @return true if the given unit is required for its emergency.
 	 */
-	protected boolean isRequired(Unit u){
-		return false;
+	protected Boolean isRequired(Unit u){
+		return null;
 	}
     
 }

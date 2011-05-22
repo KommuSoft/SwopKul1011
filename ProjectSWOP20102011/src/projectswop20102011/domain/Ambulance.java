@@ -144,7 +144,7 @@ public class Ambulance extends Unit {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
-			boolean isRequired = this.getManagingSendable().getUnitsNeeded().isRequired(this);
+			boolean isRequired = this.getEmergency().getUnitsNeeded().isRequired(this);
            //TODO: mag wss weg: boolean isRequired = isRequired();
             Sendable manager = this.getManagingSendable();
             Emergency e = getEmergency();

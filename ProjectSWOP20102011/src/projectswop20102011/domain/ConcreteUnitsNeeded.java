@@ -383,7 +383,8 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		The unit to check.
 	 * @return true if the given unit is required for its emergency.
 	 */
-	public boolean isRequired(Unit u) {
+	@Override
+	public Boolean isRequired(Unit u) {
 		Set<Unit> unit = new HashSet<Unit>(0);
 		unit.add(u);
 		Set<Unit> unitsFromProposal = getPolicyProposal(unit);
