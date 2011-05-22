@@ -19,9 +19,9 @@ import projectswop20102011.domain.validators.Validator;
 import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
-public abstract class DispatchController extends Controller{
-	
-	/**
+public abstract class DispatchController extends Controller {
+
+    /**
      * An eventHandler where the notifications should be sent to.
      */
     private EventHandler eventHandler;
@@ -35,8 +35,8 @@ public abstract class DispatchController extends Controller{
         super(world);
         this.eventHandler = eventHandler;
     }
-	
-	public List<Unit> getAvailableUnitsNeededSorted(Sendable sendable) throws InvalidClassException, InvalidTargetableException {
+
+    public List<Unit> getAvailableUnitsNeededSorted(Sendable sendable) throws InvalidClassException, InvalidTargetableException {
         MapItemValidator criterium = new AvailableUnitsMapItemValidator();
         Set<Unit> units = getUnitsByPolicyAllSeverities(sendable);
         Set<Class<? extends Unit>> usedUnitTypes = new HashSet<Class<? extends Unit>>();
@@ -57,19 +57,18 @@ public abstract class DispatchController extends Controller{
         }
         return result;
     }
-	
-	public Set<Unit> getUnitsByPolicyAllSeverities(Sendable sendable) {
-		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
+
+    public Set<Unit> getUnitsByPolicyAllSeverities(Sendable sendable) {
+        MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
         HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
         return sendable.getPolicyProposal(mapItems);
-	}
-	
-	public Set<Unit> getUnitsByPolicy(Sendable sendable) {
-		return getUnitsByPolicyAllSeverities(sendable);
-	}
-	
-	protected EventHandler getEventHandler(){
-		return eventHandler;
-	}
-	
+    }
+
+    public Set<Unit> getUnitsByPolicy(Sendable sendable) {
+        return getUnitsByPolicyAllSeverities(sendable);
+    }
+
+    protected EventHandler getEventHandler() {
+        return eventHandler;
+    }
 }
