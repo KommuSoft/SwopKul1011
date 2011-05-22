@@ -1,5 +1,6 @@
 package projectswop20102011.domain;
 
+import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.eventhandlers.Event;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
@@ -389,5 +391,33 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 		unit.add(u);
 		Set<Unit> unitsFromProposal = getPolicyProposal(unit);
 		return unitsFromProposal.size() == 1;
+	}
+
+	/**
+	 * Checks whether all assigned units of the type of the given unit are present at the location of the emergency
+	 * @return True if all assigned units of the type of the given unit are present at the location of the emergency, false otherwise.
+	 */
+	public boolean arePresent(Unit u) {
+		ArrayList<Unit> workingUnits = getWorkingUnits();
+		TypeUnitValidator tuv = null;
+		try {
+			tuv = new TypeUnitValidator(u.getClass());
+		} catch (InvalidClassException ex) {
+			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		for (Unit unit : workingUnits) {
+			if (tuv.isValid(unit) && !unit.isAtDestination()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Checks whether all assigned ambulances are present at the location of the emergency
+	 * @return True if all assigned ambulances of this type are present at the location of the emergency, false otherwise.
+	 */
+	public boolean arePresent(Ambulance u) {
+		return false;
 	}
 }
