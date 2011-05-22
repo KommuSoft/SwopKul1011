@@ -1,10 +1,7 @@
 package projectswop20102011.domain;
 
-import java.io.InvalidClassException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidMapItemNameException;
@@ -119,26 +116,5 @@ public class Firetruck extends Unit {
 			Logger.getLogger(Firetruck.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return fir;
-	}
-
-	/**
-	 * Checks whether all assigned firetrucks are present at the location of the emergency
-	 * @return True if all assigned firetrucks of this type are present at the location of the emergency, false otherwise.
-	 */
-	@Override
-	public boolean arePresent() {
-		ArrayList<Unit> workingUnits = getEmergency().getUnitsNeeded().getWorkingUnits();
-		TypeUnitValidator tuv = null;
-		try {
-			tuv = new TypeUnitValidator(Firetruck.class);
-		} catch (InvalidClassException ex) {
-			Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		for (Unit u : workingUnits) {
-			if (tuv.isValid(u) && !u.isAtDestination()) {
-				return false;
-			}
-		}
-		return true;
 	}
 }

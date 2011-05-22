@@ -510,7 +510,7 @@ public class Global3Test {
 	}
 
 	@Test
-	public void testFinishedJobEmergency() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
+	public void testFinishedJobSmallEmergency() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
 		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
@@ -601,7 +601,7 @@ public class Global3Test {
 
 	}
 	@Test
-	public void testFinishedJobSmallEmergency() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
+	public void testFinishedJobEmergency() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
 		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);

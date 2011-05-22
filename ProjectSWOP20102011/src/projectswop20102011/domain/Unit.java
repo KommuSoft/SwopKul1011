@@ -1,7 +1,5 @@
 package projectswop20102011.domain;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -436,7 +434,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (getEmergency().getUnitsNeeded().isRequired(this)) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else if (!arePresent()) {
+		} else if (!getEmergency().getUnitsNeeded().arePresent(this)) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		}
 		Sendable manager = this.getManagingSendable();
@@ -458,12 +456,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	public boolean canFinishJob() {
 		return (isAssigned() && isAtDestination());
 	}
-
-	/**
-	 * Checks whether all assigned units of this type are present at the location of the emergency
-	 * @return True if all assigned units of this type are present at the location of the emergency.
-	 */
-	public abstract boolean arePresent();//TODO(belangrijk):wat doet deze methode hier?!
 
 	/**
 	 * Clone this unit

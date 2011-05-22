@@ -394,7 +394,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	}
 
 	/**
-	 * Checks whether all assigned units of the type of the given unit are present at the location of the emergency
+	 * Checks whether all assigned units of the type of the given unit are present at the location of the emergency.
 	 * @return True if all assigned units of the type of the given unit are present at the location of the emergency, false otherwise.
 	 */
 	public boolean arePresent(Unit u) {
@@ -411,13 +411,5 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * Checks whether all assigned ambulances are present at the location of the emergency
-	 * @return True if all assigned ambulances of this type are present at the location of the emergency, false otherwise.
-	 */
-	public boolean arePresent(Ambulance u) {
-		return false;
 	}
 }

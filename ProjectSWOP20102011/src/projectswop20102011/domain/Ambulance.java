@@ -191,17 +191,17 @@ public class Ambulance extends Unit {
         return amb;
     }
 
-	/**
-	 * Checks whether all needed units of this type are present at the location of the emergency.
-	 * @return True if all needed units of this  type are present at the location of the emergency; false otherwise.
-	 */
-    @Override
-    public boolean arePresent() {
-        //TODO: deze methode zal niet gebruikt worden, hoe oplossen?
-		//TODO: ofwel is de naam slecht ofwel hoort deze methode hier niet. Ik [jonas] verwacht dat er isPresent zou staan.
-		//Als het effectief arePresent moet zijn: wat doe deze methode hier. Een ambulance is toch niet verantwoordelijk of de andere ambulances present zijn?
-        return false;
-    }
+//	/**
+//	 * Checks whether all needed units of this type are present at the location of the emergency.
+//	 * @return True if all needed units of this  type are present at the location of the emergency; false otherwise.
+//	 */
+//    @Override
+//    public boolean arePresent() {
+//        //TODO: deze methode zal niet gebruikt worden, hoe oplossen?
+//		//TODO: ofwel is de naam slecht ofwel hoort deze methode hier niet. Ik [jonas] verwacht dat er isPresent zou staan.
+//		//Als het effectief arePresent moet zijn: wat doe deze methode hier. Een ambulance is toch niet verantwoordelijk of de andere ambulances present zijn?
+//        return false;
+//    }
 
     /**
      * Calculates the minimum number of ambulances based on the number of patients.
