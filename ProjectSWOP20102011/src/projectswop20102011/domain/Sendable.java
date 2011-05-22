@@ -13,10 +13,10 @@ import projectswop20102011.exceptions.InvalidSendableStatusException;
  */
 public abstract class Sendable implements Targetable {
 
-    /**
-     * The description of the sendable.
-     */
-    private String description;
+	/**
+	 * The description of the sendable.
+	 */
+	private String description;
 
 	/**
 	 * Creates a new sendable with the given description
@@ -25,221 +25,220 @@ public abstract class Sendable implements Targetable {
 	 * @effect The description of the new sendable is set to the given description.
 	 *		| setDescription(description)
 	 */
-    protected Sendable(String description) {
-        setDescription(description);
-    }
+	protected Sendable(String description) {
+		setDescription(description);
+	}
 
 	//TODO: de twee onderstaande methodes lijken hetzelfde te doen?
 	//TODO: Volgens mij (jonas) is dat voor de uitbreidbaarheid. De plaats waar de units naar moeten gestuurd moeten worden is niet altijd hetzelfde als de locatie van de sendable.
-        //TODO: [Willem: klopt, is enkel omdat Targetable geimplementeerd wordt, en omdat eventueel de TargetLocatie anders kan zijn dan de locatie van de Sendable]
-    /**
-     * Returns the location of this Sendable.
-     * @return The location of this Sendable.
-     */
-    public abstract GPSCoordinate getLocation();
+	//TODO: [Willem: klopt, is enkel omdat Targetable geimplementeerd wordt, en omdat eventueel de TargetLocatie anders kan zijn dan de locatie van de Sendable]
+	/**
+	 * Returns the location of this Sendable.
+	 * @return The location of this Sendable.
+	 */
+	public abstract GPSCoordinate getLocation();
 
-    /**
-     * Returns the location of the Sendable.
-     * @return the location of the Sendable.
-     */
-    @Override
-    public GPSCoordinate getTargetLocation() {
-        return this.getLocation();
-    }
+	/**
+	 * Returns the location of the Sendable.
+	 * @return the location of the Sendable.
+	 */
+	@Override
+	public GPSCoordinate getTargetLocation() {
+		return this.getLocation();
+	}
 
-    /**
-     * Returns the severity of this Sendable.
-     * @return The severity of this Sendable.
-     */
-    public abstract SendableSeverity getSeverity();
+	/**
+	 * Returns the severity of this Sendable.
+	 * @return The severity of this Sendable.
+	 */
+	public abstract SendableSeverity getSeverity();
 
-    /**
-     * Returns the status of this Sendable.
-     * @return The status of this Sendable.
-     */
-    public abstract SendableStatus getStatus();
+	/**
+	 * Returns the status of this Sendable.
+	 * @return The status of this Sendable.
+	 */
+	public abstract SendableStatus getStatus();
 
-    /**
-     * Returns the description of this Sendable.
-     * @return The description of this Sendable.
-     */
-    public String getDescription() {
-        return description;
-    }
+	/**
+	 * Returns the description of this Sendable.
+	 * @return The description of this Sendable.
+	 */
+	public String getDescription() {
+		return description;
+	}
 
-    /**
-     * Sets the description to the given description.
-     * @param description
+	/**
+	 * Sets the description to the given description.
+	 * @param description
 	 *		The new description.
 	 * @post The description of this sendable is set to the given description.
 	 *		| this.description.equals(new.description)
-     */
-    protected void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Returns a hashtable that contains the information of this Sendable.
-     * This hashtable contains the type, location, severity, status, descripition and the working units.
-     * @return A hashtable that contains the information of this Sendable.
-     */
-    public Hashtable<String, String> getShortInformation() {
-        return getInformation();
-    }
+	 */
+	protected void setDescription(String description) {
+		this.description = description;
+	}
 
 	/**
 	 * Returns a hashtable that contains the information of this Sendable.
 	 * This hashtable contains the type, location, severity, status, descripition and the working units.
 	 * @return A hashtable that contains the information of this Sendable.
 	 */
-    protected Hashtable<String, String> getInformation() {
-        Hashtable<String, String> information = new Hashtable<String, String>();
-        information.put("type", this.getClass().getSimpleName());
-        information.put("location", getLocation().toString());
-        information.put("severity", getSeverity().toString());
-        information.put("status", getStatus().toString());
-        information.put("description", getDescription().toString());
-        ArrayList<Unit> units = this.getWorkingUnits();
-        int number = units.size();
-        StringBuilder sbWorkingUnits = new StringBuilder("[ ");
-        if (number > 0) {
-            for (int i = 0; i < number - 1; i++) {
-                sbWorkingUnits.append(units.get(i).getName() + ", ");
-            }
-            sbWorkingUnits.append(units.get(number - 1).getName());
-        }
-        sbWorkingUnits.append(" ]");
-        information.put("working units", sbWorkingUnits.toString());
+	public Hashtable<String, String> getShortInformation() {
+		return getInformation();
+	}
 
-        return information;
-    }
+	/**
+	 * Returns a hashtable that contains the information of this Sendable.
+	 * This hashtable contains the type, location, severity, status, descripition and the working units.
+	 * @return A hashtable that contains the information of this Sendable.
+	 */
+	protected Hashtable<String, String> getInformation() {
+		Hashtable<String, String> information = new Hashtable<String, String>();
+		information.put("type", this.getClass().getSimpleName());
+		information.put("location", getLocation().toString());
+		information.put("severity", getSeverity().toString());
+		information.put("status", getStatus().toString());
+		information.put("description", getDescription().toString());
+		ArrayList<Unit> units = this.getWorkingUnits();
+		int number = units.size();
+		StringBuilder sbWorkingUnits = new StringBuilder("[ ");
+		if (number > 0) {
+			for (int i = 0; i < number - 1; i++) {
+				sbWorkingUnits.append(units.get(i).getName() + ", ");
+			}
+			sbWorkingUnits.append(units.get(number - 1).getName());
+		}
+		sbWorkingUnits.append(" ]");
+		information.put("working units", sbWorkingUnits.toString());
 
-    /**
-     * Returns a hashtable that contains the information of this Sendable.
-     * This hashtable contains the type, location, severity, status, descripition, the working units and specific elements of the child of this Sendable.
-     * @return A hashtable that contains the information of this Sendable.
-     */
-    public abstract Hashtable<String, String> getLongInformation();
+		return information;
+	}
 
-    /**
-     * Returns a proposal generated by the policy of this constraint.
-     * @param availableUnits
-     *      A list of units that are available for the proposal.
-     * @return A list of units proposed by the policy of this constraint.
-     */
-    public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
+	/**
+	 * Returns a hashtable that contains the information of this Sendable.
+	 * This hashtable contains the type, location, severity, status, descripition, the working units and specific elements of the child of this Sendable.
+	 * @return A hashtable that contains the information of this Sendable.
+	 */
+	public abstract Hashtable<String, String> getLongInformation();
 
-    /**
-     * Tests if this Sendable is partially assigned.
-     * @return True if this Sendable is partially assigned, otherwise false.
-     */
-    public boolean isPartiallyAssigned() {
-        return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new HashSet<Unit>()));
-    }
+	/**
+	 * Returns a proposal generated by the policy of this constraint.
+	 * @param availableUnits
+	 *      A list of units that are available for the proposal.
+	 * @return A list of units proposed by the policy of this constraint.
+	 */
+	public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
 
-    /**
-     * Assigns units to this Sendable.
-     * @param units
-     *      A list of units to assign.
+	/**
+	 * Tests if this Sendable is partially assigned.
+	 * @return True if this Sendable is partially assigned, otherwise false.
+	 */
+	public boolean isPartiallyAssigned() {
+		return (this.getWorkingUnits().size() > 0 && !this.canBeResolved(new HashSet<Unit>()));
+	}
+
+	/**
+	 * Assigns units to this Sendable.
+	 * @param units
+	 *      A list of units to assign.
 	 * @param eventHandler 
 	 *		The eventhandler where the notifications should be sent to.
 	 * @throws InvalidSendableStatusException
-     *      If the status of this Sendable does not allow this action.
-     * @throws  InvalidEmergencyException
-     *		If the Emergency where the units are sent to is invalid.
+	 *      If the status of this Sendable does not allow this action.
+	 * @throws  InvalidEmergencyException
+	 *		If the Emergency where the units are sent to is invalid.
 	 * @effect Units are assigned to this sendable.
 	 *		| getStatus().assignUnits(getUnitsNeeded(), units, eventHandler)
-     */
-    public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
-        this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
-    }
+	 */
+	public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
+		this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
+	}
 
-    /**
-     * Checks if the given units can be assigned to the Sendable.
-     * @param units
-     *      A list of units to check.
-     * @return True if the given list of units can be assigned, otherwise false.
-     */
-    public boolean canAssignUnits(Set<Unit> units) {
-        return this.getStatus().canAssignUnits(this.getUnitsNeeded(), units);
-    }
+	/**
+	 * Checks if the given units can be assigned to the Sendable.
+	 * @param units
+	 *      A list of units to check.
+	 * @return True if the given list of units can be assigned, otherwise false.
+	 */
+	public boolean canAssignUnits(Set<Unit> units) {
+		return this.getStatus().canAssignUnits(this.getUnitsNeeded(), units);
+	}
 
-    /**
-     * Checks if this Sendable can be resolved with a given collection of all available units.
-     * @param availableUnits
-     *		A set of units to check if they can resolve the sendable.
-     * @return True if the given Sendable can be resolved, otherwise false.
-     */
-    public boolean canBeResolved(Set<Unit> availableUnits) {
-        return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
-    }
+	/**
+	 * Checks if this Sendable can be resolved with a given collection of all available units.
+	 * @param availableUnits
+	 *		A set of units to check if they can resolve the sendable.
+	 * @return True if the given Sendable can be resolved, otherwise false.
+	 */
+	public boolean canBeResolved(Set<Unit> availableUnits) {
+		return this.getStatus().canBeResolved(this.getUnitsNeeded(), availableUnits);
+	}
 
-    /**
-     * Returns a list of units currently working at this Sendable.
-     * @return a list of units currently working at this Sendable.
-     */
-    public ArrayList<Unit> getWorkingUnits() {
-        return this.getUnitsNeeded().getWorkingUnits();
-    }
+	/**
+	 * Returns a list of units currently working at this Sendable.
+	 * @return a list of units currently working at this Sendable.
+	 */
+	public ArrayList<Unit> getWorkingUnits() {
+		return this.getUnitsNeeded().getWorkingUnits();
+	}
 
 	/**
 	 * Returns the UnitsNeeded object of this Sandable.
 	 * @return the UnitsNeeded object of this Sendable.
 	 */
-    abstract UnitsNeeded getUnitsNeeded();
+	abstract UnitsNeeded getUnitsNeeded();
 
-    /**
-     * Enable a unit to finish his job for this Sendable.
-     * @param unitToFinish
-     *      The unit that wants to finish this Sendable.
+	/**
+	 * Enable a unit to finish his job for this Sendable.
+	 * @param unitToFinish
+	 *      The unit that wants to finish this Sendable.
 	 * @param  eventHandler
 	 *		The eventHandler where the notifications should be sent to.
-     * @throws InvalidEmergencyStatusException
-     *      If the status of this Sendable does not allow this action.
+	 * @throws InvalidEmergencyStatusException
+	 *      If the status of this Sendable does not allow this action.
 	 * @effect The unit finishes his job in this Sendable.
 	 *		| getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler)
-     * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Sendable.
-     */
-    void finishUnit(Unit unitToFinish, EventHandler eventHandler) throws InvalidSendableStatusException {
-        this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler);
-    }
+	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Sendable.
+	 */
+	void finishUnit(Unit unitToFinish, EventHandler eventHandler) throws InvalidSendableStatusException {
+		this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler);
+	}
 
-    /**
-     * Withdraws a unit from this Sendable.
-     * @param unitToWithdraw
-     *      The unit that wants to withdraw from this Sendable.
+	/**
+	 * Withdraws a unit from this Sendable.
+	 * @param unitToWithdraw
+	 *      The unit that wants to withdraw from this Sendable.
 	 * @param  eventHandler
 	 *		The eventHandler where the notifications should be sent to.
-     * @throws InvalidSendableStatusException
-     *      If the status of this Sendable does not allow this action.
+	 * @throws InvalidSendableStatusException
+	 *      If the status of this Sendable does not allow this action.
 	 * @effect The unit is withdrawn from this Sendable
 	 *		| getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler)
-     * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the Sendable.
-     */
-    void withdrawUnit(Unit unitToWithdraw, EventHandler eventHandler) throws InvalidSendableStatusException {
-        this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler);
-    }
+	 * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the Sendable.
+	 */
+	void withdrawUnit(Unit unitToWithdraw, EventHandler eventHandler) throws InvalidSendableStatusException {
+		this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler);
+	}
 
-    /**
-     * Gets the Sendable that manages this Sendable.
-     * @return The Sendable that manages this Sendable.
-     */
-    public Sendable getManagingSendable() {
-        return this;
-    }
+	/**
+	 * Gets the Sendable that manages this Sendable.
+	 * @return The Sendable that manages this Sendable.
+	 */
+	public Sendable getManagingSendable() {
+		return this;
+	}
 
-    /**
-     * A virtual empty method that does operations after a unit has finished.
-     * @param unit
+	/**
+	 * A virtual empty method that does operations after a unit has finished.
+	 * @param unit
 	 *		The unit that will finish.
-     * @param handler 
+	 * @param handler 
 	 *		A handler to handle the events generated by this action.
-     * @throws Exception
+	 * @throws Exception
 	 *		If something has gone wrong.
-     */
+	 */
 	//TODO: waarom throws Exception, kan dit niet specifieker
 	//TODO: waarom niet abstract (met dan een lege implementatie in emergency)?
-    protected void afterFinish(Unit unit, EventHandler handler) throws Exception {
-    }
-    
+	protected void afterFinish(Unit unit, EventHandler handler) throws Exception {
+	}
 }

@@ -214,7 +214,7 @@ public enum SendableStatus {
 		if (!canAssignUnitsFromState()) {
 			throw new InvalidSendableStatusException("Unable to assign units to Emergency. Emergency is in the wrong state.");
 		}
-		unitsNeeded.assignUnitsToEmergency(units, eventHandler);
+		unitsNeeded.assignUnitsToSendable(units, eventHandler);
 		afterUnitsAssignment(unitsNeeded, units);
 	}
 

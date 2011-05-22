@@ -91,8 +91,8 @@ public abstract class UnitsNeeded {
 	 *		The event handler where the notifications should be sent to
      * @throws InvalidEmergencyException If the given units can be assigned because of the constraints of the sendable.
      */
-	//TODO: refactoren naar assignUnitsToSendable? [Willem: ik ben voor]
-    abstract void assignUnitsToEmergency(Set<Unit> units, EventHandler eventHandler) throws InvalidEmergencyException;
+	//TODO: refactoren naar assignUnitsToSendable? [Willem: ik ben voor] [Jonas: done]
+    abstract void assignUnitsToSendable(Set<Unit> units, EventHandler eventHandler) throws InvalidEmergencyException;
 
     /**
      * Sets the status of the sendable.

@@ -37,7 +37,7 @@ public abstract class DispatchController extends Controller{
     }
 	
 	public List<Unit> getAvailableUnitsNeededSorted(Sendable sendable) throws InvalidClassException, InvalidTargetableException {
-        //TODO: dit kan waarschijnlijk een heel klein beetje mooier misschien wellicht? [Willem: beter?]
+        //TODO: dit kan waarschijnlijk een heel klein beetje mooier misschien wellicht? [Willem: beter?] [Jonas: OK]
         MapItemValidator criterium = new AvailableUnitsMapItemValidator();
         Set<Unit> units = getUnitsByPolicyAllSeverities(sendable);
         Set<Class<? extends Unit>> usedUnitTypes = new HashSet<Class<? extends Unit>>();

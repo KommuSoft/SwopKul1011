@@ -210,7 +210,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
 	@Override
-	public synchronized void assignUnitsToEmergency(Set<Unit> units,EventHandler eventHandler) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToSendable(Set<Unit> units,EventHandler eventHandler) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
 		}

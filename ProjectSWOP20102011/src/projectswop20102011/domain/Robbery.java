@@ -128,7 +128,7 @@ public class Robbery extends Emergency {
      */
     @Override
     protected ConcreteUnitsNeeded calculateUnitsNeeded() {
-        int nPolice = ((isArmed() && isInProgress()) ? POLICE_CARS_WHEN_ARMED_AND_IN_PROGRESS : POLICE_CARS_WHEN_NOT_IN_PROGRESS); //TODO: zijn dit geen magic numbers? [Willem: beter?]
+        int nPolice = ((isArmed() && isInProgress()) ? POLICE_CARS_WHEN_ARMED_AND_IN_PROGRESS : POLICE_CARS_WHEN_NOT_IN_PROGRESS);
         try {
             ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), nPolice,new DifferentQuadraticValidator<Unit,Unit>()));
             un.pushPolicy(new ASAPDispatchPolicy(un));

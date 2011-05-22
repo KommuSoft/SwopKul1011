@@ -65,7 +65,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @return True if all units needed for the disaster are finished; otherwise false.
 	 * @note If the units needed for the disaster are all finished, then the disaster of this units needed can be completed.
 	 */
-	//TODO: mag deze methode weg?
+	//TODO: mag deze methode weg? [Jonas: van mij wel, ConcreteUnitsNeeded bevat ze ook niet meer]
 	private boolean canCompleteDisaster() {
 		throw new RuntimeException("Not yet implemented");
 		//TODO: moet dit niet geïmplementeerd worden?
@@ -138,7 +138,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
 	 */
 	@Override
-	public synchronized void assignUnitsToEmergency(Set<Unit> units, EventHandler eventhandler) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToSendable(Set<Unit> units, EventHandler eventhandler) throws InvalidEmergencyException {
 		SortedSet<Unit> options = new SortedListSet<Unit>();
 		options.addAll(units);
 		if (!canAssignUnitsToEmergency(units)) {
@@ -152,7 +152,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 		for (Emergency e : emergencies) {
 			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
 			Set<Unit> unitsForEmergency = CUN.generateProposal(options);
-			CUN.assignUnitsToEmergency(unitsForEmergency, eventhandler);
+			CUN.assignUnitsToSendable(unitsForEmergency, eventhandler);
 			options.removeAll(unitsForEmergency);
 		}
 	}
