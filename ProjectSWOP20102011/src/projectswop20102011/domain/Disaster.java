@@ -214,9 +214,9 @@ public class Disaster extends Sendable {
      * @return A list of units proposed by the policy of this constraint.
      */
     @Override
-    public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
-        Set<Unit> au = new HashSet<Unit>((ArrayList<Unit>) ((new ArrayList<Unit>(availableUnits)).clone()));
-        Set<Unit> units = new HashSet<Unit>();
+    public HashSet<Unit> getPolicyProposal(Set<Unit> availableUnits) {
+        HashSet<Unit> au = new HashSet<Unit>((ArrayList<Unit>) ((new ArrayList<Unit>(availableUnits)).clone()));
+        HashSet<Unit> units = new HashSet<Unit>();
         for (int i = 0; i < getEmergencies().size(); ++i) {
             if (getEmergencies().get(i).getSeverity().ordinal() > SendableSeverity.NORMAL.ordinal()) {
                 units.addAll(getEmergencies().get(i).getPolicyProposal(au));

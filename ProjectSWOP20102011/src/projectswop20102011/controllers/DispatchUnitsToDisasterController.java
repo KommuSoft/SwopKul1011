@@ -22,13 +22,12 @@ public class DispatchUnitsToDisasterController extends DispatchController {
         super(world, eventHandler);
     }
 
-    public Set<Unit> getUnitsByPolicy(Disaster disaster) {
+    public HashSet<Unit> getUnitsByPolicy(Disaster disaster) {
         MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
-        HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
+        Set<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
         return disaster.getPolicyProposal(mapItems);
     }
 
-    //TODO: string hiervan maken [is waarschijnlijk OK nu]
     public String getRequiredUnits(Disaster disaster) {
         String s = "";
 
@@ -38,10 +37,6 @@ public class DispatchUnitsToDisasterController extends DispatchController {
             s += "\n";
         }
         return s;
-//		
-//		MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
-//		HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
-//		return disaster.getPolicyProposalAllSeverities(mapItems);
     }
 
     public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {

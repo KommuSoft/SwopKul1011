@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.World;
+import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.ConcreteUnitsNeeded;
 import projectswop20102011.domain.Firetruck;
@@ -20,8 +21,10 @@ import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
+import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidSendableException;
+import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
  * This class contains a unit configuration for a specific emergency. A unit configuration consists of a number of suggested units for each required unit type.
@@ -61,7 +64,7 @@ public class UnitConfiguration implements IUnitConfiguration {
 	 * @param world
 	 *		The world of this UnitConfiguration.
 	 */
-	public UnitConfiguration(IEmergency emergency, World world) {
+	public UnitConfiguration(IEmergency emergency, World world) throws InvalidWorldException {
 		this.emergency = emergency;
 		this.world = world;
 		fireTrucks = takeListOfFireTrucks();
@@ -86,24 +89,25 @@ public class UnitConfiguration implements IUnitConfiguration {
 	public IEmergency getEmergency() {
 		return emergency;
 	}
-
-	/**
-	 * Returns the ConcreteUnitsNeeded.
-	 * @return The ConcreteUnitsNeeded.
-	 */
-	private ConcreteUnitsNeeded getConcreteUnitsNeeded() {
-		EmergencyAdapter ea = (EmergencyAdapter) takeEmergency();
-		ConcreteUnitsNeeded cun = null;
-		try {
-			cun = new ConcreteUnitsNeeded(ea.getEmergency(), ea.getEmergency().getDispatchConstraint());
-		} catch (InvalidSendableException ex) {
-			Logger.getLogger(UnitConfiguration.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidDispatchUnitsConstraintException ex) {
-			Logger.getLogger(UnitConfiguration.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		return cun;
-	}
+//
+//	/**
+//	 * Returns the ConcreteUnitsNeeded.
+//	 * @return The ConcreteUnitsNeeded.
+//	 */
+//	private ConcreteUnitsNeeded getConcreteUnitsNeeded() {
+//		EmergencyAdapter ea = (EmergencyAdapter) takeEmergency();
+//		ConcreteUnitsNeeded cun = null;
+//		try {
+//			ea.getEmergency();
+//			cun = new ConcreteUnitsNeeded(ea.getEmergency(), ea.getEmergency().getDispatchConstraint());
+//		} catch (InvalidSendableException ex) {
+//			Logger.getLogger(UnitConfiguration.class.getName()).log(Level.SEVERE, null, ex);
+//		} catch (InvalidDispatchUnitsConstraintException ex) {
+//			Logger.getLogger(UnitConfiguration.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//
+//		return cun;
+//	}
 
 	/**
 	 * Returns the proposal of units for this UnitConfiguration.
@@ -113,18 +117,30 @@ public class UnitConfiguration implements IUnitConfiguration {
 	 *		The class of the desired Units.
 	 * @return The proposal.
 	 */
-	private <T extends Unit> Set<Unit> getProposal(Class<T> t){
+	private <T extends Unit> HashSet<T> getProposal(Class<T> t) throws InvalidWorldException{
+		DispatchUnitsToEmergencyController dutec = new DispatchUnitsToEmergencyController(getWorld(), new NullEventHandler());
+		
+		Set<Unit> units = dutec.getUnitsByPolicy(((EmergencyAdapter)getEmergency()).getEmergency());
+		
 		TypeMapItemValidator<T> miv = new TypeMapItemValidator<T>(t);
-		MapItemList<T> mil = world.getMapItemList().getSubMapItemListByValidator(miv);
-		return getConcreteUnitsNeeded().getPolicyProposal(new HashSet<Unit>(mil.getMapItems()));
+		
+		HashSet<T> result = new HashSet<T>();	
+		
+		for(Unit u: units){
+			if(miv.isValid(u)) {
+				result.add(t.cast(u));
+			}
+		}
+			
+		return result;
 	}
 
 	/**
 	 * Calculates and returns the list of fire trucks that are needed.
 	 * @return The list of fire trucks that are needed.
 	 */
-	private List<IFireTruckView> takeListOfFireTrucks() {
-		Set<Unit> units = getProposal(Firetruck.class);
+	private List<IFireTruckView> takeListOfFireTrucks() throws InvalidWorldException {
+		HashSet<Firetruck> units = getProposal(Firetruck.class);
 
 		List<IFireTruckView> fireTruckViews = new ArrayList<IFireTruckView>();
 		for (Unit u : units) {
@@ -137,8 +153,8 @@ public class UnitConfiguration implements IUnitConfiguration {
 	 * Calculates and returns the list of ambulances that are needed.
 	 * @return The list of ambulances that are needed.
 	 */
-	private List<IAmbulanceView> takeListOfAmbulances() {
-		Set<Unit> units = getProposal(Ambulance.class);
+	private List<IAmbulanceView> takeListOfAmbulances() throws InvalidWorldException {
+		HashSet<Ambulance> units = getProposal(Ambulance.class);
 
 		List<IAmbulanceView> ambulanceViews = new ArrayList<IAmbulanceView>();
 		for (Unit u : units) {
@@ -151,8 +167,8 @@ public class UnitConfiguration implements IUnitConfiguration {
 	 * Calculates and returns the list of police cars that are needed.
 	 * @return The list of police cars that are needed.
 	 */
-	private List<IPoliceCarView> takeListOfPoliceCars() {
-		Set<Unit> units = getProposal(Policecar.class);
+	private List<IPoliceCarView> takeListOfPoliceCars() throws InvalidWorldException {
+		HashSet<Policecar> units = getProposal(Policecar.class);
 
 		List<IPoliceCarView> policeCarViews = new ArrayList<IPoliceCarView>();
 		for (Unit u : units) {
@@ -212,5 +228,9 @@ public class UnitConfiguration implements IUnitConfiguration {
 	@Override
 	public List<IUnit> getAllUnits() {
 		return units;
+	}
+	
+	private World getWorld(){
+		return world;
 	}
 }

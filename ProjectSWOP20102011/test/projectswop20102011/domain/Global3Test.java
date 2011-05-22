@@ -2,6 +2,7 @@ package projectswop20102011.domain;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.junit.Test;
@@ -129,165 +130,164 @@ public class Global3Test {
 
 	}
 
-	
 	@Test
 	public void testFire() throws InvalidEmergencyException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidAddedDisasterException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidDurationException, InvalidWithdrawalException, InvalidMapItemException {
-	//Firetrucks aanmaken
-	ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
-	ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
-	ft3 = new Firetruck("brandweerwagen3", new GPSCoordinate(300, 300), 10 * 3600, 95000);
-	ft4 = new Firetruck("brandweerwagen4", new GPSCoordinate(400, 400), 10 * 3600, 6000);
-	ft5 = new Firetruck("brandweerwagen5", new GPSCoordinate(500, 500), 10 * 3600, 42000);
+		//Firetrucks aanmaken
+		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
+		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
+		ft3 = new Firetruck("brandweerwagen3", new GPSCoordinate(300, 300), 10 * 3600, 95000);
+		ft4 = new Firetruck("brandweerwagen4", new GPSCoordinate(400, 400), 10 * 3600, 6000);
+		ft5 = new Firetruck("brandweerwagen5", new GPSCoordinate(500, 500), 10 * 3600, 42000);
 
-	//Ambulances aanmaken
-	am1 = new Ambulance("ziekenwagen1", new GPSCoordinate(600, 600), 10 * 3600);
-	am2 = new Ambulance("ziekenwagen2", new GPSCoordinate(700, 700), 10 * 3600);
-	am3 = new Ambulance("ziekenwagen3", new GPSCoordinate(800, 800), 10 * 3600);
+		//Ambulances aanmaken
+		am1 = new Ambulance("ziekenwagen1", new GPSCoordinate(600, 600), 10 * 3600);
+		am2 = new Ambulance("ziekenwagen2", new GPSCoordinate(700, 700), 10 * 3600);
+		am3 = new Ambulance("ziekenwagen3", new GPSCoordinate(800, 800), 10 * 3600);
 
-	//Policecars aanmaken
-	pc1 = new Policecar("politiewagen1", new GPSCoordinate(1200, 1200), 10 * 3600);
-	pc2 = new Policecar("politiewagen2", new GPSCoordinate(1300, 1300), 10 * 3600);
-	pc3 = new Policecar("politiewagen3", new GPSCoordinate(1400, 1400), 10 * 3600);
-	pc4 = new Policecar("politiewagen4", new GPSCoordinate(1500, 1500), 10 * 3600);
-	pc5 = new Policecar("politiewagen5", new GPSCoordinate(1600, 1600), 10 * 3600);
+		//Policecars aanmaken
+		pc1 = new Policecar("politiewagen1", new GPSCoordinate(1200, 1200), 10 * 3600);
+		pc2 = new Policecar("politiewagen2", new GPSCoordinate(1300, 1300), 10 * 3600);
+		pc3 = new Policecar("politiewagen3", new GPSCoordinate(1400, 1400), 10 * 3600);
+		pc4 = new Policecar("politiewagen4", new GPSCoordinate(1500, 1500), 10 * 3600);
+		pc5 = new Policecar("politiewagen5", new GPSCoordinate(1600, 1600), 10 * 3600);
 
-	//Hospitals aanmaken
-	rec.addHospital("UZ1", new GPSCoordinate(-5000, -5000));
-	rec.addHospital("UZ2", new GPSCoordinate(0, 0));
-	rec.addHospital("UZ3", new GPSCoordinate(5000, 5000));
+		//Hospitals aanmaken
+		rec.addHospital("UZ1", new GPSCoordinate(-5000, -5000));
+		rec.addHospital("UZ2", new GPSCoordinate(0, 0));
+		rec.addHospital("UZ3", new GPSCoordinate(5000, 5000));
 
-	//Firetrucks toevoegen aan de MapItemList
-	world.getMapItemList().addMapItem(ft1);
-	world.getMapItemList().addMapItem(ft2);
-	world.getMapItemList().addMapItem(ft3);
-	world.getMapItemList().addMapItem(ft4);
-	world.getMapItemList().addMapItem(ft5);
+		//Firetrucks toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(ft1);
+		world.getMapItemList().addMapItem(ft2);
+		world.getMapItemList().addMapItem(ft3);
+		world.getMapItemList().addMapItem(ft4);
+		world.getMapItemList().addMapItem(ft5);
 
-	//Ambulances toevoegen aan de MapItemList
-	world.getMapItemList().addMapItem(am1);
-	world.getMapItemList().addMapItem(am2);
-	world.getMapItemList().addMapItem(am3);
+		//Ambulances toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(am1);
+		world.getMapItemList().addMapItem(am2);
+		world.getMapItemList().addMapItem(am3);
 
-	//Policars toevoegen aan de MapItemList
-	world.getMapItemList().addMapItem(pc1);
-	world.getMapItemList().addMapItem(pc2);
-	world.getMapItemList().addMapItem(pc3);
-	world.getMapItemList().addMapItem(pc4);
-	////world.getMapItemList().addMapItem(pc5);
+		//Policars toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(pc1);
+		world.getMapItemList().addMapItem(pc2);
+		world.getMapItemList().addMapItem(pc3);
+		world.getMapItemList().addMapItem(pc4);
+		////world.getMapItemList().addMapItem(pc5);
 
-	//Hospitals toevoegen aan de MapItemList
-	world.getMapItemList().addMapItem(h1);
-	world.getMapItemList().addMapItem(h2);
-	world.getMapItemList().addMapItem(h3);
+		//Hospitals toevoegen aan de MapItemList
+		world.getMapItemList().addMapItem(h1);
+		world.getMapItemList().addMapItem(h2);
+		world.getMapItemList().addMapItem(h3);
 
-	//Firetrucks toevoegen aan de TimeSensitiveList
-	world.getTimeSensitiveList().addTimeSensitive(ft1);
-	world.getTimeSensitiveList().addTimeSensitive(ft2);
-	world.getTimeSensitiveList().addTimeSensitive(ft3);
-	world.getTimeSensitiveList().addTimeSensitive(ft4);
-	world.getTimeSensitiveList().addTimeSensitive(ft5);
+		//Firetrucks toevoegen aan de TimeSensitiveList
+		world.getTimeSensitiveList().addTimeSensitive(ft1);
+		world.getTimeSensitiveList().addTimeSensitive(ft2);
+		world.getTimeSensitiveList().addTimeSensitive(ft3);
+		world.getTimeSensitiveList().addTimeSensitive(ft4);
+		world.getTimeSensitiveList().addTimeSensitive(ft5);
 
-	//Ambulances toevoegen aan de TimeSensitiveList
-	world.getTimeSensitiveList().addTimeSensitive(am1);
-	world.getTimeSensitiveList().addTimeSensitive(am2);
-	world.getTimeSensitiveList().addTimeSensitive(am3);
+		//Ambulances toevoegen aan de TimeSensitiveList
+		world.getTimeSensitiveList().addTimeSensitive(am1);
+		world.getTimeSensitiveList().addTimeSensitive(am2);
+		world.getTimeSensitiveList().addTimeSensitive(am3);
 
-	//Policars toevoegen aan de TimeSensitiveList
-	world.getTimeSensitiveList().addTimeSensitive(pc1);
-	world.getTimeSensitiveList().addTimeSensitive(pc2);
-	world.getTimeSensitiveList().addTimeSensitive(pc3);
-	world.getTimeSensitiveList().addTimeSensitive(pc4);
+		//Policars toevoegen aan de TimeSensitiveList
+		world.getTimeSensitiveList().addTimeSensitive(pc1);
+		world.getTimeSensitiveList().addTimeSensitive(pc2);
+		world.getTimeSensitiveList().addTimeSensitive(pc3);
+		world.getTimeSensitiveList().addTimeSensitive(pc4);
 
-	//Alle Emergencies toevoegen aan de World
-	cec.addCreatedEmergencyToTheWorld(f1);
-	cec.addCreatedEmergencyToTheWorld(f2);
+		//Alle Emergencies toevoegen aan de World
+		cec.addCreatedEmergencyToTheWorld(f1);
+		cec.addCreatedEmergencyToTheWorld(f2);
 
-	List<Emergency> emergenciesForDisaster = new ArrayList<Emergency>(0);
+		List<Emergency> emergenciesForDisaster = new ArrayList<Emergency>(0);
 
-	emergenciesForDisaster.add(f1);
-	emergenciesForDisaster.add(f2);
+		emergenciesForDisaster.add(f1);
+		emergenciesForDisaster.add(f2);
 
-	String description = "Tis de moeite";
-	cdc.createDisaster(emergenciesForDisaster, description);
+		String description = "Tis de moeite";
+		cdc.createDisaster(emergenciesForDisaster, description);
 
-	Disaster[] disasters = idc.inspectDisastersOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
-	Disaster disaster = disasters[0];
+		Disaster[] disasters = idc.inspectDisastersOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
+		Disaster disaster = disasters[0];
 
-	Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-	//Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
+		HashSet<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+		//Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
 
-	int counter;
+		int counter;
 
-	counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
-	assertEquals(3, counter);
-	counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-	assertEquals(2, counter);
-	counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
-	assertEquals(1, counter);
-	List<Policecar> policecars = getPolicecars(unitsFromPolicy);
-	assertEquals(pc1.getName(), policecars.get(0).getName());
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
+		assertEquals(3, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
+		assertEquals(2, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
+		assertEquals(1, counter);
+		List<Policecar> policecars = getPolicecars(unitsFromPolicy);
+		assertEquals(pc1.getName(), policecars.get(0).getName());
 
-	dudc.dispatchToDisaster(disaster, unitsFromPolicy);
+		dudc.dispatchToDisaster(disaster, unitsFromPolicy);
 
-	tac.doTimeAheadAction(1);
+		tac.doTimeAheadAction(1);
 
-	ruafd.withdrawUnit(am1);
-	ruafd.withdrawUnit(am2);
-	ruafd.withdrawUnit(am3);
+		ruafd.withdrawUnit(am1);
+		ruafd.withdrawUnit(am2);
+		ruafd.withdrawUnit(am3);
 
-	ruafd.withdrawUnit(pc1);
-	try {
-	ruafd.withdrawUnit(pc2);
-	fail("This unit can't be withdrawn");
-	} catch (InvalidWithdrawalException e) {
+		ruafd.withdrawUnit(pc1);
+		try {
+			ruafd.withdrawUnit(pc2);
+			fail("This unit can't be withdrawn");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(pc3);
+			fail("This unit can't be withdrawn");
+
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(pc4);
+			fail("This unit can't be withdrawn");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft1);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft2);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft3);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft4);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+		try {
+			ruafd.withdrawUnit(ft5);
+			fail("This unit can't be withdrawn.");
+		} catch (InvalidWithdrawalException e) {
+		}
+
+		unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+
+		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
+		assertEquals(3, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
+		assertEquals(1, counter);
+		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
+		assertEquals(0, counter);
 	}
-	try {
-	ruafd.withdrawUnit(pc3);
-	fail("This unit can't be withdrawn");
 
-	} catch (InvalidWithdrawalException e) {
-	}
-	try {
-	ruafd.withdrawUnit(pc4);
-	fail("This unit can't be withdrawn");
-	} catch (InvalidWithdrawalException e) {
-	}
-	try {
-	ruafd.withdrawUnit(ft1);
-	fail("This unit can't be withdrawn.");
-	} catch (InvalidWithdrawalException e) {
-	}
-	try {
-	ruafd.withdrawUnit(ft2);
-	fail("This unit can't be withdrawn.");
-	} catch (InvalidWithdrawalException e) {
-	}
-	try {
-	ruafd.withdrawUnit(ft3);
-	fail("This unit can't be withdrawn.");
-	} catch (InvalidWithdrawalException e) {
-	}
-	try {
-	ruafd.withdrawUnit(ft4);
-	fail("This unit can't be withdrawn.");
-	} catch (InvalidWithdrawalException e) {
-	}
-	try {
-	ruafd.withdrawUnit(ft5);
-	fail("This unit can't be withdrawn.");
-	} catch (InvalidWithdrawalException e) {
-	}
-
-	unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-
-	counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
-	assertEquals(3, counter);
-	counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
-	assertEquals(1, counter);
-	counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-	assertEquals(0, counter);
-	}
-	 
 	@Test
 	public void testFinishedJob() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
 		//Firetrucks aanmaken
@@ -600,6 +600,7 @@ public class Global3Test {
 		}
 
 	}
+
 	@Test
 	public void testFinishedJobEmergency() throws InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidEmergencyException, InvalidAddedDisasterException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidWithdrawalException, InvalidMapItemException, InvalidDurationException, InvalidUnitException, InvalidFinishJobException {
 		//Firetrucks aanmaken

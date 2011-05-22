@@ -365,7 +365,11 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	@Override
 	public IUnitConfiguration getUnitConfiguration(IEmergency emergency) throws EmergencyDispatchException {
 		checkParameter(emergency);
-		return new UnitConfiguration(emergency, getWorld());
+		try {
+			return new UnitConfiguration(emergency, getWorld());
+		} catch (InvalidWorldException ex) {
+			throw new EmergencyDispatchException(ex.getMessage());
+		}
 	}
 
 	/**

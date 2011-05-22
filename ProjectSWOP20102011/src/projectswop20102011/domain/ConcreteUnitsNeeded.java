@@ -77,7 +77,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
 	 */
 	//TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast.
-	public ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidDispatchUnitsConstraintException, InvalidSendableException {
+	ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidDispatchUnitsConstraintException, InvalidSendableException {
 		super(emergency);
 		if (!isValidConstraint(constraint)) {
 			throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
@@ -386,7 +386,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @return true if the given unit is required for its emergency.
 	 */
 	@Override
-	public Boolean isRequired(Unit u) {
+	public boolean isRequired(Unit u) {
 		Set<Unit> unit = new HashSet<Unit>(0);
 		unit.add(u);
 		Set<Unit> unitsFromProposal = getPolicyProposal(unit);
