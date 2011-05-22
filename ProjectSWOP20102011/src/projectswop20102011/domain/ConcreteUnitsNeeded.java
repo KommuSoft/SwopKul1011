@@ -7,8 +7,10 @@ import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projectswop20102011.eventhandlers.Event;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
+import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -18,7 +20,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
  * A class that records which units are working on an emergency and does
  *		the accounting for the units that are working on the emergency.
  * @invar The emergency is valid.
- *		| isValidEmergency(getEmergency())
+ *		| isValidSendable(getSendable())
  * @invar The constraint is valid.
  *		| isValidConstraint(getConstraint())
  * @note This class has a package visibility and is a pure fabrication object.
@@ -32,10 +34,6 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 */
 	private DispatchPolicy policy;
 	/**
-	 * The emergency that is handled by this ConcreteUnitsNeeded.
-	 */
-	private final Emergency emergency;
-	/**
 	 * A DispatchUnitsConstraint object specifying which units can be allocated to the emergency.
 	 */
 	private final DispatchUnitsConstraint constraint;
@@ -47,6 +45,14 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * A variable registering the units of this emergency that have finished their job.
 	 */
 	private ArrayList<Unit> finishedUnits;
+        /**
+         * An event called when a unit is assigned to the emergency.
+         */
+        private Event<EmergencyUnitTuple> assignedUnit = new Event<EmergencyUnitTuple>();
+        /**
+         * An event called when a unit is released from the emergency.
+         */
+        private Event<EmergencyUnitTuple> releasedUnit = new Event<EmergencyUnitTuple>();
 
 	/**
 	 * Creates a new object that calculates the units needed for an emergency.
@@ -55,28 +61,25 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @param constraint
 	 *		A constraint used to determine when units can be assigned to the emergency.
 	 * @post This emergency is set to the given emergency.
-	 *		| new.getEmergency() == emergency
+	 *		| new.getSendable() == emergency
 	 * @post This constraint is set to the given constraint.
 	 *		| new.getConstraint() == constraint
 	 * @effect Sets the policy of this unitsNeeded to the given policy, that is the DefaultDispatchPolicy.
 	 *		|this.setPolicy(new DefaultDispatchPolicy(this))
 	 * @effect Initialize the Units.
 	 *		| initUnits()
-	 * @throws InvalidEmergencyException
+	 * @throws InvalidSendableException
 	 *		If the given emergency is not effective.
 	 * @throws InvalidDispatchUnitsConstraintException
 	 *		If the given constraint is invalid.
 	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
 	 */
 	//TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast.
-	public ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidEmergencyException, InvalidDispatchUnitsConstraintException {
-		if (!isValidEmergency(emergency)) {
-			throw new InvalidEmergencyException("Emergency must be effective.");
-		}
+	public ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidDispatchUnitsConstraintException, InvalidSendableException {
+		super(emergency);
 		if (!isValidConstraint(constraint)) {
 			throw new InvalidDispatchUnitsConstraintException("The constraint must be effective.");
 		}
-		this.emergency = emergency;
 		this.constraint = constraint;
 		try {
 			this.setPolicy(new DefaultDispatchPolicy(this));
@@ -125,8 +128,8 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Returns the emergency handled by this ConcreteUnitsNeeded.
 	 * @return The emergency handled by this ConcreteUnitsNeeded.
 	 */
-	public Emergency getEmergency() {
-		return this.emergency;
+	public Emergency getSendable() {
+		return (Emergency) super.getSendable();
 	}
 
 	/**
@@ -162,17 +165,6 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	@Override
 	DispatchUnitsConstraint getConstraint() {
 		return constraint;
-	}
-
-	/**
-	 * Checks if the given Emergency is valid for this ConcreteUnitsNeeded class, i.e
-	 *		the emergency is not null.
-	 * @param emergency
-	 *		The emergency to test.
-	 * @return True if the given emergency is valid; otherwise false.
-	 */
-	public static boolean isValidEmergency(Emergency emergency) {
-		return (emergency != null);
 	}
 
 	/**
@@ -217,13 +209,13 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 		
 		for (Unit u : units) {
 			try {
-				u.assignTo(this.getEmergency());
+				u.assignTo(this.getSendable());
 			} catch (InvalidMapItemException ex) {
 				//We assume this can't be true (checked by the canAssigUnitsToEmergency method)
 				Logger.getLogger(ConcreteUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			addWorkingUnits(u);
-			eventHandler.doAssign(getEmergency(), u);
+			eventHandler.doAssign(getSendable(), u);
 		}
 	}
 
@@ -317,7 +309,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 		takeWorkingUnits().remove(unit);
 		//TODO: Oplossing voor de nullpointer van het finishjobben bij units, kan mss nog terugkomen
 		//unit.setEmergency(null);
-		eventHandler.doRelease(getEmergency(), unit);
+		eventHandler.doRelease(getSendable(), unit);
 	}
 
 	/**
@@ -368,7 +360,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 */
 	@Override
 	void setStatus(SendableStatus emergencyStatus) throws InvalidSendableStatusException {
-		getEmergency().setStatus(emergencyStatus);
+		getSendable().setStatus(emergencyStatus);
 	}
 
 	/**

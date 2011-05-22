@@ -14,10 +14,10 @@ import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -269,7 +269,7 @@ public class Fire extends Emergency {
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			un.pushPolicy(new ASAPDispatchPolicy(un, new FireSizeDispatchPolicy(un)));
 			return un;
-		} catch (InvalidEmergencyException ex) {
+		} catch (InvalidSendableException ex) {
 			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidDispatchUnitsConstraintException ex) {
 			Logger.getLogger(Fire.class.getName()).log(Level.SEVERE, null, ex);

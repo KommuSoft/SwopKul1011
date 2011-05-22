@@ -51,7 +51,7 @@ public class FireSizeDispatchPolicy extends DispatchPolicy {
 	 */
 	@Override
 	protected int internalCompare(Unit unit1, Unit unit2) {
-		Emergency emergency = getUnitsNeeded().getEmergency();
+		Emergency emergency = getUnitsNeeded().getSendable();
 		if (emergency.getClass() == Fire.class) {
 			boolean isF1 = isFireTruck(unit1);
 			boolean isF2 = isFireTruck(unit2);

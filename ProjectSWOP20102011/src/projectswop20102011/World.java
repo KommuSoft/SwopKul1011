@@ -8,6 +8,7 @@ import projectswop20102011.domain.lists.EmergencyList;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.domain.lists.TimeSensitiveList;
+import projectswop20102011.eventhandlers.Event;
 
 /**
  * A class that represents a world.
@@ -48,6 +49,10 @@ public class World {
 	 * A variable that makes the connection to the EmergencyDispatchApi.
 	 */
 	private IEmergencyDispatchApi emergencyDispatchApi;
+        /**
+         * 
+         */
+        private Event<Long> timeSetEvent = new Event<Long>();
 	
 	/**
 	 * Creates a new world.
@@ -174,7 +179,21 @@ public class World {
 	public final void setTime(long time, EventHandler eventHandler) {
 		this.time = time;
 		eventHandler.doTimeSet(time);
+                this.timeSetEventAction(time);
 	}
+        
+        protected Event<Long> getTimeSetEvent () {
+            return this.timeSetEvent;
+        }
+        protected void timeSetEventAction (long time) {
+            this.getTimeSetEvent().action(time);
+        }
+        /*public void addTimeSetEventHandler (EventHandler<Long> handler) {
+            this.getTimeSetEvent().registerHandler(handler);
+        }
+        public void removeTimeSetEventHanlder (EventHandler<Long> handler) {
+            this.getTimeSetEvent().unregisterHandler(handler);
+        }*/
 
 	/**
 	 * Gets the EmergencyFactoryList

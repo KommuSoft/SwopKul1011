@@ -51,7 +51,7 @@ public class DefaultDispatchPolicy extends DispatchPolicy {
 	 */
 	@Override
 	public int internalCompare(Unit unit1, Unit unit2) {
-		final GPSCoordinate emergencyLocation = this.getUnitsNeeded().getEmergency().getLocation(); //Todo hide delegate hier toepassen? (ASAPDispatchPolicy eigenlijk ook)
+		final GPSCoordinate emergencyLocation = this.getUnitsNeeded().getSendable().getLocation(); //Todo hide delegate hier toepassen? (ASAPDispatchPolicy eigenlijk ook)
 		final Double distanceOfUnit1 = unit1.getDistanceTo(emergencyLocation);
 		final Double distanceOfUnit2 = unit2.getDistanceTo(emergencyLocation);
 		return distanceOfUnit1.compareTo(distanceOfUnit2);

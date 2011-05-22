@@ -21,7 +21,7 @@ import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidSendableException;
 
 /**
  * This class contains a unit configuration for a specific emergency. A unit configuration consists of a number of suggested units for each required unit type.
@@ -96,7 +96,7 @@ public class UnitConfiguration implements IUnitConfiguration {
 		ConcreteUnitsNeeded cun = null;
 		try {
 			cun = new ConcreteUnitsNeeded(ea.getEmergency(), ea.getEmergency().getDispatchConstraint());
-		} catch (InvalidEmergencyException ex) {
+		} catch (InvalidSendableException ex) {
 			Logger.getLogger(UnitConfiguration.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidDispatchUnitsConstraintException ex) {
 			Logger.getLogger(UnitConfiguration.class.getName()).log(Level.SEVERE, null, ex);

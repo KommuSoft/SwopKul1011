@@ -12,6 +12,7 @@ import projectswop20102011.domain.validators.EmergencyComparator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDisasterException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.SortedListSet;
 
@@ -19,7 +20,7 @@ import projectswop20102011.utils.SortedListSet;
  * A class that records which units are working on an disaster and does
  *		the accounting for the units that are working on the disaster.
  * @invar The disaster is valid.
- *		| isValidDisaster(getDisaster())
+ *		| isValidDisaster(getSendable())
  * @invar The constraint is valid.
  *		| isValidConstraint(getConstraint())
  *
@@ -30,7 +31,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	/**
 	 * The disaster that is handled by this DerivedUnitsNeeded.
 	 */
-	private final Disaster disaster;
+	//private final Disaster disaster;
 	/**
 	 * An AndDispatchUnitsConstraint object specifying which units can be allocated to the disaster.
 	 */
@@ -45,17 +46,14 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @post The constraint is set to the constraints of the emergencies of the disaster.
 	 *		| for(every Emergency e in Disaster)
 	 *		|	add the constraint of e to this constraint
-	 * @throws InvalidDisasterException
+	 * @throws InvalidSendableException
 	 *		If the given disaster is not effective.
-	 * @throws InvalidConstraintListException
+	 * @throws InvalidDispatchUnitsConstraintException
 	 *		If the given constraint is invalid.
 	 * @note This constructor has a package visibility, only instances in the domain layer (Disasters) can create DerivedUnitsNeeded.
 	 */
-	DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException, InvalidDisasterException {
-		if(!isValidDisaster(disaster)){
-			throw new InvalidDisasterException("The disaster must be effective.");
-		}
-		this.disaster = disaster;
+	DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException, InvalidSendableException {
+		super(disaster);
 		DispatchUnitsConstraint[] constraints = new DispatchUnitsConstraint[disaster.getEmergencies().size()];
 
 		for (int i = 0; i < disaster.getEmergencies().size(); ++i) {
@@ -80,8 +78,9 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * Returns the disaster of this DerivedUnitsNeeded.
 	 * @return The disaster of this DerivedUnitsNeeded.
 	 */
-	private Disaster getDisaster() {
-		return disaster;
+    @Override
+	protected Disaster getSendable() {
+		return (Disaster) super.getSendable();
 	}
 
 	/**
@@ -114,7 +113,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	public boolean canAssignUnitsToEmergency(Set<Unit> units) {
 		SortedSet<Unit> options = new SortedListSet<Unit>(units);
-		for (Emergency e : getDisaster().getEmergencies()) {
+		for (Emergency e : getSendable().getEmergencies()) {
 			ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
 			Set<Unit> unitsForEmergency = CUN.generateProposal(options);
 
@@ -137,7 +136,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 *		|	u.isAssigned()
 	 * @effect All the units in the given list are handling an emergency of the disaster of this UnitNeeded.
 	 *		| forall (u in units)
-	 *		|	u.getManagingSendable().equals(this.getDisaster())
+	 *		|	u.getManagingSendable().equals(this.getSendable())
 	 * @throws InvalidEmergencyException
 	 *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
 	 */
@@ -149,7 +148,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
 		}
 
-		List<Emergency> emergencies = getDisaster().getEmergencies();
+		List<Emergency> emergencies = getSendable().getEmergencies();
 		Collections.sort(emergencies, new EmergencyComparator());
 		Collections.reverse(emergencies);
 
@@ -168,7 +167,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @parem eventHandler
 	 *		The evenhandler where the notifications should be sent to.
 	 * @effect The unit finishes its job in the emergency.
-	 *		| unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit)
+	 *		| unit.getSendable().getUnitsNeeded().unitFinishedJob(unit)
 	 * @effect The unit is removed from the workingUnits list.
 	 *		|takeWorkingUnit().remove(unit)
 	 * @effect The unit is added to the finished units.
@@ -204,7 +203,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 */
 	@Override
 	void withdrawUnit(Unit unit, EventHandler eventHandler) {
-		for (Emergency e : getDisaster().getEmergencies()) {
+		for (Emergency e : getSendable().getEmergencies()) {
 			e.getUnitsNeeded().withdrawUnit(unit, eventHandler);
 		}
 	}
@@ -234,10 +233,10 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
 		Set<Unit> units = null;
-		if (getDisaster().getEmergencies().size() > 0) {
-			units = getDisaster().getEmergencies().get(0).calculateUnitsNeeded().getPolicyProposal(availableUnits);
-			for (int i = 1; i < getDisaster().getEmergencies().size(); ++i) {
-				units.addAll(getDisaster().getEmergencies().get(i).calculateUnitsNeeded().getPolicyProposal(availableUnits));
+		if (getSendable().getEmergencies().size() > 0) {
+			units = getSendable().getEmergencies().get(0).calculateUnitsNeeded().getPolicyProposal(availableUnits);
+			for (int i = 1; i < getSendable().getEmergencies().size(); ++i) {
+				units.addAll(getSendable().getEmergencies().get(i).calculateUnitsNeeded().getPolicyProposal(availableUnits));
 			}
 		}
 
@@ -267,7 +266,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 */
 	@Override
 	void setStatus(SendableStatus disasterStatus) throws InvalidSendableStatusException {
-		for (Emergency e : getDisaster().getEmergencies()) {
+		for (Emergency e : getSendable().getEmergencies()) {
 			e.setStatus(disasterStatus);
 		}
 	}
@@ -279,7 +278,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	ArrayList<Unit> takeFinishedUnits() {
 		ArrayList<Unit> result = new ArrayList<Unit>();
-		for (Emergency e : getDisaster().getEmergencies()) {
+		for (Emergency e : getSendable().getEmergencies()) {
 			result.addAll(e.getUnitsNeeded().getFinishedUnits());
 		}
 		return result;
@@ -292,7 +291,7 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	@Override
 	ArrayList<Unit> takeWorkingUnits() {
 		ArrayList<Unit> result = new ArrayList<Unit>();
-		for (Emergency e : getDisaster().getEmergencies()) {
+		for (Emergency e : getSendable().getEmergencies()) {
 			result.addAll(e.getUnitsNeeded().getWorkingUnits());
 		}
 		return result;

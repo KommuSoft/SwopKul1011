@@ -9,9 +9,9 @@ import projectswop20102011.domain.validators.DifferentQuadraticValidator;
 import projectswop20102011.domain.validators.NumberDispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.InvalidUnitsNeededException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
@@ -134,7 +134,7 @@ public class Robbery extends Emergency {
             un.pushPolicy(new ASAPDispatchPolicy(un));
             return un;
 
-        } catch (InvalidEmergencyException ex) {
+        } catch (InvalidSendableException ex) {
             //we assume this can't happen
             Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidDispatchUnitsConstraintException ex) {

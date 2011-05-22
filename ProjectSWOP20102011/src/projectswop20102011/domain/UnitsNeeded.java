@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidEmergencyException;
+import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 
 /**
@@ -15,12 +16,24 @@ import projectswop20102011.exceptions.InvalidSendableStatusException;
 public abstract class UnitsNeeded {
 
     /**
+     * The sendable of this UnitsNeeded.
+     */
+    private final Sendable sendable;
+    
+    /**
      * Generates a proposal for unit allocation based on the policy of the sendable.
      * @param availableUnits
      *		A list of available units.
      * @return A list of units proposed by the policy of this Sendable.
      */
     public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
+    
+    protected UnitsNeeded (Sendable sendable) throws InvalidSendableException {
+        if(!isValidSendable(sendable)) {
+            throw new InvalidSendableException("Sendable must be effective.");
+        }
+        this.sendable = sendable;
+    }
 
     /**
      * A method that indicates if the Sendable can be resolved with the given set of available units.
@@ -149,4 +162,23 @@ public abstract class UnitsNeeded {
         units.addAll(this.takeWorkingUnits());
         return units;
     }
+    
+    /**
+     * Checks if the given Sendable is a valid sendable for a UnitsNeeded.
+     * @param sendable
+     *          The sendable to check.
+     * @return True if the given Sendable is effective, otherwise false.
+     */
+    public static boolean isValidSendable (Sendable sendable) {
+        return (sendable != null);
+    }
+    
+    /**
+     * Returns the Sendable of this UnitsNeeded object.
+     * @return The Sendable of this UnitsNeeded object.
+     */
+    protected Sendable getSendable () {
+        return this.sendable;
+    }
+    
 }

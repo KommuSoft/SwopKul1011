@@ -12,9 +12,9 @@ import projectswop20102011.domain.validators.FiretruckWaterUnitValidator;
 import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
-import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
+import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 
@@ -176,7 +176,7 @@ public class TrafficAccident extends Emergency {
 			DispatchUnitsConstraint pol = new NumberDispatchUnitsConstraint(new TypeUnitValidator(Policecar.class), (this.getNumberOfCars() + 1) / 2);
 			ConcreteUnitsNeeded un = new ConcreteUnitsNeeded(this, new AndDispatchUnitsConstraint(fir, amb, pol));
 			return un;
-		} catch (InvalidEmergencyException ex) {
+		} catch (InvalidSendableException ex) {
 			//we assume this can't happen
 			Logger.getLogger(Robbery.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidDispatchUnitsConstraintException ex) {
