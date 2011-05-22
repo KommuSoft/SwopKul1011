@@ -10,6 +10,7 @@ import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.EmergencyComparator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
+import projectswop20102011.exceptions.InvalidDisasterException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.SortedListSet;
@@ -44,13 +45,16 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * @post The constraint is set to the constraints of the emergencies of the disaster.
 	 *		| for(every Emergency e in Disaster)
 	 *		|	add the constraint of e to this constraint
-	 * @throws InvalidEmergencyException
-	 *		If the given emergency is not effective.
-	 * @throws InvalidDispatchUnitsConstraintException
+	 * @throws InvalidDisasterException
+	 *		If the given disaster is not effective.
+	 * @throws InvalidConstraintListException
 	 *		If the given constraint is invalid.
-	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
+	 * @note This constructor has a package visibility, only instances in the domain layer (Disasters) can create DerivedUnitsNeeded.
 	 */
-	DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException {
+	DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException, InvalidDisasterException {
+		if(!isValidDisaster(disaster)){
+			throw new InvalidDisasterException("The disaster must be effective.");
+		}
 		this.disaster = disaster;
 		DispatchUnitsConstraint[] constraints = new DispatchUnitsConstraint[disaster.getEmergencies().size()];
 
@@ -255,6 +259,9 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 	 * Sets the status of the disaster.
 	 * @param disasterStatus
 	 *		The new status of the disaster.
+	 * @effect Every emergency in the disaster has the given status.
+	 *		| for(every Emergency e in disaster)
+	 *		|	e.setStatus(disasterStatus)
 	 * @throws InvalidSendableStatusException 
 	 *		If the status is wrong.
 	 */

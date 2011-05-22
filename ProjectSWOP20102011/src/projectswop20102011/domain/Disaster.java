@@ -17,6 +17,8 @@ import projectswop20102011.utils.MapFunction;
 
 /**
  * A class representing a disaster (a group of emergencies).
+ * @invar A disaster contains always a valid number of emergencies (i.e. higher than one or just one) and all emergencies are valid (i.e. they are not part of another disaster).
+ *		| areValidEmergencies(getEmergencies()) == true
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Disaster extends Sendable {
@@ -52,7 +54,7 @@ public class Disaster extends Sendable {
 	public Disaster(List<Emergency> emergencies, String description) throws InvalidEmergencyException, InvalidConstraintListException {
 		super(description);
 		if (!areValidEmergencies(emergencies)) {
-			throw new InvalidEmergencyException("The number of emergencies must be higher than one, and all the emergency must be no part of an disaster.");
+			throw new InvalidEmergencyException("The number of emergencies must be higher than zero, and all the emergency must be no part of an disaster.");
 		}
 		indicateEmergenciesAsPartOfDisaster(emergencies);
 		this.emergencies = emergencies;

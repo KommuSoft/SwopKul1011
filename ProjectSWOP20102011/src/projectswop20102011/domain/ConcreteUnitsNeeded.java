@@ -361,6 +361,8 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * Sets the status of the emergency.
 	 * @param emergencyStatus
 	 *		The new status of the emergency.
+	 * @effect The emergency has now the given status.
+	 *		|getEmergency().setStatus(emergencyStatus)
 	 * @throws InvalidSendableStatusException 
 	 *		If the status is wrong.
 	 */
@@ -376,7 +378,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @param eventHandler 
 	 *		The eventHandler where the notifications should be sent to.
 	 * @effect The unit is removed from the workingUnits list.
-	 *		| removeFromWorkingUnits(unit)
+	 *		| removeFromWorkingUnits(unit, eventHandler)
 	 */
 	@Override
 	void withdrawUnit(Unit unit,EventHandler eventHandler) {

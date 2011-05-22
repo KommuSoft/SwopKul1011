@@ -25,9 +25,11 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
 /**
  * A class that represents a fire.
  * @invar The fire size is always valid.
- *		| isValidFireSize(getSize())
+ *		| isValidFireSize(getSize()) == true
  * @invar The number of injured people is always valid.
- *		| isValidNumberOfInjured(getNumberOfInjured())
+ *		| isValidNumberOfInjured(getNumberOfInjured()) == true
+ * @invar The number of trapped people is always validL
+ *		| isValidTrappedPeople(getNumberOfTrappedPeople()) == true
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class Fire extends Emergency {

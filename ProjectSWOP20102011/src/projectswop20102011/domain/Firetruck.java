@@ -15,6 +15,8 @@ import projectswop20102011.exceptions.InvalidCapacityException;
  * A class that represents a firetruck.
  * 
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
+ * @invar The capacity of every fire truck is valid
+ *		|isValidCapcity(getCapacity) == true
  */
 public class Firetruck extends Unit {
 
