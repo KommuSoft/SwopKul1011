@@ -30,9 +30,9 @@ In de volgende paragrafen stellen we enkele \textit{Design Patterns} voor die we
 We stellen onze constraints op onze emergency voor als een boom. Deze implementatie is een toepassing van het \textit{Composite} pattern. Hierbij zien we \texttt{Dispatch\-Units\-Constraint} in de rol van \texttt{Component} en de \texttt{Number\-Dispatch\-Units\-Constraint} is \'e\'en van de eventueel later uitgebreide \texttt{Leaf}s. Tot slot zien we \texttt{And\-Dispatch\-Units\-Constraint} als de \texttt{Composite} klasse. Gegeven de specificaties in de opgave is dergelijke structuur misschien ``overkill''. We zijn echter makkelijk in staat om nieuwe types constraints toe te voegen, net als connectoren (zoals bijvoorbeeld een OR). Het uitgewerkte UML diagram met de relevante methodes staat op figuur \ref{fig:compositePattern}.
 
 \begin{figure}[h!]
-\includegraphics[width=1.0\textwidth]{CD_compositePattern.pdf}
-\caption{UML diagram van de implementatie van het \textit{Composite}-pattern in het project.}
-\label{fig:compositePattern}
+	\includegraphics[width=1.0\textwidth]{CD_compositePattern.pdf}
+	\caption{UML diagram van de implementatie van het \textit{Composite}-pattern in het project.}
+	\label{fig:compositePattern}
 \end{figure}
 
 Tot slot kan opgemerkt worden dat in het boek er operaties in de Composite-participant gedefinieerd worden. In deze implementatie voegen we eenvoudigweg geen operaties toe. Het kennen van de parent levert voor \verb+AndDispatchUnitsConstraint+ geen meerwaarde op. Verder kan geargumenteerd worden dat de opbouw van de boom hiermee vastligt: bottom-up. Er kan dus bijgevolg geen boom met een tak naar zichzelf bestaan. \todo{Wuk wordt er hier mee bedoeltd?}Tot slot geeft het ook de mogelijkheid om een object op verschillende plaatsen in de boom in te voegen. Dit geeft de structuur dus meer dynamiek.
