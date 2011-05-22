@@ -45,14 +45,14 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * A variable registering the units of this emergency that have finished their job.
 	 */
 	private ArrayList<Unit> finishedUnits;
-        /**
-         * An event called when a unit is assigned to the emergency.
-         */
-        private Event<EmergencyUnitTuple> assignedUnit = new Event<EmergencyUnitTuple>();
-        /**
-         * An event called when a unit is released from the emergency.
-         */
-        private Event<EmergencyUnitTuple> releasedUnit = new Event<EmergencyUnitTuple>();
+	/**
+	 * An event called when a unit is assigned to the emergency.
+	 */
+	private Event<EmergencyUnitTuple> assignedUnit = new Event<EmergencyUnitTuple>();
+	/**
+	 * An event called when a unit is released from the emergency.
+	 */
+	private Event<EmergencyUnitTuple> releasedUnit = new Event<EmergencyUnitTuple>();
 
 	/**
 	 * Creates a new object that calculates the units needed for an emergency.
@@ -202,11 +202,11 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
 	@Override
-	public synchronized void assignUnitsToSendable(Set<Unit> units,EventHandler eventHandler) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToSendable(Set<Unit> units, EventHandler eventHandler) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
 		}
-		
+
 		for (Unit u : units) {
 			try {
 				u.assignTo(this.getSendable());
@@ -231,7 +231,7 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		|addFinishedUnits(unit)
 	 */
 	@Override
-	void unitFinishedJob(Unit unit,EventHandler eventHandler) {
+	void unitFinishedJob(Unit unit, EventHandler eventHandler) {
 		removeFromWorkingUnits(unit, eventHandler);
 		addFinishedUnits(unit);
 	}
@@ -373,7 +373,20 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		| removeFromWorkingUnits(unit, eventHandler)
 	 */
 	@Override
-	void withdrawUnit(Unit unit,EventHandler eventHandler) {
+	void withdrawUnit(Unit unit, EventHandler eventHandler) {
 		removeFromWorkingUnits(unit, eventHandler);
+	}
+
+	/**
+	 * Checks if the given unit is still required for its emergency.
+	 * @param u
+	 *		The unit to check.
+	 * @return true if the given unit is required for its emergency.
+	 */
+	public boolean isRequired(Unit u) {
+		Set<Unit> unit = new HashSet<Unit>(0);
+		unit.add(u);
+		Set<Unit> unitsFromProposal = getPolicyProposal(unit);
+		return unitsFromProposal.size() == 1;
 	}
 }

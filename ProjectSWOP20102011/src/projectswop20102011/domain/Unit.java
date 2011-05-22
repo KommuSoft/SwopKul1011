@@ -378,7 +378,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 		if (!canBeWithdrawn()) {
 			throw new InvalidWithdrawalException("Unit can't be withdrawn.");
 		} else {
-			//TODO: niet zo mooi waarschijnlijk? [Willem: Beter?] [Jonas: voor mij wel :)]
 			this.getManagingSendable().withdrawUnit(this, eventHandler);
 			this.setEmergency(null);
 			setUnitStatus(UnitStatus.IDLE);
@@ -435,7 +434,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
-		} else if (isRequired()) {
+		} else if (getManagingSendable().getUnitsNeeded().isRequired(this)) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (!arePresent()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
@@ -458,17 +457,6 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 */
 	public boolean canFinishJob() {
 		return (isAssigned() && isAtDestination());
-	}
-
-	/**
-	 * Checks whether another unit of the same type for its emergency is required
-	 * @return true if another unit of this type is required for its emergency
-	 */
-	public boolean isRequired() {
-		//TODO(belangrijk): welke principes worden hier gebruikt?!
-		Set<Unit> unit = new HashSet<Unit>(0);
-		unit.add(this.clone());
-		return getEmergency().getPolicyProposal(unit).size() == 1;
 	}
 
 	/**
