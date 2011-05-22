@@ -10,7 +10,6 @@ import projectswop20102011.domain.validators.AndDispatchUnitsConstraint;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
 import projectswop20102011.domain.validators.EmergencyComparator;
 import projectswop20102011.exceptions.InvalidConstraintListException;
-import projectswop20102011.exceptions.InvalidDisasterException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
