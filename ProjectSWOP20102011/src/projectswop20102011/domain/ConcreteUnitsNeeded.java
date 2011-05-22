@@ -28,8 +28,7 @@ import projectswop20102011.exceptions.InvalidUnitsNeededException;
  * @note This class has a package visibility and is a pure fabrication object.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-//TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast worden.
-public class ConcreteUnitsNeeded extends UnitsNeeded {
+class ConcreteUnitsNeeded extends UnitsNeeded {
 
 	/**
 	 * A policy for allocating units to this ConcreteUnitsNeeded.
@@ -76,7 +75,6 @@ public class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		If the given constraint is invalid.
 	 * @note This constructor has a package visibility, only instances in the domain layer (Emergencies) can create ConcreteUnitsNeeded.
 	 */
-	//TODO: voorlopig staat dit public, als dit toch public blijft staan moet de note hierboven aangepast.
 	ConcreteUnitsNeeded(Emergency emergency, DispatchUnitsConstraint constraint) throws InvalidDispatchUnitsConstraintException, InvalidSendableException {
 		super(emergency);
 		if (!isValidConstraint(constraint)) {

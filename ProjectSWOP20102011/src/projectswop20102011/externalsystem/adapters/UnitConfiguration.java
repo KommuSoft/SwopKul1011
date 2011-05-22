@@ -10,20 +10,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projectswop20102011.World;
 import projectswop20102011.controllers.DispatchUnitsToEmergencyController;
 import projectswop20102011.domain.Ambulance;
-import projectswop20102011.domain.ConcreteUnitsNeeded;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.eventhandlers.NullEventHandler;
-import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
-import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
