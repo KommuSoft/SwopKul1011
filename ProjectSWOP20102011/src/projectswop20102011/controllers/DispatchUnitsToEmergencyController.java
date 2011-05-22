@@ -1,114 +1,50 @@
 package projectswop20102011.controllers;
 
-import java.io.InvalidClassException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
-import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.World;
-import projectswop20102011.domain.Ambulance;
 import projectswop20102011.domain.EventHandler;
-import projectswop20102011.domain.Firetruck;
-import projectswop20102011.domain.Policecar;
-import projectswop20102011.domain.validators.OrValidator;
-import projectswop20102011.domain.validators.TypeUnitValidator;
-import projectswop20102011.domain.validators.UnitToTargetableDistanceComparator;
-import projectswop20102011.domain.validators.Validator;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
-import projectswop20102011.exceptions.InvalidTargetableException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
 /**
  * A controller for the use case where units are dispatched to an emergency.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
-public class DispatchUnitsToEmergencyController extends Controller {
+public class DispatchUnitsToEmergencyController extends DispatchController {
 
-    /**
-     * An eventHandler where the notifications should be sent to.
-     */
-    private EventHandler eventHandler;
+	/**
+	 * Creates a new instance of a DispatchUnitsController with a given word to operate on.
+	 * @param world The world where the controller will operate on.
+	 * @param eventHandler 
+	 * @throws InvalidWorldException If the given world is invalid.
+	 */
+	public DispatchUnitsToEmergencyController(World world, EventHandler eventHandler) throws InvalidWorldException {
+		super(world, eventHandler);
+	}
 
-    /**
-     * Creates a new instance of a DispatchUnitsController with a given word to operate on.
-     * @param world The world where the controller will operate on.
-     * @throws InvalidWorldException If the given world is invalid.
-     */
-    public DispatchUnitsToEmergencyController(World world, EventHandler eventHandler) throws InvalidWorldException {
-        super(world);
-        this.eventHandler = eventHandler;
-    }
+	/**
+	 * Returns a textual representation of the unit constraints of the given emergency.
+	 * @param emergency The given emergency.
+	 * @return A textual representation of the unit constraints of the given emergency.
+	 */
+	public String getRequiredUnits(Emergency emergency) {
+		return emergency.getDispatchConstraint().toString();
+	}
 
-    /**
-     * Generates a proposal for unit allocation for the given emergency.
-     * @param emergency The emergency to generate a proposal for.
-     * @return A set of Units that represent the proposal for the emergency.
-     * @throws InvalidEmergencyException If the given emergency is invalid.
-     */
-    public Set<Unit> getUnitsByPolicy(Emergency emergency) {
-        MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
-        HashSet<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
-        return emergency.getPolicyProposal(mapItems);
-    }
-
-    /**
-     * Returns a list of available units sorted on the policy used by the given emergency.
-     * @param emergency The emergency to sort the units.
-     * @return A list of available units sorted on the policy used by the given emergency.
-     * @throws InvalidTargetableException
-     *          If the given emergency is invalid.
-     * @throws InvalidClassException
-     */
-    public List<Unit> getAvailableUnitsNeededSorted(Emergency emergency) throws InvalidClassException, InvalidTargetableException {
-        //TODO: dit kan waarschijnlijk iets mooier? [Willem: beter? Noot: is volledig identiek aan EmergencyUnits...Controller, pullup naar nieuwe klasse?]
-        MapItemValidator criterium = new AvailableUnitsMapItemValidator();
-        Set<Unit> units = getUnitsByPolicy(emergency);
-        Set<Class<? extends Unit>> usedUnitTypes = new HashSet<Class<? extends Unit>>();
-        for (Unit u : units) {
-            usedUnitTypes.add(u.getClass());
-        }
-        Collection<Validator<? super Unit>> tuvs = new ArrayList<Validator<? super Unit>>();
-        for (Class<? extends Unit> type : usedUnitTypes) {
-            tuvs.add(new TypeUnitValidator(type));
-        }
-        Validator<Unit> validator = new OrValidator<Unit>(tuvs);
-        List<Unit> allUnits = this.getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getSortedCopy(new UnitToTargetableDistanceComparator(emergency));
-        List<Unit> result = new ArrayList<Unit>(0);
-        for (Unit u : allUnits) {
-            if (validator.isValid(u)) {
-                result.add(u);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Returns a textual representation of the unit constraints of the given emergency.
-     * @param emergency The given emergency.
-     * @return A textual representation of the unit constraints of the given emergency.
-     */
-    public String getRequiredUnits(Emergency emergency) {
-        return emergency.getDispatchConstraint().toString();
-    }
-
-    /**
-     * Dispatches the given set of units to the given emergency.
-     * @param emergency The emergency where the units will be assigned to.
-     * @param units The set of units to assign to the given emergency.
-     * @throws InvalidEmergencyStatusException
-     *          If the emergency is in a state where units can't be dispatched to.
-     * @throws InvalidEmergencyException
-     */
-    public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
-        if (emergency.isPartOfADisaster()) {
-            throw new InvalidEmergencyException("The emergency is part of a disaster.");
-        }
-        emergency.assignUnits(units, eventHandler);
-    }
+	/**
+	 * Dispatches the given set of units to the given emergency.
+	 * @param emergency The emergency where the units will be assigned to.
+	 * @param units The set of units to assign to the given emergency.
+	 * @throws InvalidSendableStatusException 
+	 * @throws InvalidEmergencyException
+	 */
+	public void dispatchToEmergency(Emergency emergency, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
+		if (emergency.isPartOfADisaster()) {
+			throw new InvalidEmergencyException("The emergency is part of a disaster.");
+		}
+		emergency.assignUnits(units, getEventHandler());
+	}
 }

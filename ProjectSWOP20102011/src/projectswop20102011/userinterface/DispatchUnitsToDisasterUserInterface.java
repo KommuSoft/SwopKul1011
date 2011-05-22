@@ -76,7 +76,7 @@ public class DispatchUnitsToDisasterUserInterface extends CommandUserInterface {
 							this.writeOutput(getController().getRequiredUnits(selectedDisaster));
 
 							this.writeOutput("AVAILABLE UNITS:" + selectedDisaster);
-							ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsSorted(selectedDisaster);
+							ArrayList<Unit> availableUnits = (ArrayList<Unit>) this.getController().getAvailableUnitsNeededSorted(selectedDisaster);
 							for (int i = 0; i < availableUnits.size(); i++) {
 								Unit u = availableUnits.get(i);
 								double distance = u.getCurrentLocation().getDistanceTo(selectedDisaster.getLocation());
