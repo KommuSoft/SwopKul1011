@@ -25,7 +25,7 @@ import projectswop20102011.utils.SortedListSet;
  *
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public class DerivedUnitsNeeded extends UnitsNeeded {
+class DerivedUnitsNeeded extends UnitsNeeded {
 
 	/**
 	 * The disaster that is handled by this DerivedUnitsNeeded.
@@ -59,18 +59,6 @@ public class DerivedUnitsNeeded extends UnitsNeeded {
 			constraints[i] = disaster.getEmergencies().get(i).getDispatchConstraint();
 		}
 		constraint = new AndDispatchUnitsConstraint(constraints);
-	}
-
-	/**
-	 * Checks if the units needed for the disaster are all finished.
-	 * @return True if all units needed for the disaster are finished; otherwise false.
-	 * @note If the units needed for the disaster are all finished, then the disaster of this units needed can be completed.
-	 */
-	//TODO: mag deze methode weg? [Jonas: van mij wel, ConcreteUnitsNeeded bevat ze ook niet meer]
-	private boolean canCompleteDisaster() {
-		throw new RuntimeException("Not yet implemented");
-		//TODO: moet dit niet geïmplementeerd worden?
-		//return getConstraint().areValidDispatchUnits(takeFinishedUnits());
 	}
 
 	/**

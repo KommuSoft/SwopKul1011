@@ -170,7 +170,6 @@ public class Disaster extends Sendable {
     public Hashtable<String, String> getLongInformation() {
         Hashtable<String, String> information = super.getInformation();
 
-        //TODO: Deze info kan niet volledig afgeprint worden in UI. Jonas denkt dat dit nu opgelost is.
         for (Emergency e : getEmergencies()) {
             information.putAll(e.getLongInformation());
         }

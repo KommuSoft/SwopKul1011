@@ -13,7 +13,7 @@ import projectswop20102011.exceptions.InvalidSendableStatusException;
  *		the accounting for the units that are working on the sendable.
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke.
  */
-public abstract class UnitsNeeded {
+abstract class UnitsNeeded {
 
     /**
      * The sendable of this UnitsNeeded.

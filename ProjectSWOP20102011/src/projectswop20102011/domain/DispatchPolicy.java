@@ -176,10 +176,10 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      */
     public boolean isValidSuccessor(DispatchPolicy successor) {
         if (successor == null) {
-            return true; //TODO: test hiervoor schrijven [Emma: dit is getest]
+            return true;
         }
         if (successor.getUnitsNeeded() != this.getUnitsNeeded()) {
-            return false; //TODO: test hiervoor schrijven [Emma: dit is getest]
+            return false;
         }
         return !detectLoop(successor);
     }
@@ -196,6 +196,6 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
         while (deepSuccessor != null && deepSuccessor != this) {
             deepSuccessor = deepSuccessor.getSuccessor();
         }
-        return (deepSuccessor != null); //TODO: test hiervoor schrijven (deel 2) [Emma: dit is getest]
+        return (deepSuccessor != null);
     }
 }

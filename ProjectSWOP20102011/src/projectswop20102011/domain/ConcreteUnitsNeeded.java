@@ -307,8 +307,6 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 */
 	private void removeFromWorkingUnits(Unit unit, EventHandler eventHandler) {
 		takeWorkingUnits().remove(unit);
-		//TODO: Oplossing voor de nullpointer van het finishjobben bij units, kan mss nog terugkomen
-		//unit.setEmergency(null);
 		eventHandler.doRelease(getSendable(), unit);
 	}
 
