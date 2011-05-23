@@ -1041,11 +1041,6 @@ public class Global2Test {
         }
 
         Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-        System.out.println("=====================================================");
-        for (Unit u : unitsFromPolicy) {
-            System.out.println(u);
-        }
-        System.out.println("=====================================================");//*/
         int counter;
 
         counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
@@ -1059,10 +1054,8 @@ public class Global2Test {
 
         tac.doTimeAheadAction(10);
         for (Unit u : disaster.getWorkingUnits()) {
-            System.out.println(u);
             assertFalse(u.isAtDestination());
         }
-        System.out.println("=====================================================");//*/
 
         try {
             ruafd.withdrawUnit(ft1);
@@ -1113,7 +1106,6 @@ public class Global2Test {
         assertEquals(0, counter);
 
         unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-        System.out.println(unitsFromPolicy.getClass());
         counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
         assertEquals(6, counter);
         counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);

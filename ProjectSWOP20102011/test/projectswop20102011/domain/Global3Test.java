@@ -56,38 +56,15 @@ public class Global3Test {
 	RemoveUnitAssignmentFromDisasterController ruafd;
 	TimeAheadController tac;
 	ReadEnvironmentDataController rec;
-	Firetruck ft1;
-	Firetruck ft2;
-	Firetruck ft3;
-	Firetruck ft4;
-	Firetruck ft5;
-	Ambulance am1;
-	Ambulance am2;
-	Ambulance am3;
-	Ambulance am4;
-	Ambulance am5;
-	Ambulance am6;
-	Policecar pc1;
-	Policecar pc2;
-	Policecar pc3;
-	Policecar pc4;
-	Policecar pc5;
-	Hospital h1;
-	Hospital h2;
-	Hospital h3;
-	Fire f1;
-	Fire f2;
+	Firetruck ft1, ft2, ft3, ft4, ft5;
+	Ambulance am1, am2, am3, am4, am5, am6;
+	Policecar pc1, pc2, pc3, pc4, pc5;
+	Hospital h1, h2, h3;
+	Fire f1, f2;
 	//Fire f3;
-	Robbery r1;
-	Robbery r2;
-	Robbery r3;
-	Robbery r4;
-	TrafficAccident ta1;
-	TrafficAccident ta2;
-	TrafficAccident ta3;
-	PublicDisturbance pd1;
-	PublicDisturbance pd2;
-	PublicDisturbance pd3;
+	Robbery r1, r2, r3, r4;
+	TrafficAccident ta1, ta2, ta3;
+	PublicDisturbance pd1, pd2, pd3;
 	DispatchUnitsToEmergencyController duec;
 
 	@Before
@@ -285,7 +262,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(0, counter);
+		assertEquals(0, counter);//hier faalt de test
 	}
 
 	@Test
