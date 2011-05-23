@@ -41,7 +41,7 @@ public enum SendableStatus {
 		}
 
 		@Override
-		HashSet<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
+		Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return unitsNeeded.getPolicyProposal(availableUnits);
 		}
 
@@ -82,7 +82,7 @@ public enum SendableStatus {
 		}
 
 		@Override
-		HashSet<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
+		Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return unitsNeeded.getPolicyProposal(availableUnits);
 		}
 
@@ -122,7 +122,7 @@ public enum SendableStatus {
 		}
 
 		@Override
-		HashSet<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
+		Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits) {
 			return new HashSet<Unit>();//a proposal containing no units
 		}
 
@@ -266,7 +266,7 @@ public enum SendableStatus {
 	 *      A list of available units that can be selected.
 	 * @return A set of units that represents the proposal of the policy.
 	 */
-	abstract HashSet<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits);
+	abstract Set<Unit> getPolicyProposal(UnitsNeeded unitsNeeded, Set<Unit> availableUnits);
 
 	/**
 	 * Checks if the given sendable can be resolved with a given collection of all the available units.

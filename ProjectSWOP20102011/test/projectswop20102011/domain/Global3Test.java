@@ -213,7 +213,7 @@ public class Global3Test {
 		Disaster[] disasters = idc.inspectDisastersOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED);
 		Disaster disaster = disasters[0];
 
-		HashSet<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+		Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
 		//Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
 
 		int counter;

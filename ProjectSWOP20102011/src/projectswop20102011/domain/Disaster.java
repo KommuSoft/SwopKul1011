@@ -15,6 +15,7 @@ import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
+import projectswop20102011.utils.UniqueList;
 
 /**
  * A class representing a disaster (a group of emergencies).
@@ -213,7 +214,7 @@ public class Disaster extends Sendable {
 	 * @return A list of units proposed by the policy of this constraint.
 	 */
 	@Override
-	public HashSet<Unit> getPolicyProposal(Set<Unit> availableUnits) {
+	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
 		return getStatus().getPolicyProposal(getUnitsNeeded(), availableUnits);
 	}
 

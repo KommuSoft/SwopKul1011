@@ -27,7 +27,7 @@ abstract class UnitsNeeded {
      *		A list of available units.
      * @return A list of units proposed by the policy of this Sendable.
      */
-    public abstract HashSet<Unit> getPolicyProposal(Set<Unit> availableUnits);
+    public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
     
     protected UnitsNeeded (Sendable sendable) throws InvalidSendableException {
         if(!isValidSendable(sendable)) {

@@ -223,9 +223,9 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      * @return A list of units proposed by the policy of this constraint.
      */
     @Override
-    public HashSet<Unit> getPolicyProposal(Set<Unit> availableUnits) {
+    public UniqueList<Unit> getPolicyProposal(Set<Unit> availableUnits) {
         HashSet<Unit> au = new HashSet<Unit>((ArrayList<Unit>) ((new ArrayList<Unit>(availableUnits)).clone()));
-        HashSet<Unit> units = new HashSet<Unit>();
+        UniqueList<Unit> units = new UniqueList<Unit>();
         for (int i = 0; i < getSendable().getEmergencies().size(); ++i) {
             if (getSendable().getEmergencies().get(i).getSeverity().ordinal() > SendableSeverity.NORMAL.ordinal()) {
                 units.addAll(getSendable().getEmergencies().get(i).getPolicyProposal(au));

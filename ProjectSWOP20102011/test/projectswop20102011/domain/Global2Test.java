@@ -1113,6 +1113,7 @@ public class Global2Test {
         assertEquals(0, counter);
 
         unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+        System.out.println(unitsFromPolicy.getClass());
         counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
         assertEquals(6, counter);
         counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);

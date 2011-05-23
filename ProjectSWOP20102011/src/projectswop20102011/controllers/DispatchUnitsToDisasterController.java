@@ -22,7 +22,7 @@ public class DispatchUnitsToDisasterController extends DispatchController {
         super(world, eventHandler);
     }
 
-    public HashSet<Unit> getUnitsByPolicy(Disaster disaster) {
+    public Set<Unit> getUnitsByPolicy(Disaster disaster) {
         MapItemValidator<Unit> criterium = new AvailableUnitsMapItemValidator();
         Set<Unit> mapItems = getWorld().getMapItemList().getSubMapItemListByValidator(criterium).getMapItems();
         return disaster.getPolicyProposal(mapItems);
