@@ -1,7 +1,6 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -136,7 +135,7 @@ class DerivedUnitsNeeded extends UnitsNeeded {
             throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
         }
 
-        List<Emergency> emergencies = getSendable().getEmergencies();
+        List<Emergency> emergencies = new ArrayList<Emergency>(getSendable().getEmergencies());
         Collections.sort(emergencies, new EmergencyComparator());
         Collections.reverse(emergencies);
 
@@ -225,9 +224,14 @@ class DerivedUnitsNeeded extends UnitsNeeded {
     public UniqueList<Unit> getPolicyProposal(Set<Unit> availableUnits) {
         HashSet<Unit> au = new HashSet<Unit>((ArrayList<Unit>) ((new ArrayList<Unit>(availableUnits)).clone()));
         UniqueList<Unit> units = new UniqueList<Unit>();
-        for (int i = 0; i < getSendable().getEmergencies().size(); ++i) {
-            if (getSendable().getEmergencies().get(i).getSeverity().ordinal() > SendableSeverity.NORMAL.ordinal()) {
-                units.addAll(getSendable().getEmergencies().get(i).getPolicyProposal(au));
+        
+        List<Emergency> emergencies = new ArrayList<Emergency>(getSendable().getEmergencies());
+        Collections.sort(emergencies, new EmergencyComparator());
+        Collections.reverse(emergencies);
+        
+        for(Emergency e : emergencies) {
+            if (e.getSeverity().ordinal() > SendableSeverity.NORMAL.ordinal()) {
+                units.addAll(e.getPolicyProposal(au));
                 au.removeAll(units);
             }
         }

@@ -2,6 +2,7 @@ package projectswop20102011.domain;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -109,6 +110,8 @@ public class Global3Test {
 
 	@Test
 	public void testFire() throws InvalidEmergencyException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidAddedDisasterException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidDurationException, InvalidWithdrawalException, InvalidMapItemException {
+            System.out.println("HELLO? THE TEST IS RUNNING NOW!");
+            
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
 		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
@@ -191,6 +194,8 @@ public class Global3Test {
 		Disaster disaster = disasters[0];
 
 		Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
+                System.out.println(Arrays.toString(unitsFromPolicy.toArray()));
+                System.out.println(unitsFromPolicy.getClass());
 		//Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
 
 		int counter;
@@ -198,7 +203,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(2, counter);
+		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);
@@ -358,7 +363,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(2, counter);
+		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);

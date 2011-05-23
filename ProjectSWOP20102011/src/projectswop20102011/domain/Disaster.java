@@ -1,6 +1,5 @@
 package projectswop20102011.domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -15,7 +14,6 @@ import projectswop20102011.exceptions.InvalidSendableException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.utils.GetterMapFunction;
 import projectswop20102011.utils.MapFunction;
-import projectswop20102011.utils.UniqueList;
 
 /**
  * A class representing a disaster (a group of emergencies).

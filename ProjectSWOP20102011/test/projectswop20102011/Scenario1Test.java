@@ -1,6 +1,5 @@
 package projectswop20102011;
 
-import be.kuleuven.cs.swop.api.EmergencyState;
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
 import be.kuleuven.cs.swop.external.ExternalSystem;
 import be.kuleuven.cs.swop.external.logging.Logger;
@@ -28,8 +27,6 @@ import projectswop20102011.domain.Fire;
 import projectswop20102011.domain.FireSize;
 import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.GPSCoordinate;
-import projectswop20102011.domain.Hospital;
-import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
