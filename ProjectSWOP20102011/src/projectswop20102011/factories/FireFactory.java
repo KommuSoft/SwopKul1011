@@ -59,13 +59,13 @@ public class FireFactory extends EmergencyFactory {
 			try {
 				return new Fire((GPSCoordinate) parameters[0], (SendableSeverity) parameters[1], (String) parameters[2], (FireSize) parameters[3], (Boolean) parameters[4], (Long) parameters[5], (Long) parameters[6]);
 			} catch (InvalidLocationException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor."); //TODO: vroeger stonden hier 4 loggers, deze heb ik verwijderd zodat exceptions kunnen doorgesmeten worden naar de EmergencyDispatchtApi.
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor. " + ex.getMessage());
 			} catch (InvalidSendableSeverityException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor. " + ex.getMessage());
 			} catch (InvalidFireSizeException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor. " + ex.getMessage());
 			} catch (NumberOutOfBoundsException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor. " + ex.getMessage());
 			}
 		}
 	}

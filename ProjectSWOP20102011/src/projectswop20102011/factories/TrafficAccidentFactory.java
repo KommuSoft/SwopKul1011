@@ -55,11 +55,11 @@ public class TrafficAccidentFactory extends EmergencyFactory {
 			try {
 				return new TrafficAccident((GPSCoordinate) parameters[0], (SendableSeverity) parameters[1], (String) parameters[2], (Long) parameters[3], (Long) parameters[4]);
 			} catch (InvalidLocationException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor."); //TODO: vroeger stonden hier 3 loggers, deze heb ik verwijderd zodat exceptions kunnen doorgesmeten worden naar de EmergencyDispatchtApi.
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.  " + ex.getMessage()); 
 			} catch (InvalidSendableSeverityException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.  " + ex.getMessage());
 			} catch (NumberOutOfBoundsException ex) {
-				throw new InvalidParametersException("The given parameters can' t instantiate the constructor.");
+				throw new InvalidParametersException("The given parameters can' t instantiate the constructor. " + ex.getMessage());
 			}
         }
     }
