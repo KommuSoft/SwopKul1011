@@ -1,0 +1,7 @@
+DispatchCenter,DC Leuven,(0,0)
+Hospital,Gasthuisberg,(-30,0)
+Firetruck,Engine 1,(100,80),600,30000
+Policecar,Unit 1,(50,150),900
+Policecar,Unit 2,(50,150),900
+Policecar,Unit 3,(50,150),900
+Ambulance,Medic 1,(0,0),800
