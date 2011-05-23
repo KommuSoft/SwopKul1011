@@ -6,6 +6,7 @@ import be.kuleuven.cs.swop.external.ExternalSystem;
 import be.kuleuven.cs.swop.external.logging.Logger;
 import be.kuleuven.cs.swop.scenarios.SimpleScenario;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import projectswop20102011.controllers.CreateEmergencyController;
@@ -46,6 +47,7 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.externalsystem.EmergencyDispatchApi;
+import projectswop20102011.externalsystem.adapters.HospitalAdapter;
 import projectswop20102011.factories.FireFactory;
 import projectswop20102011.factories.PublicDisturbanceFactory;
 import projectswop20102011.factories.RobberyFactory;
@@ -221,23 +223,19 @@ public class Scenario1Test {
 		assign_units.clear();
 		assign_units.add(engine1);
 		duc.dispatchToEmergency(fire, assign_units);
-		
-		assertTrue(fire.isPartiallyAssigned()); //TODO we gaan da later zien dixit Willem
-		System.out.println(fire.getWorkingUnits().get(0).getName());
 
-		try {
-			assign_units.clear();
-			assign_units.add(engine2);
-			duc.dispatchToEmergency(fire, assign_units);
-			fail("Engine can't be assigned because the fire is already resolved?");
-		} catch (Exception e) {
-		}
+		assertTrue(fire.isPartiallyAssigned());
 
-		assertFalse(fire.isPartiallyAssigned());
+		assign_units.clear();
+		assign_units.add(engine2);
+		duc.dispatchToEmergency(fire, assign_units);
+
+
+		assertTrue(fire.isPartiallyAssigned());
 		tac.doTimeAheadAction(25000);
 		eotc.indicateEndOfTask(engine2);
 
-		assertFalse(fire.isPartiallyAssigned());
+		assertTrue(fire.isPartiallyAssigned());
 
 		//inspect emergencies
 		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
@@ -245,8 +243,8 @@ public class Scenario1Test {
 		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 		Set<Unit> policy_units = duc.getUnitsByPolicy(fire);
 
-		assertEquals(0, policy_units.size());
-		assertFalse(fire.isPartiallyAssigned());
+		assertEquals(2, policy_units.size());
+		assertTrue(fire.isPartiallyAssigned());
 
 		tac.doTimeAheadAction(18000);
 		try {
@@ -256,9 +254,37 @@ public class Scenario1Test {
 		}
 
 		//inspect emergencies
-		assertFalse(fire.isPartiallyAssigned());
+		assertTrue(fire.isPartiallyAssigned());
 		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
+		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
+		assertEquals(1, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 
+		duc.dispatchToEmergency(fire, policy_units);
+
+		assertFalse(fire.isPartiallyAssigned());
+
+		tac.doTimeAheadAction(6566485);
+
+		Iterator<Unit> it = fire.getWorkingUnits().iterator();
+		while (it.hasNext()) {
+			Unit u = it.next();
+			if (u.getClass().getSimpleName().equalsIgnoreCase("ambulance")) {
+				Ambulance a = (Ambulance) u;
+				HospitalAdapter haha = (HospitalAdapter) api.getListOfHospitals().get(0);
+				a.selectHospital(haha.getHospital());
+			}
+		}
+
+		tac.doTimeAheadAction(6566485);
+
+		it = fire.getWorkingUnits().iterator();
+		while (it.hasNext()) {
+			it.next().finishedJob(new NullEventHandler());
+		}
+
+		assertFalse(fire.isPartiallyAssigned());
+
+		assertEquals(5, iec.inspectEmergenciesOnStatus(SendableStatus.RECORDED_BUT_UNHANDLED).length);
 		assertEquals(0, iec.inspectEmergenciesOnStatus(SendableStatus.RESPONSE_IN_PROGRESS).length);
 		assertEquals(2, iec.inspectEmergenciesOnStatus(SendableStatus.COMPLETED).length);
 	}
