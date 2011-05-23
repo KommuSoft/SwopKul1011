@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
@@ -77,7 +78,7 @@ public abstract class DispatchPolicy implements Comparator<Unit> {
      *      A list of units that are available to handle an emergency.
      * @return A set of units that would be allocated to the emergency if the policy would be applied.
      */
-    public Set<Unit> generateProposal(Set<? extends Unit> availableUnits) {
+    public HashSet<Unit> generateProposal(Set<? extends Unit> availableUnits) {
         SortedSet<Unit> available = new SortedListSet<Unit>(this);
         available.addAll(availableUnits);
         return this.getUnitsNeeded().generateProposal(available);

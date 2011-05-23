@@ -318,7 +318,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
 	 */
 	@Override
-	Set<Unit> generateProposal(SortedSet<Unit> options) {
+	HashSet<Unit> generateProposal(SortedSet<Unit> options) {
 		HashSet<Unit> proposal = new HashSet<Unit>();
 		if (this.getConstraint().generateProposal(this.getAlreadyAssignedUnits(), options, proposal)) {
 			return proposal;
@@ -332,7 +332,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @return A list of units proposed by the policy of this Emergency.
 	 */
 	@Override
-	public Set<Unit> getPolicyProposal(Set<Unit> availableUnits) {
+	public HashSet<Unit> getPolicyProposal(Set<Unit> availableUnits) {
 		return this.getPolicy().generateProposal(availableUnits);
 	}
 

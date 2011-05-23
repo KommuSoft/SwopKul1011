@@ -89,29 +89,15 @@ public class AndDispatchUnitsConstraintTest {
 
         assertNotNull(c5.getConstraints());
         assertEquals(3, c5.getConstraints().length);
-        ArrayList<Unit> units1 = new ArrayList<Unit>();
-        units1.add(u1);
-        ArrayList<Unit> units2 = new ArrayList<Unit>();
-        units2.add(u2);
-        ArrayList<Unit> units3 = new ArrayList<Unit>();
-        units3.add(u1);
-        units3.add(u3);
     }
 
     @Test
     public void testConstructorRecursive() throws InvalidConstraintListException {
-        /*c5 = new AndDispatchUnitsConstraint(c1, c2);
-        c6 = new AndDispatchUnitsConstraint(c4, c5);
+        c5 = new AndDispatchUnitsConstraint(c1, c2);
+        c6 = new AndDispatchUnitsConstraint(c1, c5);
 
         assertNotNull(c6.getConstraints());
         assertEquals(2, c6.getConstraints().length);
-
-        ArrayList<Unit> units1 = new ArrayList<Unit>();
-        units1.add(u4);
-        ArrayList<Unit> units2 = new ArrayList<Unit>();
-        units2.add(u1);
-        units2.add(u2);*/
-        //TODO: andere test schrijven
     }
 
     @Test(expected = InvalidConstraintListException.class)

@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
@@ -26,7 +27,7 @@ abstract class UnitsNeeded {
      *		A list of available units.
      * @return A list of units proposed by the policy of this Sendable.
      */
-    public abstract Set<Unit> getPolicyProposal(Set<Unit> availableUnits);
+    public abstract HashSet<Unit> getPolicyProposal(Set<Unit> availableUnits);
     
     protected UnitsNeeded (Sendable sendable) throws InvalidSendableException {
         if(!isValidSendable(sendable)) {
