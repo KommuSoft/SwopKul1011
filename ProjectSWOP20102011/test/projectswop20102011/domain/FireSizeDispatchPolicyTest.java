@@ -168,7 +168,6 @@ public class FireSizeDispatchPolicyTest {
     //u8 en u9 hebben dezelfde snelheid en bevinden zich evenver van de emergency,
     //maar de capaciteit van u8 benadert beter
     public void compareTest6() {
-        System.out.println(e1.getDispatchPolicy().compare(u8, u9));
         assertTrue(e1.getDispatchPolicy().compare(u8, u9) < 0);
         assertTrue(e1.getDispatchPolicy().compare(u8, u8) == 0);
         assertTrue(e1.getDispatchPolicy().compare(u9, u8) > 0);
