@@ -1,6 +1,7 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -54,12 +55,7 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      */
     DerivedUnitsNeeded(Disaster disaster) throws InvalidConstraintListException, InvalidSendableException {
         super(disaster);
-        //TODO: waarom hier geen foreach loop
         DispatchUnitsConstraint[] constraints = new DispatchUnitsConstraint[disaster.getEmergencies().size()];
-
-		for(Emergency e:disaster.getEmergencies()){
-			
-		}
         for (int i = 0; i < disaster.getEmergencies().size(); ++i) {
             constraints[i] = disaster.getEmergencies().get(i).getDispatchConstraint();
         }
@@ -215,6 +211,7 @@ class DerivedUnitsNeeded extends UnitsNeeded {
         if (getConstraint().generateProposal(this.getAlreadyAssignedUnits(), options, proposal)) {
             return proposal;
         } else {
+			System.out.println("lekker");
             return null;
         }
     }

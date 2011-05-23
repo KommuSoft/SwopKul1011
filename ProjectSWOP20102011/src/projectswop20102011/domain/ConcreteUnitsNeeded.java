@@ -323,6 +323,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 		if (this.getConstraint().generateProposal(this.getAlreadyAssignedUnits(), options, proposal)) {
 			return proposal;
 		} else {
+			System.out.println("Kakka");
 			return null;
 		}
 	}
