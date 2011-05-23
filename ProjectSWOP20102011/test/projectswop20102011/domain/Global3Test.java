@@ -110,7 +110,6 @@ public class Global3Test {
 
 	@Test
 	public void testFire() throws InvalidEmergencyException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidAddedDisasterException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidDurationException, InvalidWithdrawalException, InvalidMapItemException {
-            System.out.println("HELLO? THE TEST IS RUNNING NOW!");
             
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
@@ -194,8 +193,6 @@ public class Global3Test {
 		Disaster disaster = disasters[0];
 
 		Set<Unit> unitsFromPolicy = dudc.getUnitsByPolicy(disaster);
-                System.out.println(Arrays.toString(unitsFromPolicy.toArray()));
-                System.out.println(unitsFromPolicy.getClass());
 		//Set<Unit> unitsFromPolicy = duec.getUnitsByPolicy(f2);
 
 		int counter;

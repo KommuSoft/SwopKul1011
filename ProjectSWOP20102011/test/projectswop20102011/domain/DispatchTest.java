@@ -56,10 +56,7 @@ public class DispatchTest {
 		assertEquals(SendableStatus.RECORDED_BUT_UNHANDLED, f1.getStatus());
 		
 		assertEquals(2, duc.getUnitsByPolicy(f1).size());
-		
-		for(int i=0; i<duc.getUnitsByPolicy(f1).size(); ++i){
-			System.out.println(duc.getUnitsByPolicy(f1).toArray()[i]);
-		}
+
 
 		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(ft);
