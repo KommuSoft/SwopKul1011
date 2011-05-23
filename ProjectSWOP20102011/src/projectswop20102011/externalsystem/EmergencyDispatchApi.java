@@ -131,7 +131,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		Map<String, String> parameters = new HashMap<String, String>(3);
 		parameters.put("location", new GPSCoordinate(event.getLocation().getX(), event.getLocation().getY()).toString());
-		parameters.put("severity", event.getSeverity().toString().toLowerCase()); //TODO: lowercase moet nog weg wanneer de parser klaar is
+		parameters.put("severity", event.getSeverity().toString().toLowerCase());
 		parameters.put("description", "");
 
 		String nameFactory = null;
@@ -205,7 +205,6 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		SendableStatus status = null;
 		EmergencyStatusParser ep = new EmergencyStatusParser();
-		//TODO: onderstaande if-statements mogen weg wanneer de parser dit ondersteund
 		if (state.toString().equalsIgnoreCase("unhandled")) {
 			try {
 				status = ep.parse("recorded but unhandled");

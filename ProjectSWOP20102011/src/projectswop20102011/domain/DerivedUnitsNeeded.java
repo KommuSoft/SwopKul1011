@@ -200,8 +200,6 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      *		A set of units where the proposal must be created from.
      * @return A subset of the given list containing units proposed for allocation.
      */
-    //TODO: vroeger stond hier @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
-    //gaat dit nu geen problemen meer geven?
     @Override
     Set<Unit> generateProposal(SortedSet<Unit> options) {
         HashSet<Unit> proposal = new HashSet<Unit>();
