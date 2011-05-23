@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.0">
+<diagram program="umlet" version="11.2">
   <zoom_level>10</zoom_level>
   <element>
     <type>com.umlet.element.Class</type>
@@ -55,10 +55,10 @@ ClassWithEvents
 --
 
 --
-+registerHanderForEvent1(handler:EventHandler&lt;T&gt;)
-+unregisterHanderForEvent1(handler:EventHandler&lt;T&gt;)
-+registerHanderForEvent2(handler:EventHandler&lt;T&gt;)
-+unregisterHanderForEvent2(handler:EventHandler&lt;T&gt;)
++registerHandlerForEvent1(handler:EventHandler&lt;T&gt;)
++unregisterHandlerForEvent1(handler:EventHandler&lt;T&gt;)
++registerHandlerForEvent2(handler:EventHandler&lt;T&gt;)
++unregisterHandlerForEvent2(handler:EventHandler&lt;T&gt;)
 ...
 -doActionEvent1(args:T)
 -doActionEvent2(args:T)
@@ -70,7 +70,7 @@ ClassWithEvents
     <coordinates>
       <x>320</x>
       <y>210</y>
-      <w>108</w>
+      <w>106</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -82,7 +82,7 @@ event1</panel_attributes>
     <coordinates>
       <x>380</x>
       <y>210</y>
-      <w>108</w>
+      <w>106</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -94,7 +94,7 @@ event2</panel_attributes>
     <coordinates>
       <x>460</x>
       <y>210</y>
-      <w>78</w>
+      <w>70</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
