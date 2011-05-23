@@ -15,6 +15,7 @@ import be.kuleuven.cs.swop.api.IUnit;
 import be.kuleuven.cs.swop.api.IUnitConfiguration;
 import be.kuleuven.cs.swop.api.NotSupportedException;
 import be.kuleuven.cs.swop.api.UnitState;
+import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -43,7 +44,6 @@ import projectswop20102011.domain.Hospital;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
-import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
@@ -81,6 +81,8 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 * A variable registering the world that is connected with this EmergencyDispatchApi.
 	 */
 	private World world;
+	
+	private IExternalSystem externalSystem;
 
 	/**
 	 * Creates a new EmergencyDispatchApi with the given world.
@@ -91,6 +93,14 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	 */
 	public EmergencyDispatchApi(World world) {
 		this.world = world;
+	}
+	
+	private IExternalSystem getExternalSystem(){
+		return externalSystem;
+	}
+	
+	public void setExternalSystem(IExternalSystem externalSystem){
+		this.externalSystem = externalSystem;
 	}
 
 	/**
@@ -114,7 +124,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		CreateEmergencyController cec = null;
 		try {
-			cec = new CreateEmergencyController(getWorld());
+			cec = new CreateEmergencyController(getWorld(), getExternalSystem());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException("The world is invalid.");
 		}
@@ -385,7 +395,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		DispatchUnitsToEmergencyController controller = null;
 		try {
-			controller = new DispatchUnitsToEmergencyController(getWorld(), new NullEventHandler());
+			controller = new DispatchUnitsToEmergencyController(getWorld());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -492,7 +502,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 
 		EndOfTaskController controller = null;
 		try {
-			controller = new EndOfTaskController(getWorld(), new NullEventHandler());
+			controller = new EndOfTaskController(getWorld());
 		} catch (InvalidWorldException ex) {
 			throw new EmergencyDispatchException(ex.getMessage());
 		}
@@ -548,7 +558,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 	@Override
 	public void advanceTime(ITime time) throws EmergencyDispatchException {
 		checkParameter(time);
-		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime(), new NullEventHandler());
+		world.setTime(time.getHours() * 3600 + time.getMinutes() * 60 + world.getTime());
 
 		try {
 			getWorld().getTimeSensitiveList().timeAhead(time.getHours() * 3600 + time.getMinutes() * 60);
@@ -571,7 +581,7 @@ public class EmergencyDispatchApi implements IEmergencyDispatchApi {
 		checkParameter(unit, emergency);
 		RemoveUnitAssignmentFromEmergencyController ruac = null;
 		try {
-			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld(), new NullEventHandler());
+			ruac = new RemoveUnitAssignmentFromEmergencyController(getWorld());
 		} catch (InvalidWorldException ex) {
 			Logger.getLogger(EmergencyDispatchApi.class.getName()).log(Level.SEVERE, null, ex);
 		}

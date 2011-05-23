@@ -1,7 +1,6 @@
 package projectswop20102011.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
@@ -54,7 +53,7 @@ abstract class UnitsNeeded {
 	 *		The unit finishes its job.
 	 *
      */
-    abstract void unitFinishedJob(Unit unit, EventHandler eventHandler);
+    abstract void unitFinishedJob(Unit unit);
 
     /**
      * Generates a proposal based on a list of available units to allocate to the sendable.
@@ -105,7 +104,7 @@ abstract class UnitsNeeded {
 	 *		The event handler where the notifications should be sent to
      * @throws InvalidEmergencyException If the given units can be assigned because of the constraints of the sendable.
      */
-    abstract void assignUnitsToSendable(Set<Unit> units, EventHandler eventHandler) throws InvalidEmergencyException;
+    abstract void assignUnitsToSendable(Set<Unit> units) throws InvalidEmergencyException;
 
     /**
      * Sets the status of the sendable.
@@ -139,7 +138,7 @@ abstract class UnitsNeeded {
 	 *		The event handler where the notifications should be sent to
      * @effect The unit is removed from the workingUnits list.
      */
-    abstract void withdrawUnit(Unit unit, EventHandler eventHandler);
+    abstract void withdrawUnit(Unit unit);
 
     /**
      * Gets the list of units that have been finished in the Sendable.

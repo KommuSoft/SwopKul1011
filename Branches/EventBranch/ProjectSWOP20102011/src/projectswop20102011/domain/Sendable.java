@@ -147,8 +147,8 @@ public abstract class Sendable implements Targetable {
 	 * @effect Units are assigned to this sendable.
 	 *		| getStatus().assignUnits(getUnitsNeeded(), units, eventHandler)
 	 */
-	public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
-		this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
+	public void assignUnits(Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
+		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
 	}
 
 	/**
@@ -197,8 +197,8 @@ public abstract class Sendable implements Targetable {
 	 *		| getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler)
 	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Sendable.
 	 */
-	void finishUnit(Unit unitToFinish, EventHandler eventHandler) throws InvalidSendableStatusException {
-		this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish, eventHandler);
+	void finishUnit(Unit unitToFinish) throws InvalidSendableStatusException {
+		this.getStatus().finishUnit(getUnitsNeeded(), unitToFinish);
 	}
 
 	/**
@@ -213,8 +213,8 @@ public abstract class Sendable implements Targetable {
 	 *		| getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler)
 	 * @note This method has a package visibility: Units need to call withdraw and call this method to register this to the Sendable.
 	 */
-	void withdrawUnit(Unit unitToWithdraw, EventHandler eventHandler) throws InvalidSendableStatusException {
-		this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw, eventHandler);
+	void withdrawUnit(Unit unitToWithdraw) throws InvalidSendableStatusException {
+		this.getStatus().withdrawUnit(getUnitsNeeded(), unitToWithdraw);
 	}
 
 	/**
@@ -236,5 +236,5 @@ public abstract class Sendable implements Targetable {
 	 * @throws InvalidEmergencyException 
 	 *		If the emergency is invalid.
 	 */
-	abstract protected void afterFinish(Unit unit, EventHandler handler) throws InvalidSendableStatusException, InvalidEmergencyException;
+	abstract protected void afterFinish(Unit unit) throws InvalidSendableStatusException, InvalidEmergencyException;
 }

@@ -129,7 +129,7 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      *		If the units can't be assigned to the emergency (when canAssignUnitsToEmergency fails)
      */
     @Override
-    public synchronized void assignUnitsToSendable(Set<Unit> units, EventHandler eventhandler) throws InvalidEmergencyException {
+    public synchronized void assignUnitsToSendable(Set<Unit> units) throws InvalidEmergencyException {
         SortedSet<Unit> options = new SortedListSet<Unit>();
         options.addAll(units);
         if (!canAssignUnitsToEmergency(units)) {
@@ -143,7 +143,7 @@ class DerivedUnitsNeeded extends UnitsNeeded {
         for (Emergency e : emergencies) {
             ConcreteUnitsNeeded CUN = e.getUnitsNeeded();
             Set<Unit> unitsForEmergency = CUN.generateProposal(options);
-            CUN.assignUnitsToSendable(unitsForEmergency, eventhandler);
+            CUN.assignUnitsToSendable(unitsForEmergency);
             options.removeAll(unitsForEmergency);
         }
     }
@@ -162,8 +162,8 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      *		|addFinishedUnits(unit)
      */
     @Override
-    void unitFinishedJob(Unit unit, EventHandler eventHandler) {
-        unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit, eventHandler);
+    void unitFinishedJob(Unit unit) {
+        unit.getEmergency().getUnitsNeeded().unitFinishedJob(unit);
     }
 
     /**
@@ -190,9 +190,9 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      *		| removeFromWorkingUnits(unit)
      */
     @Override
-    void withdrawUnit(Unit unit, EventHandler eventHandler) {
+    void withdrawUnit(Unit unit) {
         for (Emergency e : getSendable().getEmergencies()) {
-            e.getUnitsNeeded().withdrawUnit(unit, eventHandler);
+            e.getUnitsNeeded().withdrawUnit(unit);
         }
     }
 
@@ -204,7 +204,6 @@ class DerivedUnitsNeeded extends UnitsNeeded {
      */
     //TODO: vroeger stond hier @note The first items in the list will first be added to the proposal (This is usefull for Policies that sort the list of units before they generate a proposal).
     //gaat dit nu geen problemen meer geven?
-    //TODO: (Willem: wat doet deze methode precies, deze is toch onbruikbaar?, ik dacht eerder aan een return Null of NotSupportedException)
     @Override
     Set<Unit> generateProposal(SortedSet<Unit> options) {
         HashSet<Unit> proposal = new HashSet<Unit>();

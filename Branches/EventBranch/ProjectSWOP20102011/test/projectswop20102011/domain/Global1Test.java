@@ -7,7 +7,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidDurationException;
@@ -118,7 +117,7 @@ public class Global1Test {
 		units.add(ziekenwagen3);
 		units.add(ziekenwagen4);
 		units.add(ziekenwagen5);
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		assertFalse(ziekenwagen1.isAtDestination());
 
@@ -148,7 +147,7 @@ public class Global1Test {
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		assertFalse(ziekenwagen1.isAtDestination());
 
@@ -187,7 +186,7 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
 		units.add(brandweerwagen1);
-		e1.assignUnits((Set<Unit>) units, new NullEventHandler());
+		e1.assignUnits((Set<Unit>) units);
 
 		//We spoelen de tijd door
 		ziekenwagen1.timeAhead(duration3);
@@ -211,7 +210,7 @@ public class Global1Test {
 		//We trekken nu twee units terug
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
 		for (int i = 0; i < unitNames.length; i++) {
-			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw(new NullEventHandler());
+			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw();
 		}
 
 		//Nog steeds is geen enkele unit op de plaats van het ongeval geweest
@@ -270,7 +269,7 @@ public class Global1Test {
 		units.add(ziekenwagen1);
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
-		e1.assignUnits((Set<Unit>) units, new NullEventHandler());
+		e1.assignUnits((Set<Unit>) units);
 		ziekenwagen1.timeAhead(duration3);
 		ziekenwagen2.timeAhead(duration3);
 		brandweerwagen1.timeAhead(duration3);
@@ -286,7 +285,7 @@ public class Global1Test {
 		String[] unitNames = {brandweerwagen1.getName()};
 
 		for (int i = 0; i < unitNames.length; i++) {
-			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw(new NullEventHandler());
+			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw();
 		}
 	}
 
@@ -308,7 +307,7 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(brandweerwagen1);
 
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 		ziekenwagen1.timeAhead(duration2);
 		ziekenwagen2.timeAhead(duration2);
 		brandweerwagen1.timeAhead(duration2);
@@ -319,7 +318,7 @@ public class Global1Test {
 
 		String[] unitNames = {ziekenwagen1.getName(), ziekenwagen2.getName()};
 		for (int i = 0; i < unitNames.length; i++) {
-			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw(new NullEventHandler());
+			((Unit) mapitemList.getMapItemFromName(unitNames[i])).withdraw();
 		}
 	}
 
@@ -337,7 +336,7 @@ public class Global1Test {
 			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
 
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		for (Unit u : units) {
 			u.timeAhead(1000000000);
@@ -353,7 +352,7 @@ public class Global1Test {
 		}
 
 		for (Unit u : units) {
-			u.finishedJob(new NullEventHandler());
+			u.finishedJob();
 		}
 
 		for (Unit u : units) {
@@ -378,7 +377,7 @@ public class Global1Test {
 			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
 
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		for (Unit u : units) {
 			u.timeAhead(1000000000);
@@ -395,7 +394,7 @@ public class Global1Test {
 		}
 
 		for (Unit u : units) {
-			u.finishedJob(new NullEventHandler());
+			u.finishedJob();
 		}
 
 		for (Unit u : units) {
@@ -421,7 +420,7 @@ public class Global1Test {
 			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
 
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		for (Unit u : units) {
 			u.timeAhead(1000000000);
@@ -439,7 +438,7 @@ public class Global1Test {
 		}
 
 		for (Unit u : units) {
-			u.finishedJob(new NullEventHandler());
+			u.finishedJob();
 		}
 
 		for (Unit u : units) {
@@ -475,7 +474,7 @@ public class Global1Test {
 			units.add(new Ambulance("Naam", homeLocation2, 100));
 		}
 
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		for (Unit u : units) {
 			u.timeAhead(1000000000);
@@ -503,7 +502,7 @@ public class Global1Test {
 		}
 
 		for (Unit u : units) {
-			u.finishedJob(new NullEventHandler());
+			u.finishedJob();
 		}
 
 		for (Unit u : units) {
@@ -530,7 +529,7 @@ public class Global1Test {
 		units.add(ziekenwagen2);
 		units.add(ziekenwagen3);
 		units.add(brandweerwagen1);
-		e1.assignUnits(units, new NullEventHandler());
+		e1.assignUnits(units);
 
 		assertFalse(ziekenwagen1.isAtDestination());
 

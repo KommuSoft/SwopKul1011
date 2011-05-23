@@ -17,8 +17,8 @@ import projectswop20102011.domain.Firetruck;
 import projectswop20102011.domain.Policecar;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.TypeMapItemValidator;
-import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidWorldException;
+import projectswop20102011.externalsystem.NullObjectExternalSystem;
 
 /**
  * This class contains a unit configuration for a specific emergency. A unit configuration consists of a number of suggested units for each required unit type.
@@ -112,7 +112,7 @@ public class UnitConfiguration implements IUnitConfiguration {
 	 * @return The proposal.
 	 */
 	private <T extends Unit> HashSet<T> getProposal(Class<T> t) throws InvalidWorldException{
-		DispatchUnitsToEmergencyController dutec = new DispatchUnitsToEmergencyController(getWorld(), new NullEventHandler());
+		DispatchUnitsToEmergencyController dutec = new DispatchUnitsToEmergencyController(getWorld());
 		
 		Set<Unit> units = dutec.getUnitsByPolicy(((EmergencyAdapter)getEmergency()).getEmergency());
 		

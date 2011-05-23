@@ -12,9 +12,11 @@ import projectswop20102011.domain.validators.FiretruckWaterUnitValidator;
 import projectswop20102011.domain.validators.MinMaxNumberDispatchUnitsConstraint;
 import projectswop20102011.exceptions.InvalidConstraintListException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
+import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidLocationException;
 import projectswop20102011.exceptions.InvalidSendableException;
+import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidValidatorException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 

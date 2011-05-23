@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.TypeUnitValidator;
 import projectswop20102011.eventhandlers.Event;
+import projectswop20102011.eventhandlers.EventHandler;
 import projectswop20102011.exceptions.InvalidDispatchPolicyException;
 import projectswop20102011.exceptions.InvalidDispatchUnitsConstraintException;
 import projectswop20102011.exceptions.InvalidSendableException;
@@ -88,6 +89,30 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 			Logger.getLogger(ConcreteUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		initUnits();
+	}
+	
+	private Event<EmergencyUnitTuple> getAssignedUnit(){
+		return assignedUnit;
+	}
+	
+	private Event<EmergencyUnitTuple> getReleasedUnit(){
+		return releasedUnit;
+	}
+	
+	void addAssignedEventHandler(EventHandler<EmergencyUnitTuple> handler) {
+		getAssignedUnit().registerHandler(handler);
+	}
+
+	void removeAssignedEventHanlder(EventHandler<EmergencyUnitTuple> handler) {
+		getAssignedUnit().unregisterHandler(handler);
+	}
+	
+	void addReleaseEventHandler(EventHandler<EmergencyUnitTuple> handler) {
+		getReleasedUnit().registerHandler(handler);
+	}
+
+	void removeReleaseEventHanlder(EventHandler<EmergencyUnitTuple> handler) {
+		getReleasedUnit().unregisterHandler(handler);
 	}
 
 	/**
@@ -202,7 +227,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @see #canAssignUnitsToEmergency(Set)
 	 */
 	@Override
-	public synchronized void assignUnitsToSendable(Set<Unit> units, EventHandler eventHandler) throws InvalidEmergencyException {
+	public synchronized void assignUnitsToSendable(Set<Unit> units) throws InvalidEmergencyException {
 		if (!canAssignUnitsToEmergency(units)) {
 			throw new InvalidEmergencyException("Units can't be assigned to the emergency, harm to assignment constraints.");
 		}
@@ -215,7 +240,7 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 				Logger.getLogger(ConcreteUnitsNeeded.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			addWorkingUnits(u);
-			eventHandler.doAssign(getSendable(), u);
+			assignedUnit.action(new EmergencyUnitTuple(getSendable(), u));
 		}
 	}
 
@@ -231,8 +256,8 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		|addFinishedUnits(unit)
 	 */
 	@Override
-	void unitFinishedJob(Unit unit, EventHandler eventHandler) {
-		removeFromWorkingUnits(unit, eventHandler);
+	void unitFinishedJob(Unit unit) {
+		removeFromWorkingUnits(unit);
 		addFinishedUnits(unit);
 	}
 
@@ -305,9 +330,9 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 * @effect The emergency of the given unit is set to null
 	 *		|unit.setEmergency(null)
 	 */
-	private void removeFromWorkingUnits(Unit unit, EventHandler eventHandler) {
+	private void removeFromWorkingUnits(Unit unit) {
 		takeWorkingUnits().remove(unit);
-		eventHandler.doRelease(getSendable(), unit);
+		releasedUnit.action(new EmergencyUnitTuple(getSendable(), unit));
 	}
 
 	/**
@@ -371,8 +396,8 @@ class ConcreteUnitsNeeded extends UnitsNeeded {
 	 *		| removeFromWorkingUnits(unit, eventHandler)
 	 */
 	@Override
-	void withdrawUnit(Unit unit, EventHandler eventHandler) {
-		removeFromWorkingUnits(unit, eventHandler);
+	void withdrawUnit(Unit unit) {
+		removeFromWorkingUnits(unit);
 	}
 
 	/**

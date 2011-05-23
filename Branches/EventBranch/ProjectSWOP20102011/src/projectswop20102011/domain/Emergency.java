@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectswop20102011.domain.validators.DispatchUnitsConstraint;
+import projectswop20102011.eventhandlers.EventHandler;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
@@ -84,6 +85,22 @@ public abstract class Emergency extends Sendable {
             Logger.getLogger(Emergency.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+	
+	public void addAssignedEventHandler(EventHandler<EmergencyUnitTuple> handler) {
+		getUnitsNeeded().addAssignedEventHandler(handler);
+	}
+
+	public void removeAssignedEventHanlder(EventHandler<EmergencyUnitTuple> handler) {
+		getUnitsNeeded().removeAssignedEventHanlder(handler);
+	}
+	
+	public void addReleaseEventHandler(EventHandler<EmergencyUnitTuple> handler) {
+		getUnitsNeeded().addReleaseEventHandler(handler);
+	}
+
+	public void removeReleaseEventHanlder(EventHandler<EmergencyUnitTuple> handler) {
+		getUnitsNeeded().removeReleaseEventHanlder(handler);
+	}
 
     /**
      * Sets the location of this emergency.
@@ -282,7 +299,7 @@ public abstract class Emergency extends Sendable {
     }
 	
 	@Override
-	protected void afterFinish(Unit unit, EventHandler handler) throws InvalidSendableStatusException, InvalidEmergencyException{
+	protected void afterFinish(Unit unit) throws InvalidSendableStatusException, InvalidEmergencyException{
 		
 	}
     

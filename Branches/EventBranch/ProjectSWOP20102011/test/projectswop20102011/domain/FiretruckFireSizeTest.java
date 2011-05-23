@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import projectswop20102011.exceptions.InvalidAmbulanceException;
 import static org.junit.Assert.*;
-import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
@@ -64,7 +63,7 @@ public class FiretruckFireSizeTest {
 
 		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(brandweerwagen);
-		f1.assignUnits(units, new NullEventHandler());
+		f1.assignUnits(units);
 
 		brandweerwagen.timeAhead(duration);
 		assertEquals(x1, brandweerwagen.getCurrentLocation().getX());
@@ -82,7 +81,7 @@ public class FiretruckFireSizeTest {
 
 		HashSet<Unit> units = new HashSet<Unit>();
 		units.add(brandweerwagen);
-		f1.assignUnits(units, new NullEventHandler());
+		f1.assignUnits(units);
 		brandweerwagen.timeAhead(-23);
 		assertEquals(x2, brandweerwagen.getCurrentLocation().getX());
 		assertEquals(y2, brandweerwagen.getCurrentLocation().getY());

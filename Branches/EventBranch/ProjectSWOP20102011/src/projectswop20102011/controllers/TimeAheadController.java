@@ -2,7 +2,7 @@ package projectswop20102011.controllers;
 
 import be.kuleuven.cs.swop.external.IExternalSystem;
 import projectswop20102011.World;
-import projectswop20102011.domain.EventHandler;
+import projectswop20102011.eventhandlers.ExternalSystemEventHandler;
 import projectswop20102011.exceptions.InvalidDurationException;
 import projectswop20102011.exceptions.InvalidWorldException;
 
@@ -11,11 +11,8 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class TimeAheadController extends Controller {
-
-	/**
-	 * An eventHandler where the notifications should be sent to.
-	 */
-	private EventHandler eventHandler;
+	
+	private final IExternalSystem externalSystem;
 
 	/**
 	 * Creates a new instance of a TimeAhead controller with a given world.
@@ -30,10 +27,15 @@ public class TimeAheadController extends Controller {
 	 * @throws InvalidWorldException
 	 *		If the world is not effective.
 	 */
-	public TimeAheadController(World world, IExternalSystem externalSystem, EventHandler eventHandler) throws InvalidWorldException {
+	public TimeAheadController(World world, IExternalSystem externalSystem) throws InvalidWorldException {
 		super(world);
-		this.eventHandler = eventHandler;
+		this.externalSystem = externalSystem;
 	}
+	
+	private IExternalSystem getExternalSystem(){
+		return externalSystem;
+	}
+	
 	/**
 	 * Performs a time ahead action, where all the time sensitive objects in the world will be modified under a certain time difference.
 	 * @param seconds
@@ -42,7 +44,9 @@ public class TimeAheadController extends Controller {
 	 *		If the given amont of seconds is invalid.
 	 */
 	public void doTimeAheadAction(long seconds) throws InvalidDurationException {
+		ExternalSystemEventHandler eseh = new ExternalSystemEventHandler(getExternalSystem());
+		getWorld().addTimeSetEventHandler(eseh.makeTimeAheadEventHandler());
 		getWorld().getTimeSensitiveList().timeAhead(seconds);
-		getWorld().setTime(getWorld().getTime() + seconds, eventHandler);
+		getWorld().setTime(getWorld().getTime() + seconds);
 	}
 }

@@ -93,7 +93,7 @@ public class Firetruck extends Unit {
 	 *		Always: A Firetruck can't be withdrawn from an Emergency.
 	 */
 	@Override
-	public void withdraw(EventHandler eventHandler) throws InvalidWithdrawalException {
+	public void withdraw() throws InvalidWithdrawalException {
 		throw new InvalidWithdrawalException("This unit can't be withdrawn");
 	}
 

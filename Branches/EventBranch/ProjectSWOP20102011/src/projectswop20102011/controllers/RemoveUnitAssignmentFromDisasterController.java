@@ -1,9 +1,9 @@
 package projectswop20102011.controllers;
 
+import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.util.ArrayList;
 import projectswop20102011.World;
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
@@ -15,15 +15,9 @@ import projectswop20102011.exceptions.InvalidWorldException;
  * @author Willem Van Onsem, Jonas Vanthornhout & Pieter-Jan Vuylsteke
  */
 public class RemoveUnitAssignmentFromDisasterController extends Controller {
-
-	/**
-	 * An eventHandler where the notifications should be sent to.
-	 */
-	private EventHandler eventHandler;
-
-	public RemoveUnitAssignmentFromDisasterController(World world, EventHandler eventHandler) throws InvalidWorldException {
+	
+	public RemoveUnitAssignmentFromDisasterController(World world) throws InvalidWorldException {
 		super(world);
-		this.eventHandler = eventHandler;
 	}
 
 	/**
@@ -44,7 +38,7 @@ public class RemoveUnitAssignmentFromDisasterController extends Controller {
 	 */
 	public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidSendableStatusException, InvalidMapItemException {
 		if (unit != null) {
-			unit.withdraw(eventHandler);
+			unit.withdraw();
 		} else {
 			throw new InvalidMapItemException("MapItem must be a Unit and exist in the World!");
 		}
