@@ -211,8 +211,7 @@ class DerivedUnitsNeeded extends UnitsNeeded {
         if (getConstraint().generateProposal(this.getAlreadyAssignedUnits(), options, proposal)) {
             return proposal;
         } else {
-			System.out.println("lekker");
-            return null;
+			return new HashSet<Unit>(0);
         }
     }
 	
