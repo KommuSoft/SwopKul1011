@@ -280,5 +280,10 @@ public abstract class Emergency extends Sendable {
             return this;
         }
     }
+	
+	@Override
+	protected void afterFinish(Unit unit, EventHandler handler) throws InvalidSendableStatusException, InvalidEmergencyException{
+		
+	}
     
 }
