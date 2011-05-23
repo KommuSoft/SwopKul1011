@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.0">
+<diagram program="umlet" version="11.2">
   <help_text>// Uncomment the following line to change the fontsize:
 // fontsize=14
 
@@ -74,11 +74,11 @@
     <coordinates>
       <x>120</x>
       <y>230</y>
-      <w>280</w>
+      <w>300</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>
-NumberDispatchUnitsConstraint
+MinMaxNumberDispatchUnitsConstraint
 --
 --
 +generateProposal(...):boolean
@@ -100,14 +100,14 @@ NumberDispatchUnitsConstraint
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>470</x>
+      <x>480</x>
       <y>90</y>
-      <w>150</w>
+      <w>136</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-&gt;
 m2=0...n
 constraints</panel_attributes>
-    <additional_attributes>80;140;80;30</additional_attributes>
+    <additional_attributes>70;140;70;30</additional_attributes>
   </element>
 </diagram>
