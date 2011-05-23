@@ -2,39 +2,6 @@
 <diagram program="umlet" version="11.2">
   <zoom_level>8</zoom_level>
   <element>
-    <type>com.umlet.element.Actor</type>
-    <coordinates>
-      <x>104</x>
-      <y>88</y>
-      <w>80</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>Dispatcher</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>120</x>
-      <y>144</y>
-      <w>40</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>24;24;24;56</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.SeqObjectActive</type>
-    <coordinates>
-      <x>136</x>
-      <y>200</y>
-      <w>16</w>
-      <h>512</h>
-    </coordinates>
-    <panel_attributes>bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>504</x>
@@ -53,7 +20,7 @@
       <w>472</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 inspectDisastersOnStatus(EmergencyStatus)</panel_attributes>
     <additional_attributes>456;40;24;40</additional_attributes>
   </element>
@@ -83,26 +50,26 @@ Disaster[]</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>128</x>
+      <x>112</x>
       <y>528</y>
-      <w>1192</w>
+      <w>1208</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getLongInformation(Emergency)</panel_attributes>
-    <additional_attributes>1176;40;24;40</additional_attributes>
+    <additional_attributes>1192;40;24;40</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>128</x>
+      <x>112</x>
       <y>560</y>
-      <w>1192</w>
+      <w>1208</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
-    <additional_attributes>24;40;1176;40</additional_attributes>
+    <additional_attributes>24;40;1192;40</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
@@ -112,7 +79,7 @@ Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
       <w>272</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&lt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;
 getDisasterFromId(Long)</panel_attributes>
     <additional_attributes>256;40;24;40</additional_attributes>
   </element>
@@ -225,7 +192,7 @@ Disaster
       <w>472</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 getShortInformation(Disaster)</panel_attributes>
     <additional_attributes>456;40;24;40</additional_attributes>
   </element>
@@ -249,7 +216,7 @@ Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
       <w>96</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;</panel_attributes>
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;</panel_attributes>
     <additional_attributes>24;24;80;24</additional_attributes>
   </element>
   <element>
@@ -293,7 +260,7 @@ Set&lt;Entry&lt;String, String&gt; &gt;</panel_attributes>
       <w>344</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;
 getDisasterList()</panel_attributes>
     <additional_attributes>24;40;328;40</additional_attributes>
   </element>
@@ -360,7 +327,7 @@ getDisasterList()</panel_attributes>
       <w>568</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;
 getDisastersByCriterium(DisasterEvaluationCriterium)</panel_attributes>
     <additional_attributes>24;40;552;40</additional_attributes>
   </element>
@@ -408,8 +375,96 @@ Disaster[]</panel_attributes>
       <w>568</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;
 toArray()</panel_attributes>
     <additional_attributes>24;40;552;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>136</x>
+      <y>208</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>136</x>
+      <y>416</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>136</x>
+      <y>456</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>136</x>
+      <y>488</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>120</x>
+      <y>560</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>120</x>
+      <y>592</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>136</x>
+      <y>664</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>136</x>
+      <y>688</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
   </element>
 </diagram>

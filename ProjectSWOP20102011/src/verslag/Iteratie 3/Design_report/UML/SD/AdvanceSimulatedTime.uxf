@@ -27,8 +27,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>330</x>
-      <y>200</y>
+      <x>440</x>
+      <y>150</y>
       <w>190</w>
       <h>30</h>
     </coordinates>
@@ -38,8 +38,8 @@
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>420</x>
-      <y>270</y>
+      <x>530</x>
+      <y>220</y>
       <w>20</w>
       <h>340</h>
     </coordinates>
@@ -49,8 +49,8 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>400</x>
-      <y>200</y>
+      <x>510</x>
+      <y>150</y>
       <w>50</w>
       <h>90</h>
     </coordinates>
@@ -60,53 +60,31 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>60</x>
-      <y>190</y>
-      <w>50</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>30;30;30;70</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.SeqObjectActive</type>
-    <coordinates>
-      <x>80</x>
-      <y>260</y>
-      <w>20</w>
-      <h>340</h>
-    </coordinates>
-    <panel_attributes>bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>70</x>
-      <y>530</y>
-      <w>380</w>
+      <x>230</x>
+      <y>480</y>
+      <w>320</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>30;30;360;30</additional_attributes>
+    <additional_attributes>30;30;300;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>70</x>
-      <y>230</y>
-      <w>370</w>
+      <x>230</x>
+      <y>180</y>
+      <w>320</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;-
 doTimeAheadAction(Long)</panel_attributes>
-    <additional_attributes>30;50;350;50</additional_attributes>
+    <additional_attributes>30;50;300;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>610</x>
-      <y>200</y>
+      <x>720</x>
+      <y>150</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -116,8 +94,8 @@ doTimeAheadAction(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>750</x>
-      <y>200</y>
+      <x>860</x>
+      <y>150</y>
       <w>150</w>
       <h>30</h>
     </coordinates>
@@ -127,8 +105,8 @@ doTimeAheadAction(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>630</x>
-      <y>200</y>
+      <x>740</x>
+      <y>150</y>
       <w>50</w>
       <h>110</h>
     </coordinates>
@@ -138,8 +116,8 @@ doTimeAheadAction(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>650</x>
-      <y>290</y>
+      <x>760</x>
+      <y>240</y>
       <w>20</w>
       <h>320</h>
     </coordinates>
@@ -149,32 +127,32 @@ doTimeAheadAction(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>410</x>
-      <y>260</y>
+      <x>520</x>
+      <y>210</y>
       <w>260</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;-
 getTimeSensitiveList()</panel_attributes>
     <additional_attributes>30;50;240;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>640</x>
-      <y>280</y>
+      <x>750</x>
+      <y>230</y>
       <w>200</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;-
 timeAhead(Long)</panel_attributes>
     <additional_attributes>30;50;180;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>800</x>
-      <y>200</y>
+      <x>910</x>
+      <y>150</y>
       <w>50</w>
       <h>120</h>
     </coordinates>
@@ -184,8 +162,8 @@ timeAhead(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>820</x>
-      <y>300</y>
+      <x>930</x>
+      <y>250</y>
       <w>20</w>
       <h>310</h>
     </coordinates>
@@ -195,8 +173,8 @@ timeAhead(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1160</x>
-      <y>200</y>
+      <x>1270</x>
+      <y>150</y>
       <w>150</w>
       <h>30</h>
     </coordinates>
@@ -206,8 +184,8 @@ timeAhead(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.custom.InteractionFrame</type>
     <coordinates>
-      <x>830</x>
-      <y>350</y>
+      <x>940</x>
+      <y>300</y>
       <w>400</w>
       <h>100</h>
     </coordinates>
@@ -217,8 +195,8 @@ timeAhead(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.custom.SeqObjectActive</type>
     <coordinates>
-      <x>1220</x>
-      <y>310</y>
+      <x>1330</x>
+      <y>260</y>
       <w>20</w>
       <h>300</h>
     </coordinates>
@@ -228,8 +206,8 @@ timeAhead(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1200</x>
-      <y>200</y>
+      <x>1310</x>
+      <y>150</y>
       <w>50</w>
       <h>130</h>
     </coordinates>
@@ -239,43 +217,32 @@ timeAhead(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
-      <y>360</y>
+      <x>920</x>
+      <y>310</y>
       <w>430</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;-
 timeAhead(Long)</panel_attributes>
     <additional_attributes>30;50;410;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>410</x>
-      <y>440</y>
+      <x>520</x>
+      <y>390</y>
       <w>260</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&gt;&gt;-
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;-
 setTime(Long)</panel_attributes>
     <additional_attributes>30;50;240;50</additional_attributes>
   </element>
   <element>
-    <type>com.umlet.element.Actor</type>
-    <coordinates>
-      <x>40</x>
-      <y>120</y>
-      <w>100</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>Demonstrator</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
-      <y>400</y>
+      <x>920</x>
+      <y>350</y>
       <w>430</w>
       <h>50</h>
     </coordinates>
@@ -285,8 +252,8 @@ setTime(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>640</x>
-      <y>430</y>
+      <x>750</x>
+      <y>380</y>
       <w>200</w>
       <h>50</h>
     </coordinates>
@@ -296,12 +263,34 @@ setTime(Long)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>410</x>
-      <y>500</y>
+      <x>520</x>
+      <y>450</y>
       <w>260</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>30;30;240;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>240</x>
+      <y>220</y>
+      <w>20</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>240</x>
+      <y>500</y>
+      <w>20</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
   </element>
 </diagram>

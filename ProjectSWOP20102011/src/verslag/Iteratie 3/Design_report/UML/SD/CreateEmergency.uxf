@@ -38,36 +38,14 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>220</x>
-      <y>120</y>
-      <w>50</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>30;30;30;90</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.SeqObjectActive</type>
-    <coordinates>
       <x>240</x>
-      <y>210</y>
-      <w>20</w>
-      <h>210</h>
-    </coordinates>
-    <panel_attributes>bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>230</x>
       <y>180</y>
-      <w>370</w>
+      <w>360</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 CreateFireEmergency(GPSCoordinate, ...)</panel_attributes>
-    <additional_attributes>350;50;30;50</additional_attributes>
+    <additional_attributes>340;50;30;50</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
@@ -110,7 +88,7 @@ CreateFireEmergency(GPSCoordinate, ...)</panel_attributes>
       <w>230</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&gt;
+    <panel_attributes>lt=&gt;&gt;&gt;&gt;&gt;
 (GPSCoordinate, ...)</panel_attributes>
     <additional_attributes>30;50;210;50</additional_attributes>
   </element>
@@ -155,7 +133,7 @@ CreateFireEmergency(GPSCoordinate, ...)</panel_attributes>
       <w>420</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;
 getEmergencyList()</panel_attributes>
     <additional_attributes>400;50;30;50</additional_attributes>
   </element>
@@ -190,7 +168,7 @@ EmergencyList</panel_attributes>
       <w>600</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;
 addEmergency(Emergency)</panel_attributes>
     <additional_attributes>580;50;30;50</additional_attributes>
   </element>
@@ -230,23 +208,34 @@ addEmergency(Emergency)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>230</x>
+      <x>240</x>
       <y>380</y>
-      <w>370</w>
+      <w>360</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>30;30;350;30</additional_attributes>
+    <additional_attributes>30;30;340;30</additional_attributes>
   </element>
   <element>
-    <type>com.umlet.element.Actor</type>
+    <type>com.umlet.element.custom.InitialState</type>
     <coordinates>
-      <x>200</x>
-      <y>50</y>
-      <w>100</w>
-      <h>120</h>
+      <x>250</x>
+      <y>220</y>
+      <w>20</w>
+      <h>20</h>
     </coordinates>
-    <panel_attributes>Operator</panel_attributes>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>250</x>
+      <y>400</y>
+      <w>20</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
     <additional_attributes/>
   </element>
 </diagram>
