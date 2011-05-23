@@ -35,7 +35,7 @@ public class DisasterTest {
 	private GPSCoordinate homeLocation1;
 	private String name1, name2;
 	private long capacity1;
-
+	
 	@Before
 	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException {
 		x1 = 12;

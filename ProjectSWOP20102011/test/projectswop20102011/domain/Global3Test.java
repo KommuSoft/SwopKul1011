@@ -108,6 +108,7 @@ public class Global3Test {
 
 	@Test
 	public void testFire() throws InvalidEmergencyException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidAddedDisasterException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidDurationException, InvalidWithdrawalException, InvalidMapItemException {
+
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
 		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
@@ -197,7 +198,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(2, counter);
+		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);
@@ -357,7 +358,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(2, counter);
+		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);
