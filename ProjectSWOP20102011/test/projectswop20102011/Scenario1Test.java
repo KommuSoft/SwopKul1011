@@ -30,7 +30,6 @@ import projectswop20102011.domain.GPSCoordinate;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.ParserList;
-import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidAmountOfParametersException;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
@@ -44,6 +43,7 @@ import projectswop20102011.exceptions.InvalidSpeedException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
 import projectswop20102011.externalsystem.EmergencyDispatchApi;
+import projectswop20102011.externalsystem.NullObjectExternalSystem;
 import projectswop20102011.externalsystem.adapters.HospitalAdapter;
 import projectswop20102011.factories.FireFactory;
 import projectswop20102011.factories.PublicDisturbanceFactory;
@@ -91,14 +91,14 @@ public class Scenario1Test {
 		pl.addParser(new StringParser());
 		api = new EmergencyDispatchApi(world);
 		world.setIEmergencyDispatchApi(api);
-		cec = new CreateEmergencyController(world);
+		cec = new CreateEmergencyController(world, new NullObjectExternalSystem());
 		iec = new InspectEmergenciesController(world);
 		redc = new ReadEnvironmentDataController(world);
-		duc = new DispatchUnitsToEmergencyController(world, new NullEventHandler());
-		eotc = new EndOfTaskController(world, new NullEventHandler());
-		tac = new TimeAheadController(world, ExternalSystem.bootstrap(api), new NullEventHandler());
+		duc = new DispatchUnitsToEmergencyController(world);
+		eotc = new EndOfTaskController(world);
+		tac = new TimeAheadController(world, ExternalSystem.bootstrap(api));
 		shc = new SelectHospitalController(world);
-		ruac = new RemoveUnitAssignmentFromEmergencyController(world, new NullEventHandler());
+		ruac = new RemoveUnitAssignmentFromEmergencyController(world);
 	}
 
 	@Test
@@ -276,7 +276,7 @@ public class Scenario1Test {
 
 		it = fire.getWorkingUnits().iterator();
 		while (it.hasNext()) {
-			it.next().finishedJob(new NullEventHandler());
+			it.next().finishedJob();
 		}
 
 		assertFalse(fire.isPartiallyAssigned());

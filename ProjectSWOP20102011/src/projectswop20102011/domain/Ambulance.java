@@ -140,7 +140,7 @@ public class Ambulance extends Unit {
 	 *		If the status of the sendable where this unit is assigned to, does not allow units to finish their job.
      */
     @Override
-    public void finishedJob(EventHandler eventHandler) throws InvalidFinishJobException, InvalidSendableStatusException {
+    public void finishedJob() throws InvalidFinishJobException, InvalidSendableStatusException {
         if (!canFinishJob()) {
             throw new InvalidFinishJobException("Unit can't finish his job.");
         } else {
@@ -148,7 +148,7 @@ public class Ambulance extends Unit {
             Emergency e = getEmergency();
             setWasAlreadyAtSite(false);
             setUnitStatus(UnitStatus.IDLE);
-            getManagingSendable().finishUnit(this,eventHandler);
+            getManagingSendable().finishUnit(this);
             setEmergency(null);
             setCurrentHospital(null);
 
@@ -156,13 +156,13 @@ public class Ambulance extends Unit {
                 HashSet<Unit> ambulance = new HashSet<Unit>(0);
                 ambulance.add(this);
                 try {
-                    e.getStatus().assignUnits(e.getUnitsNeeded(), ambulance, eventHandler);
+                    e.getStatus().assignUnits(e.getUnitsNeeded(), ambulance);
                 } catch (InvalidEmergencyException ex) {
                     Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 try {
-                    manager.afterFinish(this,eventHandler);
+                    manager.afterFinish(this);
                 } catch (Exception ex) {
                     Logger.getLogger(Ambulance.class.getName()).log(Level.SEVERE, null, ex);
                 }

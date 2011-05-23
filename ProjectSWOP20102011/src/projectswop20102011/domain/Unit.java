@@ -372,11 +372,11 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @throws InvalidSendableStatusException
 	 *      If the emergency of this unit is in a state where the unit cannot withdraw.
 	 */
-	public void withdraw(EventHandler eventHandler) throws InvalidWithdrawalException, InvalidSendableStatusException {
+	public void withdraw() throws InvalidWithdrawalException, InvalidSendableStatusException {
 		if (!canBeWithdrawn()) {
 			throw new InvalidWithdrawalException("Unit can't be withdrawn.");
 		} else {
-			this.getManagingSendable().withdrawUnit(this, eventHandler);
+			this.getManagingSendable().withdrawUnit(this);
 			this.setEmergency(null);
 			setUnitStatus(UnitStatus.IDLE);
 		}
@@ -429,7 +429,7 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 	 * @throws InvalidEmergencyException
 	 *		If the given emergency is not effective
 	 */
-	public void finishedJob(EventHandler eventHandler) throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
+	public void finishedJob() throws InvalidSendableStatusException, InvalidFinishJobException, InvalidEmergencyException {//|| (isRequired() && !arePresent())
 		if (!canFinishJob()) {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		} else if (getEmergency().getUnitsNeeded().isRequired(this)) {
@@ -438,12 +438,12 @@ public abstract class Unit extends MapItem implements TimeSensitive {
 			throw new InvalidFinishJobException("Unit can't finish his job.");
 		}
 		Sendable manager = this.getManagingSendable();
-		manager.finishUnit(this, eventHandler);
+		manager.finishUnit(this);
 		setEmergency(null);
 		setWasAlreadyAtSite(false);
 		setUnitStatus(UnitStatus.IDLE);
 		try {
-			manager.afterFinish(this, eventHandler);
+			manager.afterFinish(this);
 		} catch (Exception ex) {
 			Logger.getLogger(Unit.class.getName()).log(Level.SEVERE, null, ex);
 		}

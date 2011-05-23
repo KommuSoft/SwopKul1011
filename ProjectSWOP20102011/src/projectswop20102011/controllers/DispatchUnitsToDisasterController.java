@@ -1,10 +1,9 @@
 package projectswop20102011.controllers;
 
-import java.util.HashSet;
+import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.util.Set;
 import projectswop20102011.World;
 import projectswop20102011.domain.Disaster;
-import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
 import projectswop20102011.domain.validators.MapItemValidator;
@@ -18,8 +17,8 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class DispatchUnitsToDisasterController extends DispatchController {
 
-    public DispatchUnitsToDisasterController(World world, EventHandler eventHandler) throws InvalidWorldException {
-        super(world, eventHandler);
+    public DispatchUnitsToDisasterController(World world) throws InvalidWorldException {
+        super(world);
     }
 
     public Set<Unit> getUnitsByPolicy(Disaster disaster) {
@@ -39,7 +38,7 @@ public class DispatchUnitsToDisasterController extends DispatchController {
         return s;
     }
 
-    public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
-        disaster.assignUnits(units, getEventHandler());
+    public void dispatchToDisaster(Disaster disaster, Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {;
+        disaster.assignUnits(units);
     }
 }

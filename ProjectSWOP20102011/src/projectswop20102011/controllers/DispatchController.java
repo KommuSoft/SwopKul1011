@@ -1,5 +1,6 @@
 package projectswop20102011.controllers;
 
+import be.kuleuven.cs.swop.external.IExternalSystem;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import projectswop20102011.World;
-import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Sendable;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.AvailableUnitsMapItemValidator;
@@ -22,18 +22,12 @@ import projectswop20102011.exceptions.InvalidWorldException;
 public abstract class DispatchController extends Controller {
 
     /**
-     * An eventHandler where the notifications should be sent to.
-     */
-    private EventHandler eventHandler;
-
-    /**
      * Creates a new instance of a DispatchUnitsController with a given word to operate on.
      * @param world The world where the controller will operate on.
      * @throws InvalidWorldException If the given world is invalid.
      */
-    public DispatchController(World world, EventHandler eventHandler) throws InvalidWorldException {
+    public DispatchController(World world) throws InvalidWorldException {
         super(world);
-        this.eventHandler = eventHandler;
     }
 
     public List<Unit> getAvailableUnitsNeededSorted(Sendable sendable) throws InvalidClassException, InvalidTargetableException {
@@ -66,9 +60,5 @@ public abstract class DispatchController extends Controller {
 
     public Set<Unit> getUnitsByPolicy(Sendable sendable) {
         return getUnitsByPolicyAllSeverities(sendable);
-    }
-
-    protected EventHandler getEventHandler() {
-        return eventHandler;
     }
 }

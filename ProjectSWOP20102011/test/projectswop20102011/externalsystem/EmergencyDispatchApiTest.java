@@ -70,6 +70,7 @@ public class EmergencyDispatchApiTest {
 	public void setUp() throws InvalidLocationException, InvalidSendableSeverityException, InvalidFireSizeException, NumberOutOfBoundsException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, EmergencyDispatchException {
 		world = new World();
 		api = new EmergencyDispatchApi(world);
+		api.setExternalSystem(new NullObjectExternalSystem());
 
 		EmergencyFactoryList efl = world.getEmergencyFactoryList();
 		try {

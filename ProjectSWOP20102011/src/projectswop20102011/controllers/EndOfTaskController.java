@@ -6,7 +6,6 @@ import projectswop20102011.domain.validators.TypeMapItemValidator;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.domain.validators.MapItemValidator;
 import projectswop20102011.World;
-import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.Hospital;
 import projectswop20102011.exceptions.InvalidEmergencyException;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
@@ -20,20 +19,14 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class EndOfTaskController extends Controller {
 
-	/**
-	 * An eventHandler where the notifications should be sent to.
-	 */
-	private EventHandler eventHandler;
-
     /**
      * Creates a new instance of an EndOfTaskException with a given world to operate on.
      * @param world The world to operate on.
      * @throws InvalidWorldException
      *          If the given world is invalid.
      */
-    public EndOfTaskController(World world, EventHandler eventHandler) throws InvalidWorldException {
+    public EndOfTaskController(World world) throws InvalidWorldException {
         super(world);
-		this.eventHandler = eventHandler;
     }
 
     /**
@@ -60,7 +53,7 @@ public class EndOfTaskController extends Controller {
         if (unit == null) {
             throw new InvalidUnitException("The given unit must be effective.");
         }
-        unit.finishedJob(eventHandler);
+        unit.finishedJob();
     }
 
 	public List<Unit> findAllUnits() {

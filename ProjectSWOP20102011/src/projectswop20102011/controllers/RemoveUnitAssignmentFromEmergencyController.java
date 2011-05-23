@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.Unit;
 import projectswop20102011.World;
-import projectswop20102011.domain.EventHandler;
 import projectswop20102011.exceptions.InvalidSendableStatusException;
 import projectswop20102011.exceptions.InvalidMapItemException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
@@ -16,20 +15,14 @@ import projectswop20102011.exceptions.InvalidWorldException;
  */
 public class RemoveUnitAssignmentFromEmergencyController extends Controller {
 
-	/**
-	 * An eventHandler where the notifications should be sent to.
-	 */
-	private EventHandler eventHandler;
-
     /**
      * Creates a new RemoveUnitAssignmentController with a given world.
      * @param world
      *      The world that will be manipulated by the controller.
      * @throws InvalidWorldException If the world is invalid.
      */
-    public RemoveUnitAssignmentFromEmergencyController(World world, EventHandler eventHandler) throws InvalidWorldException {
+    public RemoveUnitAssignmentFromEmergencyController(World world) throws InvalidWorldException {
         super(world);
-		this.eventHandler = eventHandler;
     }
 
     /**
@@ -50,7 +43,7 @@ public class RemoveUnitAssignmentFromEmergencyController extends Controller {
      */
     public void withdrawUnit(Unit unit) throws InvalidWithdrawalException, InvalidSendableStatusException, InvalidMapItemException {
         if (unit != null) {
-            unit.withdraw(eventHandler);
+            unit.withdraw();
         } else {
             throw new InvalidMapItemException("MapItem must be a Unit and exist in the World!");
         }

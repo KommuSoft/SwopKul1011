@@ -2,8 +2,6 @@ package projectswop20102011.domain;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.junit.Test;
@@ -23,7 +21,6 @@ import projectswop20102011.controllers.RemoveUnitAssignmentFromEmergencyControll
 import projectswop20102011.controllers.SelectHospitalController;
 import projectswop20102011.controllers.TimeAheadController;
 import projectswop20102011.domain.validators.TypeUnitValidator;
-import projectswop20102011.eventhandlers.NullEventHandler;
 import projectswop20102011.exceptions.InvalidAddedDisasterException;
 import projectswop20102011.exceptions.InvalidCapacityException;
 import projectswop20102011.exceptions.InvalidConstraintListException;
@@ -41,6 +38,7 @@ import projectswop20102011.exceptions.InvalidUnitException;
 import projectswop20102011.exceptions.InvalidWithdrawalException;
 import projectswop20102011.exceptions.InvalidWorldException;
 import projectswop20102011.exceptions.NumberOutOfBoundsException;
+import projectswop20102011.externalsystem.NullObjectExternalSystem;
 
 public class Global3Test {
 
@@ -72,18 +70,18 @@ public class Global3Test {
 	public void setUp() throws InvalidLocationException, InvalidMapItemNameException, InvalidWorldException, InvalidSpeedException, InvalidCapacityException, NumberOutOfBoundsException, InvalidFireSizeException, InvalidSendableSeverityException {
 		world = new World();
 		iec = new InspectEmergenciesController(world);
-		cec = new CreateEmergencyController(world);
-		duc = new DispatchUnitsToEmergencyController(world, new NullEventHandler());
+		cec = new CreateEmergencyController(world, new NullObjectExternalSystem());
+		duc = new DispatchUnitsToEmergencyController(world);
 		shc = new SelectHospitalController(world);
-		eotc = new EndOfTaskController(world, new NullEventHandler());
-		ruafe = new RemoveUnitAssignmentFromEmergencyController(world, new NullEventHandler());
-		ruafd = new RemoveUnitAssignmentFromDisasterController(world, new NullEventHandler());
+		eotc = new EndOfTaskController(world);
+		ruafe = new RemoveUnitAssignmentFromEmergencyController(world);
+		ruafd = new RemoveUnitAssignmentFromDisasterController(world);
 		cdc = new CreateDisasterController(world);
-		dudc = new DispatchUnitsToDisasterController(world, new NullEventHandler());
+		dudc = new DispatchUnitsToDisasterController(world);
 		idc = new InspectDisastersController(world);
-		tac = new TimeAheadController(world, null, new NullEventHandler());
+		tac = new TimeAheadController(world, new NullObjectExternalSystem());
 		rec = new ReadEnvironmentDataController(world);
-		duec = new DispatchUnitsToEmergencyController(world, new NullEventHandler());
+		duec = new DispatchUnitsToEmergencyController(world);
 
 		//Fires aanmaken
 		f1 = new Fire(new GPSCoordinate(-100, -100), SendableSeverity.SERIOUS, "brand1", FireSize.LOCAL, false, 5, 1);
@@ -110,7 +108,6 @@ public class Global3Test {
 
 	@Test
 	public void testFire() throws InvalidEmergencyException, InvalidConstraintListException, InvalidClassException, InvalidSendableStatusException, InvalidAddedDisasterException, InvalidLocationException, InvalidMapItemNameException, InvalidSpeedException, InvalidCapacityException, InvalidDurationException, InvalidWithdrawalException, InvalidMapItemException {
-            
 		//Firetrucks aanmaken
 		ft1 = new Firetruck("brandweerwagen1", new GPSCoordinate(100, 100), 10 * 3600, 1001);
 		ft2 = new Firetruck("brandweerwagen2", new GPSCoordinate(200, 200), 10 * 3600, 500001);
@@ -200,7 +197,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(3, counter);
+		assertEquals(2, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);
@@ -360,7 +357,7 @@ public class Global3Test {
 		counter = checkAantalUnits(new TypeUnitValidator(Ambulance.class), unitsFromPolicy);
 		assertEquals(3, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Firetruck.class), unitsFromPolicy);
-		assertEquals(3, counter);
+		assertEquals(2, counter);
 		counter = checkAantalUnits(new TypeUnitValidator(Policecar.class), unitsFromPolicy);
 		assertEquals(1, counter);
 		List<Policecar> policecars = getPolicecars(unitsFromPolicy);

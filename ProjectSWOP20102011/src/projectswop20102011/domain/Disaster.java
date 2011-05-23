@@ -190,8 +190,8 @@ public class Disaster extends Sendable {
 	 *		If the emergency is invalid.
 	 */
 	@Override
-	public void assignUnits(Set<Unit> units, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
-		this.getStatus().assignUnits(this.getUnitsNeeded(), units, eventHandler);
+	public void assignUnits(Set<Unit> units) throws InvalidSendableStatusException, InvalidEmergencyException {
+		this.getStatus().assignUnits(this.getUnitsNeeded(), units);
 	}
 
 	/**
@@ -245,8 +245,8 @@ public class Disaster extends Sendable {
 	 * @note This method has a package visibility: Units need to finish on their own and call this method to register this to the Disaster.
 	 */
 	@Override
-	void finishUnit(Unit unitToFinish, EventHandler eventHandler) throws InvalidSendableStatusException {
-		this.getStatus().finishUnit(unitToFinish.getEmergency().getUnitsNeeded(), unitToFinish, eventHandler);
+	void finishUnit(Unit unitToFinish) throws InvalidSendableStatusException {
+		this.getStatus().finishUnit(unitToFinish.getEmergency().getUnitsNeeded(), unitToFinish);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class Disaster extends Sendable {
 	 *		If the emergency is invalid.
 	 */
 	@Override
-	protected void afterFinish(Unit unit, EventHandler eventHandler) throws InvalidSendableStatusException, InvalidEmergencyException {
+	protected void afterFinish(Unit unit) throws InvalidSendableStatusException, InvalidEmergencyException {
 		List<Emergency> emergencies = getEmergencies();
 		Collections.sort(emergencies, new EmergencyComparator());
 		Collections.reverse(emergencies);
@@ -277,7 +277,7 @@ public class Disaster extends Sendable {
 		for (Emergency e : emergencies) {
 			Set<Unit> proposal = e.getPolicyProposal(u);
 			if (proposal.size() > 0) {
-				e.assignUnits(proposal, eventHandler);
+				e.assignUnits(proposal);
 				return;
 			}
 		}

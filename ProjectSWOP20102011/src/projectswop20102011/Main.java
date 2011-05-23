@@ -82,9 +82,11 @@ public class Main {
 	}
 
 	private static IExternalSystem initExternalSystem(World world) {
-		IEmergencyDispatchApi api = new EmergencyDispatchApi(world);
+		EmergencyDispatchApi api = new EmergencyDispatchApi(world);
 		world.setIEmergencyDispatchApi(api);
-		return ExternalSystem.bootstrap(api);
+		IExternalSystem es = ExternalSystem.bootstrap(api);
+		api.setExternalSystem(es);
+		return es;
 	}
 
 	private static boolean readEnvironment(World world, String[] args) throws Exception {
@@ -103,15 +105,15 @@ public class Main {
 
 	private static MainUserInterface initUserInterface(World world, IExternalSystem es) throws Exception {
 		MainUserInterface mainUserInterface = new MainUserInterface();
-		CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world));
+		CommandUserInterface createEmergencyUserInterface = new CreateEmergencyUserInterface(new CreateEmergencyController(world, es));
 		CommandUserInterface inspectEmergenciesUserInterface = new InspectEmergenciesUserInterface(new InspectEmergenciesController(world), new EmergencyMapper(world));
-		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsToEmergencyUserInterface(new DispatchUnitsToEmergencyController(world, new ExternalSystemEventHandler(es)), new InspectEmergenciesController(world), new EmergencyMapper(world));
+		CommandUserInterface dispatchUnitsUserInterface = new DispatchUnitsToEmergencyUserInterface(new DispatchUnitsToEmergencyController(world), new InspectEmergenciesController(world), new EmergencyMapper(world));
 		CommandUserInterface selectHospitalUserInterface = new SelectHospitalUserInterface(new SelectHospitalController(world));
-		CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world, new ExternalSystemEventHandler(es)));
-		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es, new ExternalSystemEventHandler(es)));
-		CommandUserInterface removeUnitAssignmentFromEmergencyInterface = new RemoveUnitAssignmentFromEmergencyUserInterface(new RemoveUnitAssignmentFromEmergencyController(world, new ExternalSystemEventHandler(es)), new EmergencyMapper(world));
-		CommandUserInterface removeUnitAssignmentFromDisasterInterface = new RemoveUnitAssignmentFromDisasterUserInterface(new RemoveUnitAssignmentFromDisasterController(world, new ExternalSystemEventHandler(es)), new DisasterMapper(world));
-		CommandUserInterface dispatchUnitsToDisasterInterface = new DispatchUnitsToDisasterUserInterface(new DispatchUnitsToDisasterController(world, new ExternalSystemEventHandler(es)), new DisasterMapper(world));
+		CommandUserInterface endOfEmergencyUserInterface = new EndOfTaskUserInterface(new EndOfTaskController(world));
+		CommandUserInterface timeAheadUserInterface = new TimeAheadUserInterface(new TimeAheadController(world, es));
+		CommandUserInterface removeUnitAssignmentFromEmergencyInterface = new RemoveUnitAssignmentFromEmergencyUserInterface(new RemoveUnitAssignmentFromEmergencyController(world), new EmergencyMapper(world));
+		CommandUserInterface removeUnitAssignmentFromDisasterInterface = new RemoveUnitAssignmentFromDisasterUserInterface(new RemoveUnitAssignmentFromDisasterController(world), new DisasterMapper(world));
+		CommandUserInterface dispatchUnitsToDisasterInterface = new DispatchUnitsToDisasterUserInterface(new DispatchUnitsToDisasterController(world), new DisasterMapper(world));
 		CommandUserInterface createDisasterInterface = new CreateDisasterUserInterface(new CreateDisasterController(world), new InspectEmergenciesController(world), new EmergencyMapper(world));
 		CommandUserInterface inspectDisastersInterface = new InspectDisastersUserInterface(new InspectDisastersController(world), new DisasterMapper(world));
 		ActorUserInterface operatorUserInterface = new ActorUserInterface("Operator", createEmergencyUserInterface);

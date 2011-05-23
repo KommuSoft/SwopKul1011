@@ -1,7 +1,6 @@
 package projectswop20102011;
 
 import be.kuleuven.cs.swop.api.IEmergencyDispatchApi;
-import projectswop20102011.domain.EventHandler;
 import projectswop20102011.domain.lists.DisasterList;
 import projectswop20102011.domain.lists.EmergencyFactoryList;
 import projectswop20102011.domain.lists.EmergencyList;
@@ -9,6 +8,7 @@ import projectswop20102011.domain.lists.MapItemList;
 import projectswop20102011.domain.lists.ParserList;
 import projectswop20102011.domain.lists.TimeSensitiveList;
 import projectswop20102011.eventhandlers.Event;
+import projectswop20102011.eventhandlers.EventHandler;
 
 /**
  * A class that represents a world.
@@ -49,11 +49,11 @@ public class World {
 	 * A variable that makes the connection to the EmergencyDispatchApi.
 	 */
 	private IEmergencyDispatchApi emergencyDispatchApi;
-        /**
-         * 
-         */
-        private Event<Long> timeSetEvent = new Event<Long>();
-	
+	/**
+	 * 
+	 */
+	private Event<Long> timeSetEvent = new Event<Long>();
+
 	/**
 	 * Creates a new world.
 	 *
@@ -167,33 +167,26 @@ public class World {
 	 * @param time
 	 *		The new time of the world.
 	 */
-	private void setTime(long time) {
+	public final void setTime(long time) {
 		this.time = time;
+		this.timeSetEventAction(time);
 	}
-	
-	/**
-	 * Sets the time of the world to the given value.
-	 * @param time
-	 *		The new time of the world.
-	 */
-	public final void setTime(long time, EventHandler eventHandler) {
-		this.time = time;
-		eventHandler.doTimeSet(time);
-                this.timeSetEventAction(time);
+
+	protected Event<Long> getTimeSetEvent() {
+		return this.timeSetEvent;
 	}
-        
-        protected Event<Long> getTimeSetEvent () {
-            return this.timeSetEvent;
-        }
-        protected void timeSetEventAction (long time) {
-            this.getTimeSetEvent().action(time);
-        }
-        /*public void addTimeSetEventHandler (EventHandler<Long> handler) {
-            this.getTimeSetEvent().registerHandler(handler);
-        }
-        public void removeTimeSetEventHanlder (EventHandler<Long> handler) {
-            this.getTimeSetEvent().unregisterHandler(handler);
-        }*/
+
+	protected void timeSetEventAction(long time) {
+		this.getTimeSetEvent().action(time);
+	}
+
+	public void addTimeSetEventHandler(EventHandler<Long> handler) {
+		this.getTimeSetEvent().registerHandler(handler);
+	}
+
+	public void removeTimeSetEventHanlder(EventHandler<Long> handler) {
+		this.getTimeSetEvent().unregisterHandler(handler);
+	}
 
 	/**
 	 * Gets the EmergencyFactoryList
@@ -244,8 +237,8 @@ public class World {
 	public IEmergencyDispatchApi getIEmergencyDispatchApi() {
 		return emergencyDispatchApi;
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		setEmergencyList(new EmergencyList());
 		setDisasterList(new DisasterList());
 		setMapItemList(new MapItemList());

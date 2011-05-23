@@ -1,5 +1,6 @@
 package projectswop20102011.controllers;
 
+import be.kuleuven.cs.swop.external.IExternalSystem;
 import projectswop20102011.domain.Emergency;
 import projectswop20102011.domain.SendableSeverity;
 import projectswop20102011.domain.Fire;
@@ -9,6 +10,7 @@ import projectswop20102011.domain.PublicDisturbance;
 import projectswop20102011.domain.Robbery;
 import projectswop20102011.domain.TrafficAccident;
 import projectswop20102011.World;
+import projectswop20102011.eventhandlers.ExternalSystemEventHandler;
 import projectswop20102011.exceptions.InvalidSendableSeverityException;
 import projectswop20102011.exceptions.InvalidFireSizeException;
 import projectswop20102011.exceptions.InvalidLocationException;
@@ -21,20 +23,30 @@ import projectswop20102011.exceptions.NumberOutOfBoundsException;
  */
 public class CreateEmergencyController extends Controller {
 
+	private IExternalSystem externalSystem;
+	
     /**
      * Creates a new CreateEmergencyController with a given world.
      * @param world The world that will be manipulated by the controller.
      * @throws InvalidWorldException If the world is invalid.
      */
-    public CreateEmergencyController(World world) throws InvalidWorldException {
+    public CreateEmergencyController(World world, IExternalSystem externalSystem) throws InvalidWorldException {
         super(world);
+		this.externalSystem = externalSystem;
     }
+	
+	private IExternalSystem getExternalSystem(){
+		return externalSystem;
+	}
 
     /**
      * Adding the given Emergency to the world.
      * @param emergency The emergency to add to the world.
      */
     public void addCreatedEmergencyToTheWorld(Emergency emergency) {
+		ExternalSystemEventHandler eseh = new ExternalSystemEventHandler(getExternalSystem());
+		emergency.addAssignedEventHandler(eseh.makeAssignedEventHandler());
+		emergency.addReleaseEventHandler(eseh.makeReleaseEventHandler());
         getWorld().getEmergencyList().addEmergency(emergency);
     }
 
